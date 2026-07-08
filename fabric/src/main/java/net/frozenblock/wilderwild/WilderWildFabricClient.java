@@ -21,7 +21,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
-import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWTints;
@@ -37,8 +36,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		WilderWildClient.init();
 
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
-
-		WWBuiltInBlockModels.init();
 		WWFluidRendering.init();
 		WWModelLayers.setup();
 		WWTints.init();
@@ -47,5 +44,4 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 
 		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
-
 }

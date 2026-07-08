@@ -83,11 +83,17 @@ public abstract class BlockStateBaseMixin {
 		return original;
 	}
 
-	@ModifyReturnValue(method = "getVisualShape", at = @At("RETURN"))
-	public VoxelShape wilderWild$getVisualShape(VoxelShape original, BlockGetter level, BlockPos pos, CollisionContext context) {
+	// This had to be changed from ModifyReturnValue to Inject because it otherwise caused a crash on Sodium-NeoForge.
+	// Genuinely what?? It thought this was a Boolean somehow??
+	@Inject(method = "getVisualShape", at = @At("RETURN"), cancellable = true)
+	public void wilderWild$getVisualShape(BlockGetter level, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
 		final BlockState state = this.asState();
-		if (SnowloggingUtils.isSnowlogged(state)) return Shapes.or(original, SnowloggingUtils.getSnowEquivalent(state).getVisualShape(level, pos, context));
-		return original;
+		if (SnowloggingUtils.isSnowlogged(state)) info.setReturnValue(
+			Shapes.or(
+				info.getReturnValue(),
+				SnowloggingUtils.getSnowEquivalent(state).getVisualShape(level, pos, context)
+			)
+		);
 	}
 
 	@ModifyReturnValue(method = "getInteractionShape", at = @At("RETURN"))
@@ -269,5 +275,4 @@ public abstract class BlockStateBaseMixin {
 		if (SnowloggingUtils.isSnowlogged(state)) return SnowloggingUtils.getSnowEquivalent(state).getSoundType();
 		return original.call(instance, state);
 	}
-
 }

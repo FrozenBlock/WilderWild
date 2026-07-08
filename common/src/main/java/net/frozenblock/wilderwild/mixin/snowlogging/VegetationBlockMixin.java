@@ -80,5 +80,4 @@ public class VegetationBlockMixin extends Block {
 			super.playerDestroy(level, player, pos, state, blockEntity, stack);
 		}
 	}
-
 }

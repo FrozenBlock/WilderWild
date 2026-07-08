@@ -41,5 +41,4 @@ public class SimpleBlockFeatureMixin {
 		state = SnowloggingUtils.getSnowloggedState(state, instance.getBlockState(pos));
 		return original.call(instance, pos, state, i);
 	}
-
 }

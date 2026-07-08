@@ -2,6 +2,7 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
 import net.frozenblock.wilderwild.client.WWClientMusicImpl;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
 import net.frozenblock.wilderwild.client.WWItemProperties;
@@ -25,5 +26,6 @@ public final class WilderWildClient {
 		WWRenderStateDataKeys.init();
 		WWParticleEngine.init();
 		AmbientWindParticleSpawner.init();
+		WWBuiltInBlockModels.setup();
 	}
 }

@@ -116,5 +116,4 @@ public abstract class WallBlockMixin extends Block {
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogPropertiesToBlockade(builder);
 	}
-
 }

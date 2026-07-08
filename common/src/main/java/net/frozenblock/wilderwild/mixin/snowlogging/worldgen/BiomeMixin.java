@@ -39,5 +39,4 @@ public class BiomeMixin {
 	public boolean wilderWild$shouldSnow(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block) || (SnowloggingUtils.canSnowlog(instance) && WWBlockConfig.canSnowlogNaturally());
 	}
-
 }

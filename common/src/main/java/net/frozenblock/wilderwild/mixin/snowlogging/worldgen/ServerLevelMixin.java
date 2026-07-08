@@ -79,5 +79,4 @@ public class ServerLevelMixin {
 	) {
 		return original.call(instance, runSnowlogging.get() ? SnowloggingUtils.SNOW_LAYERS : property, comparable);
 	}
-
 }

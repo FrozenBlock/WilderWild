@@ -41,5 +41,4 @@ public class LevelExtractorMixin {
 		if (!SnowloggingUtils.isSnowlogged(original)) return original;
 		return SnowloggingUtils.getSnowEquivalent(original);
 	}
-
 }
