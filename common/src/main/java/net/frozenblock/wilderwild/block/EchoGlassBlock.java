@@ -36,6 +36,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
@@ -63,8 +64,8 @@ public class EchoGlassBlock extends TransparentBlock {
 		return state.hasProperty(DAMAGE) && state.getValue(DAMAGE) < 3;
 	}
 
-	public static void setDamagedState(Level level, BlockPos pos, BlockState state) {
-		level.setBlockAndUpdate(pos, state.cycle(DAMAGE));
+	public static void setDamagedState(LevelAccessor level, BlockPos pos, BlockState state) {
+		level.setBlock(pos, state.cycle(DAMAGE), UPDATE_ALL);
 	}
 
 	public static void damage(Level level, BlockPos pos, BlockState state, boolean shouldDrop) {
