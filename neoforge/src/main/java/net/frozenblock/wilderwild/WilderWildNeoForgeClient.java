@@ -1,7 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import net.caffeinemc.mods.sodium.client.SodiumClientMod;
-import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
@@ -18,11 +16,6 @@ public final class WilderWildNeoForgeClient {
 
 	public WilderWildNeoForgeClient(IEventBus modBus) {
 		WilderWildClient.init();
-
-		if (FrozenLibEarlyPlatformUtils.LOADER.isDevelopmentEnvironment()) {
-			// sodium breaks unless we do this???????
-			SodiumClientMod.onInitialization("0.9.1-beta.4+mc26.2");
-		}
 
 		// AFTER register event
 		modBus.addListener(FMLClientSetupEvent.class, event -> {
