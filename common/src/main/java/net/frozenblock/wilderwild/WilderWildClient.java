@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
+import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.registry.WWClientResources;
 import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 
@@ -27,5 +28,6 @@ public final class WilderWildClient {
 		WWParticleEngine.init();
 		AmbientWindParticleSpawner.init();
 		WWBuiltInBlockModels.setup();
+		WWTints.setup();
 	}
 }

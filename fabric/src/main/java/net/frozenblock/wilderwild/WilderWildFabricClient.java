@@ -23,7 +23,6 @@ import net.fabricmc.api.Environment;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
@@ -38,7 +37,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 		WWFluidRendering.init();
 		WWModelLayers.setup();
-		WWTints.init();
 
 		WWClientNetworking.registerPacketReceivers();
 
