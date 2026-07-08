@@ -161,7 +161,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> BASIN_DECORATION = CONFIG.entryBuilder("surfaceDecoration/basins", EntryType.BOOL, true).requireRestart().build();
 
 	// AQUATIC GENERATION
-	public static final ConfigEntry<Boolean> RIVER_POOL_GENERATION = CONFIG.entryBuilder("aquaticGeneration/riverPool", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> RIVER_POOL_GENERATION = CONFIG.entryBuilder("aquaticGeneration/riverPools", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> CATTAIL_GENERATION = CONFIG.entryBuilder("aquaticGeneration/cattail", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> ALGAE_GENERATION = CONFIG.entryBuilder("aquaticGeneration/algae", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PLANKTON_GENERATION = CONFIG.entryBuilder("aquaticGeneration/plankton", EntryType.BOOL, true).requireRestart().build();
