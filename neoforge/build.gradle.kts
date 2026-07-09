@@ -89,9 +89,11 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium) {
-        //runtimeOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
         implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
         implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
+    } else {
+        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
     }
 }
 

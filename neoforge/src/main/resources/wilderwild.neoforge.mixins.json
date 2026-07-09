@@ -8,8 +8,7 @@
     "worldgen.biome.GrassColorModifierNeoForgeMixin"
   ],
   "client": [
-    "client.block.block_break.IBlockStateExtensionMixin",
-    "client.sodium.BlockRendererMixin"
+    "client.block.block_break.IBlockStateExtensionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
