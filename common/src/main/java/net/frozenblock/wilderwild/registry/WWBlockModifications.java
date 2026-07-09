@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+// TODO: NeoForge
 public final class WWBlockModifications implements BlockRegistryModificationEvents.ModifyProperties, BlockRegistryModificationEvents.ReplaceFactory {
 
 	@Override
