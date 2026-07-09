@@ -23,7 +23,6 @@ import java.util.function.Supplier;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
-import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;

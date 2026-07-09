@@ -496,7 +496,6 @@ public final class WWSurfaceRuleData {
 		);
 	}
 
-
 	public static void init() {
 		SurfaceRuleEvents.MODIFY_OVERWORLD.register(((biomes, context) -> {
 			context.add(
