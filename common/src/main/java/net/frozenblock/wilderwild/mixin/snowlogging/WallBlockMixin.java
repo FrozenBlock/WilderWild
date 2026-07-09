@@ -48,7 +48,7 @@ public abstract class WallBlockMixin extends Block {
 		super(properties);
 	}
 
-	@Inject(method = {"getShape", "getCollisionShape"}, require = 2, at = @At("HEAD"))
+	@Inject(method = {"getShape", "getCollisionShape"}, at = @At("HEAD"))
 	public void wilderWild$getShape(
 		CallbackInfoReturnable<VoxelShape> info,
 		@Local(argsOnly = true) LocalRef<BlockState> state
