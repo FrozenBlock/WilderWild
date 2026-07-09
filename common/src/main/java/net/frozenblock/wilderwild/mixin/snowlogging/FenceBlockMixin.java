@@ -46,12 +46,6 @@ public abstract class FenceBlockMixin extends CrossCollisionBlock {
 		super(nodeWidth, extensionWidth, nodeHeight, extensionHeight, collisionHeight, properties);
 	}
 
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
 	@ModifyExpressionValue(
 		method = "getStateForPlacement",
 		at = @At(
@@ -84,7 +78,7 @@ public abstract class FenceBlockMixin extends CrossCollisionBlock {
 		}
 	}
 
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogPropertiesToBlockade(builder);
 	}

@@ -92,7 +92,6 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 	)
 	private static boolean wilderWild$preventDropFromBottomPart(
 		Level instance, BlockPos pos, BlockState blockState, int updateFlags, Operation<Boolean> original,
-		Level level, BlockPos paramPos, BlockState state, Player player,
 		@Local(name = "bottomState") BlockState bottomState
 	) {
 		if (SnowloggingUtils.isSnowlogged(bottomState) && blockState.isAir() && blockState.getFluidState().isEmpty()) {
@@ -109,7 +108,7 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, destroyedWith);
 	}
 
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}

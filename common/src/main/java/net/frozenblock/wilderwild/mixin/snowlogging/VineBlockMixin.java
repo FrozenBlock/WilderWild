@@ -44,12 +44,6 @@ public abstract class VineBlockMixin extends Block {
 		super(properties);
 	}
 
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
 	@ModifyReturnValue(method = "getStateForPlacement", at = @At("RETURN"))
 	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
 		return SnowloggingUtils.getSnowPlacementState(original, context);
