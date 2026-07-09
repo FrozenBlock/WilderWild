@@ -28,7 +28,7 @@ import net.minecraft.client.color.block.BlockTintSources;
 @Environment(EnvType.CLIENT)
 public final class WWTints {
 
-	public static void setup() {
+	public static void init() {
 		BlockColorRegistry.registerTints(
 			List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)),
 			WWBlocks.FLOWERING_LILY_PAD

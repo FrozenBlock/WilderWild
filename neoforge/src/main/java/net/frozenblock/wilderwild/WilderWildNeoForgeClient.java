@@ -33,6 +33,7 @@ public final class WilderWildNeoForgeClient {
 			WWModelLayers.setup();
 		});
 
+		// TODO: multiloader
 		modBus.addListener(RegisterSpecialModelRendererEvent.class, event -> {
 			event.register(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 		});
@@ -43,6 +44,8 @@ public final class WilderWildNeoForgeClient {
 				WWMainConfigGui.buildScreen(parent)
 		);
 
+		// This seems to work only while Sodium's installed, despite being a native NeoForge event.
+		// Nonetheless, this fixes Snowlogging with Sodium. Mixins on Sodium (like what we do on Fabric) don't seem to work.
 		NeoForge.EVENT_BUS.addListener(AddSectionGeometryEvent.class, event -> {
 			event.addRenderer(context -> {
 				final BlockAndTintGetter region = context.getRegion();

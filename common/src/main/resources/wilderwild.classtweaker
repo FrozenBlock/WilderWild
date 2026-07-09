@@ -45,6 +45,7 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour UPDATE_SHA
 accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/data/BlockFamilies familyBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
 accessible field net/minecraft/client/color/block/BlockColors BLANK_LAYER Lnet/minecraft/client/color/block/BlockTintSource;
+accessible class net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo
 
 # Items
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
@@ -83,6 +84,9 @@ accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos 
 accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signalOpenCount (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V
 
 transitive-inject-interface net/minecraft/world/level/block/entity/PotentSulfurBlockEntity net/frozenblock/wilderwild/block/entity/impl/WWPotentSulfurWindAccess
+
+# Damage
+accessible field net/minecraft/world/damagesource/DamageSources damageTypes Lnet/minecraft/core/Registry;
 
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;

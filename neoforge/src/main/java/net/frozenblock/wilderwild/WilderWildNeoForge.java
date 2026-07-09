@@ -44,7 +44,6 @@ public final class WilderWildNeoForge {
 		// AFTER register event
 		modBus.addListener(FMLCommonSetupEvent.class, event -> {
 			WWSoundTypes.setup();
-			WWItems.init();
 			WWItems.setup();
 			WWBlocks.setupBlockProperties();
 			WWCreativeInventorySorting.setup();

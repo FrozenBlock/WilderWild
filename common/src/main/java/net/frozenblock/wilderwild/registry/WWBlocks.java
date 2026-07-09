@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import net.frozenblock.lib.block.api.blockentity.BlockEntityTypeExtension;
 import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
+import net.frozenblock.lib.event.api.events.ServerLevelEvents;
 import net.frozenblock.lib.item.api.FuelRegistry;
 import net.frozenblock.lib.item.api.bonemeal.BoneMealApi;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredBlock;
@@ -32,6 +33,7 @@ import net.frozenblock.lib.registry.api.CompostableRegistry;
 import net.frozenblock.lib.registry.api.FlammableBlockRegistry;
 import net.frozenblock.lib.registry.api.StrippableBlockRegistry;
 import net.frozenblock.lib.registry.api.WoodTypeBuilder;
+import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
@@ -112,6 +114,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -1584,6 +1587,16 @@ public final class WWBlocks {
 		registerBonemeal();
 		registerAxe();
 		registerInventories();
+		WWFrictionModifications.init();
+		WWBlockTicks.setup();
+
+		ServerLevelEvents.LOAD.register(
+			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
+				level.damageSources().damageTypes.getValueOrThrow(DamageTypes.CACTUS),
+				WWSounds.PLAYER_HURT_CACTUS.get(),
+				WWConstants.id("cactus")
+			)
+		);
 	}
 
 	private static void registerDispenses() {

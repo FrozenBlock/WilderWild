@@ -27,6 +27,6 @@ public final class WilderWildClient {
 		WWParticleEngine.init();
 		AmbientWindParticleSpawner.init();
 		WWBuiltInBlockModels.setup();
-		WWTints.setup();
+		WWTints.init();
 	}
 }
