@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.worldgen;
 
-import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.surface.api.FrozenLibSurfaceRules;
 import net.frozenblock.lib.levelgen.surface.api.SurfaceRuleEvents;
@@ -34,7 +33,7 @@ import net.minecraft.world.level.levelgen.Noises;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
-public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfaceRuleCallback, SurfaceRuleEvents.OverworldSurfaceRuleNoPrelimSurfaceCallback {
+public final class WWSurfaceRuleData {
 
 	public static SurfaceRules.RuleSource cypressSurfaceRules(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
@@ -444,28 +443,6 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	@Override
-	public void addOverworldSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
-		context.add(
-			SurfaceRules.sequence(
-				betaBeaches(biomes),
-				cypressSurfaceRules(biomes),
-				warmRiverRules(biomes),
-				warmBeachRules(biomes),
-				oasisRules(biomes),
-				aridGrass(biomes),
-				aridRules(biomes),
-				oldGrowthSnowyTaigaRules(biomes),
-				oldGrowthDarkForestRules(biomes),
-				temperateRainforestRules(biomes),
-				rainforestRules(biomes),
-				dyingForestRules(biomes),
-				mapleForestRules(biomes),
-				tundraRules(biomes)
-			)
-		);
-	}
-
 	public static SurfaceRules.RuleSource snowUnderMountains(HolderLookup<Biome> biomes) {
 		return SurfaceRules.ifTrue(
 			ConfigPredicate.equalTo(WWWorldgenConfig.SNOW_UNDER_MOUNTAINS, true).asConditionSource(),
@@ -519,14 +496,36 @@ public final class WWSurfaceRuleData implements SurfaceRuleEvents.OverworldSurfa
 		);
 	}
 
-	@Override
-	public void addOverworldNoPrelimSurfaceRules(HolderLookup<Biome> biomes, List<SurfaceRules.RuleSource> context) {
-		context.add(
-			SurfaceRules.sequence(
-				snowUnderMountains(biomes),
-				frozenCavesSurfaceRules(biomes)
-			)
-		);
-	}
 
+	public static void init() {
+		SurfaceRuleEvents.MODIFY_OVERWORLD.register(((biomes, context) -> {
+			context.add(
+				SurfaceRules.sequence(
+					betaBeaches(biomes),
+					cypressSurfaceRules(biomes),
+					warmRiverRules(biomes),
+					warmBeachRules(biomes),
+					oasisRules(biomes),
+					aridGrass(biomes),
+					aridRules(biomes),
+					oldGrowthSnowyTaigaRules(biomes),
+					oldGrowthDarkForestRules(biomes),
+					temperateRainforestRules(biomes),
+					rainforestRules(biomes),
+					dyingForestRules(biomes),
+					mapleForestRules(biomes),
+					tundraRules(biomes)
+				)
+			);
+		}));
+
+		SurfaceRuleEvents.MODIFY_OVERWORLD_NO_PRELIMINARY_SURFACE.register(((biomes, context) -> {
+			context.add(
+				SurfaceRules.sequence(
+					snowUnderMountains(biomes),
+					frozenCavesSurfaceRules(biomes)
+				)
+			);
+		}));
+	}
 }

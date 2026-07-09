@@ -37,9 +37,6 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildFabricClient"
     ],
-    "frozenlib:events": [
-      "net.frozenblock.wilderwild.data.worldgen.WWSurfaceRuleData"
-    ],
     "frozenlib:mob_categories": [
       "net.frozenblock.wilderwild.WilderWildFabric"
     ],

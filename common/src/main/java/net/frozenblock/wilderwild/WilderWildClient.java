@@ -15,7 +15,6 @@ import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient {
-	private WilderWildClient() {}
 
 	public static void init() {
 		WWEasterEggs.hatchEasterEggs();
