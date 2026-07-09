@@ -50,7 +50,7 @@ public abstract class BlocksMixin {
 		slice = @Slice(
 			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/references/BlockItemIds;FROGSPAWN:Lnet/minecraft/references/BlockItemId;",
+				target = "Lnet/minecraft/references/BlockItemIds;REINFORCED_DEEPSLATE:Lnet/minecraft/references/BlockItemId;",
 				opcode = Opcodes.GETSTATIC
 			)
 		)
@@ -59,5 +59,4 @@ public abstract class BlocksMixin {
 		if (WWBlockConfig.NEW_REINFORCED_DEEPSLATE.get()) return register(id, RotatedPillarBlock::new, properties);
 		return original.call(id, properties);
 	}
-
 }
