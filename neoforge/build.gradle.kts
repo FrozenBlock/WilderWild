@@ -78,6 +78,10 @@ loom {
     }
 }
 
+extensions.getByType<net.fabricmc.loom.api.LoomGradleExtensionAPI>().neoForge.run {
+    accessTransformer(file("src/main/resources/META-INF/neo/accesstransformer.cfg"))
+}
+
 dependencies {
     minecraft("com.mojang:minecraft:$minecraft_version")
     "neoForge"("net.neoforged:neoforge:$neoforge_version")
