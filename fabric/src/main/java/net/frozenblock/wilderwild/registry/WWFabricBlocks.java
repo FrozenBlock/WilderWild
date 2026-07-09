@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
-import static net.frozenblock.wilderwild.registry.WWBlocks.*;
+import static net.frozenblock.wilderwild.registry.WWBlocks.STONE_CHEST;
 
 public final class WWFabricBlocks {
 

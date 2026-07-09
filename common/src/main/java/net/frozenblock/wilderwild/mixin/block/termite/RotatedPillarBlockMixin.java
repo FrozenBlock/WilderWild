@@ -18,7 +18,8 @@
 package net.frozenblock.wilderwild.mixin.block.termite;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;

@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ServerPlayerGameMode.class)
-public abstract class ServerPlayerGameModeMixin {
+public abstract class ServerPlayerGameModeMixin { // in common mixins.json
 
 	@Shadow
 	public abstract GameType getGameModeForPlayer();

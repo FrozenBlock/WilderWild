@@ -17,10 +17,10 @@
 
 package net.frozenblock.wilderwild.entity;
 
+import com.google.common.base.Suppliers;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
-import com.google.common.base.Suppliers;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.butterfly.ButterflyAi;

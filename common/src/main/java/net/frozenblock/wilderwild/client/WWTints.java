@@ -20,8 +20,7 @@ package net.frozenblock.wilderwild.client;
 import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
-import net.frozenblock.lib.block.client.api.BlockColorHelper;
+import net.frozenblock.lib.block.client.api.BlockColorRegistry;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSources;
@@ -31,47 +30,47 @@ public final class WWTints {
 
 	// TODO: port to common
 	public static void init() {
-		BlockColorRegistry.register(
+		BlockColorRegistry.registerTints(
 			List.of(BlockTintSources.constant(BlockColors.LILY_PAD_DEFAULT, BlockColors.LILY_PAD_IN_WORLD)),
-			WWBlocks.FLOWERING_LILY_PAD.get()
+			WWBlocks.FLOWERING_LILY_PAD
 		);
 
-		BlockColorRegistry.register(
+		BlockColorRegistry.registerTints(
 			List.of(BlockColors.BLANK_LAYER, BlockTintSources.grass()),
-			WWBlocks.POTTED_PINK_PETALS.get(),
-			WWBlocks.POTTED_WILDFLOWERS.get(),
-			WWBlocks.PHLOX.get(),
-			WWBlocks.POTTED_PHLOX.get(),
-			WWBlocks.LANTANAS.get(),
-			WWBlocks.POTTED_LANTANAS.get()
+			WWBlocks.POTTED_PINK_PETALS,
+			WWBlocks.POTTED_WILDFLOWERS,
+			WWBlocks.PHLOX,
+			WWBlocks.POTTED_PHLOX,
+			WWBlocks.LANTANAS,
+			WWBlocks.POTTED_LANTANAS
 		);
 
-		BlockColorHelper.registerTint(
+		BlockColorRegistry.registerTints(
 			BlockTintSources.grass(),
-			WWBlocks.POTTED_BUSH.get(),
-			WWBlocks.CLOVERS.get(),
-			WWBlocks.POTTED_CLOVERS.get()
+			WWBlocks.POTTED_BUSH,
+			WWBlocks.CLOVERS,
+			WWBlocks.POTTED_CLOVERS
 		);
 
-		BlockColorHelper.registerAverageFoliageTint(
-			WWBlocks.BAOBAB_LEAVES.get(),
-			WWBlocks.WILLOW_LEAVES.get(),
-			WWBlocks.CYPRESS_LEAVES.get(),
-			WWBlocks.PALM_FRONDS.get(),
-			WWBlocks.POTTED_SHORT_GRASS.get(),
-			WWBlocks.SHRUB.get(),
-			WWBlocks.POTTED_SHRUB.get()
+		BlockColorRegistry.registerAverageFoliageTint(
+			WWBlocks.BAOBAB_LEAVES,
+			WWBlocks.WILLOW_LEAVES,
+			WWBlocks.CYPRESS_LEAVES,
+			WWBlocks.PALM_FRONDS,
+			WWBlocks.POTTED_SHORT_GRASS,
+			WWBlocks.SHRUB,
+			WWBlocks.POTTED_SHRUB
 		);
 
-		BlockColorHelper.registerTint(
+		BlockColorRegistry.registerTints(
 			BlockTintSources.dryFoliage(),
-			WWBlocks.ACACIA_LEAF_LITTER.get(),
-			WWBlocks.BAOBAB_LEAF_LITTER.get(),
-			WWBlocks.DARK_OAK_LEAF_LITTER.get(),
-			WWBlocks.JUNGLE_LEAF_LITTER.get(),
-			WWBlocks.MANGROVE_LEAF_LITTER.get(),
-			WWBlocks.PALM_FROND_LITTER.get(),
-			WWBlocks.WILLOW_LEAF_LITTER.get()
+			WWBlocks.ACACIA_LEAF_LITTER,
+			WWBlocks.BAOBAB_LEAF_LITTER,
+			WWBlocks.DARK_OAK_LEAF_LITTER,
+			WWBlocks.JUNGLE_LEAF_LITTER,
+			WWBlocks.MANGROVE_LEAF_LITTER,
+			WWBlocks.PALM_FROND_LITTER,
+			WWBlocks.WILLOW_LEAF_LITTER
 		);
 	}
 }

@@ -59,14 +59,6 @@ dependencies {
     compileOnly("com.terraformersmc:biolith-common:${biolith_version}")
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir("src/main/generated")
-        }
-    }
-}
-
 val mergeCommonResources by tasks.registering(Sync::class) {
     from(sourceSets.main.get().resources.srcDirs)
     into(layout.buildDirectory.dir("merged-resources"))

@@ -1,5 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 import net.frozenblock.lib.entity.api.attribute.FrozenDefaultAttributeRegistry;
 import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
@@ -30,8 +32,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
 public final class WWEntityTypes {
 	private static final FrozenDeferredRegister.Entities REGISTER = FrozenDeferredRegister.createEntities(

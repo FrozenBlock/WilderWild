@@ -42,6 +42,9 @@ public class LevelRendererMixin { // in common mixins.json
 	@Final
 	private LevelRenderState levelRenderState;
 
+	/**
+	 * NeoForge uses a modified method
+	 */
 	@WrapOperation(
 		method = "prepareTranslucents",
 		at = @At(
@@ -60,7 +63,10 @@ public class LevelRendererMixin { // in common mixins.json
 		float partialTicks,
 		Operation<Void> original
 	) {
-		final CloudWindPositioner positioner = ((FrozenLibRenderState) this.levelRenderState).frozenLib$getDataOrDefault(WWRenderStateDataKeys.CLOUD_WIND_POSITIONER, CloudWindPositioner.PASS);
+		final CloudWindPositioner positioner = ((FrozenLibRenderState) this.levelRenderState).frozenLib$getDataOrDefault(
+			WWRenderStateDataKeys.CLOUD_WIND_POSITIONER,
+			CloudWindPositioner.PASS
+		);
 		if (positioner instanceof CloudWindPositioner.Success success) {
 			cameraPosition = new Vec3(
 				success.modifyCloudX(cameraPosition.x),

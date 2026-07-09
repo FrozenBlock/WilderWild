@@ -150,6 +150,19 @@ public abstract class BlockStateBaseMixin {
 		return original.call(instance, state, player, level, pos);
 	}
 
+	@ModifyExpressionValue(
+		method = "initCache",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;isRandomlyTicking(Lnet/minecraft/world/level/block/state/BlockState;)Z"
+		)
+	)
+	public boolean wilderWild$setIsRandomlyTicking(boolean original) {
+		final BlockState state = this.asState();
+		if (SnowloggingUtils.isSnowlogged(state)) return true;
+		return original;
+	}
+
 	@WrapOperation(
 		method = "randomTick",
 		at = @At(

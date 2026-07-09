@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 
 public final class WWNetworking {
 
-	public static void init() {
+	public static void setup() {
 		final NetworkingHelper networking = FrozenLibInitPlatformUtils.NETWORKING;
 		networking.registerS2CPayloadType(WWJellyfishStingPacket.PACKET_TYPE, WWJellyfishStingPacket.CODEC);
 		networking.registerS2CPayloadType(WWLightningStrikePacket.PACKET_TYPE, WWLightningStrikePacket.CODEC);

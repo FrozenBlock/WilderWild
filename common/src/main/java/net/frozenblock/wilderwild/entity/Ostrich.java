@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.google.common.base.Suppliers;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -40,7 +41,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
-import java.util.function.Supplier;
 
 public class Ostrich extends AbstractOstrich {
 	private static final Supplier<Brain.Provider<AbstractOstrich>> BRAIN_PROVIDER = Suppliers.memoize(() -> OstrichAi.brainProvider(false));

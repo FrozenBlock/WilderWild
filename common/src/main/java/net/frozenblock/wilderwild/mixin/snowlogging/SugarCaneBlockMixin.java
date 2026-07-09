@@ -44,12 +44,6 @@ public class SugarCaneBlockMixin extends Block {
 	}
 
 	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
-	@Unique
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -77,7 +71,7 @@ public class SugarCaneBlockMixin extends Block {
 		}
 	}
 
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);
 	}

@@ -128,16 +128,6 @@ sourceSets.configureEach {
 
 repositories {
     maven("https://jitpack.io")
-    exclusiveContent {
-        forRepository {
-            maven("https://api.modrinth.com/maven") {
-                name = "Modrinth"
-            }
-        }
-        filter {
-            includeGroup("maven.modrinth")
-        }
-    }
     maven("https://maven.terraformersmc.com") {
         content {
             includeGroup("com.terraformersmc")
@@ -195,9 +185,9 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        implementation("maven.modrinth:sodium:${sodium_version}")
+        implementation("net.caffeinemc:sodium-fabric:${sodium_version}")
     else
-        compileOnly("maven.modrinth:sodium:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
 
     "datagenImplementation"(sourceSets.main.get().output)
 }

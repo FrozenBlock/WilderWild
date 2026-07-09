@@ -43,5 +43,4 @@ public class EntityMixin { // in common mixins.json
 		if (SnowloggingUtils.isSnowlogged(state)) state = SnowloggingUtils.getSnowEquivalent(state);
 		return original.call(type, state, pos);
 	}
-
 }

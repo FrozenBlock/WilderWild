@@ -18,9 +18,8 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import java.util.function.Function;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +39,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WallBlock.class)
 public abstract class WallBlockMixin extends Block {
@@ -48,36 +48,12 @@ public abstract class WallBlockMixin extends Block {
 		super(properties);
 	}
 
-	@Unique
-	@Override
-	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
-	}
-
-	@WrapOperation(
-		method = "getShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/util/function/Function;apply(Ljava/lang/Object;)Ljava/lang/Object;"
-		)
-	)
-	public Object wilderWild$getShape(Function<BlockState, VoxelShape> instance, Object o, Operation<Object> original) {
-		if (o instanceof BlockState blockState) {
-			if (SnowloggingUtils.supportsSnowlogging(blockState)) o = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
-		}
-		return original.call(instance, o);
-	}
-
-	@WrapOperation(
-		method = "getCollisionShape",
-		at = @At(
-			value = "INVOKE",
-			target = "Ljava/util/function/Function;apply(Ljava/lang/Object;)Ljava/lang/Object;"
-		)
-	)
-	public Object wilderWild$getCollisionShape(Function<BlockState, VoxelShape> instance, Object o, Operation<Object> original) {
-		if (o instanceof BlockState blockState && SnowloggingUtils.supportsSnowlogging(blockState)) o = blockState.setValue(SnowloggingUtils.SNOW_LAYERS, 0);
-		return original.call(instance, o);
+	@Inject(method = {"getShape", "getCollisionShape"}, at = @At("HEAD"))
+	public void wilderWild$getShape(
+		CallbackInfoReturnable<VoxelShape> info,
+		@Local(argsOnly = true) LocalRef<BlockState> state
+	) {
+		state.set(state.get().trySetValue(SnowloggingUtils.SNOW_LAYERS, 0));
 	}
 
 	@ModifyExpressionValue(
@@ -112,7 +88,7 @@ public abstract class WallBlockMixin extends Block {
 		}
 	}
 
-	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
+	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogPropertiesToBlockade(builder);
 	}

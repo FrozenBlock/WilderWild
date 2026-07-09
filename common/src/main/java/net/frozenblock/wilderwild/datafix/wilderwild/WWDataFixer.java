@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.schemas.Schema;
-import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.BushStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.DrySandStateFix;
@@ -35,7 +34,7 @@ import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
 public final class WWDataFixer {
 	public static final int DATA_VERSION = 30;
 
-	public static void applyDataFixes(final ModContainer mod) {
+	public static void applyDataFixes() {
 		WWConstants.log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
 		final QuiltDataFixerBuilder builder = new QuiltDataFixerBuilder(DATA_VERSION);
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
@@ -197,5 +196,4 @@ public final class WWDataFixer {
 		QuiltDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
 	}
-
 }

@@ -424,6 +424,8 @@ public final class WWSoundTypes {
 		SoundEvents.CORAL_BLOCK_FALL
 	);
 
-	// must be called after register on neoforge
-	public static void init() {}
+	/**
+	 * Must be called after register on NeoForge.
+	 */
+	public static void setup() {}
 }

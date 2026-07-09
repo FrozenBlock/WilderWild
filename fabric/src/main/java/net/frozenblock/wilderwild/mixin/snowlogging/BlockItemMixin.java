@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.SoundType;
@@ -31,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockItem.class)
-public class BlockItemMixin {
+public class BlockItemMixin { // in common mixins.json
 
 	@WrapOperation(
 		method = "place",
@@ -41,16 +40,14 @@ public class BlockItemMixin {
 		)
 	)
 	public SoundType wilderWild$place(BlockState instance, Operation<SoundType> original) {
-		return (WWBlockConfig.canSnowlog() && instance.getValueOrElse(SnowloggingUtils.SNOW_LAYERS, 0) > 0)
+		return SnowloggingUtils.isSnowlogged(instance)
 			? original.call(SnowloggingUtils.getSnowEquivalent(instance))
 			: original.call(instance);
 	}
 
 	@Inject(method = "getPlaceSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$getPlaceSound(BlockState blockState, CallbackInfoReturnable<SoundEvent> info) {
-		if (!WWBlockConfig.canSnowlog()) return;
-		if (blockState.getValueOrElse(SnowloggingUtils.SNOW_LAYERS, 0) > 0) {
-			info.setReturnValue(SnowloggingUtils.getSnowEquivalent(blockState).getSoundType().getPlaceSound());
-		}
+		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
+		info.setReturnValue(SnowloggingUtils.getSnowEquivalent(blockState).getSoundType().getPlaceSound());
 	}
 }

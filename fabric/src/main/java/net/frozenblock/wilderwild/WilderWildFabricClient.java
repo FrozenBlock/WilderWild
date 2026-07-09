@@ -21,10 +21,11 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
+import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
+import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildFabricClient implements ClientModInitializer {
@@ -36,9 +37,10 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 
 		WWFluidRendering.init();
-		WWModelLayers.setupRenderers();
-		WWTints.init();
+		WWModelLayers.setup();
 
 		WWClientNetworking.registerPacketReceivers();
+
+		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 }

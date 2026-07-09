@@ -17,13 +17,13 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.function.Supplier;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.attribute.AttributeTypes;
 import net.minecraft.world.attribute.EnvironmentAttribute;
-import java.util.function.Supplier;
 
 public final class WWEnvironmentAttributes {
 	private static final FrozenDeferredRegister<EnvironmentAttribute<?>> REGISTER = FrozenDeferredRegister.create(

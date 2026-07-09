@@ -20,7 +20,9 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
+import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
@@ -32,8 +34,10 @@ import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.network.chat.Component;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
@@ -486,11 +490,17 @@ public final class WWItems {
 	public static final FrozenDeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM::get);
 	public static final FrozenDeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN::get);
 
-	public static void init() {
-	}
+	public static void init() {}
 
-	// call separately on fabric and neoforge
+	/**
+	 * Called separately on Fabric and NeoForge. Registries on NeoForge MUST be populated before running this.
+	 */
 	public static void setup() {
+		ItemTooltipAdditionAPI.addTooltip(
+			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
+			stack -> !FrozenBools.HAS_TRAILIERTALES && stack.getItem().requiredFeatures().contains(net.frozenblock.wilderwild.WWFeatureFlags.TRAILIER_TALES_COMPAT)
+		);
+
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());
 
 		DispenserBlock.registerBehavior(BAOBAB_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT.get()));

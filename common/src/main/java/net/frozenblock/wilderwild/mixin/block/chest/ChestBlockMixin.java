@@ -49,7 +49,14 @@ public class ChestBlockMixin {
 			shift = At.Shift.BEFORE
 		)
 	)
-	public void wilderWild$useBeforeOpenMenu(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> info) {
+	public void wilderWild$useBeforeOpenMenu(
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Player player,
+		BlockHitResult hitResult,
+		CallbackInfoReturnable<InteractionResult> info
+	) {
 		if (!(level.getBlockEntity(pos) instanceof ChestBlockEntity chest)) return;
 		if (chest instanceof StoneChestBlockEntity) return;
 

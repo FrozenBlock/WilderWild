@@ -245,5 +245,4 @@ public final class WWMinecraftDataFixer {
 			schema
 		);
 	}
-
 }

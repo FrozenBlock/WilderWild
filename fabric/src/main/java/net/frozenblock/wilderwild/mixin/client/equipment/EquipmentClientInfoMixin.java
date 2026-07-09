@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+// TODO: multiloader
 @Environment(EnvType.CLIENT)
 @Mixin(EquipmentClientInfo.class)
 public class EquipmentClientInfoMixin {

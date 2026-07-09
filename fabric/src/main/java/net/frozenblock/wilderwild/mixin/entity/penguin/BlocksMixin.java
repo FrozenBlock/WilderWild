@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Blocks.class)
-public class BlocksMixin {
+public class BlocksMixin { // in common mixins.json
 
 	@Inject(method = "lambda$static$286", at = @At("HEAD"), cancellable = true)
 	private static void wilderWild$allowPenguinSpawnA(BlockState state, BlockGetter level, BlockPos pos, EntityType entityType, CallbackInfoReturnable<Boolean> info) {

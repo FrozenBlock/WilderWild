@@ -1,14 +1,13 @@
 package net.frozenblock.wilderwild.mod_compat;
 
+import java.util.function.Supplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
 import net.frozenblock.wilderwild.WWConstants;
-import java.util.function.Supplier;
 
 // TODO: port to common
 public final class WWFabricModIntegrations {
-	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibFabricIntegration::new, "frozenlib");
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(() -> new SimpleCopperPipesIntegration(), "simple_copper_pipes");
 	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
 

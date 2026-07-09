@@ -9,20 +9,17 @@ import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
-import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
+import net.frozenblock.wilderwild.client.WWTints;
 import net.frozenblock.wilderwild.registry.WWClientResources;
 import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
-import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @Environment(EnvType.CLIENT)
 public final class WilderWildClient {
-	private WilderWildClient() {}
 
 	public static void init() {
 		WWEasterEggs.hatchEasterEggs();
 
 		WWClientResources.register();
-		WWBuiltInBlockModels.init();
 		WWModelLayers.init();
 		WWItemProperties.init();
 		WWClientMusicImpl.init();
@@ -30,6 +27,7 @@ public final class WilderWildClient {
 		WWParticleEngine.init();
 		AmbientWindParticleSpawner.init();
 
-		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
+		WWBuiltInBlockModels.setup();
+		WWTints.init();
 	}
 }

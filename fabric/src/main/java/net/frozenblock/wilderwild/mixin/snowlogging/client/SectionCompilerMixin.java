@@ -21,7 +21,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.VertexSorting;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.client.renderer.chunk.SnowloggedSectionCompiler;
 import net.minecraft.client.renderer.SectionBufferBuilderPack;
 import net.minecraft.client.renderer.block.BlockQuadOutput;
 import net.minecraft.client.renderer.block.BlockStateModelSet;
@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(SectionCompiler.class)
-public abstract class SectionCompilerMixin {
+public abstract class SectionCompilerMixin { // in common mixins.json
 
 	@Shadow
 	@Final
@@ -69,20 +69,6 @@ public abstract class SectionCompilerMixin {
 		@Local(name = "pos") BlockPos pos,
 		@Local(name = "blockState") BlockState blockState
 	) {
-		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
-		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
-
-		blockRenderer.tesselateBlock(
-			ModelBlockRenderer.forceOpaque(this.cutoutLeaves, snowState) ? opaqueQuadOutput : quadOutput,
-			(float)SectionPos.sectionRelative(pos.getX()),
-			(float)SectionPos.sectionRelative(pos.getY()),
-			(float)SectionPos.sectionRelative(pos.getZ()),
-			region,
-			pos,
-			snowState,
-			this.blockModelSet.get(snowState),
-			snowState.getSeed(pos)
-		);
+		SnowloggedSectionCompiler.tesselateSnowloggedLayer(region, blockRenderer, quadOutput, opaqueQuadOutput, pos, blockState, this.cutoutLeaves, this.blockModelSet);
 	}
-
 }

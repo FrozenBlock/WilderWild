@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;import net.minecraft.resources.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
 public final class WWSounds {

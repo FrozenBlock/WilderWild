@@ -21,6 +21,8 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.Typed;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.serialization.Dynamic;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.platform.service.DataAttachmentHelper;
 import net.minecraft.util.datafix.fixes.NamedEntityFix;
 import net.minecraft.util.datafix.fixes.References;
 
@@ -36,7 +38,7 @@ public final class ChestBubbleToAttachmentFix extends NamedEntityFix {
 
 		Dynamic<?> dataAttachments = data.get("fabric:attachments").orElseEmptyMap();
 		dataAttachments = dataAttachments.set("wilderwild:chest_can_bubble", data.createBoolean(canBubble));
-		data = data.set("fabric:attachments", dataAttachments);
+		data = data.set(FrozenLibInitPlatformUtils.DATA_ATTACHMENT.getAttachmentsNBTKey(), dataAttachments);
 
 		return data;
 	}

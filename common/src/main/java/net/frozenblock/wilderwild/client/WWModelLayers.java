@@ -138,8 +138,10 @@ public final class WWModelLayers {
 		modelLayers.registerBoatModelLayers(MAPLE_BOAT, MAPLE_CHEST_BOAT, boat, chestBoat);
 	}
 
-	// This is called at a different point on Fabric vs. Neo
-	public static void setupRenderers() {
+	/**
+	 * Registries MUST be populated before this. Runs during NeoForge's setup event.
+	 */
+	public static void setup() {
 		EntityRenderers.register(WWEntityTypes.FIREFLY.get(), FireflyRenderer::new);
 		EntityRenderers.register(WWEntityTypes.BUTTERFLY.get(), ButterflyRenderer::new);
 		EntityRenderers.register(WWEntityTypes.JELLYFISH.get(), JellyfishRenderer::new);

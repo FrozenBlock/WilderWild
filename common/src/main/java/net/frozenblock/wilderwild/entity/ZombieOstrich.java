@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity;
 
 import com.google.common.base.Suppliers;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.ostrich.OstrichAi;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -51,7 +52,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import java.util.function.Supplier;
 
 public class ZombieOstrich extends AbstractOstrich {
 	private static final Supplier<Brain.Provider<AbstractOstrich>> BRAIN_PROVIDER = Suppliers.memoize(() -> OstrichAi.brainProvider(true));

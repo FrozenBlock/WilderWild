@@ -23,12 +23,15 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.lib.platform.api.registry.FrozenParticleTypes;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
@@ -415,7 +418,9 @@ public final class WWParticleTypes {
 		REGISTER.register();
 	}
 
-	public static void init() {}
+	public static void init() {
+		VibrationParticleVisibilityApi.registerVisibilityTest((data, user) -> !(user instanceof Crab.VibrationUser) && !(user instanceof IcicleBlockEntity.VibrationUser));
+	}
 
 	private static FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> createLeafParticle(Identifier id) {
 		return register(
@@ -484,6 +489,9 @@ public final class WWParticleTypes {
 		return holder;
 	}
 
+	/**
+	 * Called separately on Fabric and NeoForge
+	 */
 	public static void linkLeafParticles() {
 		LEAF_LINKS.forEach(Runnable::run);
 		LEAF_LINKS.clear();

@@ -18,11 +18,11 @@
 package net.frozenblock.wilderwild.block.state.properties;
 
 import com.mojang.serialization.Codec;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.StringRepresentable;
-import java.util.function.Supplier;
 
 @SuppressWarnings({"Convert2MethodRef", "FunctionalExpressionCanBeFolded"})
 public enum GeothermalVentType implements StringRepresentable {

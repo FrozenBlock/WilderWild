@@ -31,7 +31,7 @@ public final class WilderWildNeoForge {
 		});
 
 		modBus.addListener(RegisterPayloadHandlersEvent.class, event -> {
-			WWNetworking.init();
+			WWNetworking.setup();
 			if (FrozenLibEarlyPlatformUtils.LOADER.isClient()) {
 				WWClientNetworking.registerPacketReceivers();
 			}
@@ -43,11 +43,10 @@ public final class WilderWildNeoForge {
 
 		// AFTER register event
 		modBus.addListener(FMLCommonSetupEvent.class, event -> {
-			WWSoundTypes.init();
-			WWItems.init();
+			WWSoundTypes.setup();
 			WWItems.setup();
-			WWBlocks.registerBlockProperties();
-			WWCreativeInventorySorting.init();
+			WWBlocks.setupBlockProperties();
+			WWCreativeInventorySorting.setup();
 			WWParticleTypes.linkLeafParticles();
 			WWWorldgen.setup();
 		});
