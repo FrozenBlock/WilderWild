@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
@@ -61,8 +60,7 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWStructureModifications.init();
 		WWWorldgen.setup();
 
-		WWModIntegrations.init();
-		WWNetworking.init();
+		WWNetworking.setup();
 		WWCreativeInventorySorting.setup();
 
 		CommandRegistrationCallback.EVENT.register(

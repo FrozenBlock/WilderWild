@@ -9,6 +9,7 @@ import net.frozenblock.wilderwild.data.worldgen.WWSurfaceRuleData;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
+import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -64,6 +65,8 @@ public final class WilderWild {
 		WWWindDisturbances.init();
 		WWWindManagerExtension.init();
 		WWSoundPredicates.init();
+
+		WWModIntegrations.init();
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);
 		WWBlockConfig.CONFIG.load(true);

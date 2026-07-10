@@ -31,7 +31,7 @@ public final class WilderWildNeoForge {
 		});
 
 		modBus.addListener(RegisterPayloadHandlersEvent.class, event -> {
-			WWNetworking.init();
+			WWNetworking.setup();
 			if (FrozenLibEarlyPlatformUtils.LOADER.isClient()) {
 				WWClientNetworking.registerPacketReceivers();
 			}

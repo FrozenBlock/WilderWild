@@ -21,14 +21,23 @@ import java.util.function.Supplier;
 import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
 import net.frozenblock.lib.integration.api.ModIntegrations;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWModIntegrations {
-	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
+	private static final FrozenDeferredRegister REGISTER = FrozenDeferredRegister.create(
+		FrozenLibRegistries.MOD_INTEGRATION,
+		WWConstants.MOD_ID
+	);
+
 	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
 
-	// TODO: port to common
 	public static void init() {}
+
+	static {
+		REGISTER.register();
+	}
 
 	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
 		return ModIntegrations.register(integration, WWConstants.MOD_ID, modID);
