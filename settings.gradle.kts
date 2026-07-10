@@ -13,9 +13,6 @@ pluginManagement {
         maven("https://jitpack.io") {
             name = "Jitpack"
         }
-        maven("https://maven.muon.rip/releases") { // MixinMCP
-            name = "MounR"
-        }
         maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
             name = "SomethingCatchy (MehVahdJukaar)"
         }

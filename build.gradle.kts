@@ -4,7 +4,6 @@ plugins {
     id("com.possible-triangle.fabric") apply(false)
     id("com.possible-triangle.neoforge") apply(false)
     id("net.mehvahdjukaar.candlelight") version("+") apply(false)
-    id("dev.mixinmcp.decompile") version("+") apply(false)
 
     id("org.ajoberstar.grgit") version("+") apply(false)
     id("org.quiltmc.gradle.licenser") version("+") apply(false)
@@ -37,7 +36,6 @@ mod {
 subprojects {
     apply(plugin = "com.possible-triangle.core")
     apply(plugin = "net.mehvahdjukaar.candlelight")
-    apply(plugin = "dev.mixinmcp.decompile")
 
     tasks.withType<JavaCompile> {
         options.compilerArgs.addAll(listOf("-Xmaxerrs", "4000"))
