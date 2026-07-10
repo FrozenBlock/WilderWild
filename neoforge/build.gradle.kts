@@ -1,6 +1,5 @@
 plugins {
     id("com.possible-triangle.neoforge")
-    id("com.gradleup.shadow")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }
