@@ -7,25 +7,25 @@ import java.nio.file.Files
 import java.util.Properties
 
 plugins {
-    id("ww-multiloader-loader")
-    id("dev.architectury.loom-no-remap")
+    id("com.possible-triangle.fabric")
     id("org.ajoberstar.grgit")
     id("org.quiltmc.gradle.licenser")
     id("me.modmuss50.mod-publish-plugin")
-    `maven-publish`
-    eclipse
-    idea
-    `java-library`
-    java
+    id("com.gradleup.shadow")
     checkstyle
+}
+
+checkstyle {
+    configFile = rootProject.file("checkstyle.xml")
+    toolVersion = "10.20.2"
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
 
 val minecraft_version: String by project
-val loader_version: String by project
-val min_loader_version: String by project
+val fabric_loader_version: String by project
+val min_fabric_loader_version: String by project
 
 val mod_id: String by project
 val mod_version: String by project
@@ -58,90 +58,12 @@ group = maven_group
 
 val release = findProperty("releaseType") == "stable"
 
-val datagen by sourceSets.registering {
-    compileClasspath += sourceSets.main.get().compileClasspath
-    runtimeClasspath += sourceSets.main.get().runtimeClasspath
-}
-
-loom {
-    runtimeOnlyLog4j.set(true)
-
-    accessWidenerPath.set(rootProject.file("common/src/main/resources/$mod_id.classtweaker"))
-    interfaceInjection {
-        enableDependencyInterfaceInjection = true
-    }
-
-    runs {
-        named("client") {
-            preferGradleTask = true
-        }
-
-        named("server") {
-            preferGradleTask = true
-        }
-    }
-}
-
-sourceSets {
-    main {
-        resources {
-            // todo complete datagen port and remove this
-            srcDirs("src/main/generated")
-        }
-    }
-}
-
-loom {
-    runs {
-        register("datagen") {
-            client()
-            name("Data Generation")
-            source(datagen.get())
-            vmArg("-Dfabric-api.datagen")
-            vmArg("-Dfabric-api.datagen.output-dir=${rootProject.file("common/src/main/generated")}")
-            //vmArg("-Dfabric-api.datagen.strict-validation")
-            vmArg("-Dfabric-api.datagen.modid=$mod_id")
-
-            ideConfigGenerated(true)
-            runDir = "build/datagen"
-        }
-
-        named("client") {
-            name("Fabric Client")
-            vmArg("-DMC_DEBUG_FROZENLIB_WIND_DISTURBANCES=true")
-            vmArg("-DMC_DEBUG_ENABLED=true")
-            vmArg("-DMC_DEBUG_FROZENLIB_WIND=true")
-
-            ideConfigGenerated(true)
-        }
-
-        named("server") {
-            ideConfigGenerated(true)
-        }
-    }
-}
-
-checkstyle {
-    configFile = rootProject.file("checkstyle.xml")
-    toolVersion = "10.20.2"
-}
-
-val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
-val loaderVariants = setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements", "includeInternal", "modCompileClasspath")
-configurations.all {
-    if (name in loaderVariants) {
-        attributes {
-            attribute(loaderAttribute, "fabric")
-        }
-    }
-}
-sourceSets.configureEach {
-    listOf(compileClasspathConfigurationName, runtimeClasspathConfigurationName).forEach { variant ->
-        configurations.named(variant) {
-            attributes {
-                attribute(loaderAttribute, "fabric")
-            }
-        }
+fabric {
+    dependOn(project(":ww-common"))
+    accessWidener(project(":ww-common"))
+    dataGen {
+        owner = project(":ww-common")
+        splitSourceSet("datagen")
     }
 }
 
@@ -167,15 +89,37 @@ repositories {
         name = "FrozenBlock Snapshot"
     }
 
+    maven("https://maven.caffeinemc.net/releases") {
+        name = "CaffeineMC"
+    }
+
     flatDir {
         dirs("libs")
     }
     mavenCentral()
 }
 
+val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
+val loaderVariants = setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements", "includeInternal", "modCompileClasspath")
+configurations.all {
+    if (name in loaderVariants) {
+        attributes {
+            attribute(loaderAttribute, "fabric")
+        }
+    }
+}
+sourceSets.configureEach {
+    listOf(compileClasspathConfigurationName, runtimeClasspathConfigurationName).forEach { variant ->
+        configurations.named(variant) {
+            attributes {
+                attribute(loaderAttribute, "fabric")
+            }
+        }
+    }
+}
+
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraft_version")
-    implementation("net.fabricmc:fabric-loader:$loader_version")
+    implementation("net.fabricmc:fabric-loader:$fabric_loader_version")
     implementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
@@ -207,8 +151,6 @@ dependencies {
         implementation("net.caffeinemc:sodium-fabric:${sodium_version}")
     else
         compileOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
-
-    "datagenImplementation"(sourceSets.main.get().output)
 }
 
 tasks {
@@ -219,7 +161,7 @@ tasks {
             "protocol_version" to protocol_version,
             "minecraft_version" to "~26.2-",
 
-            "fabric_loader_version" to ">=$min_loader_version",
+            "fabric_loader_version" to ">=$min_fabric_loader_version",
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
         )
@@ -277,7 +219,6 @@ tasks {
 val applyLicenses: Task by tasks
 val test: Task by tasks
 val runClient: Task by tasks
-val runDatagen: Task by tasks
 
 val jar: Jar by tasks
 val sourcesJar: Jar by tasks

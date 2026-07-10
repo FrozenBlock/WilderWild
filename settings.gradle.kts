@@ -1,41 +1,40 @@
 pluginManagement {
 	repositories {
 		mavenLocal()
-		maven {
-			name = "Quilt"
-			setUrl("https://maven.quiltmc.org/repository/release/")
-		}
-		maven {
-			name = "Quilt Snapshot"
-			setUrl("https://maven.quiltmc.org/repository/snapshot/")
-		}
-		maven {
-			name = "Fabric"
-			setUrl("https://maven.fabricmc.net/")
-		}
-        maven("https://maven.architectury.dev/") {
-            name = "Architectury"
+        maven("https://maven.quiltmc.org/repository/release") {
+            name = "Quilt"
         }
-		maven {
-			name = "NeoForged"
-			setUrl("https://maven.neoforged.net/releases")
-		}
-		maven {
-			name = "Forge"
-			setUrl("https://files.minecraftforge.net/maven/")
-		}
-		maven {
-			name = "Jitpack"
-			setUrl("https://jitpack.io/")
-		}
+        maven("https://maven.fabricmc.net") {
+            name = "Fabric"
+        }
+        maven("https://maven.neoforged.net/releases") {
+            name = "NeoForged"
+        }
+        maven("https://jitpack.io") {
+            name = "Jitpack"
+        }
+        maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
+            name = "SomethingCatchy (MehVahdJukaar)"
+        }
 		mavenCentral()
 		gradlePluginPortal()
 	}
 }
 
-plugins {
-	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+val neoforgeSnapshotMaven = settings.providers.gradleProperty("neoforge_snapshot_maven").orNull
+if (!neoforgeSnapshotMaven.isNullOrBlank()) {
+    pluginManagement {
+        repositories {
+            maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
+        }
+    }
 }
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("+")
+    id("com.possible-triangle.helper") version("+")
+}
+
 
 rootProject.name = "Wilder Wild"
 

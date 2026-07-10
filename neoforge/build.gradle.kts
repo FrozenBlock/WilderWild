@@ -1,6 +1,6 @@
 plugins {
-    id("ww-multiloader-loader")
-    id("dev.architectury.loom-no-remap")
+    id("com.possible-triangle.neoforge")
+    id("com.gradleup.shadow")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }
@@ -53,52 +53,10 @@ repositories {
     }
 }
 
-loom {
-    accessWidenerPath = rootProject.file("common/src/main/resources/wilderwild.classtweaker")
-    enableTransitiveAccessWideners = true
-
-    interfaceInjection {
-        enableDependencyInterfaceInjection = true
-    }
-
-    runs {
-        named("client") {
-            client()
-            name("NeoForge Client")
-            ideConfigGenerated(true)
-            //gameDirectory.set(project.mkdir(project.file("runs/client")))
-        }
-        named("server") {
-            server()
-            name("NeoForge Server")
-            ideConfigGenerated(true)
-            project.file("runs/server").parentFile?.mkdirs()
-            //gameDirectory.set(project.mkdir(project.file("runs/server")))
-        }
-    }
-}
-
-extensions.getByType<net.fabricmc.loom.api.LoomGradleExtensionAPI>().neoForge.run {
-    accessTransformer(file("src/main/resources/META-INF/neo/accesstransformer.cfg"))
-}
-
-dependencies {
-    minecraft("com.mojang:minecraft:$minecraft_version")
-    "neoForge"("net.neoforged:neoforge:$neoforge_version")
-
-    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
-
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
-    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
-
-    // Sodium
-    if (shouldRunSodium) {
-        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
-    } else {
-        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
-    }
+neoforge {
+    dependOn(project(":ww-common"))
+    accessWidener(project(":ww-common"))
+    injectInterfaces(rootProject.file("common/src/main/resources/interfaces.json"))
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -131,11 +89,6 @@ tasks {
     }
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
-}
-
 val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
 val loaderVariants = setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements")
 configurations.all {
@@ -155,6 +108,27 @@ sourceSets.configureEach {
     }
 }
 
+dependencies {
+    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
+
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
+    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
+
+    // Sodium
+    if (shouldRunSodium) {
+        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
+        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
+    } else {
+        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
+    }
+}
+
 fun getModVersion(): String {
     return "$mod_version-mc$minecraft_version"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
