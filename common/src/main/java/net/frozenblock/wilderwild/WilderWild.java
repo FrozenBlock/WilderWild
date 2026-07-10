@@ -48,6 +48,7 @@ public final class WilderWild {
 		WWAttachmentTypes.init();
 		WWActivities.init();
 		WWEnvironmentAttributes.init();
+		WWModIntegrations.init();
 
 		WWGameEvents.init();
 		WWSounds.init();
@@ -65,8 +66,6 @@ public final class WilderWild {
 		WWWindDisturbances.init();
 		WWWindManagerExtension.init();
 		WWSoundPredicates.init();
-
-		WWModIntegrations.init();
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);
 		WWBlockConfig.CONFIG.load(true);

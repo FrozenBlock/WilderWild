@@ -128,7 +128,7 @@ public final class AridForest extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.ARID_FOREST_GENERATION.get()) return;
 
 		final Climate.Parameter humidity = WWWorldgenConfig.JUNGLE_MODIFIED_PLACEMENT.get() ? HUMIDITY_MODIFIED_JUNGLE : HUMIDITY;

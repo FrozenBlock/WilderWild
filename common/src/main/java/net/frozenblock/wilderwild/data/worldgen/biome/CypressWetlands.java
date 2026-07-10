@@ -169,7 +169,7 @@ public final class CypressWetlands extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.CYPRESS_WETLANDS_GENERATION.get()) return;
 
 		this.addSurfaceBiome(

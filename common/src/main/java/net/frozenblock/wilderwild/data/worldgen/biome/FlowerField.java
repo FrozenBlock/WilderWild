@@ -130,7 +130,7 @@ public final class FlowerField extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.FLOWER_FIELD_GENERATION.get()) return;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.FLOWER_FOREST)) {
 			this.addSurfaceBiome(

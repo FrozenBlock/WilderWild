@@ -142,7 +142,7 @@ public final class MesogleaCaves extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.MESOGLEA_CAVES_GENERATION.get()) return;
 		this.addSemiDeepBiome(
 			parameters,

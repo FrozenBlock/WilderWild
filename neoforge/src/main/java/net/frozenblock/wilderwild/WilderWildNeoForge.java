@@ -5,6 +5,7 @@ import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
 import net.frozenblock.lib.platform.networking.NeoNetworkingHelper;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
+import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -49,6 +50,7 @@ public final class WilderWildNeoForge {
 			WWCreativeInventorySorting.setup();
 			WWParticleTypes.linkLeafParticles();
 			WWWorldgen.setup();
+			WWStructureModifications.setup();
 		});
 	}
 }

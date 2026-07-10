@@ -8,7 +8,6 @@ import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWFabricModIntegrations {
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(() -> new SimpleCopperPipesIntegration(), "simple_copper_pipes");
-	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
 
 	private WWFabricModIntegrations() {
 		throw new UnsupportedOperationException("WWModIntegrations contains only static declarations.");

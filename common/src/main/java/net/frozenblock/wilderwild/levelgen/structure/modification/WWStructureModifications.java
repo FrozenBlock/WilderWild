@@ -37,7 +37,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor
 
 public class WWStructureModifications {
 
-	public static void init() {
+	public static void setup() {
 		if (WWWorldgenConfig.DECAYING_TRAIL_RUINS_GENERATION.get()) {
 			StructureProcessorApi.addProcessor(
 				BuiltinStructures.TRAIL_RUINS.identifier(),

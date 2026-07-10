@@ -133,7 +133,7 @@ public final class DyingMixedForest extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.DYING_MIXED_FOREST_GENERATION.get()) return;
 
 		final boolean generateTundra = WWWorldgenConfig.TUNDRA_GENERATION.get();

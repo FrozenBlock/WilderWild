@@ -57,7 +57,7 @@ public final class WilderWildFabric extends FrozenModInitializer implements Froz
 		WWBlocks.setupBlockProperties();
 		WWFabricBlocks.registerBlockProperties();
 		WWAdvancementModifications.init();
-		WWStructureModifications.init();
+		WWStructureModifications.setup();
 		WWWorldgen.setup();
 
 		WWNetworking.setup();
