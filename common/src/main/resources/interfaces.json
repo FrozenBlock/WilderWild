@@ -1,0 +1,5 @@
+{
+  "net/minecraft/world/level/block/entity/PotentSulfurBlockEntity": [
+    "net/frozenblock/wilderwild/block/entity/impl/WWPotentSulfurWindAccess"
+  ]
+}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.biome.Tundra;
+import net.frozenblock.wilderwild.data.worldgen.biome.impl.WWGrassColorModifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import org.objectweb.asm.Opcodes;
@@ -17,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BiomeSpecialEffects.GrassColorModifier.class)
-public class GrassColorModifierNeoForgeMixin {
+public class GrassColorModifierMixin { // In common mixins.json
 
 	@SuppressWarnings("InvokerTarget")
 	@Invoker("<init>")
@@ -27,7 +28,7 @@ public class GrassColorModifierNeoForgeMixin {
 		String name,
 		BiomeSpecialEffects.GrassColorModifier.ColorModifier delegate
 	) {
-		throw new AssertionError("Mixin injection failed - GrassColorModifierNeoForgeMixin");
+		throw new AssertionError("Mixin injection failed - Wilder Wild GrassColorModifierNeoForgeMixin");
 	}
 
 	@SuppressWarnings("ShadowTarget")
@@ -50,7 +51,7 @@ public class GrassColorModifierNeoForgeMixin {
 		final var modifiers = new ArrayList<>(Arrays.asList($VALUES));
 		final int ordinal = modifiers.getLast().ordinal() + 1;
 
-		final var tundraModifier = new BiomeSpecialEffects.GrassColorModifier.ColorModifier() {
+		final var tundraColorModifier = new BiomeSpecialEffects.GrassColorModifier.ColorModifier() {
 			@Override
 			public int modifyGrassColor(double x, double z, int baseColor) {
 				final double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, z * 0.0225D, false);
@@ -61,8 +62,9 @@ public class GrassColorModifierNeoForgeMixin {
 				return baseColor;
 			}
 		};
-
-		modifiers.add(newType("WILDERWILD_TUNDRA", ordinal, WWConstants.safeString("tundra"), tundraModifier));
+		final BiomeSpecialEffects.GrassColorModifier tundra = newType("WILDERWILD_TUNDRA", ordinal, WWConstants.safeString("tundra"), tundraColorModifier);
+		modifiers.add(tundra);
+		WWGrassColorModifier.WILDERWILD_TUNDRA = tundra;
 
 		$VALUES = modifiers.toArray(new BiomeSpecialEffects.GrassColorModifier[0]);
 	}

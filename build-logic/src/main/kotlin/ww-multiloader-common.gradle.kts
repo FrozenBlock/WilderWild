@@ -26,32 +26,53 @@ repositories {
     maven("https://maven.frozenblock.net/release") {
         name = "FrozenBlock"
     }
-    maven("https://maven.quiltmc.org/repository/release") {
-        name = "Quilt"
+    maven("https://maven.frozenblock.net/snapshot") {
+        name = "FrozenBlock Snapshot"
     }
-    maven("https://maven.shedaniel.me/")
+
     exclusiveContent {
         forRepository {
-            maven {
+            maven("https://repo.spongepowered.org/repository/maven-public") {
                 name = "Sponge"
-                url = uri("https://repo.spongepowered.org/repository/maven-public")
             }
         }
         filter { includeGroupAndSubgroups("org.spongepowered") }
     }
-    maven {
-        name = "BlameJared"
-        url = uri("https://maven.blamejared.com")
+    maven("https://maven.minecraftforge.net/") {
+        name = "Forge"
     }
-    mavenCentral()
-    maven("https://jitpack.io")
     maven("https://thedarkcolour.github.io/KotlinForForge/") {
         name = "KotlinForForge"
-        content { includeGroup("thedarkcolour") }
+        content {
+            includeGroup("thedarkcolour")
+        }
     }
-    maven("https://maven.terraformersmc.com/") {
-        name = "TerraformersMC"
+    maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
+        name = "SomethingCatchy (MehVahdJukaar)"
     }
+
+    maven("https://maven.quiltmc.org/repository/release") {
+        name = "Quilt"
+    }
+    maven("https://maven.blamejared.com") {
+        name = "BlameJared"
+    }
+    maven("https://maven.jamieswhiteshirt.com/libs-release") {
+        name = "JamiesWhiteShirt"
+        content {
+            includeGroup("com.jamieswhiteshirt")
+        }
+    }
+    maven("https://maven.shedaniel.me/") {
+        name = "Shedaniel"
+    }
+    maven("https://maven.caffeinemc.net/releases") {
+        name = "CaffeineMC"
+    }
+    maven("https://maven.terraformersmc.com/releases") {
+        name = "TerraformersMC (Biolith)"
+    }
+
     exclusiveContent {
         forRepository {
             maven("https://api.modrinth.com/maven") {
@@ -62,6 +83,10 @@ repositories {
             includeGroup("maven.modrinth")
         }
     }
+    maven("https://jitpack.io") {
+        name = "Jitpack"
+    }
+    mavenCentral()
 }
 
 tasks.named<Jar>("sourcesJar") {

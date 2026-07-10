@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.mixin.entity.penguin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.entity.impl.BoatBoostInterface;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
@@ -43,11 +44,11 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
 		if (this.level().isClientSide()) return;
-		if (!WWAttachmentTypes.BOAT_BOOST_TICKS.has(this)) return;
+		if (!WWAttachmentTypes.BOAT_BOOST_TICKS.has((DataAttachmentTarget) this)) return;
 
-		final int newBoostTicks = Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0) - 1, 0);
-		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, newBoostTicks);
-		if (newBoostTicks <= 0) WWAttachmentTypes.BOAT_BOOST_TICKS.remove(this);
+		final int newBoostTicks = Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet((DataAttachmentTarget) this, () -> 0) - 1, 0);
+		WWAttachmentTypes.BOAT_BOOST_TICKS.set((DataAttachmentTarget) this, newBoostTicks);
+		if (newBoostTicks <= 0) WWAttachmentTypes.BOAT_BOOST_TICKS.remove((DataAttachmentTarget) this);
 	}
 
 	@WrapOperation(
@@ -65,12 +66,12 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Unique
 	@Override
 	public void wilderWild$boostBoatForTicks(int ticks) {
-		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0), ticks));
+		WWAttachmentTypes.BOAT_BOOST_TICKS.set((DataAttachmentTarget) this, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet((DataAttachmentTarget) this, () -> 0), ticks));
 	}
 
 	@Unique
 	@Override
 	public boolean wilderWild$isBoatBoosted() {
-		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0) > 0;
+		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet((DataAttachmentTarget) this, () -> 0) > 0;
 	}
 }

@@ -219,8 +219,8 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
 
 		if (!vent) {
-			WindDisturbances.addIf(level, this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbance.INSTANCE);
-			WindDisturbances.addIf(level, this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbance.INSTANCE);
+			WindDisturbances.addIf(level, (DataAttachmentTarget) this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbance.INSTANCE);
+			WindDisturbances.addIf(level, (DataAttachmentTarget) this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbance.INSTANCE);
 		}
 
 		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;

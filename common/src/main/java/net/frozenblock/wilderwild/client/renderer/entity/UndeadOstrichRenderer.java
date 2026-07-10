@@ -24,17 +24,17 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
+import net.frozenblock.wilderwild.client.resources.model.WWEquipmentClientInfoLayerType;
 import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class UndeadOstrichRenderer extends net.frozenblock.wilderwild.client.renderer.entity.AbstractOstrichRenderer<ZombieOstrich, AbstractOstrichRenderState, EntityModel<AbstractOstrichRenderState>> {
+public class UndeadOstrichRenderer extends AbstractOstrichRenderer<ZombieOstrich, AbstractOstrichRenderState, EntityModel<AbstractOstrichRenderState>> {
 	private static final Identifier ZOMBIE_OSTRICH_LOCATION = WWConstants.id("textures/entity/ostrich/ostrich_zombie.png");
 
 	public UndeadOstrichRenderer(EntityRendererProvider.Context context) {
@@ -44,7 +44,7 @@ public class UndeadOstrichRenderer extends net.frozenblock.wilderwild.client.ren
 			new SimpleEquipmentLayer<>(
 				this,
 				context.getEquipmentRenderer(),
-				EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_ZOMBIE_SADDLE,
+				WWEquipmentClientInfoLayerType.WILDERWILD_OSTRICH_ZOMBIE_SADDLE,
 				ostrichRenderState -> ostrichRenderState.saddle,
 				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
 				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.mixin.block.potent_sulfur;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
 import net.frozenblock.wilderwild.block.entity.impl.WWPotentSulfurWindAccess;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
@@ -70,12 +71,12 @@ public class PotentSulfurBlockEntityMixin implements WWPotentSulfurWindAccess {
 		Level level, BlockPos pos, BlockState state, PotentSulfurBlockEntity entity
 	) {
 		final AABB area = original.inflate(0.5D).move(0D, 0.5D, 0D);
-		entity.wilderWild$pingWindActive(area, level.getGameTime());
+		((WWPotentSulfurWindAccess) entity).wilderWild$pingWindActive(area, level.getGameTime());
 		if (level.isClientSide()) return original;
 
 		WindDisturbances.addIf(
 			level,
-			entity,
+			(DataAttachmentTarget) entity,
 			source -> WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEYSER)),
 			() -> GeyserWindDisturbance.INSTANCE
 		);

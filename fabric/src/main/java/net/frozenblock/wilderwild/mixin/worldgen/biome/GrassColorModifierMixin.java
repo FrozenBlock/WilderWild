@@ -19,13 +19,13 @@ package net.frozenblock.wilderwild.mixin.worldgen.biome;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.biome.Tundra;
-import net.minecraft.world.level.biome.Biome;
+import net.frozenblock.wilderwild.data.worldgen.biome.impl.WWGrassColorModifier;import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BiomeSpecialEffects.GrassColorModifier.class)
-public enum GrassColorModifierMixin {
+public enum GrassColorModifierMixin { // In common mixins.json
 	WILDERWILD_TUNDRA(WWConstants.safeString("tundra")) {
 		@Override
 		public int modifyColor(double x, double z, int baseColor) {
@@ -38,6 +38,10 @@ public enum GrassColorModifierMixin {
 			return baseColor;
 		}
 	};
+
+	static {
+		WWGrassColorModifier.WILDERWILD_TUNDRA = BiomeSpecialEffects.GrassColorModifier.class.cast(WILDERWILD_TUNDRA);
+	}
 
 	@Shadow
 	public abstract int modifyColor(double x, double z, int baseColor);

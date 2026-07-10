@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import net.frozenblock.lib.advancement.api.AdvancementAPI;
 import net.frozenblock.lib.advancement.api.AdvancementEvents;
+import net.frozenblock.lib.advancement.mixin.MobEffectsPredicateAccessor;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -190,8 +191,8 @@ public final class WWAdvancementModifications {
 				case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
 					if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
 						final Criterion<EffectsChangedTrigger.TriggerInstance> criterion = (Criterion<EffectsChangedTrigger.TriggerInstance>) advancement.criteria().get("all_effects");
-						final MobEffectsPredicate predicate = criterion.triggerInstance().effects.orElseThrow();
-						final Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap);
+						final MobEffectsPredicate predicate = criterion.triggerInstance().effects().orElseThrow();
+						final Map<Holder<MobEffect>, MobEffectsPredicate.MobEffectInstancePredicate> map = new HashMap<>(predicate.effectMap());
 
 						if (WWEntityConfig.SPAWN_CRABS.get() || WWBlockConfig.REACH_BOOST_BEACON.get()) {
 							map.put(WWMobEffects.REACH_BOOST.asHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
@@ -200,7 +201,7 @@ public final class WWAdvancementModifications {
 						if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 							map.put(WWMobEffects.SCORCHING.asHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
-						predicate.effectMap = map;
+						MobEffectsPredicateAccessor.class.cast(predicate).frozenLib$setEffectMap(map);
 					}
 				}
 				case "minecraft:adventure/kill_a_mob" -> {

@@ -41,15 +41,8 @@ repositories {
     if (!neoforgeSnapshotMaven.isNullOrBlank()) {
         maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
     }
-    exclusiveContent {
-        forRepository {
-            maven("https://api.modrinth.com/maven") {
-                name = "Modrinth"
-            }
-        }
-        filter {
-            includeGroup("maven.modrinth")
-        }
+    flatDir {
+        dirs("libs")
     }
 }
 
@@ -57,6 +50,10 @@ neoforge {
     dependOn(project(":ww-common"))
     accessWidener(project(":ww-common"))
     injectInterfaces(rootProject.file("common/src/main/resources/interfaces.json"))
+}
+
+neoForge {
+    accessTransformers {} // Required for transitive AW to apply!
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -110,6 +107,7 @@ sourceSets.configureEach {
 
 dependencies {
     api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
+    accessTransformers("net.frozenblock:frozenlib-neoforge:${frozenlib_version}") // Required for transitive AW to apply!
 
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
     compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")

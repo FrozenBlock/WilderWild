@@ -4,6 +4,7 @@ plugins {
     id("com.possible-triangle.fabric") apply(false)
     id("com.possible-triangle.neoforge") apply(false)
     id("net.mehvahdjukaar.candlelight") version("+") apply(false)
+    id("dev.mixinmcp.decompile") version("+") apply(false)
 
     id("org.ajoberstar.grgit") version("+") apply(false)
     id("org.quiltmc.gradle.licenser") version("+") apply(false)
@@ -17,8 +18,14 @@ checkstyle {
     toolVersion = "10.20.2"
 }
 
+val min_fabric_loader_version: String by project
+val frozenlib_version: String by project
+
 mod {
-    additional.add("fabric_loader_version")
+    additional.add("fabric_loader_version", ">=$min_fabric_loader_version")
+    additional.add("minecraft_version", "~26.2-")
+    additional.add("frozenlib_version", ">=${frozenlib_version.split('-').firstOrNull()}-")
+    additional.add("protocol_version")
     additional.add("mod_description")
     additional.add("mod_credits")
     additional.add("mod_license")
@@ -30,6 +37,7 @@ mod {
 subprojects {
     apply(plugin = "com.possible-triangle.core")
     apply(plugin = "net.mehvahdjukaar.candlelight")
+    apply(plugin = "dev.mixinmcp.decompile")
 
     tasks.withType<JavaCompile> {
         options.compilerArgs.addAll(listOf("-Xmaxerrs", "4000"))
@@ -43,6 +51,7 @@ subprojects {
 
     dependencies {
         compileOnly("net.mehvahdjukaar:candlelight:+")
+        compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
     }
 
     java {
@@ -55,10 +64,10 @@ subprojects {
         maven("https://maven.frozenblock.net/release") {
             name = "FrozenBlock"
         }
-        maven("https://maven.quiltmc.org/repository/release") {
-            name = "Quilt"
+        maven("https://maven.frozenblock.net/snapshot") {
+            name = "FrozenBlock Snapshot"
         }
-        maven("https://maven.shedaniel.me/")
+
         exclusiveContent {
             forRepository {
                 maven("https://repo.spongepowered.org/repository/maven-public") {
@@ -67,17 +76,41 @@ subprojects {
             }
             filter { includeGroupAndSubgroups("org.spongepowered") }
         }
-        maven("https://maven.blamejared.com") {
-            name = "BlameJared"
+        maven("https://maven.minecraftforge.net/") {
+            name = "Forge"
         }
-        mavenCentral()
-        maven("https://jitpack.io")
         maven("https://thedarkcolour.github.io/KotlinForForge/") {
             name = "KotlinForForge"
             content {
                 includeGroup("thedarkcolour")
             }
         }
+        maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
+            name = "SomethingCatchy (MehVahdJukaar)"
+        }
+
+        maven("https://maven.quiltmc.org/repository/release") {
+            name = "Quilt"
+        }
+        maven("https://maven.blamejared.com") {
+            name = "BlameJared"
+        }
+        maven("https://maven.jamieswhiteshirt.com/libs-release") {
+            name = "JamiesWhiteShirt"
+            content {
+                includeGroup("com.jamieswhiteshirt")
+            }
+        }
+        maven("https://maven.shedaniel.me/") {
+            name = "Shedaniel"
+        }
+        maven("https://maven.caffeinemc.net/releases") {
+            name = "CaffeineMC"
+        }
+        maven("https://maven.terraformersmc.com/releases") {
+            name = "TerraformersMC (Biolith)"
+        }
+
         exclusiveContent {
             forRepository {
                 maven("https://api.modrinth.com/maven") {
@@ -88,8 +121,9 @@ subprojects {
                 includeGroup("maven.modrinth")
             }
         }
-        maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
-            name = "SomethingCatchy (MehVahdJukaar)"
+        maven("https://jitpack.io") {
+            name = "Jitpack"
         }
+        mavenCentral()
     }
 }

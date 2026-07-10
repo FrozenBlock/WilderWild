@@ -26,13 +26,13 @@ import net.frozenblock.wilderwild.client.model.animal.ostrich.BabyOstrichModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
+import net.frozenblock.wilderwild.client.resources.model.WWEquipmentClientInfoLayerType;
 import net.frozenblock.wilderwild.entity.Ostrich;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -58,7 +58,7 @@ public class OstrichRenderer extends net.frozenblock.wilderwild.client.renderer.
 			new SimpleEquipmentLayer<>(
 				this,
 				context.getEquipmentRenderer(),
-				EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_SADDLE,
+				WWEquipmentClientInfoLayerType.WILDERWILD_OSTRICH_SADDLE,
 				ostrichRenderState -> ostrichRenderState.saddle,
 				new OstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_SADDLE)),
 				new BabyOstrichModel<>(context.bakeLayer(WWModelLayers.OSTRICH_BABY_SADDLE))

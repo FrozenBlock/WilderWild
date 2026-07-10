@@ -22,6 +22,7 @@ import java.util.List;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.resources.model.WWEquipmentClientInfoLayerType;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,7 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// TODO: multiloader
 @Environment(EnvType.CLIENT)
 @Mixin(EquipmentClientInfo.class)
 public class EquipmentClientInfoMixin {
@@ -38,7 +38,7 @@ public class EquipmentClientInfoMixin {
 
 	@Inject(method = "getLayers", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$returnOstrichSaddleIfPossible(EquipmentClientInfo.LayerType type, CallbackInfoReturnable<List<EquipmentClientInfo.Layer>> info) {
-		if (type != EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_SADDLE && type != EquipmentClientInfo.LayerType.WILDERWILD_OSTRICH_ZOMBIE_SADDLE) return;
+		if (type != WWEquipmentClientInfoLayerType.WILDERWILD_OSTRICH_SADDLE && type != WWEquipmentClientInfoLayerType.WILDERWILD_OSTRICH_ZOMBIE_SADDLE) return;
 		info.setReturnValue(WILDERWILD$OSTRICH_SADDLE_LAYERS);
 	}
 }

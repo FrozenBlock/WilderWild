@@ -28,6 +28,10 @@ common {
     //injectInterfaces(file("src/main/resources/${mod_id}.classtweaker"))
 }
 
+neoForge {
+    accessTransformers {} // Required for transitive AW to apply!
+}
+
 tasks {
     license {
         if (licenseChecks) {
@@ -43,6 +47,7 @@ dependencies {
     api("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
     compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
+    accessTransformers("net.frozenblock:frozenlib-common:${frozenlib_version}") // Required for transitive AW to apply!
 
     compileOnly("net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7")
     compileOnly("io.github.llamalad7:mixinextras-common:0.5.3")

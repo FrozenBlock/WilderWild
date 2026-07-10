@@ -68,35 +68,9 @@ fabric {
 }
 
 repositories {
-    maven("https://jitpack.io")
-    maven("https://maven.terraformersmc.com") {
-        content {
-            includeGroup("com.terraformersmc")
-        }
-    }
-    maven("https://maven.shedaniel.me/")
-    maven("https://maven.blamejared.com")
-    maven("https://maven.minecraftforge.net/")
-    maven("https://maven.jamieswhiteshirt.com/libs-release") {
-        content {
-            includeGroup("com.jamieswhiteshirt")
-        }
-    }
-    maven("https://maven.frozenblock.net/release") {
-        name = "FrozenBlock"
-    }
-    maven("https://maven.frozenblock.net/snapshot") {
-        name = "FrozenBlock Snapshot"
-    }
-
-    maven("https://maven.caffeinemc.net/releases") {
-        name = "CaffeineMC"
-    }
-
     flatDir {
         dirs("libs")
     }
-    mavenCentral()
 }
 
 val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)

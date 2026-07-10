@@ -83,7 +83,7 @@ public class ChestBlockEntityMixin implements ChestBlockEntityInterface {
 
 				@Override
 				protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int count, int openCount) {
-					stoneChestBlockEntity.signalOpenCount(level, pos, state, count, openCount);
+					((ChestBlockEntityAccessor)stoneChestBlockEntity).wilderWild$signalOpenCount(level, pos, state, count, openCount);
 				}
 
 				@Override

@@ -8,13 +8,10 @@
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "item.tooltip.ItemStackMixin",
-    "worldgen.biome.GrassColorModifierMixin",
     "worldgen.structure.SwampHutPieceMixin"
   ],
   "client": [
     "client.block_break.MultiPlayerGameModeMixin",
-    "client.equipment.EquipmentClientInfoMixin",
-    "client.equipment.LayerTypeMixin",
     "client.sodium.BlockRendererMixin",
     "datagen.client.BlockModelGeneratorsMixin"
   ],
