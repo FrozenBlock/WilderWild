@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block.impl;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
+import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
@@ -41,7 +41,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class SnowloggingUtils {
-	public static final boolean HAS_ANTIQUE_ATLAS = FrozenLibEarlyPlatformUtils.LOADER.isModLoaded("antique-atlas");
+	public static final boolean HAS_ANTIQUE_ATLAS = ModLoader.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog() && !FrozenBools.IS_DATAGEN;

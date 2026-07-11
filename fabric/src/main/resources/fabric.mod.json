@@ -54,7 +54,7 @@
     "wilderwild.mixins.json",
     "wilderwild.fabric.mixins.json"
   ],
-  "accessWidener": "wilderwild.accesswidener",
+  "accessWidener": "wilderwild.classtweaker",
   "depends": {
     "frozenlib": "${frozenlib_version}",
     "fabricloader": "${fabric_loader_version}",

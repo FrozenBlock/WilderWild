@@ -105,8 +105,10 @@ sourceSets.configureEach {
 }
 
 dependencies {
-    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
-    accessTransformers("net.frozenblock:frozenlib-neoforge:${frozenlib_version}") // Required for transitive AW to apply!
+    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")?.let {
+        accessTransformers(it)
+        interfaceInjectionData(it)
+    }
 
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
     compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
@@ -128,4 +130,8 @@ fun getModVersion(): String {
 java {
     sourceCompatibility = JavaVersion.VERSION_25
     targetCompatibility = JavaVersion.VERSION_25
+}
+
+upload.maven {
+    name.set("wilderwild-neoforge")
 }

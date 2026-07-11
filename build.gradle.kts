@@ -1,8 +1,8 @@
 plugins {
-    id("com.possible-triangle.core")
-    id("com.possible-triangle.common") apply(false)
-    id("com.possible-triangle.fabric") apply(false)
-    id("com.possible-triangle.neoforge") apply(false)
+    id("com.possible-triangle.core") version("1.4-CUSTOM-SNAPSHOT")
+    id("com.possible-triangle.common") version("1.4-CUSTOM-SNAPSHOT") apply(false)
+    id("com.possible-triangle.fabric") version("1.4-CUSTOM-SNAPSHOT") apply(false)
+    id("com.possible-triangle.neoforge") version("1.4-CUSTOM-SNAPSHOT") apply(false)
     id("net.mehvahdjukaar.candlelight") version("+") apply(false)
 
     id("org.ajoberstar.grgit") version("+") apply(false)

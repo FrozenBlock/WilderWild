@@ -7,8 +7,8 @@ accessible field net/minecraft/client/renderer/entity/AgeableMobRenderer babyMod
 mutable field net/minecraft/client/renderer/entity/AgeableMobRenderer babyModel Lnet/minecraft/client/model/EntityModel;
 
 accessible method net/minecraft/client/renderer/blockentity/BlockEntityRenderers register (Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/client/renderer/blockentity/BlockEntityRendererProvider;)V
-transitive-extend-enum net/minecraft/client/resources/model/EquipmentClientInfo$LayerType WILDERWILD_OSTRICH_SADDLE
-transitive-extend-enum net/minecraft/client/resources/model/EquipmentClientInfo$LayerType WILDERWILD_OSTRICH_ZOMBIE_SADDLE
+#transitive-extend-enum net/minecraft/client/resources/model/EquipmentClientInfo$LayerType WILDERWILD_OSTRICH_SADDLE
+#transitive-extend-enum net/minecraft/client/resources/model/EquipmentClientInfo$LayerType WILDERWILD_OSTRICH_ZOMBIE_SADDLE
 
 # Blocks
 accessible method net/minecraft/world/level/block/ChestBlock isCatSittingOnChest (Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)Z
@@ -24,7 +24,6 @@ accessible field net/minecraft/world/level/block/SpeleothemBlock DELAY_BEFORE_FA
 accessible method net/minecraft/world/level/block/SpeleothemBlock isStalagmite (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible method net/minecraft/world/level/block/SpeleothemBlock isTip (Lnet/minecraft/world/level/block/state/BlockState;Z)Z
 accessible field net/minecraft/world/level/block/state/StateHolder propertyKeys [Lnet/minecraft/world/level/block/state/properties/Property;
-accessible method net/minecraft/world/level/block/state/BlockBehaviour getSoundType (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties instrument Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
 accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
@@ -45,7 +44,6 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour UPDATE_SHA
 accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/data/BlockFamilies familyBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/data/BlockFamily$Builder;
 accessible field net/minecraft/client/color/block/BlockColors BLANK_LAYER Lnet/minecraft/client/color/block/BlockTintSource;
-accessible class net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo
 
 # Items
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
@@ -81,8 +79,6 @@ accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/wo
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
-accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signalOpenCount (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V
-
 transitive-inject-interface net/minecraft/world/level/block/entity/PotentSulfurBlockEntity net/frozenblock/wilderwild/block/entity/impl/WWPotentSulfurWindAccess
 
 # Damage
@@ -127,50 +123,5 @@ accessible field net/minecraft/client/particle/Particle stoppedByCollision Z
 transitive-accessible method net/minecraft/SharedConstants debugFlag (Ljava/lang/String;)Z
 transitive-mutable field net/minecraft/world/flag/FeatureFlags REGISTRY Lnet/minecraft/world/flag/FeatureFlagRegistry;
 
-# Data Attachment
-inject-interface net/minecraft/world/level/block/entity/BlockEntity net/frozenblock/lib/platform/api/data/DataAttachmentTarget
-inject-interface net/minecraft/world/level/chunk/ChunkAccess net/frozenblock/lib/platform/api/data/DataAttachmentTarget
-inject-interface net/minecraft/world/entity/Entity net/frozenblock/lib/platform/api/data/DataAttachmentTarget
-inject-interface net/minecraft/world/level/Level net/frozenblock/lib/platform/api/data/DataAttachmentTarget
-
 # Advancement
-accessible field net/minecraft/advancements/triggers/EffectsChangedTrigger$TriggerInstance effects Ljava/util/Optional;
-accessible field net/minecraft/advancements/predicates/MobEffectsPredicate effectMap Ljava/util/Map;
-mutable field net/minecraft/advancements/predicates/MobEffectsPredicate effectMap Ljava/util/Map;
-
-# Built-In Block Models
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createAir (Lnet/minecraft/client/renderer/block/BuiltInBlockModels$Builder;Lnet/minecraft/world/level/block/Block;)V
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels special (Lnet/minecraft/client/renderer/special/SpecialModelRenderer$Unbaked;)Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels special (Lnet/minecraft/client/renderer/special/SpecialModelRenderer$Unbaked;Lcom/mojang/math/Transformation;)Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createMobHead (Lnet/minecraft/world/level/block/SkullBlock$Types;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createMobWallHead (Lnet/minecraft/world/level/block/SkullBlock$Types;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createMobHeads (Lnet/minecraft/client/renderer/block/BuiltInBlockModels$Builder;Lnet/minecraft/world/level/block/SkullBlock$Types;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;)V
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createPlayerHead ()Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createPlayerWallHead ()Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createBanner (Lnet/minecraft/world/item/DyeColor;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createWallBanner (Lnet/minecraft/world/item/DyeColor;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createShulkerBox ()Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createDyedShulkerBox (Lnet/minecraft/world/item/DyeColor;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createChest (Lnet/minecraft/resources/Identifier;Lnet/minecraft/world/level/block/state/properties/ChestType;Lnet/minecraft/core/Direction;)Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createSingletonChest (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createChest (Lnet/minecraft/client/renderer/MultiblockChestResources;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createXmasChest (Lnet/minecraft/client/renderer/MultiblockChestResources;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createCopperGolem (Lnet/minecraft/world/level/block/WeatheringCopper$WeatherState;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createDecoratedPot ()Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createBlockStateModelWrapper (Lnet/minecraft/client/color/block/BlockColors;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/model/BlockStateModelWrapper$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels combineSpecialAndBlockModels (Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;Lnet/minecraft/client/color/block/BlockColors;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/model/CompositeBlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createFlowerBedModel (Lnet/minecraft/client/color/block/BlockColors;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/SelectBlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createEnchantingTable ()Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels specialModelWithPropertyDispatch (Lnet/minecraft/world/level/block/state/properties/Property;Ljava/util/function/Function;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels specialModelWithPropertyDispatch (Lnet/minecraft/world/level/block/state/properties/Property;Lnet/minecraft/world/level/block/state/properties/Property;Ljava/util/function/BiFunction;)Lnet/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels createBlockModels (Lnet/minecraft/client/color/block/BlockColors;)Ljava/util/Map;
-accessible class net/minecraft/client/renderer/block/BuiltInBlockModels$Builder
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$Builder put (Lnet/minecraft/client/renderer/block/BuiltInBlockModels$ModelFactory;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/level/block/Block;)V
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$Builder put (Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;Lnet/minecraft/world/level/block/Block;)V
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$Builder put (Lnet/minecraft/client/renderer/block/BuiltInBlockModels$ModelFactory;Lnet/minecraft/world/level/block/Block;)V
-accessible class net/minecraft/client/renderer/block/BuiltInBlockModels$ModelFactory
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$ModelFactory create (Lnet/minecraft/client/color/block/BlockColors;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-accessible class net/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory create (Lnet/minecraft/client/color/block/BlockColors;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-accessible method net/minecraft/client/renderer/block/BuiltInBlockModels$SpecialModelFactory createSpecial (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/client/renderer/block/model/BlockModel$Unbaked;
-
+accessible method net/minecraft/advancements/predicates/MobEffectsPredicate <init> (Ljava/util/Map;)V

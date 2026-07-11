@@ -1,4 +1,0 @@
-classTweaker v2 official
-
-# Biomes
-transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDERWILD_TUNDRA

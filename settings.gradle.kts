@@ -16,6 +16,9 @@ pluginManagement {
         maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
             name = "SomethingCatchy (MehVahdJukaar)"
         }
+        maven("https://maven.frozenblock.net/snapshot") {
+            name = "FrozenBlock Snapshot"
+        }
 		mavenCentral()
 		gradlePluginPortal()
 	}
