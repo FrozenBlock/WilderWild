@@ -37,7 +37,7 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 @Environment(EnvType.CLIENT)
 public final class WWBuiltInBlockModels {
 
-	public static void setup() {
+	public static void init() {
 		BuiltInBlockModelRegistry.REGISTER.register(builder -> {
 			builder.put(createStoneChest(StoneChestSpecialRenderer.STONE, StoneChestSpecialRenderer.STONE_SCULK), WWBlocks.STONE_CHEST.get());
 			builder.put(BuiltInBlockModels::createBlockStateModelWrapper, WWBlocks.HANGING_TENDRIL.get());

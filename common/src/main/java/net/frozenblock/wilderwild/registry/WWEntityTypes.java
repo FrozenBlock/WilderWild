@@ -2,7 +2,7 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
-import net.frozenblock.lib.entity.api.attribute.FrozenDefaultAttributeRegistry;
+import net.frozenblock.lib.entity.api.attribute.DefaultAttributeRegistry;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
@@ -46,7 +46,7 @@ public final class WWEntityTypes {
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5),
 		fireflyType -> {
-			FrozenDefaultAttributeRegistry.register(fireflyType, Firefly.createAttributes());
+			DefaultAttributeRegistry.register(fireflyType, Firefly.createAttributes());
 			SpawnPlacements.register(
 				fireflyType,
 				SpawnPlacementTypes.NO_RESTRICTIONS,
@@ -64,7 +64,7 @@ public final class WWEntityTypes {
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
 			.clientTrackingRange(5),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Butterfly.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Butterfly.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.NO_RESTRICTIONS,
@@ -82,7 +82,7 @@ public final class WWEntityTypes {
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
 			.clientTrackingRange(10),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Jellyfish.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Jellyfish.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.IN_WATER,
@@ -100,7 +100,7 @@ public final class WWEntityTypes {
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
 			.updateInterval(2),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Tumbleweed.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Tumbleweed.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.ON_GROUND,
@@ -117,7 +117,7 @@ public final class WWEntityTypes {
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F), // eye height is the height * 0.65F
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Crab.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Crab.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.IN_WATER,
@@ -135,7 +135,7 @@ public final class WWEntityTypes {
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Ostrich.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Ostrich.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.ON_GROUND,
@@ -153,7 +153,7 @@ public final class WWEntityTypes {
 			.eyeHeight(2.3F) // eye height is hitbox height
 			.clientTrackingRange(10),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, ZombieOstrich.createAttributes());
+			DefaultAttributeRegistry.register(entityType, ZombieOstrich.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.ON_GROUND,
@@ -173,7 +173,7 @@ public final class WWEntityTypes {
 			.clientTrackingRange(8)
 			.notInPeaceful(),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Scorched.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Scorched.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				WWSpawnTypes.ON_GROUND_OR_IN_LAVA,
@@ -192,7 +192,7 @@ public final class WWEntityTypes {
 			.passengerAttachments(1.36875F)
 			.clientTrackingRange(10),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, FlowerCow.createAttributes());
+			DefaultAttributeRegistry.register(entityType, FlowerCow.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.ON_GROUND,
@@ -211,7 +211,7 @@ public final class WWEntityTypes {
 			.clientTrackingRange(10)
 			.immuneTo(WWBlockTags.PENGUIN_IMMUNE_TO),
 		entityType -> {
-			FrozenDefaultAttributeRegistry.register(entityType, Penguin.createAttributes());
+			DefaultAttributeRegistry.register(entityType, Penguin.createAttributes());
 			SpawnPlacements.register(
 				entityType,
 				SpawnPlacementTypes.ON_GROUND,

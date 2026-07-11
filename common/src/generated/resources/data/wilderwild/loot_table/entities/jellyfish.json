@@ -29,27 +29,12 @@
                   "entity": "this",
                   "predicate": {
                     "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:yellow"
+                      "wilderwild:jellyfish/variant": "wilderwild:lime"
                     }
                   }
                 }
               ],
-              "value": "wilderwild:entities/jellyfish_yellow"
-            },
-            {
-              "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:pink"
-                    }
-                  }
-                }
-              ],
-              "value": "wilderwild:entities/jellyfish_pink"
+              "value": "wilderwild:entities/jellyfish_lime"
             },
             {
               "type": "minecraft:loot_table",
@@ -74,6 +59,36 @@
                   "entity": "this",
                   "predicate": {
                     "minecraft:components": {
+                      "wilderwild:jellyfish/variant": "wilderwild:pearlescent_purple"
+                    }
+                  }
+                }
+              ],
+              "value": "wilderwild:entities/jellyfish_pearlescent_purple"
+            },
+            {
+              "type": "minecraft:loot_table",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "minecraft:components": {
+                      "wilderwild:jellyfish/variant": "wilderwild:pink"
+                    }
+                  }
+                }
+              ],
+              "value": "wilderwild:entities/jellyfish_pink"
+            },
+            {
+              "type": "minecraft:loot_table",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "minecraft:components": {
                       "wilderwild:jellyfish/variant": "wilderwild:red"
                     }
                   }
@@ -89,27 +104,12 @@
                   "entity": "this",
                   "predicate": {
                     "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:lime"
+                      "wilderwild:jellyfish/variant": "wilderwild:yellow"
                     }
                   }
                 }
               ],
-              "value": "wilderwild:entities/jellyfish_lime"
-            },
-            {
-              "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:pearlescent_purple"
-                    }
-                  }
-                }
-              ],
-              "value": "wilderwild:entities/jellyfish_pearlescent_purple"
+              "value": "wilderwild:entities/jellyfish_yellow"
             }
           ]
         }

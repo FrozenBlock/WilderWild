@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
-import net.frozenblock.lib.platform.api.data.DataAttachmentSyncPredicate;
-import net.frozenblock.lib.platform.api.data.DataAttachmentType;
+import net.frozenblock.lib.platform.api.attachment.DataAttachmentSyncPredicate;
+import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.network.codec.ByteBufCodecs;
 

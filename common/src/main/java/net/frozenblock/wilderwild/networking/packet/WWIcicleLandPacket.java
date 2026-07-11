@@ -18,7 +18,8 @@
 package net.frozenblock.wilderwild.networking.packet;
 
 import net.frozenblock.lib.networking.PlayerLookup;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;

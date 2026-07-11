@@ -214,7 +214,7 @@ public final class WWClientNetworking {
 		final double speedMultiplier = first ? 1.5D : 1D;
 		final double speedMultiplierY = first ? 1.13D : 1D;
 
-		for (int a = 0; a < particles; a++) {
+		for (int i = 0; i < particles; i++) {
 			Vec3 offsetPos = AdvancedMath.rotateAboutXZ(
 				origin,
 				0.4D,
@@ -224,11 +224,11 @@ public final class WWClientNetworking {
 			final double dirZ = (offsetPos.z - origin.z) * ((random.nextFloat() * 0.6D) + 0.4D) / (double) tickCount;
 
 			if (random.nextBoolean()) {
-				final Particle particle2 = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
-				if (particle2 != null) {
-					particle2.xd = ((dirX * 0.2D)) * speedMultiplier;
-					particle2.yd = ((0.5D / (double) tickCount) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
-					particle2.zd = ((dirZ * 0.2D)) * speedMultiplier;
+				final Particle smokeParticle = particleEngine.createParticle(ParticleTypes.LARGE_SMOKE, x + dirX * 0.3D, y, z + dirZ * 0.3D, 0D, 0D, 0D);
+				if (smokeParticle != null) {
+					smokeParticle.xd = ((dirX * 0.2D)) * speedMultiplier;
+					smokeParticle.yd = ((0.5D / (double) tickCount) * ((random.nextFloat() * 0.4D) + 0.7D)) * speedMultiplierY;
+					smokeParticle.zd = ((dirZ * 0.2D)) * speedMultiplier;
 				}
 			}
 

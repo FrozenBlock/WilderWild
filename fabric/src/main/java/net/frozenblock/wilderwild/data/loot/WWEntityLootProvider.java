@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.loot;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -67,6 +68,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		final Map<Holder<JellyfishVariant>, ResourceKey<LootTable>> jellyfishVariantToLootTableNames = new Object2ObjectLinkedOpenHashMap<>();
 		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
 			.listElements()
+			.sorted(Comparator.comparing(holder -> holder.key().identifier().getPath()))
 			.forEach(jellyfishVariant -> {
 				final Identifier id = jellyfishVariant.key().identifier();
 				final String path = id.getPath();

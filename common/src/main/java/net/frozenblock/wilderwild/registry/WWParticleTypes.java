@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
-import net.frozenblock.lib.platform.api.registry.FrozenParticleTypes;
+import net.frozenblock.lib.platform.api.registry.ParticleTypeHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
@@ -498,7 +498,7 @@ public final class WWParticleTypes {
 	}
 
 	private static FrozenHolder<ParticleType<?>, SimpleParticleType> register(String name, boolean alwaysShow) {
-		return REGISTER.register(name, () -> FrozenParticleTypes.simple(alwaysShow));
+		return REGISTER.register(name, () -> ParticleTypeHelper.simple(alwaysShow));
 	}
 
 	private static FrozenHolder<ParticleType<?>, SimpleParticleType> register(String name) {
@@ -530,6 +530,6 @@ public final class WWParticleTypes {
 		Function<ParticleType<T>, StreamCodec<? super RegistryFriendlyByteBuf, T>> streamCodec,
 		Consumer<ParticleType<T>> also
 	) {
-		return REGISTER.register(id.getPath(), () -> FrozenParticleTypes.complex(alwaysShow, codec, streamCodec), also);
+		return REGISTER.register(id.getPath(), () -> ParticleTypeHelper.complex(alwaysShow, codec, streamCodec), also);
 	}
 }

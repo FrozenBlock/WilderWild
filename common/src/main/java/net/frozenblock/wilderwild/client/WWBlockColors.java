@@ -26,7 +26,7 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSources;
 
 @Environment(EnvType.CLIENT)
-public final class WWTints {
+public final class WWBlockColors {
 
 	public static void init() {
 		BlockColorRegistry.registerTints(

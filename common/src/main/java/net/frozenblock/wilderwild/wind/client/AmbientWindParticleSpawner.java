@@ -23,7 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.frozenblock.lib.event.api.events.ClientTickEvents;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
-import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
+import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;

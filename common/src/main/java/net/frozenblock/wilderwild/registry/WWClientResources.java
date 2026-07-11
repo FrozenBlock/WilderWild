@@ -30,32 +30,32 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 @Environment(EnvType.CLIENT)
 public final class WWClientResources {
 
-	public static void register() {
-		String modId = WWConstants.MOD_ID;
-
+	public static void init() {
 		FrozenLibResourceLoader.registerBuiltinPack(
 			WWConstants.id("mc_live_tendrils"),
-			modId,
+			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
 			PackActivationType.NORMAL
 		);
 
 		FrozenLibResourceLoader.registerBuiltinPack(
 			WWConstants.id("original_firefly"),
-			modId, Component.literal("Original Fireflies"),
+			WWConstants.MOD_ID,
+			Component.literal("Original Fireflies"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
 		FrozenLibResourceLoader.registerBuiltinPack(
 			WWConstants.id("mojang_crabs"),
-			modId,
+			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.mojang_crabs"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
-				WWConstants.id("wilder_extra_music"), modId,
+				WWConstants.id("wilder_extra_music"),
+				WWConstants.MOD_ID,
 				Component.translatable("pack.wilderwild.wilder_extra_music"),
 				PackActivationType.ALWAYS_ENABLED
 			);

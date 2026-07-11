@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
+import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.BlowingHelper;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
@@ -219,8 +219,8 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
 
 		if (!vent) {
-			WindDisturbances.addIf(level, (DataAttachmentTarget) this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbance.INSTANCE);
-			WindDisturbances.addIf(level, (DataAttachmentTarget) this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbance.INSTANCE);
+			WindDisturbances.addIf(level, this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbance.INSTANCE);
+			WindDisturbances.addIf(level, this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbance.INSTANCE);
 		}
 
 		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;

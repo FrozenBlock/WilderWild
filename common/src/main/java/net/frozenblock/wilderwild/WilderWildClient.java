@@ -9,7 +9,7 @@ import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
-import net.frozenblock.wilderwild.client.WWTints;
+import net.frozenblock.wilderwild.client.WWBlockColors;
 import net.frozenblock.wilderwild.registry.WWClientResources;
 import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 
@@ -19,14 +19,14 @@ public final class WilderWildClient {
 	public static void init() {
 		WWEasterEggs.hatchEasterEggs();
 
-		WWClientResources.register();
+		WWClientResources.init();
 		WWModelLayers.init();
 		WWItemProperties.init();
 		WWClientMusicImpl.init();
 		WWRenderStateDataKeys.init();
 		WWParticleEngine.init();
 		AmbientWindParticleSpawner.init();
-		WWBuiltInBlockModels.setup();
-		WWTints.init();
+		WWBuiltInBlockModels.init();
+		WWBlockColors.init();
 	}
 }

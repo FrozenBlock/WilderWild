@@ -50,5 +50,4 @@ public final class WWMainConfigGui {
 
 		return configBuilder.build();
 	}
-
 }

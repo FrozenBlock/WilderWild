@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.modification;
 
 import java.util.Map;
-import net.frozenblock.lib.entity.api.WolfVariantBiomeRegistry;
+import net.frozenblock.lib.entity.api.variant.WolfVariantBiomeRegistry;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
