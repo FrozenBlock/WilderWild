@@ -37,8 +37,8 @@
     "client": [
       "net.frozenblock.wilderwild.WilderWildFabricClient"
     ],
-    "frozenlib:mob_categories": [
-      "net.frozenblock.wilderwild.WilderWildFabric"
+    "frozenlib:mob_category": [
+      "net.frozenblock.wilderwild.registry.WWMobCategories"
     ],
     "modmenu": [
       "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"

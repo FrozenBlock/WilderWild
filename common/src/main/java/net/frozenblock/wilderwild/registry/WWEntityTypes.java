@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild.registry;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 import net.frozenblock.lib.entity.api.attribute.FrozenDefaultAttributeRegistry;
-import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
@@ -38,7 +37,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY,
-		Firefly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"),
+		Firefly::new,
+		WWMobCategories.FIREFLY,
 		builder -> builder
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
@@ -55,7 +55,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
-		Butterfly::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"),
+		Butterfly::new,
+		WWMobCategories.BUTTERFLY,
 		builder -> builder
 			.sized(0.3F, 0.3F)
 			.eyeHeight(0.3F * 0.85F) // 0.85F is default eye height scaler
@@ -72,7 +73,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
-		Jellyfish::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
+		Jellyfish::new,
+		WWMobCategories.JELLYFISH,
 		builder -> builder
 			.sized(0.4F, 0.4F)
 			.eyeHeight(0.4F * 0.5F) // eye height is the height * 0.5F
@@ -89,7 +91,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Tumbleweed>> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
-		Tumbleweed::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"),
+		Tumbleweed::new,
+		WWMobCategories.TUMBLEWEED,
 		builder -> builder
 			.sized(0.98F, 0.98F)
 			.eyeHeight(0.98F * 0.5F) // eye height is the height * 0.5F
@@ -106,7 +109,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Crab>> CRAB = register(WWEntityTypeIds.CRAB,
-		Crab::new, FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"),
+		Crab::new,
+		WWMobCategories.CRAB,
 		builder -> builder
 			.sized(0.5F, 0.5F)
 			.eyeHeight(0.5F * 0.65F), // eye height is the height * 0.65F
@@ -122,7 +126,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Ostrich>> OSTRICH = register(WWEntityTypeIds.OSTRICH,
-		Ostrich::new, MobCategory.CREATURE,
+		Ostrich::new,
+		MobCategory.CREATURE,
 		builder -> builder
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
@@ -139,7 +144,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<ZombieOstrich>> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH,
-		ZombieOstrich::new, MobCategory.MONSTER,
+		ZombieOstrich::new,
+		MobCategory.MONSTER,
 		builder -> builder
 			.sized(1.1F, 2.3F)
 			.eyeHeight(2.3F) // eye height is hitbox height
@@ -156,7 +162,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Scorched>> SCORCHED = register(WWEntityTypeIds.SCORCHED,
-		Scorched::new, MobCategory.MONSTER,
+		Scorched::new,
+		MobCategory.MONSTER,
 		builder -> builder
 			.sized(1.26F, 0.81F)
 			.eyeHeight(0.585F)
@@ -175,7 +182,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<FlowerCow>> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM,
-		FlowerCow::new, MobCategory.CREATURE,
+		FlowerCow::new,
+		MobCategory.CREATURE,
 		builder -> builder
 			.sized(0.9F, 1.4F)
 			.eyeHeight(1.3F)
@@ -193,7 +201,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Penguin>> PENGUIN = register(WWEntityTypeIds.PENGUIN,
-		Penguin::new, MobCategory.CREATURE,
+		Penguin::new,
+		MobCategory.CREATURE,
 		builder -> builder
 			.sized(0.55F, 1F)
 			.eyeHeight(0.8F)
@@ -211,7 +220,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT,
-		CoconutProjectile::new, MobCategory.MISC,
+		CoconutProjectile::new,
+		MobCategory.MISC,
 		builder -> builder
 			.sized(0.25F, 0.25F)
 			.clientTrackingRange(4)
@@ -220,7 +230,8 @@ public final class WWEntityTypes {
 	);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
-		FallingLeafTicker::new, MobCategory.MISC,
+		FallingLeafTicker::new,
+		MobCategory.MISC,
 		builder -> builder
 			.sized(0F, 0F)
 			.clientTrackingRange(0),
