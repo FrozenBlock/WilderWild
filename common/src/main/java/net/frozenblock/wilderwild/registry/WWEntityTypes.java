@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 import net.frozenblock.lib.entity.api.attribute.FrozenDefaultAttributeRegistry;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -239,90 +241,20 @@ public final class WWEntityTypes {
 	);
 
 	// BOATS
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = register(WWEntityTypeIds.BAOBAB_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.BAOBAB_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = register(WWEntityTypeIds.BAOBAB_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.BAOBAB_CHEST_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, WWItems.BAOBAB_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, WWItems.BAOBAB_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = register(WWEntityTypeIds.WILLOW_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.WILLOW_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = register(WWEntityTypeIds.WILLOW_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.WILLOW_CHEST_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, WWItems.WILLOW_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, WWItems.WILLOW_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = register(WWEntityTypeIds.CYPRESS_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.CYPRESS_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = register(WWEntityTypeIds.CYPRESS_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.CYPRESS_CHEST_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, WWItems.CYPRESS_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, WWItems.CYPRESS_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = register(WWEntityTypeIds.PALM_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.PALM_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = register(WWEntityTypeIds.PALM_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.PALM_CHEST_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, WWItems.PALM_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, WWItems.PALM_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = register(WWEntityTypeIds.MAPLE_BOAT,
-		EntityTypes.boatFactory(() -> WWItems.MAPLE_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = register(WWEntityTypeIds.MAPLE_CHEST_BOAT,
-		EntityTypes.chestBoatFactory(() -> WWItems.MAPLE_CHEST_BOAT.get()), MobCategory.MISC,
-		builder -> builder
-			.noLootTable()
-			.sized(1.375F, 0.5625F)
-			.eyeHeight(0.5625F)
-			.clientTrackingRange(10)
-	);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, WWItems.MAPLE_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, WWItems.MAPLE_CHEST_BOAT);
 
 	public static void init() {}
 
@@ -330,11 +262,43 @@ public final class WWEntityTypes {
 		REGISTER.register();
 	}
 
-	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory, MobCategory category, UnaryOperator<EntityType.Builder<E>> builder) {
+	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(
+		ResourceKey<EntityType<?>> id,
+		EntityType.EntityFactory<E> factory,
+		MobCategory category,
+		UnaryOperator<EntityType.Builder<E>> builder
+	) {
 		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder, null);
 	}
 
-	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory, MobCategory category, UnaryOperator<EntityType.Builder<E>> builder, Consumer<EntityType<E>> also) {
+	private static <E extends AbstractBoat> FrozenHolder<EntityType<?>, EntityType<E>> registerAbstractBoat(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory) {
+		return register(
+			id,
+			factory,
+			MobCategory.MISC,
+			builder -> builder
+				.noLootTable()
+				.sized(1.375F, 0.5625F)
+				.eyeHeight(0.5625F)
+				.clientTrackingRange(10)
+		);
+	}
+
+	private static <E extends Boat> FrozenHolder<EntityType<?>, EntityType<E>> registerBoat(ResourceKey<EntityType<?>> id, FrozenDeferredItem<?> item) {
+		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.boatFactory(() -> item.get()));
+	}
+
+	private static <E extends ChestBoat> FrozenHolder<EntityType<?>, EntityType<E>> registerChestBoat(ResourceKey<EntityType<?>> id, FrozenDeferredItem<?> item) {
+		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.chestBoatFactory(() -> item.get()));
+	}
+
+	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(
+		ResourceKey<EntityType<?>> id,
+		EntityType.EntityFactory<E> factory,
+		MobCategory category,
+		UnaryOperator<EntityType.Builder<E>> builder,
+		Consumer<EntityType<E>> also
+	) {
 		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder, also);
 	}
 }

@@ -203,11 +203,11 @@
     ],
     "water_ambient": [],
     "water_creature": [],
-    "wilderwild:butterfly": [],
-    "wilderwild:crab": [],
-    "wilderwild:firefly": [],
-    "wilderwild:jellyfish": [],
-    "wilderwild:tumbleweed": []
+    "wilderwild_butterfly": [],
+    "wilderwild_crab": [],
+    "wilderwild_firefly": [],
+    "wilderwild_jellyfish": [],
+    "wilderwild_tumbleweed": []
   },
   "temperature": 0.5
 }
