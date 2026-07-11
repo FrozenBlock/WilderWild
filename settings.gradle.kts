@@ -64,9 +64,17 @@ if (Constants.NEOFORGE) {
 localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", kotlin = false, enabled = false)
 localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", kotlin = false, enabled = false)
 
-localRepository("FrozenLib", "net.frozenblock:frozenlib", prefix = "flib", multi = true, enabled = true)
+localRepository("FrozenLib", "net.frozenblock:frozenlib", prefix = "flib", multi = true, candlelight = true, enabled = true)
 
-fun localRepository(repo: String, dependencySub: String, prefix: String = "", multi: Boolean = true, kotlin: Boolean = true, enabled: Boolean) {
+fun localRepository(
+    repo: String,
+    dependencySub: String,
+    prefix: String = "",
+    multi: Boolean = true,
+    kotlin: Boolean = true,
+    candlelight: Boolean = false,
+    enabled: Boolean
+) {
 	if (!enabled) return
 	println("Attempting to include local repo $repo")
 
@@ -84,6 +92,10 @@ fun localRepository(repo: String, dependencySub: String, prefix: String = "", mu
 	var path = "../$repo"
 	var file = File(path)
 
+	val allSuffixes = mutableListOf("common")
+	if (Constants.FABRIC) allSuffixes.add("fabric")
+	if (Constants.NEOFORGE) allSuffixes.add("neoforge")
+
 	if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
 		if (github) {
 			path = repo
@@ -93,9 +105,6 @@ fun localRepository(repo: String, dependencySub: String, prefix: String = "", mu
 		if (file.exists()) {
 			includeBuild(path) {
 				dependencySubstitution {
-                    val allSuffixes = mutableListOf("common")
-                    if (Constants.FABRIC) allSuffixes.add("fabric")
-                    if (Constants.NEOFORGE) allSuffixes.add("neoforge")
 					if (multi && allSuffixes.isNotEmpty()) {
                         for (suffix in allSuffixes) {
                             substitute(module("$dependencySub-$suffix")).using(project(":$prefix-$suffix"))
@@ -108,6 +117,22 @@ fun localRepository(repo: String, dependencySub: String, prefix: String = "", mu
 					}
 				}
 			}
+
+			if (multi && candlelight) {
+				gradle.rootProject {
+					subprojects {
+						val suffix = allSuffixes.find { project.name.endsWith("-$it") }
+						if (suffix != null) {
+							afterEvaluate {
+								tasks.findByName("compileJava")?.dependsOn(
+									gradle.includedBuild(repo).task(":$prefix-$suffix:candleLightTransform")
+								)
+							}
+						}
+					}
+				}
+			}
+
 			println("Included local repo $repo")
 		} else {
 			println("Local repo $repo not found")

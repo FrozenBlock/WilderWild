@@ -52,7 +52,7 @@ public abstract class MultiPlayerGameModeMixin {
 	private Minecraft minecraft;
 
 	/**
-	 * @reason NeoForge completely rewrites this method.
+	 * NeoForge completely rewrites this method.
 	 */
 	@ModifyExpressionValue(
 		method = "destroyBlock",
@@ -70,7 +70,7 @@ public abstract class MultiPlayerGameModeMixin {
 	}
 
 	/**
-	 * @reason NeoForge completely rewrites this method.
+	 * NeoForge completely rewrites this method.
 	 */
 	@WrapOperation(
 		method = "destroyBlock",

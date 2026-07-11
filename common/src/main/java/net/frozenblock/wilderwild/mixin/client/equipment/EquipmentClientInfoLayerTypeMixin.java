@@ -52,7 +52,6 @@ public class EquipmentClientInfoLayerTypeMixin {
 		final EquipmentClientInfo.LayerType ostrichZombieSaddle = newLayerType("WILDERWILD_OSTRICH_ZOMBIE_SADDLE", ordinal++, WWConstants.safeString("ostrich_zombie_saddle"));
 		WWEquipmentClientInfoLayerType.WILDERWILD_OSTRICH_ZOMBIE_SADDLE = ostrichZombieSaddle;
 
-
 		$VALUES = layerTypes.toArray(new EquipmentClientInfo.LayerType[0]);
 	}
 }

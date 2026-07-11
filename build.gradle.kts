@@ -58,6 +58,12 @@ subprojects {
         withJavadocJar()
     }
 
+    if (project.name != "ww-common") {
+        afterEvaluate {
+            tasks.findByName("compileJava")?.dependsOn(":ww-common:candleLightTransform")
+        }
+    }
+
     repositories {
         maven("https://maven.frozenblock.net/release") {
             name = "FrozenBlock"
