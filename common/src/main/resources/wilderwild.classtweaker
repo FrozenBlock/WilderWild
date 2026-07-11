@@ -67,7 +67,6 @@ accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/mine
 accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
 accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
-extendable method net/minecraft/world/entity/Mob getLootTable ()Ljava/util/Optional;
 accessible method net/minecraft/world/entity/projectile/arrow/AbstractArrow isInGround ()Z
 accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
