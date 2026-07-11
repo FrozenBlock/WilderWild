@@ -175,11 +175,11 @@
         "weight": 2
       }
     ],
-    "wilderwild_butterfly": [],
-    "wilderwild_crab": [],
-    "wilderwild_firefly": [],
-    "wilderwild_jellyfish": [],
-    "wilderwild_tumbleweed": []
+    "wilderwild:butterfly": [],
+    "wilderwild:crab": [],
+    "wilderwild:firefly": [],
+    "wilderwild:jellyfish": [],
+    "wilderwild:tumbleweed": []
   },
   "temperature": 1.5
 }
