@@ -38,13 +38,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 public final class TermiteBlockBehaviors {
-
-	private static ResourceKey<TermiteBlockBehavior> createKey(String string) {
-		return ResourceKey.create(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, WWConstants.id(string));
-	}
 
 	public static void register(
 		BootstrapContext<TermiteBlockBehavior> context,
@@ -196,6 +193,15 @@ public final class TermiteBlockBehaviors {
 		return Optional.empty();
 	}
 
+	public static ResourceKey<TermiteBlockBehavior> createKey(Identifier id) {
+		return ResourceKey.create(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, id);
+	}
+
+	private static ResourceKey<TermiteBlockBehavior> createKey(String string) {
+		return createKey(WWConstants.id(string));
+	}
+
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<TermiteBlockBehavior> context) {
 		// PLAYER-PLACED
 		registerNaturalAndPlayer(context, Blocks.ACACIA_LOG, Blocks.STRIPPED_ACACIA_LOG);

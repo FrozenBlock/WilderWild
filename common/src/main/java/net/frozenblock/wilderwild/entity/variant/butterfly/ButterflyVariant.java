@@ -40,22 +40,20 @@ import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.ChatFormatting;
 
 public record ButterflyVariant(
-	ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name
+	ClientAsset.ResourceTexture resourceTexture,
+	SpawnPrioritySelectors spawnConditions,
+	String name
 ) implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
-			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(ButterflyVariant::spawnConditions),
-			Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
-		).apply(instance, ButterflyVariant::new)
-	);
-	public static final Codec<ButterflyVariant> NETWORK_CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
-			Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
-		).apply(instance, ButterflyVariant::new)
-	);
+	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
+		SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(ButterflyVariant::spawnConditions),
+		Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
+	).apply(instance, ButterflyVariant::new));
+	public static final Codec<ButterflyVariant> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
+		Codec.STRING.fieldOf("name").forGetter(ButterflyVariant::name)
+	).apply(instance, ButterflyVariant::new));
 	public static final Codec<Holder<ButterflyVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.BUTTERFLY_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ButterflyVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.BUTTERFLY_VARIANT);
 

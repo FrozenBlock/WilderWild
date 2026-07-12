@@ -1,0 +1,28 @@
+{
+  "leaf_litter_block": "wilderwild:willow_leaf_litter",
+  "leaf_litter_particle_data": {
+    "gravity_scale": 1.4,
+    "movement_type": "swirl",
+    "origin_block": "wilderwild:willow_leaves",
+    "particle": "wilderwild:willow_leaves",
+    "spawn_chance": 0.0045,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/willowFrequency"
+    },
+    "texture_size": 5,
+    "wind_scale": 10.0
+  },
+  "leaf_particle_data": {
+    "gravity_scale": 1.4,
+    "movement_type": "swirl",
+    "origin_block": "wilderwild:willow_leaves",
+    "particle": "wilderwild:willow_leaves",
+    "spawn_chance": 0.0045,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/willowFrequency"
+    },
+    "texture_size": 5,
+    "wind_scale": 10.0
+  },
+  "leaves_block": "wilderwild:willow_leaves"
+}

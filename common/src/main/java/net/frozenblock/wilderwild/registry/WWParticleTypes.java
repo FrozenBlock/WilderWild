@@ -18,21 +18,17 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.lib.platform.api.registry.ParticleTypeHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
+import net.frozenblock.wilderwild.particle.options.LeafClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
@@ -43,15 +39,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 
 public final class WWParticleTypes {
 	private static final FrozenDeferredRegister<ParticleType<?>> REGISTER = FrozenDeferredRegister.create(
 		Registries.PARTICLE_TYPE,
 		WWConstants.MOD_ID
 	);
-	private static final List<Runnable> LEAF_LINKS = new ArrayList<>();
 
 	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> POLLEN = register("pollen");
 	public static final FrozenHolder<ParticleType<?>, ParticleType<SeedParticleOptions>> SEED = register("seed",
@@ -73,7 +66,11 @@ public final class WWParticleTypes {
 	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> UNDERWATER_ASH = register("underwater_ash");
 	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> PLANKTON = register("plankton");
 	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> GLOWING_PLANKTON = register("glowing_plankton");
-	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> LEAF_CLUSTER_SPAWNER = register("leaf_cluster");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<LeafClusterSeedParticleOptions>> LEAF_CLUSTER_SPAWNER = register("leaf_cluster",
+		false,
+		particleType -> LeafClusterSeedParticleOptions.CODEC,
+		particleType -> LeafClusterSeedParticleOptions.STREAM_CODEC
+	);
 	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> CHEST_BUBBLE_SPAWNER = register("chest_bubbles");
 	public static final FrozenHolder<ParticleType<?>, SimpleParticleType> SHRIEKER_BUBBLE_SPAWNER = register("shrieker_bubbles");
 
@@ -146,273 +143,40 @@ public final class WWParticleTypes {
 		particleType -> WindClusterSeedParticleOptions.STREAM_CODEC
 	);
 
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> OAK_LEAVES = createLeafParticle(
-		WWConstants.id("oak_leaves"),
-		() -> Blocks.OAK_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.OAK_LEAF_FREQUENCY.get() * 0.01D,
-		5,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> OAK_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("oak_litter_leaves"),
-		() -> Blocks.LEAF_LITTER,
-		5,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> SPRUCE_LEAVES = createLeafParticle(
-		WWConstants.id("spruce_leaves"),
-		() -> Blocks.SPRUCE_LEAVES,
-		0.0075F,
-		() -> WWAmbienceAndMiscConfig.SPRUCE_LEAF_FREQUENCY.get() * 0.01D,
-		5,
-		2F,
-		5F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> SPRUCE_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("spruce_litter_leaves"),
-		WWBlocks.SPRUCE_LEAF_LITTER,
-		5,
-		2F,
-		5F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BIRCH_LEAVES = createLeafParticle(
-		WWConstants.id("birch_leaves"),
-		() -> Blocks.BIRCH_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.BIRCH_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		1F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BIRCH_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("birch_litter_leaves"),
-		WWBlocks.BIRCH_LEAF_LITTER,
-		4,
-		1F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> JUNGLE_LEAVES = createLeafParticle(
-		WWConstants.id("jungle_leaves"),
-		() -> Blocks.JUNGLE_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.JUNGLE_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> JUNGLE_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("jungle_litter_leaves"),
-		WWBlocks.JUNGLE_LEAF_LITTER,
-		4,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ACACIA_LEAVES = createLeafParticle(
-		WWConstants.id("acacia_leaves"),
-		() -> Blocks.ACACIA_LEAVES,
-		0.0125F,
-		() -> WWAmbienceAndMiscConfig.ACACIA_LEAF_FREQUENCY.get() * 0.01D,
-		3,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ACACIA_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("acacia_litter_leaves"),
-		WWBlocks.ACACIA_LEAF_LITTER,
-		4,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> DARK_OAK_LEAVES = createLeafParticle(
-		WWConstants.id("dark_oak_leaves"),
-		() -> Blocks.DARK_OAK_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.DARK_OAK_LEAF_FREQUENCY.get() * 0.01D,
-		5,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> DARK_OAK_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("dark_oak_litter_leaves"),
-		WWBlocks.DARK_OAK_LEAF_LITTER,
-		5,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALE_OAK_LEAVES = createLeafParticle(
-		WWConstants.id("pale_oak_leaves"),
-		() -> Blocks.PALE_OAK_LEAVES,
-		0.0045F,
-		() -> WWAmbienceAndMiscConfig.PALE_OAK_LEAF_FREQUENCY.get() * 0.01D,
-		5,
-		0.28F,
-		20F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALE_OAK_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("pale_oak_litter_leaves"),
-		WWBlocks.PALE_OAK_LEAF_LITTER,
-		5,
-		1.4F,
-		20F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> MANGROVE_LEAVES = createLeafParticle(
-		WWConstants.id("mangrove_leaves"),
-		() -> Blocks.MANGROVE_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.MANGROVE_LEAF_FREQUENCY.get() * 0.01D,
-		6,
-		2.5F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> MANGROVE_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("mangrove_litter_leaves"),
-		WWBlocks.MANGROVE_LEAF_LITTER,
-		6,
-		2.5F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CHERRY_LEAVES = createLeafParticle(
-		WWConstants.id("cherry_leaves"),
-		() -> Blocks.CHERRY_LEAVES,
-		0.0125F,
-		() -> WWAmbienceAndMiscConfig.CHERRY_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		1F,
-		2F,
-		FallingLeafUtil.LeafMovementType.FLOW_AWAY
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CHERRY_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("cherry_litter_leaves"),
-		WWBlocks.CHERRY_LEAF_LITTER,
-		4,
-		1F,
-		2F,
-		FallingLeafUtil.LeafMovementType.FLOW_AWAY
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> AZALEA_LEAVES = createLeafParticle(
-		WWConstants.id("azalea_leaves"),
-		() -> Blocks.AZALEA_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.AZALEA_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		2F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> FLOWERING_AZALEA_LEAVES = createLeafParticle(
-		WWConstants.id("flowering_azalea_leaves"),
-		() -> Blocks.FLOWERING_AZALEA_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.AZALEA_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		2F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> AZALEA_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("azalea_litter_leaves"),
-		WWBlocks.AZALEA_LEAF_LITTER,
-		4,
-		2F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BAOBAB_LEAVES = createLeafParticle(
-		WWConstants.id("baobab_leaves"),
-		WWBlocks.BAOBAB_LEAVES,
-		0.0095F,
-		() -> WWAmbienceAndMiscConfig.BAOBAB_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		2F,
-		15F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BAOBAB_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("baobab_litter_leaves"),
-		WWBlocks.BAOBAB_LEAF_LITTER,
-		4,
-		2F,
-		15F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CYPRESS_LEAVES = createLeafParticle(
-		WWConstants.id("cypress_leaves"),
-		WWBlocks.CYPRESS_LEAVES,
-		0.0075F,
-		() -> WWAmbienceAndMiscConfig.CYPRESS_LEAF_FREQUENCY.get() * 0.01D,
-		4,
-		2F,
-		5F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CYPRESS_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("cypress_litter_leaves"),
-		WWBlocks.CYPRESS_LEAF_LITTER,
-		4,
-		2F,
-		5F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALM_FRONDS = createLeafParticle(
-		WWConstants.id("palm_fronds"),
-		WWBlocks.PALM_FRONDS,
-		0.00055F,
-		() -> WWAmbienceAndMiscConfig.PALM_FROND_FREQUENCY.get() * 0.01D,
-		6,
-		4.5F,
-		5F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALM_LITTER_FRONDS = createLeafLitterParticle(
-		WWConstants.id("palm_litter_fronds"),
-		WWBlocks.PALM_FROND_LITTER,
-		6,
-		4.5F,
-		5F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> OAK_LEAVES = createLeafParticle("oak_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> OAK_LITTER_LEAVES = createLeafParticle("oak_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> SPRUCE_LEAVES = createLeafParticle("spruce_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> SPRUCE_LITTER_LEAVES = createLeafParticle("spruce_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BIRCH_LEAVES = createLeafParticle("birch_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BIRCH_LITTER_LEAVES = createLeafParticle("birch_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> JUNGLE_LEAVES = createLeafParticle("jungle_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> JUNGLE_LITTER_LEAVES = createLeafParticle("jungle_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ACACIA_LEAVES = createLeafParticle("acacia_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ACACIA_LITTER_LEAVES = createLeafParticle("acacia_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> DARK_OAK_LEAVES = createLeafParticle("dark_oak_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> DARK_OAK_LITTER_LEAVES = createLeafParticle("dark_oak_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALE_OAK_LEAVES = createLeafParticle("pale_oak_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALE_OAK_LITTER_LEAVES = createLeafParticle("pale_oak_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> MANGROVE_LEAVES = createLeafParticle("mangrove_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> MANGROVE_LITTER_LEAVES = createLeafParticle("mangrove_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CHERRY_LEAVES = createLeafParticle("cherry_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CHERRY_LITTER_LEAVES = createLeafParticle("cherry_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> AZALEA_LEAVES = createLeafParticle("azalea_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> FLOWERING_AZALEA_LEAVES = createLeafParticle("flowering_azalea_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> AZALEA_LITTER_LEAVES = createLeafParticle("azalea_litter_leaves");
 
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> YELLOW_MAPLE_LEAVES = createLeafParticle(WWConstants.id("yellow_maple_leaves"));
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ORANGE_MAPLE_LEAVES = createLeafParticle(WWConstants.id("orange_maple_leaves"));
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> RED_MAPLE_LEAVES = createLeafParticle(WWConstants.id("red_maple_leaves"));
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BAOBAB_LEAVES = createLeafParticle("baobab_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> BAOBAB_LITTER_LEAVES = createLeafParticle("baobab_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> WILLOW_LEAVES = createLeafParticle("willow_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> WILLOW_LITTER_LEAVES = createLeafParticle("willow_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CYPRESS_LEAVES = createLeafParticle("cypress_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CYPRESS_LITTER_LEAVES = createLeafParticle("cypress_litter_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALM_FRONDS = createLeafParticle("palm_fronds");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALM_LITTER_FRONDS = createLeafParticle("palm_litter_fronds");
 
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> WILLOW_LEAVES = createLeafParticle(
-		WWConstants.id("willow_leaves"),
-		WWBlocks.WILLOW_LEAVES,
-		0.0045F,
-		() -> WWAmbienceAndMiscConfig.WILLOW_LEAF_FREQUENCY.get() * 0.01D,
-		5,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> WILLOW_LITTER_LEAVES = createLeafLitterParticle(
-		WWConstants.id("willow_litter_leaves"),
-		WWBlocks.WILLOW_LEAF_LITTER,
-		4,
-		1.4F,
-		10F,
-		FallingLeafUtil.LeafMovementType.SWIRL
-	);
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> YELLOW_MAPLE_LEAVES = createLeafParticle("yellow_maple_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ORANGE_MAPLE_LEAVES = createLeafParticle("orange_maple_leaves");
+	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> RED_MAPLE_LEAVES = createLeafParticle("red_maple_leaves");
 
 	static {
 		REGISTER.register();
@@ -422,7 +186,7 @@ public final class WWParticleTypes {
 		VibrationParticleVisibilityApi.registerVisibilityTest((data, user) -> !(user instanceof Crab.VibrationUser) && !(user instanceof IcicleBlockEntity.VibrationUser));
 	}
 
-	private static FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> createLeafParticle(Identifier id) {
+	public static FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> createLeafParticle(Identifier id) {
 		return register(
 			id,
 			false,
@@ -431,70 +195,8 @@ public final class WWParticleTypes {
 		);
 	}
 
-	private static FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> createLeafParticle(
-		Identifier id,
-		Supplier<? extends Block> sourceBlock,
-		float particleChance,
-		Supplier<Double> frequencyModifier,
-		int textureSize,
-		float particleGravityScale,
-		float windScale,
-		FallingLeafUtil.LeafMovementType leafMovementType
-	) {
-		FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> holder = register(
-			id,
-			false,
-			particleType -> WWFallingLeavesParticleOptions.CODEC,
-			particleType -> WWFallingLeavesParticleOptions.STREAM_CODEC
-		);
-		LEAF_LINKS.add(() -> FallingLeafUtil.registerLeaves(
-			sourceBlock.get(),
-			false,
-			holder.get(),
-			particleChance,
-			frequencyModifier,
-			textureSize,
-			particleGravityScale,
-			windScale,
-			leafMovementType
-		));
-		return holder;
-	}
-
-	private static FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> createLeafLitterParticle(
-		Identifier id,
-		Supplier<Block> litterBlock,
-		int textureSize,
-		float particleGravityScale,
-		float windScale,
-		FallingLeafUtil.LeafMovementType leafMovementType
-	) {
-		FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> holder = register(
-			id,
-			false,
-			particleType -> WWFallingLeavesParticleOptions.CODEC,
-			particleType -> WWFallingLeavesParticleOptions.STREAM_CODEC
-		);
-		LEAF_LINKS.add(() -> FallingLeafUtil.registerLeaves(
-			litterBlock.get(),
-			true,
-			holder.get(),
-			1F,
-			() -> 1D,
-			textureSize,
-			particleGravityScale,
-			windScale,
-			leafMovementType.getGroundSupportingEquivalent()
-		));
-		return holder;
-	}
-
-	/**
-	 * Called separately on Fabric and NeoForge
-	 */
-	public static void linkLeafParticles() {
-		LEAF_LINKS.forEach(Runnable::run);
-		LEAF_LINKS.clear();
+	private static FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> createLeafParticle(String name) {
+		return createLeafParticle(WWConstants.id(name));
 	}
 
 	private static FrozenHolder<ParticleType<?>, SimpleParticleType> register(String name, boolean alwaysShow) {

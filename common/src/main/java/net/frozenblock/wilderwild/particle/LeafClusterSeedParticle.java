@@ -18,7 +18,8 @@
 package net.frozenblock.wilderwild.particle;
 
 import java.util.Optional;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
+import net.frozenblock.wilderwild.particle.options.LeafClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -27,34 +28,41 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
 public class LeafClusterSeedParticle extends NoRenderParticle {
+	private final FallingLeafData fallingLeafData;
 	private final BlockPos pos;
 
-	LeafClusterSeedParticle(ClientLevel level, double x, double y, double z) {
+	LeafClusterSeedParticle(ClientLevel level, double x, double y, double z, FallingLeafData fallingLeafData) {
 		super(level, x, y, z, 0D, 0D, 0D);
-		this.lifetime = 5;
+		this.fallingLeafData = fallingLeafData;
 		this.pos = BlockPos.containing(x, y, z);
+		this.lifetime = 5;
 	}
 
 	@Override
 	public void tick() {
-		final Optional<FallingLeafUtil.FallingLeafData> fallingLeafData = FallingLeafUtil.getFallingLeafData(this.level.getBlockState(this.pos).getBlock());
-		if (fallingLeafData.isEmpty()) {
+		if (!this.level.getBlockState(this.pos).is(this.fallingLeafData.leavesBlock())) {
 			this.remove();
 			return;
 		}
 
-		final ParticleType<WWFallingLeavesParticleOptions> particle = fallingLeafData.get().particle();
+		final Optional<FallingLeafData.ParticleData> particleData = this.fallingLeafData.leafLitterParticleData().or(this.fallingLeafData::leafParticleData);
+		if (particleData.isEmpty()) {
+			this.remove();
+			return;
+		}
+
 		final int leafCount = this.random.nextInt(4) + 1;
 		for (int i = 0; i < leafCount; i++) {
-			final FallingLeafUtil.LeafParticleData leafParticleData = FallingLeafUtil.getLitterOrLeafParticleData(particle);
-			final WWFallingLeavesParticleOptions options = WWFallingLeavesParticleOptions.createFastFalling(particle, leafParticleData.textureSize(), true);
+			final WWFallingLeavesParticleOptions options = WWFallingLeavesParticleOptions.createFastFalling(
+				particleData.get().particle(),
+				particleData.get().originBlock(),
+				particleData.get().textureSize()
+			);
 			ParticleUtils.spawnParticleBelow(this.level, this.pos, this.random, options);
 		}
 
@@ -62,16 +70,16 @@ public class LeafClusterSeedParticle extends NoRenderParticle {
 		if (this.age == this.lifetime) this.remove();
 	}
 
-	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(SpriteSet spriteSet) implements ParticleProvider<LeafClusterSeedParticleOptions> {
 		@Override
 		public Particle createParticle(
-			SimpleParticleType options,
+			LeafClusterSeedParticleOptions options,
 			ClientLevel level,
 			double x, double y, double z,
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new LeafClusterSeedParticle(level, x, y, z);
+			return new LeafClusterSeedParticle(level, x, y, z, options.fallingLeafData().value());
 		}
 	}
 }

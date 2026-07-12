@@ -1,0 +1,28 @@
+{
+  "leaf_litter_block": "minecraft:leaf_litter",
+  "leaf_litter_particle_data": {
+    "gravity_scale": 1.4,
+    "movement_type": "swirl",
+    "origin_block": "minecraft:oak_leaves",
+    "particle": "wilderwild:oak_leaves",
+    "spawn_chance": 0.0095,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/oakFrequency"
+    },
+    "texture_size": 5,
+    "wind_scale": 10.0
+  },
+  "leaf_particle_data": {
+    "gravity_scale": 1.4,
+    "movement_type": "swirl",
+    "origin_block": "minecraft:oak_leaves",
+    "particle": "wilderwild:oak_leaves",
+    "spawn_chance": 0.0095,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/oakFrequency"
+    },
+    "texture_size": 5,
+    "wind_scale": 10.0
+  },
+  "leaves_block": "minecraft:oak_leaves"
+}

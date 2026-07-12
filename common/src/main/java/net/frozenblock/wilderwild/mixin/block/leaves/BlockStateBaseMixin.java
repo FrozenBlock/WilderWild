@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

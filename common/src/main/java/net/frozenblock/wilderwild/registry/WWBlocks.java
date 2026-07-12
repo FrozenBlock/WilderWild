@@ -90,14 +90,11 @@ import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
-import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.minecraft.core.BlockPos;
@@ -106,7 +103,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
@@ -288,15 +284,15 @@ public final class WWBlocks {
 		() -> Blocks.leavesProperties(SoundType.GRASS)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> YELLOW_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_LEAVES.block(),
-		properties -> new LeavesWithLitterBlock(0.25F, properties),
+		LeavesWithLitterBlock::new,
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> ORANGE_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_LEAVES.block(),
-		properties -> new LeavesWithLitterBlock(0.25F, properties),
+		LeavesWithLitterBlock::new,
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> RED_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_LEAVES.block(),
-		properties -> new LeavesWithLitterBlock(0.25F, properties),
+		LeavesWithLitterBlock::new,
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
@@ -445,77 +441,9 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> YELLOW_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER,
-		YELLOW_MAPLE_LEAVES,
-		() -> WWParticleTypes.YELLOW_MAPLE_LEAVES.get()
-	);
-	public static final FrozenDeferredBlock<Block> ORANGE_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER,
-		ORANGE_MAPLE_LEAVES,
-		() -> WWParticleTypes.ORANGE_MAPLE_LEAVES.get()
-	);
-	public static final FrozenDeferredBlock<Block> RED_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.RED_MAPLE_LEAF_LITTER,
-		RED_MAPLE_LEAVES,
-		() -> WWParticleTypes.RED_MAPLE_LEAVES.get()
-	);
-
-	public static FrozenDeferredBlock<Block> registerMapleLeafLitter(BlockItemId id, Supplier<? extends Block> sourceBlock, Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType) {
-		return registerLeafLitter(
-			id,
-			sourceBlock,
-			particleType,
-			0.04F,
-			0.25F,
-			() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
-			5,
-			FallingLeafUtil.LeafMovementType.SWIRL,
-			() -> WWSoundTypes.MAPLE_LEAF_LITTER
-		);
-	}
-
-	public static FrozenDeferredBlock<Block> registerLeafLitter(
-		BlockItemId id,
-		Supplier<? extends Block> sourceBlock,
-		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
-		float litterChance,
-		float leafLitterPlacementOnFallChance,
-		Supplier<Double> frequencyModifier,
-		int textureSize,
-		FallingLeafUtil.LeafMovementType leafMovementType,
-		Supplier<SoundType> soundType
-	) {
-		return registerLeafLitter(
-			id, sourceBlock, particleType, litterChance, leafLitterPlacementOnFallChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, leafMovementType, soundType
-		);
-	}
-
-	public static FrozenDeferredBlock<Block> registerLeafLitter(
-		BlockItemId id,
-		Supplier<? extends Block> sourceBlock,
-		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
-		float litterChance,
-		float leafLitterPlacementOnFallChance,
-		float particleChance,
-		Supplier<Double> frequencyModifier,
-		int textureSize,
-		float particleGravityScale,
-		float windScale,
-		FallingLeafUtil.LeafMovementType leafMovementType,
-		Supplier<SoundType> soundType
-	) {
-		return registerLeafLitter(id, soundType, block1 -> FallingLeafUtil.registerLeavesWithLitter(
-			sourceBlock.get(),
-			block1,
-			litterChance,
-			leafLitterPlacementOnFallChance,
-			particleType.get(),
-			particleChance,
-			frequencyModifier,
-			textureSize,
-			particleGravityScale,
-			windScale,
-			leafMovementType
-		));
-	}
+	public static final FrozenDeferredBlock<Block> YELLOW_MAPLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER, () -> WWSoundTypes.MAPLE_LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> ORANGE_MAPLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER, () -> WWSoundTypes.MAPLE_LEAF_LITTER);
+	public static final FrozenDeferredBlock<Block> RED_MAPLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.RED_MAPLE_LEAF_LITTER, () -> WWSoundTypes.MAPLE_LEAF_LITTER);
 
 	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType) {
 		return registerLeafLitter(id, soundType, null);

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.networking;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.networking.api.ClientNetworkingHelper;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;

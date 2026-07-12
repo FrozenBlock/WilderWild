@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafDatas;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.data.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
@@ -113,6 +114,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(WilderWildRegistries.CRAB_VARIANT, CrabVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.MOOBLOOM_VARIANT, MoobloomVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehaviors::bootstrap);
+		registryBuilder.add(WilderWildRegistries.FALLING_LEAF, FallingLeafDatas::bootstrap);
 	}
 
 	@Override
