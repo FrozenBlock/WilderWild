@@ -17,11 +17,10 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -30,8 +29,8 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 
-@Environment(EnvType.CLIENT)
-public class WindClusterSeedParticle extends NoRenderParticle {
+@ClientOnly
+public final class WindClusterSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
 	private final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 	private final int timeBetweenSpawns;

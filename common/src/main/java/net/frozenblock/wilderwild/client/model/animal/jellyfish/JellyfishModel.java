@@ -18,11 +18,10 @@
 package net.frozenblock.wilderwild.client.model.animal.jellyfish;
 
 import java.util.Arrays;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.renderer.FrozenLibRenderTypes;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -33,7 +32,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	protected static final int JELLYFISH_TENTACLES = WWEntityConfig.JELLYFISH_TENTACLES.get();
 	private static final float EIGHT_PI = -8F * Mth.DEG_TO_RAD;

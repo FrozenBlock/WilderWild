@@ -17,14 +17,13 @@
 
 package net.frozenblock.wilderwild.client.animation.definitions;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class CrabAnimation {
 	public static final AnimationDefinition CRAB_DIG = AnimationDefinition.Builder.withLength(4.75F)
 		.addAnimation("body",

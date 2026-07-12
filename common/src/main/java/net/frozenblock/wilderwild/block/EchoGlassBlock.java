@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
+import net.frozenblock.lib.item.api.component.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;

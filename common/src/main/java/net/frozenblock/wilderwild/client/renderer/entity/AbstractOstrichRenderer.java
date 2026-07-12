@@ -17,17 +17,16 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.world.entity.EquipmentSlot;
 import org.joml.Math;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public abstract class AbstractOstrichRenderer<T extends AbstractOstrich, S extends AbstractOstrichRenderState, M extends EntityModel<? super S>> extends AgeableMobRenderer<T, S, M> {
 
 	public AbstractOstrichRenderer(Context context, M adultModel, M babyModel) {

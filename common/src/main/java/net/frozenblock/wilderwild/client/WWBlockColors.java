@@ -18,14 +18,13 @@
 package net.frozenblock.wilderwild.client;
 
 import java.util.List;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.block.client.api.BlockColorRegistry;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSources;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWBlockColors {
 
 	public static void init() {

@@ -18,15 +18,14 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.particle.client.WindParticle;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(WindParticle.class)
 public class WindParticleMixin {
 

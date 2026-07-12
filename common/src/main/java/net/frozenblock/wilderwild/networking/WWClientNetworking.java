@@ -17,10 +17,8 @@
 
 package net.frozenblock.wilderwild.networking;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.networking.api.ClientNetworkingHelper;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -33,6 +31,7 @@ import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
 import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
@@ -47,7 +46,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWClientNetworking {
 
 	public static void registerPacketReceivers() {
@@ -60,7 +59,7 @@ public final class WWClientNetworking {
 	}
 
 	public static void receiveJellyfishStingPacket() {
-		FrozenLibInitPlatformUtils.NETWORKING.registerGlobalClientReceiver(WWJellyfishStingPacket.PACKET_TYPE, (packet, minecraft, player) -> {
+		ClientNetworkingHelper.registerGlobalClientReceiver(WWJellyfishStingPacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final ClientLevel level = minecraft.level;
 			level.playSound(
 				player,
@@ -76,7 +75,7 @@ public final class WWClientNetworking {
 	}
 
 	public static void receiveLightningStrikePacket() {
-		FrozenLibInitPlatformUtils.NETWORKING.registerGlobalClientReceiver(WWLightningStrikePacket.PACKET_TYPE, (packet, minecraft, player) -> {
+		ClientNetworkingHelper.registerGlobalClientReceiver(WWLightningStrikePacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final BlockState state = Block.stateById(packet.blockStateId());
 			if (state.isAir()) return;
 
@@ -93,7 +92,7 @@ public final class WWClientNetworking {
 	}
 
 	public static void receiveStoneChestLidPacket() {
-		FrozenLibInitPlatformUtils.NETWORKING.registerGlobalClientReceiver(WWStoneChestLidPacket.PACKET_TYPE, (packet, minecraft, player) -> {
+		ClientNetworkingHelper.registerGlobalClientReceiver(WWStoneChestLidPacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final ClientLevel level = minecraft.level;
 			if (!(level.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity)) return;
 
@@ -107,7 +106,7 @@ public final class WWClientNetworking {
 	}
 
 	public static void receiveScorchingFirePlacePacket() {
-		FrozenLibInitPlatformUtils.NETWORKING.registerGlobalClientReceiver(WWScorchingFirePlacePacket.PACKET_TYPE, (packet, minecraft, player) -> {
+		ClientNetworkingHelper.registerGlobalClientReceiver(WWScorchingFirePlacePacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final ClientLevel level = minecraft.level;
 			final RandomSource random = level.getRandom();
 			final BlockPos pos = packet.pos();
@@ -135,7 +134,7 @@ public final class WWClientNetworking {
 	}
 
 	public static void receiveIcicleLandPacket() {
-		FrozenLibInitPlatformUtils.NETWORKING.registerGlobalClientReceiver(WWIcicleLandPacket.PACKET_TYPE, (packet, minecraft, player) -> {
+		ClientNetworkingHelper.registerGlobalClientReceiver(WWIcicleLandPacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final ClientLevel level = minecraft.level;
 			level.playLocalSound(
 				packet.pos(),
@@ -237,7 +236,7 @@ public final class WWClientNetworking {
 	}
 
 	public static void receiveLeavesExplosionPacket() {
-		FrozenLibInitPlatformUtils.NETWORKING.registerGlobalClientReceiver(WWLeavesExplosionParticlePacket.PACKET_TYPE, (packet, minecraft, player) -> {
+		ClientNetworkingHelper.registerGlobalClientReceiver(WWLeavesExplosionParticlePacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final ClientLevel level = minecraft.level;
 			FallingLeafUtil.clientSpawnExplosionParticlesFromPacket(level, packet);
 		});

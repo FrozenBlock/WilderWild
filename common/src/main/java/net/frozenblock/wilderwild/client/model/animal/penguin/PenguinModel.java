@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.client.model.animal.penguin;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
@@ -27,7 +26,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import org.joml.Math;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class PenguinModel<T extends PenguinRenderState> extends EntityModel<T> {
 	private final ModelPart body;
 	private final ModelPart torso;

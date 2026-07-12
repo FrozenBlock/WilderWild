@@ -18,10 +18,9 @@
 package net.frozenblock.wilderwild.particle;
 
 import java.util.Optional;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -33,7 +32,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class LeafClusterSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
 

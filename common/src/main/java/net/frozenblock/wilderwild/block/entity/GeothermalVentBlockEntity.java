@@ -21,8 +21,6 @@ import com.google.common.base.Function;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.BlowingHelper;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
@@ -37,6 +35,7 @@ import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -369,7 +368,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
+	@ClientOnly
 	public void tickClient(Level level, BlockPos pos, BlockState state, RandomSource random) {
 		final GeothermalVentType geothermalVentType = state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE);
 		if (!GeothermalVentBlock.isActive(geothermalVentType)) return;

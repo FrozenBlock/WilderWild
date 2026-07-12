@@ -21,7 +21,6 @@ import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.wind.disturbance.WindDisturbance;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceResult;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
-import net.frozenblock.wilderwild.block.entity.impl.WWPotentSulfurWindAccess;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -43,12 +42,12 @@ public class GeyserWindDisturbance implements WindDisturbance<PotentSulfurBlockE
 
 	@Override
 	public AABB area(PotentSulfurBlockEntity source, Level level, Vec3 origin, Vec3 target, double scale) {
-		return ((WWPotentSulfurWindAccess) source).wilderWild$getWindArea();
+		return source.wilderWild$getWindArea();
 	}
 
 	@Override
 	public WindDisturbanceResult get(PotentSulfurBlockEntity source, Level level, Vec3 target) {
-		if (!((WWPotentSulfurWindAccess) source).wilderWild$isWindActive(level.getGameTime())) return WindDisturbanceResult.PASS;
+		if (!source.wilderWild$isWindActive(level.getGameTime())) return WindDisturbanceResult.PASS;
 		return WindDisturbance.super.get(source, level, target);
 	}
 
@@ -59,7 +58,7 @@ public class GeyserWindDisturbance implements WindDisturbance<PotentSulfurBlockE
 
 	@Override
 	public boolean expired(PotentSulfurBlockEntity source, Level level) {
-		return source.isRemoved() || (!level.isClientSide() && !((WWPotentSulfurWindAccess) source).wilderWild$isWindActive(level.getGameTime()));
+		return source.isRemoved() || (!level.isClientSide() && !source.wilderWild$isWindActive(level.getGameTime()));
 	}
 
 	@Override

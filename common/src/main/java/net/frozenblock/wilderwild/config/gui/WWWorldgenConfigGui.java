@@ -19,8 +19,6 @@ package net.frozenblock.wilderwild.config.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.booleanEntry;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.createSubCategory;
 import static net.frozenblock.wilderwild.WWConstants.text;
@@ -29,10 +27,11 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.config.gui.WWClothConfigGuiHelper.*;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWWorldgenConfigGui {
 
 	public static void setupEntries(ConfigCategory category, ConfigEntryBuilder builder) {

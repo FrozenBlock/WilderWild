@@ -43,9 +43,6 @@ tasks {
 }
 
 dependencies {
-    // only for @Environment
-    api("net.fabricmc:fabric-loader:${fabric_loader_version}")
-
     compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")?.let {
         accessTransformers(it)
         interfaceInjectionData(it)

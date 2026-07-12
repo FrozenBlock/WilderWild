@@ -18,20 +18,19 @@
 package net.frozenblock.wilderwild.client;
 
 import java.util.function.Function;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.music.api.client.pitch.MusicPitchApi;
-import net.frozenblock.lib.resource_pack.api.client.FrozenLibModResourcePackApi;
+import net.frozenblock.lib.resource.client.api.pack.ModResourcePackApi;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.util.Mth;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWClientMusicImpl {
 	private static final String MUSIC_PACK_SUFFIX = "_v2";
 
 	public static void init() {
-		FrozenLibModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
+		ModResourcePackApi.downloadResourcePacks(createMusicDownloadGroup(), true, false);
 
 		final Function<Long, Float> dyingPitchShifting = time -> WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.get() ?
 			(0.98F + Mth.sin((float) ((time * Math.PI) / 1200F)) * 0.025F) : 1F;
@@ -41,8 +40,8 @@ public final class WWClientMusicImpl {
 		MusicPitchApi.registerForBiome(WWBiomes.SNOWY_DYING_MIXED_FOREST.identifier(), dyingPitchShifting);
 	}
 
-	private static FrozenLibModResourcePackApi.PackDownloadGroup createMusicDownloadGroup() {
-		final FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup = FrozenLibModResourcePackApi.PackDownloadGroup.create("wilderwild_music");
+	private static ModResourcePackApi.PackDownloadGroup createMusicDownloadGroup() {
+		final ModResourcePackApi.PackDownloadGroup downloadGroup = ModResourcePackApi.PackDownloadGroup.create("wilderwild_music");
 		addMusicDownloadInfo(downloadGroup, "dove");
 		addMusicDownloadInfo(downloadGroup, "horizon_afoot");
 		addMusicDownloadInfo(downloadGroup, "serene_sonder");
@@ -63,7 +62,7 @@ public final class WWClientMusicImpl {
 		return downloadGroup;
 	}
 
-	private static void addMusicDownloadInfo(FrozenLibModResourcePackApi.PackDownloadGroup downloadGroup, String trackName) {
+	private static void addMusicDownloadInfo(ModResourcePackApi.PackDownloadGroup downloadGroup, String trackName) {
 		downloadGroup.add(
 			"https://raw.githubusercontent.com/FrozenBlock/PackRepo/refs/heads/master/wilderwild/" + trackName + MUSIC_PACK_SUFFIX + ".json",
 			"ww_" + trackName

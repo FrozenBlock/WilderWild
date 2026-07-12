@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -35,7 +34,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class TermiteParticle extends SingleQuadParticle {
 	private final TermiteRotationType xRot;
 	private final TermiteRotationType yRot;

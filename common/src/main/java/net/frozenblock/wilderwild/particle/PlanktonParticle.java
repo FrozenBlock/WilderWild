@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -32,7 +31,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class PlanktonParticle extends SingleQuadParticle {
 	private static final float MAX_R = 216F;
 	private static final float MIN_R = 160F;

@@ -17,13 +17,12 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.FlowerCowFlowerLayer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
 import net.frozenblock.wilderwild.entity.FlowerCow;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.block.BlockModelResolver;
@@ -36,7 +35,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
 	public static final BlockDisplayContext BLOCK_DISPLAY_CONTEXT = BlockDisplayContext.create();
 	private final BlockModelResolver blockModelResolver;

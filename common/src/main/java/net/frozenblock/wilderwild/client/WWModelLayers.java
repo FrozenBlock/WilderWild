@@ -1,10 +1,8 @@
 package net.frozenblock.wilderwild.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.frozenblock.lib.platform.client.BlockEntityRendererRegistry;
-import net.frozenblock.lib.platform.client.ModelLayerRegistry;
 import net.frozenblock.lib.renderer.blockentity.BillboardBlockEntityRenderer;
+import net.frozenblock.lib.renderer.blockentity.BlockEntityRendererRegistry;
+import net.frozenblock.lib.renderer.model.ModelLayerRegistry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
@@ -34,6 +32,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.UndeadOstrichRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -45,7 +44,7 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWModelLayers {
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WWConstants.id("sculk_sensor"), "main");
 	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WWConstants.id("hanging_tendril"), "main");

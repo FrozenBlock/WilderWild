@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.FrozenLibConstants;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.platform.RegistryHelper;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
@@ -35,7 +35,7 @@ public final class WWActivities {
 	public static final FrozenHolder<Activity, Activity> CALL;
 
 	static {
-		var register = FrozenLibInitPlatformUtils.REGISTRY.createDeferredRegister(Registries.ACTIVITY, FrozenLibConstants.MOD_ID);
+		var register = RegistryHelper.createDeferredRegister(Registries.ACTIVITY, FrozenLibConstants.MOD_ID);
 		STAND_UP = register(register, "stand_up");
 		PRE_SEARCH = register(register, "pre_search");
 		SEARCH = register(register, "search");

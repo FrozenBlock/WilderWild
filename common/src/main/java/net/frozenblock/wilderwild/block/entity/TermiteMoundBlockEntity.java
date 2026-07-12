@@ -17,15 +17,12 @@
 
 package net.frozenblock.wilderwild.block.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.client.resources.sounds.TermiteEatingSoundInstance;
-import net.frozenblock.wilderwild.client.resources.sounds.TermiteIdleSoundInstance;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -64,7 +61,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 					0D, 0D, 0D
 				);
 			}
-			if (!this.hadTermite) addTermiteSound(this, eating);
+			if (!this.hadTermite && ModLoader.isClient()) TermiteEatingSoundInstance.addTermiteSound(this, eating);
 			this.hadTermite = true;
 		} else {
 			this.hadTermite = false;
@@ -104,16 +101,5 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	public void loadAdditional(ValueInput input) {
 		super.loadAdditional(input);
 		this.termiteManager.load(input);
-	}
-
-	@Environment(EnvType.CLIENT)
-	public static void addTermiteSound(TermiteMoundBlockEntity mound, boolean eating) {
-		final Minecraft client = Minecraft.getInstance();
-		if (client.level == null) return;
-		if (eating) {
-			client.getSoundManager().play(new TermiteEatingSoundInstance<>(mound));
-		} else {
-			client.getSoundManager().play(new TermiteIdleSoundInstance<>(mound));
-		}
 	}
 }

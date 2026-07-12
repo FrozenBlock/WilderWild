@@ -17,13 +17,12 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity.state;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class ButterflyRenderState extends LivingEntityRenderState {
 	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/butterfly/butterfly_monarch.png");
 	public float downProgress;

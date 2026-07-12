@@ -22,11 +22,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.function.Consumer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.Sheets;
@@ -39,7 +38,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import org.joml.Vector3fc;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class StoneChestSpecialRenderer implements NoDataSpecialModelRenderer {
 	public static final MultiblockChestResources<Identifier> STONE = createDefaultTextures("stone");
 	public static final MultiblockChestResources<Identifier> STONE_SCULK = createDefaultTextures("stone_sculk");

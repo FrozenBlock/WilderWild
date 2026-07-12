@@ -17,10 +17,9 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.NoRenderParticle;
 import net.minecraft.client.particle.Particle;
@@ -34,7 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class ShriekerBubbleSeedParticle extends NoRenderParticle {
 	private final BlockPos pos;
 	private final Vec3 centerPos;
@@ -74,7 +73,6 @@ public class ShriekerBubbleSeedParticle extends NoRenderParticle {
 		if (this.age == this.lifetime) this.remove();
 	}
 
-	@Environment(EnvType.CLIENT)
 	public record Provider(SpriteSet spriteProvider) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(

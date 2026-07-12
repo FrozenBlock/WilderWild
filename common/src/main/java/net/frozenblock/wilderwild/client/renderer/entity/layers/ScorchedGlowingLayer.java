@@ -17,17 +17,16 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity.layers;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.model.monster.spider.ScorchedModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ScorchedRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class ScorchedGlowingLayer extends EyesLayer<ScorchedRenderState, ScorchedModel> {
 	private static final RenderType SCORCHED_GLOWING = RenderTypes.eyes(WWConstants.id("textures/entity/scorched/scorched_glowing.png"));
 

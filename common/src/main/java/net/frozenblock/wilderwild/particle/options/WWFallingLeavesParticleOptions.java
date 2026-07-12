@@ -31,7 +31,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 
-public class WWFallingLeavesParticleOptions implements ParticleOptions {
+public final class WWFallingLeavesParticleOptions implements ParticleOptions {
 	public static final MapCodec<WWFallingLeavesParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 		Identifier.CODEC.fieldOf("particleType").forGetter(WWFallingLeavesParticleOptions::getParticleId),
 		Vec3.CODEC.fieldOf("velocity").forGetter(WWFallingLeavesParticleOptions::getVelocity),

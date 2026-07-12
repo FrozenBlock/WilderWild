@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.client.model.animal.crab;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.CrabAnimation;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -27,7 +26,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class AdultCrabModel extends CrabModel {
 	private static final float LEG_OFFSET = 4F;
 	private static final float LEG_OFFSET_MOJANG = 4.5F;

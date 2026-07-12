@@ -17,15 +17,14 @@
 
 package net.frozenblock.wilderwild.client.model.monster.spider;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ScorchedRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Mth;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 	public final ModelPart head;
 	public final ModelPart rightHindLeg;

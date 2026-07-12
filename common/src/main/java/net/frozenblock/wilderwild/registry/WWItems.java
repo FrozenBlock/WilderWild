@@ -22,7 +22,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
-import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
+import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
@@ -34,7 +34,6 @@ import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
@@ -57,6 +56,7 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.ChatFormatting;
 
 public final class WWItems {
 	private static final FrozenDeferredRegister.Items REGISTER = FrozenDeferredRegister.createItems(

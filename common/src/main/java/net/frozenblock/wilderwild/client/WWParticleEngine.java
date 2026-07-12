@@ -17,9 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.frozenblock.lib.platform.client.ParticleProviderRegistry;
+import net.frozenblock.lib.particle.client.api.ParticleProviderRegistry;
 import net.frozenblock.wilderwild.particle.ChestBubbleSeedParticle;
 import net.frozenblock.wilderwild.particle.FallingParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
@@ -40,8 +38,9 @@ import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
 import net.frozenblock.wilderwild.particle.WindClusterSeedParticle;
 import net.frozenblock.wilderwild.particle.provider.WWParticleProviders;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWParticleEngine {
 
 	public static void init() {

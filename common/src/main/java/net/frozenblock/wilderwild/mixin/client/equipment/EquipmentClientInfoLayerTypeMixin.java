@@ -2,10 +2,9 @@ package net.frozenblock.wilderwild.mixin.client.equipment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.resources.model.WWEquipmentClientInfoLayerType;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -17,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(EquipmentClientInfo.LayerType.class)
 public class EquipmentClientInfoLayerTypeMixin {
 

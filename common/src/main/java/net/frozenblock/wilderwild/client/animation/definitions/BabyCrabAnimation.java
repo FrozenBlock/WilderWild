@@ -17,14 +17,13 @@
 
 package net.frozenblock.wilderwild.client.animation.definitions;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class BabyCrabAnimation {
 	public static final AnimationDefinition BABY_CRAB_DIG = AnimationDefinition.Builder.withLength(4.7917F)
 		.addAnimation("claw_top", new AnimationChannel(AnimationChannel.Targets.ROTATION,

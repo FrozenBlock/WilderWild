@@ -17,15 +17,14 @@
 
 package net.frozenblock.wilderwild.client.animation.definitions;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 // Adult Penguin animations by DaDolphin, edited by AViewFromTheTop, and ported to Baby Penguins by voxelotl!
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class BabyPenguinAnimation {
 	public static final AnimationDefinition BABY_PENGUIN_LAY_DOWN = AnimationDefinition.Builder.withLength(0.6635F)
 		.addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,

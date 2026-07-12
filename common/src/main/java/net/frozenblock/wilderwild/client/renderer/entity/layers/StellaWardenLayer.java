@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.client.renderer.entity.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.function.Function;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.monster.warden.WardenModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
@@ -28,6 +29,7 @@ import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 
+@ClientOnly
 public class StellaWardenLayer extends LivingEntityEmissiveLayer<WardenRenderState, WardenModel> {
 
 	public StellaWardenLayer(

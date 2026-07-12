@@ -18,8 +18,6 @@
 package net.frozenblock.wilderwild.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
@@ -28,6 +26,7 @@ import net.frozenblock.wilderwild.client.renderer.blockentity.state.StoneChestRe
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.Sheets;
@@ -51,7 +50,7 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class StoneChestRenderer<T extends StoneChestBlockEntity & LidBlockEntity> implements BlockEntityRenderer<T, StoneChestRenderState> {
 	public static final MultiblockChestResources<ModelLayerLocation> LAYERS = new MultiblockChestResources<>(
 		WWModelLayers.STONE_CHEST, WWModelLayers.DOUBLE_STONE_CHEST_LEFT, WWModelLayers.DOUBLE_STONE_CHEST_RIGHT

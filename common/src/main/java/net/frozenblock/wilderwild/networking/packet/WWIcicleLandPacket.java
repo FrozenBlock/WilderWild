@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.frozenblock.lib.networking.PlayerLookup;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.networking.api.NetworkingHelper;
+import net.frozenblock.lib.networking.api.PlayerLookup;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,7 +38,7 @@ public record WWIcicleLandPacket(BlockPos pos) implements CustomPacketPayload {
 
 	public static void sendToAll(ServerLevel serverLevel, BlockPos pos) {
 		for (ServerPlayer player : PlayerLookup.tracking(serverLevel, pos)) {
-			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(player, new WWIcicleLandPacket(pos));
+			NetworkingHelper.sendToPlayer(player, new WWIcicleLandPacket(pos));
 		}
 	}
 

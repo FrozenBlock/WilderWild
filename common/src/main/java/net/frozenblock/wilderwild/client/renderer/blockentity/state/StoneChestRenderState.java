@@ -17,13 +17,12 @@
 
 package net.frozenblock.wilderwild.client.renderer.blockentity.state;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.ChestType;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class StoneChestRenderState extends BlockEntityRenderState {
 	public ChestType type;
 	public float open;
