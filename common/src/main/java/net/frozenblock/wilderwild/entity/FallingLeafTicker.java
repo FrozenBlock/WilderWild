@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity;
 
 import net.frozenblock.lib.entity.api.SilentTicker;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -45,6 +46,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 public class FallingLeafTicker extends SilentTicker {
 	private double yd = -0.05D;
 	private Block leafLitter;
+	private float leafLitterPlacementOnFallChance = 1F;
 
 	public FallingLeafTicker(EntityType<?> type, Level level) {
 		super(type, level);
@@ -55,9 +57,10 @@ public class FallingLeafTicker extends SilentTicker {
 		this.snapTo(Vec3.atBottomCenterOf(pos));
 	}
 
-	public static void createAndSpawn(EntityType<?> type, Level level, BlockPos pos, Block leafLitter) {
+	public static void createAndSpawn(EntityType<?> type, Level level, BlockPos pos, Block leafLitter, float leafLitterPlacementOnFallChance) {
 		final FallingLeafTicker fallingLeafTicker = new FallingLeafTicker(type, level, pos);
 		fallingLeafTicker.leafLitter = leafLitter;
+		fallingLeafTicker.leafLitterPlacementOnFallChance = leafLitterPlacementOnFallChance;
 		level.addFreshEntity(fallingLeafTicker);
 	}
 
@@ -73,18 +76,23 @@ public class FallingLeafTicker extends SilentTicker {
 					final BlockPos placePos = hitPos.above();
 					final BlockState stateToReplace = level.getBlockState(placePos);
 					if (FallingLeafUtil.isSafePosToPlaceLitter(level, placePos, stateToReplace, this.leafLitter)) {
-						final BlockState litterState = getPlacementStateForLitter(this.leafLitter, stateToReplace, random);
-						level.setBlockAndUpdate(placePos, litterState);
+						final BlockState placementState = getPlacementStateForLitter(this.leafLitter, stateToReplace, this.random);
 						serverLevel.sendParticles(
-							new BlockParticleOption(ParticleTypes.BLOCK, litterState),
+							new BlockParticleOption(ParticleTypes.BLOCK, placementState),
 							placePos.getX() + 0.5D,
 							placePos.getY() + 0.1D,
 							placePos.getZ() + 0.5D,
-							random.nextInt(8, 18),
+							this.random.nextInt(8, 18),
 							0.3D, 0D, 0.3D,
 							0.05D
 						);
-						final SoundType soundType = litterState.getSoundType();
+
+						if (stateToReplace.is(WWBlockItemTags.LEAF_LITTERS.block()) || this.random.nextFloat() >= this.leafLitterPlacementOnFallChance) {
+							this.discard();
+							return;
+						}
+
+						final SoundType soundType = placementState.getSoundType();
 						level.playSound(
 							null,
 							placePos,
@@ -93,6 +101,7 @@ public class FallingLeafTicker extends SilentTicker {
 							0.3F,
 							soundType.getPitch() * 0.8F
 						);
+						level.setBlockAndUpdate(placePos, placementState);
 					}
 					this.discard();
 				}
@@ -134,6 +143,7 @@ public class FallingLeafTicker extends SilentTicker {
 		super.addAdditionalSaveData(output);
 		output.store("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec(), this.leafLitter);
 		output.putDouble("LeafFallVelocity", this.yd);
+		output.putFloat("LeafLitterPlacementOnFallChance", this.leafLitterPlacementOnFallChance);
 	}
 
 	@Override
@@ -141,6 +151,6 @@ public class FallingLeafTicker extends SilentTicker {
 		super.readAdditionalSaveData(input);
 		this.yd = input.getDoubleOr("LeafFallVelocity", -0.05D);
 		this.leafLitter = input.read("LeafLitterBlock", BuiltInRegistries.BLOCK.byNameCodec()).orElse(null);
+		this.leafLitterPlacementOnFallChance = input.getFloatOr("LeafLitterPlacementOnFallChance", 1F);
 	}
-
 }

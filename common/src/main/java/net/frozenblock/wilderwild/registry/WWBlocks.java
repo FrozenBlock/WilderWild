@@ -288,15 +288,15 @@ public final class WWBlocks {
 		() -> Blocks.leavesProperties(SoundType.GRASS)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> YELLOW_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(0.25F, properties),
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> ORANGE_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(0.25F, properties),
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
 	);
 	public static final FrozenDeferredBlock<LeavesWithLitterBlock> RED_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
+		properties -> new LeavesWithLitterBlock(0.25F, properties),
 		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
 	);
 
@@ -464,6 +464,7 @@ public final class WWBlocks {
 			sourceBlock,
 			particleType,
 			0.04F,
+			0.25F,
 			() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
 			5,
 			FallingLeafUtil.LeafMovementType.SWIRL,
@@ -476,13 +477,14 @@ public final class WWBlocks {
 		Supplier<? extends Block> sourceBlock,
 		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
 		float litterChance,
+		float leafLitterPlacementOnFallChance,
 		Supplier<Double> frequencyModifier,
 		int textureSize,
 		FallingLeafUtil.LeafMovementType leafMovementType,
 		Supplier<SoundType> soundType
 	) {
 		return registerLeafLitter(
-			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, leafMovementType, soundType
+			id, sourceBlock, particleType, litterChance, leafLitterPlacementOnFallChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, leafMovementType, soundType
 		);
 	}
 
@@ -491,6 +493,7 @@ public final class WWBlocks {
 		Supplier<? extends Block> sourceBlock,
 		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
 		float litterChance,
+		float leafLitterPlacementOnFallChance,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
 		int textureSize,
@@ -503,6 +506,7 @@ public final class WWBlocks {
 			sourceBlock.get(),
 			block1,
 			litterChance,
+			leafLitterPlacementOnFallChance,
 			particleType.get(),
 			particleChance,
 			frequencyModifier,

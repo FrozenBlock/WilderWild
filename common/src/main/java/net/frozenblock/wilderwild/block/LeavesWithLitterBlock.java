@@ -18,19 +18,26 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LeavesWithLitterBlock extends LeavesBlock {
-	public static final MapCodec<LeavesWithLitterBlock> CODEC = simpleCodec(LeavesWithLitterBlock::new);
+	public static final MapCodec<LeavesWithLitterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		ExtraCodecs.floatRange(0F, 1F).fieldOf("leaf_litter_placement_on_fall_chance").forGetter(block -> block.leafLitterPlacementOnFallChance),
+		propertiesCodec()
+	).apply(instance, LeavesWithLitterBlock::new));
+	private final float leafLitterPlacementOnFallChance;
 
-	public LeavesWithLitterBlock(Properties properties) {
+	public LeavesWithLitterBlock(float leafLitterPlacementOnFallChance, Properties properties) {
 		super(0F, properties);
+		this.leafLitterPlacementOnFallChance = leafLitterPlacementOnFallChance;
 	}
 
 	@Override
@@ -49,8 +56,10 @@ public class LeavesWithLitterBlock extends LeavesBlock {
 		super.randomTick(state, level, pos, random);
 	}
 
-	@Override
-	protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
-
+	public float leafLitterPlacementOnFallChance() {
+		return this.leafLitterPlacementOnFallChance;
 	}
+
+	@Override
+	protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {}
 }

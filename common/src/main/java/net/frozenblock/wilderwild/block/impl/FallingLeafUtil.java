@@ -72,6 +72,7 @@ public class FallingLeafUtil {
 		Block block,
 		Block leafLitterBlock,
 		float litterChance,
+		float leafLitterPlacementOnFallChance,
 		ParticleType<WWFallingLeavesParticleOptions> leafParticle,
 		float particleChance,
 		Supplier<Double> frequencyModifier,
@@ -83,7 +84,7 @@ public class FallingLeafUtil {
 		registerLeaves(
 			block,
 			false,
-			new FallingLeafData(Optional.of(leafLitterBlock), litterChance, leafParticle),
+			new FallingLeafData(Optional.of(leafLitterBlock), litterChance, leafLitterPlacementOnFallChance, leafParticle),
 			leafParticle,
 			new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, leafMovementType)
 		);
@@ -115,7 +116,7 @@ public class FallingLeafUtil {
 		registerLeaves(
 			block,
 			isLitter,
-			new FallingLeafData(Optional.empty(), 0F, leafParticle),
+			new FallingLeafData(Optional.empty(), 0F, 0F, leafParticle),
 			leafParticle,
 			new LeafParticleData(block, particleChance, frequencyModifier, textureSize, particleGravityScale, windScale, leafMovementType)
 		);
@@ -169,7 +170,8 @@ public class FallingLeafUtil {
 			WWEntityTypes.FALLING_LEAVES.get(),
 			level,
 			pos,
-			leafLitterBlock
+			leafLitterBlock,
+			fallingLeafData.leafLitterPlacementOnFallChance()
 		));
 	}
 
@@ -186,7 +188,7 @@ public class FallingLeafUtil {
 	public static boolean isSafePosToPlaceLitter(Level level, BlockPos pos, BlockState stateToReplace, Block leafLitterBlock) {
 		if (stateToReplace.is(Blocks.SNOW) || SnowloggingUtils.isSnowlogged(stateToReplace)) return false;
 		if ((stateToReplace.isAir() || stateToReplace.canBeReplaced() || stateToReplace.is(leafLitterBlock)) && stateToReplace.getFluidState().isEmpty()) {
-			leafLitterBlock.defaultBlockState().canSurvive(level, pos);
+			return leafLitterBlock.defaultBlockState().canSurvive(level, pos);
 		}
 		return false;
 	}
@@ -406,6 +408,7 @@ public class FallingLeafUtil {
 	public record FallingLeafData(
 		Optional<Block> leafLitterBlock,
 		float litterChance,
+		float leafLitterPlacementOnFallChance,
 		ParticleType<WWFallingLeavesParticleOptions> particle
 	) {}
 
