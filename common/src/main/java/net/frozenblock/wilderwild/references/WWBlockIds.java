@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.references;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
@@ -28,9 +29,7 @@ public final class WWBlockIds {
 	public static final ResourceKey<Block> POTTED_WILLOW_SAPLING = create("potted_willow_sapling");
 	public static final ResourceKey<Block> POTTED_CYPRESS_SAPLING = create("potted_cypress_sapling");
 	public static final ResourceKey<Block> POTTED_COCONUT = create("potted_coconut");
-	public static final ResourceKey<Block> POTTED_YELLOW_MAPLE_SAPLING = create("potted_yellow_maple_sapling");
-	public static final ResourceKey<Block> POTTED_ORANGE_MAPLE_SAPLING = create("potted_orange_maple_sapling");
-	public static final ResourceKey<Block> POTTED_RED_MAPLE_SAPLING = create("potted_red_maple_sapling");
+	public static final MapleCollection<ResourceKey<Block>> POTTED_MAPLE_SAPLING = MapleCollection.NAMES.map(name -> create("potted_" + name + "_maple_sapling"));
 
 	// FLOWERS
 	public static final ResourceKey<Block> POTTED_CACTUS_FLOWER = create("potted_cactus_flower");

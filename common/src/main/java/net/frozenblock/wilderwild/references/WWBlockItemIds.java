@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.references;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 
@@ -39,6 +40,7 @@ public final class WWBlockItemIds {
 	public static final BlockItemId WILLOW_SAPLING = create("willow_sapling");
 	public static final BlockItemId CYPRESS_SAPLING = create("cypress_sapling");
 	public static final BlockItemId COCONUT = create("coconut");
+	public static final MapleCollection<BlockItemId> MAPLE_SAPLING = MapleCollection.NAMES.map(name -> create(name + "_maple_sapling"));
 	public static final BlockItemId YELLOW_MAPLE_SAPLING = create("yellow_maple_sapling");
 	public static final BlockItemId ORANGE_MAPLE_SAPLING = create("orange_maple_sapling");
 	public static final BlockItemId RED_MAPLE_SAPLING = create("red_maple_sapling");
@@ -48,9 +50,7 @@ public final class WWBlockItemIds {
 	public static final BlockItemId WILLOW_LEAVES = create("willow_leaves");
 	public static final BlockItemId CYPRESS_LEAVES = create("cypress_leaves");
 	public static final BlockItemId PALM_FRONDS = create("palm_fronds");
-	public static final BlockItemId YELLOW_MAPLE_LEAVES = create("yellow_maple_leaves");
-	public static final BlockItemId ORANGE_MAPLE_LEAVES = create("orange_maple_leaves");
-	public static final BlockItemId RED_MAPLE_LEAVES = create("red_maple_leaves");
+	public static final MapleCollection<BlockItemId> MAPLE_LEAVES = MapleCollection.NAMES.map(name -> create(name + "_maple_leaves"));
 
 	// HOLLOWED LOGS
 	public static final BlockItemId HOLLOWED_OAK_LOG = create("hollowed_oak_log");
@@ -97,6 +97,7 @@ public final class WWBlockItemIds {
 	public static final BlockItemId PALM_FROND_LITTER = create("palm_frond_litter");
 	public static final BlockItemId SPRUCE_LEAF_LITTER = create("spruce_leaf_litter");
 	public static final BlockItemId WILLOW_LEAF_LITTER = create("willow_leaf_litter");
+	public static final MapleCollection<BlockItemId> MAPLE_LEAF_LITTER = MapleCollection.NAMES.map(name -> create(name + "_maple_leaf_litter"));
 	public static final BlockItemId YELLOW_MAPLE_LEAF_LITTER = create("yellow_maple_leaf_litter");
 	public static final BlockItemId ORANGE_MAPLE_LEAF_LITTER = create("orange_maple_leaf_litter");
 	public static final BlockItemId RED_MAPLE_LEAF_LITTER = create("red_maple_leaf_litter");

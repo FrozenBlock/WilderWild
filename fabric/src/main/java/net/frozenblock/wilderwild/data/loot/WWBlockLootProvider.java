@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.loot;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
@@ -154,12 +155,10 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.MAPLE_SIGN.get());
 		this.dropSelf(WWBlocks.MAPLE_HANGING_SIGN.get());
 		this.dropSelf(WWBlocks.MAPLE_SHELF.get());
-		this.dropSelf(WWBlocks.YELLOW_MAPLE_SAPLING.get());
-		this.dropSelf(WWBlocks.ORANGE_MAPLE_SAPLING.get());
-		this.dropSelf(WWBlocks.RED_MAPLE_SAPLING.get());
-		this.add(WWBlocks.YELLOW_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.YELLOW_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-		this.add(WWBlocks.ORANGE_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.ORANGE_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-		this.add(WWBlocks.RED_MAPLE_LEAVES.get(), block -> this.createLeavesDrops(block, WWBlocks.RED_MAPLE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		WWBlocks.MAPLE_SAPLING.forEach(sapling -> this.dropSelf(sapling.get()));
+		MapleCollection.zipApply(WWBlocks.MAPLE_LEAVES, WWBlocks.MAPLE_SAPLING, (leaves, sapling) -> {
+			this.add(leaves.get(), block -> this.createLeavesDrops(block, sapling.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		});
 
 		this.dropSelf(WWBlocks.HOLLOWED_ACACIA_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.get());
@@ -197,9 +196,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.PALM_FROND_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.PALM_FROND_LITTER.get()));
 		this.add(WWBlocks.SPRUCE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.SPRUCE_LEAF_LITTER.get()));
 		this.add(WWBlocks.WILLOW_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.WILLOW_LEAF_LITTER.get()));
-		this.add(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get()));
-		this.add(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get()));
-		this.add(WWBlocks.RED_MAPLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.RED_MAPLE_LEAF_LITTER.get()));
+		WWBlocks.MAPLE_LEAF_LITTER.forEach(leafLitter -> this.add(leafLitter.get(), this.createSegmentedBlockDrops(leafLitter.get())));
 
 		this.dropSelf(WWBlocks.GABBRO.get());
 		this.dropSelf(WWBlocks.GABBRO_STAIRS.get());
@@ -421,9 +418,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropPottedContents(WWBlocks.POTTED_COCONUT.get());
 		this.dropPottedContents(WWBlocks.POTTED_WILLOW_SAPLING.get());
 		this.dropPottedContents(WWBlocks.POTTED_CYPRESS_SAPLING.get());
-		this.dropPottedContents(WWBlocks.POTTED_YELLOW_MAPLE_SAPLING.get());
-		this.dropPottedContents(WWBlocks.POTTED_ORANGE_MAPLE_SAPLING.get());
-		this.dropPottedContents(WWBlocks.POTTED_RED_MAPLE_SAPLING.get());
+		WWBlocks.POTTED_MAPLE_SAPLING.forEach(sapling -> this.dropPottedContents(sapling.get()));
 		this.dropPottedContents(WWBlocks.POTTED_CARNATION.get());
 		this.dropPottedContents(WWBlocks.POTTED_MARIGOLD.get());
 		this.dropPottedContents(WWBlocks.POTTED_PASQUEFLOWER.get());

@@ -90,6 +90,7 @@ import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
@@ -155,14 +156,13 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 
 public final class WWBlocks {
-	private static final FrozenDeferredRegister.Blocks REGISTER = FrozenDeferredRegister.createBlocks(
-		WWConstants.MOD_ID
-	);
-
+	private static final FrozenDeferredRegister.Blocks REGISTER = FrozenDeferredRegister.createBlocks(WWConstants.MOD_ID);
+	// BLOCK SET TYPES
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
 	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("willow"));
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
+
 	// Maple's sound-dependent set/wood types must not resolve until sound events are bound, so they're
 	// deferred behind a memoized supplier instead of Wilder Wild's other BlockSetTypes/WoodTypes above.
 	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
@@ -172,15 +172,19 @@ public final class WWBlocks {
 		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON.get()).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF.get())
 		.buttonClickOnSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_ON.get()).buttonClickOffSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_OFF.get())
 		.register(WWConstants.id("maple")));
+	// WOOD TYPES
 	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WWConstants.id("baobab"), BAOBAB_SET);
 	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("willow"), WILLOW_SET);
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
+	// Maple's sound-dependent set/wood types must not resolve until sound events are bound, so they're
+	// deferred behind a memoized supplier instead of Wilder Wild's other BlockSetTypes/WoodTypes above.
 	public static final Supplier<WoodType> MAPLE_WOOD_TYPE = Suppliers.memoize(() -> WoodTypeBuilder.copyOf(WoodType.SPRUCE)
 		.soundType(WWSoundTypes.MAPLE_WOOD)
 		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN.get())
 		.hangingSignSoundType(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
 		.register(WWConstants.id("maple"), MAPLE_SET.get()));
+	// WOOD COLORS
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
 	private static final MapColor WILLOW_PLANKS_COLOR = MapColor.TERRACOTTA_LIGHT_GREEN;
@@ -248,23 +252,15 @@ public final class WWBlocks {
 	);
 	public static final FrozenDeferredBlock<Block> POTTED_COCONUT = registerFlowerPot(WWBlockIds.POTTED_COCONUT, COCONUT);
 
-	public static final FrozenDeferredBlock<SaplingBlock> YELLOW_MAPLE_SAPLING = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_SAPLING.block(),
-		properties -> new SaplingBlock(WWTreeGrowers.YELLOW_MAPLE, properties),
-		() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	public static final MapleCollection<FrozenDeferredBlock<SaplingBlock>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWTreeGrowers.MAPLE,
+		(id, treeGrower) -> REGISTER.registerBlock(id.block(),
+			properties -> new SaplingBlock(treeGrower, properties),
+			() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+		)
 	);
-	public static final FrozenDeferredBlock<Block> POTTED_YELLOW_MAPLE_SAPLING = registerFlowerPot(WWBlockIds.POTTED_YELLOW_MAPLE_SAPLING, YELLOW_MAPLE_SAPLING);
-
-	public static final FrozenDeferredBlock<SaplingBlock> ORANGE_MAPLE_SAPLING = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_SAPLING.block(),
-		properties -> new SaplingBlock(WWTreeGrowers.ORANGE_MAPLE, properties),
-		() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	public static final MapleCollection<FrozenDeferredBlock<Block>> POTTED_MAPLE_SAPLING = MapleCollection.zipMap(WWBlockIds.POTTED_MAPLE_SAPLING, MAPLE_SAPLING,
+		WWBlocks::registerFlowerPot
 	);
-	public static final FrozenDeferredBlock<Block> POTTED_ORANGE_MAPLE_SAPLING = registerFlowerPot(WWBlockIds.POTTED_ORANGE_MAPLE_SAPLING, ORANGE_MAPLE_SAPLING);
-
-	public static final FrozenDeferredBlock<SaplingBlock> RED_MAPLE_SAPLING = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_SAPLING.block(),
-		properties -> new SaplingBlock(WWTreeGrowers.RED_MAPLE, properties),
-		() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
-	);
-	public static final FrozenDeferredBlock<Block> POTTED_RED_MAPLE_SAPLING = registerFlowerPot(WWBlockIds.POTTED_RED_MAPLE_SAPLING, RED_MAPLE_SAPLING);
 
 	// LEAVES
 	public static final FrozenDeferredBlock<BaobabLeavesBlock> BAOBAB_LEAVES = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_LEAVES.block(),
@@ -283,17 +279,11 @@ public final class WWBlocks {
 		properties -> new PalmFrondsBlock(0.005F, properties),
 		() -> Blocks.leavesProperties(SoundType.GRASS)
 	);
-	public static final FrozenDeferredBlock<LeavesWithLitterBlock> YELLOW_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
-		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
-	);
-	public static final FrozenDeferredBlock<LeavesWithLitterBlock> ORANGE_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
-		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
-	);
-	public static final FrozenDeferredBlock<LeavesWithLitterBlock> RED_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_LEAVES.block(),
-		LeavesWithLitterBlock::new,
-		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
+	public static final MapleCollection<FrozenDeferredBlock<LeavesWithLitterBlock>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, MapleCollection.MAP_COLORS,
+		(id, mapColor) -> REGISTER.registerBlock(id.block(),
+			LeavesWithLitterBlock::new,
+			() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(mapColor)
+		)
 	);
 
 	// HOLLOWED LOGS
@@ -441,9 +431,7 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> YELLOW_MAPLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER, () -> WWSoundTypes.MAPLE_LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> ORANGE_MAPLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER, () -> WWSoundTypes.MAPLE_LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> RED_MAPLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.RED_MAPLE_LEAF_LITTER, () -> WWSoundTypes.MAPLE_LEAF_LITTER);
+	public static final MapleCollection<FrozenDeferredBlock<Block>> MAPLE_LEAF_LITTER = WWBlockItemIds.MAPLE_LEAF_LITTER.map(id -> registerLeafLitter(id, () -> WWSoundTypes.MAPLE_LEAF_LITTER));
 
 	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType) {
 		return registerLeafLitter(id, soundType, null);
@@ -1602,15 +1590,11 @@ public final class WWBlocks {
 		CompostableRegistry.register(CYPRESS_LEAVES, 0.3F);
 		CompostableRegistry.register(BAOBAB_LEAVES, 0.3F);
 		CompostableRegistry.register(PALM_FRONDS, 0.3F);
-		CompostableRegistry.register(YELLOW_MAPLE_LEAVES, 0.3F);
-		CompostableRegistry.register(ORANGE_MAPLE_LEAVES, 0.3F);
-		CompostableRegistry.register(RED_MAPLE_LEAVES, 0.3F);
+		MAPLE_LEAVES.forEach(leaves -> CompostableRegistry.register(leaves, 0.3F));
 		CompostableRegistry.register(WILLOW_SAPLING, 0.3F);
 		CompostableRegistry.register(CYPRESS_SAPLING, 0.3F);
 		CompostableRegistry.register(BAOBAB_NUT, 0.3F);
-		CompostableRegistry.register(YELLOW_MAPLE_SAPLING, 0.3F);
-		CompostableRegistry.register(ORANGE_MAPLE_SAPLING, 0.3F);
-		CompostableRegistry.register(RED_MAPLE_SAPLING, 0.3F);
+		MAPLE_SAPLING.forEach(sapling -> CompostableRegistry.register(sapling, 0.3F));
 		CompostableRegistry.register(WWItems.COCONUT, 0.65F);
 		CompostableRegistry.register(WWItems.SPLIT_COCONUT, 0.3F);
 		CompostableRegistry.register(RED_HIBISCUS, 0.65F);
@@ -1639,9 +1623,7 @@ public final class WWBlocks {
 		CompostableRegistry.register(PALM_FROND_LITTER, 0.3F);
 		CompostableRegistry.register(SPRUCE_LEAF_LITTER, 0.3F);
 		CompostableRegistry.register(WILLOW_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(YELLOW_MAPLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(ORANGE_MAPLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(RED_MAPLE_LEAF_LITTER, 0.3F);
+		MAPLE_LEAF_LITTER.forEach(leafLitter -> CompostableRegistry.register(leafLitter, 0.3F));
 		CompostableRegistry.register(CLOVERS, 0.3F);
 		CompostableRegistry.register(FROZEN_SHORT_GRASS, 0.3F);
 		CompostableRegistry.register(FROZEN_TALL_GRASS, 0.5F);
@@ -1802,12 +1784,7 @@ public final class WWBlocks {
 		FlammableBlockRegistry.register(MAPLE_FENCE_GATE.get(), 5, 20);
 		FlammableBlockRegistry.register(MAPLE_PRESSURE_PLATE.get(), 5, 20);
 		FlammableBlockRegistry.register(MAPLE_TRAPDOOR.get(), 5, 20);
-		FlammableBlockRegistry.register(YELLOW_MAPLE_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.register(ORANGE_MAPLE_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.register(RED_MAPLE_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.register(YELLOW_MAPLE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.register(ORANGE_MAPLE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.register(RED_MAPLE_LEAF_LITTER.get(), 60, 100);
+		MAPLE_LEAVES.forEach(leaves -> FlammableBlockRegistry.register(leaves.get(), 30, 60));
 		FlammableBlockRegistry.register(MAPLE_BUTTON.get(), 5, 20);
 		FlammableBlockRegistry.register(MAPLE_SIGN.get(), 5, 20);
 		FlammableBlockRegistry.register(MAPLE_WALL_SIGN.get(), 5, 20);
@@ -1828,6 +1805,7 @@ public final class WWBlocks {
 		FlammableBlockRegistry.register(PALM_FROND_LITTER.get(), 60, 100);
 		FlammableBlockRegistry.register(SPRUCE_LEAF_LITTER.get(), 60, 100);
 		FlammableBlockRegistry.register(WILLOW_LEAF_LITTER.get(), 60, 100);
+		MAPLE_LEAF_LITTER.forEach(leafLitter -> FlammableBlockRegistry.register(leafLitter.get(), 60, 100));
 	}
 
 	private static void registerFuels() {
@@ -1920,9 +1898,7 @@ public final class WWBlocks {
 		FuelRegistry.add(MAPLE_FENCE.asItem(), 300);
 		FuelRegistry.add(WWItems.MAPLE_SIGN, 300);
 		FuelRegistry.add(WWItems.MAPLE_HANGING_SIGN, 800);
-		FuelRegistry.add(YELLOW_MAPLE_SAPLING.asItem(), 100);
-		FuelRegistry.add(ORANGE_MAPLE_SAPLING.asItem(), 100);
-		FuelRegistry.add(RED_MAPLE_SAPLING.asItem(), 100);
+		MAPLE_SAPLING.forEach(sapling -> FuelRegistry.add(sapling.asItem(), 100));
 
 		FuelRegistry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);
@@ -1969,6 +1945,7 @@ public final class WWBlocks {
 		FuelRegistry.add(PALM_FROND_LITTER, 100);
 		FuelRegistry.add(SPRUCE_LEAF_LITTER, 100);
 		FuelRegistry.add(WILLOW_LEAF_LITTER, 100);
+		MAPLE_LEAF_LITTER.forEach(leafLitter -> FuelRegistry.add(leafLitter.asItem(), 100));
 
 		FuelRegistry.add(TUMBLEWEED.asItem(), 150);
 		FuelRegistry.add(TUMBLEWEED_PLANT.asItem(), 150);

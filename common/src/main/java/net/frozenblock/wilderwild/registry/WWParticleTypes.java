@@ -26,6 +26,7 @@ import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.lib.platform.api.registry.ParticleTypeHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafClusterSeedParticleOptions;
@@ -173,10 +174,9 @@ public final class WWParticleTypes {
 	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> CYPRESS_LITTER_LEAVES = createLeafParticle("cypress_litter_leaves");
 	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALM_FRONDS = createLeafParticle("palm_fronds");
 	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> PALM_LITTER_FRONDS = createLeafParticle("palm_litter_fronds");
-
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> YELLOW_MAPLE_LEAVES = createLeafParticle("yellow_maple_leaves");
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> ORANGE_MAPLE_LEAVES = createLeafParticle("orange_maple_leaves");
-	public static final FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>> RED_MAPLE_LEAVES = createLeafParticle("red_maple_leaves");
+	public static final MapleCollection<FrozenHolder<ParticleType<?>, ParticleType<WWFallingLeavesParticleOptions>>> MAPLE_LEAVES = MapleCollection.NAMES.map(
+		name -> createLeafParticle(name + "_maple_leaves")
+	);
 
 	static {
 		REGISTER.register();

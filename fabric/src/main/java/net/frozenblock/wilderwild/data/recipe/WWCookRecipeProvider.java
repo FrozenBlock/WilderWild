@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.recipe;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -80,15 +81,13 @@ public final class WWCookRecipeProvider {
 			.unlockedBy("has_willow_leaves", provider.has(WWItems.WILLOW_LEAVES))
 			.save(output);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.YELLOW_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.YELLOW_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_yellow_maple_leaves", provider.has(WWItems.YELLOW_MAPLE_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.ORANGE_MAPLE_LEAF_LITTER), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.ORANGE_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_orange_maple_leaves", provider.has(WWItems.ORANGE_MAPLE_LEAF_LITTER))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.RED_MAPLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.RED_MAPLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_red_maple_leaves", provider.has(WWItems.RED_MAPLE_LEAVES))
-			.save(output);
+		MapleCollection.zipApply(WWItems.MAPLE_LEAF_LITTER, WWItems.MAPLE_LEAVES,
+			(leafLitter, leaves) -> {
+			SimpleCookingRecipeBuilder.smelting(Ingredient.of(leaves), RecipeCategory.MISC, CookingBookCategory.BLOCKS, leafLitter, 0.1F, 200)
+				.unlockedBy(RecipeProvider.getHasName(leaves), provider.has(leaves))
+				.save(output);
+			}
+		);
 	}
 
 	private static <T extends AbstractCookingRecipe> void cookRecipes(

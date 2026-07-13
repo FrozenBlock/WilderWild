@@ -3,6 +3,7 @@ package net.frozenblock.wilderwild.block.leaves;
 import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
@@ -387,101 +388,43 @@ public final class FallingLeafDatas {
 			FallingLeafData.LeafMovementType.SWIRL
 		);
 
-		register(
-			context,
-			createKey("yellow_maple"),
-			WWBlocks.YELLOW_MAPLE_LEAVES.get(),
-			WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get(),
-			FallingLeafData.ParticleData.forLeaves(
-				WWParticleTypes.YELLOW_MAPLE_LEAVES.asHolder(),
-				WWBlocks.YELLOW_MAPLE_LEAVES.get(),
-				0.0225F,
-				WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY,
-				5,
-				3F,
-				10F,
-				FallingLeafData.LeafMovementType.SWIRL
-			),
-			FallingLeafData.ParticleData.forLeafLitter(
-				WWParticleTypes.YELLOW_MAPLE_LEAVES.asHolder(),
-				WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get(),
-				5,
-				4.5F,
-				8F,
-				FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
-			),
-			new FallingLeafData.FallingLeafLitterData(
-				WWBlocks.YELLOW_MAPLE_LEAF_LITTER.asHolder(),
-				0.04F,
-				0.25F,
-				Optional.empty(),
-				Optional.of(WWSounds.BLOCK_FALLING_LEAF_LITTER_MAPLE_LAND.asHolder())
-			)
-		);
+		MapleCollection.DYE_COLORS.forEach(color -> {
+			final Block leaves = WWBlocks.MAPLE_LEAVES.pick(color).get();
+			final Block leafLitter = WWBlocks.MAPLE_LEAF_LITTER.pick(color).get();
+			final Holder<ParticleType<?>> particle = WWParticleTypes.MAPLE_LEAVES.pick(color).asHolder();
 
-		register(
-			context,
-			createKey("orange_maple"),
-			WWBlocks.ORANGE_MAPLE_LEAVES.get(),
-			WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get(),
-			FallingLeafData.ParticleData.forLeaves(
-				WWParticleTypes.ORANGE_MAPLE_LEAVES.asHolder(),
-				WWBlocks.ORANGE_MAPLE_LEAVES.get(),
-				0.0225F,
-				WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY,
-				5,
-				3F,
-				10F,
-				FallingLeafData.LeafMovementType.SWIRL
-			),
-			FallingLeafData.ParticleData.forLeafLitter(
-				WWParticleTypes.ORANGE_MAPLE_LEAVES.asHolder(),
-				WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get(),
-				5,
-				4.5F,
-				8F,
-				FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
-			),
-			new FallingLeafData.FallingLeafLitterData(
-				WWBlocks.ORANGE_MAPLE_LEAF_LITTER.asHolder(),
-				0.04F,
-				0.25F,
-				Optional.empty(),
-				Optional.of(WWSounds.BLOCK_FALLING_LEAF_LITTER_MAPLE_LAND.asHolder())
-			)
-		);
-
-		register(
-			context,
-			createKey("red_maple"),
-			WWBlocks.RED_MAPLE_LEAVES.get(),
-			WWBlocks.RED_MAPLE_LEAF_LITTER.get(),
-			FallingLeafData.ParticleData.forLeaves(
-				WWParticleTypes.RED_MAPLE_LEAVES.asHolder(),
-				WWBlocks.RED_MAPLE_LEAVES.get(),
-				0.0225F,
-				WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY,
-				5,
-				3F,
-				10F,
-				FallingLeafData.LeafMovementType.SWIRL
-			),
-			FallingLeafData.ParticleData.forLeafLitter(
-				WWParticleTypes.RED_MAPLE_LEAVES.asHolder(),
-				WWBlocks.RED_MAPLE_LEAF_LITTER.get(),
-				5,
-				4.5F,
-				8F,
-				FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
-			),
-			new FallingLeafData.FallingLeafLitterData(
-				WWBlocks.RED_MAPLE_LEAF_LITTER.asHolder(),
-				0.04F,
-				0.25F,
-				Optional.empty(),
-				Optional.of(WWSounds.BLOCK_FALLING_LEAF_LITTER_MAPLE_LAND.asHolder())
-			)
-		);
+			register(
+				context,
+				createKey(MapleCollection.NAMES.pick(color) + "_maple"),
+				leaves,
+				leafLitter,
+				FallingLeafData.ParticleData.forLeaves(
+					particle,
+					leaves,
+					0.0225F,
+					WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY,
+					5,
+					3F,
+					10F,
+					FallingLeafData.LeafMovementType.SWIRL
+				),
+				FallingLeafData.ParticleData.forLeafLitter(
+					particle,
+					leafLitter,
+					5,
+					4.5F,
+					8F,
+					FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
+				),
+				new FallingLeafData.FallingLeafLitterData(
+					leafLitter.builtInRegistryHolder(),
+					0.04F,
+					0.25F,
+					Optional.empty(),
+					Optional.of(WWSounds.BLOCK_FALLING_LEAF_LITTER_MAPLE_LAND.asHolder())
+				)
+			);
+		});
 	}
 
 }

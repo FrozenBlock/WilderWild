@@ -160,12 +160,12 @@ public final class WWCreativeInventorySorting {
 		insertAfterInBuildingBlocks(WWItems.MAPLE_PRESSURE_PLATE, WWItems.MAPLE_BUTTON);
 		// MAPLE (NATURAL BLOCKS)
 		insertAfterInNaturalBlocks(Items.CHERRY_LOG, WWItems.MAPLE_LOG);
-		insertAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWItems.YELLOW_MAPLE_SAPLING);
-		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_SAPLING, WWItems.ORANGE_MAPLE_SAPLING);
-		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_SAPLING, WWItems.RED_MAPLE_SAPLING);
-		insertAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWItems.YELLOW_MAPLE_LEAVES);
-		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_LEAVES, WWItems.ORANGE_MAPLE_LEAVES);
-		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_LEAVES, WWItems.RED_MAPLE_LEAVES);
+		insertAfterInNaturalBlocks(Items.CHERRY_SAPLING, WWItems.MAPLE_SAPLING.yellow());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_SAPLING.yellow(), WWItems.MAPLE_SAPLING.orange());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_SAPLING.orange(), WWItems.MAPLE_SAPLING.red());
+		insertAfterInNaturalBlocks(Blocks.CHERRY_LEAVES, WWItems.MAPLE_LEAVES.yellow());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAVES.yellow(), WWItems.MAPLE_LEAVES.orange());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAVES.orange(), WWItems.MAPLE_LEAVES.red());
 		// MAPLE (FUNCTIONAL BLOCKS)
 		insertAfterInFunctionalBlocks(Items.CHERRY_HANGING_SIGN, WWItems.MAPLE_SIGN);
 		insertAfterInFunctionalBlocks(WWItems.MAPLE_SIGN, WWItems.MAPLE_HANGING_SIGN);
@@ -240,10 +240,10 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.WILLOW_LEAF_LITTER, WWItems.CYPRESS_LEAF_LITTER);
 		insertAfterInNaturalBlocks(WWItems.CYPRESS_LEAF_LITTER, WWItems.PALM_FROND_LITTER);
 		insertAfterInNaturalBlocks(WWItems.PALM_FROND_LITTER, WWItems.CHERRY_LEAF_LITTER);
-		insertAfterInNaturalBlocks(WWItems.CHERRY_LEAF_LITTER, WWItems.YELLOW_MAPLE_LEAF_LITTER);
-		insertAfterInNaturalBlocks(WWItems.YELLOW_MAPLE_LEAF_LITTER, WWItems.ORANGE_MAPLE_LEAF_LITTER);
-		insertAfterInNaturalBlocks(WWItems.ORANGE_MAPLE_LEAF_LITTER, WWItems.RED_MAPLE_LEAF_LITTER);
-		insertAfterInNaturalBlocks(WWItems.RED_MAPLE_LEAF_LITTER, WWItems.PALE_OAK_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWItems.CHERRY_LEAF_LITTER, WWItems.MAPLE_LEAF_LITTER.yellow());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAF_LITTER.yellow(), WWItems.MAPLE_LEAF_LITTER.orange());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAF_LITTER.orange(), WWItems.MAPLE_LEAF_LITTER.red());
+		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAF_LITTER.red(), WWItems.PALE_OAK_LEAF_LITTER);
 		insertAfterInNaturalBlocks(WWItems.PALE_OAK_LEAF_LITTER, WWItems.AZALEA_LEAF_LITTER);
 
 		// SMALL FLOWERS

@@ -72,9 +72,7 @@ public final class WWParticleEngine {
 		ParticleProviderRegistry.register(WWParticleTypes.CYPRESS_LITTER_LEAVES::get, WWFallingLeavesParticle.Provider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.PALM_FRONDS::get, WWFallingLeavesParticle.Provider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.PALM_LITTER_FRONDS::get, WWFallingLeavesParticle.Provider::new);
-		ParticleProviderRegistry.register(WWParticleTypes.YELLOW_MAPLE_LEAVES::get, WWFallingLeavesParticle.Provider::new);
-		ParticleProviderRegistry.register(WWParticleTypes.ORANGE_MAPLE_LEAVES::get, WWFallingLeavesParticle.Provider::new);
-		ParticleProviderRegistry.register(WWParticleTypes.RED_MAPLE_LEAVES::get, WWFallingLeavesParticle.Provider::new);
+		WWParticleTypes.MAPLE_LEAVES.forEach(leaf -> ParticleProviderRegistry.register(leaf, WWFallingLeavesParticle.Provider::new));
 		ParticleProviderRegistry.register(WWParticleTypes.WILLOW_LEAVES::get, WWFallingLeavesParticle.Provider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.WILLOW_LITTER_LEAVES::get, WWFallingLeavesParticle.Provider::new);
 

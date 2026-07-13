@@ -84,8 +84,8 @@
         "type": "wilderwild:legacy_maple_foliage_placer",
         "length": {
           "type": "minecraft:uniform",
-          "max_inclusive": 3,
-          "min_inclusive": 0
+          "max_inclusive": 7,
+          "min_inclusive": 4
         },
         "offset": {
           "type": "minecraft:uniform",
@@ -124,11 +124,11 @@
       "type": "wilderwild:maple_trunk_placer",
       "alt_trunk_placer": {
         "type": "minecraft:straight_trunk_placer",
-        "base_height": 6,
+        "base_height": 10,
         "height_rand_a": 1,
         "height_rand_b": 2
       },
-      "base_height": 6,
+      "base_height": 10,
       "height_rand_a": 1,
       "height_rand_b": 2,
       "lower_trunk_branch_placement": {
@@ -154,8 +154,8 @@
       "trunk_branch_placement": {
         "branch_cutoff_from_top": {
           "type": "minecraft:uniform",
-          "max_inclusive": 3,
-          "min_inclusive": 0
+          "max_inclusive": 5,
+          "min_inclusive": 1
         },
         "branch_length": {
           "type": "minecraft:biased_to_bottom",
