@@ -41,8 +41,6 @@ plugins {
 
 rootProject.name = "Wilder Wild"
 
-includeBuild("build-logic")
-
 object Constants {
     const val FABRIC: Boolean = true
     const val NEOFORGE: Boolean = true
