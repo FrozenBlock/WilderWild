@@ -11,6 +11,7 @@ jobs:
       MAVEN_URL: ${{secrets.SNAPSHOT_MAVEN_URL}}
       MAVEN_USERNAME: ${{secrets.MAVEN_USERNAME}}
       MAVEN_PASSWORD: ${{secrets.MAVEN_PASSWORD}}
+      SNAPSHOT: true
     steps:
       - name: Cache Dependencies
         uses: actions/cache@v3

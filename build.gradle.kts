@@ -1,3 +1,6 @@
+import org.kohsuke.github.GHReleaseBuilder
+import org.kohsuke.github.GitHub
+
 plugins {
     id("com.possible-triangle.core") version("1.4-CUSTOM-SNAPSHOT")
     id("com.possible-triangle.common") version("1.4-CUSTOM-SNAPSHOT") apply(false)
@@ -5,11 +8,18 @@ plugins {
     id("com.possible-triangle.neoforge") version("1.4-CUSTOM-SNAPSHOT") apply(false)
     id("net.mehvahdjukaar.candlelight") version("+") apply(false)
 
-    id("org.ajoberstar.grgit") version("+") apply(false)
     id("org.quiltmc.gradle.licenser") version("+") apply(false)
-    id("me.modmuss50.mod-publish-plugin") version("+") apply(false)
     id("com.gradleup.shadow") version("+") apply(false)
     checkstyle
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.kohsuke:github-api:1.326")
+    }
 }
 
 checkstyle {
@@ -33,9 +43,76 @@ mod {
     additional.add("mod_github")
 }
 
+val changelogText = run {
+    val split = file("CHANGELOG.md").readText().split("-----------------")
+    check(split.size == 2) { "Malformed changelog" }
+    split[1].trim()
+}
+
+fun mainJarTask(project: Project) =
+    if (project.tasks.names.contains("shadowJar")) project.tasks.named("shadowJar")
+    else project.tasks.named("jar")
+
+val githubRelease by tasks.registering {
+    val fabricJar = mainJarTask(project(":ww-fabric"))
+    val neoforgeJar = mainJarTask(project(":ww-neoforge"))
+    dependsOn(fabricJar, neoforgeJar)
+
+    val token = env["GITHUB_TOKEN"]
+    val repository = mod.repository.get()
+    val tag = project(":ww-fabric").version.toString()
+    val releaseTitle = "Wilder Wild $tag"
+    val isPrerelease = mod.releaseType.get() != "release"
+    val commitish = env["GITHUB_SHA"]
+
+    onlyIf { !token.isNullOrEmpty() }
+
+    doLast {
+        val github = GitHub.connectUsingOAuth(token)
+        val repo = github.getRepository(repository)
+
+        repo.getReleaseByTagName(tag)?.delete()
+
+        val releaseBuilder = GHReleaseBuilder(repo, tag)
+        releaseBuilder.name(releaseTitle)
+        releaseBuilder.body(changelogText)
+        releaseBuilder.prerelease(isPrerelease)
+        if (commitish != null) releaseBuilder.commitish(commitish)
+
+        val release = releaseBuilder.create()
+        release.uploadAsset(fabricJar.get().outputs.files.singleFile, "application/java-archive")
+        release.uploadAsset(neoforgeJar.get().outputs.files.singleFile, "application/java-archive")
+    }
+}
+
+val publishMod by tasks.registering {
+    dependsOn(tasks.named("upload"))
+    dependsOn(githubRelease)
+}
+
 subprojects {
     apply(plugin = "com.possible-triangle.core")
     apply(plugin = "net.mehvahdjukaar.candlelight")
+
+    val mavenUrl = env["MAVEN_URL"]
+    val mavenUsername = env["MAVEN_USERNAME"]
+    val mavenPassword = env["MAVEN_PASSWORD"]
+
+    if (mavenUrl != null && mavenUsername != null && mavenPassword != null) {
+        upload {
+            maven {
+                repositories {
+                    maven(mavenUrl) {
+                        name = "FrozenBlock"
+                        credentials {
+                            username = mavenUsername
+                            password = mavenPassword
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     tasks.withType<JavaCompile> {
         options.compilerArgs.addAll(listOf("-Xmaxerrs", "4000"))

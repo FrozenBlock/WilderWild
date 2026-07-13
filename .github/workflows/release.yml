@@ -1,10 +1,13 @@
 
-# This workflow automatically adds the mod's .jar
-# file to any release published to GitHub.
+# This workflow publishes a release to Modrinth, CurseForge & GitHub Releases,
+# and uploads the maven artifacts (common/fabric/neoforge) to the release maven.
 
 name: release
 on:
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -53,5 +56,5 @@ jobs:
           key: ${{ runner.os }}-gradle-#{{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Publish to Modrinth
-        run: ./gradlew publishMod -PreleaseType=stable -PuseThirdPartyMods=false
+      - name: Publish to Maven, Modrinth, CurseForge & GitHub
+        run: ./gradlew publishMod -PuseThirdPartyMods=false
