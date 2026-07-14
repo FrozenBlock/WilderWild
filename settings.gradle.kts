@@ -59,8 +59,8 @@ if (Constants.NEOFORGE) {
     project(":ww-neoforge").projectDir = file("neoforge")
 }
 
-localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", kotlin = false, enabled = false)
-localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", kotlin = false, enabled = false)
+localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", enabled = false)
+localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", enabled = false)
 
 localRepository("FrozenLib", "net.frozenblock:frozenlib", prefix = "flib", multi = true, candlelight = true, enabled = true)
 
@@ -69,7 +69,6 @@ fun localRepository(
     dependencySub: String,
     prefix: String = "",
     multi: Boolean = true,
-    kotlin: Boolean = true,
     candlelight: Boolean = false,
     enabled: Boolean
 ) {
