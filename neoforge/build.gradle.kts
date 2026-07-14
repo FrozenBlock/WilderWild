@@ -54,7 +54,6 @@ repositories {
 neoforge {
     dependOn(project(":ww-common"))
     accessWidener(project(":ww-common"))
-    injectInterfaces(rootProject.file("common/src/main/resources/interfaces.json"))
 }
 
 neoForge {

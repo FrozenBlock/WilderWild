@@ -24,8 +24,6 @@ val applyLicenses: Task by tasks
 
 common {
     accessWidener()
-    injectInterfaces(file("src/main/resources/interfaces.json"))
-    //injectInterfaces(file("src/main/resources/${mod_id}.classtweaker"))
 }
 
 neoForge {
@@ -55,12 +53,6 @@ dependencies {
     compileOnly("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
 
     compileOnly("com.terraformersmc:biolith-common:${biolith_version}")
-}
-
-val mergeCommonResources by tasks.registering(Sync::class) {
-    from(sourceSets.main.get().resources.srcDirs)
-    into(layout.buildDirectory.dir("merged-resources"))
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 configurations {
