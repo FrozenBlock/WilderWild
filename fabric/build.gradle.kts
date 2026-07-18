@@ -60,6 +60,13 @@ fabric {
     }
 }
 
+loom {
+    enableTransitiveAccessWideners = true
+    interfaceInjection {
+        enableDependencyInterfaceInjection = true
+    }
+}
+
 repositories {
     flatDir {
         dirs("libs")

@@ -10,6 +10,7 @@ accessible method net/minecraft/world/level/block/SculkBlock getDecayPenalty (Ln
 accessible method net/minecraft/world/level/block/SnowLayerBlock canSurvive (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
 accessible method net/minecraft/world/level/block/LeavesBlock decaying (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible field net/minecraft/world/level/block/FireflyBushBlock FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL I
+accessible field net/minecraft/world/level/block/SpeleothemBlock DELAY_BEFORE_FALLING I
 
 # Block Entity
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;

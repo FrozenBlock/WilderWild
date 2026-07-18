@@ -104,7 +104,8 @@ fun localRepository(
 				dependencySubstitution {
 					if (multi && allSuffixes.isNotEmpty()) {
                         for (suffix in allSuffixes) {
-                            substitute(module("$dependencySub-$suffix")).using(project(":$prefix-$suffix"))
+                            val project = if (prefix.isNotEmpty()) ":$prefix-$suffix" else ":$suffix"
+                            substitute(module("$dependencySub-$suffix")).using(project(project))
                         }
 					} else {
                         val projectPath = if (dependencySub.isNotEmpty()) {

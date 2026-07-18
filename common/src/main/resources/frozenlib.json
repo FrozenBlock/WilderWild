@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "entrypoints": {
+    "frozenlib:mob_category": [
+      "net.frozenblock.wilderwild.registry.WWMobCategories"
+    ]
+  }
+}
