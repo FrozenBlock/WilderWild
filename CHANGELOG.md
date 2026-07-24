@@ -8,6 +8,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that prevented Orange Maple Leaves from being smelted into Orange Maple Leaf Litter.
 - The Dying Yellow Maple tree feature's height is now the same as its Orange and Red counterparts.
 - Wilder Wild's Wolf Variants spawn modifications are now data-driven.
+  - These can be found within the `frozenlib/variant_spawn_injection` data folder.
   - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
   - Added the following Biome Tags:
     - `#wilderwild:entity/variant/wolf_ashen`
