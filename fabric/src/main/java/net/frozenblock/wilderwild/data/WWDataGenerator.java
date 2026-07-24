@@ -53,6 +53,7 @@ import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWClipGroups;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
+import net.frozenblock.wilderwild.registry.WWVariantSpawnInjections;
 import net.frozenblock.wilderwild.registry.WWWaterLikeTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.RegistrySetBuilder;
@@ -106,6 +107,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.VARIANT_SPAWN_INJECTION, WWVariantSpawnInjections::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);

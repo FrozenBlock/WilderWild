@@ -21,9 +21,8 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.*;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
+import static net.frozenblock.wilderwild.config.gui.WWClothConfigGuiHelper.*;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import static net.frozenblock.wilderwild.config.gui.WWClothConfigGuiHelper.entitySpawnCapEntry;
-import static net.frozenblock.wilderwild.config.gui.WWClothConfigGuiHelper.entitySpawnEntry;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.world.entity.EntityTypes;
@@ -108,6 +107,11 @@ public final class WWEntityConfigGui {
 			entitySpawnCapEntry(builder, WWEntityTypes.TUMBLEWEED.get(), WWEntityConfig.TUMBLEWEED_SPAWN_CAP, 1, 100),
 			booleanEntry(builder, "leashed_tumbleweed", WWEntityConfig.LEASHED_TUMBLEWEED),
 			booleanEntry(builder, "tumbleweed_destroys_crops", WWEntityConfig.TUMBLEWEED_DESTROYS_CROPS)
+		);
+
+		// WOLF
+		createSubCategory(builder, category, EntityTypes.WOLF.getDescription(), tooltip("entity_category", EntityTypes.WOLF.getDescription()),
+			entitySpawnVariantsEntry(builder, EntityTypes.WOLF, WWEntityConfig.SPAWN_WOLF_VARIANTS)
 		);
 
 		// WARDEN

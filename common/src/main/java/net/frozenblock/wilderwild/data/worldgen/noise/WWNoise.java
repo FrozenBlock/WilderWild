@@ -24,7 +24,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
-public class WWNoise {
+public final class WWNoise {
 	public static final ResourceKey<NormalNoise.NoiseParameters> SAND_BEACH_KEY = createKey("sand_beach");
 	public static final ResourceKey<NormalNoise.NoiseParameters> GRAVEL_BEACH_KEY = createKey("gravel_beach");
 	public static final ResourceKey<NormalNoise.NoiseParameters> TUNDRA_NOISE_KEY = createKey("tundra_noise");

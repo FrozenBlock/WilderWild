@@ -25,7 +25,7 @@ import net.frozenblock.lib.block.api.blockentity.BlockEntityTypeExtension;
 import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
 import net.frozenblock.lib.block.api.registry.WoodTypeBuilder;
-import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
+import net.frozenblock.lib.block.api.storage.hopper.HopperApi;
 import net.frozenblock.lib.event.api.events.ServerLevelEvents;
 import net.frozenblock.lib.item.api.axe.StrippableBlockRegistry;
 import net.frozenblock.lib.item.api.bonemeal.BoneMealApi;

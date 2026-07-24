@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.wind.client;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import net.frozenblock.lib.event.api.events.ClientTickEvents;
+import net.frozenblock.lib.event.api.events.client.ClientTickEvents;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.WindManager;

@@ -1,0 +1,26 @@
+{
+  "registry": "minecraft:wolf_variant",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "frozenlib:compound",
+        "conditions": [
+          {
+            "type": "frozenlib:config",
+            "predicate": {
+              "type": "minecraft:equal_to",
+              "entry": "wilderwild:entity/wolf/spawnWolfVariants",
+              "target": true
+            }
+          },
+          {
+            "type": "minecraft:biome",
+            "biomes": "#wilderwild:entity/variant/wolf_woods"
+          }
+        ]
+      },
+      "priority": 1
+    }
+  ],
+  "variant": "minecraft:woods"
+}

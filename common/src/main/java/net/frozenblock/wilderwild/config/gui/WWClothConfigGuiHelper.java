@@ -100,4 +100,14 @@ public final class WWClothConfigGuiHelper {
 			Component.translatable("tooltip.wilderwild.spawn_entity", entityName)
 		);
 	}
+
+	public static BooleanListEntry entitySpawnVariantsEntry(ConfigEntryBuilder builder, EntityType<?> entityType, ConfigEntry<Boolean> configEntry) {
+		final Component entityName = entityType.getDescription();
+		return FrozenLibClothConfigGuiHelper.booleanEntry(
+			builder,
+			Component.translatable("option.wilderwild.spawn_entity_variants", entityName),
+			configEntry,
+			Component.translatable("tooltip.wilderwild.spawn_entity_variants", entityName)
+		);
+	}
 }

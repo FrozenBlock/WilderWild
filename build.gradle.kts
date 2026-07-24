@@ -188,8 +188,11 @@ subprojects {
         maven("https://maven.caffeinemc.net/releases") {
             name = "CaffeineMC"
         }
-        maven("https://maven.terraformersmc.com/releases") {
-            name = "TerraformersMC (Biolith)"
+        maven("https://maven.terraformersmc.com/repository/maven-public") {
+            name = "TerraformersMC"
+            content {
+                includeGroup("com.terraformersmc")
+            }
         }
 
         exclusiveContent {
