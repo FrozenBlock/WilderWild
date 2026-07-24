@@ -171,22 +171,22 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV9_1 = builder.addSchema(9, 1, NamespacedSchema::new);
-		SimpleFixes.addBlockStateRenameFix(
+		SimpleFixes.addBlockPropertyRenameAndFix(
 			builder,
 			"Rename geyser_type blockstate property to vent_type",
 			WWConstants.id("geothermal_vent"),
 			"geyser_type",
-			"none",
 			"vent_type",
+			"none",
 			schemaV9_1
 		);
-		SimpleFixes.addBlockStateRenameFix(
+		SimpleFixes.addBlockPropertyRenameAndFix(
 			builder,
 			"Rename geyser_stage blockstate property to vent_state",
 			WWConstants.id("geothermal_vent"),
 			"geyser_stage",
-			"dormant",
 			"vent_state",
+			"dormant",
 			schemaV9_1
 		);
 		SimpleFixes.addAdvancementCriteriaRenameFix(
@@ -228,13 +228,13 @@ public final class WWMinecraftDataFixer {
 	}
 
 	private static void addColumnDirectionToBubbleColumnDirectionPropertyFix(DataFixerBuilder builder, String blockId, Schema schema) {
-		SimpleFixes.addBlockStateRenameFix(
+		SimpleFixes.addBlockPropertyRenameAndFix(
 			builder,
 			"Rename column_direction blockstate property to bubble_column_direction for " + blockId,
 			WWConstants.id(blockId),
 			"column_direction",
-			"none",
 			"bubble_column_direction",
+			"none",
 			schema
 		);
 	}

@@ -67,7 +67,15 @@ public final class WWDataFixer {
 		SimpleFixes.addBlockItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", WWConstants.id("mesoglea"), WWConstants.id("blue_pearlescent_mesoglea"), schemaV7);
 
 		final Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
-		SimpleFixes.addBlockStateRenameFix(builder, "display_lantern_rename_fix", WWConstants.id("display_lantern"), "light", "0", "display_light", schemaV8);
+		SimpleFixes.addBlockPropertyRenameAndFix(
+			builder,
+			"display_lantern_rename_fix",
+			WWConstants.id("display_lantern"),
+			"light",
+			"display_light",
+			"0",
+			schemaV8
+		);
 
 		final Schema schemaV9 = builder.addSchema(9, NamespacedSchema::new);
 		builder.addFixer(new NematocystStateFix(schemaV9, "blue_nematocyst_fix", WWConstants.id("blue_nematocyst")));
