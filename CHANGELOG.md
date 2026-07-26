@@ -17,3 +17,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - `#wilderwild:entity/variant/wolf_black`
     - `#wilderwild:entity/variant/wolf_chestnut`
   - Added a config option to toggle these modifications.
+- Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.
