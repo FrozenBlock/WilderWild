@@ -1,5 +1,5 @@
 plugins {
-    id("com.possible-triangle.fabric")
+    id("net.frozenblock.triangle.fabric")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }
@@ -168,25 +168,6 @@ tasks {
 
             include("**/*.java")
         }
-    }
-
-    named<Jar>("javadocJar") {
-        // created by multiloader-common via java { withJavadocJar() }
-    }
-
-    named<Jar>("sourcesJar") {
-        from(sourceSets.main.get().allSource)
-    }
-
-    withType(JavaCompile::class) {
-        options.encoding = "UTF-8"
-        options.release.set(25)
-        options.isFork = true
-        options.isIncremental = true
-    }
-
-    withType(Test::class) {
-        maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
     }
 }
 

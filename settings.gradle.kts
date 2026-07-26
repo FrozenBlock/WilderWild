@@ -35,7 +35,7 @@ if (!neoforgeSnapshotMaven.isNullOrBlank()) {
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version("+")
-    id("com.possible-triangle.helper") version("+")
+    id("net.frozenblock.triangle.helper") version("+")
 }
 
 
@@ -62,7 +62,18 @@ if (Constants.NEOFORGE) {
 localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", enabled = false)
 localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", enabled = false)
 
-localRepository("FrozenLib", "net.frozenblock:frozenlib", prefix = "flib", multi = true, candlelight = true, enabled = true)
+localRepository("FrozenLib",
+    "net.frozenblock:frozenlib",
+    prefix = "flib",
+    multi = true,
+    candlelight = true,
+    enabled = true
+)
+
+localPluginRepository(
+    "GradleHelper",
+    enabled = true
+)
 
 fun localRepository(
     repo: String,
@@ -136,4 +147,29 @@ fun localRepository(
 			println("Local repo $repo not found")
 		}
 	}
+}
+
+fun localPluginRepository(repo: String, enabled: Boolean = true) {
+    if (!enabled) return
+    println("Attempting to include local plugin build $repo")
+
+    val github = System.getenv("GITHUB_ACTIONS") == "true"
+
+    var path = "../$repo"
+    var file = File(path)
+
+    if (github) {
+        path = repo
+        file = File(path)
+        println("Running on GitHub")
+    }
+
+    if (file.exists()) {
+        pluginManagement {
+            includeBuild(path)
+        }
+        println("Included local plugin build $repo")
+    } else {
+        println("Local plugin build $repo not found")
+    }
 }

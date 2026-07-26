@@ -2,10 +2,10 @@ import org.kohsuke.github.GHReleaseBuilder
 import org.kohsuke.github.GitHub
 
 plugins {
-    id("com.possible-triangle.core") version("+")
-    id("com.possible-triangle.common") version("+") apply(false)
-    id("com.possible-triangle.fabric") version("+") apply(false)
-    id("com.possible-triangle.neoforge") version("+") apply(false)
+    id("net.frozenblock.triangle.core") version("+")
+    id("net.frozenblock.triangle.common") version("+") apply(false)
+    id("net.frozenblock.triangle.fabric") version("+") apply(false)
+    id("net.frozenblock.triangle.neoforge") version("+") apply(false)
     id("net.mehvahdjukaar.candlelight") version("+") apply(false)
 
     id("org.quiltmc.gradle.licenser") version("+") apply(false)
@@ -91,7 +91,7 @@ val publishMod by tasks.registering {
 }
 
 subprojects {
-    apply(plugin = "com.possible-triangle.core")
+    apply(plugin = "net.frozenblock.triangle.core")
     apply(plugin = "net.mehvahdjukaar.candlelight")
 
     val mavenUrl = env["MAVEN_URL"]
@@ -127,12 +127,6 @@ subprojects {
     dependencies {
         compileOnly("net.mehvahdjukaar:candlelight:+")
         compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
-    }
-
-    java {
-        toolchain.languageVersion = JavaLanguageVersion.of(25)
-        withSourcesJar()
-        withJavadocJar()
     }
 
     if (project.name != "ww-common") {
@@ -209,5 +203,18 @@ subprojects {
             name = "Jitpack"
         }
         mavenCentral()
+    }
+
+    tasks {
+        withType(JavaCompile::class) {
+            options.encoding = "UTF-8"
+            options.release.set(25)
+            options.isFork = true
+            options.isIncremental = true
+        }
+
+        withType(Test::class) {
+            maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
+        }
     }
 }

@@ -1,5 +1,5 @@
 plugins {
-    id("com.possible-triangle.common")
+    id("net.frozenblock.triangle.common")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }

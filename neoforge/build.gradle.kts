@@ -1,5 +1,5 @@
 plugins {
-    id("com.possible-triangle.neoforge")
+    id("net.frozenblock.triangle.neoforge")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }
