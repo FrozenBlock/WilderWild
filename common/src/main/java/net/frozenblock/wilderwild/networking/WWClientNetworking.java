@@ -136,14 +136,17 @@ public final class WWClientNetworking {
 	public static void receiveIcicleLandPacket() {
 		ClientNetworkingHelper.registerGlobalClientReceiver(WWIcicleLandPacket.PACKET_TYPE, (packet, minecraft, player) -> {
 			final ClientLevel level = minecraft.level;
-			level.playLocalSound(
-				packet.pos(),
-				WWSounds.BLOCK_ICICLE_LAND.get(),
-				SoundSource.BLOCKS,
-				2F,
-				level.getRandom().nextFloat() * 0.1F + 0.9F,
-				false
-			);
+			level.addDestroyBlockEffect(packet.pos(), Block.stateById(packet.blockStateId()));
+			if (!packet.isSilent()) {
+				level.playLocalSound(
+					packet.pos(),
+					WWSounds.BLOCK_ICICLE_LAND.get(),
+					SoundSource.BLOCKS,
+					2F,
+					level.getRandom().nextFloat() * 0.1F + 0.9F,
+					false
+				);
+			}
 		});
 	}
 
