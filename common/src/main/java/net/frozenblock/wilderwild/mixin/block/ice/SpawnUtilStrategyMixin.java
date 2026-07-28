@@ -45,7 +45,7 @@ public interface SpawnUtilStrategyMixin {
 			)
 		)
 	)
-	private static boolean wilderWild$getBlockPathTypeRawWithPricklyPear(BlockState state, Object block, Operation<Boolean> operation) {
+	private static boolean wilderWild$disableIronGolemSpawningOnFragileIce(BlockState state, Object block, Operation<Boolean> operation) {
 		return operation.call(state, block) || operation.call(state, WWBlocks.FRAGILE_ICE.get());
 	}
 }
