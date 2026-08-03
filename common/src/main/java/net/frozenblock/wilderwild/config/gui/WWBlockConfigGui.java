@@ -86,7 +86,7 @@ public final class WWBlockConfigGui {
 		);
 
 		// FIRE
-		createSubCategory(builder, category, text("fire"), tooltip("snowlogging"),
+		createSubCategory(builder, category, text("fire"), tooltip("fire"),
 			booleanEntry(builder, "extra_magma_particles", WWBlockConfig.FIRE_EXTRA_MAGMA_PARTICLES),
 			booleanEntry(builder, "soul_fire_sounds", WWBlockConfig.FIRE_SOUL_FIRE_SOUNDS)
 		);
