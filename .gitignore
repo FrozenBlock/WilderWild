@@ -41,7 +41,7 @@ runserver/
 /neoforge/runs
 /remappedSrc/
 /src/main/generated/.cache
-/common/src/main/generated/.cache
+/common/src/generated/resources/.cache
 
 # java
 
