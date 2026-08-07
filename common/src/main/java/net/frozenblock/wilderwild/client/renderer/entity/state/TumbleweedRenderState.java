@@ -17,12 +17,11 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity.state;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.entity.client.api.renderer.entity.state.BlockLikeMobRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class TumbleweedRenderState extends BlockLikeMobRenderState {
 	public ItemStackRenderState item = new ItemStackRenderState();
 }

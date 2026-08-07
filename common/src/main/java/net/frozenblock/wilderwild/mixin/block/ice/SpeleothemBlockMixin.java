@@ -40,6 +40,18 @@ public class SpeleothemBlockMixin {
 		return SpeleothemBlock.class.cast(this) == WWBlocks.ICICLE.get() || original;
 	}
 
+	@ModifyExpressionValue(
+		method = "spawnFallingStalactite",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/item/FallingBlockEntity;fall(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/entity/item/FallingBlockEntity;"
+		)
+	)
+	private static FallingBlockEntity wilderWild$fallingIciclesDontDropItems(FallingBlockEntity original) {
+		if (original.getBlockState().is(WWBlocks.ICICLE.get())) original.disableDrop();
+		return original;
+	}
+
 	@WrapOperation(
 		method = "spawnFallingStalactite",
 		at = @At(

@@ -53,7 +53,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -80,8 +79,10 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	@Override
 	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hitResult, Projectile projectile) {
 		if (level.isClientSide() || !(level instanceof ServerLevel serverLevel)) return;
+
 		final BlockPos pos = hitResult.getBlockPos();
 		if (!projectile.mayInteract(serverLevel, pos) || !projectile.mayBreak(serverLevel, pos) || projectile.getDeltaMovement().length() <= 0.4D) return;
+
 		level.destroyBlock(pos, true);
 	}
 
@@ -92,6 +93,7 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	@Override
 	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!isStalactiteStartPos(state, level, pos)) return;
+
 		if (random.nextFloat() <= 0.165F) {
 			this.growStalactiteOrStalagmiteIfPossible(state, level, pos, random);
 		} else if (this.canRandomFall(level, pos, random)) {
@@ -115,6 +117,7 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 
 	private boolean canRandomFall(ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() > 0.075F || !level.getBlockState(pos.above()).is(WWBlockTags.ICICLE_FALLS_FROM)) return false;
+
 		final Vec3 centerPos = Vec3.atCenterOf(pos);
 		final Player player = level.getNearestPlayer(TARGETING_CONDITIONS, centerPos.x(), centerPos.y(), centerPos.z());
 		if (player != null) {
@@ -126,13 +129,8 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	}
 
 	@Override
-	protected VoxelShape getOcclusionShape(BlockState state) {
-		return Shapes.empty();
-	}
-
-	@Override
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		VoxelShape shape = switch (state.getValue(THICKNESS)) {
+		final VoxelShape shape = switch (state.getValue(THICKNESS)) {
 			case TIP_MERGE -> SHAPE_TIP_MERGE;
 			case TIP -> state.getValue(TIP_DIRECTION) == Direction.DOWN ? SHAPE_TIP_DOWN : SHAPE_TIP_UP;
 			case FRUSTUM -> SHAPE_FRUSTUM;
@@ -143,11 +141,6 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	}
 
 	@Override
-	protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return this.getShape(state, level, pos, context);
-	}
-
-	@Override
 	protected float getMaxHorizontalOffset() {
 		return MAX_HORIZONTAL_OFFSET;
 	}
@@ -155,7 +148,7 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	@Override
 	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity entity) {
 		// NOTE: Mojang uses new level events for each Speleotem as of 26.2-snapshot-5. But of course, us making one isn't a great idea!
-		if (!entity.isSilent() && level instanceof ServerLevel serverLevel) WWIcicleLandPacket.sendToAll(serverLevel, pos);
+		if (level instanceof ServerLevel serverLevel) WWIcicleLandPacket.sendToAll(serverLevel, pos, getId(entity.getBlockState()), entity.isSilent());
 	}
 
 	@Override

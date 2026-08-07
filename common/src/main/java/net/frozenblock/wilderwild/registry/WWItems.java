@@ -22,11 +22,12 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
-import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
+import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
@@ -34,7 +35,6 @@ import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
@@ -58,6 +58,7 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.ChatFormatting;
 
 public final class WWItems {
 	private static final FrozenDeferredRegister.Items REGISTER = FrozenDeferredRegister.createItems(
@@ -87,18 +88,14 @@ public final class WWItems {
 		properties -> new CoconutItem(WWBlocks.COCONUT.get(), properties),
 		() -> new Item.Properties().useBlockDescriptionPrefix()
 	);
-	public static final FrozenDeferredItem<BlockItem> YELLOW_MAPLE_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_MAPLE_SAPLING, WWBlocks.YELLOW_MAPLE_SAPLING);
-	public static final FrozenDeferredItem<BlockItem> ORANGE_MAPLE_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.ORANGE_MAPLE_SAPLING, WWBlocks.ORANGE_MAPLE_SAPLING);
-	public static final FrozenDeferredItem<BlockItem> RED_MAPLE_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_MAPLE_SAPLING, WWBlocks.RED_MAPLE_SAPLING);
+	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING, REGISTER::registerSimpleBlockItem);
 
 	// LEAVES
 	public static final FrozenDeferredItem<BlockItem> BAOBAB_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAVES);
 	public static final FrozenDeferredItem<BlockItem> WILLOW_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LEAVES, WWBlocks.WILLOW_LEAVES);
 	public static final FrozenDeferredItem<BlockItem> CYPRESS_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAVES);
 	public static final FrozenDeferredItem<BlockItem> PALM_FRONDS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FRONDS, WWBlocks.PALM_FRONDS);
-	public static final FrozenDeferredItem<BlockItem> YELLOW_MAPLE_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_MAPLE_LEAVES, WWBlocks.YELLOW_MAPLE_LEAVES);
-	public static final FrozenDeferredItem<BlockItem> ORANGE_MAPLE_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.ORANGE_MAPLE_LEAVES, WWBlocks.ORANGE_MAPLE_LEAVES);
-	public static final FrozenDeferredItem<BlockItem> RED_MAPLE_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_MAPLE_LEAVES, WWBlocks.RED_MAPLE_LEAVES);
+	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, WWBlocks.MAPLE_LEAVES, REGISTER::registerSimpleBlockItem);
 
 	// HOLLOWED LOGS
 	public static final FrozenDeferredItem<BlockItem> HOLLOWED_OAK_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
@@ -147,9 +144,7 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> PALM_FROND_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FROND_LITTER, WWBlocks.PALM_FROND_LITTER);
 	public static final FrozenDeferredItem<BlockItem> SPRUCE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
 	public static final FrozenDeferredItem<BlockItem> WILLOW_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> YELLOW_MAPLE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER, WWBlocks.YELLOW_MAPLE_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> ORANGE_MAPLE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER, WWBlocks.ORANGE_MAPLE_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> RED_MAPLE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_MAPLE_LEAF_LITTER, WWBlocks.RED_MAPLE_LEAF_LITTER);
+	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_LEAF_LITTER = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER, REGISTER::registerSimpleBlockItem);
 
 	// SCULK
 	public static final FrozenDeferredItem<BlockItem> SCULK_STAIRS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SCULK_STAIRS, WWBlocks.SCULK_STAIRS);

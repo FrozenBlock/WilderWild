@@ -19,15 +19,14 @@ package net.frozenblock.wilderwild.client.renderer.blockentity.state;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.util.Mth;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class DisplayLanternRenderState extends BlockEntityRenderState {
 	public float age;
 	public boolean isHanging;

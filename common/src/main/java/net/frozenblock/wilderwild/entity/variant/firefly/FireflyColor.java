@@ -43,24 +43,23 @@ import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.ChatFormatting;
 
 public record FireflyColor(
-	ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name, Optional<DyeColor> dyeColor
+	ClientAsset.ResourceTexture resourceTexture,
+	SpawnPrioritySelectors spawnConditions,
+	String name,
+	Optional<DyeColor> dyeColor
 ) implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
 	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
-	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
-			SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(FireflyColor::spawnConditions),
-			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name),
-			DyeColor.CODEC.optionalFieldOf("dye_color").forGetter(fireflyColor -> fireflyColor.dyeColor)
-		).apply(instance, FireflyColor::new)
-	);
-	public static final Codec<FireflyColor> NETWORK_CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
-			Codec.STRING.fieldOf("name").forGetter(FireflyColor::name),
-			DyeColor.CODEC.optionalFieldOf("dye_color").forGetter(fireflyColor -> fireflyColor.dyeColor)
-		).apply(instance, FireflyColor::new)
-	);
+	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
+		SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(FireflyColor::spawnConditions),
+		Codec.STRING.fieldOf("name").forGetter(FireflyColor::name),
+		DyeColor.CODEC.optionalFieldOf("dye_color").forGetter(fireflyColor -> fireflyColor.dyeColor)
+	).apply(instance, FireflyColor::new));
+	public static final Codec<FireflyColor> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
+		Codec.STRING.fieldOf("name").forGetter(FireflyColor::name),
+		DyeColor.CODEC.optionalFieldOf("dye_color").forGetter(fireflyColor -> fireflyColor.dyeColor)
+	).apply(instance, FireflyColor::new));
 	public static final Codec<Holder<FireflyColor>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.FIREFLY_COLOR);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<FireflyColor>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_COLOR);
 

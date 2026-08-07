@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.item.api.loot.FrozenLibLootTableBuilder;
 import net.frozenblock.lib.item.api.component.removable.RemovableItemTags;
-import net.frozenblock.lib.item.api.loot.FrozenLibLootTableEvents;
+import net.frozenblock.lib.item.api.loot.LootTableEvents;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -50,7 +49,7 @@ public final class WWLootTables {
 	// TODO: fabric & neo
 	public static void init() {
 		// SHIPWRECK
-		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.SHIPWRECK_SUPPLY.equals(id) && source.isBuiltin()) {
 				final LootPool.Builder pool = LootPool.lootPool();
 
@@ -138,9 +137,9 @@ public final class WWLootTables {
 		});
 
 		// SAVANNA VILLAGE
-		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_SAVANNA_HOUSE.equals(id) && source.isBuiltin() && WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
-				((FrozenLibLootTableBuilder) tableBuilder).frozenLib$modifyPools(builder -> {
+				tableBuilder.frozenLib$modifyPools(builder -> {
 					builder.add(
 						LootItem.lootTableItem(WWItems.BAOBAB_NUT)
 							.setWeight(2)
@@ -157,10 +156,10 @@ public final class WWLootTables {
 		});
 
 		// DESERT VILLAGE
-		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.VILLAGE_DESERT_HOUSE.equals(id) && source.isBuiltin()) {
 				if (WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.get() || WWWorldgenConfig.PALM_TREE_GENERATION.get()) {
-					((FrozenLibLootTableBuilder) tableBuilder).frozenLib$modifyPools(builder -> {
+					tableBuilder.frozenLib$modifyPools(builder -> {
 						builder.add(
 							LootItem.lootTableItem(WWItems.COCONUT)
 								.setWeight(2)
@@ -176,7 +175,7 @@ public final class WWLootTables {
 				}
 
 				if (WWWorldgenConfig.CACTUS_GENERATION.get()) {
-					((FrozenLibLootTableBuilder) tableBuilder).frozenLib$modifyPools(builder -> {
+					tableBuilder.frozenLib$modifyPools(builder -> {
 						builder.add(
 							LootItem.lootTableItem(WWItems.PRICKLY_PEAR)
 								.setWeight(1)
@@ -189,7 +188,7 @@ public final class WWLootTables {
 		});
 
 		// ANCIENT CITY
-		FrozenLibLootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
+		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (BuiltInLootTables.ANCIENT_CITY.equals(id) && source.isBuiltin()) {
 				if (!WWBlockConfig.OSSEOUS_SCULK_GENERATION.get() && !WWBlockConfig.TENDRIL_GENERATION.get()) return;
 
@@ -217,7 +216,7 @@ public final class WWLootTables {
 		});
 
 		// STONE CHEST
-		FrozenLibLootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
+		LootTableEvents.ON_ITEM_GENERATED_IN_CONTAINER.register((container, itemStack) -> {
 			if (!(container instanceof StoneChestBlockEntity)) return;
 			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
 		});

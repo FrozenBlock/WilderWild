@@ -1,0 +1,28 @@
+{
+  "leaf_litter_block": "wilderwild:cherry_leaf_litter",
+  "leaf_litter_particle_data": {
+    "gravity_scale": 1.0,
+    "movement_type": "flow_away",
+    "origin_block": "minecraft:cherry_leaves",
+    "particle": "wilderwild:cherry_leaves",
+    "spawn_chance": 0.0125,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/cherryFrequency"
+    },
+    "texture_size": 4,
+    "wind_scale": 2.0
+  },
+  "leaf_particle_data": {
+    "gravity_scale": 1.0,
+    "movement_type": "flow_away",
+    "origin_block": "minecraft:cherry_leaves",
+    "particle": "wilderwild:cherry_leaves",
+    "spawn_chance": 0.0125,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/cherryFrequency"
+    },
+    "texture_size": 4,
+    "wind_scale": 2.0
+  },
+  "leaves_block": "minecraft:cherry_leaves"
+}

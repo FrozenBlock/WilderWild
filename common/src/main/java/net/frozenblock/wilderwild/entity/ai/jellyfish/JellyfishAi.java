@@ -21,7 +21,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import net.frozenblock.lib.entity.api.behavior.FrozenBehaviorUtils;
+import net.frozenblock.lib.entity.api.behavior.BehaviorUtil;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -79,7 +79,7 @@ public class JellyfishAi {
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 					ImmutableList.of(
 						Pair.of(
-							BehaviorBuilder.triggerIf(jellyfish -> jellyfish.getTarget() == null && jellyfish.canRandomSwim(), FrozenBehaviorUtils.getOneShot(RandomStroll.swim(1F))),
+							BehaviorBuilder.triggerIf(jellyfish -> jellyfish.getTarget() == null && jellyfish.canRandomSwim(), BehaviorUtil.getOneShot(RandomStroll.swim(1F))),
 							2
 						),
 						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 1),

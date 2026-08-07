@@ -2192,6 +2192,16 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.falling_leaf_litter.maple.land": {
+    "sounds": [
+      "wilderwild:block/maple_leaf_litter/place1",
+      "wilderwild:block/maple_leaf_litter/place2",
+      "wilderwild:block/maple_leaf_litter/place3",
+      "wilderwild:block/maple_leaf_litter/place4",
+      "wilderwild:block/maple_leaf_litter/place5"
+    ],
+    "subtitle": "subtitles.falling_leaf_litter.land"
+  },
   "block.maple_wood.break": {
     "sounds": [
       "wilderwild:block/maple_wood/break1",

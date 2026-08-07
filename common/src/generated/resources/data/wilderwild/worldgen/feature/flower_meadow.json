@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:noise_provider",
+    "noise": {
+      "amplitude_modifiers": [
+        1.0
+      ],
+      "base_octave": 0,
+      "normalize": false
+    },
+    "scale": 0.007833334,
+    "seed": 5050,
+    "states": [
+      {
+        "Name": "minecraft:lily_of_the_valley"
+      },
+      {
+        "Name": "wilderwild:seeding_dandelion"
+      },
+      {
+        "Name": "minecraft:azure_bluet"
+      },
+      {
+        "Name": "minecraft:oxeye_daisy"
+      },
+      {
+        "Name": "minecraft:dandelion"
+      },
+      {
+        "Name": "minecraft:poppy"
+      },
+      {
+        "Name": "minecraft:allium"
+      },
+      {
+        "Name": "wilderwild:pasqueflower"
+      },
+      {
+        "Name": "wilderwild:pasqueflower"
+      },
+      {
+        "Name": "minecraft:cornflower"
+      },
+      {
+        "Name": "minecraft:cornflower"
+      }
+    ]
+  }
+}

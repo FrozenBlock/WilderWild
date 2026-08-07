@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.WWConstants;
 // TODO: port to common
 public final class WWFabricModIntegrations {
 	public static final ModIntegration SIMPLE_COPPER_PIPES_INTEGRATION = registerAndGet(() -> new SimpleCopperPipesIntegration(), "simple_copper_pipes");
-	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
 
 	public static void init() {}
 

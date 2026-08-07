@@ -1,0 +1,168 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted_state_provider",
+    "entries": [
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "north",
+            "flower_amount": "1"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "east",
+            "flower_amount": "1"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "south",
+            "flower_amount": "1"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "west",
+            "flower_amount": "1"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "north",
+            "flower_amount": "2"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "east",
+            "flower_amount": "2"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "south",
+            "flower_amount": "2"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "west",
+            "flower_amount": "2"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "north",
+            "flower_amount": "3"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "east",
+            "flower_amount": "3"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "south",
+            "flower_amount": "3"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "west",
+            "flower_amount": "3"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "north",
+            "flower_amount": "4"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "east",
+            "flower_amount": "4"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "south",
+            "flower_amount": "4"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "Name": "wilderwild:phlox",
+          "Properties": {
+            "facing": "west",
+            "flower_amount": "4"
+          }
+        },
+        "weight": 1
+      }
+    ]
+  }
+}

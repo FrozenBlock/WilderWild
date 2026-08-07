@@ -22,16 +22,17 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import net.frozenblock.lib.block.api.blockentity.BlockEntityTypeExtension;
-import net.frozenblock.lib.block.storage.api.hopper.HopperApi;
+import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
+import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
+import net.frozenblock.lib.block.api.registry.WoodTypeBuilder;
+import net.frozenblock.lib.block.api.storage.hopper.HopperApi;
 import net.frozenblock.lib.event.api.events.ServerLevelEvents;
-import net.frozenblock.lib.item.api.FuelRegistry;
+import net.frozenblock.lib.item.api.axe.StrippableBlockRegistry;
 import net.frozenblock.lib.item.api.bonemeal.BoneMealApi;
+import net.frozenblock.lib.item.api.registry.CompostableRegistry;
+import net.frozenblock.lib.item.api.registry.FuelRegistry;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredBlock;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.registry.api.BlockSetTypeBuilder;
-import net.frozenblock.lib.registry.api.CompostableRegistry;
-import net.frozenblock.lib.registry.api.FlammableBlockRegistry;
-import net.frozenblock.lib.registry.api.WoodTypeBuilder;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
@@ -89,14 +90,12 @@ import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
-import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.minecraft.core.BlockPos;
@@ -105,7 +104,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
@@ -159,14 +157,13 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
 
 public final class WWBlocks {
-	private static final FrozenDeferredRegister.Blocks REGISTER = FrozenDeferredRegister.createBlocks(
-		WWConstants.MOD_ID
-	);
-
+	private static final FrozenDeferredRegister.Blocks REGISTER = FrozenDeferredRegister.createBlocks(WWConstants.MOD_ID);
+	// BLOCK SET TYPES
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
 	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("willow"));
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
+
 	// Maple's sound-dependent set/wood types must not resolve until sound events are bound, so they're
 	// deferred behind a memoized supplier instead of Wilder Wild's other BlockSetTypes/WoodTypes above.
 	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
@@ -176,15 +173,19 @@ public final class WWBlocks {
 		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON.get()).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF.get())
 		.buttonClickOnSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_ON.get()).buttonClickOffSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_OFF.get())
 		.register(WWConstants.id("maple")));
+	// WOOD TYPES
 	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WWConstants.id("baobab"), BAOBAB_SET);
 	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("willow"), WILLOW_SET);
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
+	// Maple's sound-dependent set/wood types must not resolve until sound events are bound, so they're
+	// deferred behind a memoized supplier instead of Wilder Wild's other BlockSetTypes/WoodTypes above.
 	public static final Supplier<WoodType> MAPLE_WOOD_TYPE = Suppliers.memoize(() -> WoodTypeBuilder.copyOf(WoodType.SPRUCE)
 		.soundType(WWSoundTypes.MAPLE_WOOD)
 		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN.get())
 		.hangingSignSoundType(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
 		.register(WWConstants.id("maple"), MAPLE_SET.get()));
+	// WOOD COLORS
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;
 	private static final MapColor WILLOW_PLANKS_COLOR = MapColor.TERRACOTTA_LIGHT_GREEN;
@@ -252,23 +253,15 @@ public final class WWBlocks {
 	);
 	public static final FrozenDeferredBlock<Block> POTTED_COCONUT = registerFlowerPot(WWBlockIds.POTTED_COCONUT, COCONUT);
 
-	public static final FrozenDeferredBlock<SaplingBlock> YELLOW_MAPLE_SAPLING = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_SAPLING.block(),
-		properties -> new SaplingBlock(WWTreeGrowers.YELLOW_MAPLE, properties),
-		() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	public static final MapleCollection<FrozenDeferredBlock<SaplingBlock>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWTreeGrowers.MAPLE,
+		(id, treeGrower) -> REGISTER.registerBlock(id.block(),
+			properties -> new SaplingBlock(treeGrower, properties),
+			() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+		)
 	);
-	public static final FrozenDeferredBlock<Block> POTTED_YELLOW_MAPLE_SAPLING = registerFlowerPot(WWBlockIds.POTTED_YELLOW_MAPLE_SAPLING, YELLOW_MAPLE_SAPLING);
-
-	public static final FrozenDeferredBlock<SaplingBlock> ORANGE_MAPLE_SAPLING = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_SAPLING.block(),
-		properties -> new SaplingBlock(WWTreeGrowers.ORANGE_MAPLE, properties),
-		() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
+	public static final MapleCollection<FrozenDeferredBlock<Block>> POTTED_MAPLE_SAPLING = MapleCollection.zipMap(WWBlockIds.POTTED_MAPLE_SAPLING, MAPLE_SAPLING,
+		WWBlocks::registerFlowerPot
 	);
-	public static final FrozenDeferredBlock<Block> POTTED_ORANGE_MAPLE_SAPLING = registerFlowerPot(WWBlockIds.POTTED_ORANGE_MAPLE_SAPLING, ORANGE_MAPLE_SAPLING);
-
-	public static final FrozenDeferredBlock<SaplingBlock> RED_MAPLE_SAPLING = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_SAPLING.block(),
-		properties -> new SaplingBlock(WWTreeGrowers.RED_MAPLE, properties),
-		() -> Properties.ofFullCopy(Blocks.BIRCH_SAPLING)
-	);
-	public static final FrozenDeferredBlock<Block> POTTED_RED_MAPLE_SAPLING = registerFlowerPot(WWBlockIds.POTTED_RED_MAPLE_SAPLING, RED_MAPLE_SAPLING);
 
 	// LEAVES
 	public static final FrozenDeferredBlock<BaobabLeavesBlock> BAOBAB_LEAVES = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_LEAVES.block(),
@@ -287,17 +280,11 @@ public final class WWBlocks {
 		properties -> new PalmFrondsBlock(0.005F, properties),
 		() -> Blocks.leavesProperties(SoundType.GRASS)
 	);
-	public static final FrozenDeferredBlock<LeavesWithLitterBlock> YELLOW_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.YELLOW_MAPLE_LEAVES.block(),
-		properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
-		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_YELLOW)
-	);
-	public static final FrozenDeferredBlock<LeavesWithLitterBlock> ORANGE_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.ORANGE_MAPLE_LEAVES.block(),
-		properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
-		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_ORANGE)
-	);
-	public static final FrozenDeferredBlock<LeavesWithLitterBlock> RED_MAPLE_LEAVES = REGISTER.registerBlock(WWBlockItemIds.RED_MAPLE_LEAVES.block(),
-		properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
-		() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(MapColor.COLOR_RED)
+	public static final MapleCollection<FrozenDeferredBlock<LeavesWithLitterBlock>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, MapleCollection.MAP_COLORS,
+		(id, mapColor) -> REGISTER.registerBlock(id.block(),
+			properties -> new LeavesWithLitterBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
+			() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(mapColor)
+		)
 	);
 
 	// HOLLOWED LOGS
@@ -451,73 +438,7 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final FrozenDeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final FrozenDeferredBlock<Block> YELLOW_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER,
-		YELLOW_MAPLE_LEAVES,
-		() -> WWParticleTypes.YELLOW_MAPLE_LEAVES.get()
-	);
-	public static final FrozenDeferredBlock<Block> ORANGE_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER,
-		ORANGE_MAPLE_LEAVES,
-		() -> WWParticleTypes.ORANGE_MAPLE_LEAVES.get()
-	);
-	public static final FrozenDeferredBlock<Block> RED_MAPLE_LEAF_LITTER = registerMapleLeafLitter(WWBlockItemIds.RED_MAPLE_LEAF_LITTER,
-		RED_MAPLE_LEAVES,
-		() -> WWParticleTypes.RED_MAPLE_LEAVES.get()
-	);
-
-	public static FrozenDeferredBlock<Block> registerMapleLeafLitter(BlockItemId id, Supplier<? extends Block> sourceBlock, Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType) {
-		return registerLeafLitter(
-			id,
-			sourceBlock,
-			particleType,
-			0.04F,
-			() -> WWAmbienceAndMiscConfig.MAPLE_LEAF_FREQUENCY.get() * 0.01D,
-			5,
-			FallingLeafUtil.LeafMovementType.SWIRL,
-			() -> WWSoundTypes.MAPLE_LEAF_LITTER
-		);
-	}
-
-	public static FrozenDeferredBlock<Block> registerLeafLitter(
-		BlockItemId id,
-		Supplier<? extends Block> sourceBlock,
-		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
-		float litterChance,
-		Supplier<Double> frequencyModifier,
-		int textureSize,
-		FallingLeafUtil.LeafMovementType leafMovementType,
-		Supplier<SoundType> soundType
-	) {
-		return registerLeafLitter(
-			id, sourceBlock, particleType, litterChance, 0.0225F, frequencyModifier, textureSize, 3F, 10F, leafMovementType, soundType
-		);
-	}
-
-	public static FrozenDeferredBlock<Block> registerLeafLitter(
-		BlockItemId id,
-		Supplier<? extends Block> sourceBlock,
-		Supplier<ParticleType<WWFallingLeavesParticleOptions>> particleType,
-		float litterChance,
-		float particleChance,
-		Supplier<Double> frequencyModifier,
-		int textureSize,
-		float particleGravityScale,
-		float windScale,
-		FallingLeafUtil.LeafMovementType leafMovementType,
-		Supplier<SoundType> soundType
-	) {
-		return registerLeafLitter(id, soundType, block1 -> FallingLeafUtil.registerLeavesWithLitter(
-			sourceBlock.get(),
-			block1,
-			litterChance,
-			particleType.get(),
-			particleChance,
-			frequencyModifier,
-			textureSize,
-			particleGravityScale,
-			windScale,
-			leafMovementType
-		));
-	}
+	public static final MapleCollection<FrozenDeferredBlock<Block>> MAPLE_LEAF_LITTER = WWBlockItemIds.MAPLE_LEAF_LITTER.map(id -> registerLeafLitter(id, () -> WWSoundTypes.MAPLE_LEAF_LITTER));
 
 	private static FrozenDeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType) {
 		return registerLeafLitter(id, soundType, null);
@@ -1627,250 +1548,240 @@ public final class WWBlocks {
 	}
 
 	private static void registerComposting() {
-		CompostableRegistry.add(CARNATION, 0.65F);
-		CompostableRegistry.add(CATTAIL, 0.65F);
-		CompostableRegistry.add(DATURA, 0.65F);
-		CompostableRegistry.add(MILKWEED, 0.65F);
-		CompostableRegistry.add(WWItems.MILKWEED_POD, 0.25F);
-		CompostableRegistry.add(MARIGOLD, 0.3F);
-		CompostableRegistry.add(LANTANAS, 0.3F);
-		CompostableRegistry.add(PHLOX, 0.3F);
-		CompostableRegistry.add(SEEDING_DANDELION, 0.65F);
-		CompostableRegistry.add(FLOWERING_LILY_PAD, 0.65F);
-		CompostableRegistry.add(BROWN_SHELF_FUNGI, 0.65F);
-		CompostableRegistry.add(RED_SHELF_FUNGI, 0.65F);
-		CompostableRegistry.add(WILLOW_LEAVES, 0.3F);
-		CompostableRegistry.add(CYPRESS_LEAVES, 0.3F);
-		CompostableRegistry.add(BAOBAB_LEAVES, 0.3F);
-		CompostableRegistry.add(PALM_FRONDS, 0.3F);
-		CompostableRegistry.add(YELLOW_MAPLE_LEAVES, 0.3F);
-		CompostableRegistry.add(ORANGE_MAPLE_LEAVES, 0.3F);
-		CompostableRegistry.add(RED_MAPLE_LEAVES, 0.3F);
-		CompostableRegistry.add(WILLOW_SAPLING, 0.3F);
-		CompostableRegistry.add(CYPRESS_SAPLING, 0.3F);
-		CompostableRegistry.add(BAOBAB_NUT, 0.3F);
-		CompostableRegistry.add(YELLOW_MAPLE_SAPLING, 0.3F);
-		CompostableRegistry.add(ORANGE_MAPLE_SAPLING, 0.3F);
-		CompostableRegistry.add(RED_MAPLE_SAPLING, 0.3F);
-		CompostableRegistry.add(WWItems.COCONUT, 0.65F);
-		CompostableRegistry.add(WWItems.SPLIT_COCONUT, 0.3F);
-		CompostableRegistry.add(RED_HIBISCUS, 0.65F);
-		CompostableRegistry.add(YELLOW_HIBISCUS, 0.65F);
-		CompostableRegistry.add(WHITE_HIBISCUS, 0.65F);
-		CompostableRegistry.add(PINK_HIBISCUS, 0.65F);
-		CompostableRegistry.add(PURPLE_HIBISCUS, 0.65F);
-		CompostableRegistry.add(ALGAE, 0.3F);
-		CompostableRegistry.add(WWBlocks.PLANKTON, 0.3F);
-		CompostableRegistry.add(MYCELIUM_GROWTH, 0.3F);
-		CompostableRegistry.add(SHRUB, 0.65F);
-		CompostableRegistry.add(TUMBLEWEED_PLANT, 0.5F);
-		CompostableRegistry.add(TUMBLEWEED, 0.3F);
-		CompostableRegistry.add(WWItems.PRICKLY_PEAR, 0.5F);
-		CompostableRegistry.add(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
-		CompostableRegistry.add(ACACIA_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(AZALEA_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(BAOBAB_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(BIRCH_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(CHERRY_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(CYPRESS_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(DARK_OAK_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(JUNGLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(MANGROVE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(PALE_OAK_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(PALM_FROND_LITTER, 0.3F);
-		CompostableRegistry.add(SPRUCE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(WILLOW_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(YELLOW_MAPLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(ORANGE_MAPLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(RED_MAPLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.add(CLOVERS, 0.3F);
-		CompostableRegistry.add(FROZEN_SHORT_GRASS, 0.3F);
-		CompostableRegistry.add(FROZEN_TALL_GRASS, 0.5F);
-		CompostableRegistry.add(FROZEN_FERN, 0.65F);
-		CompostableRegistry.add(FROZEN_LARGE_FERN, 0.65F);
-		CompostableRegistry.add(FROZEN_BUSH, 0.3F);
-		CompostableRegistry.add(AUBURN_MOSS_BLOCK, 0.65F);
-		CompostableRegistry.add(AUBURN_MOSS_CARPET, 0.3F);
-		CompostableRegistry.add(AUBURN_CREEPING_MOSS, 0.3F);
+		CompostableRegistry.register(CARNATION, 0.65F);
+		CompostableRegistry.register(CATTAIL, 0.65F);
+		CompostableRegistry.register(DATURA, 0.65F);
+		CompostableRegistry.register(MILKWEED, 0.65F);
+		CompostableRegistry.register(WWItems.MILKWEED_POD, 0.25F);
+		CompostableRegistry.register(MARIGOLD, 0.3F);
+		CompostableRegistry.register(LANTANAS, 0.3F);
+		CompostableRegistry.register(PHLOX, 0.3F);
+		CompostableRegistry.register(SEEDING_DANDELION, 0.65F);
+		CompostableRegistry.register(FLOWERING_LILY_PAD, 0.65F);
+		CompostableRegistry.register(BROWN_SHELF_FUNGI, 0.65F);
+		CompostableRegistry.register(RED_SHELF_FUNGI, 0.65F);
+		CompostableRegistry.register(WILLOW_LEAVES, 0.3F);
+		CompostableRegistry.register(CYPRESS_LEAVES, 0.3F);
+		CompostableRegistry.register(BAOBAB_LEAVES, 0.3F);
+		CompostableRegistry.register(PALM_FRONDS, 0.3F);
+		MAPLE_LEAVES.forEach(leaves -> CompostableRegistry.register(leaves, 0.3F));
+		CompostableRegistry.register(WILLOW_SAPLING, 0.3F);
+		CompostableRegistry.register(CYPRESS_SAPLING, 0.3F);
+		CompostableRegistry.register(BAOBAB_NUT, 0.3F);
+		MAPLE_SAPLING.forEach(sapling -> CompostableRegistry.register(sapling, 0.3F));
+		CompostableRegistry.register(WWItems.COCONUT, 0.65F);
+		CompostableRegistry.register(WWItems.SPLIT_COCONUT, 0.3F);
+		CompostableRegistry.register(RED_HIBISCUS, 0.65F);
+		CompostableRegistry.register(YELLOW_HIBISCUS, 0.65F);
+		CompostableRegistry.register(WHITE_HIBISCUS, 0.65F);
+		CompostableRegistry.register(PINK_HIBISCUS, 0.65F);
+		CompostableRegistry.register(PURPLE_HIBISCUS, 0.65F);
+		CompostableRegistry.register(ALGAE, 0.3F);
+		CompostableRegistry.register(WWBlocks.PLANKTON, 0.3F);
+		CompostableRegistry.register(MYCELIUM_GROWTH, 0.3F);
+		CompostableRegistry.register(SHRUB, 0.65F);
+		CompostableRegistry.register(TUMBLEWEED_PLANT, 0.5F);
+		CompostableRegistry.register(TUMBLEWEED, 0.3F);
+		CompostableRegistry.register(WWItems.PRICKLY_PEAR, 0.5F);
+		CompostableRegistry.register(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
+		CompostableRegistry.register(ACACIA_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(AZALEA_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(BAOBAB_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(BIRCH_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(CHERRY_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(CYPRESS_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(DARK_OAK_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(JUNGLE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(MANGROVE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(PALE_OAK_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(PALM_FROND_LITTER, 0.3F);
+		CompostableRegistry.register(SPRUCE_LEAF_LITTER, 0.3F);
+		CompostableRegistry.register(WILLOW_LEAF_LITTER, 0.3F);
+		MAPLE_LEAF_LITTER.forEach(leafLitter -> CompostableRegistry.register(leafLitter, 0.3F));
+		CompostableRegistry.register(CLOVERS, 0.3F);
+		CompostableRegistry.register(FROZEN_SHORT_GRASS, 0.3F);
+		CompostableRegistry.register(FROZEN_TALL_GRASS, 0.5F);
+		CompostableRegistry.register(FROZEN_FERN, 0.65F);
+		CompostableRegistry.register(FROZEN_LARGE_FERN, 0.65F);
+		CompostableRegistry.register(FROZEN_BUSH, 0.3F);
+		CompostableRegistry.register(AUBURN_MOSS_BLOCK, 0.65F);
+		CompostableRegistry.register(AUBURN_MOSS_CARPET, 0.3F);
+		CompostableRegistry.register(AUBURN_CREEPING_MOSS, 0.3F);
 	}
 
 	private static void registerFlammability() {
-		FlammableBlockRegistry.add(POLLEN.get(), 60, 100);
-		FlammableBlockRegistry.add(SEEDING_DANDELION.get(), 60, 100);
-		FlammableBlockRegistry.add(CARNATION.get(), 60, 100);
-		FlammableBlockRegistry.add(CATTAIL.get(), 60, 100);
-		FlammableBlockRegistry.add(DATURA.get(), 60, 100);
-		FlammableBlockRegistry.add(MILKWEED.get(), 60, 100);
-		FlammableBlockRegistry.add(MARIGOLD.get(), 60, 100);
-		FlammableBlockRegistry.add(RED_HIBISCUS.get(), 60, 100);
-		FlammableBlockRegistry.add(YELLOW_HIBISCUS.get(), 60, 100);
-		FlammableBlockRegistry.add(WHITE_HIBISCUS.get(), 60, 100);
-		FlammableBlockRegistry.add(PINK_HIBISCUS.get(), 60, 100);
-		FlammableBlockRegistry.add(PURPLE_HIBISCUS.get(), 60, 100);
-		FlammableBlockRegistry.add(TUMBLEWEED.get(), 60, 100);
-		FlammableBlockRegistry.add(TUMBLEWEED_PLANT.get(), 60, 100);
-		FlammableBlockRegistry.add(SHRUB.get(), 40, 90);
-		FlammableBlockRegistry.add(MYCELIUM_GROWTH.get(), 60, 100);
-		FlammableBlockRegistry.add(LANTANAS.get(), 60, 100);
-		FlammableBlockRegistry.add(PHLOX.get(), 60, 100);
-		FlammableBlockRegistry.add(CLOVERS.get(), 60, 100);
+		FlammableBlockRegistry.register(POLLEN.get(), 60, 100);
+		FlammableBlockRegistry.register(SEEDING_DANDELION.get(), 60, 100);
+		FlammableBlockRegistry.register(CARNATION.get(), 60, 100);
+		FlammableBlockRegistry.register(CATTAIL.get(), 60, 100);
+		FlammableBlockRegistry.register(DATURA.get(), 60, 100);
+		FlammableBlockRegistry.register(MILKWEED.get(), 60, 100);
+		FlammableBlockRegistry.register(MARIGOLD.get(), 60, 100);
+		FlammableBlockRegistry.register(RED_HIBISCUS.get(), 60, 100);
+		FlammableBlockRegistry.register(YELLOW_HIBISCUS.get(), 60, 100);
+		FlammableBlockRegistry.register(WHITE_HIBISCUS.get(), 60, 100);
+		FlammableBlockRegistry.register(PINK_HIBISCUS.get(), 60, 100);
+		FlammableBlockRegistry.register(PURPLE_HIBISCUS.get(), 60, 100);
+		FlammableBlockRegistry.register(TUMBLEWEED.get(), 60, 100);
+		FlammableBlockRegistry.register(TUMBLEWEED_PLANT.get(), 60, 100);
+		FlammableBlockRegistry.register(SHRUB.get(), 40, 90);
+		FlammableBlockRegistry.register(MYCELIUM_GROWTH.get(), 60, 100);
+		FlammableBlockRegistry.register(LANTANAS.get(), 60, 100);
+		FlammableBlockRegistry.register(PHLOX.get(), 60, 100);
+		FlammableBlockRegistry.register(CLOVERS.get(), 60, 100);
 
-		FlammableBlockRegistry.add(FROZEN_SHORT_GRASS.get(), 60, 100);
-		FlammableBlockRegistry.add(FROZEN_TALL_GRASS.get(), 60, 100);
-		FlammableBlockRegistry.add(FROZEN_FERN.get(), 60, 100);
-		FlammableBlockRegistry.add(FROZEN_LARGE_FERN.get(), 60, 100);
-		FlammableBlockRegistry.add(FROZEN_BUSH.get(), 60, 100);
+		FlammableBlockRegistry.register(FROZEN_SHORT_GRASS.get(), 60, 100);
+		FlammableBlockRegistry.register(FROZEN_TALL_GRASS.get(), 60, 100);
+		FlammableBlockRegistry.register(FROZEN_FERN.get(), 60, 100);
+		FlammableBlockRegistry.register(FROZEN_LARGE_FERN.get(), 60, 100);
+		FlammableBlockRegistry.register(FROZEN_BUSH.get(), 60, 100);
 
-		FlammableBlockRegistry.add(HOLLOWED_BIRCH_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_CHERRY_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_OAK_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_ACACIA_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_JUNGLE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_DARK_OAK_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_MANGROVE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_CHERRY_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_SPRUCE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_PALE_OAK_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(HOLLOWED_POPLAR_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_BIRCH_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_CHERRY_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_OAK_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_ACACIA_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_JUNGLE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_DARK_OAK_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_MANGROVE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_SPRUCE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_PALE_OAK_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_POPLAR_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_BIRCH_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_CHERRY_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_ACACIA_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_JUNGLE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_DARK_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_MANGROVE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_CHERRY_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_SPRUCE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_PALE_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(HOLLOWED_POPLAR_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_BIRCH_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_CHERRY_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_ACACIA_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_JUNGLE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_DARK_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_MANGROVE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_SPRUCE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_PALE_OAK_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_POPLAR_LOG.get(), 5, 5);
 
-		FlammableBlockRegistry.add(HOLLOWED_BAOBAB_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_BAOBAB_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(BAOBAB_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_BAOBAB_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(BAOBAB_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_BAOBAB_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(BAOBAB_PLANKS.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_STAIRS.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_DOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_FENCE.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_SLAB.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_FENCE_GATE.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_PRESSURE_PLATE.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_TRAPDOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.add(BAOBAB_BUTTON.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_WALL_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_WALL_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(BAOBAB_SHELF.get(), 30, 20);
+		FlammableBlockRegistry.register(HOLLOWED_BAOBAB_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_BAOBAB_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(BAOBAB_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_BAOBAB_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(BAOBAB_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_BAOBAB_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(BAOBAB_PLANKS.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_STAIRS.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_DOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_FENCE.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_SLAB.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_FENCE_GATE.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_PRESSURE_PLATE.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_TRAPDOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_LEAVES.get(), 30, 60);
+		FlammableBlockRegistry.register(BAOBAB_BUTTON.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_WALL_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_WALL_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(BAOBAB_SHELF.get(), 30, 20);
 
-		FlammableBlockRegistry.add(HOLLOWED_WILLOW_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_WILLOW_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(WILLOW_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_WILLOW_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(WILLOW_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_WILLOW_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(WILLOW_PLANKS.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_STAIRS.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_DOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_FENCE.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_SLAB.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_FENCE_GATE.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_PRESSURE_PLATE.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_TRAPDOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.add(WILLOW_BUTTON.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_WALL_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_WALL_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(WILLOW_SHELF.get(), 30, 20);
+		FlammableBlockRegistry.register(HOLLOWED_WILLOW_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_WILLOW_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(WILLOW_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_WILLOW_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(WILLOW_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_WILLOW_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(WILLOW_PLANKS.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_STAIRS.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_DOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_FENCE.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_SLAB.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_FENCE_GATE.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_PRESSURE_PLATE.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_TRAPDOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_LEAVES.get(), 30, 60);
+		FlammableBlockRegistry.register(WILLOW_BUTTON.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_WALL_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_WALL_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(WILLOW_SHELF.get(), 30, 20);
 
-		FlammableBlockRegistry.add(HOLLOWED_CYPRESS_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_CYPRESS_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(CYPRESS_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_CYPRESS_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(CYPRESS_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_CYPRESS_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(CYPRESS_PLANKS.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_STAIRS.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_DOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_FENCE.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_SLAB.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_FENCE_GATE.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_PRESSURE_PLATE.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_TRAPDOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.add(CYPRESS_BUTTON.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_WALL_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_WALL_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(CYPRESS_SHELF.get(), 30, 20);
+		FlammableBlockRegistry.register(HOLLOWED_CYPRESS_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_CYPRESS_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(CYPRESS_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_CYPRESS_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(CYPRESS_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_CYPRESS_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(CYPRESS_PLANKS.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_STAIRS.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_DOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_FENCE.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_SLAB.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_FENCE_GATE.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_PRESSURE_PLATE.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_TRAPDOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_LEAVES.get(), 30, 60);
+		FlammableBlockRegistry.register(CYPRESS_BUTTON.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_WALL_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_WALL_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(CYPRESS_SHELF.get(), 30, 20);
 
-		FlammableBlockRegistry.add(HOLLOWED_PALM_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_PALM_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(PALM_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_PALM_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(PALM_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_PALM_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(PALM_PLANKS.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_STAIRS.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_DOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_FENCE.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_SLAB.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_FENCE_GATE.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_PRESSURE_PLATE.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_TRAPDOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_FRONDS.get(), 30, 60);
-		FlammableBlockRegistry.add(PALM_BUTTON.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_WALL_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_WALL_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(PALM_SHELF.get(), 30, 20);
+		FlammableBlockRegistry.register(HOLLOWED_PALM_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_PALM_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(PALM_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_PALM_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(PALM_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_PALM_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(PALM_PLANKS.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_STAIRS.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_DOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_FENCE.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_SLAB.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_FENCE_GATE.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_PRESSURE_PLATE.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_TRAPDOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_FRONDS.get(), 30, 60);
+		FlammableBlockRegistry.register(PALM_BUTTON.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_WALL_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_WALL_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(PALM_SHELF.get(), 30, 20);
 
-		FlammableBlockRegistry.add(HOLLOWED_MAPLE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_HOLLOWED_MAPLE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(MAPLE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_MAPLE_LOG.get(), 5, 5);
-		FlammableBlockRegistry.add(MAPLE_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(STRIPPED_MAPLE_WOOD.get(), 5, 5);
-		FlammableBlockRegistry.add(MAPLE_PLANKS.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_STAIRS.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_DOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_FENCE.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_SLAB.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_FENCE_GATE.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_PRESSURE_PLATE.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_TRAPDOOR.get(), 5, 20);
-		FlammableBlockRegistry.add(YELLOW_MAPLE_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.add(ORANGE_MAPLE_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.add(RED_MAPLE_LEAVES.get(), 30, 60);
-		FlammableBlockRegistry.add(YELLOW_MAPLE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(ORANGE_MAPLE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(RED_MAPLE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(MAPLE_BUTTON.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_WALL_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_WALL_HANGING_SIGN.get(), 5, 20);
-		FlammableBlockRegistry.add(MAPLE_SHELF.get(), 30, 20);
+		FlammableBlockRegistry.register(HOLLOWED_MAPLE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_HOLLOWED_MAPLE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(MAPLE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_MAPLE_LOG.get(), 5, 5);
+		FlammableBlockRegistry.register(MAPLE_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(STRIPPED_MAPLE_WOOD.get(), 5, 5);
+		FlammableBlockRegistry.register(MAPLE_PLANKS.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_STAIRS.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_DOOR.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_FENCE.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_SLAB.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_FENCE_GATE.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_PRESSURE_PLATE.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_TRAPDOOR.get(), 5, 20);
+		MAPLE_LEAVES.forEach(leaves -> FlammableBlockRegistry.register(leaves.get(), 30, 60));
+		FlammableBlockRegistry.register(MAPLE_BUTTON.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_WALL_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_WALL_HANGING_SIGN.get(), 5, 20);
+		FlammableBlockRegistry.register(MAPLE_SHELF.get(), 30, 20);
 
-		FlammableBlockRegistry.add(ACACIA_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(AZALEA_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(BAOBAB_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(BIRCH_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(CHERRY_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(CYPRESS_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(DARK_OAK_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(JUNGLE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(MANGROVE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(PALE_OAK_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(PALM_FROND_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(SPRUCE_LEAF_LITTER.get(), 60, 100);
-		FlammableBlockRegistry.add(WILLOW_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(ACACIA_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(AZALEA_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(BAOBAB_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(BIRCH_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(CHERRY_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(CYPRESS_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(DARK_OAK_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(JUNGLE_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(MANGROVE_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(PALE_OAK_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(PALM_FROND_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(SPRUCE_LEAF_LITTER.get(), 60, 100);
+		FlammableBlockRegistry.register(WILLOW_LEAF_LITTER.get(), 60, 100);
+		MAPLE_LEAF_LITTER.forEach(leafLitter -> FlammableBlockRegistry.register(leafLitter.get(), 60, 100));
 	}
 
 	private static void registerFuels() {
@@ -1963,9 +1874,7 @@ public final class WWBlocks {
 		FuelRegistry.add(MAPLE_FENCE.asItem(), 300);
 		FuelRegistry.add(WWItems.MAPLE_SIGN, 300);
 		FuelRegistry.add(WWItems.MAPLE_HANGING_SIGN, 800);
-		FuelRegistry.add(YELLOW_MAPLE_SAPLING.asItem(), 100);
-		FuelRegistry.add(ORANGE_MAPLE_SAPLING.asItem(), 100);
-		FuelRegistry.add(RED_MAPLE_SAPLING.asItem(), 100);
+		MAPLE_SAPLING.forEach(sapling -> FuelRegistry.add(sapling.asItem(), 100));
 
 		FuelRegistry.add(HOLLOWED_WARPED_STEM.asItem(), 300);
 		FuelRegistry.add(HOLLOWED_CRIMSON_STEM.asItem(), 300);
@@ -2014,6 +1923,7 @@ public final class WWBlocks {
 		FuelRegistry.add(PALM_FROND_LITTER, 100);
 		FuelRegistry.add(SPRUCE_LEAF_LITTER, 100);
 		FuelRegistry.add(WILLOW_LEAF_LITTER, 100);
+		MAPLE_LEAF_LITTER.forEach(leafLitter -> FuelRegistry.add(leafLitter.asItem(), 100));
 
 		FuelRegistry.add(TUMBLEWEED.asItem(), 150);
 		FuelRegistry.add(TUMBLEWEED_PLANT.asItem(), 150);

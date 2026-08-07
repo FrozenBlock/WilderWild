@@ -19,12 +19,11 @@ package net.frozenblock.wilderwild.config.gui;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.FrozenBools;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WilderWildModMenuIntegration implements ModMenuApi {
 
 	@Override

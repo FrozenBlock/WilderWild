@@ -18,11 +18,13 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.levelgen.feature.ShelfFungiFeature;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -58,6 +60,8 @@ import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
@@ -225,18 +229,12 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature MANGROVE_VEGETATION_LEAF_LITTER = register("mangrove_vegetation_leaf_litter");
 	public static final FrozenLibFeature MANGROVE_VEGETATION = register("mangrove_vegetation");
 	public static final FrozenLibFeature CHERRIES = register("cherries");
-	public static final FrozenLibFeature YELLOW_MAPLES = register("yellow_maples");
-	public static final FrozenLibFeature ORANGE_MAPLES = register("orange_maples");
-	public static final FrozenLibFeature RED_MAPLES = register("red_maples");
+	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLES = MapleCollection.NAMES.map(name -> register(name + "_maples"));
 	public static final FrozenLibFeature MAPLES = register("maples");
-	public static final FrozenLibFeature YELLOW_MAPLES_NO_BEES = register("yellow_maples_no_bees");
-	public static final FrozenLibFeature ORANGE_MAPLES_NO_BEES = register("orange_maples_no_bees");
-	public static final FrozenLibFeature RED_MAPLES_NO_BEES = register("red_maples_no_bees");
-	public static final FrozenLibFeature YELLOW_MAPLES_BEES_SAPLING = register("yellow_maples_bees_sapling");
-	public static final FrozenLibFeature ORANGE_MAPLES_BEES_SAPLING = register("orange_maples_bees_sapling");
-	public static final FrozenLibFeature RED_MAPLES_BEES_SAPLING = register("red_maples_bees_sapling");
-	public static final FrozenLibFeature MAPLES_BEES_SAPLING = register("maples_bees_sapling");
+	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLES_NO_BEES = MapleCollection.NAMES.map(name -> register(name + "_maples_no_bees"));
 	public static final FrozenLibFeature MAPLES_NO_BEES = register("maples_no_bees");
+	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLES_BEES_SAPLING = MapleCollection.NAMES.map(name -> register(name + "_maples_bees_sapling"));
+	public static final FrozenLibFeature MAPLES_BEES_SAPLING = register("maples_bees_sapling");
 	public static final FrozenLibFeature PALE_OAKS = register("pale_oaks");
 	public static final FrozenLibFeature PALE_OAKS_CREAKING = register("pale_oaks_creaking");
 	public static final FrozenLibFeature TREES_PALE_GARDEN = register("trees_pale_garden");
@@ -2002,204 +2000,97 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		YELLOW_MAPLES.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-
-						new RandomSelectorFeature(
-							List.of(
-								WWTreePlaced.YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-								WWTreePlaced.FULL_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-								WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-								WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-								WWTreePlaced.TALL_YELLOW_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-								WWTreePlaced.TALL_DYING_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-								WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-								WWTreePlaced.SHORT_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-								WWTreePlaced.BIG_BUSH_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-							),
-							WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
-						)
-					),
-					WWMiscConfigured.YELLOW_MAPLE_LEAF_LITTER.asInlinePlaced()
+		MapleCollection.zipApply(COLORED_MAPLES, MapleCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(Feature.SEQUENCE,
+				new SequenceFeature(
+					HolderSet.direct(
+						PlacementUtils.inlinePlaced(
+							new RandomSelectorFeature(
+								List.of(
+									WWTreePlaced.MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.025F),
+									WWTreePlaced.FULL_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.15F),
+									WWTreePlaced.TALL_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.25F),
+									WWTreePlaced.DYING_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+									WWTreePlaced.TALL_MAPLE_BEES_CHECKED.pick(color).asWeightedPlacedFeature(0.37F),
+									WWTreePlaced.TALL_DYING_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+									WWTreePlaced.MAPLE_BEES_CHECKED.pick(color).asWeightedPlacedFeature(0.37F),
+									WWTreePlaced.SHORT_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.2F),
+									WWTreePlaced.BIG_BUSH_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.4F)
+								),
+								WWTreePlaced.MAPLE_BEES_CHECKED.pick(color).getHolder()
+							)
+						),
+						WWMiscConfigured.MAPLE_LEAF_LITTER.pick(color).asInlinePlaced()
+					)
 				)
-			)
-		);
-
-		ORANGE_MAPLES.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-
-						new RandomSelectorFeature(
-							List.of(
-								WWTreePlaced.ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-								WWTreePlaced.FULL_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-								WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-								WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-								WWTreePlaced.TALL_ORANGE_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-								WWTreePlaced.TALL_DYING_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-								WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-								WWTreePlaced.SHORT_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-								WWTreePlaced.BIG_BUSH_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-							),
-							WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.getHolder()
-						)
-					),
-					WWMiscConfigured.ORANGE_MAPLE_LEAF_LITTER.asInlinePlaced()
-				)
-			)
-		);
-
-		RED_MAPLES.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-
-						new RandomSelectorFeature(
-							List.of(
-								WWTreePlaced.RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-								WWTreePlaced.FULL_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-								WWTreePlaced.TALL_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-								WWTreePlaced.DYING_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-								WWTreePlaced.TALL_RED_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-								WWTreePlaced.TALL_DYING_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-								WWTreePlaced.RED_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-								WWTreePlaced.SHORT_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-								WWTreePlaced.BIG_BUSH_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-							),
-							WWTreePlaced.RED_MAPLE_BEES_CHECKED.getHolder()
-						)
-					),
-					WWMiscConfigured.RED_MAPLE_LEAF_LITTER.asInlinePlaced()
-				)
-			)
-		);
+			);
+		});
 
 		MAPLES.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					YELLOW_MAPLES.asWeightedPlacedFeature(0.4F),
-					ORANGE_MAPLES.asWeightedPlacedFeature(0.55F),
-					RED_MAPLES.asWeightedPlacedFeature(0.9F)
+					COLORED_MAPLES.yellow().asWeightedPlacedFeature(0.4F),
+					COLORED_MAPLES.orange().asWeightedPlacedFeature(0.55F),
+					COLORED_MAPLES.red().asWeightedPlacedFeature(0.9F)
 				),
-				WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
+				WWTreePlaced.MAPLE_BEES_CHECKED.yellow().getHolder()
 			)
 		);
 
-		YELLOW_MAPLES_BEES_SAPLING.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlaced.YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-					WWTreePlaced.FULL_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-					WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-					WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.TALL_YELLOW_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-					WWTreePlaced.TALL_DYING_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.SHORT_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-					WWTreePlaced.BIG_BUSH_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
-			)
-		);
-
-		ORANGE_MAPLES_BEES_SAPLING.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlaced.ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-					WWTreePlaced.FULL_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-					WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-					WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.TALL_ORANGE_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-					WWTreePlaced.TALL_DYING_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.SHORT_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-					WWTreePlaced.BIG_BUSH_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlaced.ORANGE_MAPLE_BEES_CHECKED.getHolder()
-			)
-		);
-
-		RED_MAPLES_BEES_SAPLING.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlaced.RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-					WWTreePlaced.FULL_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-					WWTreePlaced.TALL_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-					WWTreePlaced.DYING_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.TALL_RED_MAPLE_BEES_CHECKED.asWeightedPlacedFeature(0.37F),
-					WWTreePlaced.TALL_DYING_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.SHORT_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-					WWTreePlaced.BIG_BUSH_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlaced.RED_MAPLE_BEES_CHECKED.getHolder()
-			)
-		);
+		MapleCollection.zipApply(COLORED_MAPLES_BEES_SAPLING, MapleCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlaced.MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.025F),
+						WWTreePlaced.FULL_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.15F),
+						WWTreePlaced.TALL_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlaced.DYING_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.TALL_MAPLE_BEES_CHECKED.pick(color).asWeightedPlacedFeature(0.37F),
+						WWTreePlaced.TALL_DYING_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.SHORT_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.2F),
+						WWTreePlaced.BIG_BUSH_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.4F)
+					),
+					WWTreePlaced.MAPLE_BEES_CHECKED.pick(color).getHolder()
+				)
+			);
+		});
 
 		MAPLES_BEES_SAPLING.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					YELLOW_MAPLES_BEES_SAPLING.asWeightedPlacedFeature(0.4F),
-					ORANGE_MAPLES_BEES_SAPLING.asWeightedPlacedFeature(0.55F),
-					RED_MAPLES_BEES_SAPLING.asWeightedPlacedFeature(0.9F)
+					COLORED_MAPLES_BEES_SAPLING.yellow().asWeightedPlacedFeature(0.4F),
+					COLORED_MAPLES_BEES_SAPLING.orange().asWeightedPlacedFeature(0.55F),
+					COLORED_MAPLES_BEES_SAPLING.red().asWeightedPlacedFeature(0.9F)
 				),
-				WWTreePlaced.YELLOW_MAPLE_BEES_CHECKED.getHolder()
+				WWTreePlaced.MAPLE_BEES_CHECKED.yellow().getHolder()
 			)
 		);
 
-		YELLOW_MAPLES_NO_BEES.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlaced.YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-					WWTreePlaced.FULL_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-					WWTreePlaced.TALL_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-					WWTreePlaced.DYING_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.TALL_DYING_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.SHORT_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-					WWTreePlaced.BIG_BUSH_YELLOW_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder()
-			)
-		);
-
-		ORANGE_MAPLES_NO_BEES.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlaced.ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-					WWTreePlaced.FULL_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-					WWTreePlaced.TALL_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-					WWTreePlaced.DYING_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.TALL_DYING_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.SHORT_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-					WWTreePlaced.BIG_BUSH_ORANGE_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlaced.ORANGE_MAPLE_CHECKED.getHolder()
-			)
-		);
-
-		RED_MAPLES_NO_BEES.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlaced.RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.025F),
-					WWTreePlaced.FULL_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.15F),
-					WWTreePlaced.TALL_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.25F),
-					WWTreePlaced.DYING_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.TALL_DYING_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.0785F),
-					WWTreePlaced.SHORT_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.2F),
-					WWTreePlaced.BIG_BUSH_RED_MAPLE_CHECKED.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlaced.RED_MAPLE_CHECKED.getHolder()
-			)
-		);
+		MapleCollection.zipApply(COLORED_MAPLES_NO_BEES, MapleCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlaced.MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.025F),
+						WWTreePlaced.FULL_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.15F),
+						WWTreePlaced.TALL_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlaced.DYING_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.TALL_DYING_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.SHORT_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.2F),
+						WWTreePlaced.BIG_BUSH_MAPLE_CHECKED.pick(color).asWeightedPlacedFeature(0.4F)
+					),
+					WWTreePlaced.MAPLE_CHECKED.pick(color).getHolder()
+				)
+			);
+		});
 
 		MAPLES_NO_BEES.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					YELLOW_MAPLES_NO_BEES.asWeightedPlacedFeature(0.4F),
-					ORANGE_MAPLES_NO_BEES.asWeightedPlacedFeature(0.55F),
-					RED_MAPLES_NO_BEES.asWeightedPlacedFeature(0.9F)
+					COLORED_MAPLES_NO_BEES.yellow().asWeightedPlacedFeature(0.4F),
+					COLORED_MAPLES_NO_BEES.orange().asWeightedPlacedFeature(0.55F),
+					COLORED_MAPLES_NO_BEES.red().asWeightedPlacedFeature(0.9F)
 				),
-				WWTreePlaced.YELLOW_MAPLE_CHECKED.getHolder()
+				WWTreePlaced.MAPLE_CHECKED.yellow().getHolder()
 			)
 		);
 

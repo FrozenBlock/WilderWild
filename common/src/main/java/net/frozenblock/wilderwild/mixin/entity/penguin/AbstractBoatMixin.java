@@ -45,7 +45,7 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 		if (this.level().isClientSide()) return;
 		if (!WWAttachmentTypes.BOAT_BOOST_TICKS.has(this)) return;
 
-		final int newBoostTicks = Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0) - 1, 0);
+		final int newBoostTicks = Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(this, 0) - 1, 0);
 		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, newBoostTicks);
 		if (newBoostTicks <= 0) WWAttachmentTypes.BOAT_BOOST_TICKS.remove(this);
 	}
@@ -65,12 +65,12 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 	@Unique
 	@Override
 	public void wilderWild$boostBoatForTicks(int ticks) {
-		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0), ticks));
+		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(this, 0), ticks));
 	}
 
 	@Unique
 	@Override
 	public boolean wilderWild$isBoatBoosted() {
-		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrGet(this, () -> 0) > 0;
+		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(this, 0) > 0;
 	}
 }

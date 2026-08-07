@@ -71,6 +71,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND)));
 		WWConstants.log("Adding finalized structure processor list additions to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION)));
+		WWConstants.log("Adding finalized variant spawn injections to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.VARIANT_SPAWN_INJECTION)));
 
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);
@@ -85,6 +87,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.MOOBLOOM_VARIANT)));
 		WWConstants.log("Adding finalized termite block behaviors to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR)));
+		WWConstants.log("Adding finalized falling leaf datas to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(WilderWildRegistries.FALLING_LEAF)));
 	}
 
 	public static <T> HolderLookup.RegistryLookup<T> asLookup(HolderGetter<T> getter) {

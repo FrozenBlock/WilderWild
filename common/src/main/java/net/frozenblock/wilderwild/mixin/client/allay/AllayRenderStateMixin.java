@@ -17,15 +17,14 @@
 
 package net.frozenblock.wilderwild.mixin.client.allay;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import net.minecraft.world.entity.AnimationState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(AllayRenderState.class)
 public class AllayRenderStateMixin implements WilderAllay {
 

@@ -51,6 +51,12 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> YELLOW_JELLYFISH = bind("entity/variant/yellow_jellyfish");
 	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("entity/variant/pearlescent_jellyfish");
 
+	public static final TagKey<Biome> WOLF_ASHEN = bind("entity/variant/wolf_ashen");
+	public static final TagKey<Biome> WOLF_WOODS = bind("entity/variant/wolf_woods");
+	public static final TagKey<Biome> WOLF_PALE = bind("entity/variant/wolf_pale");
+	public static final TagKey<Biome> WOLF_BLACK = bind("entity/variant/wolf_black");
+	public static final TagKey<Biome> WOLF_CHESTNUT = bind("entity/variant/wolf_chestnut");
+
 	public static final TagKey<Biome> PRODUCES_BARNACLES_FROM_BONEMEAL = bind("produces_barnacles_from_bonemeal");
 	public static final TagKey<Biome> PRODUCES_SPONGE_BUDS_FROM_BONEMEAL = bind("produces_sponge_buds_from_bonemeal");
 	public static final TagKey<Biome> PRODUCES_SEA_ANEMONE_FROM_BONEMEAL = bind("produces_sea_anemone_from_bonemeal");

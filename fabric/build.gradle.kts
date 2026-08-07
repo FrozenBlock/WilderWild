@@ -1,34 +1,23 @@
-import groovy.xml.XmlSlurper
-import org.codehaus.groovy.runtime.ResourceGroovyMethods
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.net.URI
-import java.nio.file.Files
-import java.util.Properties
-
 plugins {
-    id("ww-multiloader-loader")
-    id("dev.architectury.loom-no-remap")
-    id("org.ajoberstar.grgit")
+    id("net.frozenblock.triangle.fabric")
     id("org.quiltmc.gradle.licenser")
-    id("me.modmuss50.mod-publish-plugin")
-    `maven-publish`
-    eclipse
-    idea
-    `java-library`
-    java
     checkstyle
+}
+
+checkstyle {
+    configFile = rootProject.file("checkstyle.xml")
+    toolVersion = "10.20.2"
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
 
-val minecraft_version: String by project
-val loader_version: String by project
-val min_loader_version: String by project
+val fabric_loader_version: String by project
+val min_fabric_loader_version: String by project
 
 val mod_id: String by project
 val mod_version: String by project
+val minecraft_version: String by project
 val protocol_version: String by project
 val maven_group: String by project
 val archives_base_name: String by project
@@ -53,58 +42,35 @@ base {
     archivesName = archives_base_name
 }
 
+val release = findProperty("releaseType") == "stable"
+
 version = getModVersion()
 group = maven_group
 
-val release = findProperty("releaseType") == "stable"
+tasks.jar {
+    archiveClassifier.set("fabric")
+}
 
-val datagen by sourceSets.registering {
-    compileClasspath += sourceSets.main.get().compileClasspath
-    runtimeClasspath += sourceSets.main.get().runtimeClasspath
+fabric {
+    dependOn(project(":ww-common"))
+    accessWidener(project(":ww-common"))
+    dataGen {
+        owner = project(":ww-common")
+        splitSourceSet("datagen")
+    }
 }
 
 loom {
-    runtimeOnlyLog4j.set(true)
-
-    accessWidenerPath.set(rootProject.file("common/src/main/resources/$mod_id.classtweaker"))
+    enableTransitiveAccessWideners = true
     interfaceInjection {
         enableDependencyInterfaceInjection = true
     }
-
-    runs {
-        register("datagen") {
-            client()
-            name("Data Generation")
-            source(datagen.get())
-            vmArg("-Dfabric-api.datagen")
-            vmArg("-Dfabric-api.datagen.output-dir=${rootProject.file("common/src/main/generated")}")
-            //vmArg("-Dfabric-api.datagen.strict-validation")
-            vmArg("-Dfabric-api.datagen.modid=$mod_id")
-
-            ideConfigGenerated(true)
-            runDir = "build/datagen"
-        }
-
-        named("client") {
-            name("Fabric Client")
-            vmArg("-DMC_DEBUG_FROZENLIB_WIND_DISTURBANCES=true")
-            vmArg("-DMC_DEBUG_ENABLED=false")
-            vmArg("-DMC_DEBUG_FROZENLIB_WIND=true")
-
-            ideConfigGenerated(true)
-            preferGradleTask = true
-        }
-
-        named("server") {
-            ideConfigGenerated(true)
-            preferGradleTask = true
-        }
-    }
 }
 
-checkstyle {
-    configFile = rootProject.file("checkstyle.xml")
-    toolVersion = "10.20.2"
+repositories {
+    flatDir {
+        dirs("libs")
+    }
 }
 
 val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
@@ -126,37 +92,8 @@ sourceSets.configureEach {
     }
 }
 
-repositories {
-    maven("https://jitpack.io")
-    maven("https://maven.terraformersmc.com") {
-        content {
-            includeGroup("com.terraformersmc")
-        }
-    }
-    maven("https://maven.shedaniel.me/")
-    maven("https://maven.blamejared.com")
-    maven("https://maven.minecraftforge.net/")
-    maven("https://maven.jamieswhiteshirt.com/libs-release") {
-        content {
-            includeGroup("com.jamieswhiteshirt")
-        }
-    }
-    maven("https://maven.frozenblock.net/release") {
-        name = "FrozenBlock"
-    }
-    maven("https://maven.frozenblock.net/snapshot") {
-        name = "FrozenBlock Snapshot"
-    }
-
-    flatDir {
-        dirs("libs")
-    }
-    mavenCentral()
-}
-
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraft_version")
-    implementation("net.fabricmc:fabric-loader:$loader_version")
+    implementation("net.fabricmc:fabric-loader:$fabric_loader_version")
     implementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
@@ -188,8 +125,6 @@ dependencies {
         implementation("net.caffeinemc:sodium-fabric:${sodium_version}")
     else
         compileOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
-
-    "datagenImplementation"(sourceSets.main.get().output)
 }
 
 tasks {
@@ -200,7 +135,7 @@ tasks {
             "protocol_version" to protocol_version,
             "minecraft_version" to "~26.3-",
 
-            "fabric_loader_version" to ">=$min_loader_version",
+            "fabric_loader_version" to ">=$min_fabric_loader_version",
             "fabric_api_version" to ">=$fabric_api_version",
             "frozenlib_version" to ">=${frozenlib_version.split('-').firstOrNull()}-"
         )
@@ -234,33 +169,12 @@ tasks {
             include("**/*.java")
         }
     }
-
-    named<Jar>("javadocJar") {
-        // created by multiloader-common via java { withJavadocJar() }
-    }
-
-    named<Jar>("sourcesJar") {
-        from(sourceSets.main.get().allSource)
-    }
-
-    withType(JavaCompile::class) {
-        options.encoding = "UTF-8"
-        options.release.set(25)
-        options.isFork = true
-        options.isIncremental = true
-    }
-
-    withType(Test::class) {
-        maxParallelForks = Runtime.getRuntime().availableProcessors().div(2)
-    }
 }
 
 val applyLicenses: Task by tasks
 val test: Task by tasks
 val runClient: Task by tasks
-val runDatagen: Task by tasks
 
-val jar: Jar by tasks
 val sourcesJar: Jar by tasks
 val javadocJar: Jar by tasks
 
@@ -277,196 +191,51 @@ artifacts {
 fun getModVersion(): String {
     var version = "$mod_version-mc$minecraft_version"
 
-    if (release != null && !release) {
-        //version += "-unstable"
+    if (!release) {
+        version += "-unstable"
     }
 
     return version
 }
 
-val env: MutableMap<String, String> = System.getenv()
-
-publishing {
-    val mavenUrl = env["MAVEN_URL"]
-    val mavenUsername = env["MAVEN_USERNAME"]
-    val mavenPassword = env["MAVEN_PASSWORD"]
-
-    val snapshot = mavenUrl?.contains("snapshot")
-
-    val publishingValid = (project.name == "wilder-fabric") && !mavenUrl.isNullOrEmpty() && !mavenUsername.isNullOrEmpty() && !mavenPassword.isNullOrEmpty()
-
-    val publishVersion = makeModrinthVersion(mod_version)
-    val snapshotPublishVersion = publishVersion + if (snapshot == true) "-SNAPSHOT" else ""
-
-    val publishGroup = rootProject.group.toString().trim(' ')
-
-    val hash = if (grgit.branch != null && grgit.branch.current() != null) grgit.branch.current().fullName else ""
-
-    publications {
-        var publish = true
-        try {
-            if (publishingValid) {
-                try {
-                    val xml = ResourceGroovyMethods.getText(
-                        URI.create("$mavenUrl/${publishGroup.replace('.', '/')}/$snapshotPublishVersion/$publishVersion.pom").toURL()
-                    )
-                    val metadata = XmlSlurper().parseText(xml)
-
-                    if (metadata.getProperty("hash").equals(hash)) {
-                        publish = false
-                    }
-                } catch (ignored: FileNotFoundException) {
-                    // No existing version was published, so we can publish
-                }
-            } else {
-                publish = false
-            }
-        } catch (e: Exception) {
-            publish = false
-            println("Unable to publish to maven. The maven server may be offline.")
-        }
-
-        if (publish) {
-            create<MavenPublication>("mavenJava") {
-                from(components["java"])
-
-                artifact(javadocJar)
-
-                pom {
-                    groupId = publishGroup
-                    artifactId = rootProject.base.archivesName.get().lowercase()
-                    version = snapshotPublishVersion
-                    withXml {
-                        asNode().appendNode("properties").appendNode("hash", hash)
-                    }
-                }
-            }
-        }
-    }
-    repositories {
-        if (publishingValid) {
-            maven {
-                url = uri(mavenUrl!!)
-
-                credentials {
-                    username = mavenUsername
-                    password = mavenPassword
-                }
-            }
-        } else {
-            mavenLocal()
-        }
-    }
+val changelogText = run {
+    val split = rootProject.file("CHANGELOG.md").readText().split("-----------------")
+    check(split.size == 2) { "Malformed changelog" }
+    split[1].trim()
 }
 
-extra {
-    val properties = Properties()
-    properties.load(FileInputStream(rootProject.file("gradle/publishing.properties")))
-    properties.forEach { (a, b) ->
-        project.extra[a as String] = b as String
-    }
-}
-
-val modrinth_id: String by extra
-val curseforge_id: String by extra
-val release_type: String by extra
-val changelog_file: String by extra
-
-val modrinth_version = makeModrinthVersion(mod_version)
-val display_name = makeName(mod_version)
-val changelog_text = getChangelog(rootProject.file(changelog_file))
-
-fun makeName(version: String): String {
-    return "${version} (${minecraft_version})"
-}
-
-fun makeModrinthVersion(version: String): String {
-    return "$version-mc${minecraft_version}"
-}
-
-fun getChangelog(changelogFile: File): String {
-    val text = Files.readString(changelogFile.toPath())
-    val split = text.split("-----------------")
-    if (split.size != 2)
-        throw IllegalStateException("Malformed changelog")
-    return split[1].trim()
-}
-
-fun getBranch(): String {
-    val env = System.getenv()
-    var branch = env["GITHUB_REF"]
-    if (branch != null && branch != "") {
-        return branch.substring(branch.lastIndexOf("/") + 1)
+upload {
+    maven {
+        name.set("wilderwild-fabric")
     }
 
-    if (grgit == null) {
-        return "unknown"
+    forEach {
+        changelog = changelogText
     }
-
-    branch = grgit.branch.current().name
-    return branch.substring(branch.lastIndexOf("/") + 1)
-}
-
-publishMods {
-    version.set(modrinth_version)
-    file.set(jar.archiveFile)
-    changelog.set(changelog_text)
-    type.set(STABLE)
-    modLoaders.add("fabric")
 
     curseforge {
-        version.set(modrinth_version)
-        projectId.set(curseforge_id)
-        projectSlug.set("wilder-wild")
-        accessToken.set(providers.environmentVariable("CURSEFORGE_TOKEN"))
-        minecraftVersions.add(minecraft_version)
-        client = true
-        server = true
-        requires("fabric-api")
-        requires("frozenlib")
-        optional("modmenu")
-        optional("cloth-config")
-        optional("simple-copper-pipes")
-        optional("trailier-tales")
-        optional("glowtone")
-        optional("the-copperier-age")
+        dependencies {
+            required("fabric-api")
+            required("frozenlib")
+            optional("modmenu")
+            optional("cloth-config")
+            optional("simple-copper-pipes")
+            optional("trailier-tales")
+            optional("glowtone")
+            optional("the-copperier-age")
+        }
     }
+
     modrinth {
-        version.set(modrinth_version)
-        projectId.set(modrinth_id)
-        accessToken.set(providers.environmentVariable("MODRINTH_TOKEN"))
-        minecraftVersions.add(minecraft_version)
-        requires("fabric-api")
-        requires("frozenlib")
-        optional("modmenu")
-        optional("cloth-config")
-        optional("simple-copper-pipes")
-        optional("trailier-tales")
-        optional("glowtone")
-        optional("the-copperier-age")
+        dependencies {
+            required("fabric-api")
+            required("frozenlib")
+            optional("modmenu")
+            optional("cloth-config")
+            optional("simple-copper-pipes")
+            optional("trailier-tales")
+            optional("glowtone")
+            optional("the-copperier-age")
+        }
     }
-    github {
-        version.set(modrinth_version)
-        repository.set("FrozenBlock/WilderWild")
-        accessToken.set(providers.environmentVariable("GITHUB_TOKEN"))
-        commitish.set(getBranch())
-        additionalFiles.from(sourcesJar.archiveFile.get().asFile, javadocJar.archiveFile.get().asFile)
-    }
-}
-
-tasks.named("publishCurseforge") {
-    dependsOn(tasks.jar)
-}
-tasks.named("publishModrinth") {
-    dependsOn(tasks.jar)
-}
-tasks.named("publishGithub") {
-    dependsOn(tasks.jar)
-    dependsOn(sourcesJar)
-    dependsOn(javadocJar)
-}
-
-val publishMod by tasks.register("publishMod") {
-    dependsOn(tasks.publish)
-    dependsOn(tasks.publishMods)
 }

@@ -950,7 +950,7 @@ public final class WWPlacedFeatures {
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			PlacementUtils.filteredByBlockSurvival(WWBlocks.YELLOW_MAPLE_SAPLING.get()),
+			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING.yellow().get()),
 			WWPlacementUtils.TREE_CLEARING_FILTER,
 			BiomeFilter.biome()
 		);

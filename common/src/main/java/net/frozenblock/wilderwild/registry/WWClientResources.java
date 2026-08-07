@@ -17,53 +17,50 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.frozenblock.lib.platform.api.resource.FrozenResourceLoader;
+import net.frozenblock.lib.platform.api.resource.FrozenLibResourceLoader;
 import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWClientResources {
 
-	public static void register() {
-		String modId = WWConstants.MOD_ID;
-
-		FrozenResourceLoader.registerBuiltinPack(
+	public static void init() {
+		FrozenLibResourceLoader.registerBuiltinPack(
 			WWConstants.id("mc_live_tendrils"),
-			modId,
+			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
 			PackActivationType.NORMAL
 		);
 
-		FrozenResourceLoader.registerBuiltinPack(
+		FrozenLibResourceLoader.registerBuiltinPack(
 			WWConstants.id("original_firefly"),
-			modId,
+			WWConstants.MOD_ID,
 			Component.literal("Original Fireflies"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
-		FrozenResourceLoader.registerBuiltinPack(
+		FrozenLibResourceLoader.registerBuiltinPack(
 			WWConstants.id("mojang_crabs"),
-			modId,
+			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.mojang_crabs"),
 			PackActivationType.DEFAULT_ENABLED
 		);
 
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
-			FrozenResourceLoader.registerBuiltinPack(
+			FrozenLibResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_extra_music"),
-				modId,
+				WWConstants.MOD_ID,
 				Component.translatable("pack.wilderwild.wilder_extra_music"),
 				PackActivationType.ALWAYS_ENABLED
 			);
 		}
 
-		FrozenResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
+		FrozenLibResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
 			WWConstants.id("resource_pack_value_setters"),
 			(ResourceManagerReloadListener) resourceManager -> {
 				WWConstants.MC_LIVE_TENDRILS = resourceManager.listPacks().anyMatch(packResources -> {

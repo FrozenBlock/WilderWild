@@ -18,15 +18,14 @@
 package net.frozenblock.wilderwild.mixin.client.wind;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.particle.DripParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(DripParticle.NectarFallProvider.class)
 public class NectarFallProviderMixin {
 

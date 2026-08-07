@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
@@ -26,12 +24,13 @@ import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.PenguinModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
 import net.frozenblock.wilderwild.entity.Penguin;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;
 import org.joml.Math;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<T, PenguinRenderState, PenguinModel<PenguinRenderState>> {
 	private static final Identifier TEXTURE = WWConstants.id("textures/entity/penguin/penguin.png");
 	private static final Identifier LINUX = WWConstants.id("textures/entity/penguin/penguin_linux.png");

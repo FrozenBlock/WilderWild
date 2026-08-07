@@ -18,10 +18,9 @@
 package net.frozenblock.wilderwild.mixin.client.allay;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderAllay;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AllayRenderer;
 import net.minecraft.client.renderer.entity.state.AllayRenderState;
 import net.minecraft.world.entity.animal.allay.Allay;
@@ -30,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(AllayRenderer.class)
 public class AllayRendererMixin {
 

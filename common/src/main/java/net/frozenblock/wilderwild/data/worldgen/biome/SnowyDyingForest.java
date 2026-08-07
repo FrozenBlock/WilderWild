@@ -127,7 +127,7 @@ public final class SnowyDyingForest extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.SNOWY_DYING_FOREST_GENERATION.get()) return;
 
 		final Climate.Parameter temperature = WWWorldgenConfig.TUNDRA_GENERATION.get() ? TEMPERATURE_TUNDRA : TEMPERATURE;

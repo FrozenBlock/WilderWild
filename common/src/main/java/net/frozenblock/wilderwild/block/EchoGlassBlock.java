@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.lib.item.api.ItemBlockStateTagUtils;
+import net.frozenblock.lib.item.api.component.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;

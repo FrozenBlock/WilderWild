@@ -609,6 +609,31 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 		this.builder(WWBiomeTags.PEARLESCENT_JELLYFISH)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
+		this.builder(WWBiomeTags.WOLF_ASHEN)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
+		this.builder(WWBiomeTags.WOLF_WOODS)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST)
+			.addOptional(WWBiomes.PARCHED_FOREST);
+
+		this.builder(WWBiomeTags.WOLF_PALE)
+			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.DARK_TAIGA);
+
+		this.builder(WWBiomeTags.WOLF_BLACK)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.builder(WWBiomeTags.WOLF_CHESTNUT)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
+
 		this.builder(WWBiomeTags.HAS_MOOBLOOM)
 			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)

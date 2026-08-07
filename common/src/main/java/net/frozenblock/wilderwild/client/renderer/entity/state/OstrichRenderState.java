@@ -17,10 +17,9 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity.state;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class OstrichRenderState extends net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState {
 	public boolean isInbred;
 }

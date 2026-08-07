@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.particle.provider;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.Particle;
@@ -28,8 +27,8 @@ import net.minecraft.client.particle.SuspendedParticle;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
-@Environment(EnvType.CLIENT)
-public class WWParticleProviders {
+@ClientOnly
+public final class WWParticleProviders {
 	public record ScorchingEffectFlameProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(

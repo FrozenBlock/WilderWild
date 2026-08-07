@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.particle.impl.WilderDripSuspendedParticleInterface;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SuspendedParticle;
@@ -27,7 +26,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(SuspendedParticle.class)
 public abstract class SuspendedParticleMixin extends SingleQuadParticle implements WilderDripSuspendedParticleInterface {
 

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.trading;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -52,9 +53,7 @@ public final class WWVillagerTrades {
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_PALM_LOG = resourceKey("wandering_trader/emerald_palm_log");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_COCONUT = resourceKey("wandering_trader/emerald_coconut");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_MAPLE_LOG = resourceKey("wandering_trader/emerald_maple_log");
-	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_YELLOW_MAPLE_SAPLING = resourceKey("wandering_trader/emerald_yellow_maple_sapling");
-	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_ORANGE_MAPLE_SAPLING = resourceKey("wandering_trader/emerald_orange_maple_sapling");
-	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_RED_MAPLE_SAPLING = resourceKey("wandering_trader/emerald_red_maple_sapling");
+	public static final MapleCollection<ResourceKey<VillagerTrade>> WANDERING_TRADER_EMERALD_MAPLE_SAPLING = MapleCollection.NAMES.map(name -> resourceKey("wandering_trader/emerald_" + name +"_maple_sapling"));
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_SEEDING_DANDELION = resourceKey("wandering_trader/emerald_seeding_dandelion");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_CARNATION = resourceKey("wandering_trader/emerald_carnation");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_PASQUEFLOWER = resourceKey("wandering_trader/emerald_pasqueflower");
@@ -166,19 +165,9 @@ public final class WWVillagerTrades {
 			WANDERING_TRADER_EMERALD_MAPLE_LOG,
 			emeraldTrade(1, WWItems.MAPLE_LOG, 8, 4, 1)
 		);
-		context.register(
-			WANDERING_TRADER_EMERALD_YELLOW_MAPLE_SAPLING,
-			emeraldTrade(5, WWItems.YELLOW_MAPLE_SAPLING, 1, 8, 1)
+		MapleCollection.zipApply(WANDERING_TRADER_EMERALD_MAPLE_SAPLING, WWItems.MAPLE_SAPLING,
+			(key, item) -> context.register(key, emeraldTrade(5, item, 1, 8, 1))
 		);
-		context.register(
-			WANDERING_TRADER_EMERALD_ORANGE_MAPLE_SAPLING,
-			emeraldTrade(5, WWItems.ORANGE_MAPLE_SAPLING, 1, 8, 1)
-		);
-		context.register(
-			WANDERING_TRADER_EMERALD_RED_MAPLE_SAPLING,
-			emeraldTrade(5, WWItems.RED_MAPLE_SAPLING, 1, 8, 1)
-		);
-
 		context.register(
 			WANDERING_TRADER_EMERALD_SEEDING_DANDELION,
 			emeraldTrade(1, WWItems.SEEDING_DANDELION, 1, 8, 1)

@@ -19,13 +19,12 @@ package net.frozenblock.wilderwild.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.SculkSensorRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -38,7 +37,7 @@ import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements BlockEntityRenderer<T, SculkSensorRenderState> {
 	private static final RenderType ACTIVE_SENSOR_LAYER = RenderTypes.entityCutoutCull(WWConstants.id("textures/entity/sculk_sensor/active.png"));
 	private final SculkSensorModel model;

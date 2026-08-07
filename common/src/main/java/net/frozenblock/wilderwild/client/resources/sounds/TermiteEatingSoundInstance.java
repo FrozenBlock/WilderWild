@@ -17,18 +17,28 @@
 
 package net.frozenblock.wilderwild.client.resources.sounds;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundSource;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class TermiteEatingSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTermiteSoundInstance<T> {
 
 	public TermiteEatingSoundInstance(T mound) {
 		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW.get(), SoundSource.BLOCKS);
+	}
+
+	public static void addTermiteSound(TermiteMoundBlockEntity mound, boolean eating) {
+		final Minecraft client = Minecraft.getInstance();
+		if (client.level == null) return;
+		if (eating) {
+			client.getSoundManager().play(new TermiteEatingSoundInstance<>(mound));
+		} else {
+			client.getSoundManager().play(new TermiteIdleSoundInstance<>(mound));
+		}
 	}
 
 	@Override

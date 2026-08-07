@@ -1,0 +1,28 @@
+{
+  "type": "frozenlib:column",
+  "block_state": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:gabbro"
+    }
+  },
+  "direction": "down",
+  "length": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 6,
+    "min_inclusive": 1
+  },
+  "replaceable": {
+    "type": "minecraft:any_of",
+    "predicates": [
+      {
+        "type": "minecraft:replaceable"
+      },
+      {
+        "type": "minecraft:matching_blocks",
+        "blocks": "wilderwild:gabbro"
+      }
+    ]
+  },
+  "stop_at_unreplaceable_block": true
+}

@@ -17,13 +17,12 @@
 
 package net.frozenblock.wilderwild.client.renderer.block.model.properties.conditional;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.block.model.properties.conditional.ConditionalBlockModelProperty;
 import net.minecraft.world.level.block.state.BlockState;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class HasSculk implements ConditionalBlockModelProperty {
 
 	@Override

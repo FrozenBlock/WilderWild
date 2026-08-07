@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
-import net.frozenblock.lib.block.api.shape.FrozenShapes;
+import net.frozenblock.lib.block.api.shape.ShapeUtil;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.crab.CrabAi;
@@ -396,7 +396,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			final BlockState state = this.level().getBlockState(pos);
 			final VoxelShape collisionShape = state.getCollisionShape(this.level(), pos, CollisionContext.of(this));
 			if (this.isWallPosSlowable(pos, state, collisionShape)) {
-				final Optional<Vec3> optionalVec3 = FrozenShapes.closestPointTo(pos, collisionShape, this.position());
+				final Optional<Vec3> optionalVec3 = ShapeUtil.closestPointTo(pos, collisionShape, this.position());
 				if (optionalVec3.isPresent()) {
 					vecs.add(optionalVec3.get());
 				} else if (!inWater && state.getFluidState().is(FluidTags.WATER)) {

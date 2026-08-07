@@ -18,12 +18,11 @@
 package net.frozenblock.wilderwild.client;
 
 import java.util.Optional;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.renderer.block.BuiltInBlockModelRegistry;
 import net.frozenblock.wilderwild.client.renderer.block.model.properties.conditional.HasSculk;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.MultiblockChestResources;
 import net.minecraft.client.renderer.block.BuiltInBlockModels;
 import net.minecraft.client.renderer.block.model.BlockModel;
@@ -34,10 +33,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.properties.ChestType;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWBuiltInBlockModels {
 
-	public static void setup() {
+	public static void init() {
 		BuiltInBlockModelRegistry.REGISTER.register(builder -> {
 			builder.put(createStoneChest(StoneChestSpecialRenderer.STONE, StoneChestSpecialRenderer.STONE_SCULK), WWBlocks.STONE_CHEST.get());
 			builder.put(BuiltInBlockModels::createBlockStateModelWrapper, WWBlocks.HANGING_TENDRIL.get());

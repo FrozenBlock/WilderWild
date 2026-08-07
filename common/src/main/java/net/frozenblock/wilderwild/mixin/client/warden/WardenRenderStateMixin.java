@@ -17,15 +17,14 @@
 
 package net.frozenblock.wilderwild.mixin.client.warden;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.AnimationState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(WardenRenderState.class)
 public class WardenRenderStateMixin implements WilderWarden {
 

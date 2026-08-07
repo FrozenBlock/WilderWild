@@ -17,10 +17,9 @@
 
 package net.frozenblock.wilderwild.client.resources.sounds;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -29,7 +28,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public abstract class AbstractTermiteSoundInstance<T extends TermiteMoundBlockEntity> extends AbstractTickableSoundInstance {
 	protected final T mound;
 	private boolean initialTermiteCheck;

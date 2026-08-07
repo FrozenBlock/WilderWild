@@ -17,13 +17,12 @@
 
 package net.frozenblock.wilderwild.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWItemProperties {
 
 	public static void init() {

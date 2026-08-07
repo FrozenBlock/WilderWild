@@ -1,0 +1,42 @@
+{
+  "type": "frozenlib:column_with_disk",
+  "block_state": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:termite_mound",
+      "Properties": {
+        "natural": "true",
+        "termites_awake": "false"
+      }
+    }
+  },
+  "disk_block_state": {
+    "type": "minecraft:weighted_state_provider",
+    "entries": [
+      {
+        "data": {
+          "Name": "minecraft:coarse_dirt"
+        },
+        "weight": 2
+      },
+      {
+        "data": {
+          "Name": "minecraft:packed_mud"
+        },
+        "weight": 1
+      }
+    ]
+  },
+  "height": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 7,
+    "min_inclusive": 3
+  },
+  "radius": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 9,
+    "min_inclusive": 4
+  },
+  "replaceable_blocks": "#wilderwild:feature/termite_disk_replaceable",
+  "surrounding_pillar_chance": 0.75
+}

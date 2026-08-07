@@ -17,28 +17,33 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
-import java.util.function.Supplier;
-import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
-import net.frozenblock.lib.integration.api.ModIntegrations;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWModIntegrations {
-	public static final ModIntegration FROZENLIB_INTEGRATION = registerAndGet(FrozenLibIntegration::new, "frozenlib");
-	public static final ModIntegration BIOLITH_INTEGRATION = registerAndGet(() -> new BiolithIntegration(), "biolith");
+	private static final FrozenDeferredRegister<ModIntegrationSupplier<?>> REGISTER = FrozenDeferredRegister.create(
+		FrozenLibRegistries.MOD_INTEGRATION_REGISTRY,
+		WWConstants.MOD_ID
+	);
 
-	// TODO: port to common
+	public static final FrozenHolder<ModIntegrationSupplier<?>, ModIntegrationSupplier<BiolithIntegration>> BIOLITH_INTEGRATION = REGISTER.register(
+		"biolith",
+		() -> new ModIntegrationSupplier(
+			() -> new BiolithIntegration(),
+			"biolith"
+		)
+	);
+
 	public static void init() {}
 
-	public static ModIntegrationSupplier<? extends ModIntegration> register(Supplier<? extends ModIntegration> integration, String modID) {
-		return ModIntegrations.register(integration, WWConstants.MOD_ID, modID);
+	static {
+		REGISTER.register();
 	}
 
-	public static <T extends ModIntegration> ModIntegrationSupplier<T> register(Supplier<T> integration, Supplier<T> unloadedIntegration, String modID) {
-		return ModIntegrations.register(integration, unloadedIntegration, WWConstants.MOD_ID, modID);
-	}
-
-	public static <T extends ModIntegration> ModIntegration registerAndGet(Supplier<T> integration, String modID) {
-		return ModIntegrations.register(integration, WWConstants.MOD_ID, modID).getIntegration();
+	public static boolean isBiolithRegisteredAndLoaded() {
+		return BIOLITH_INTEGRATION.isBound() && BIOLITH_INTEGRATION.get().modLoaded();
 	}
 }

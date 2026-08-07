@@ -17,10 +17,10 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.lib.item.api.registry.PotionBrewingRegistry;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
-import net.frozenblock.lib.registry.api.PotionBrewingRegistry;
-import net.frozenblock.lib.registry.impl.FrozenPotionBrewingBuilder;import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Items;
@@ -65,11 +65,11 @@ public final class WWPotions {
 	// TODO: fabric & neo or 26.3's datadriven stuff
 	public static void init() {
 		PotionBrewingRegistry.BUILD.register(builder -> {
-			((FrozenPotionBrewingBuilder) builder).frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH.asHolder());
-			((FrozenPotionBrewingBuilder) builder).frozenLib$registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.REDSTONE), LONG_REACH.asHolder());
-			((FrozenPotionBrewingBuilder) builder).frozenLib$registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH.asHolder());
+			builder.frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.CRAB_CLAW), REACH.asHolder());
+			builder.frozenLib$registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.REDSTONE), LONG_REACH.asHolder());
+			builder.frozenLib$registerPotionRecipe(REACH.asHolder(), Ingredient.of(Items.GLOWSTONE_DUST), STRONG_REACH.asHolder());
 
-			((FrozenPotionBrewingBuilder) builder).frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.FERMENTED_SCORCHED_EYE), SCORCHING.asHolder());
+			builder.frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.FERMENTED_SCORCHED_EYE), SCORCHING.asHolder());
 		});
 	}
 }

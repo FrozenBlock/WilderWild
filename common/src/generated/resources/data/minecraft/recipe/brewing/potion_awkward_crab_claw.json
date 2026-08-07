@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:potion",
+    "potion_contents": {
+      "potions": "minecraft:awkward"
+    }
+  },
+  "output": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "wilderwild:reach"
+      }
+    },
+    "id": "minecraft:potion"
+  },
+  "reagent": {
+    "item": "wilderwild:crab_claw"
+  }
+}

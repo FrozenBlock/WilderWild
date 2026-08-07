@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -39,7 +39,7 @@ public class LeavesWithLitterBlock extends FallingParticlesLeavesBlock {
 
 	@Override
 	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		FallingLeafUtil.onRandomTick(state, level, pos, random);
+		FallingLeafUtil.tryRandomTick(state, level, pos, random);
 		super.randomTick(state, level, pos, random);
 	}
 

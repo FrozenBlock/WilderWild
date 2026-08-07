@@ -162,9 +162,7 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.add(WWBlockItemIds.WILLOW_LEAVES)
 			.add(WWBlockItemIds.CYPRESS_LEAVES)
 			.add(WWBlockItemIds.PALM_FRONDS)
-			.add(WWBlockItemIds.YELLOW_MAPLE_LEAVES)
-			.add(WWBlockItemIds.ORANGE_MAPLE_LEAVES)
-			.add(WWBlockItemIds.RED_MAPLE_LEAVES);
+			.add(WWBlockItemIds.MAPLE_LEAVES.yellow(), WWBlockItemIds.MAPLE_LEAVES.orange(), WWBlockItemIds.MAPLE_LEAVES.red());
 
 		this.tag(BlockItemTags.SAPLINGS)
 			.add(WWBlockItemIds.BAOBAB_NUT)
@@ -353,9 +351,7 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.add(WWBlockItemIds.PALM_FROND_LITTER)
 			.add(WWBlockItemIds.SPRUCE_LEAF_LITTER)
 			.add(WWBlockItemIds.WILLOW_LEAF_LITTER)
-			.add(WWBlockItemIds.YELLOW_MAPLE_LEAF_LITTER)
-			.add(WWBlockItemIds.ORANGE_MAPLE_LEAF_LITTER)
-			.add(WWBlockItemIds.RED_MAPLE_LEAF_LITTER);
+			.add(WWBlockItemIds.MAPLE_LEAF_LITTER.yellow(), WWBlockItemIds.MAPLE_LEAF_LITTER.orange(), WWBlockItemIds.MAPLE_LEAF_LITTER.red());
 
 		this.tag(WWBlockItemTags.MESOGLEA)
 			.add(WWBlockItemIds.BLUE_MESOGLEA)

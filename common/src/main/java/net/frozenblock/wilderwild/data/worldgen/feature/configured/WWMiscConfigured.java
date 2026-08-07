@@ -35,6 +35,7 @@ import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -169,9 +170,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// MAPLE FOREST
-	public static final FrozenLibFeature YELLOW_MAPLE_LEAF_LITTER = register("yellow_maple_leaf_litter");
-	public static final FrozenLibFeature ORANGE_MAPLE_LEAF_LITTER = register("orange_maple_leaf_litter");
-	public static final FrozenLibFeature RED_MAPLE_LEAF_LITTER = register("red_maple_leaf_litter");
+	public static final MapleCollection<FrozenLibFeature> MAPLE_LEAF_LITTER = MapleCollection.NAMES.map(name -> register(name + "_maple_leaf_litter"));
 
 	// AUBURN MOSS
 	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
@@ -1066,98 +1065,39 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		final  WeightedList.Builder<BlockState> yellowLitterStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				yellowLitterStates.add(
-					WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get().defaultBlockState()
-						.setValue(((LeafLitterBlock) WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get()).getSegmentAmountProperty(), i)
-						.setValue(LeafLitterBlock.FACING, direction),
-					1
-				);
+		MapleCollection.zipApply(MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER, (feature, leafLitter) -> {
+			final WeightedList.Builder<BlockState> leafLitterStates = WeightedList.builder();
+			for (int i = 1; i <= 4; i++) {
+				for (Direction direction : Direction.Plane.HORIZONTAL) {
+					leafLitterStates.add(
+						leafLitter.get().defaultBlockState()
+							.setValue(((LeafLitterBlock) leafLitter.get()).getSegmentAmountProperty(), i)
+							.setValue(LeafLitterBlock.FACING, direction),
+						1
+					);
+				}
 			}
-		}
-		YELLOW_MAPLE_LEAF_LITTER.makeAndSetHolder(
-			new BallFeature(
-				new BallBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
-					.placementChance(0.75F)
-					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get()))
-					.verticalPlacementOffset(1)
-					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(yellowLitterStates.build()))
-							.placementChance(0.65F)
-							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get()))
-							.verticalPlacementOffset(1)
-							.build()
-					).build(),
-				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
-				UniformInt.of(2, 4)
-			)
-		);
 
-		final WeightedList.Builder<BlockState> orangeLitterStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				orangeLitterStates.add(
-					WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get().defaultBlockState()
-						.setValue(((LeafLitterBlock) WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get()).getSegmentAmountProperty(), i)
-						.setValue(LeafLitterBlock.FACING, direction),
-					1
-				);
-			}
-		}
-		ORANGE_MAPLE_LEAF_LITTER.makeAndSetHolder(
-			new BallFeature(
-				new BallBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
-					.placementChance(0.75F)
-					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get()))
-					.verticalPlacementOffset(1)
-					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(orangeLitterStates.build()))
-							.placementChance(0.65F)
-							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get()))
-							.verticalPlacementOffset(1)
-							.build()
-					).build(),
-				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
-				UniformInt.of(2, 4)
-			)
-		);
-
-		final WeightedList.Builder<BlockState> redLitterStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				redLitterStates.add(
-					WWBlocks.RED_MAPLE_LEAF_LITTER.get().defaultBlockState()
-						.setValue(((LeafLitterBlock) WWBlocks.RED_MAPLE_LEAF_LITTER.get()).getSegmentAmountProperty(), i)
-						.setValue(LeafLitterBlock.FACING, direction),
-					1
-				);
-			}
-		}
-		RED_MAPLE_LEAF_LITTER.makeAndSetHolder(
-			new BallFeature(
-				new BallBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
-					.placementChance(0.75F)
-					.fadeStartPercentage(0.5F)
-					.searchingBlockPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.get()))
-					.verticalPlacementOffset(1)
-					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(redLitterStates.build()))
-							.placementChance(0.65F)
-							.outerRingStartPercentage(0.7F)
-							.searchingPredicate(BlockPredicate.wouldSurvive(WWBlocks.RED_MAPLE_LEAF_LITTER.get()))
-							.verticalPlacementOffset(1)
-							.build()
-					).build(),
-				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
-				UniformInt.of(2, 4)
-			)
-		);
+			feature.makeAndSetHolder(
+				new BallFeature(
+					new BallBlockPlacement.Builder(new WeightedStateProvider(leafLitterStates.build()))
+						.placementChance(0.75F)
+						.fadeStartPercentage(0.5F)
+						.searchingBlockPredicate(BlockPredicate.wouldSurvive(leafLitter.get().defaultBlockState(), Vec3i.ZERO))
+						.verticalPlacementOffset(1)
+						.outerRingBlockPlacement(
+							new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(leafLitterStates.build()))
+								.placementChance(0.65F)
+								.outerRingStartPercentage(0.7F)
+								.searchingPredicate(BlockPredicate.wouldSurvive(leafLitter.get().defaultBlockState(), Vec3i.ZERO))
+								.verticalPlacementOffset(1)
+								.build()
+						).build(),
+					Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+					UniformInt.of(2, 4)
+				)
+			);
+		});
 
 		AUBURN_MOSS_VEGETATION.makeAndSetHolder(
 			new RandomSelectorFeature(

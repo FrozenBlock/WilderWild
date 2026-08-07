@@ -29,6 +29,7 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
+import net.frozenblock.wilderwild.data.worldgen.biome.impl.WWGrassColorModifier;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -156,7 +157,7 @@ public final class Tundra extends FrozenLibBiome {
 
 	@Override
 	public BiomeSpecialEffects.GrassColorModifier grassColorModifier() {
-		return BiomeSpecialEffects.GrassColorModifier.WILDERWILD_TUNDRA;
+		return WWGrassColorModifier.WILDERWILD_TUNDRA;
 	}
 
 	@Override
@@ -187,7 +188,7 @@ public final class Tundra extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.TUNDRA_GENERATION.get()) return;
 
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.PLAINS)) {

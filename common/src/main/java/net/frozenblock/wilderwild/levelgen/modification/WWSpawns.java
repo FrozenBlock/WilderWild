@@ -17,13 +17,13 @@
 
 package net.frozenblock.wilderwild.levelgen.modification;
 
-import net.frozenblock.lib.entity.api.category.FrozenMobCategories;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.frozenblock.wilderwild.registry.WWMobCategories;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
@@ -34,7 +34,7 @@ public final class WWSpawns {
 
 	public static void addBugs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_FIREFLY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "firefly"), WWEntityTypes.FIREFLY.get(), 1, 4, 8
+			WWMobCategories.FIREFLY, WWEntityTypes.FIREFLY.get(), 1, 4, 8
 		);
 
 		BiomeModifications.create(WWConstants.id("butterfly_spawns")).add(
@@ -58,7 +58,7 @@ public final class WWSpawns {
 				}
 
 				spawnSettings.addSpawn(
-					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "butterfly"),
+					WWMobCategories.BUTTERFLY,
 					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY.get(), 1, 1),
 					butterflyWeight
 				);
@@ -76,7 +76,7 @@ public final class WWSpawns {
 				final BiomeModificationContext.MobSpawnSettingsContext spawnSettings = modificationContext.getMobSpawnSettings();
 
 				spawnSettings.addSpawn(
-					FrozenMobCategories.getCategory(WWConstants.MOD_ID, "jellyfish"),
+					WWMobCategories.JELLYFISH,
 					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH.get(), 1, 1),
 					2
 				);
@@ -90,7 +90,7 @@ public final class WWSpawns {
 
 	public static void addCrabs() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_CRAB),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "crab"), WWEntityTypes.CRAB.get(), 1, 1, 3);
+			WWMobCategories.CRAB, WWEntityTypes.CRAB.get(), 1, 1, 3);
 	}
 
 	public static void addOstriches() {
@@ -108,7 +108,7 @@ public final class WWSpawns {
 
 	public static void addTumbleweed() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_TUMBLEWEED_ENTITY),
-			FrozenMobCategories.getCategory(WWConstants.MOD_ID, "tumbleweed"), WWEntityTypes.TUMBLEWEED.get(), 60, 1, 1);
+			WWMobCategories.TUMBLEWEED, WWEntityTypes.TUMBLEWEED.get(), 60, 1, 1);
 	}
 
 	public static void addRabbits() {

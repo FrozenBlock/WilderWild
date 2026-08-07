@@ -1,0 +1,26 @@
+{
+  "type": "frozenlib:column",
+  "block_state": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:geothermal_vent",
+      "Properties": {
+        "facing": "up",
+        "natural": "true",
+        "powered": "false",
+        "vent_state": "dormant",
+        "vent_type": "none"
+      }
+    }
+  },
+  "direction": "up",
+  "length": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 5,
+    "min_inclusive": 3
+  },
+  "replaceable": {
+    "type": "minecraft:replaceable"
+  },
+  "stop_at_unreplaceable_block": true
+}

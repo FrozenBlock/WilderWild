@@ -1,8 +1,7 @@
 package net.frozenblock.wilderwild;
 
-import net.frozenblock.lib.platform.FrozenLibEarlyPlatformUtils;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
-import net.frozenblock.lib.platform.networking.NeoNetworkingHelper;
+import net.frozenblock.lib.networking.api.platform.NetworkingHelperImpl;
+import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
@@ -32,13 +31,11 @@ public final class WilderWildNeoForge {
 
 		modBus.addListener(RegisterPayloadHandlersEvent.class, event -> {
 			WWNetworking.setup();
-			if (FrozenLibEarlyPlatformUtils.LOADER.isClient()) {
-				WWClientNetworking.registerPacketReceivers();
-			}
 
-			final NeoNetworkingHelper neoNetworking = (NeoNetworkingHelper) FrozenLibInitPlatformUtils.NETWORKING;
+			if (ModLoader.isClient()) WWClientNetworking.registerPacketReceivers();
+
 			final PayloadRegistrar registrar = event.registrar(WWPreLoadConstants.MOD_ID);
-			neoNetworking.flush(registrar);
+			NetworkingHelperImpl.flush(registrar);
 		});
 
 		// AFTER register event

@@ -17,26 +17,38 @@
 
 package net.frozenblock.wilderwild.data.loot;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
 import net.frozenblock.lib.data.api.EntityLootHelper;
+import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
+import net.frozenblock.wilderwild.references.WWEntityTypeIds;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -53,19 +65,23 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 	public void generate() {
 		final HolderLookup.Provider registryLookup = this.registries.join();
 
+		final Map<Holder<JellyfishVariant>, ResourceKey<LootTable>> jellyfishVariantToLootTableNames = new Object2ObjectLinkedOpenHashMap<>();
 		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
 			.listElements()
-			.forEach(reference -> {
-				final Identifier id = reference.key().identifier();
+			.sorted(Comparator.comparing(holder -> holder.key().identifier().getPath()))
+			.forEach(jellyfishVariant -> {
+				final Identifier id = jellyfishVariant.key().identifier();
 				final String path = id.getPath();
 				final Identifier lootTableId = Identifier.fromNamespaceAndPath(
 					id.getNamespace(),
-					"entities/" + BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH.get()).getPath() + '_' + path
+					"entities/" + WWEntityTypeIds.JELLYFISH.identifier().getPath() + '_' + path
 				);
-				Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(path + "_nematocyst"))).value();
+				final ResourceKey<LootTable> lootTableName = ResourceKey.create(Registries.LOOT_TABLE, lootTableId);
+
+				final Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(path + "_nematocyst"))).value();
 				this.add(
 					WWEntityTypes.JELLYFISH.get(),
-					ResourceKey.create(Registries.LOOT_TABLE, lootTableId),
+					lootTableName,
 					LootTable.lootTable()
 						.withPool(
 							LootPool.lootPool()
@@ -77,9 +93,13 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 										.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 								)
 						)
-						.setRandomSequence(lootTableId)
 				);
+				jellyfishVariantToLootTableNames.put(jellyfishVariant, lootTableName);
 			});
+		this.add(
+			WWEntityTypes.JELLYFISH.get(),
+			LootTable.lootTable().withPool(createJellyfishDispatchPool(jellyfishVariantToLootTableNames))
+		);
 
 		this.add(
 			WWEntityTypes.CRAB.get(),
@@ -202,5 +222,26 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 
 		this.add(WWEntityTypes.FIREFLY.get(), LootTable.lootTable());
 		this.add(WWEntityTypes.BUTTERFLY.get(), LootTable.lootTable());
+	}
+
+	public static LootPool.Builder createJellyfishDispatchPool(Map<Holder<JellyfishVariant>, ResourceKey<LootTable>> variantToTableNames) {
+		AlternativesEntry.Builder variants = AlternativesEntry.alternatives();
+
+		for (Map.Entry<Holder<JellyfishVariant>, ResourceKey<LootTable>> entry : variantToTableNames.entrySet()) {
+			final Holder<JellyfishVariant> variant = entry.getKey();
+			final ResourceKey<LootTable> lootTable = entry.getValue();
+
+			variants = variants.otherwise(
+				NestedLootTable.lootTableReference(lootTable)
+					.when(
+						LootItemEntityPropertyCondition.hasProperties(
+							LootContext.EntityTarget.THIS,
+							EntityPredicate.Builder.entity().components(DataComponentExactPredicate.expect(WWDataComponents.JELLYFISH_VARIANT.get(), variant))
+						)
+					)
+			);
+		}
+
+		return LootPool.lootPool().add(variants);
 	}
 }

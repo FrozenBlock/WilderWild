@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:yellow_maple_bees_checked",
+  "features": [
+    {
+      "chance": 0.025,
+      "feature": "wilderwild:yellow_maple_checked"
+    },
+    {
+      "chance": 0.15,
+      "feature": "wilderwild:full_yellow_maple_checked"
+    },
+    {
+      "chance": 0.25,
+      "feature": "wilderwild:tall_yellow_maple_checked"
+    },
+    {
+      "chance": 0.0785,
+      "feature": "wilderwild:dying_yellow_maple_checked"
+    },
+    {
+      "chance": 0.37,
+      "feature": "wilderwild:tall_yellow_maple_bees_checked"
+    },
+    {
+      "chance": 0.0785,
+      "feature": "wilderwild:tall_dying_yellow_maple_checked"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:short_yellow_maple_checked"
+    },
+    {
+      "chance": 0.4,
+      "feature": "wilderwild:big_bush_yellow_maple_checked"
+    }
+  ]
+}

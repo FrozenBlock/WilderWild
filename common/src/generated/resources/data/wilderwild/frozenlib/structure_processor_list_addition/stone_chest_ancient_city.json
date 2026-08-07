@@ -1,0 +1,27 @@
+{
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/stoneChest/addStoneChests",
+    "target": true
+  },
+  "processors": {
+    "processors": [
+      {
+        "processor_type": "frozenlib:block_state_respecting_rule",
+        "rules": [
+          {
+            "input_predicate": {
+              "block": "minecraft:chest",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stone_chest"
+          }
+        ]
+      }
+    ]
+  },
+  "structures": "minecraft:ancient_city"
+}

@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.networking.packet;
 
 import java.util.List;
-import net.frozenblock.lib.networking.PlayerLookup;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.networking.api.NetworkingHelper;
+import net.frozenblock.lib.networking.api.PlayerLookup;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,7 +42,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 
 	public static void sendToAll(BlockState state, BlockPos pos, Vec3 vec3, List<Direction> directions, int count, ServerLevel level) {
 		for (ServerPlayer player : PlayerLookup.around(level, pos, 64D)) {
-			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(
+			NetworkingHelper.sendToPlayer(
 				player,
 				new WWLeavesExplosionParticlePacket(state, pos, vec3, directions, count)
 			);

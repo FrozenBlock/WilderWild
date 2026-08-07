@@ -17,10 +17,11 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import java.util.Optional;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -30,14 +31,14 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.Holder;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	private static final int DEFAULT_UNTINTED_COLOR = ARGB.color(255, 255, 255);
 	public final boolean bounceOnFloor;
@@ -46,36 +47,36 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 	public WWFallingLeavesParticle(
 		ClientLevel level,
 		double x, double y, double z,
+		Optional<Holder<Block>> originBlock,
 		float gravityScale,
 		float windBig,
-		FallingLeafUtil.LeafMovementType leafMovementType,
+		FallingLeafData.LeafMovementType movementType,
 		float quadSize,
 		float downwardVelocity,
-		boolean isLitter,
-		ParticleType<WWFallingLeavesParticleOptions> particleType,
 		TextureAtlasSprite sprite
 	) {
-		super(level, x, y, z, sprite, gravityScale, windBig, leafMovementType.swirl(), leafMovementType.flowAway(), quadSize, downwardVelocity);
-		this.bounceOnFloor = leafMovementType.bounceOnFloor();
-		this.isLitter = isLitter;
+		super(level, x, y, z, sprite, gravityScale, windBig, movementType.swirl(), movementType.flowAway(), quadSize, downwardVelocity);
+		this.bounceOnFloor = movementType.bounceOnFloor();
 
-		final FallingLeafUtil.LeafParticleData leafParticleData = isLitter ? FallingLeafUtil.getLitterOrLeafParticleData(particleType) : FallingLeafUtil.getLeafParticleData(particleType);
+		boolean isLitter = false;
+
 		int color = DEFAULT_UNTINTED_COLOR;
+		applyBlockProperties: {
+			if (originBlock.isEmpty()) break applyBlockProperties;
 
-		applyColor: {
-			if (leafParticleData == null) break applyColor;
-			final Block leavesBlock = leafParticleData.leavesBlock();
+			final BlockState originBlockState = originBlock.get().value().defaultBlockState();
+			if (originBlockState.is(WWBlockItemTags.LEAF_LITTERS.block())) isLitter = true;
 
-			final BlockState leavesState = leavesBlock.defaultBlockState();
-			final BlockTintSource tintSource = Minecraft.getInstance().getBlockColors().getTintSource(leavesState, 0);
-			if (tintSource == null) break applyColor;
+			final BlockTintSource tintSource = Minecraft.getInstance().getBlockColors().getTintSource(originBlockState, 0);
+			if (tintSource == null) break applyBlockProperties;
 
 			final BlockPos particlePos = BlockPos.containing(x, y, z);
-			final int newColor = tintSource.colorAsTerrainParticle(leavesState, level, particlePos);
-			if (newColor == -1) break applyColor;
+			final int newColor = tintSource.colorAsTerrainParticle(originBlockState, level, particlePos);
+			if (newColor == -1) break applyBlockProperties;
 			color =	newColor;
 		}
 
+		this.isLitter = isLitter;
 		this.rCol = ARGB.red(color) / 255F;
 		this.bCol = ARGB.blue(color) / 255F;
 		this.gCol = ARGB.green(color) / 255F;
@@ -93,20 +94,19 @@ public class WWFallingLeavesParticle extends FallingLeavesParticle {
 			final WWFallingLeavesParticle leafParticle = new WWFallingLeavesParticle(
 				level,
 				x, y, z,
+				options.getOriginBlock(),
 				0.25F * options.getGravityScale(),
 				options.getWindScale(),
 				options.leafMovementType(),
 				(options.getTextureSize() / 16F) * 0.5F,
 				0F,
-				options.isLitter(),
-				(ParticleType<WWFallingLeavesParticleOptions>) options.getType(),
 				this.spriteSet.get(random)
 			);
 
 			leafParticle.quadSize = (options.getTextureSize() / 16F) * 0.5F;
 			if (options.isFastFalling()) leafParticle.gravity = 0.04F;
 
-			//leafParticle.rotSpeed *= options.getGravityScale() * 0.5F;
+			//particle.rotSpeed *= options.getGravityScale() * 0.5F;
 			if (options.controlVelUponSpawn()) {
 				Vec3 velocity = options.getVelocity();
 				leafParticle.xd = velocity.x;

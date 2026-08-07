@@ -1,0 +1,28 @@
+{
+  "leaf_litter_block": "wilderwild:spruce_leaf_litter",
+  "leaf_litter_particle_data": {
+    "gravity_scale": 2.0,
+    "movement_type": "swirl",
+    "origin_block": "minecraft:spruce_leaves",
+    "particle": "wilderwild:spruce_leaves",
+    "spawn_chance": 0.0075,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/spruceFrequency"
+    },
+    "texture_size": 5,
+    "wind_scale": 5.0
+  },
+  "leaf_particle_data": {
+    "gravity_scale": 2.0,
+    "movement_type": "swirl",
+    "origin_block": "minecraft:spruce_leaves",
+    "particle": "wilderwild:spruce_leaves",
+    "spawn_chance": 0.0075,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/spruceFrequency"
+    },
+    "texture_size": 5,
+    "wind_scale": 5.0
+  },
+  "leaves_block": "minecraft:spruce_leaves"
+}

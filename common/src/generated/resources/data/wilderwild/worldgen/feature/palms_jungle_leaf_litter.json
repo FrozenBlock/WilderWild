@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:palm_checked_dirt_leaf_litter",
+  "features": [
+    {
+      "chance": 0.25,
+      "feature": "wilderwild:tall_wine_palm_checked_dirt_leaf_litter"
+    },
+    {
+      "chance": 0.7,
+      "feature": "wilderwild:small_wine_palm_checked_dirt_leaf_litter"
+    },
+    {
+      "chance": 0.4,
+      "feature": "wilderwild:tall_palm_checked_dirt_leaf_litter"
+    }
+  ]
+}

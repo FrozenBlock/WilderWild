@@ -27,6 +27,7 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.registerTree;
 import net.frozenblock.wilderwild.levelgen.feature.HugePaleMushroomFeature;
@@ -161,35 +162,15 @@ public final class WWTreeConfigured {
 	public static final FrozenLibFeature SNAPPED_CHERRY_TREE = register("snapped_cherry_tree");
 
 	// MAPLE
-	public static final FrozenLibFeature YELLOW_MAPLE_TREE = register("yellow_maple");
-	public static final FrozenLibFeature DYING_YELLOW_MAPLE_TREE = register("dying_yellow_maple");
-	public static final FrozenLibFeature TALL_YELLOW_MAPLE_TREE = register("tall_yellow_maple");
-	public static final FrozenLibFeature TALL_YELLOW_DYING_MAPLE_TREE = register("tall_dying_yellow_maple");
-	public static final FrozenLibFeature YELLOW_MAPLE_BEES_0004 = register("yellow_maple_bees_025");
-	public static final FrozenLibFeature TALL_YELLOW_MAPLE_BEES_0004 = register("tall_yellow_maple_bees_025");
-	public static final FrozenLibFeature SHORT_YELLOW_MAPLE_TREE = register("short_yellow_maple");
-	public static final FrozenLibFeature FULL_YELLOW_MAPLE_TREE = register("full_yellow_maple");
-	public static final FrozenLibFeature BIG_SHRUB_YELLOW_MAPLE = register("big_shrub_yellow_maple");
-
-	public static final FrozenLibFeature ORANGE_MAPLE_TREE = register("orange_maple");
-	public static final FrozenLibFeature DYING_ORANGE_MAPLE_TREE = register("dying_orange_maple");
-	public static final FrozenLibFeature TALL_ORANGE_MAPLE_TREE = register("tall_orange_maple");
-	public static final FrozenLibFeature TALL_ORANGE_DYING_MAPLE_TREE = register("tall_dying_orange_maple");
-	public static final FrozenLibFeature ORANGE_MAPLE_BEES_0004 = register("orange_maple_bees_025");
-	public static final FrozenLibFeature TALL_ORANGE_MAPLE_BEES_0004 = register("tall_orange_maple_bees_025");
-	public static final FrozenLibFeature SHORT_ORANGE_MAPLE_TREE = register("short_orange_maple");
-	public static final FrozenLibFeature FULL_ORANGE_MAPLE_TREE = register("full_orange_maple");
-	public static final FrozenLibFeature BIG_SHRUB_ORANGE_MAPLE = register("big_shrub_orange_maple");
-
-	public static final FrozenLibFeature RED_MAPLE_TREE = register("red_maple");
-	public static final FrozenLibFeature DYING_RED_MAPLE_TREE = register("dying_red_maple");
-	public static final FrozenLibFeature TALL_RED_MAPLE_TREE = register("tall_red_maple");
-	public static final FrozenLibFeature TALL_RED_DYING_MAPLE_TREE = register("tall_dying_red_maple");
-	public static final FrozenLibFeature RED_MAPLE_BEES_0004 = register("red_maple_bees_025");
-	public static final FrozenLibFeature TALL_RED_MAPLE_BEES_0004 = register("tall_red_maple_bees_025");
-	public static final FrozenLibFeature SHORT_RED_MAPLE_TREE = register("short_red_maple");
-	public static final FrozenLibFeature FULL_RED_MAPLE_TREE = register("full_red_maple");
-	public static final FrozenLibFeature BIG_SHRUB_RED_MAPLE = register("big_shrub_red_maple");
+	public static final MapleCollection<FrozenLibFeature> MAPLE_TREE = MapleCollection.NAMES.map(name -> register(name + "_maple"));
+	public static final MapleCollection<FrozenLibFeature> DYING_MAPLE_TREE = MapleCollection.NAMES.map(name -> register("dying_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibFeature> TALL_MAPLE_TREE = MapleCollection.NAMES.map(name -> register("tall_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibFeature> TALL_DYING_MAPLE_TREE = MapleCollection.NAMES.map(name -> register("tall_dying_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibFeature> MAPLE_BEES_0004 = MapleCollection.NAMES.map(name -> register(name + "_maple_bees_0004"));
+	public static final MapleCollection<FrozenLibFeature> TALL_MAPLE_BEES_0004 = MapleCollection.NAMES.map(name -> register("tall_" + name + "_maple_bees_0004"));
+	public static final MapleCollection<FrozenLibFeature> SHORT_MAPLE_TREE = MapleCollection.NAMES.map(name -> register("short_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibFeature> FULL_MAPLE_TREE = MapleCollection.NAMES.map(name -> register("full_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibFeature> BIG_SHRUB_MAPLE = MapleCollection.NAMES.map(name -> register("big_shrub_" + name + "_maple"));
 
 	public static final FrozenLibFeature FALLEN_MAPLE_TREE = register("fallen_maple_tree");
 	public static final FrozenLibFeature SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
@@ -682,182 +663,82 @@ public final class WWTreeConfigured {
 		);
 
 		// MAPLE
-		YELLOW_MAPLE_TREE.makeAndSetHolder(
-			yellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
+		MapleCollection.zipApply(MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				maple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(shelfFungus0074))
+					.build()
+			);
+		});
 
-		DYING_YELLOW_MAPLE_TREE.makeAndSetHolder(
-			yellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074, vines1Under26003))
-				.build()
-		);
+		MapleCollection.zipApply(DYING_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				maple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(shelfFungus0074, vines1Under26003))
+					.build()
+			);
+		});
 
-		TALL_YELLOW_MAPLE_TREE.makeAndSetHolder(
-			tallYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
+		MapleCollection.zipApply(TALL_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				tallMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(shelfFungus0074))
+					.build()
+			);
+		});
 
-		TALL_YELLOW_DYING_MAPLE_TREE.makeAndSetHolder(
-			tallYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074, vines1Under26003))
-				.build()
-		);
+		MapleCollection.zipApply(TALL_DYING_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				tallMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(shelfFungus0074, vines1Under26003))
+					.build()
+			);
+		});
 
-		YELLOW_MAPLE_BEES_0004.makeAndSetHolder(
-			yellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
-				.build()
-		);
+		MapleCollection.zipApply(MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				maple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(bees0004, pollen01, shelfFungus0074))
+					.build()
+			);
+		});
 
-		TALL_YELLOW_MAPLE_BEES_0004.makeAndSetHolder(
-			tallYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
-				.build()
-		);
+		MapleCollection.zipApply(TALL_MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				tallMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(bees0004, pollen01, shelfFungus0074))
+					.build()
+			);
+		});
 
-		SHORT_YELLOW_MAPLE_TREE.makeAndSetHolder(
-			shortYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
+		MapleCollection.zipApply(SHORT_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				shortMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(shelfFungus0074))
+					.build()
+			);
+		});
 
-		FULL_YELLOW_MAPLE_TREE.makeAndSetHolder(
-			fullYellowMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
+		MapleCollection.zipApply(FULL_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				fullMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+					.decorators(List.of(shelfFungus0074))
+					.build()
+			);
+		});
 
-		BIG_SHRUB_YELLOW_MAPLE.makeAndSetHolder(
-			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.MAPLE_LOG.get()),
-				new StraightTrunkPlacer(1, 0, 0),
-				BlockStateProvider.simple(WWBlocks.YELLOW_MAPLE_LEAVES.get()),
-				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-				new TwoLayersFeatureSize(0, 0, 0),
-				defaultPlaceBelowTreeTrunkProvider
-			).build()
-		);
-
-		ORANGE_MAPLE_TREE.makeAndSetHolder(
-			orangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		DYING_ORANGE_MAPLE_TREE.makeAndSetHolder(
-			orangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074, vines1Under26003))
-				.build()
-		);
-
-		TALL_ORANGE_MAPLE_TREE.makeAndSetHolder(
-			tallOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		TALL_ORANGE_DYING_MAPLE_TREE.makeAndSetHolder(
-			tallOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074, vines1Under26003))
-				.build()
-		);
-
-		ORANGE_MAPLE_BEES_0004.makeAndSetHolder(
-			orangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
-				.build()
-		);
-
-		TALL_ORANGE_MAPLE_BEES_0004.makeAndSetHolder(
-			tallOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
-				.build()
-		);
-
-		SHORT_ORANGE_MAPLE_TREE.makeAndSetHolder(
-			shortOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		FULL_ORANGE_MAPLE_TREE.makeAndSetHolder(
-			fullOrangeMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		BIG_SHRUB_ORANGE_MAPLE.makeAndSetHolder(
-			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.MAPLE_LOG.get()),
-				new StraightTrunkPlacer(1, 0, 0),
-				BlockStateProvider.simple(WWBlocks.ORANGE_MAPLE_LEAVES.get()),
-				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-				new TwoLayersFeatureSize(0, 0, 0),
-				defaultPlaceBelowTreeTrunkProvider
-			).build()
-		);
-
-		RED_MAPLE_TREE.makeAndSetHolder(
-			redMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		DYING_RED_MAPLE_TREE.makeAndSetHolder(
-			redMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074, vines1Under26003))
-				.build()
-		);
-
-		TALL_RED_MAPLE_TREE.makeAndSetHolder(
-			tallRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		TALL_RED_DYING_MAPLE_TREE.makeAndSetHolder(
-			tallRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074, vines1Under26003))
-				.build()
-		);
-
-		RED_MAPLE_BEES_0004.makeAndSetHolder(
-			redMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
-				.build()
-		);
-
-		TALL_RED_MAPLE_BEES_0004.makeAndSetHolder(
-			tallRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(bees0004, pollen01, shelfFungus0074))
-				.build()
-		);
-
-		SHORT_RED_MAPLE_TREE.makeAndSetHolder(
-			shortRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		FULL_RED_MAPLE_TREE.makeAndSetHolder(
-			fullRedMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(shelfFungus0074))
-				.build()
-		);
-
-		BIG_SHRUB_RED_MAPLE.makeAndSetHolder(
-			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.MAPLE_LOG.get()),
-				new StraightTrunkPlacer(1, 0, 0),
-				BlockStateProvider.simple(WWBlocks.RED_MAPLE_LEAVES.get()),
-				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
-				new TwoLayersFeatureSize(0, 0, 0),
-				defaultPlaceBelowTreeTrunkProvider
-			).build()
-		);
+		MapleCollection.zipApply(BIG_SHRUB_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
+			feature.makeAndSetHolder(
+				new TreeFeature.Builder(
+					BlockStateProvider.simple(WWBlocks.MAPLE_LOG.get()),
+					new StraightTrunkPlacer(1, 0, 0),
+					BlockStateProvider.simple(leaves.get()),
+					new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
+					new TwoLayersFeatureSize(0, 0, 0),
+					defaultPlaceBelowTreeTrunkProvider
+				).build()
+			);
+		});
 
 		FALLEN_MAPLE_TREE.makeAndSetHolder(
 			fallenMaple(defaultPlaceBelowTreeTrunkProvider)
@@ -2650,54 +2531,6 @@ public final class WWTreeConfigured {
 			belowTrunkProvider
 		).decorators(ImmutableList.of(new PaleMossDecorator(0.15F, 0.4F, 0.8F)))
 			.ignoreVines();
-	}
-
-	public static TreeFeature.Builder yellowMaple(BlockStateProvider belowTrunkProvider) {
-		return shortMaple(WWBlocks.YELLOW_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder tallYellowMaple(BlockStateProvider belowTrunkProvider) {
-		return tallMaple(WWBlocks.YELLOW_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder shortYellowMaple(BlockStateProvider belowTrunkProvider) {
-		return shortMaple(WWBlocks.YELLOW_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder fullYellowMaple(BlockStateProvider belowTrunkProvider) {
-		return fullMaple(WWBlocks.YELLOW_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder orangeMaple(BlockStateProvider belowTrunkProvider) {
-		return maple(WWBlocks.ORANGE_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder tallOrangeMaple(BlockStateProvider belowTrunkProvider) {
-		return tallMaple(WWBlocks.ORANGE_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder shortOrangeMaple(BlockStateProvider belowTrunkProvider) {
-		return shortMaple(WWBlocks.ORANGE_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder fullOrangeMaple(BlockStateProvider belowTrunkProvider) {
-		return fullMaple(WWBlocks.ORANGE_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder redMaple(BlockStateProvider belowTrunkProvider) {
-		return maple(WWBlocks.RED_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder tallRedMaple(BlockStateProvider belowTrunkProvider) {
-		return tallMaple(WWBlocks.RED_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder shortRedMaple(BlockStateProvider belowTrunkProvider) {
-		return shortMaple(WWBlocks.RED_MAPLE_LEAVES.get(), belowTrunkProvider);
-	}
-
-	public static TreeFeature.Builder fullRedMaple(BlockStateProvider belowTrunkProvider) {
-		return fullMaple(WWBlocks.RED_MAPLE_LEAVES.get(), belowTrunkProvider);
 	}
 
 	public static TreeFeature.Builder maple(Block leaves, BlockStateProvider belowTrunkProvider) {

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.grower;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.levelgen.grower.impl.TreeGrowerInterface;
@@ -77,44 +78,20 @@ public final class WWTreeGrowers {
 		}
 	};
 
-	public static final TreeGrower YELLOW_MAPLE = new TreeGrower(
-		WWConstants.string("yellow_maple"),
-		WeightedList.of(),
-		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWConfiguredFeatures.YELLOW_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.YELLOW_MAPLES_NO_BEES.getKey();
-		}
-	};
-
-	public static final TreeGrower ORANGE_MAPLE = new TreeGrower(
-		WWConstants.string("orange_maple"),
-		WeightedList.of(),
-		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWConfiguredFeatures.ORANGE_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.ORANGE_MAPLES_NO_BEES.getKey();
-		}
-	};
-
-	public static final TreeGrower RED_MAPLE = new TreeGrower(
-		WWConstants.string("red_maple"),
-		WeightedList.of(),
-		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWConfiguredFeatures.RED_MAPLES_BEES_SAPLING.getKey() : WWConfiguredFeatures.RED_MAPLES_NO_BEES.getKey();
-		}
-	};
+	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> {
+		return new TreeGrower(
+			WWConstants.string(MapleCollection.NAMES.pick(color) + "_maple"),
+			WeightedList.of(),
+			WeightedList.of(),
+			WeightedList.of(),
+			null
+		) {
+			@Override
+			public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+				return hasFlowers ? WWConfiguredFeatures.COLORED_MAPLES_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_MAPLES_NO_BEES.pick(color).getKey();
+			}
+		};
+	});
 
 	public static final TreeGrower WILLOW = new TreeGrower(
 		WWConstants.string("willow"),

@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": {
+    "type": "minecraft:rule_based_state_provider",
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:cannot_replace_below_tree_trunk"
+          }
+        },
+        "then": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:dirt"
+          }
+        }
+      }
+    ]
+  },
+  "decorators": [],
+  "foliage_placer": {
+    "type": "minecraft:random_spread_foliage_placer",
+    "foliage_height": 2,
+    "leaf_placement_attempts": 32,
+    "offset": 2,
+    "radius": 2
+  },
+  "foliage_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:cypress_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    }
+  },
+  "ignore_vines": false,
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size",
+    "upper_size": 2
+  },
+  "trunk_placer": {
+    "type": "wilderwild:juniper_trunk_placer",
+    "base_height": 2,
+    "branch_count": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 3,
+      "min_inclusive": 1
+    },
+    "branch_end_offset_from_top": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 2,
+      "min_inclusive": -3
+    },
+    "branch_horizontal_length": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 2
+    },
+    "branch_start_offset_from_top": {
+      "max_inclusive": -5,
+      "min_inclusive": -8
+    },
+    "height_rand_a": 1,
+    "height_rand_b": 1
+  },
+  "trunk_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:cypress_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

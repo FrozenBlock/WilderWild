@@ -17,13 +17,12 @@
 
 package net.frozenblock.wilderwild.client;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.renderer.RenderStateDataKey;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWRenderStateDataKeys {
 	public static final RenderStateDataKey<CloudWindPositioner> CLOUD_WIND_POSITIONER = RenderStateDataKey.create(
 		WWConstants.id("cloud_wind_positioner")

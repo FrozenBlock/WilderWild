@@ -17,14 +17,14 @@
 
 package net.frozenblock.wilderwild.client.renderer.blockentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.renderer.blockentity.BillboardBlockEntityRenderer;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.HangingTendrilRenderState;
+import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends BillboardBlockEntityRenderer<T, HangingTendrilRenderState> {
 	private final TextureAtlasSprite defaultSprite;
 	private final TextureAtlasSprite activeSprite;
@@ -84,5 +84,10 @@ public class HangingTendrilRenderer<T extends HangingTendrilBlockEntity> extends
 		} else {
 			renderState.sprite = this.defaultSprite;
 		}
+	}
+
+	@Override
+	public boolean shouldRender(T blockEntity, Vec3 cameraPosition) {
+		return WWBlockConfig.BILLBOARD_TENDRILS.get() && super.shouldRender(blockEntity, cameraPosition);
 	}
 }

@@ -1,0 +1,119 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": {
+    "type": "minecraft:rule_based_state_provider",
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:cannot_replace_below_tree_trunk"
+          }
+        },
+        "then": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:dirt"
+          }
+        }
+      }
+    ]
+  },
+  "decorators": [
+    {
+      "type": "wilderwild:height_based_vine_tree_decorator",
+      "max_height": 260,
+      "placement_chance": 0.25,
+      "probability": 0.12
+    },
+    {
+      "type": "wilderwild:above_logs_tree_decorator",
+      "placement_chance": 0.35,
+      "probability": 0.6,
+      "state": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "minecraft:moss_carpet"
+        }
+      }
+    },
+    {
+      "type": "wilderwild:shelf_fungi_tree_decorator",
+      "placement_chance": 0.25,
+      "probability": 0.09,
+      "shelf_fungi_provider": {
+        "type": "minecraft:randomized_int_state_provider",
+        "property": "shelf_fungus_stage",
+        "source": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "wilderwild:brown_shelf_fungi",
+                "Properties": {
+                  "age": "0",
+                  "face": "wall",
+                  "facing": "north",
+                  "shelf_fungus_stage": "1",
+                  "waterlogged": "false"
+                }
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "wilderwild:red_shelf_fungi",
+                "Properties": {
+                  "age": "0",
+                  "face": "wall",
+                  "facing": "north",
+                  "shelf_fungus_stage": "1",
+                  "waterlogged": "false"
+                }
+              },
+              "weight": 1
+            }
+          ]
+        },
+        "values": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 4,
+          "min_inclusive": 1
+        }
+      }
+    }
+  ],
+  "foliage_placer": {
+    "type": "wilderwild:no_op_foliage_placer"
+  },
+  "foliage_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "minecraft:air"
+    }
+  },
+  "ignore_vines": false,
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size"
+  },
+  "trunk_placer": {
+    "type": "wilderwild:large_snapped_trunk_placer",
+    "additional_height": {
+      "max_inclusive": 3,
+      "min_inclusive": 0
+    },
+    "base_height": 3,
+    "height_rand_a": 1,
+    "height_rand_b": 2
+  },
+  "trunk_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "minecraft:jungle_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

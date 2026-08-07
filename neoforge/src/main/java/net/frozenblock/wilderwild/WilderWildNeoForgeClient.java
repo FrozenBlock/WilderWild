@@ -38,6 +38,7 @@ public final class WilderWildNeoForgeClient {
 			event.register(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 		});
 
+		// TODO: see if removing cloth causes a crash
 		ModLoadingContext.get().registerExtensionPoint(
 			IConfigScreenFactory.class,
 			() -> (container, parent) ->

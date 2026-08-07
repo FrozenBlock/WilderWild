@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:noise_provider",
+    "noise": {
+      "amplitude_modifiers": [
+        1.0
+      ],
+      "base_octave": 0,
+      "normalize": false
+    },
+    "scale": 0.08883333,
+    "seed": 1234,
+    "states": [
+      {
+        "Name": "wilderwild:red_hibiscus"
+      },
+      {
+        "Name": "wilderwild:red_hibiscus"
+      },
+      {
+        "Name": "wilderwild:yellow_hibiscus"
+      },
+      {
+        "Name": "wilderwild:white_hibiscus"
+      },
+      {
+        "Name": "wilderwild:pink_hibiscus"
+      },
+      {
+        "Name": "wilderwild:purple_hibiscus"
+      },
+      {
+        "Name": "wilderwild:purple_hibiscus"
+      }
+    ]
+  }
+}

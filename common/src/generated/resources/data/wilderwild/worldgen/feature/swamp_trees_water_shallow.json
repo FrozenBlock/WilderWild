@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:willow_checked",
+  "features": [
+    {
+      "chance": 0.75,
+      "feature": "wilderwild:willow_tall_checked"
+    }
+  ]
+}

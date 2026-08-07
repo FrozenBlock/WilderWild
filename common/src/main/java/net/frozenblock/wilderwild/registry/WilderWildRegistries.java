@@ -17,8 +17,9 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;
+import net.frozenblock.lib.platform.RegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehavior;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
@@ -35,13 +36,15 @@ public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<CrabVariant>> CRAB_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("crab_variant"));
 	public static final ResourceKey<Registry<MoobloomVariant>> MOOBLOOM_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("moobloom_variant"));
 	public static final ResourceKey<Registry<TermiteBlockBehavior>> TERMITE_BLOCK_BEHAVIOR = ResourceKey.createRegistryKey(WWConstants.id("termite_block_behavior"));
+	public static final ResourceKey<Registry<FallingLeafData>> FALLING_LEAF = ResourceKey.createRegistryKey(WWConstants.id("falling_leaf"));
 
 	public static void init() {
-		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
-		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
-		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC, JellyfishVariant.NETWORK_CODEC);
-		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(CRAB_VARIANT, CrabVariant.DIRECT_CODEC, CrabVariant.NETWORK_CODEC);
-		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC, MoobloomVariant.DIRECT_CODEC);
-		FrozenLibInitPlatformUtils.REGISTRY.registerSyncedDynamicRegistry(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC, TermiteBlockBehavior.DIRECT_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(JELLYFISH_VARIANT, JellyfishVariant.DIRECT_CODEC, JellyfishVariant.NETWORK_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(CRAB_VARIANT, CrabVariant.DIRECT_CODEC, CrabVariant.NETWORK_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(MOOBLOOM_VARIANT, MoobloomVariant.DIRECT_CODEC, MoobloomVariant.DIRECT_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC, TermiteBlockBehavior.DIRECT_CODEC);
+		RegistryHelper.registerSyncedDynamicRegistry(FALLING_LEAF, FallingLeafData.DIRECT_CODEC, FallingLeafData.NETWORK_CODEC);
 	}
 }

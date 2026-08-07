@@ -75,7 +75,7 @@ public final class WWEntityConfig {
 	// MOOBLOOM
 	public static final ConfigEntry<Boolean> SPAWN_MOOBLOOMS = CONFIG.entry("moobloom/spawnMooblooms", EntryType.BOOL, true);
 
-	// MOOBLOOM
+	// PENGUIN
 	public static final ConfigEntry<Boolean> SPAWN_PENGUINS = CONFIG.entry("penguin/spawnPenguins", EntryType.BOOL, true);
 
 	// TUMBLEWEED
@@ -83,6 +83,9 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Integer> TUMBLEWEED_SPAWN_CAP = CONFIG.entryBuilder("tumbleweed/tumbleweedSpawnCap", EntryType.INT, 10).requireRestart().build();
 	public static final ConfigEntry<Boolean> LEASHED_TUMBLEWEED = CONFIG.entry("tumbleweed/leashedTumbleweed", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> TUMBLEWEED_DESTROYS_CROPS = CONFIG.entry("tumbleweed/tumbleweedDestroysCrops", EntryType.BOOL, true);
+
+	// WOLF
+	public static final ConfigEntry<Boolean> SPAWN_WOLF_VARIANTS = CONFIG.entry("wolf/spawnWolfVariants", EntryType.BOOL, true);
 
 	// WARDEN
 	public static final ConfigEntry<Boolean> WARDEN_ATTACKS_IMMEDIATELY = CONFIG.entry("warden/wardenAttacksImmediately", EntryType.BOOL, true);

@@ -36,14 +36,12 @@ public record MoobloomVariant(
 	Optional<BlockState> topFlowerBlockState,
 	boolean isDoubleBlock
 ) {
-	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(
-		instance -> instance.group(
-			ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::texture),
-			ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(MoobloomVariant::babyTexture),
-			BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::flowerBlockState),
-			BlockState.CODEC.optionalFieldOf("top_flower_block_state").forGetter(MoobloomVariant::topFlowerBlockState)
-		).apply(instance, MoobloomVariant::new)
-	);
+	public static final Codec<MoobloomVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(MoobloomVariant::texture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(MoobloomVariant::babyTexture),
+		BlockState.CODEC.fieldOf("flower_block_state").forGetter(MoobloomVariant::flowerBlockState),
+		BlockState.CODEC.optionalFieldOf("top_flower_block_state").forGetter(MoobloomVariant::topFlowerBlockState)
+	).apply(instance, MoobloomVariant::new));
 	public static final Codec<Holder<MoobloomVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.MOOBLOOM_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<MoobloomVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT);
 

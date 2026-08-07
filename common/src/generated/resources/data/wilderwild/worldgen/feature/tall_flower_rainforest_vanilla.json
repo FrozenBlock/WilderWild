@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:noise_provider",
+    "noise": {
+      "amplitude_modifiers": [
+        1.0
+      ],
+      "base_octave": 0,
+      "normalize": false
+    },
+    "scale": 0.034833334,
+    "seed": 5050,
+    "states": [
+      {
+        "Name": "minecraft:rose_bush",
+        "Properties": {
+          "half": "lower"
+        }
+      },
+      {
+        "Name": "minecraft:lilac",
+        "Properties": {
+          "half": "lower"
+        }
+      },
+      {
+        "Name": "minecraft:peony",
+        "Properties": {
+          "half": "lower"
+        }
+      }
+    ]
+  }
+}

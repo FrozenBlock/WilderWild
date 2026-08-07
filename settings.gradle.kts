@@ -1,45 +1,45 @@
 pluginManagement {
 	repositories {
 		mavenLocal()
-		maven {
-			name = "Quilt"
-			setUrl("https://maven.quiltmc.org/repository/release/")
-		}
-		maven {
-			name = "Quilt Snapshot"
-			setUrl("https://maven.quiltmc.org/repository/snapshot/")
-		}
-		maven {
-			name = "Fabric"
-			setUrl("https://maven.fabricmc.net/")
-		}
-        maven("https://maven.architectury.dev/") {
-            name = "Architectury"
+        maven("https://maven.quiltmc.org/repository/release") {
+            name = "Quilt"
         }
-		maven {
-			name = "NeoForged"
-			setUrl("https://maven.neoforged.net/releases")
-		}
-		maven {
-			name = "Forge"
-			setUrl("https://files.minecraftforge.net/maven/")
-		}
-		maven {
-			name = "Jitpack"
-			setUrl("https://jitpack.io/")
-		}
+        maven("https://maven.fabricmc.net") {
+            name = "Fabric"
+        }
+        maven("https://maven.neoforged.net/releases") {
+            name = "NeoForged"
+        }
+        maven("https://jitpack.io") {
+            name = "Jitpack"
+        }
+        maven("https://registry.somethingcatchy.net/repository/maven-releases/") { // Candlelight & Triangle
+            name = "SomethingCatchy (MehVahdJukaar)"
+        }
+        maven("https://maven.frozenblock.net/snapshot") {
+            name = "FrozenBlock Snapshot"
+        }
 		mavenCentral()
 		gradlePluginPortal()
 	}
 }
 
-plugins {
-	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+val neoforgeSnapshotMaven = settings.providers.gradleProperty("neoforge_snapshot_maven").orNull
+if (!neoforgeSnapshotMaven.isNullOrBlank()) {
+    pluginManagement {
+        repositories {
+            maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
+        }
+    }
 }
 
-rootProject.name = "Wilder Wild"
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("+")
+    id("net.frozenblock.triangle.helper") version("+")
+}
 
-includeBuild("build-logic")
+
+rootProject.name = "Wilder Wild"
 
 object Constants {
     const val FABRIC: Boolean = true
@@ -59,12 +59,30 @@ if (Constants.NEOFORGE) {
     project(":ww-neoforge").projectDir = file("neoforge")
 }
 
-localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", kotlin = false, enabled = false)
-localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", kotlin = false, enabled = false)
+localRepository("cloth-config", "me.shedaniel.cloth:cloth-config-fabric", enabled = false)
+localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", enabled = false)
 
-localRepository("FrozenLib", "net.frozenblock:frozenlib", prefix = "flib", multi = true, enabled = true)
+localRepository("FrozenLib",
+    "net.frozenblock:frozenlib",
+    prefix = "flib",
+    multi = true,
+    candlelight = true,
+    enabled = true
+)
 
-fun localRepository(repo: String, dependencySub: String, prefix: String = "", multi: Boolean = true, kotlin: Boolean = true, enabled: Boolean) {
+localPluginRepository(
+    "GradleHelper",
+    enabled = true
+)
+
+fun localRepository(
+    repo: String,
+    dependencySub: String,
+    prefix: String = "",
+    multi: Boolean = true,
+    candlelight: Boolean = false,
+    enabled: Boolean
+) {
 	if (!enabled) return
 	println("Attempting to include local repo $repo")
 
@@ -82,6 +100,10 @@ fun localRepository(repo: String, dependencySub: String, prefix: String = "", mu
 	var path = "../$repo"
 	var file = File(path)
 
+	val allSuffixes = mutableListOf("common")
+	if (Constants.FABRIC) allSuffixes.add("fabric")
+	if (Constants.NEOFORGE) allSuffixes.add("neoforge")
+
 	if (allowLocalRepoUse && (isIDE || allowLocalRepoInConsoleMode)) {
 		if (github) {
 			path = repo
@@ -91,12 +113,10 @@ fun localRepository(repo: String, dependencySub: String, prefix: String = "", mu
 		if (file.exists()) {
 			includeBuild(path) {
 				dependencySubstitution {
-                    val allSuffixes = mutableListOf("common")
-                    if (Constants.FABRIC) allSuffixes.add("fabric")
-                    if (Constants.NEOFORGE) allSuffixes.add("neoforge")
 					if (multi && allSuffixes.isNotEmpty()) {
                         for (suffix in allSuffixes) {
-                            substitute(module("$dependencySub-$suffix")).using(project(":$prefix-$suffix"))
+                            val project = if (prefix.isNotEmpty()) ":$prefix-$suffix" else ":$suffix"
+                            substitute(module("$dependencySub-$suffix")).using(project(project))
                         }
 					} else {
                         val projectPath = if (dependencySub.isNotEmpty()) {
@@ -106,9 +126,50 @@ fun localRepository(repo: String, dependencySub: String, prefix: String = "", mu
 					}
 				}
 			}
+
+			if (multi && candlelight) {
+				gradle.rootProject {
+					subprojects {
+						val suffix = allSuffixes.find { project.name.endsWith("-$it") }
+						if (suffix != null) {
+							afterEvaluate {
+								tasks.findByName("compileJava")?.dependsOn(
+									gradle.includedBuild(repo).task(":$prefix-$suffix:candleLightTransform")
+								)
+							}
+						}
+					}
+				}
+			}
+
 			println("Included local repo $repo")
 		} else {
 			println("Local repo $repo not found")
 		}
 	}
+}
+
+fun localPluginRepository(repo: String, enabled: Boolean = true) {
+    if (!enabled) return
+    println("Attempting to include local plugin build $repo")
+
+    val github = System.getenv("GITHUB_ACTIONS") == "true"
+
+    var path = "../$repo"
+    var file = File(path)
+
+    if (github) {
+        path = repo
+        file = File(path)
+        println("Running on GitHub")
+    }
+
+    if (file.exists()) {
+        pluginManagement {
+            includeBuild(path)
+        }
+        println("Included local plugin build $repo")
+    } else {
+        println("Local plugin build $repo not found")
+    }
 }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:swamp_oak_leaf_litter_checked",
+  "features": [
+    {
+      "chance": 0.75,
+      "feature": "wilderwild:willow_leaf_litter_checked"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:willow_tall_leaf_litter_checked"
+    }
+  ]
+}

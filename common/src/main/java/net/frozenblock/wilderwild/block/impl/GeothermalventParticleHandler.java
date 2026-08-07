@@ -17,12 +17,11 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;
@@ -147,7 +146,7 @@ public class GeothermalventParticleHandler {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
+	@ClientOnly
 	public static void spawnEruptionParticles(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, RandomSource random) {
 		final Minecraft client = Minecraft.getInstance();
 		final ParticleStatus particleStatus = client.options.particles().get();
@@ -265,7 +264,7 @@ public class GeothermalventParticleHandler {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
+	@ClientOnly
 	public static void spawnBaseGeothermalVentParticles(Level level, BlockPos pos, Direction direction, RandomSource random, boolean hydrothermalVent) {
 		final Minecraft client = Minecraft.getInstance();
 		final ParticleStatus particleStatus = client.options.particles().get();

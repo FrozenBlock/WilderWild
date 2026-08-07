@@ -164,6 +164,7 @@ public final class WWSounds {
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_MAPLE_LEAF_LITTER_BREAK = register("block.maple_leaf_litter.break");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_MAPLE_LEAF_LITTER_STEP = register("block.maple_leaf_litter.step");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_MAPLE_LEAF_LITTER_FALL = register("block.maple_leaf_litter.fall");
+	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_FALLING_LEAF_LITTER_MAPLE_LAND = register("block.falling_leaf_litter.maple.land");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_MAPLE_WOOD_PLACE = register("block.maple_wood.place");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_MAPLE_WOOD_HIT = register("block.maple_wood.hit");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_MAPLE_WOOD_BREAK = register("block.maple_wood.break");

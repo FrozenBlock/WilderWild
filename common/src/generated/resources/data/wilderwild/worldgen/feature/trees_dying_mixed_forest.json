@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:trees_dying_mixed_forest_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.15,
+      "feature": {
+        "feature": "wilderwild:trees_dying_mixed_forest_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

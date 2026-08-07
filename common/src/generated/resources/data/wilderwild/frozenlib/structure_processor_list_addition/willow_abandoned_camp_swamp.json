@@ -1,0 +1,217 @@
+{
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:worldgen/structure/newAbandonedCamps",
+    "target": true
+  },
+  "processors": {
+    "processors": [
+      {
+        "processor_type": "frozenlib:block_state_respecting_rule",
+        "rules": [
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_button",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_button"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_door",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_door"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_fence",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_fence"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_fence_gate",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_fence_gate"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_hanging_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_hanging_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_wall_hanging_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_wall_hanging_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_hanging_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_wall_hanging_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_log"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_wood",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_wood"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:stripped_oak_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stripped_willow_log"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:stripped_oak_wood",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stripped_willow_wood"
+          },
+          {
+            "input_predicate": {
+              "block": "wilderwild:hollowed_oak_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:hollowed_willow_log"
+          },
+          {
+            "input_predicate": {
+              "block": "wilderwild:stripped_hollowed_oak_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stripped_hollowed_willow_log"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_planks",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_planks"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_pressure_plate",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_pressure_plate"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_slab",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_slab"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_stairs",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_stairs"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_sapling",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_sapling"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:oak_leaves",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:willow_leaves"
+          }
+        ]
+      }
+    ]
+  },
+  "structures": "minecraft:abandoned_camp_swamp"
+}

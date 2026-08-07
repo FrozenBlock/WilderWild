@@ -1,0 +1,31 @@
+{
+  "type": "frozenlib:column",
+  "block_state": {
+    "type": "minecraft:simple_state_provider",
+    "state": {
+      "Name": "wilderwild:pearlescent_purple_mesoglea",
+      "Properties": {
+        "bubble_column_direction": "none"
+      }
+    }
+  },
+  "direction": "up",
+  "length": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 12,
+    "min_inclusive": 4
+  },
+  "replaceable": {
+    "type": "minecraft:any_of",
+    "predicates": [
+      {
+        "type": "minecraft:replaceable"
+      },
+      {
+        "type": "minecraft:matching_blocks",
+        "blocks": "wilderwild:pearlescent_purple_mesoglea"
+      }
+    ]
+  },
+  "stop_at_unreplaceable_block": true
+}

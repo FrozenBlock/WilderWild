@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:fallen_jungle_checked",
+  "features": [
+    {
+      "chance": 0.25,
+      "feature": "wilderwild:mossy_fallen_oak_checked"
+    }
+  ]
+}

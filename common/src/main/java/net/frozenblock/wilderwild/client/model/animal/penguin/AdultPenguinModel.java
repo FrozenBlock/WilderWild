@@ -18,10 +18,9 @@
 package net.frozenblock.wilderwild.client.model.animal.penguin;
 
 import java.util.Set;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.animation.definitions.PenguinAnimation;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -32,7 +31,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class AdultPenguinModel<T extends PenguinRenderState> extends PenguinModel<T> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 0F, 0F, 1F, 2.5F, 36F, Set.of());
 

@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.client.model.object.chest;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -29,7 +28,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class StoneChestModel extends Model<Float> {
 	private static final String BASE = "bottom";
 	private static final String LID = "lid";

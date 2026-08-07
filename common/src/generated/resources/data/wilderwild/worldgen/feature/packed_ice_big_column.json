@@ -1,0 +1,112 @@
+{
+  "type": "minecraft:sequence",
+  "features": [
+    {
+      "feature": {
+        "type": "frozenlib:column",
+        "block_state": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:packed_ice"
+          }
+        },
+        "direction": "up",
+        "length": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 9,
+          "min_inclusive": 2
+        },
+        "replaceable": {
+          "type": "minecraft:replaceable"
+        },
+        "stop_at_unreplaceable_block": true
+      },
+      "placement": [
+        {
+          "type": "minecraft:environment_scan",
+          "allowed_search_condition": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:air"
+          },
+          "direction_of_search": "down",
+          "max_steps": 12,
+          "target_condition": {
+            "type": "minecraft:solid"
+          }
+        },
+        {
+          "type": "minecraft:offset",
+          "x": 0,
+          "y": 1,
+          "z": 0
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "frozenlib:column",
+        "block_state": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:packed_ice"
+          }
+        },
+        "direction": "up",
+        "length": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 4,
+          "min_inclusive": 0
+        },
+        "replaceable": {
+          "type": "minecraft:replaceable"
+        },
+        "stop_at_unreplaceable_block": true
+      },
+      "placement": [
+        {
+          "type": "minecraft:count",
+          "count": 5
+        },
+        {
+          "type": "minecraft:offset",
+          "x": {
+            "type": "minecraft:trapezoid",
+            "max": 1,
+            "min": -1,
+            "plateau": 0
+          },
+          "y": {
+            "type": "minecraft:trapezoid",
+            "max": 1,
+            "min": -1,
+            "plateau": 0
+          },
+          "z": {
+            "type": "minecraft:trapezoid",
+            "max": 1,
+            "min": -1,
+            "plateau": 0
+          }
+        },
+        {
+          "type": "minecraft:environment_scan",
+          "allowed_search_condition": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:air"
+          },
+          "direction_of_search": "down",
+          "max_steps": 12,
+          "target_condition": {
+            "type": "minecraft:solid"
+          }
+        },
+        {
+          "type": "minecraft:offset",
+          "x": 0,
+          "y": 1,
+          "z": 0
+        }
+      ]
+    }
+  ]
+}

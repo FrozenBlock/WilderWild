@@ -19,9 +19,8 @@ package net.frozenblock.wilderwild.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
@@ -29,7 +28,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowModel> {
 	private static final float FLOWER_SCALE = 0.75F;
 	private static final float DOUBLE_BLOCK_SCALE = 0.75F;

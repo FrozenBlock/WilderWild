@@ -17,14 +17,13 @@
 
 package net.frozenblock.wilderwild.client.resources.sounds;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.sounds.SoundSource;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class TermiteIdleSoundInstance<T extends TermiteMoundBlockEntity> extends net.frozenblock.wilderwild.client.resources.sounds.AbstractTermiteSoundInstance<T> {
 
 	public TermiteIdleSoundInstance(T mound) {

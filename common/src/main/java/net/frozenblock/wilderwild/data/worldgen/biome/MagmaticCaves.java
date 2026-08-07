@@ -163,7 +163,7 @@ public final class MagmaticCaves extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.BIOLITH_INTEGRATION.modLoaded()) return;
+		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
 		if (!WWWorldgenConfig.MAGMATIC_CAVES_GENERATION.get()) return;
 		this.addBottomBiome(
 			parameters,

@@ -18,11 +18,11 @@
 package net.frozenblock.wilderwild.mixin.client.block.block_break;
 
 import java.util.Optional;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(ClientLevel.class)
 public class ClientLevelMixin {
 
@@ -60,15 +60,15 @@ public class ClientLevelMixin {
 			return;
 		}
 
-		final Optional<FallingLeafUtil.FallingLeafData> optionalFallingLeafData = FallingLeafUtil.getFallingLeafData(blockState.getBlock());
-		if (optionalFallingLeafData.isEmpty()) return;
+		final ClientLevel level = ClientLevel.class.cast(this);
+		final Optional<FallingLeafData.ParticleData> particleData = FallingLeafUtil.getLeafParticleDataForBlock(level.registryAccess(), blockState.getBlock());
+		if (particleData.isEmpty()) return;
 
-		final RandomSource random = ClientLevel.class.cast(this).getRandom();
-		final FallingLeafUtil.FallingLeafData fallingLeafData = optionalFallingLeafData.get();
+		final RandomSource random = level.getRandom();
 		final int count = !litter ? random.nextInt(2, 4) : blockState.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
 		for (int i = 0; i < count; i++) {
 			this.minecraft.particleEngine.createParticle(
-				FallingLeafUtil.createLeafParticleOptions(fallingLeafData, litter),
+				particleData.get().createLeafParticleOptions(),
 				pos.getX() + 0.5D + random.nextDouble() * 0.25D,
 				pos.getY() + (!litter ? 0.5D + random.nextDouble() * 0.25D : 0.1D),
 				pos.getZ() + 0.5D + random.nextDouble() * 0.25D,

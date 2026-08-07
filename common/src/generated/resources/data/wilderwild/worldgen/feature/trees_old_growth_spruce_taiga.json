@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:trees_old_growth_spruce_taiga_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.5,
+      "feature": {
+        "feature": "wilderwild:trees_old_growth_spruce_taiga_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

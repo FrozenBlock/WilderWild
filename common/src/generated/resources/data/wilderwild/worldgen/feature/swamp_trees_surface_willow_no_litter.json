@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:swamp_oak_checked",
+  "features": [
+    {
+      "chance": 0.75,
+      "feature": "wilderwild:willow_checked"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:willow_tall_checked"
+    }
+  ]
+}

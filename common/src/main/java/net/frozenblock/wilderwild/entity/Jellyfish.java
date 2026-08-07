@@ -42,14 +42,11 @@ import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -103,7 +100,6 @@ import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -683,21 +679,6 @@ public class Jellyfish extends NoFlopAbstractFish {
 	@Override
 	public void setBaby(boolean baby) {
 		this.setAge(baby ? AgeableMob.BABY_START_AGE : 0);
-	}
-
-	@Override
-	public Optional<ResourceKey<LootTable>> getLootTable() {
-		final Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(WWEntityTypes.JELLYFISH.get());
-		final Identifier variantId = this.getVariantLocation();
-		return Optional.of(
-			ResourceKey.create(
-				Registries.LOOT_TABLE,
-				Identifier.fromNamespaceAndPath(
-					variantId.getNamespace(),
-					"entities/" + id.getPath() + "_" + variantId.getPath()
-				)
-			)
-		);
 	}
 
 	@Nullable

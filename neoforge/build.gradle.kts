@@ -1,6 +1,5 @@
 plugins {
-    id("ww-multiloader-loader")
-    id("dev.architectury.loom-no-remap")
+    id("net.frozenblock.triangle.neoforge")
     id("org.quiltmc.gradle.licenser")
     checkstyle
 }
@@ -30,71 +29,35 @@ val shouldRunSodium = run_sodium == "true"
 val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
 
 base {
-    archivesName.set("$archives_base_name-neoforge")
+    archivesName.set(archives_base_name)
 }
+
+val release = findProperty("releaseType") == "stable"
 
 version = getModVersion()
 group = maven_group
+
+tasks.jar {
+    archiveClassifier.set("neoforge")
+}
 
 repositories {
     maven("https://maven.neoforged.net/releases") { name = "NeoForged" }
     if (!neoforgeSnapshotMaven.isNullOrBlank()) {
         maven(neoforgeSnapshotMaven) { name = "NeoForge Snapshots" }
     }
-    exclusiveContent {
-        forRepository {
-            maven("https://api.modrinth.com/maven") {
-                name = "Modrinth"
-            }
-        }
-        filter {
-            includeGroup("maven.modrinth")
-        }
+    flatDir {
+        dirs("libs")
     }
 }
 
-loom {
-    accessWidenerPath = rootProject.file("common/src/main/resources/wilderwild.classtweaker")
-    enableTransitiveAccessWideners = true
-
-    interfaceInjection {
-        enableDependencyInterfaceInjection = true
-    }
-
-    runs {
-        named("client") {
-            client()
-            name("NeoForge Client")
-            ideConfigGenerated(true)
-            //gameDirectory.set(project.mkdir(project.file("runs/client")))
-        }
-        named("server") {
-            server()
-            name("NeoForge Server")
-            ideConfigGenerated(true)
-            project.file("runs/server").parentFile?.mkdirs()
-            //gameDirectory.set(project.mkdir(project.file("runs/server")))
-        }
-    }
+neoforge {
+    dependOn(project(":ww-common"))
+    accessWidener(project(":ww-common"))
 }
 
-dependencies {
-    minecraft("com.mojang:minecraft:$minecraft_version")
-    "neoForge"("net.neoforged:neoforge:$neoforge_version")
-
-    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")
-
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
-    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
-
-    // Sodium
-    if (shouldRunSodium) {
-        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
-    } else {
-        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
-    }
+neoForge {
+    accessTransformers {} // Required for transitive AW to apply!
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -127,11 +90,6 @@ tasks {
     }
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
-}
-
 val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
 val loaderVariants = setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements")
 configurations.all {
@@ -151,6 +109,67 @@ sourceSets.configureEach {
     }
 }
 
+dependencies {
+    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")?.let {
+        accessTransformers(it)
+        interfaceInjectionData(it)
+    }
+
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
+    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
+
+    // Sodium
+    if (shouldRunSodium) {
+        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
+        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
+    } else {
+        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
 fun getModVersion(): String {
-    return "$mod_version-mc$minecraft_version"
+    var version = "$mod_version-mc$minecraft_version"
+
+    if (!release)
+        version += "-unstable"
+
+    return version
+}
+
+val changelogText = run {
+    val split = rootProject.file("CHANGELOG.md").readText().split("-----------------")
+    check(split.size == 2) { "Malformed changelog" }
+    split[1].trim()
+}
+
+upload {
+    maven {
+        name.set("wilderwild-neoforge")
+    }
+
+    forEach {
+        changelog.set(changelogText)
+    }
+
+    curseforge {
+        dependencies {
+            required("frozenlib")
+            optional("cloth-config")
+            optional("biolith")
+        }
+    }
+
+    modrinth {
+        dependencies {
+            required("frozenlib")
+            optional("cloth-config")
+            optional("biolith")
+        }
+    }
 }

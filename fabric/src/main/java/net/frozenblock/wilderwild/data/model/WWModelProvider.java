@@ -22,6 +22,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
+import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -78,12 +79,10 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.woodProvider(WWBlocks.MAPLE_LOG.get()).logWithHorizontal(WWBlocks.MAPLE_LOG.get()).wood(WWBlocks.MAPLE_WOOD.get());
 		generator.woodProvider(WWBlocks.STRIPPED_MAPLE_LOG.get()).logWithHorizontal(WWBlocks.STRIPPED_MAPLE_LOG.get()).wood(WWBlocks.STRIPPED_MAPLE_WOOD.get());
 		generator.createShelf(WWBlocks.MAPLE_SHELF.get(), WWBlocks.STRIPPED_MAPLE_LOG.get());
-		generator.createPlantWithDefaultItem(WWBlocks.YELLOW_MAPLE_SAPLING.get(), WWBlocks.POTTED_YELLOW_MAPLE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		generator.createPlantWithDefaultItem(WWBlocks.ORANGE_MAPLE_SAPLING.get(), WWBlocks.POTTED_ORANGE_MAPLE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		generator.createPlantWithDefaultItem(WWBlocks.RED_MAPLE_SAPLING.get(), WWBlocks.POTTED_RED_MAPLE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		generator.createTrivialBlock(WWBlocks.YELLOW_MAPLE_LEAVES.get(), TexturedModel.LEAVES);
-		generator.createTrivialBlock(WWBlocks.ORANGE_MAPLE_LEAVES.get(), TexturedModel.LEAVES);
-		generator.createTrivialBlock(WWBlocks.RED_MAPLE_LEAVES.get(), TexturedModel.LEAVES);
+		MapleCollection.zipApply(WWBlocks.MAPLE_SAPLING, WWBlocks.POTTED_MAPLE_SAPLING, (sapling, potted) -> {
+			generator.createPlantWithDefaultItem(sapling.get(), potted.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		});
+		WWBlocks.MAPLE_LEAVES.forEach(block -> generator.createTrivialBlock(block.get(), TexturedModel.LEAVES));
 
 		generator.createDoublePlantWithDefaultItem(WWBlocks.DATURA.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
@@ -153,9 +152,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createLeafLitter(WWBlocks.PALM_FROND_LITTER.get());
 		generator.createLeafLitter(WWBlocks.SPRUCE_LEAF_LITTER.get());
 		generator.createLeafLitter(WWBlocks.WILLOW_LEAF_LITTER.get());
-		WWModelHelper.createUntintedLeafLitter(generator, WWBlocks.YELLOW_MAPLE_LEAF_LITTER.get());
-		WWModelHelper.createUntintedLeafLitter(generator, WWBlocks.ORANGE_MAPLE_LEAF_LITTER.get());
-		WWModelHelper.createUntintedLeafLitter(generator, WWBlocks.RED_MAPLE_LEAF_LITTER.get());
+		WWBlocks.MAPLE_LEAF_LITTER.forEach(leafLitter -> WWModelHelper.createUntintedLeafLitter(generator, leafLitter.get()));
 
 		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_MESOGLEA.get());
 		WWModelHelper.createMesoglea(generator, WWBlocks.LIME_MESOGLEA.get());

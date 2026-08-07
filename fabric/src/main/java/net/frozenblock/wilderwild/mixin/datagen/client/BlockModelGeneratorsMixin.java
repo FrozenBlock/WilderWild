@@ -19,9 +19,8 @@ package net.frozenblock.wilderwild.mixin.datagen.client;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import java.util.Map;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Final;
@@ -32,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 @Mixin(value = BlockModelGenerators.class, priority = 1)
 public class BlockModelGeneratorsMixin {
 

@@ -1,0 +1,217 @@
+{
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:worldgen/structure/newDesertVillages",
+    "target": true
+  },
+  "processors": {
+    "processors": [
+      {
+        "processor_type": "frozenlib:block_state_respecting_rule",
+        "rules": [
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_button",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_button"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_door",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_door"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_fence",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_fence"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_fence_gate",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_fence_gate"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_hanging_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_hanging_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_wall_hanging_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_wall_hanging_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_hanging_sign",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_wall_hanging_sign"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_log"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_wood",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_wood"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:stripped_jungle_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stripped_palm_log"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:stripped_jungle_wood",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stripped_palm_wood"
+          },
+          {
+            "input_predicate": {
+              "block": "wilderwild:hollowed_jungle_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:hollowed_palm_log"
+          },
+          {
+            "input_predicate": {
+              "block": "wilderwild:stripped_hollowed_jungle_log",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:stripped_hollowed_palm_log"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_planks",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_planks"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_pressure_plate",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_pressure_plate"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_slab",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_slab"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_stairs",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_stairs"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_sapling",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:coconut"
+          },
+          {
+            "input_predicate": {
+              "block": "minecraft:jungle_leaves",
+              "predicate_type": "minecraft:block_match"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_block": "wilderwild:palm_fronds"
+          }
+        ]
+      }
+    ]
+  },
+  "structures": "minecraft:village_desert"
+}

@@ -1,0 +1,28 @@
+{
+  "leaf_litter_block": "wilderwild:baobab_leaf_litter",
+  "leaf_litter_particle_data": {
+    "gravity_scale": 2.0,
+    "movement_type": "swirl",
+    "origin_block": "wilderwild:baobab_leaves",
+    "particle": "wilderwild:baobab_leaves",
+    "spawn_chance": 0.0095,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/baobabFrequency"
+    },
+    "texture_size": 4,
+    "wind_scale": 15.0
+  },
+  "leaf_particle_data": {
+    "gravity_scale": 2.0,
+    "movement_type": "swirl",
+    "origin_block": "wilderwild:baobab_leaves",
+    "particle": "wilderwild:baobab_leaves",
+    "spawn_chance": 0.0095,
+    "spawn_chance_modifier": {
+      "entry": "wilderwild:misc/leafParticles/baobabFrequency"
+    },
+    "texture_size": 4,
+    "wind_scale": 15.0
+  },
+  "leaves_block": "wilderwild:baobab_leaves"
+}

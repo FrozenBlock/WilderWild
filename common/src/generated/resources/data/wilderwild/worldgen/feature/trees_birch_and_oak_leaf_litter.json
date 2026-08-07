@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:oak_bees_0004_leaf_litter_checked",
+  "features": [
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:short_birch_bees_0004_leaf_litter_checked"
+    },
+    {
+      "chance": 0.04,
+      "feature": "wilderwild:dying_short_birch_leaf_litter_checked"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:fancy_oak_bees_0004_leaf_litter_checked"
+    },
+    {
+      "chance": 0.055,
+      "feature": "wilderwild:fancy_dying_oak_bees_0004_leaf_litter_checked"
+    },
+    {
+      "chance": 0.04,
+      "feature": "wilderwild:dying_oak_leaf_litter_checked"
+    },
+    {
+      "chance": 0.115,
+      "feature": "wilderwild:short_oak_leaf_litter_checked"
+    }
+  ]
+}

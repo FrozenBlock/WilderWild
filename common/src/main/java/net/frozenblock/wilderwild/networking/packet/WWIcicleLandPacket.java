@@ -17,8 +17,9 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
-import net.frozenblock.lib.networking.PlayerLookup;
-import net.frozenblock.lib.platform.FrozenLibInitPlatformUtils;import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.lib.networking.api.NetworkingHelper;
+import net.frozenblock.lib.networking.api.PlayerLookup;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -27,22 +28,24 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
-public record WWIcicleLandPacket(BlockPos pos) implements CustomPacketPayload {
+public record WWIcicleLandPacket(BlockPos pos, int blockStateId, boolean isSilent) implements CustomPacketPayload {
 	public static final Type<WWIcicleLandPacket> PACKET_TYPE = new Type<>(WWConstants.id("icicle_land"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWIcicleLandPacket> CODEC = StreamCodec.ofMember(WWIcicleLandPacket::write, WWIcicleLandPacket::new);
 
 	public WWIcicleLandPacket(FriendlyByteBuf buf) {
-		this(buf.readBlockPos());
+		this(buf.readBlockPos(), buf.readVarInt(), buf.readBoolean());
 	}
 
-	public static void sendToAll(ServerLevel serverLevel, BlockPos pos) {
+	public static void sendToAll(ServerLevel serverLevel, BlockPos pos, int blockStateId, boolean isSilent) {
 		for (ServerPlayer player : PlayerLookup.tracking(serverLevel, pos)) {
-			FrozenLibInitPlatformUtils.NETWORKING.sendToPlayer(player, new WWIcicleLandPacket(pos));
+			NetworkingHelper.sendToPlayer(player, new WWIcicleLandPacket(pos, blockStateId, isSilent));
 		}
 	}
 
 	public void write(FriendlyByteBuf buf) {
 		buf.writeBlockPos(this.pos());
+		buf.writeVarInt(this.blockStateId);
+		buf.writeBoolean(this.isSilent);
 	}
 
 	@Override

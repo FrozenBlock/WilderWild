@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:potion",
+    "potion_contents": {
+      "potions": "minecraft:awkward"
+    }
+  },
+  "output": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "wilderwild:scorching"
+      }
+    },
+    "id": "minecraft:potion"
+  },
+  "reagent": {
+    "item": "wilderwild:fermented_scorched_eye"
+  }
+}

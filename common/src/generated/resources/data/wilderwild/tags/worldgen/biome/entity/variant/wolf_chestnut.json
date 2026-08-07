@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:maple_forest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:tundra",
+      "required": false
+    }
+  ]
+}

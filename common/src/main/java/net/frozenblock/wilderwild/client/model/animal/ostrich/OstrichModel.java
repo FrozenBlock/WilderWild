@@ -18,9 +18,8 @@
 package net.frozenblock.wilderwild.client.model.animal.ostrich;
 
 import java.util.Set;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -34,7 +33,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.joml.Math;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public class OstrichModel<T extends AbstractOstrichRenderState> extends EntityModel<T> {
 	public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(true, 10F, 4F, Set.of("neck"));
 	private static final float NECK_DELAY = 0F;
