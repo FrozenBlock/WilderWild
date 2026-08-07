@@ -1761,26 +1761,26 @@ public final class WWTreeConfigured {
 
 		//CRIMSON
 		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(
-			fallenCrimson(RuleBasedStateProvider.simple(Blocks.CRIMSON_NYLIUM))
+			fallenCrimson(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM))
 				.decorators(List.of(netherFungiLeaningCrimson))
 				.build()
 		);
 
 		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.CRIMSON_STEM, 2, 1, 1, RuleBasedStateProvider.simple(Blocks.CRIMSON_NYLIUM))
+			snappedTrunkBuilder(Blocks.CRIMSON_STEM, 2, 1, 1, BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM))
 				.decorators(List.of(netherFungiLeaningCrimson))
 				.build()
 		);
 
 		//WARPED
 		FALLEN_WARPED_FUNGI.makeAndSetHolder(
-			fallenWarped(RuleBasedStateProvider.simple(Blocks.WARPED_NYLIUM))
+			fallenWarped(BlockStateProvider.simple(Blocks.WARPED_NYLIUM))
 				.decorators(List.of(netherFungiLeaningWarped))
 				.build()
 		);
 
 		SNAPPED_WARPED_FUNGI.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.WARPED_STEM, 2, 1, 1, RuleBasedStateProvider.simple(Blocks.WARPED_NYLIUM))
+			snappedTrunkBuilder(Blocks.WARPED_STEM, 2, 1, 1, BlockStateProvider.simple(Blocks.WARPED_NYLIUM))
 				.decorators(List.of(netherFungiLeaningWarped))
 				.build()
 		);

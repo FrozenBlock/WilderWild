@@ -5,126 +5,112 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:any_of",
-              "terms": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "minecraft:shears"
-                  }
-                },
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "predicates": {
-                      "minecraft:enchantments": [
-                        {
-                          "enchantments": "minecraft:silk_touch",
-                          "levels": {
-                            "min": 1
-                          }
+          "condition": {
+            "type": "minecraft:any_of",
+            "terms": [
+              {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "items": "minecraft:shears"
+                }
+              },
+              {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "predicates": {
+                    "minecraft:enchantments": [
+                      {
+                        "enchantments": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
                         }
-                      ]
-                    }
+                      }
+                    ]
                   }
                 }
-              ]
-            }
-          ],
-          "functions": [
+              }
+            ]
+          },
+          "modifier": [
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:pollen",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "down": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:pollen",
+                "state": {
+                  "down": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:pollen",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "up": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:pollen",
+                "state": {
+                  "up": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:pollen",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "north": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:pollen",
+                "state": {
+                  "north": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:pollen",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "south": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:pollen",
+                "state": {
+                  "south": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:pollen",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "west": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:pollen",
+                "state": {
+                  "west": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:pollen",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "east": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:pollen",
+                "state": {
+                  "east": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "count": -1.0,
-              "function": "minecraft:set_count"
+              "count": -1.0
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ],
           "name": "wilderwild:pollen"

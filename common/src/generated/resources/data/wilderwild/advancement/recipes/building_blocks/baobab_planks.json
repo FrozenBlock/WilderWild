@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:baobab_planks"
+        "recipes": "wilderwild:baobab_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

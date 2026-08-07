@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:spruce_planks_from_hollowed"
+        "recipes": "wilderwild:spruce_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

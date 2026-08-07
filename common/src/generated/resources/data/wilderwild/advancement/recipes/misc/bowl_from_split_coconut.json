@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:bowl_from_split_coconut"
+        "recipes": "wilderwild:bowl_from_split_coconut"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

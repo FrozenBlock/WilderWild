@@ -103,6 +103,7 @@ public final class SnowyDyingForest extends FrozenLibBiome {
 	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
 		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
 		builder.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST));
+		builder.set(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.07F);
 	}
 
 	@Override
@@ -121,7 +122,6 @@ public final class SnowyDyingForest extends FrozenLibBiome {
 
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
-		spawns.creatureGenerationProbability(0.07F);
 		BiomeDefaultFeatures.snowySpawns(spawns, false);
 	}
 

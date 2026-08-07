@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -151,14 +152,14 @@ public final class MagmaticCaves extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.caveSpawns(spawns);
-		spawns.addSpawn(MobCategory.MONSTER, 275, new MobSpawnSettings.SpawnerData(WWEntityTypes.SCORCHED.get(), 4, 4));
-		spawns.addSpawn(MobCategory.MONSTER, 75, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE, 4, 4));
-		spawns.addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1));
-		spawns.addSpawn(MobCategory.MONSTER, 75, new MobSpawnSettings.SpawnerData(EntityTypes.SKELETON, 4, 4));
-		spawns.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.CREEPER, 4, 4));
-		spawns.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SLIME, 4, 4));
-		spawns.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 1, 4));
-		spawns.addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(EntityTypes.WITCH, 1, 1));
+		spawns.addSpawn(WWEntityTypes.SCORCHED.get(), MobCategory.MONSTER, 275, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.ZOMBIE, MobCategory.MONSTER, 75, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.ZOMBIE_VILLAGER, MobCategory.MONSTER, 5, UniformInt.of(1, 1));
+		spawns.addSpawn(EntityTypes.SKELETON, MobCategory.MONSTER, 75, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.CREEPER, MobCategory.MONSTER, 100, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.SLIME, MobCategory.MONSTER, 100, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.ENDERMAN, MobCategory.MONSTER, 10, UniformInt.of(1, 4));
+		spawns.addSpawn(EntityTypes.WITCH, MobCategory.MONSTER, 5, UniformInt.of(1, 1));
 	}
 
 	@Override

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:acacia_leaf_litter"
+        "recipes": "wilderwild:acacia_leaf_litter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

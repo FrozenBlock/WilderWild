@@ -28,7 +28,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.core.registries.codec.RegistryFixedCodec;
 
 public record LeafClusterSeedParticleOptions(Holder<FallingLeafData> fallingLeafData) implements ParticleOptions {
 	public static final MapCodec<LeafClusterSeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

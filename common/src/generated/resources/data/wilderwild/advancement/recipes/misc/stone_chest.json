@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:stone_chest"
+        "recipes": "wilderwild:stone_chest"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

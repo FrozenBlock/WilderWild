@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data.loot;
 import java.util.stream.IntStream;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -33,14 +33,14 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class WWBlockLootHelper {
 
 	public static void makeNonSaplingLeavesLoot(
-		BlockLootSubProvider lootProvider, Block leavesBlock, HolderLookup.RegistryLookup<Enchantment> enchantments
+		BlockLootSubProvider lootProvider, Block leavesBlock, HolderGetter<Enchantment> enchantments
 	) {
 		lootProvider.add(leavesBlock,
 			LootTable.lootTable()
@@ -82,26 +82,22 @@ public class WWBlockLootHelper {
 								LootItem.lootTableItem(shelfFungiBlock).apply(
 									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
 										)
 								).apply(
 									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
 										)
 								).apply(
 									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
 										)
 								).apply(
 									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
 										)
 								)
 							)
@@ -116,26 +112,22 @@ public class WWBlockLootHelper {
 								LootItem.lootTableItem(dropWithoutShearsOrSilkTouch).apply(
 									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
 										)
 								).apply(
 									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
 										)
 								).apply(
 									SetItemCountFunction.setCount(UniformGenerator.between(4F, 7F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
 										)
 								).apply(
 									SetItemCountFunction.setCount(UniformGenerator.between(6F, 10F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(shelfFungiBlock)
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
+											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
 										)
 								)
 							)
@@ -174,11 +166,12 @@ public class WWBlockLootHelper {
 									IntStream.rangeClosed(1, 4).boxed().toList(),
 									integer -> SetItemCountFunction.setCount(ConstantValue.exactly(integer))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-												.setProperties(
-													StatePropertiesPredicate.Builder.properties()
-														.hasProperty(segmentableBlock.getSegmentAmountProperty(), integer)
-												)
+											MatchBlock.blockMatches(
+												lootProvider.blocks,
+												block,
+												StatePropertiesPredicate.Builder.properties()
+													.hasProperty(segmentableBlock.getSegmentAmountProperty(), integer)
+											)
 										)
 								)
 						).when(lootProvider.hasShearsOrSilkTouch())

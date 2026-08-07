@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:dark_oak_wood_from_hollowed_dark_oak_log"
+        "recipes": "wilderwild:dark_oak_wood_from_hollowed_dark_oak_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:crimson_hyphae_from_hollowed_crimson_stem"
+        "recipes": "wilderwild:crimson_hyphae_from_hollowed_crimson_stem"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

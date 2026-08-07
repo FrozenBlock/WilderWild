@@ -395,7 +395,7 @@ public final class WWMaterialRules {
 					SurfaceRules.ifTrue(
 						SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
 						SurfaceRules.ifTrue(
-							SurfaceRules.noiseCondition2d(WWNoise.GRAVEL_BEACH_KEY, 0.12, 1.7976931348623157E308),
+							SurfaceRules.noiseCondition2d(WWNoise.GRAVEL_BEACH_KEY, -1.7976931348623157E308, -0.12),
 							fallingBlockAndSafeBlockRules(materialConditions, Blocks.GRAVEL, Blocks.STONE)
 						)
 					)

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:suspicious_stew_from_seeding_dandelion"
+        "recipes": "wilderwild:suspicious_stew_from_seeding_dandelion"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

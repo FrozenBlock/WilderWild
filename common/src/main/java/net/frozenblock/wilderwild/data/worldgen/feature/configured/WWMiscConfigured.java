@@ -586,7 +586,6 @@ public final class WWMiscConfigured {
 			)
 		);
 
-
 		SMALL_RIVER_POOL.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
@@ -1083,13 +1082,13 @@ public final class WWMiscConfigured {
 					new BallBlockPlacement.Builder(new WeightedStateProvider(leafLitterStates.build()))
 						.placementChance(0.75F)
 						.fadeStartPercentage(0.5F)
-						.searchingBlockPredicate(BlockPredicate.wouldSurvive(leafLitter.get().defaultBlockState(), Vec3i.ZERO))
+						.searchingBlockPredicate(BlockPredicate.wouldSurvive(leafLitter.get()))
 						.verticalPlacementOffset(1)
 						.outerRingBlockPlacement(
 							new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(leafLitterStates.build()))
 								.placementChance(0.65F)
 								.outerRingStartPercentage(0.7F)
-								.searchingPredicate(BlockPredicate.wouldSurvive(leafLitter.get().defaultBlockState(), Vec3i.ZERO))
+								.searchingPredicate(BlockPredicate.wouldSurvive(leafLitter.get()))
 								.verticalPlacementOffset(1)
 								.build()
 						).build(),

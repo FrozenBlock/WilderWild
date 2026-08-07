@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:willow_slab"
+        "recipes": "wilderwild:willow_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

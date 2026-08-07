@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:chiseled_mud_bricks_from_mud_bricks_stonecutting"
+        "recipes": "wilderwild:chiseled_mud_bricks_from_mud_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

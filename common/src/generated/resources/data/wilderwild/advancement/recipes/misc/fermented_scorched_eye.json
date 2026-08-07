@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:fermented_scorched_eye"
+        "recipes": "wilderwild:fermented_scorched_eye"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

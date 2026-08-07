@@ -5,26 +5,24 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
+          "modifier": [
             {
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              "type": "minecraft:set_count",
+              "count": 1.0
             },
             {
+              "type": "minecraft:copy_state",
               "block": "wilderwild:echo_glass",
-              "conditions": [
-                {
-                  "condition": "minecraft:inverted",
-                  "term": {
-                    "block": "wilderwild:echo_glass",
-                    "condition": "minecraft:block_state_property",
-                    "properties": {
-                      "damage": "0"
-                    }
+              "condition": {
+                "type": "minecraft:inverted",
+                "term": {
+                  "type": "minecraft:match_block",
+                  "blocks": "wilderwild:echo_glass",
+                  "state": {
+                    "damage": "0"
                   }
                 }
-              ],
-              "function": "minecraft:copy_state",
+              },
               "properties": [
                 "damage"
               ]

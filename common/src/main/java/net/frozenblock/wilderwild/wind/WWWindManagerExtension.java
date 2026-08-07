@@ -74,13 +74,6 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		return extension;
 	}
 
-	@Override
-	public <T extends WindManagerExtension> void applyFromSyncedInstance(T extension) {
-		if (!(extension instanceof WWWindManagerExtension wwExtension)) return;
-		this.cloudX = wwExtension.cloudX;
-		this.cloudZ = wwExtension.cloudZ;
-	}
-
 	public static void init() {}
 
 	public static WWWindManagerExtension get(Level level) {

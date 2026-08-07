@@ -9,7 +9,6 @@ import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -44,7 +43,6 @@ public final class WilderWildNeoForge {
 			WWItems.setup();
 			WWBlocks.setupBlockProperties();
 			WWCreativeInventorySorting.setup();
-			WWParticleTypes.linkLeafParticles();
 			WWWorldgen.setup();
 		});
 	}

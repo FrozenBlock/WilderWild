@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -121,8 +122,8 @@ public final class BirchTaiga extends FrozenLibBiome {
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
 		BiomeDefaultFeatures.farmAnimals(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 4))
-			.addSpawn(MobCategory.CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 2, 3));
+		spawns.addSpawn(EntityTypes.WOLF, MobCategory.CREATURE, 2, UniformInt.of(4, 4))
+			.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 2, UniformInt.of(2, 3));
 	}
 
 	@Override

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.networking.packet;
 
+import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.networking.api.NetworkingHelper;
 import net.frozenblock.lib.networking.api.PlayerLookup;
@@ -24,6 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
@@ -35,9 +37,10 @@ import net.minecraft.world.phys.Vec3;
 public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Vec3 velocity, List<Direction> directions, int count) implements CustomPacketPayload {
 	public static final Type<WWLeavesExplosionParticlePacket> PACKET_TYPE = new Type<>(WWConstants.id("leaves_explosion"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWLeavesExplosionParticlePacket> CODEC = StreamCodec.ofMember(WWLeavesExplosionParticlePacket::write, WWLeavesExplosionParticlePacket::new);
+	private static final StreamCodec<RegistryFriendlyByteBuf, List<Direction>> DIRECTIONS_STREAM_CODEC = ByteBufCodecs.collection(ArrayList::new, Direction.STREAM_CODEC);
 
 	public WWLeavesExplosionParticlePacket(RegistryFriendlyByteBuf buf) {
-		this(buf.readById(Block::stateById), buf.readBlockPos(), Vec3.STREAM_CODEC.decode(buf), buf.readList(Direction.STREAM_CODEC), buf.readVarInt());
+		this(buf.readById(Block::stateById), buf.readBlockPos(), Vec3.STREAM_CODEC.decode(buf), DIRECTIONS_STREAM_CODEC.decode(buf), buf.readVarInt());
 	}
 
 	public static void sendToAll(BlockState state, BlockPos pos, Vec3 vec3, List<Direction> directions, int count, ServerLevel level) {
@@ -53,7 +56,7 @@ public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Ve
 		buf.writeById(Block::getId, this.state);
 		buf.writeBlockPos(this.pos);
 		Vec3.STREAM_CODEC.encode(buf, this.velocity);
-		buf.writeCollection(this.directions, Direction.STREAM_CODEC);
+		DIRECTIONS_STREAM_CODEC.encode(buf, this.directions);
 		buf.writeVarInt(this.count);
 	}
 

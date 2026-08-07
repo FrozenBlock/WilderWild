@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cypress_trapdoor"
+        "recipes": "wilderwild:cypress_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

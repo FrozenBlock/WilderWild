@@ -39,6 +39,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.LevelEvent;
@@ -190,6 +191,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SHRUB,
+			pos,
 			state,
 			blockEntity,
 			stack,
@@ -214,17 +216,17 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
 		return isNotFullyGrown(state) || (isAlmostFullyGrown(state) && isLower(state) && level.getBlockState(pos.above()).isAir());
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		return !isAlmostFullyGrown(state) ? level.getRandom().nextFloat() < BONEMEAL_SUCCESS_CHANCE : level.getRandom().nextFloat() < ALMOST_FULLY_GROWN_BONEMEAL_SUCCESS_CHANCE;
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		if (isFullyGrown(state)) {
 			Block.popResource(level, pos, new ItemStack(this));
 		} else {

@@ -25,11 +25,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WWNoise {
-	public static final ResourceKey<NormalNoise.NoiseParameters> SAND_BEACH_KEY = createKey("sand_beach");
-	public static final ResourceKey<NormalNoise.NoiseParameters> GRAVEL_BEACH_KEY = createKey("gravel_beach");
-	public static final ResourceKey<NormalNoise.NoiseParameters> TUNDRA_NOISE_KEY = createKey("tundra_noise");
+	public static final ResourceKey<NormalNoise> SAND_BEACH_KEY = createKey("sand_beach");
+	public static final ResourceKey<NormalNoise> GRAVEL_BEACH_KEY = createKey("gravel_beach");
+	public static final ResourceKey<NormalNoise> TUNDRA_NOISE_KEY = createKey("tundra_noise");
 
-	public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> entries) {
+	public static void bootstrap(BootstrapContext<NormalNoise> entries) {
 		register(entries, SAND_BEACH_KEY, -9,
 			1.0,
 			1.0,
@@ -62,56 +62,60 @@ public final class WWNoise {
 			10.0
 		);
 		register(entries, GRAVEL_BEACH_KEY, -9,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-1.0,
-			-40.0,
-			-20.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0,
-			-10.0
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			40.0,
+			20.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0,
+			10.0
 		);
 		register(entries, TUNDRA_NOISE_KEY, -1,
-			-1.0,
+			1.0,
 			1.0,
 			1.0
 		);
 	}
 
-	private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
+	private static ResourceKey<NormalNoise> createKey(String name) {
 		return ResourceKey.create(Registries.NOISE, WWConstants.id(name));
 	}
 
-	public static Holder.Reference<NormalNoise.NoiseParameters> register(
-		BootstrapContext<NormalNoise.NoiseParameters> entries,
-		ResourceKey<NormalNoise.NoiseParameters> id,
+	public static Holder.Reference<NormalNoise> register(
+		BootstrapContext<NormalNoise> entries,
+		ResourceKey<NormalNoise> id,
 		int firstOctave,
 		double firstAmplitude,
 		double... amplitudes
 	) {
 		WWConstants.log("Registering noise " + id.identifier(), true);
-		return entries.register(id, new NormalNoise.NoiseParameters(firstOctave, firstAmplitude, amplitudes));
+
+		final double[] allAmplitudes = new double[amplitudes.length + 1];
+		allAmplitudes[0] = firstAmplitude;
+		System.arraycopy(amplitudes, 0, allAmplitudes, 1, amplitudes.length);
+		return entries.register(id, NormalNoise.createParity(firstOctave, allAmplitudes));
 	}
 }
 

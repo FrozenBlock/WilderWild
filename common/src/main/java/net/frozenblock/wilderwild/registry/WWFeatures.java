@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
-import java.util.function.Supplier;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
@@ -31,6 +30,7 @@ import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
+import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.frozenblock.wilderwild.levelgen.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.LegacyMapleFoliagePlacer;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.MapleFoliagePlacer;
@@ -111,6 +111,7 @@ public final class WWFeatures {
 		register.register("sponge_bud", () -> SpongeBudFeature.CODEC);
 		register.register("cattail", () -> CattailFeature.CODEC);
 		register.register("water_cover", () -> WaterCoverFeature.CODEC);
+		register.register("seagrass", () -> SeagrassFeature.CODEC);
 		register.register("tube_worms", () -> TubeWormsFeature.CODEC);
 		register.register("hydrothermal_vent", () -> HydrothermalVentFeature.CODEC);
 		register.register("large_mesoglea", () -> LargeMesogleaFeature.CODEC);

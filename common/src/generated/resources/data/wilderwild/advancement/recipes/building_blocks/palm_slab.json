@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:palm_slab"
+        "recipes": "wilderwild:palm_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

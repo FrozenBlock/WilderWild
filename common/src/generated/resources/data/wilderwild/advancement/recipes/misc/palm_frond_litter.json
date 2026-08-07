@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:palm_frond_litter"
+        "recipes": "wilderwild:palm_frond_litter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

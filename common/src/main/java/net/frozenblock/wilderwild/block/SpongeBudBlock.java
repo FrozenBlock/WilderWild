@@ -108,6 +108,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_SPONGE_BUD,
+			pos,
 			state,
 			blockEntity,
 			stack,

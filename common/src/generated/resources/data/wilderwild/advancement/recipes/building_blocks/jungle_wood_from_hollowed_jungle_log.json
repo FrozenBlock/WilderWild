@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:jungle_wood_from_hollowed_jungle_log"
+        "recipes": "wilderwild:jungle_wood_from_hollowed_jungle_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

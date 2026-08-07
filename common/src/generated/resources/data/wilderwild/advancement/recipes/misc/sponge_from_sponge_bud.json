@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:sponge_from_sponge_bud"
+        "recipes": "wilderwild:sponge_from_sponge_bud"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

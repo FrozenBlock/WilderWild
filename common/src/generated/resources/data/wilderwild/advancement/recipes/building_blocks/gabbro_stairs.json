@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:gabbro_stairs"
+        "recipes": "wilderwild:gabbro_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

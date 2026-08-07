@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cypress_slab"
+        "recipes": "wilderwild:cypress_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

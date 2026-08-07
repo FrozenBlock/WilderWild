@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:pearlescent_purple_mesoglea"
+        "recipes": "wilderwild:pearlescent_purple_mesoglea"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

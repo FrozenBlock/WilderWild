@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_stairs"
+        "recipes": "wilderwild:maple_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

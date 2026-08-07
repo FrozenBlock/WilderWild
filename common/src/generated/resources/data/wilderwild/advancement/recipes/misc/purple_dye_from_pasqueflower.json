@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:purple_dye_from_pasqueflower"
+        "recipes": "wilderwild:purple_dye_from_pasqueflower"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

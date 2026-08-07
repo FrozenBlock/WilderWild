@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:magenta_dye_from_carnation"
+        "recipes": "wilderwild:magenta_dye_from_carnation"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

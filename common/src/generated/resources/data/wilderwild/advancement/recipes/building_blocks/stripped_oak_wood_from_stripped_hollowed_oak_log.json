@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:stripped_oak_wood_from_stripped_hollowed_oak_log"
+        "recipes": "wilderwild:stripped_oak_wood_from_stripped_hollowed_oak_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

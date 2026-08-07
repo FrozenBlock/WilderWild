@@ -22,14 +22,14 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.predicates.BlockPredicate;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jetbrains.annotations.Nullable;
 
 public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.TriggerInstance> {
@@ -44,10 +44,10 @@ public class TermiteEatTrigger extends SimpleCriterionTrigger<TermiteEatTrigger.
 		this.trigger(player, conditions -> conditions.matches(level, pos, playerPlaced));
 	}
 
-	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<BlockPredicate> block, boolean playerPlaced) implements SimpleInstance {
+	public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<BlockPredicate> block, boolean playerPlaced) implements SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+				LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
 				BlockPredicate.CODEC.optionalFieldOf("block").forGetter(TriggerInstance::block),
 				Codec.BOOL.fieldOf("requires_player_placed_mound").forGetter(TriggerInstance::playerPlaced)
 			).apply(instance, TriggerInstance::new)

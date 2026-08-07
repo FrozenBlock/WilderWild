@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:magenta_firefly_bottle"
+        "recipes": "wilderwild:magenta_firefly_bottle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

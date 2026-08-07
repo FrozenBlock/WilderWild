@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:oak_planks_from_hollowed"
+        "recipes": "wilderwild:oak_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

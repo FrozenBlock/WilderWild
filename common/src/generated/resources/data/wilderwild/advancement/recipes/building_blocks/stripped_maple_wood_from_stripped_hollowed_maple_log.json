@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:stripped_maple_wood_from_stripped_hollowed_maple_log"
+        "recipes": "wilderwild:stripped_maple_wood_from_stripped_hollowed_maple_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

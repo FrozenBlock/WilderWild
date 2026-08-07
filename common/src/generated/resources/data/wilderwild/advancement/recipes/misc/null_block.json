@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:null_block"
+        "recipes": "wilderwild:null_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

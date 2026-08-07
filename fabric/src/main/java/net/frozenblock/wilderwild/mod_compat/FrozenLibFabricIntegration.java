@@ -24,7 +24,7 @@ import net.frozenblock.lib.block.api.friction.BlockFrictionAPI;
 import net.frozenblock.lib.block.api.tick.BlockRandomTicks;
 import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
 import net.frozenblock.lib.integration.api.ModIntegration;
-import net.frozenblock.lib.item.api.ItemTooltipAdditionAPI;
+import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;

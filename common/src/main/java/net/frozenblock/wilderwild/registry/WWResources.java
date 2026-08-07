@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.platform.api.resource.FrozenResourceLoader;
+import net.frozenblock.lib.platform.api.resource.FrozenLibResourceLoader;
 import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -29,7 +29,7 @@ public final class WWResources {
 		var modId = WWConstants.MOD_ID;
 
 		if (WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.get()) {
-			FrozenResourceLoader.registerBuiltinPack(
+			FrozenLibResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_abandoned_camps"),
 				modId,
 				Component.translatable("pack.wilderwild.wilder_abandoned_camps"),

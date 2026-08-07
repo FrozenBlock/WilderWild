@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:baobab_slab"
+        "recipes": "wilderwild:baobab_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

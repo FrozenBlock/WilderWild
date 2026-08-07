@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:poplar_wood_from_hollowed_poplar_log"
+        "recipes": "wilderwild:poplar_wood_from_hollowed_poplar_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

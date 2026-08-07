@@ -24,12 +24,12 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.core.registries.codec.RegistryFixedCodec;
 import net.minecraft.world.entity.variant.PriorityProvider;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
@@ -48,13 +48,13 @@ public record JellyfishVariant(
 		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(JellyfishVariant::babyTexture),
 		Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::pearlescent),
 		SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(JellyfishVariant::spawnConditions),
-		RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::reproductionFood)
+		RegistryCodecs.holderSet(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::reproductionFood)
 	).apply(instance, JellyfishVariant::new));
 	public static final Codec<JellyfishVariant> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(JellyfishVariant::texture),
 		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(JellyfishVariant::babyTexture),
 		Codec.BOOL.fieldOf("pearlescent").forGetter(JellyfishVariant::pearlescent),
-		RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::reproductionFood)
+		RegistryCodecs.holderSet(Registries.ITEM).fieldOf("reproduction_food").forGetter(JellyfishVariant::reproductionFood)
 	).apply(instance, JellyfishVariant::new));
 	public static final Codec<Holder<JellyfishVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.JELLYFISH_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<JellyfishVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.JELLYFISH_VARIANT);

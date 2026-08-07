@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:auburn_moss_carpet"
+        "recipes": "wilderwild:auburn_moss_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

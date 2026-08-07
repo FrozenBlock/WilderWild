@@ -28,7 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
@@ -55,7 +55,7 @@ public record ShelfFungiFeature(
 		Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(ShelfFungiFeature::placeOnFloor),
 		Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(ShelfFungiFeature::placeOnCeiling),
 		Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(ShelfFungiFeature::placeOnWalls),
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(ShelfFungiFeature::canPlaceOn)
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(ShelfFungiFeature::canPlaceOn)
 	).apply(instance, ShelfFungiFeature::new));
 
 	private static DataResult<Block> validateBlock(final Block block) {

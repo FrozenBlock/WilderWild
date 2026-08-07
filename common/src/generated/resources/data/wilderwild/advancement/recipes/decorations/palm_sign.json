@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:palm_sign"
+        "recipes": "wilderwild:palm_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -132,9 +133,9 @@ public final class SnowyDyingMixedForest extends FrozenLibBiome {
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
 		BiomeDefaultFeatures.farmAnimals(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 4, 4))
-			.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 2, 3))
-			.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityTypes.FOX, 2, 4));
+		spawns.addSpawn(EntityTypes.WOLF, MobCategory.CREATURE, 8, UniformInt.of(4, 4))
+			.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 4, UniformInt.of(2, 3))
+			.addSpawn(EntityTypes.FOX, MobCategory.CREATURE, 8, UniformInt.of(2, 4));
 	}
 
 	@Override

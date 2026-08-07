@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:baobab_stairs"
+        "recipes": "wilderwild:baobab_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

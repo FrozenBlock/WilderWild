@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:palm_wood_from_hollowed_palm_log"
+        "recipes": "wilderwild:palm_wood_from_hollowed_palm_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

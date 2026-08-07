@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
@@ -56,7 +56,7 @@ public record SpongeBudFeature(
 		Codec.BOOL.fieldOf("can_place_on_floor").orElse(false).forGetter(SpongeBudFeature::placeOnFloor),
 		Codec.BOOL.fieldOf("can_place_on_ceiling").orElse(false).forGetter(SpongeBudFeature::placeOnCeiling),
 		Codec.BOOL.fieldOf("can_place_on_wall").orElse(false).forGetter(SpongeBudFeature::placeOnWalls),
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(SpongeBudFeature::canPlaceOn)
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("can_be_placed_on").forGetter(SpongeBudFeature::canPlaceOn)
 	).apply(instance, SpongeBudFeature::new));
 
 	@Override

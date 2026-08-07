@@ -22,7 +22,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Objects;
 import java.util.Optional;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.Block;
 public final class TermiteBlockBehavior {
 	public static final Codec<TermiteBlockBehavior> DIRECT_CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("edible_blocks").forGetter(TermiteBlockBehavior::getEdibleBlocks),
+			RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("edible_blocks").forGetter(TermiteBlockBehavior::getEdibleBlocks),
 			BuiltInRegistries.BLOCK.byNameCodec().lenientOptionalFieldOf("output_block").forGetter(TermiteBlockBehavior::getOutputBlock),
 			Codec.BOOL.optionalFieldOf("copy_blockstate_properties", false).forGetter(TermiteBlockBehavior::copyProperties),
 			Codec.BOOL.fieldOf("natural_termite_usable").forGetter(TermiteBlockBehavior::naturalTermiteUsable),

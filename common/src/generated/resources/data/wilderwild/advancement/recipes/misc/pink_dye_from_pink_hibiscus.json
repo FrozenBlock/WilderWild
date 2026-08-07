@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:pink_dye_from_pink_hibiscus"
+        "recipes": "wilderwild:pink_dye_from_pink_hibiscus"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

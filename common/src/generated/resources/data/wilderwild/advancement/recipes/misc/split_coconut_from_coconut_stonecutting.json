@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:split_coconut_from_coconut_stonecutting"
+        "recipes": "wilderwild:split_coconut_from_coconut_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

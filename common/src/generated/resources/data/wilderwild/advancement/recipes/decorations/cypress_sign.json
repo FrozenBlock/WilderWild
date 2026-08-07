@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cypress_sign"
+        "recipes": "wilderwild:cypress_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -26,14 +26,10 @@ import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
 import net.frozenblock.lib.block.api.registry.WoodTypeBuilder;
 import net.frozenblock.lib.block.api.storage.hopper.HopperApi;
-import net.frozenblock.lib.event.api.events.ServerLevelEvents;
-import net.frozenblock.lib.item.api.axe.StrippableBlockRegistry;
 import net.frozenblock.lib.item.api.bonemeal.BoneMealApi;
-import net.frozenblock.lib.item.api.registry.CompostableRegistry;
 import net.frozenblock.lib.item.api.registry.FuelRegistry;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredBlock;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.AlgaeBlock;
@@ -111,7 +107,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -164,8 +159,7 @@ public final class WWBlocks {
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
 
-	// Maple's sound-dependent set/wood types must not resolve until sound events are bound, so they're
-	// deferred behind a memoized supplier instead of Wilder Wild's other BlockSetTypes/WoodTypes above.
+	// deferred so that WWSounds isn't init
 	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
 		.soundType(WWSoundTypes.MAPLE_WOOD)
 		.doorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_CLOSE.get()).doorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_OPEN.get())
@@ -178,8 +172,7 @@ public final class WWBlocks {
 	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("willow"), WILLOW_SET);
 	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
-	// Maple's sound-dependent set/wood types must not resolve until sound events are bound, so they're
-	// deferred behind a memoized supplier instead of Wilder Wild's other BlockSetTypes/WoodTypes above.
+	// deferred so that WWSounds isn't init
 	public static final Supplier<WoodType> MAPLE_WOOD_TYPE = Suppliers.memoize(() -> WoodTypeBuilder.copyOf(WoodType.SPRUCE)
 		.soundType(WWSoundTypes.MAPLE_WOOD)
 		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN.get())
@@ -588,7 +581,7 @@ public final class WWBlocks {
 				.isSuffocating(Blocks::never)
 				.isViewBlocking(Blocks::never)
 				.dynamicShape()
-				.pushReaction(PushReaction.DESTROY)
+				.pushReaction(PushReaction.POPPED)
 		);
 	}
 
@@ -610,7 +603,7 @@ public final class WWBlocks {
 				.noCollision()
 				.noOcclusion()
 				.sound(WWSoundTypes.NEMATOCYST)
-				.pushReaction(PushReaction.DESTROY)
+				.pushReaction(PushReaction.POPPED)
 		);
 	}
 
@@ -641,7 +634,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.METAL)
 			.forceSolidOn()
 			.strength(3.5F)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 			.sound(SoundType.LANTERN)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
@@ -818,7 +811,7 @@ public final class WWBlocks {
 			.instabreak()
 			.sound(SoundType.GRASS)
 			.postProcess(Blocks::postProcessSelf)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<Block> POTTED_PALE_MUSHROOM = registerFlowerPot(WWBlockIds.POTTED_PALE_MUSHROOM, PALE_MUSHROOM);
 	public static final FrozenDeferredBlock<PaleShelfFungiBlock> PALE_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.PALE_SHELF_FUNGI.block(),
@@ -835,7 +828,7 @@ public final class WWBlocks {
 			.noOcclusion()
 			.sound(soundType)
 			.postProcess(Blocks::postProcessSelf)
-			.pushReaction(PushReaction.DESTROY);
+			.pushReaction(PushReaction.POPPED);
 	}
 
 	// MOSS
@@ -845,7 +838,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.strength(0.1F)
 			.sound(SoundType.MOSS)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<AuburnMossCarpetBlock> AUBURN_MOSS_CARPET = REGISTER.registerBlock(WWBlockItemIds.AUBURN_MOSS_CARPET.block(),
 		AuburnMossCarpetBlock::new,
@@ -853,7 +846,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.strength(0.1F)
 			.sound(SoundType.MOSS_CARPET)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<AuburnCreepingMossBlock> AUBURN_CREEPING_MOSS = REGISTER.registerBlock(WWBlockItemIds.AUBURN_CREEPING_MOSS.block(),
 		AuburnCreepingMossBlock::new,
@@ -863,7 +856,7 @@ public final class WWBlocks {
 			.noCollision()
 			.strength(0.1F)
 			.sound(SoundType.MOSS_CARPET)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 
 	// AQUATIC
@@ -901,7 +894,7 @@ public final class WWBlocks {
 			.forceSolidOn()
 			.noCollision()
 			.sound(WWSoundTypes.BARNACLES)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<SeaAnemoneBlock> SEA_ANEMONE = REGISTER.registerBlock(WWBlockItemIds.SEA_ANEMONE.block(),
 		SeaAnemoneBlock::new,
@@ -912,7 +905,7 @@ public final class WWBlocks {
 			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
 			.randomTicks()
 			.sound(WWSoundTypes.SEA_ANEMONE)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<SeaWhipBlock> SEA_WHIP = REGISTER.registerBlock(WWBlockItemIds.SEA_WHIP.block(),
 		SeaWhipBlock::new,
@@ -921,7 +914,7 @@ public final class WWBlocks {
 			.instabreak()
 			.noCollision()
 			.sound(SoundType.WET_GRASS)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<TubeWormsBlock> TUBE_WORMS = REGISTER.registerBlock(WWBlockItemIds.TUBE_WORMS.block(),
 		TubeWormsBlock::new,
@@ -931,7 +924,7 @@ public final class WWBlocks {
 			.noCollision()
 			.randomTicks()
 			.sound(WWSoundTypes.TUBE_WORMS)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 	);
 
 	// EGGS
@@ -1423,7 +1416,7 @@ public final class WWBlocks {
 	// ICE
 	public static final FrozenDeferredBlock<FragileIceBlock> FRAGILE_ICE = REGISTER.registerBlock(WWBlockItemIds.FRAGILE_ICE.block(),
 		FragileIceBlock::new,
-		() -> Properties.ofFullCopy(Blocks.ICE).strength(0.2F).pushReaction(PushReaction.DESTROY)
+		() -> Properties.ofFullCopy(Blocks.ICE).strength(0.2F).pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<IcicleBlock> ICICLE = REGISTER.registerBlock(WWBlockItemIds.ICICLE.block(),
 		properties -> new IcicleBlock(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), properties),
@@ -1436,7 +1429,7 @@ public final class WWBlocks {
 			.noOcclusion()
 			.dynamicShape()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
-			.pushReaction(PushReaction.DESTROY)
+			.pushReaction(PushReaction.POPPED)
 			.isRedstoneConductor(Blocks::never)
 	);
 
@@ -1470,7 +1463,7 @@ public final class WWBlocks {
 			.noCollision()
 			.sound(SoundType.FROGLIGHT)
 			.lightLevel(state -> 5)
-			.pushReaction(PushReaction.DESTROY);
+			.pushReaction(PushReaction.POPPED);
 	}
 
 	public static void init() {}
@@ -1513,7 +1506,6 @@ public final class WWBlocks {
 		shelf.frozenLib$addValidBlock(PALM_SHELF.get());
 		shelf.frozenLib$addValidBlock(MAPLE_SHELF.get());
 
-		registerComposting();
 		registerFlammability();
 		registerFuels();
 		registerBonemeal();
@@ -1545,68 +1537,6 @@ public final class WWBlocks {
 				return stack;
 			}
 		});
-	}
-
-	private static void registerComposting() {
-		CompostableRegistry.register(CARNATION, 0.65F);
-		CompostableRegistry.register(CATTAIL, 0.65F);
-		CompostableRegistry.register(DATURA, 0.65F);
-		CompostableRegistry.register(MILKWEED, 0.65F);
-		CompostableRegistry.register(WWItems.MILKWEED_POD, 0.25F);
-		CompostableRegistry.register(MARIGOLD, 0.3F);
-		CompostableRegistry.register(LANTANAS, 0.3F);
-		CompostableRegistry.register(PHLOX, 0.3F);
-		CompostableRegistry.register(SEEDING_DANDELION, 0.65F);
-		CompostableRegistry.register(FLOWERING_LILY_PAD, 0.65F);
-		CompostableRegistry.register(BROWN_SHELF_FUNGI, 0.65F);
-		CompostableRegistry.register(RED_SHELF_FUNGI, 0.65F);
-		CompostableRegistry.register(WILLOW_LEAVES, 0.3F);
-		CompostableRegistry.register(CYPRESS_LEAVES, 0.3F);
-		CompostableRegistry.register(BAOBAB_LEAVES, 0.3F);
-		CompostableRegistry.register(PALM_FRONDS, 0.3F);
-		MAPLE_LEAVES.forEach(leaves -> CompostableRegistry.register(leaves, 0.3F));
-		CompostableRegistry.register(WILLOW_SAPLING, 0.3F);
-		CompostableRegistry.register(CYPRESS_SAPLING, 0.3F);
-		CompostableRegistry.register(BAOBAB_NUT, 0.3F);
-		MAPLE_SAPLING.forEach(sapling -> CompostableRegistry.register(sapling, 0.3F));
-		CompostableRegistry.register(WWItems.COCONUT, 0.65F);
-		CompostableRegistry.register(WWItems.SPLIT_COCONUT, 0.3F);
-		CompostableRegistry.register(RED_HIBISCUS, 0.65F);
-		CompostableRegistry.register(YELLOW_HIBISCUS, 0.65F);
-		CompostableRegistry.register(WHITE_HIBISCUS, 0.65F);
-		CompostableRegistry.register(PINK_HIBISCUS, 0.65F);
-		CompostableRegistry.register(PURPLE_HIBISCUS, 0.65F);
-		CompostableRegistry.register(ALGAE, 0.3F);
-		CompostableRegistry.register(WWBlocks.PLANKTON, 0.3F);
-		CompostableRegistry.register(MYCELIUM_GROWTH, 0.3F);
-		CompostableRegistry.register(SHRUB, 0.65F);
-		CompostableRegistry.register(TUMBLEWEED_PLANT, 0.5F);
-		CompostableRegistry.register(TUMBLEWEED, 0.3F);
-		CompostableRegistry.register(WWItems.PRICKLY_PEAR, 0.5F);
-		CompostableRegistry.register(WWItems.PEELED_PRICKLY_PEAR, 0.5F);
-		CompostableRegistry.register(ACACIA_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(AZALEA_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(BAOBAB_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(BIRCH_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(CHERRY_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(CYPRESS_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(DARK_OAK_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(JUNGLE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(MANGROVE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(PALE_OAK_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(PALM_FROND_LITTER, 0.3F);
-		CompostableRegistry.register(SPRUCE_LEAF_LITTER, 0.3F);
-		CompostableRegistry.register(WILLOW_LEAF_LITTER, 0.3F);
-		MAPLE_LEAF_LITTER.forEach(leafLitter -> CompostableRegistry.register(leafLitter, 0.3F));
-		CompostableRegistry.register(CLOVERS, 0.3F);
-		CompostableRegistry.register(FROZEN_SHORT_GRASS, 0.3F);
-		CompostableRegistry.register(FROZEN_TALL_GRASS, 0.5F);
-		CompostableRegistry.register(FROZEN_FERN, 0.65F);
-		CompostableRegistry.register(FROZEN_LARGE_FERN, 0.65F);
-		CompostableRegistry.register(FROZEN_BUSH, 0.3F);
-		CompostableRegistry.register(AUBURN_MOSS_BLOCK, 0.65F);
-		CompostableRegistry.register(AUBURN_MOSS_CARPET, 0.3F);
-		CompostableRegistry.register(AUBURN_CREEPING_MOSS, 0.3F);
 	}
 
 	private static void registerFlammability() {

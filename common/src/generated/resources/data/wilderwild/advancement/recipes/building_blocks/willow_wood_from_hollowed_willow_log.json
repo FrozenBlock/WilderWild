@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:willow_wood_from_hollowed_willow_log"
+        "recipes": "wilderwild:willow_wood_from_hollowed_willow_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

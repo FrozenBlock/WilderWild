@@ -24,7 +24,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -61,7 +61,7 @@ public record LargeMesogleaFeature(
 	float minBluntnessForWind
 ) implements Feature {
 	public static final MapCodec<LargeMesogleaFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(LargeMesogleaFeature::replaceableBlocks),
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("replaceable_blocks").forGetter(LargeMesogleaFeature::replaceableBlocks),
 		Codec.intRange(1, 512).fieldOf("floor_to_ceiling_search_range").orElse(30).forGetter(LargeMesogleaFeature::floorToCeilingSearchRange),
 		IntProviders.codec(1, 60).fieldOf("column_radius").forGetter(LargeMesogleaFeature::columnRadius),
 		BlockStateProvider.CODEC.fieldOf("block_state").forGetter(LargeMesogleaFeature::block),

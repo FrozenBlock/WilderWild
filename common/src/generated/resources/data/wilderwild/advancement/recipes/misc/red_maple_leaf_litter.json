@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:red_maple_leaf_litter"
+        "recipes": "wilderwild:red_maple_leaf_litter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.client;
 
 import net.frozenblock.lib.renderer.blockentity.BillboardBlockEntityRenderer;
-import net.frozenblock.lib.renderer.blockentity.BlockEntityRendererRegistry;
 import net.frozenblock.lib.renderer.model.ModelLayerRegistry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;

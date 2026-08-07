@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_sign"
+        "recipes": "wilderwild:maple_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

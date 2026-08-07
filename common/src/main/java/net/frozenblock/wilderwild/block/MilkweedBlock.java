@@ -34,6 +34,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -76,6 +77,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 		dropFromBlockInteractLootTable(
 			level,
 			WWLootTables.SHEAR_MILKWEED,
+			pos,
 			state,
 			blockEntity,
 			stack,
@@ -179,11 +181,11 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		if (!isFullyGrown(state)) {
 			setAgeOnBothHalves(this, state, level, pos, state.getValue(AGE) + 1, false);
 			return;
 		}
-		super.performBonemeal(level, random, pos, state);
+		super.performBonemeal(level, random, pos, state, source);
 	}
 }

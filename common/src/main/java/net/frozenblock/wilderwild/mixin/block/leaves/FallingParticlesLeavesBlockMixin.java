@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.leaves;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
-import net.frozenblock.wilderwild.block.impl.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -46,7 +46,7 @@ public abstract class FallingParticlesLeavesBlockMixin extends LeavesBlock {
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
 	) {
-		final boolean hasCustomParticles = FallingLeafUtil.addFallingLeafParticles(state, level, pos, random);
+		final boolean hasCustomParticles = FallingLeafUtil.tryAnimateTick(state, level, pos, random);
 		usingCustomFallingLeaves.set(hasCustomParticles);
 	}
 

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:orange_dye_from_milkweed"
+        "recipes": "wilderwild:orange_dye_from_milkweed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

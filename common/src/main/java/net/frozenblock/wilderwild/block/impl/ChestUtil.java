@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block.impl;
 
 import java.util.Optional;
-import net.frozenblock.lib.platform.api.data.DataAttachmentTarget;
+import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -161,7 +161,7 @@ public class ChestUtil {
 	}
 
 	public static boolean canBubble(DataAttachmentTarget target) {
-		return target.frozenLib$getAttachedOrElse(WWAttachmentTypes.CHEST_CAN_BUBBLE, () -> true);
+		return target.frozenLib$getAttachedOrElse(WWAttachmentTypes.CHEST_CAN_BUBBLE, true);
 	}
 
 	public static void setCanBubble(DataAttachmentTarget target, boolean canBubble) {

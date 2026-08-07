@@ -17,15 +17,23 @@
 
 package net.frozenblock.wilderwild.data.loot;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.minecraft.advancements.predicates.DataComponentMatchers;
+import net.minecraft.advancements.predicates.EnchantmentPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
+import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -41,7 +49,9 @@ import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -52,8 +62,32 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 	}
 
 	@Override
+	public Holder<LootItemCondition> hasShears() {
+		return Holder.direct(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.items, Items.SHEARS)).build());
+	}
+
+	@Override
+	public Holder<LootItemCondition> hasSilkTouch() {
+		return Holder.direct(
+			MatchTool.toolMatches(
+				ItemPredicate.Builder.item()
+					.withComponents(
+						DataComponentMatchers.Builder.components()
+							.partial(
+								DataComponentPredicates.ENCHANTMENTS,
+								EnchantmentsPredicate.enchantments(
+									List.of(new EnchantmentPredicate(this.enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)))
+								)
+							)
+							.build()
+					)
+			).build()
+		);
+	}
+
+	@Override
 	public void generate() {
-		final HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+		final HolderGetter<Enchantment> registryLookup = this.enchantments;
 
 		this.dropSelf(WWBlocks.BAOBAB_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_BAOBAB_LOG.get());
@@ -219,7 +253,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICK_WALL.get());
 
-		this.add(WWBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, this.hasShearsOrSilkTouch()));
+		this.add(WWBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, Holder.direct(this.hasShearsOrSilkTouch().build())));
 		this.dropSelf(WWBlocks.SEEDING_DANDELION.get());
 		this.dropSelf(WWBlocks.CARNATION.get());
 		this.dropSelf(WWBlocks.MARIGOLD.get());
@@ -265,14 +299,12 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 									LootItem.lootTableItem(Items.STICK).apply(
 										SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.TUMBLEWEED_PLANT.get())
-													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
+												MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
 											)
 									).apply(
 										SetItemCountFunction.setCount(UniformGenerator.between(2F, 4F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.TUMBLEWEED_PLANT.get())
-													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
+												MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 											)
 									).when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
 								)
@@ -284,8 +316,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						.add(
 							LootItem.lootTableItem(WWBlocks.TUMBLEWEED.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 								.when(
-									LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.TUMBLEWEED_PLANT.get())
-										.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
+									MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 								)
 						)
 				)
@@ -302,20 +333,17 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 									LootItem.lootTableItem(WWBlocks.SPONGE_BUD.get()).apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(1F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SPONGE_BUD.get())
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 0))
+												MatchBlock.blockMatches(this.blocks, WWBlocks.SPONGE_BUD.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 0))
 											)
 									).apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
 										.when(
-											LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SPONGE_BUD.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 1))
+											MatchBlock.blockMatches(this.blocks, WWBlocks.SPONGE_BUD.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 1))
 										)
 									).apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(3F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SPONGE_BUD.get())
-												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
+												MatchBlock.blockMatches(this.blocks, WWBlocks.SPONGE_BUD.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
 											)
 									)
 								)
@@ -324,14 +352,14 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		);
 		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE.get());
 		this.dropSelf(WWBlocks.PLANKTON.get());
-		this.add(WWBlocks.BARNACLES.get(), block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
+		this.add(WWBlocks.BARNACLES.get(), block -> this.createMultifaceBlockDrops(block, Holder.direct(ExplosionCondition.survivesExplosion().build())));
 		this.dropSelf(WWBlocks.SEA_ANEMONE.get());
 		this.dropSelf(WWBlocks.SEA_WHIP.get());
 		this.dropSelf(WWBlocks.TUBE_WORMS.get());
 
 		this.dropSelf(WWBlocks.AUBURN_MOSS_BLOCK.get());
 		this.dropSelf(WWBlocks.AUBURN_MOSS_CARPET.get());
-		this.add(WWBlocks.AUBURN_CREEPING_MOSS.get(), block -> this.createMultifaceBlockDrops(block, ExplosionCondition.survivesExplosion()));
+		this.add(WWBlocks.AUBURN_CREEPING_MOSS.get(), block -> this.createMultifaceBlockDrops(block, Holder.direct(ExplosionCondition.survivesExplosion().build())));
 
 		this.add(WWBlocks.BAOBAB_NUT.get(),
 			LootTable.lootTable()
@@ -341,8 +369,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.BAOBAB_NUT.get())
-									.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
+								MatchBlock.blockMatches(this.blocks, WWBlocks.BAOBAB_NUT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
 							)
 							.add(LootItem.lootTableItem(WWBlocks.BAOBAB_NUT.get()))
 					)
@@ -357,8 +384,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.COCONUT.get())
-									.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.HANGING, false))
+								MatchBlock.blockMatches(this.blocks, WWBlocks.COCONUT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.HANGING, false))
 							)
 							.add(LootItem.lootTableItem(WWBlocks.COCONUT.get()))
 					)
@@ -368,12 +394,13 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						LootPool.lootPool()
 							.setRolls(UniformGenerator.between(1F, 4F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.COCONUT.get())
-									.setProperties(
-										StatePropertiesPredicate.Builder.properties()
-											.hasProperty(BlockStateProperties.HANGING, true)
-											.hasProperty(BlockStateProperties.AGE_2, 2)
-									)
+								MatchBlock.blockMatches(
+									this.blocks,
+									WWBlocks.COCONUT.get(),
+									StatePropertiesPredicate.Builder.properties()
+										.hasProperty(BlockStateProperties.HANGING, true)
+										.hasProperty(BlockStateProperties.AGE_2, 2)
+								)
 							)
 							.add(LootItem.lootTableItem(WWBlocks.COCONUT.get()))
 					)
@@ -388,11 +415,12 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						LootPool.lootPool()
 							.setRolls(ConstantValue.exactly(1F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SHRUB.get())
-									.setProperties(
-										StatePropertiesPredicate.Builder.properties()
-											.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
-									)
+								MatchBlock.blockMatches(
+									this.blocks,
+									WWBlocks.SHRUB.get(),
+									StatePropertiesPredicate.Builder.properties()
+										.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
+								)
 							)
 							.add(LootItem.lootTableItem(WWBlocks.SHRUB.get()))
 					)
@@ -402,12 +430,13 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						LootPool.lootPool()
 							.setRolls(UniformGenerator.between(0F, 1F))
 							.when(
-								LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SHRUB.get())
-									.setProperties(
-										StatePropertiesPredicate.Builder.properties()
-											.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
-											.hasProperty(BlockStateProperties.AGE_2, 2)
-									)
+								MatchBlock.blockMatches(
+									this.blocks,
+									WWBlocks.SHRUB.get(),
+									StatePropertiesPredicate.Builder.properties()
+										.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)
+										.hasProperty(BlockStateProperties.AGE_2, 2)
+								)
 							)
 							.add(LootItem.lootTableItem(WWBlocks.SHRUB.get()))
 					)
@@ -491,8 +520,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 									.apply(
 										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
 											.when(
-												LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.SCULK_SLAB.get())
-													.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))
+												MatchBlock.blockMatches(this.blocks, WWBlocks.SCULK_SLAB.get(), StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))
 											)
 									)
 							)
@@ -521,8 +549,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
 								.apply(CopyBlockState.copyState(WWBlocks.ECHO_GLASS.get()).copy(WWBlockStateProperties.DAMAGE)
 									.when(
-										LootItemBlockStatePropertyCondition.hasBlockStateProperties(WWBlocks.ECHO_GLASS.get())
-											.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.DAMAGE, 0))
+										MatchBlock.blockMatches(this.blocks, WWBlocks.ECHO_GLASS.get(), StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.DAMAGE, 0))
 											.invert()
 									)
 								)

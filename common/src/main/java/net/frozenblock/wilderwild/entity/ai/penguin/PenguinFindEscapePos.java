@@ -107,7 +107,7 @@ public class PenguinFindEscapePos {
 
 	public static List<BlockPos> shuffleAndOrderByFarthest(BlockPos pos, int range, RandomSource random) {
 		List<BlockPos> poses = new ArrayList<>();
-		BlockPos.withinManhattan(pos, range, range, range).forEach(poses::add);
+		BlockPos.withinManhattan(pos, range).forEach(poses::add);
 		poses = Util.toShuffledList(poses.stream(), random);
 
 		return poses.stream()

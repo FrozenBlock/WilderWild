@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_planks"
+        "recipes": "wilderwild:maple_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

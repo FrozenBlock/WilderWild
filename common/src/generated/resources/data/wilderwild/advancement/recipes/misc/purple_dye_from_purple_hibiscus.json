@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:purple_dye_from_purple_hibiscus"
+        "recipes": "wilderwild:purple_dye_from_purple_hibiscus"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

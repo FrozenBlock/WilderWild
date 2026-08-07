@@ -2,18 +2,21 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "conditions": [
-        {
-          "block": "wilderwild:coconut",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "hanging": "false"
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "wilderwild:coconut",
+            "state": {
+              "hanging": "false"
+            }
+          },
+          {
+            "type": "minecraft:survives_explosion"
           }
-        },
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
+        ]
+      },
       "entries": [
         {
           "type": "minecraft:item",
@@ -23,27 +26,23 @@
       "rolls": 1.0
     },
     {
-      "conditions": [
-        {
-          "block": "wilderwild:coconut",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "age": "2",
-            "hanging": "true"
-          }
+      "condition": {
+        "type": "minecraft:match_block",
+        "blocks": "wilderwild:coconut",
+        "state": {
+          "age": "2",
+          "hanging": "true"
         }
-      ],
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "wilderwild:coconut"
         }
       ],
-      "functions": [
-        {
-          "function": "minecraft:explosion_decay"
-        }
-      ],
+      "modifier": {
+        "type": "minecraft:explosion_decay"
+      },
       "rolls": {
         "type": "minecraft:uniform",
         "max": 4.0,

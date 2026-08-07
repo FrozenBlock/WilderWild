@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:palm_shelf"
+        "recipes": "wilderwild:palm_shelf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

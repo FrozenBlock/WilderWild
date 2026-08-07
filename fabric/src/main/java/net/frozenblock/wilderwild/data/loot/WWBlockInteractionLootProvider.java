@@ -43,6 +43,10 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 	}
 
 	@Override
+	public void run() {
+	}
+
+	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
 		final HolderLookup.Provider registryLookup = this.registries.join();
 

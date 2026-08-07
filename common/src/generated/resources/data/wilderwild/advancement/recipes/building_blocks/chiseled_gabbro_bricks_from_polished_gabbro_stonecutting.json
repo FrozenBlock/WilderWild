@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:chiseled_gabbro_bricks_from_polished_gabbro_stonecutting"
+        "recipes": "wilderwild:chiseled_gabbro_bricks_from_polished_gabbro_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

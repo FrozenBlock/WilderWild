@@ -54,7 +54,7 @@ public class GrassColorModifierMixin { // In common mixins.json
 		final var tundraColorModifier = new BiomeSpecialEffects.GrassColorModifier.ColorModifier() {
 			@Override
 			public int modifyGrassColor(double x, double z, int baseColor) {
-				final double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, z * 0.0225D, false);
+				final double noise = Biome.BIOME_INFO_NOISE.get(x * 0.0225D, z * 0.0225D);
 				if (noise < -0.5D) return Tundra.GRASS_COLOR_BROWN;
 				if (noise < -0.35D) return Tundra.GRASS_COLOR_ORANGE;
 				if (noise > 0.8D) return Tundra.GRASS_COLOR_BLUE_GREENISH;

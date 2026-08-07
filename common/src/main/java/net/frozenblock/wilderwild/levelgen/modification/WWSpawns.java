@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.registry.WWMobCategories;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
@@ -59,7 +60,7 @@ public final class WWSpawns {
 
 				spawnSettings.addSpawn(
 					WWMobCategories.BUTTERFLY,
-					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY.get(), 1, 1),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.BUTTERFLY.get(), UniformInt.of(1, 1)),
 					butterflyWeight
 				);
 
@@ -77,7 +78,7 @@ public final class WWSpawns {
 
 				spawnSettings.addSpawn(
 					WWMobCategories.JELLYFISH,
-					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH.get(), 1, 1),
+					new MobSpawnSettings.SpawnerData(WWEntityTypes.JELLYFISH.get(), UniformInt.of(1, 1)),
 					2
 				);
 
@@ -122,7 +123,7 @@ public final class WWSpawns {
 			BiomeSelectors.tag(WWBiomeTags.HAS_MOOBLOOM),
 			context -> {
 				context.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.COW);
-				context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM.get(), 2, 4), 34);
+				context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM.get(), UniformInt.of(2, 4)), 34);
 			}
 		);
 	}

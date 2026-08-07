@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:mud_brick_wall_from_packed_mud_stonecutting"
+        "recipes": "wilderwild:mud_brick_wall_from_packed_mud_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

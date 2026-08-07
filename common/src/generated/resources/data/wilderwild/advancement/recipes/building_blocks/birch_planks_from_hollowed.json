@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:birch_planks_from_hollowed"
+        "recipes": "wilderwild:birch_planks_from_hollowed"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

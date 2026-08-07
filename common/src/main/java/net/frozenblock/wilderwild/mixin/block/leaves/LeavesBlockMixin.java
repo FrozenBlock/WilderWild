@@ -17,11 +17,9 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -48,20 +46,6 @@ public abstract class LeavesBlockMixin extends Block {
 	) {
 		final boolean hasCustomParticles = FallingLeafUtil.tryAnimateTick(state, level, pos, random);
 		usingCustomFallingLeaves.set(hasCustomParticles);
-	}
-
-	@WrapWithCondition(
-		method = "animateTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/LeavesBlock;makeFallingLeavesParticles(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V"
-		)
-	)
-	public boolean wilderWild$fallingLeafParticles(
-		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below,
-		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
-	) {
-		return !usingCustomFallingLeaves.get() || instance.builtInRegistryHolder().is(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES);
 	}
 
 	@Override

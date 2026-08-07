@@ -84,7 +84,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	protected static final VoxelShape HANGING_SHAPE = Shapes.or(Block.box(5D, 2D, 5D, 11D, 9D, 11.0D), Block.box(6D, 9D, 6D, 10D, 10D, 10D));
 
 	public DisplayLanternBlock(Properties properties) {
-		super(properties.pushReaction(PushReaction.DESTROY));
+		super(properties.pushReaction(PushReaction.POPPED));
 		this.registerDefaultState(this.defaultBlockState().setValue(HANGING, false).setValue(WATERLOGGED, false).setValue(DISPLAY_LIGHT, 0));
 	}
 

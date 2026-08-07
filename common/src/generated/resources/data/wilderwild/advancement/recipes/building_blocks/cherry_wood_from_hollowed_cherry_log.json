@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cherry_wood_from_hollowed_cherry_log"
+        "recipes": "wilderwild:cherry_wood_from_hollowed_cherry_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

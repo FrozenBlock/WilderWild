@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:suspicious_stew_from_pasqueflower"
+        "recipes": "wilderwild:suspicious_stew_from_pasqueflower"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

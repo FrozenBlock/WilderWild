@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:light_gray_dye_from_datura"
+        "recipes": "wilderwild:light_gray_dye_from_datura"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

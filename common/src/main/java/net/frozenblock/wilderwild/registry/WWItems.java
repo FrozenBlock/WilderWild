@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
 import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
@@ -35,8 +36,10 @@ import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
@@ -48,22 +51,31 @@ import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
-import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.item.component.Compostable;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.ChatFormatting;
 
 public final class WWItems {
 	private static final FrozenDeferredRegister.Items REGISTER = FrozenDeferredRegister.createItems(
 		WWConstants.MOD_ID
 	);
+
+	// todo datagen
+	private static final ResourceKey<NumberProvider> COMPOSTABLE_MILKWEED_POD = ResourceKey.create(Registries.NUMBER_PROVIDER, WWConstants.id("compostable/milkweed_pod"));
+
+	private static UnaryOperator<Item.Properties> compostable(ResourceKey<NumberProvider> chance) {
+		return properties -> properties.component(DataComponents.COMPOSTABLE, new Compostable(chance));
+	}
 
 	// BLOCK ITEMS
 	// MUD
@@ -80,22 +92,26 @@ public final class WWItems {
 
 	// SAPLINGS
 	public static final FrozenDeferredItem<BlockItem> BAOBAB_NUT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_NUT, WWBlocks.BAOBAB_NUT,
-		() -> new Item.Properties().food(WWFoods.BAOBAB_NUT)
+		() -> compostable(NumberProviders.COMPOSTABLE_LOW).apply(new Item.Properties().food(WWFoods.BAOBAB_NUT))
 	);
-	public static final FrozenDeferredItem<BlockItem> WILLOW_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_SAPLING, WWBlocks.WILLOW_SAPLING);
-	public static final FrozenDeferredItem<BlockItem> CYPRESS_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_SAPLING, WWBlocks.CYPRESS_SAPLING);
+	public static final FrozenDeferredItem<BlockItem> WILLOW_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_SAPLING, WWBlocks.WILLOW_SAPLING, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> CYPRESS_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_SAPLING, WWBlocks.CYPRESS_SAPLING, compostable(NumberProviders.COMPOSTABLE_LOW));
 	public static final FrozenDeferredItem<CoconutItem> COCONUT = REGISTER.registerItem(WWBlockItemIds.COCONUT.item(),
 		properties -> new CoconutItem(WWBlocks.COCONUT.get(), properties),
-		() -> new Item.Properties().useBlockDescriptionPrefix()
+		() -> compostable(NumberProviders.COMPOSTABLE_MEDIUM).apply(new Item.Properties().useBlockDescriptionPrefix())
 	);
-	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING, REGISTER::registerSimpleBlockItem);
+	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING,
+		(id, block) -> REGISTER.registerSimpleBlockItem(id, block, compostable(NumberProviders.COMPOSTABLE_LOW))
+	);
 
 	// LEAVES
-	public static final FrozenDeferredItem<BlockItem> BAOBAB_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAVES);
-	public static final FrozenDeferredItem<BlockItem> WILLOW_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LEAVES, WWBlocks.WILLOW_LEAVES);
-	public static final FrozenDeferredItem<BlockItem> CYPRESS_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAVES);
-	public static final FrozenDeferredItem<BlockItem> PALM_FRONDS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FRONDS, WWBlocks.PALM_FRONDS);
-	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, WWBlocks.MAPLE_LEAVES, REGISTER::registerSimpleBlockItem);
+	public static final FrozenDeferredItem<BlockItem> BAOBAB_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAVES, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> WILLOW_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LEAVES, WWBlocks.WILLOW_LEAVES, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> CYPRESS_LEAVES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAVES, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> PALM_FRONDS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FRONDS, WWBlocks.PALM_FRONDS, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, WWBlocks.MAPLE_LEAVES,
+		(id, block) -> REGISTER.registerSimpleBlockItem(id, block, compostable(NumberProviders.COMPOSTABLE_LOW))
+	);
 
 	// HOLLOWED LOGS
 	public static final FrozenDeferredItem<BlockItem> HOLLOWED_OAK_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
@@ -131,20 +147,22 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_HOLLOWED_WARPED_STEM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
 	// LEAF LITTER
-	public static final FrozenDeferredItem<BlockItem> ACACIA_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.ACACIA_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> AZALEA_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AZALEA_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> BAOBAB_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> BIRCH_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BIRCH_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> CHERRY_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CHERRY_LEAF_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> CYPRESS_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> DARK_OAK_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.DARK_OAK_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> JUNGLE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.JUNGLE_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> MANGROVE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MANGROVE_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> PALE_OAK_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_OAK_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> PALM_FROND_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FROND_LITTER, WWBlocks.PALM_FROND_LITTER);
-	public static final FrozenDeferredItem<BlockItem> SPRUCE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
-	public static final FrozenDeferredItem<BlockItem> WILLOW_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
-	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_LEAF_LITTER = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER, REGISTER::registerSimpleBlockItem);
+	public static final FrozenDeferredItem<BlockItem> ACACIA_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.ACACIA_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> AZALEA_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AZALEA_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> BAOBAB_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> BIRCH_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BIRCH_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> CHERRY_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CHERRY_LEAF_LITTER, WWBlocks.CHERRY_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> CYPRESS_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> DARK_OAK_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.DARK_OAK_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> JUNGLE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.JUNGLE_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> MANGROVE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MANGROVE_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> PALE_OAK_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_OAK_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> PALM_FROND_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FROND_LITTER, WWBlocks.PALM_FROND_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> SPRUCE_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> WILLOW_LEAF_LITTER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final MapleCollection<FrozenDeferredItem<BlockItem>> MAPLE_LEAF_LITTER = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER,
+		(id, block) -> REGISTER.registerSimpleBlockItem(id, block, compostable(NumberProviders.COMPOSTABLE_LOW))
+	);
 
 	// SCULK
 	public static final FrozenDeferredItem<BlockItem> SCULK_STAIRS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SCULK_STAIRS, WWBlocks.SCULK_STAIRS);
@@ -181,51 +199,53 @@ public final class WWItems {
 	);
 
 	// FLOWERS
-	public static final FrozenDeferredItem<BlockItem> SEEDING_DANDELION = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SEEDING_DANDELION, WWBlocks.SEEDING_DANDELION);
-	public static final FrozenDeferredItem<BlockItem> CARNATION = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CARNATION, WWBlocks.CARNATION);
-	public static final FrozenDeferredItem<BlockItem> MARIGOLD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MARIGOLD, WWBlocks.MARIGOLD);
+	public static final FrozenDeferredItem<BlockItem> SEEDING_DANDELION = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SEEDING_DANDELION, WWBlocks.SEEDING_DANDELION, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> CARNATION = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CARNATION, WWBlocks.CARNATION, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> MARIGOLD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MARIGOLD, WWBlocks.MARIGOLD, compostable(NumberProviders.COMPOSTABLE_LOW));
 	public static final FrozenDeferredItem<BlockItem> PASQUEFLOWER = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PASQUEFLOWER, WWBlocks.PASQUEFLOWER);
-	public static final FrozenDeferredItem<BlockItem> RED_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_HIBISCUS, WWBlocks.RED_HIBISCUS);
-	public static final FrozenDeferredItem<BlockItem> YELLOW_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
-	public static final FrozenDeferredItem<BlockItem> WHITE_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WHITE_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
-	public static final FrozenDeferredItem<BlockItem> PINK_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PINK_HIBISCUS, WWBlocks.PINK_HIBISCUS);
-	public static final FrozenDeferredItem<BlockItem> PURPLE_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PURPLE_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
+	public static final FrozenDeferredItem<BlockItem> RED_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_HIBISCUS, WWBlocks.RED_HIBISCUS, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> YELLOW_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_HIBISCUS, WWBlocks.YELLOW_HIBISCUS, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> WHITE_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WHITE_HIBISCUS, WWBlocks.WHITE_HIBISCUS, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> PINK_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PINK_HIBISCUS, WWBlocks.PINK_HIBISCUS, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> PURPLE_HIBISCUS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PURPLE_HIBISCUS, WWBlocks.PURPLE_HIBISCUS, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
 
 	// FLOWERBEDS
-	public static final FrozenDeferredItem<BlockItem> PHLOX = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PHLOX, WWBlocks.PHLOX);
-	public static final FrozenDeferredItem<BlockItem> LANTANAS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.LANTANAS, WWBlocks.LANTANAS);
-	public static final FrozenDeferredItem<BlockItem> CLOVERS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CLOVERS, WWBlocks.CLOVERS);
+	public static final FrozenDeferredItem<BlockItem> PHLOX = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PHLOX, WWBlocks.PHLOX, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> LANTANAS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.LANTANAS, WWBlocks.LANTANAS, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> CLOVERS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CLOVERS, WWBlocks.CLOVERS, compostable(NumberProviders.COMPOSTABLE_LOW));
 
 	// TALL FLOWERS
-	public static final FrozenDeferredItem<DoubleHighBlockItem> DATURA = registerBlockItem(WWBlockItemIds.DATURA, WWBlocks.DATURA, DoubleHighBlockItem::new);
-	public static final FrozenDeferredItem<DoubleHighBlockItem> MILKWEED = registerBlockItem(WWBlockItemIds.MILKWEED, WWBlocks.MILKWEED, DoubleHighBlockItem::new);
+	public static final FrozenDeferredItem<DoubleHighBlockItem> DATURA = registerBlockItem(WWBlockItemIds.DATURA, WWBlocks.DATURA, DoubleHighBlockItem::new, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<DoubleHighBlockItem> MILKWEED = registerBlockItem(WWBlockItemIds.MILKWEED, WWBlocks.MILKWEED, DoubleHighBlockItem::new, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
 
 	// VEGETATION
 	public static final FrozenDeferredItem<BlockItem> POLLEN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.POLLEN, WWBlocks.POLLEN);
 	public static final FrozenDeferredItem<DamageOnUseBlockItem> PRICKLY_PEAR = registerBlockItem(WWBlockItemIds.PRICKLY_PEAR, WWBlocks.PRICKLY_PEAR,
 		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.get(), WWDamageTypes.PRICKLY_PEAR),
-		new Item.Properties().food(WWFoods.PRICKLY_PEAR)
+		compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM).apply(new Item.Properties().food(WWFoods.PRICKLY_PEAR))
 	);
-	public static final FrozenDeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
-	public static final FrozenDeferredItem<BlockItem> TUMBLEWEED_PLANT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT);
+	public static final FrozenDeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> TUMBLEWEED_PLANT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT, compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM));
 	public static final FrozenDeferredItem<SpawnEggItem> TUMBLEWEED = REGISTER.registerItem(
 		WWBlockItemIds.TUMBLEWEED.item(),
 		SpawnEggItem::new,
-		() -> new Item.Properties()
-			.useBlockDescriptionPrefix()
-			.requiredFeatures(WWBlocks.TUMBLEWEED.get().requiredFeatures())
-			.spawnEgg(WWEntityTypes.TUMBLEWEED.get())
+		() -> compostable(NumberProviders.COMPOSTABLE_LOW).apply(
+			new Item.Properties()
+				.useBlockDescriptionPrefix()
+				.requiredFeatures(WWBlocks.TUMBLEWEED.get().requiredFeatures())
+				.spawnEgg(WWEntityTypes.TUMBLEWEED.get())
+		)
 	);
-	public static final FrozenDeferredItem<BlockItem> FROZEN_SHORT_GRASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS);
-	public static final FrozenDeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = registerBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS, DoubleHighBlockItem::new);
-	public static final FrozenDeferredItem<BlockItem> FROZEN_FERN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_FERN, WWBlocks.FROZEN_FERN);
-	public static final FrozenDeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = registerBlockItem(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN, DoubleHighBlockItem::new);
-	public static final FrozenDeferredItem<BlockItem> FROZEN_BUSH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_BUSH, WWBlocks.FROZEN_BUSH);
-	public static final FrozenDeferredItem<BlockItem> MYCELIUM_GROWTH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MYCELIUM_GROWTH, WWBlocks.MYCELIUM_GROWTH);
+	public static final FrozenDeferredItem<BlockItem> FROZEN_SHORT_GRASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = registerBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS, DoubleHighBlockItem::new, compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> FROZEN_FERN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_FERN, WWBlocks.FROZEN_FERN, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = registerBlockItem(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN, DoubleHighBlockItem::new, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> FROZEN_BUSH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_BUSH, WWBlocks.FROZEN_BUSH, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> MYCELIUM_GROWTH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MYCELIUM_GROWTH, WWBlocks.MYCELIUM_GROWTH, compostable(NumberProviders.COMPOSTABLE_LOW));
 
 	// MUSHROOMS
-	public static final FrozenDeferredItem<BlockItem> BROWN_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlocks.BROWN_SHELF_FUNGI);
-	public static final FrozenDeferredItem<BlockItem> RED_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI);
+	public static final FrozenDeferredItem<BlockItem> BROWN_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlocks.BROWN_SHELF_FUNGI, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> RED_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
 	public static final FrozenDeferredItem<BlockItem> CRIMSON_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CRIMSON_SHELF_FUNGI, WWBlocks.CRIMSON_SHELF_FUNGI);
 	public static final FrozenDeferredItem<BlockItem> WARPED_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WARPED_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI);
 	public static final FrozenDeferredItem<BlockItem> PALE_MUSHROOM_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK);
@@ -233,15 +253,15 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> PALE_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_SHELF_FUNGI, WWBlocks.PALE_SHELF_FUNGI);
 
 	// MOSS
-	public static final FrozenDeferredItem<BlockItem> AUBURN_MOSS_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_BLOCK);
-	public static final FrozenDeferredItem<BlockItem> AUBURN_MOSS_CARPET = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_MOSS_CARPET);
-	public static final FrozenDeferredItem<BlockItem> AUBURN_CREEPING_MOSS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_CREEPING_MOSS, WWBlocks.AUBURN_CREEPING_MOSS);
+	public static final FrozenDeferredItem<BlockItem> AUBURN_MOSS_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_BLOCK, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<BlockItem> AUBURN_MOSS_CARPET = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_MOSS_CARPET, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<BlockItem> AUBURN_CREEPING_MOSS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_CREEPING_MOSS, WWBlocks.AUBURN_CREEPING_MOSS, compostable(NumberProviders.COMPOSTABLE_LOW));
 
 	// AQUATIC
-	public static final FrozenDeferredItem<DoubleHighBlockItem> CATTAIL = registerBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL, DoubleHighBlockItem::new);
-	public static final FrozenDeferredItem<PlaceOnWaterBlockItem> FLOWERING_LILY_PAD = registerBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new);
-	public static final FrozenDeferredItem<PlaceOnWaterBlockItem> ALGAE = registerBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE, PlaceOnWaterBlockItem::new);
-	public static final FrozenDeferredItem<PlaceOnWaterBlockItem> PLANKTON = registerBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON, PlaceOnWaterBlockItem::new);
+	public static final FrozenDeferredItem<DoubleHighBlockItem> CATTAIL = registerBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL, DoubleHighBlockItem::new, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<PlaceOnWaterBlockItem> FLOWERING_LILY_PAD = registerBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new, compostable(NumberProviders.COMPOSTABLE_MEDIUM));
+	public static final FrozenDeferredItem<PlaceOnWaterBlockItem> ALGAE = registerBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE, PlaceOnWaterBlockItem::new, compostable(NumberProviders.COMPOSTABLE_LOW));
+	public static final FrozenDeferredItem<PlaceOnWaterBlockItem> PLANKTON = registerBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON, PlaceOnWaterBlockItem::new, compostable(NumberProviders.COMPOSTABLE_LOW));
 	public static final FrozenDeferredItem<BlockItem> SPONGE_BUD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPONGE_BUD, WWBlocks.SPONGE_BUD);
 	public static final FrozenDeferredItem<BlockItem> BARNACLES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BARNACLES, WWBlocks.BARNACLES);
 	public static final FrozenDeferredItem<BlockItem> SEA_ANEMONE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SEA_ANEMONE, WWBlocks.SEA_ANEMONE);
@@ -291,8 +311,8 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_HOLLOWED_BAOBAB_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
 	public static final FrozenDeferredItem<BlockItem> BAOBAB_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_WOOD, WWBlocks.BAOBAB_WOOD);
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_BAOBAB_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
-	public static final FrozenDeferredItem<SignItem> BAOBAB_SIGN = registerBlockItem(WWBlockItemIds.BAOBAB_SIGN, WWBlocks.BAOBAB_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.BAOBAB_WALL_SIGN.get(), properties),
+	public static final FrozenDeferredItem<StandingAndWallBlockItem> BAOBAB_SIGN = registerBlockItem(WWBlockItemIds.BAOBAB_SIGN, WWBlocks.BAOBAB_SIGN,
+		(block, properties) -> new StandingAndWallBlockItem(block, WWBlocks.BAOBAB_WALL_SIGN.get(), Direction.DOWN, properties),
 		new Item.Properties().stacksTo(16)
 	);
 	public static final FrozenDeferredItem<HangingSignItem> BAOBAB_HANGING_SIGN = registerBlockItem(WWBlockItemIds.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_HANGING_SIGN,
@@ -318,8 +338,8 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_HOLLOWED_WILLOW_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
 	public static final FrozenDeferredItem<BlockItem> WILLOW_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_WOOD, WWBlocks.WILLOW_WOOD);
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_WILLOW_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
-	public static final FrozenDeferredItem<SignItem> WILLOW_SIGN = registerBlockItem(WWBlockItemIds.WILLOW_SIGN, WWBlocks.WILLOW_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.WILLOW_WALL_SIGN.get(), properties),
+	public static final FrozenDeferredItem<StandingAndWallBlockItem> WILLOW_SIGN = registerBlockItem(WWBlockItemIds.WILLOW_SIGN, WWBlocks.WILLOW_SIGN,
+		(block, properties) -> new StandingAndWallBlockItem(block, WWBlocks.WILLOW_WALL_SIGN.get(), Direction.DOWN, properties),
 		new Item.Properties().stacksTo(16)
 	);
 	public static final FrozenDeferredItem<HangingSignItem> WILLOW_HANGING_SIGN = registerBlockItem(WWBlockItemIds.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_HANGING_SIGN,
@@ -345,8 +365,8 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_HOLLOWED_CYPRESS_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
 	public static final FrozenDeferredItem<BlockItem> CYPRESS_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_WOOD, WWBlocks.CYPRESS_WOOD);
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_CYPRESS_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
-	public static final FrozenDeferredItem<SignItem> CYPRESS_SIGN = registerBlockItem(WWBlockItemIds.CYPRESS_SIGN, WWBlocks.CYPRESS_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.CYPRESS_WALL_SIGN.get(), properties),
+	public static final FrozenDeferredItem<StandingAndWallBlockItem> CYPRESS_SIGN = registerBlockItem(WWBlockItemIds.CYPRESS_SIGN, WWBlocks.CYPRESS_SIGN,
+		(block, properties) -> new StandingAndWallBlockItem(block, WWBlocks.CYPRESS_WALL_SIGN.get(), Direction.DOWN, properties),
 		new Item.Properties().stacksTo(16)
 	);
 	public static final FrozenDeferredItem<HangingSignItem> CYPRESS_HANGING_SIGN = registerBlockItem(WWBlockItemIds.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_HANGING_SIGN,
@@ -372,8 +392,8 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_HOLLOWED_PALM_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 	public static final FrozenDeferredItem<BlockItem> PALM_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_WOOD, WWBlocks.PALM_WOOD);
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_PALM_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
-	public static final FrozenDeferredItem<SignItem> PALM_SIGN = registerBlockItem(WWBlockItemIds.PALM_SIGN, WWBlocks.PALM_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.PALM_WALL_SIGN.get(), properties),
+	public static final FrozenDeferredItem<StandingAndWallBlockItem> PALM_SIGN = registerBlockItem(WWBlockItemIds.PALM_SIGN, WWBlocks.PALM_SIGN,
+		(block, properties) -> new StandingAndWallBlockItem(block, WWBlocks.PALM_WALL_SIGN.get(), Direction.DOWN, properties),
 		new Item.Properties().stacksTo(16)
 	);
 	public static final FrozenDeferredItem<HangingSignItem> PALM_HANGING_SIGN = registerBlockItem(WWBlockItemIds.PALM_HANGING_SIGN, WWBlocks.PALM_HANGING_SIGN,
@@ -399,8 +419,8 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_HOLLOWED_MAPLE_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 	public static final FrozenDeferredItem<BlockItem> MAPLE_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_WOOD, WWBlocks.MAPLE_WOOD);
 	public static final FrozenDeferredItem<BlockItem> STRIPPED_MAPLE_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
-	public static final FrozenDeferredItem<SignItem> MAPLE_SIGN = registerBlockItem(WWBlockItemIds.MAPLE_SIGN, WWBlocks.MAPLE_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.MAPLE_WALL_SIGN.get(), properties),
+	public static final FrozenDeferredItem<StandingAndWallBlockItem> MAPLE_SIGN = registerBlockItem(WWBlockItemIds.MAPLE_SIGN, WWBlocks.MAPLE_SIGN,
+		(block, properties) -> new StandingAndWallBlockItem(block, WWBlocks.MAPLE_WALL_SIGN.get(), Direction.DOWN, properties),
 		new Item.Properties().stacksTo(16)
 	);
 	public static final FrozenDeferredItem<HangingSignItem> MAPLE_HANGING_SIGN = registerBlockItem(WWBlockItemIds.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_HANGING_SIGN,
@@ -434,7 +454,7 @@ public final class WWItems {
 	public static final FrozenDeferredItem<BoatItem> MAPLE_BOAT = registerBoatItem(WWItemIds.MAPLE_BOAT, WWEntityTypes.MAPLE_BOAT);
 	public static final FrozenDeferredItem<BoatItem> MAPLE_CHEST_BOAT = registerBoatItem(WWItemIds.MAPLE_CHEST_BOAT, WWEntityTypes.MAPLE_CHEST_BOAT);
 
-	public static final FrozenDeferredItem<MilkweedPodItem> MILKWEED_POD = REGISTER.registerItem(WWItemIds.MILKWEED_POD, MilkweedPodItem::new);
+	public static final FrozenDeferredItem<MilkweedPodItem> MILKWEED_POD = REGISTER.registerItem(WWItemIds.MILKWEED_POD, MilkweedPodItem::new, compostable(COMPOSTABLE_MILKWEED_POD));
 	public static final FrozenDeferredItem<MobBottleItem> FIREFLY_BOTTLE = REGISTER.registerItem(WWItemIds.FIREFLY_BOTTLE,
 		properties -> new MobBottleItem(
 			WWEntityTypes.FIREFLY.get(),
@@ -456,8 +476,8 @@ public final class WWItems {
 	);
 
 	// FOOD
-	public static final FrozenDeferredItem<Item> PEELED_PRICKLY_PEAR = REGISTER.registerSimpleItem(WWItemIds.PEELED_PRICKLY_PEAR, () -> new Item.Properties().food(Foods.APPLE));
-	public static final FrozenDeferredItem<Item> SPLIT_COCONUT = REGISTER.registerSimpleItem(WWItemIds.SPLIT_COCONUT, () -> new Item.Properties().food(WWFoods.SPLIT_COCONUT));
+	public static final FrozenDeferredItem<Item> PEELED_PRICKLY_PEAR = REGISTER.registerSimpleItem(WWItemIds.PEELED_PRICKLY_PEAR, () -> compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM).apply(new Item.Properties().food(Foods.APPLE)));
+	public static final FrozenDeferredItem<Item> SPLIT_COCONUT = REGISTER.registerSimpleItem(WWItemIds.SPLIT_COCONUT, () -> compostable(NumberProviders.COMPOSTABLE_LOW).apply(new Item.Properties().food(WWFoods.SPLIT_COCONUT)));
 	public static final FrozenDeferredItem<CrabClawItem> CRAB_CLAW = REGISTER.registerItem(WWItemIds.CRAB_CLAW, CrabClawItem::new, () -> new Item.Properties().food(WWFoods.CRAB_CLAW));
 	public static final FrozenDeferredItem<Item> COOKED_CRAB_CLAW = REGISTER.registerSimpleItem(WWItemIds.COOKED_CRAB_CLAW, () -> new Item.Properties().food(WWFoods.COOKED_CRAB_CLAW));
 	public static final FrozenDeferredItem<Item> SCORCHED_EYE = REGISTER.registerSimpleItem(WWItemIds.SCORCHED_EYE, () -> new Item.Properties().food(WWFoods.SCORCHED_EYE, WWFoods.SCORCHED_EYE_CONSUMABLE));
@@ -512,6 +532,12 @@ public final class WWItems {
 
 	private static <I extends Item> FrozenDeferredItem<I> registerBlockItem(BlockItemId id, Supplier<? extends Block> block, BiFunction<Block, Item.Properties, ? extends I> itemFactory) {
 		return REGISTER.registerItem(id.item(), properties -> itemFactory.apply(block.get(), properties), () -> new Item.Properties().useBlockDescriptionPrefix().setId(id.item()));
+	}
+
+	private static <I extends Item> FrozenDeferredItem<I> registerBlockItem(
+		BlockItemId id, Supplier<? extends Block> block, BiFunction<Block, Item.Properties, ? extends I> itemFactory, UnaryOperator<Item.Properties> propertiesModifier
+	) {
+		return REGISTER.registerItem(id.item(), properties -> itemFactory.apply(block.get(), properties), () -> propertiesModifier.apply(new Item.Properties().useBlockDescriptionPrefix().setId(id.item())));
 	}
 
 	private static <I extends Item> FrozenDeferredItem<I> registerBlockItem(BlockItemId id, Supplier<? extends Block> block, BiFunction<Block, Item.Properties, ? extends I> itemFactory, Item.Properties properties) {

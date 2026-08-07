@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cypress_stairs"
+        "recipes": "wilderwild:cypress_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

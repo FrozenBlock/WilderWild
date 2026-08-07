@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:gabbro_brick_slab_from_gabbro_bricks_stonecutting"
+        "recipes": "wilderwild:gabbro_brick_slab_from_gabbro_bricks_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

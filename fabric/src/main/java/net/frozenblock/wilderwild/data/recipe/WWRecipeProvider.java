@@ -26,15 +26,17 @@ import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
@@ -44,8 +46,8 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-		return new RecipeProvider(registries, output) {
+	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+		return new RecipeProvider(recipes, advancements) {
 			@Override
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
@@ -54,9 +56,10 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				WWWoodRecipeProvider.buildRecipes(this, this.output);
 				MesogleaRecipeProvider.buildRecipes(this, this.output);
-				FireflyBottleRecipeProvider.buildRecipes(this, this.output, this.registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));
+				FireflyBottleRecipeProvider.buildRecipes(this, this.output, registries.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR));
 				WWNaturalRecipeProvider.buildRecipes(this, this.output);
 				WWCookRecipeProvider.buildRecipes(this, this.output);
+				WWBrewingRecipeProvider.buildRecipes(this.output);
 				BuiltInRegistries.ITEM.stream().forEach(item -> {
 					final SuspiciousEffectHolder effectHolder = SuspiciousEffectHolder.tryGet(item);
 					if (effectHolder == null || !item.builtInRegistryHolder().key().identifier().getNamespace().equals(WWConstants.MOD_ID)) return;

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:palm_stairs"
+        "recipes": "wilderwild:palm_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

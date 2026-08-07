@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cracked_mud_bricks"
+        "recipes": "wilderwild:cracked_mud_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

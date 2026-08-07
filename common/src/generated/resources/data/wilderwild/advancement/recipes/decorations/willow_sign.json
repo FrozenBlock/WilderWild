@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:willow_sign"
+        "recipes": "wilderwild:willow_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

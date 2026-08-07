@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:stripped_cypress_wood"
+        "recipes": "wilderwild:stripped_cypress_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

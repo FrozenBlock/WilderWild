@@ -89,42 +89,38 @@ public final class WWVillagerTrades {
 		VillagerTrades.register(
 			context,
 			FISHERMAN_5_CRAB_EMERALD,
-			new VillagerTrade(
+			VillagerTrade.builder(
 				new TradeCost(WWItems.CRAB_BUCKET, 4),
 				new ItemStackTemplate(Items.EMERALD),
 				12,
 				30,
-				0.05F,
-				Optional.empty(),
-				List.of()
-			)
+				0.05F
+			).build()
 		);
 		VillagerTrades.register(
 			context,
 			FISHERMAN_5_JELLYFISH_EMERALD,
-			new VillagerTrade(
+			VillagerTrade.builder(
 				new TradeCost(WWItems.JELLYFISH_BUCKET, 4),
 				new ItemStackTemplate(Items.EMERALD),
 				12,
 				30,
-				0.05F,
-				Optional.empty(),
-				List.of()
-			)
+				0.05F
+			).build()
 		);
 
 		VillagerTrades.register(
 			context,
 			FISHERMAN_5_PALM_BOAT_EMERALD,
-			new VillagerTrade(
+			VillagerTrade.builder(
 				new TradeCost(WWItems.PALM_BOAT, 1),
 				new ItemStackTemplate(Items.EMERALD),
 				12,
 				30,
-				0.05F,
-				VillagerTrades.villagerTypeRestriction(VillagerTrades.villagerTypeHolderSet(villagerVariants, List.of(VillagerType.DESERT))),
-				List.of()
-			)
+				0.05F
+			).merchantPredicate(
+				VillagerTrades.villagerTypeRestriction(VillagerTrades.villagerTypeHolderSet(villagerVariants, List.of(VillagerType.DESERT)))
+			).build()
 		);
 
 		// WANDERING TRADER
@@ -251,15 +247,13 @@ public final class WWVillagerTrades {
 	}
 
 	private static VillagerTrade emeraldTrade(int emeraldCount, ItemLike gives, int givesCount, int maxUses, int xp) {
-		return new VillagerTrade(
+		return VillagerTrade.builder(
 			new TradeCost(Items.EMERALD, emeraldCount),
 			new ItemStackTemplate(gives.asItem(), givesCount),
 			maxUses,
 			xp,
-			0.05F,
-			Optional.empty(),
-			List.of()
-		);
+			0.05F
+		).build();
 	}
 
 	public static ResourceKey<VillagerTrade> resourceKey(String path) {

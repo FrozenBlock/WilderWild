@@ -17,14 +17,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.core.registries.codec.RegistryFixedCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -46,15 +46,15 @@ public record FallingLeafData(
 	Optional<FallingLeafLitterData> fallingLeafLitterData
 ) {
 	public static final Codec<FallingLeafData> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
 		ParticleData.CODEC.optionalFieldOf("leaf_particle_data").forGetter(FallingLeafData::leafParticleData),
 		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle_data").forGetter(FallingLeafData::leafParticleData),
 		FallingLeafLitterData.CODEC.optionalFieldOf("falling_leaf_litter_data").forGetter(FallingLeafData::fallingLeafLitterData)
 	).apply(instance, FallingLeafData::new));
 	public static final Codec<FallingLeafData> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
-		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
+		RegistryCodecs.holderSet(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
 		ParticleData.CODEC.optionalFieldOf("leaf_particle_data").forGetter(FallingLeafData::leafParticleData),
 		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle_data").forGetter(FallingLeafData::leafParticleData)
 	).apply(instance, FallingLeafData::new));

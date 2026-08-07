@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:string_from_cattail"
+        "recipes": "wilderwild:string_from_cattail"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

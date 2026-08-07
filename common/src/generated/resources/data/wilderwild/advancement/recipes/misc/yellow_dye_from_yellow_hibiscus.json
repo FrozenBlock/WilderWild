@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:yellow_dye_from_yellow_hibiscus"
+        "recipes": "wilderwild:yellow_dye_from_yellow_hibiscus"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

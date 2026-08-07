@@ -31,6 +31,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -45,7 +46,7 @@ public class GrassBlockMixin {
 
 	@Inject(method = "placeBonemealEffect", at = @At("HEAD"))
 	private static void wilderWild$checkIfSnowy(
-		ServerLevel level, RandomSource random, BlockPos testPos, CallbackInfo info,
+		ServerLevel level, RandomSource random, BlockPos testPos, BonemealSource source, CallbackInfo ci,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
 		isSnowy.set(level.getBiome(testPos).value().coldEnoughToSnow(testPos, level.getSeaLevel()));

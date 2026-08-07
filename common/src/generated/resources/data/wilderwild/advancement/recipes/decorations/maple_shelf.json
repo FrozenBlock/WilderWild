@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_shelf"
+        "recipes": "wilderwild:maple_shelf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

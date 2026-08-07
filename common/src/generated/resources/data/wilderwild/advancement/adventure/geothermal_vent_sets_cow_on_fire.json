@@ -4,22 +4,20 @@
     "geothermal_vent_pushed_mob": {
       "conditions": {
         "geothermal_vent_type": "lava",
-        "pushed_mob": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": [
-                "minecraft:cow",
-                "minecraft:mooshroom",
-                "wilderwild:moobloom"
-              ],
-              "minecraft:flags": {
-                "is_on_fire": true
-              }
+        "pushed_mob": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": [
+              "minecraft:cow",
+              "minecraft:mooshroom",
+              "wilderwild:moobloom"
+            ],
+            "minecraft:flags": {
+              "is_on_fire": true
             }
           }
-        ],
+        },
         "requires_player_placed_geothermal_vent": true
       },
       "trigger": "wilderwild:geothermal_vent_push_mob"

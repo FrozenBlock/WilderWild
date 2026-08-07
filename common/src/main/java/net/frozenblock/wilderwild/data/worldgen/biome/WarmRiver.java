@@ -23,6 +23,7 @@ import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -124,9 +125,9 @@ public final class WarmRiver extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.WATER_CREATURE, 2, new MobSpawnSettings.SpawnerData(EntityTypes.SQUID, 1, 4))
-			.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityTypes.SALMON, 1, 5))
-			.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.DROWNED, 1, 1));
+		spawns.addSpawn(EntityTypes.SQUID, MobCategory.WATER_CREATURE, 2, UniformInt.of(1, 4))
+			.addSpawn(EntityTypes.SALMON, MobCategory.WATER_AMBIENT, 5, UniformInt.of(1, 5))
+			.addSpawn(EntityTypes.DROWNED, MobCategory.MONSTER, 100, UniformInt.of(1, 1));
 	}
 
 	@Override

@@ -83,7 +83,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("crab_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)))
-			.save(writer, WWConstants.string("husbandry/crab_in_a_bucket"));
+			.save(writer, WWConstants.id("husbandry/crab_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -98,7 +98,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("firefly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWItems.FIREFLY_BOTTLE)))
-			.save(writer, WWConstants.string("husbandry/firefly_in_a_bottle"));
+			.save(writer, WWConstants.id("husbandry/firefly_in_a_bottle"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -113,7 +113,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("butterfly_bottled", MobBottleTrigger.TriggerInstance.mobBottle(ItemPredicate.Builder.item().of(items, WWItems.BUTTERFLY_BOTTLE)))
-			.save(writer, WWConstants.string("husbandry/butterfly_in_a_bottle"));
+			.save(writer, WWConstants.id("husbandry/butterfly_in_a_bottle"));
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)
@@ -128,7 +128,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("jellyfish_bucket", FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)))
-			.save(writer, WWConstants.string("husbandry/jellyfish_in_a_bucket"));
+			.save(writer, WWConstants.id("husbandry/jellyfish_in_a_bucket"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
@@ -143,7 +143,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("termite_ate_block", TermiteEatTrigger.TriggerInstance.termiteEat(BlockPredicate.Builder.block().of(blocks, BlockTags.OVERWORLD_NATURAL_LOGS), true))
-			.save(writer, WWConstants.string("adventure/use_termite_on_tree"));
+			.save(writer, WWConstants.id("adventure/use_termite_on_tree"));
 
 		AdvancementHolder geothermalVentPushedFlightlessBird = Advancement.Builder.advancement()
 			.parent(adventure)
@@ -187,7 +187,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				GeothermalVentType.AIR
 				)
 			)
-			.save(writer, WWConstants.string("adventure/geothermal_vent_pushed_flightless_bird"));
+			.save(writer, WWConstants.id("adventure/geothermal_vent_pushed_flightless_bird"));
 
 		Advancement.Builder.advancement()
 			.parent(geothermalVentPushedFlightlessBird)
@@ -220,7 +220,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				GeothermalVentType.LAVA
 				)
 			)
-			.save(writer, WWConstants.string("adventure/geothermal_vent_sets_cow_on_fire"));
+			.save(writer, WWConstants.id("adventure/geothermal_vent_sets_cow_on_fire"));
 
 		Advancement.Builder.advancement()
 			.parent(Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/walk_on_powder_snow_with_leather_boots")))
@@ -235,7 +235,7 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				false
 			)
 			.addCriterion("fall_onto_and_break_fragile_ice", FragileIceFallOntoAndBreakTrigger.TriggerInstance.fragileIceBreak())
-			.save(writer, WWConstants.string("adventure/fall_onto_and_break_fragile_ice"));
+			.save(writer, WWConstants.id("adventure/fall_onto_and_break_fragile_ice"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)
@@ -250,6 +250,6 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				true
 			)
 			.addCriterion("obtain_null_block", InventoryChangeTrigger.TriggerInstance.hasItems(WWBlocks.NULL_BLOCK.get()))
-			.save(writer, WWConstants.string("adventure/obtain_null_block"));
+			.save(writer, WWConstants.id("adventure/obtain_null_block"));
 	}
 }

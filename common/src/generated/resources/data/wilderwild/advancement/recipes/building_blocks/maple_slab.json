@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_slab"
+        "recipes": "wilderwild:maple_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

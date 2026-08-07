@@ -28,6 +28,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
@@ -102,21 +103,21 @@ public class BaobabNutBlock extends SaplingBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
 		return !isHanging(state) || !isFullyGrown(state);
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-		return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state);
+	public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
+		return isHanging(state) ? !isFullyGrown(state) : super.isBonemealSuccess(level, random, pos, state, source);
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		if (isHanging(state) && !isFullyGrown(state)) {
 			level.setBlock(pos, state.cycle(AGE), UPDATE_CLIENTS);
 		} else {
-			super.performBonemeal(level, random, pos, state);
+			super.performBonemeal(level, random, pos, state, source);
 		}
 	}
 

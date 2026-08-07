@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_fence"
+        "recipes": "wilderwild:maple_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

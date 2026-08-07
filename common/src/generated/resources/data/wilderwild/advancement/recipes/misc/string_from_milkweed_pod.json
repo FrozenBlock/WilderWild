@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:string_from_milkweed_pod"
+        "recipes": "wilderwild:string_from_milkweed_pod"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

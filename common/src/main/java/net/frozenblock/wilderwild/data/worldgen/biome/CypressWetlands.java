@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -159,12 +160,12 @@ public final class CypressWetlands extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(MobCategory.WATER_AMBIENT, 5, new MobSpawnSettings.SpawnerData(EntityTypes.COD, 2, 6))
-			.addSpawn(MobCategory.CREATURE, 14, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, 4, 5))
-			.addSpawn(MobCategory.CREATURE, 3, new MobSpawnSettings.SpawnerData(EntityTypes.PIG, 2, 4))
-			.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 2, 4))
-			.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(EntityTypes.COW, 4, 4))
-			.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.RABBIT, 4, 4));
+		spawns.addSpawn(EntityTypes.COD, MobCategory.WATER_AMBIENT, 5, UniformInt.of(2, 6))
+			.addSpawn(EntityTypes.FROG, MobCategory.CREATURE, 14, UniformInt.of(4, 5))
+			.addSpawn(EntityTypes.PIG, MobCategory.CREATURE, 3, UniformInt.of(2, 4))
+			.addSpawn(EntityTypes.CHICKEN, MobCategory.CREATURE, 4, UniformInt.of(2, 4))
+			.addSpawn(EntityTypes.COW, MobCategory.CREATURE, 6, UniformInt.of(4, 4))
+			.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 10, UniformInt.of(4, 4));
 	}
 
 	@Override

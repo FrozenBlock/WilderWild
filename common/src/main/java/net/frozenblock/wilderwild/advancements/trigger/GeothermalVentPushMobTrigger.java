@@ -23,14 +23,15 @@ import java.util.Optional;
 
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jetbrains.annotations.Nullable;
 
 public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<GeothermalVentPushMobTrigger.TriggerInstance> {
@@ -47,15 +48,15 @@ public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<Geother
 	}
 
 	public record TriggerInstance(
-		Optional<ContextAwarePredicate> player,
-		Optional<ContextAwarePredicate> pushedMob,
+		Optional<Holder<LootItemCondition>> player,
+		Optional<Holder<LootItemCondition>> pushedMob,
 		boolean playerPlaced,
 		Optional<GeothermalVentType> geothermalVentType
 	) implements SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(
-				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-				EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("pushed_mob").forGetter(TriggerInstance::pushedMob),
+				LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+				LootItemCondition.CODEC.optionalFieldOf("pushed_mob").forGetter(TriggerInstance::pushedMob),
 				Codec.BOOL.fieldOf("requires_player_placed_geothermal_vent").forGetter(TriggerInstance::playerPlaced),
 				GeothermalVentType.CODEC.optionalFieldOf("geothermal_vent_type").forGetter(TriggerInstance::geothermalVentType)
 			).apply(instance, TriggerInstance::new)
@@ -70,7 +71,7 @@ public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<Geother
 		public boolean matches(LootContext pushedMob, boolean playerPlaced, GeothermalVentType geothermalVentType) {
 			if (this.playerPlaced && !playerPlaced) return false;
 			if (this.geothermalVentType.isPresent() && this.geothermalVentType.get() != geothermalVentType) return false;
-			return this.pushedMob.isEmpty() || this.pushedMob.get().matches(pushedMob);
+			return this.pushedMob.isEmpty() || this.pushedMob.get().value().test(pushedMob);
 		}
 	}
 }

@@ -35,8 +35,6 @@ import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWild {
 
-	// TODO: potion recipes
-	// TODO: composting
 	// TODO: check if block modification works on neo
 
 	public static void init() { //Alan Wilder Wild

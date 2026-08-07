@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:gabbro_wall"
+        "recipes": "wilderwild:gabbro_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

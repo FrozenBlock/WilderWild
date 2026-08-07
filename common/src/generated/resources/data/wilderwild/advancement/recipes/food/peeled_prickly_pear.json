@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:peeled_prickly_pear"
+        "recipes": "wilderwild:peeled_prickly_pear"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

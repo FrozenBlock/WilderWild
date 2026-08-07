@@ -2,60 +2,62 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "conditions": [
-        {
-          "block": "wilderwild:frozen_large_fern",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "half": "lower"
-          }
-        },
-        {
-          "condition": "minecraft:location_check",
-          "offsetY": 1,
-          "predicate": {
-            "block": {
-              "blocks": "wilderwild:frozen_large_fern",
-              "state": {
-                "half": "upper"
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "wilderwild:frozen_large_fern",
+            "state": {
+              "half": "lower"
+            }
+          },
+          {
+            "type": "minecraft:location_check",
+            "offsetY": 1,
+            "predicate": {
+              "block": {
+                "blocks": "wilderwild:frozen_large_fern",
+                "state": {
+                  "half": "upper"
+                }
               }
             }
           }
-        }
-      ],
+        ]
+      },
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "minecraft:shears"
-                  }
+              "condition": {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "items": "minecraft:shears"
                 }
-              ],
-              "functions": [
-                {
-                  "count": 2.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 2.0
+              },
               "name": "wilderwild:frozen_fern"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                },
-                {
-                  "chance": 0.125,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:survives_explosion"
+                  },
+                  {
+                    "type": "minecraft:random_chance",
+                    "chance": 0.125
+                  }
+                ]
+              },
               "name": "minecraft:wheat_seeds"
             }
           ]
@@ -64,60 +66,62 @@
       "rolls": 1.0
     },
     {
-      "conditions": [
-        {
-          "block": "wilderwild:frozen_large_fern",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "half": "upper"
-          }
-        },
-        {
-          "condition": "minecraft:location_check",
-          "offsetY": -1,
-          "predicate": {
-            "block": {
-              "blocks": "wilderwild:frozen_large_fern",
-              "state": {
-                "half": "lower"
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:match_block",
+            "blocks": "wilderwild:frozen_large_fern",
+            "state": {
+              "half": "upper"
+            }
+          },
+          {
+            "type": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+              "block": {
+                "blocks": "wilderwild:frozen_large_fern",
+                "state": {
+                  "half": "lower"
+                }
               }
             }
           }
-        }
-      ],
+        ]
+      },
       "entries": [
         {
           "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "items": "minecraft:shears"
-                  }
+              "condition": {
+                "type": "minecraft:match_tool",
+                "predicate": {
+                  "items": "minecraft:shears"
                 }
-              ],
-              "functions": [
-                {
-                  "count": 2.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
+              },
+              "modifier": {
+                "type": "minecraft:set_count",
+                "count": 2.0
+              },
               "name": "wilderwild:frozen_fern"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                },
-                {
-                  "chance": 0.125,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:survives_explosion"
+                  },
+                  {
+                    "type": "minecraft:random_chance",
+                    "chance": 0.125
+                  }
+                ]
+              },
               "name": "minecraft:wheat_seeds"
             }
           ]

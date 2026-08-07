@@ -90,7 +90,7 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 		}
 
 		for (int relativeY = offset; relativeY >= offset - foliageHeight; relativeY--) {
-			final int newRadius = Math.max(leafRadius + foliageAttachment.radiusOffset() - 1 - relativeY / 2, 0);
+			final int newRadius = Math.max(leafRadius + foliageAttachment.radiusOffsetXZ() - 1 - relativeY / 2, 0);
 			if (relativeY <= offset - foliageHeight) {
 				this.placeLeavesRowWithHangingLeavesBelow(
 					level,

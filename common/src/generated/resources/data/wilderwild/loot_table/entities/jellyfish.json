@@ -8,108 +8,311 @@
           "children": [
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:blue"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:blue"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_blue"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:blue_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             },
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:lime"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:lime"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_lime"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:lime_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             },
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:pearlescent_blue"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:pearlescent_blue"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_pearlescent_blue"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:pearlescent_blue_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             },
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:pearlescent_purple"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:pearlescent_purple"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_pearlescent_purple"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:pearlescent_purple_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             },
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:pink"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:pink"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_pink"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:pink_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             },
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:red"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:red"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_red"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:red_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             },
             {
               "type": "minecraft:loot_table",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "minecraft:components": {
-                      "wilderwild:jellyfish/variant": "wilderwild:yellow"
-                    }
+              "condition": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:components": {
+                    "wilderwild:jellyfish/variant": "wilderwild:yellow"
                   }
                 }
-              ],
-              "value": "wilderwild:entities/jellyfish_yellow"
+              },
+              "value": {
+                "pools": [
+                  {
+                    "entries": [
+                      {
+                        "type": "minecraft:item",
+                        "modifier": [
+                          {
+                            "type": "minecraft:set_count",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 3.0,
+                              "min": 0.0
+                            }
+                          },
+                          {
+                            "type": "minecraft:enchanted_count_increase",
+                            "count": {
+                              "type": "minecraft:uniform",
+                              "max": 1.0,
+                              "min": 0.0
+                            },
+                            "enchantment": "minecraft:looting"
+                          }
+                        ],
+                        "name": "wilderwild:yellow_nematocyst"
+                      }
+                    ],
+                    "rolls": 1.0
+                  }
+                ]
+              }
             }
           ]
         }

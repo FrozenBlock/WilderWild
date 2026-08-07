@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:white_dye_from_white_hibiscus"
+        "recipes": "wilderwild:white_dye_from_white_hibiscus"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:cypress_wood"
+        "recipes": "wilderwild:cypress_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

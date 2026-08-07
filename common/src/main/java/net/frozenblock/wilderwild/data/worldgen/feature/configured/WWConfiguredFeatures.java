@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibConfiguredFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
 import net.frozenblock.wilderwild.WWConstants;
@@ -60,8 +59,6 @@ import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.CompositeFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
@@ -72,6 +69,14 @@ import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WWConfiguredFeatures {
+	private static final NormalNoise SINGLE_OCTAVE_NOISE = NormalNoise.builder()
+		.setBaseOctave(0)
+		.setBaseAmplitude(1D)
+		.setNormalize(false)
+		.setOctaveCount(1)
+		.setAmplitudeModifier(0, 1D)
+		.build();
+
 	// FALLEN TREES
 	public static final FrozenLibFeature FALLEN_TREES_MIXED = register("fallen_trees_mixed");
 	public static final FrozenLibFeature MOSSY_FALLEN_TREES_MIXED = register("mossy_fallen_trees_mixed");
@@ -2001,7 +2006,7 @@ public final class WWConfiguredFeatures {
 		);
 
 		MapleCollection.zipApply(COLORED_MAPLES, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(Feature.SEQUENCE,
+			feature.makeAndSetHolder(
 				new SequenceFeature(
 					HolderSet.direct(
 						PlacementUtils.inlinePlaced(
@@ -2326,7 +2331,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.048833334F,
 					List.of(
 						Blocks.AZURE_BLUET.defaultBlockState(),
@@ -2345,7 +2350,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.048833334F,
 					List.of(
 						Blocks.AZURE_BLUET.defaultBlockState(),
@@ -2363,7 +2368,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.048833334F,
 					List.of(
 						Blocks.OXEYE_DAISY.defaultBlockState(),
@@ -2392,7 +2397,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.048833334F,
 					List.of(
 						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
@@ -2412,7 +2417,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.048833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2448,7 +2453,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.048833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2471,7 +2476,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.007833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2496,7 +2501,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					1234L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.088833334F,
 					List.of(
 						WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
@@ -2514,7 +2519,7 @@ public final class WWConfiguredFeatures {
 		FLOWER_FLOWER_FIELD.makeAndSetHolder(
 			new SimpleBlockFeature(
 				new NoiseProvider(2345L,
-					new NormalNoise.NoiseParameters(0, 1F), 0.016F,
+					SINGLE_OCTAVE_NOISE, 0.016F,
 					List.of(
 						Blocks.DANDELION.defaultBlockState(),
 						WWBlocks.MARIGOLD.get().defaultBlockState(),
@@ -2541,7 +2546,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.043833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2565,7 +2570,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.043833334F,
 					List.of(
 						WWBlocks.DATURA.get().defaultBlockState(),
@@ -2582,7 +2587,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.023833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2600,7 +2605,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.023833334F,
 					List.of(
 						WWBlocks.DATURA.get().defaultBlockState(),
@@ -2616,7 +2621,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.023833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2634,7 +2639,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.023833334F,
 					List.of(
 						Blocks.ROSE_BUSH.defaultBlockState(),
@@ -2650,7 +2655,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5234L,
-					new NormalNoise.NoiseParameters(0, 1.0),
+					SINGLE_OCTAVE_NOISE,
 					0.020833334F,
 					List.of(
 						Blocks.RED_MUSHROOM.defaultBlockState(),
@@ -2664,7 +2669,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.034833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2691,7 +2696,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.034833334F,
 					List.of(
 						WWBlocks.DATURA.get().defaultBlockState(),
@@ -2707,7 +2712,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.034833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2726,7 +2731,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.034833334F,
 					List.of(
 						Blocks.ROSE_BUSH.defaultBlockState(),
@@ -2741,7 +2746,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					1234L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.054833334F,
 					List.of(
 						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
@@ -2760,7 +2765,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					1234L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.054833334F,
 					List.of(
 						WWBlocks.DATURA.get().defaultBlockState(),
@@ -2775,7 +2780,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.054833334F,
 					List.of(
 						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
@@ -2796,7 +2801,7 @@ public final class WWConfiguredFeatures {
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
-					new NormalNoise.NoiseParameters(0, 1D),
+					SINGLE_OCTAVE_NOISE,
 					0.054833334F,
 					List.of(
 						Blocks.WHITE_TULIP.defaultBlockState(),

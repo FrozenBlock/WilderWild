@@ -1,3 +1,6 @@
+import com.possible_triangle.gradle.settings.localRepository
+import com.possible_triangle.gradle.settings.ResolutionStrategy
+
 pluginManagement {
 	repositories {
 		mavenLocal()
@@ -38,6 +41,9 @@ plugins {
     id("net.frozenblock.triangle.helper") version("+")
 }
 
+helper {
+    versionStrategy = ResolutionStrategy.SNAPSHOT
+}
 
 rootProject.name = "Wilder Wild"
 
@@ -72,7 +78,7 @@ localRepository("FrozenLib",
 
 localPluginRepository(
     "GradleHelper",
-    enabled = true
+    enabled = false
 )
 
 fun localRepository(

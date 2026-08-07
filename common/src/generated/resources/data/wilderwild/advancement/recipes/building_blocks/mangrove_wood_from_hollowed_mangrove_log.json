@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:mangrove_wood_from_hollowed_mangrove_log"
+        "recipes": "wilderwild:mangrove_wood_from_hollowed_mangrove_log"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

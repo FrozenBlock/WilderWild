@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:warped_hyphae_from_hollowed_warped_stem"
+        "recipes": "wilderwild:warped_hyphae_from_hollowed_warped_stem"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

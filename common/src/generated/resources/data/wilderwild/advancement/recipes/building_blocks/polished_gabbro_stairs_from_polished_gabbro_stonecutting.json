@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:polished_gabbro_stairs_from_polished_gabbro_stonecutting"
+        "recipes": "wilderwild:polished_gabbro_stairs_from_polished_gabbro_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

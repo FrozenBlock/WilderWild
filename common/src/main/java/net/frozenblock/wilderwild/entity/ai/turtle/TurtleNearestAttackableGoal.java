@@ -53,7 +53,7 @@ public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetG
 	public boolean canUse() {
 		if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) return false;
 		this.findTarget();
-		return this.target != null && this.mob.frozenLib$getAttachedOrElse(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, () -> 0) <= 0;
+		return this.target != null && this.mob.frozenLib$getAttachedOrElse(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, 0) <= 0;
 	}
 
 	protected AABB getTargetSearchArea(double d) {

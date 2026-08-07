@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:maple_button"
+        "recipes": "wilderwild:maple_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

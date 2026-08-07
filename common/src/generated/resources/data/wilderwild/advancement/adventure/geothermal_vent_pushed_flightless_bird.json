@@ -4,25 +4,23 @@
     "geothermal_vent_pushed_mob": {
       "conditions": {
         "geothermal_vent_type": "air",
-        "pushed_mob": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": [
-                "minecraft:chicken",
-                "wilderwild:ostrich",
-                "wilderwild:zombie_ostrich",
-                "wilderwild:penguin"
-              ],
-              "minecraft:movement": {
-                "y": {
-                  "min": 0.5
-                }
+        "pushed_mob": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": [
+              "minecraft:chicken",
+              "wilderwild:ostrich",
+              "wilderwild:zombie_ostrich",
+              "wilderwild:penguin"
+            ],
+            "minecraft:movement": {
+              "y": {
+                "min": 0.5
               }
             }
           }
-        ],
+        },
         "requires_player_placed_geothermal_vent": true
       },
       "trigger": "wilderwild:geothermal_vent_push_mob"

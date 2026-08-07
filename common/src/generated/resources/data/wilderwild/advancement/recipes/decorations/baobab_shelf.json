@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:baobab_shelf"
+        "recipes": "wilderwild:baobab_shelf"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

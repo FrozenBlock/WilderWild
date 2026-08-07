@@ -70,7 +70,6 @@ import net.minecraft.world.level.levelgen.feature.SpeleothemClusterFeature;
 import net.minecraft.world.level.levelgen.feature.SpeleothemFeature;
 import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -881,7 +880,7 @@ public final class WWCaveConfigured {
 		HANGING_PACKED_ICE.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				SimpleStateProvider.simple(Blocks.PACKED_ICE),
+				BlockStateProvider.simple(Blocks.PACKED_ICE),
 				HANGING_ICE.asInlinePlaced(),
 				CaveSurface.CEILING,
 				UniformInt.of(2, 3),

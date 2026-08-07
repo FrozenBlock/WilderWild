@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BlockMixin {
 
 	@WrapOperation(
-		method = "spawnDestroyParticles",
+		method = "spawnDestroyByEntityParticles",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/level/block/Block;getId(Lnet/minecraft/world/level/block/state/BlockState;)I"

@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:chiseled_mud_bricks"
+        "recipes": "wilderwild:chiseled_mud_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

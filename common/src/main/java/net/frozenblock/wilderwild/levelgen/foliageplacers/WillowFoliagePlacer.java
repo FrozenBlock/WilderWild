@@ -71,7 +71,7 @@ public class WillowFoliagePlacer extends BlobFoliagePlacer {
 		int offset
 	) {
 		for (int yOffset = offset; yOffset >= offset - foliageHeight; yOffset--) {
-			final int currentRadius = leafRadius + foliageAttachment.radiusOffset() - 1 - yOffset;
+			final int currentRadius = leafRadius + foliageAttachment.radiusOffsetXZ() - 1 - yOffset;
 			if (yOffset <= offset - foliageHeight) {
 				this.placeLeavesRowWithHangingLeavesBelow(
 					level,

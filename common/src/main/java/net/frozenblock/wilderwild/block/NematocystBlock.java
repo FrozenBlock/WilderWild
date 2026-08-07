@@ -36,7 +36,7 @@ public class NematocystBlock extends FaceClusterSpreadableBlock {
 	}
 
 	public NematocystBlock(Properties properties) {
-		this(HEIGHT, XZ_OFFSET, properties.pushReaction(PushReaction.DESTROY));
+		this(HEIGHT, XZ_OFFSET, properties.pushReaction(PushReaction.POPPED));
 	}
 
 	@Override

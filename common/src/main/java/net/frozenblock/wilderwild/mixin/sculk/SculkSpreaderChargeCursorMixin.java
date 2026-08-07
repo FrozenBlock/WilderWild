@@ -79,7 +79,7 @@ public class SculkSpreaderChargeCursorMixin {
 		cancellable = true
 	)
 	private static void wilderWild$getValidMovementPos(
-		LevelAccessor level, BlockPos pos, RandomSource random, CallbackInfoReturnable<BlockPos> info,
+		LevelAccessor level, BlockPos pos, RandomSource random, BlockPos originPos, SculkSpreader spreader, CallbackInfoReturnable<BlockPos> info,
 		@Local(name = "sculkPosition") BlockPos.MutableBlockPos sculkPosition,
 		@Local(name = "neighbour") BlockPos.MutableBlockPos neighbour
 	) {
@@ -162,15 +162,16 @@ public class SculkSpreaderChargeCursorMixin {
 		method = "update",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/core/BlockPos;"
+			target = "Lnet/minecraft/world/level/block/SculkSpreader$ChargeCursor;getValidMovementPos(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/SculkSpreader;)Lnet/minecraft/core/BlockPos;"
 		)
 	)
 	private BlockPos wilderWild$newValidMovementPos(
-		LevelAccessor level, BlockPos pos, RandomSource random, Operation<BlockPos> operation,
+		LevelAccessor level, BlockPos pos, RandomSource random, BlockPos originPos, SculkSpreader spreader,
+		Operation<BlockPos> original,
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
 		if (isWorldGen.get()) return wilderWild$getValidMovementPosWorldgen(level, pos, random);
-		return operation.call(level, pos, random);
+		return original.call(level, pos, random, originPos, spreader);
 	}
 
 	@Shadow

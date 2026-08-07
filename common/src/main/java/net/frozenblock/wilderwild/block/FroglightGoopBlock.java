@@ -28,6 +28,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -73,12 +74,12 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 		} else if (belowBlock instanceof FroglightTypeHolder froglightTypeHolder) {
 			if (froglightTypeHolder.getFroglightType() != froglightType) return;
 			if (!(belowBlock instanceof BonemealableBlock bonemealableBlock)) return;
-			bonemealableBlock.performBonemeal(level, random, belowPos, belowState);
+			bonemealableBlock.performBonemeal(level, random, belowPos, belowState, BonemealSource.MOB);
 		}
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
 		return false;
 	}
 

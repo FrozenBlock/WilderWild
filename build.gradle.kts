@@ -30,19 +30,6 @@ checkstyle {
 val min_fabric_loader_version: String by project
 val frozenlib_version: String by project
 
-mod {
-    additional.add("fabric_loader_version", ">=$min_fabric_loader_version")
-    additional.add("minecraft_version", "~26.2-")
-    additional.add("frozenlib_version", ">=${frozenlib_version.split('-').firstOrNull()}-")
-    additional.add("protocol_version")
-    additional.add("mod_description")
-    additional.add("mod_credits")
-    additional.add("mod_license")
-    additional.add("mod_homepage")
-    additional.add("mod_authors")
-    additional.add("mod_github")
-}
-
 val changelogText = run {
     val split = file("CHANGELOG.md").readText().split("-----------------")
     check(split.size == 2) { "Malformed changelog" }
@@ -93,6 +80,18 @@ val publishMod by tasks.registering {
 subprojects {
     apply(plugin = "net.frozenblock.triangle.core")
     apply(plugin = "net.mehvahdjukaar.candlelight")
+
+    mod {
+        additional.add("fabric_loader_version", ">=$min_fabric_loader_version")
+        additional.add("frozenlib_version", ">=${frozenlib_version.split('-').firstOrNull()}-")
+        additional.add("protocol_version")
+        additional.add("mod_description")
+        additional.add("mod_credits")
+        additional.add("mod_license")
+        additional.add("mod_homepage")
+        additional.add("mod_authors")
+        additional.add("mod_github")
+    }
 
     val mavenUrl = env["MAVEN_URL"]
     val mavenUsername = env["MAVEN_USERNAME"]
@@ -181,6 +180,9 @@ subprojects {
         }
         maven("https://maven.caffeinemc.net/releases") {
             name = "CaffeineMC"
+            content {
+                includeGroup("net.caffeinemc")
+            }
         }
         maven("https://maven.terraformersmc.com") {
             name = "TerraformersMC"

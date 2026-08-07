@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import net.frozenblock.lib.entity.api.attribute.DefaultAttributeRegistry;
 import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
@@ -242,20 +243,20 @@ public final class WWEntityTypes {
 	);
 
 	// BOATS
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, WWItems.BAOBAB_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, WWItems.BAOBAB_CHEST_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, () -> WWItems.BAOBAB_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, () -> WWItems.BAOBAB_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, WWItems.WILLOW_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, WWItems.WILLOW_CHEST_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, () -> WWItems.WILLOW_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, () -> WWItems.WILLOW_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, WWItems.CYPRESS_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, WWItems.CYPRESS_CHEST_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, () -> WWItems.CYPRESS_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, () -> WWItems.CYPRESS_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, WWItems.PALM_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, WWItems.PALM_CHEST_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, () -> WWItems.PALM_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, () -> WWItems.PALM_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, WWItems.MAPLE_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, WWItems.MAPLE_CHEST_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, () -> WWItems.MAPLE_BOAT);
+	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, () -> WWItems.MAPLE_CHEST_BOAT);
 
 	public static void init() {}
 
@@ -285,12 +286,12 @@ public final class WWEntityTypes {
 		);
 	}
 
-	private static <E extends Boat> FrozenHolder<EntityType<?>, EntityType<E>> registerBoat(ResourceKey<EntityType<?>> id, FrozenDeferredItem<?> item) {
-		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.boatFactory(() -> item.get()));
+	private static <E extends Boat> FrozenHolder<EntityType<?>, EntityType<E>> registerBoat(ResourceKey<EntityType<?>> id, Supplier<FrozenDeferredItem<?>> item) {
+		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.boatFactory(() -> item.get().get()));
 	}
 
-	private static <E extends ChestBoat> FrozenHolder<EntityType<?>, EntityType<E>> registerChestBoat(ResourceKey<EntityType<?>> id, FrozenDeferredItem<?> item) {
-		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.chestBoatFactory(() -> item.get()));
+	private static <E extends ChestBoat> FrozenHolder<EntityType<?>, EntityType<E>> registerChestBoat(ResourceKey<EntityType<?>> id, Supplier<FrozenDeferredItem<?>> item) {
+		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.chestBoatFactory(() -> item.get().get()));
 	}
 
 	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(

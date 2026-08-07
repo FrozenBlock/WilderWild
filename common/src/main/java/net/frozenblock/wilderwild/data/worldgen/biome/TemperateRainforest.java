@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -122,7 +123,7 @@ public final class TemperateRainforest extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(MobCategory.CREATURE, 3, new MobSpawnSettings.SpawnerData(EntityTypes.WOLF, 2, 4));
+		spawns.addSpawn(EntityTypes.WOLF, MobCategory.CREATURE, 3, UniformInt.of(2, 4));
 	}
 
 	@Override

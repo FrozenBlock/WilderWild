@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:stripped_willow_wood"
+        "recipes": "wilderwild:stripped_willow_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

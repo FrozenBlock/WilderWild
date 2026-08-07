@@ -23,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:display_lantern"
+        "recipes": "wilderwild:display_lantern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

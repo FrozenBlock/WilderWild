@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:gabbro_slab"
+        "recipes": "wilderwild:gabbro_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

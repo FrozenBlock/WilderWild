@@ -33,7 +33,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:geothermal_vent"
+        "recipes": "wilderwild:geothermal_vent"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

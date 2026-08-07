@@ -65,7 +65,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 	public void generate() {
 		final HolderLookup.Provider registryLookup = this.registries.join();
 
-		final Map<Holder<JellyfishVariant>, ResourceKey<LootTable>> jellyfishVariantToLootTableNames = new Object2ObjectLinkedOpenHashMap<>();
+		final Map<Holder<JellyfishVariant>, LootTable> jellyfishVariantToLootTables = new Object2ObjectLinkedOpenHashMap<>();
 		registryLookup.lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT)
 			.listElements()
 			.sorted(Comparator.comparing(holder -> holder.key().identifier().getPath()))
@@ -79,26 +79,23 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 				final ResourceKey<LootTable> lootTableName = ResourceKey.create(Registries.LOOT_TABLE, lootTableId);
 
 				final Item item = registryLookup.lookupOrThrow(Registries.ITEM).getOrThrow(ResourceKey.create(Registries.ITEM, id.withPath(path + "_nematocyst"))).value();
-				this.add(
-					WWEntityTypes.JELLYFISH.get(),
-					lootTableName,
-					LootTable.lootTable()
-						.withPool(
-							LootPool.lootPool()
-								.setRolls(ConstantValue.exactly(1F))
-								.setBonusRolls(ConstantValue.exactly(0F))
-								.add(
-									LootItem.lootTableItem(item)
-										.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
-										.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
-								)
-						)
-				);
-				jellyfishVariantToLootTableNames.put(jellyfishVariant, lootTableName);
+				final LootTable.Builder builder = LootTable.lootTable()
+					.withPool(
+						LootPool.lootPool()
+							.setRolls(ConstantValue.exactly(1F))
+							.setBonusRolls(ConstantValue.exactly(0F))
+							.add(
+								LootItem.lootTableItem(item)
+									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
+									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+							)
+					);
+				this.add(WWEntityTypes.JELLYFISH.get(), lootTableName, builder);
+				jellyfishVariantToLootTables.put(jellyfishVariant, builder.build());
 			});
 		this.add(
 			WWEntityTypes.JELLYFISH.get(),
-			LootTable.lootTable().withPool(createJellyfishDispatchPool(jellyfishVariantToLootTableNames))
+			LootTable.lootTable().withPool(createJellyfishDispatchPool(jellyfishVariantToLootTables))
 		);
 
 		this.add(
@@ -111,7 +108,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 							LootItem.lootTableItem(WWItems.CRAB_CLAW)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
 								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
@@ -125,7 +122,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.FEATHER)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
@@ -139,7 +136,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.ROTTEN_FLESH)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
@@ -153,7 +150,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.STRING)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 				.withPool(
@@ -162,7 +159,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(WWItems.SCORCHED_EYE)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 				)
@@ -177,7 +174,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.STICK)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
@@ -191,7 +188,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.LEATHER)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 				.withPool(
@@ -201,7 +198,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 							LootItem.lootTableItem(Items.BEEF)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
 								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
@@ -215,7 +212,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.FEATHER)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)
 		);
@@ -224,15 +221,15 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 		this.add(WWEntityTypes.BUTTERFLY.get(), LootTable.lootTable());
 	}
 
-	public static LootPool.Builder createJellyfishDispatchPool(Map<Holder<JellyfishVariant>, ResourceKey<LootTable>> variantToTableNames) {
+	public LootPool.Builder createJellyfishDispatchPool(Map<Holder<JellyfishVariant>, LootTable> variantToTables) {
 		AlternativesEntry.Builder variants = AlternativesEntry.alternatives();
 
-		for (Map.Entry<Holder<JellyfishVariant>, ResourceKey<LootTable>> entry : variantToTableNames.entrySet()) {
+		for (Map.Entry<Holder<JellyfishVariant>, LootTable> entry : variantToTables.entrySet()) {
 			final Holder<JellyfishVariant> variant = entry.getKey();
-			final ResourceKey<LootTable> lootTable = entry.getValue();
+			final LootTable lootTable = entry.getValue();
 
 			variants = variants.otherwise(
-				NestedLootTable.lootTableReference(lootTable)
+				NestedLootTable.inlineLootTable(lootTable)
 					.when(
 						LootItemEntityPropertyCondition.hasProperties(
 							LootContext.EntityTarget.THIS,

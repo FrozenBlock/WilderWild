@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:baobab_sign"
+        "recipes": "wilderwild:baobab_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

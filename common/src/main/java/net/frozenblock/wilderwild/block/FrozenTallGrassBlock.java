@@ -23,6 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +40,7 @@ public class FrozenTallGrassBlock extends TallGrassBlock {
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		final DoublePlantBlock doublePlantBlock = state.is(WWBlocks.FROZEN_FERN.get()) ? WWBlocks.FROZEN_LARGE_FERN.get() : WWBlocks.FROZEN_TALL_GRASS.get();
 		if (!doublePlantBlock.defaultBlockState().canSurvive(level, pos) || !level.isEmptyBlock(pos.above())) return;
 		DoublePlantBlock.placeAt(level, doublePlantBlock.defaultBlockState(), pos, UPDATE_CLIENTS);

@@ -5,103 +5,89 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
+          "condition": {
+            "type": "minecraft:survives_explosion"
+          },
+          "modifier": [
             {
-              "condition": "minecraft:survives_explosion"
-            }
-          ],
-          "functions": [
-            {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:auburn_creeping_moss",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "down": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:auburn_creeping_moss",
+                "state": {
+                  "down": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:auburn_creeping_moss",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "up": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:auburn_creeping_moss",
+                "state": {
+                  "up": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:auburn_creeping_moss",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "north": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:auburn_creeping_moss",
+                "state": {
+                  "north": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:auburn_creeping_moss",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "south": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:auburn_creeping_moss",
+                "state": {
+                  "south": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:auburn_creeping_moss",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "west": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:auburn_creeping_moss",
+                "state": {
+                  "west": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "conditions": [
-                {
-                  "block": "wilderwild:auburn_creeping_moss",
-                  "condition": "minecraft:block_state_property",
-                  "properties": {
-                    "east": "true"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "wilderwild:auburn_creeping_moss",
+                "state": {
+                  "east": "true"
                 }
-              ],
-              "count": 1.0,
-              "function": "minecraft:set_count"
+              },
+              "count": 1.0
             },
             {
+              "type": "minecraft:set_count",
               "add": true,
-              "count": -1.0,
-              "function": "minecraft:set_count"
+              "count": -1.0
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ],
           "name": "wilderwild:auburn_creeping_moss"

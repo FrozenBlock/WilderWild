@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:yellow_mesoglea"
+        "recipes": "wilderwild:yellow_mesoglea"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

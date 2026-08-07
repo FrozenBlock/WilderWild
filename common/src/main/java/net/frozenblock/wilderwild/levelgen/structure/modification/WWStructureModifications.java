@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.levelgen.structure.modification;
 
-import net.frozenblock.lib.levelgen.structure.api.RandomPoolAliasApi;
 import net.frozenblock.lib.levelgen.structure.api.StructureSetApi;
+import net.frozenblock.lib.levelgen.structure.api.pools.RandomPoolAliasApi;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;

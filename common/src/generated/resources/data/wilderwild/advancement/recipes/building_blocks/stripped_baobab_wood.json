@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "wilderwild:stripped_baobab_wood"
+        "recipes": "wilderwild:stripped_baobab_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
