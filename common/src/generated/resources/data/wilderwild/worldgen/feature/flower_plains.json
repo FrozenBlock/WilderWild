@@ -12,57 +12,23 @@
     "scale": 0.048833333,
     "seed": 5050,
     "states": [
-      {
-        "Name": "minecraft:oxeye_daisy"
-      },
-      {
-        "Name": "minecraft:oxeye_daisy"
-      },
-      {
-        "Name": "minecraft:azure_bluet"
-      },
-      {
-        "Name": "minecraft:azure_bluet"
-      },
-      {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "wilderwild:carnation"
-      },
-      {
-        "Name": "wilderwild:carnation"
-      },
-      {
-        "Name": "minecraft:cornflower"
-      },
-      {
-        "Name": "minecraft:pink_tulip"
-      },
-      {
-        "Name": "minecraft:white_tulip"
-      },
-      {
-        "Name": "minecraft:orange_tulip"
-      },
-      {
-        "Name": "minecraft:red_tulip"
-      }
+      "minecraft:oxeye_daisy",
+      "minecraft:oxeye_daisy",
+      "minecraft:azure_bluet",
+      "minecraft:azure_bluet",
+      "minecraft:dandelion",
+      "minecraft:dandelion",
+      "minecraft:dandelion",
+      "minecraft:poppy",
+      "minecraft:poppy",
+      "minecraft:poppy",
+      "wilderwild:carnation",
+      "wilderwild:carnation",
+      "minecraft:cornflower",
+      "minecraft:pink_tulip",
+      "minecraft:white_tulip",
+      "minecraft:orange_tulip",
+      "minecraft:red_tulip"
     ]
   }
 }

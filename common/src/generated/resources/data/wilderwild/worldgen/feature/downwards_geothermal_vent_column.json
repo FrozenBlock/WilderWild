@@ -3,8 +3,8 @@
   "block_state": {
     "type": "minecraft:simple_state_provider",
     "state": {
-      "Name": "wilderwild:geothermal_vent",
-      "Properties": {
+      "id": "wilderwild:geothermal_vent",
+      "properties": {
         "facing": "down",
         "natural": "true",
         "powered": "false",

@@ -579,7 +579,6 @@ public final class WWBlocks {
 				.lightLevel(state -> 7)
 				.sound(WWSoundTypes.MESOGLEA)
 				.isSuffocating(Blocks::never)
-				.isViewBlocking(Blocks::never)
 				.dynamicShape()
 				.pushReaction(PushReaction.POPPED)
 		);

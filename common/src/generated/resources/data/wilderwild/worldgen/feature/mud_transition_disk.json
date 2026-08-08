@@ -14,9 +14,7 @@
       },
       "state_provider": {
         "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:mud"
-        }
+        "state": "minecraft:mud"
       }
     },
     "placement_chance": 0.65,
@@ -29,9 +27,7 @@
     },
     "state_provider": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:mud"
-      }
+      "state": "minecraft:mud"
     }
   },
   "heightmap": "OCEAN_FLOOR",

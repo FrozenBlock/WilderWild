@@ -49,9 +49,7 @@
         },
         "state_provider": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:magma_block"
-          }
+          "state": "minecraft:magma_block"
         }
       },
       {
@@ -75,9 +73,7 @@
         },
         "state_provider": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:gabbro"
-          }
+          "state": "wilderwild:gabbro"
         }
       }
     ],

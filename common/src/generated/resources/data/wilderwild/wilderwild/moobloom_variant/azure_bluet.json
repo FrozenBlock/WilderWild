@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_azure_bluet",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_azure_bluet_baby",
-  "flower_block_state": {
-    "Name": "minecraft:azure_bluet"
-  }
+  "flower_block_state": "minecraft:azure_bluet"
 }

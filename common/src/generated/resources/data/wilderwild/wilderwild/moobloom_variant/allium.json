@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_allium",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_allium_baby",
-  "flower_block_state": {
-    "Name": "minecraft:allium"
-  }
+  "flower_block_state": "minecraft:allium"
 }

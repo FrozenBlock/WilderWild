@@ -47,9 +47,7 @@
                 },
                 "then_run": {
                   "type": "minecraft:block",
-                  "result_state": {
-                    "Name": "minecraft:snow_block"
-                  }
+                  "result_state": "minecraft:snow_block"
                 }
               }
             }
@@ -88,12 +86,7 @@
                           },
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "wilderwild:fragile_ice",
-                              "Properties": {
-                                "age": "0"
-                              }
-                            }
+                            "result_state": "wilderwild:fragile_ice"
                           }
                         },
                         {
@@ -107,12 +100,7 @@
                           },
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "wilderwild:fragile_ice",
-                              "Properties": {
-                                "age": "0"
-                              }
-                            }
+                            "result_state": "wilderwild:fragile_ice"
                           }
                         },
                         {
@@ -126,12 +114,7 @@
                           },
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "wilderwild:fragile_ice",
-                              "Properties": {
-                                "age": "0"
-                              }
-                            }
+                            "result_state": "wilderwild:fragile_ice"
                           }
                         }
                       ]
@@ -151,9 +134,7 @@
                         },
                         "then_run": {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:packed_ice"
-                          }
+                          "result_state": "minecraft:packed_ice"
                         }
                       },
                       {
@@ -167,9 +148,7 @@
                         },
                         "then_run": {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:blue_ice"
-                          }
+                          "result_state": "minecraft:blue_ice"
                         }
                       },
                       {
@@ -183,12 +162,7 @@
                         },
                         "then_run": {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "wilderwild:fragile_ice",
-                            "Properties": {
-                              "age": "0"
-                            }
-                          }
+                          "result_state": "wilderwild:fragile_ice"
                         }
                       }
                     ]
@@ -213,9 +187,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:packed_ice"
-                      }
+                      "result_state": "minecraft:packed_ice"
                     }
                   },
                   {
@@ -229,9 +201,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:blue_ice"
-                      }
+                      "result_state": "minecraft:blue_ice"
                     }
                   },
                   {
@@ -245,12 +215,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "wilderwild:fragile_ice",
-                        "Properties": {
-                          "age": "0"
-                        }
-                      }
+                      "result_state": "wilderwild:fragile_ice"
                     }
                   }
                 ]
@@ -273,9 +238,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:packed_ice"
-                      }
+                      "result_state": "minecraft:packed_ice"
                     }
                   },
                   {
@@ -289,9 +252,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:packed_ice"
-                      }
+                      "result_state": "minecraft:packed_ice"
                     }
                   },
                   {
@@ -305,9 +266,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:blue_ice"
-                      }
+                      "result_state": "minecraft:blue_ice"
                     }
                   }
                 ]
@@ -330,9 +289,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:packed_ice"
-                      }
+                      "result_state": "minecraft:packed_ice"
                     }
                   },
                   {
@@ -346,9 +303,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:blue_ice"
-                      }
+                      "result_state": "minecraft:blue_ice"
                     }
                   },
                   {
@@ -362,12 +317,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "wilderwild:fragile_ice",
-                        "Properties": {
-                          "age": "0"
-                        }
-                      }
+                      "result_state": "wilderwild:fragile_ice"
                     }
                   }
                 ]
@@ -390,9 +340,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:packed_ice"
-                      }
+                      "result_state": "minecraft:packed_ice"
                     }
                   },
                   {
@@ -406,9 +354,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:blue_ice"
-                      }
+                      "result_state": "minecraft:blue_ice"
                     }
                   },
                   {
@@ -422,12 +368,7 @@
                     },
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "wilderwild:fragile_ice",
-                        "Properties": {
-                          "age": "0"
-                        }
-                      }
+                      "result_state": "wilderwild:fragile_ice"
                     }
                   }
                 ]

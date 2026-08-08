@@ -4,9 +4,7 @@
   "size": 64,
   "targets": [
     {
-      "state": {
-        "Name": "wilderwild:gabbro"
-      },
+      "state": "wilderwild:gabbro",
       "target": {
         "predicate_type": "minecraft:tag_match",
         "tag": "minecraft:base_stone_overworld"

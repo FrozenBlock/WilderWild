@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_poppy",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_poppy_baby",
-  "flower_block_state": {
-    "Name": "minecraft:poppy"
-  }
+  "flower_block_state": "minecraft:poppy"
 }

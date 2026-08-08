@@ -12,27 +12,13 @@
     "scale": 0.08883333,
     "seed": 1234,
     "states": [
-      {
-        "Name": "wilderwild:red_hibiscus"
-      },
-      {
-        "Name": "wilderwild:red_hibiscus"
-      },
-      {
-        "Name": "wilderwild:yellow_hibiscus"
-      },
-      {
-        "Name": "wilderwild:white_hibiscus"
-      },
-      {
-        "Name": "wilderwild:pink_hibiscus"
-      },
-      {
-        "Name": "wilderwild:purple_hibiscus"
-      },
-      {
-        "Name": "wilderwild:purple_hibiscus"
-      }
+      "wilderwild:red_hibiscus",
+      "wilderwild:red_hibiscus",
+      "wilderwild:yellow_hibiscus",
+      "wilderwild:white_hibiscus",
+      "wilderwild:pink_hibiscus",
+      "wilderwild:purple_hibiscus",
+      "wilderwild:purple_hibiscus"
     ]
   }
 }

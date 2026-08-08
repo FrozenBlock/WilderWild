@@ -151,8 +151,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public void registerGoals() {
-	}
+	public void registerGoals() {}
 
 	@Override
 	protected Brain<? extends LivingEntity> makeBrain(Brain.Packed packedBrain) {
@@ -322,9 +321,10 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public void swing(InteractionHand hand, boolean updateSelf) {
+	public void swingForAttack(InteractionHand hand) {
 		if (this.isAttacking() || this.getBeakCooldown() > 0 || this.isStuck()) return;
 		this.performAttack(0.6F + (this.random.nextFloat() * 0.4F), null);
+		super.swingForAttack(hand);
 	}
 
 	public void cancelAttack(boolean successful) {
@@ -390,8 +390,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public void executeRidersJump(float playerJumpPendingScale, Vec3 travelVector) {
-	}
+	public void executeRidersJump(float playerJumpPendingScale, Vec3 travelVector) {}
 
 	@Override
 	public void handleStartJump(int jumpPower) {
@@ -401,6 +400,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 	public void performAttack(float power, @Nullable Entity commander) {
 		if (commander != null && !WWEntityConfig.OSTRICH_ALLOW_ATTACK.get()) return;
+
 		this.setBeakCooldown(BEAK_COOLDOWN_TICKS);
 		this.setAttacking(true);
 		this.setTargetBeakAnimProgress(power);
@@ -414,8 +414,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	public void handleStopJump() {
-	}
+	public void handleStopJump() {}
 
 	@Override
 	public int getJumpCooldown() {

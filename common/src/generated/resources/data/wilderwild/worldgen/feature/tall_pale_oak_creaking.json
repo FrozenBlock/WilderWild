@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -30,16 +28,7 @@
         "property": "shelf_fungus_stage",
         "source": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:pale_shelf_fungi",
-            "Properties": {
-              "age": "0",
-              "face": "wall",
-              "facing": "north",
-              "shelf_fungus_stage": "1",
-              "waterlogged": "false"
-            }
-          }
+          "state": "wilderwild:pale_shelf_fungi"
         },
         "values": {
           "type": "minecraft:uniform",
@@ -64,19 +53,13 @@
         "type": "minecraft:weighted_state_provider",
         "entries": [
           {
-            "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
-                "facing": "north",
-                "segment_amount": "1"
-              }
-            },
+            "data": "wilderwild:pale_oak_leaf_litter",
             "weight": 1
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "1"
               }
@@ -85,8 +68,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "1"
               }
@@ -95,8 +78,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "1"
               }
@@ -105,8 +88,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "2"
               }
@@ -115,8 +98,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "2"
               }
@@ -125,8 +108,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "2"
               }
@@ -135,8 +118,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "2"
               }
@@ -145,8 +128,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "3"
               }
@@ -155,8 +138,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "3"
               }
@@ -165,8 +148,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "3"
               }
@@ -175,8 +158,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "3"
               }
@@ -195,19 +178,13 @@
         "type": "minecraft:weighted_state_provider",
         "entries": [
           {
-            "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
-                "facing": "north",
-                "segment_amount": "1"
-              }
-            },
+            "data": "wilderwild:pale_oak_leaf_litter",
             "weight": 1
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "1"
               }
@@ -216,8 +193,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "1"
               }
@@ -226,8 +203,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "1"
               }
@@ -236,8 +213,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "2"
               }
@@ -246,8 +223,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "2"
               }
@@ -256,8 +233,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "2"
               }
@@ -266,8 +243,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "2"
               }
@@ -276,8 +253,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "3"
               }
@@ -286,8 +263,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "3"
               }
@@ -296,8 +273,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "3"
               }
@@ -306,8 +283,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "3"
               }
@@ -316,8 +293,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "4"
               }
@@ -326,8 +303,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "4"
               }
@@ -336,8 +313,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "4"
               }
@@ -346,8 +323,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:pale_oak_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:pale_oak_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "4"
               }
@@ -367,14 +344,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:pale_oak_leaves",
-      "Properties": {
-        "distance": "7",
-        "persistent": "false",
-        "waterlogged": "false"
-      }
-    }
+    "state": "minecraft:pale_oak_leaves"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -389,11 +359,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:pale_oak_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:pale_oak_log"
   }
 }

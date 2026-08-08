@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -33,9 +31,7 @@
       "probability": 0.5,
       "state": {
         "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:moss_carpet"
-        }
+        "state": "minecraft:moss_carpet"
       }
     }
   ],
@@ -44,9 +40,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:air"
-    }
+    "state": "minecraft:air"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -60,13 +54,7 @@
     "hollowed_log_chance": 0.045,
     "hollowed_trunk_provider": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:hollowed_palm_log",
-        "Properties": {
-          "axis": "y",
-          "waterlogged": "false"
-        }
-      }
+      "state": "wilderwild:hollowed_palm_log"
     },
     "stump_placement_chance": 0.6,
     "success_in_water_chance": 0.8,
@@ -82,11 +70,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:palm_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "wilderwild:palm_log"
   }
 }

@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -26,9 +24,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:air"
-    }
+    "state": "minecraft:air"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -42,13 +38,7 @@
     "hollowed_log_chance": 0.075,
     "hollowed_trunk_provider": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:hollowed_spruce_log",
-        "Properties": {
-          "axis": "y",
-          "waterlogged": "false"
-        }
-      }
+      "state": "wilderwild:hollowed_spruce_log"
     },
     "stump_placement_chance": 0.6,
     "success_in_water_chance": 0.8,
@@ -64,11 +54,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:spruce_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:spruce_log"
   }
 }

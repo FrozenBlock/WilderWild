@@ -1,11 +1,6 @@
 {
   "type": "minecraft:speleothem_cluster",
-  "base_block": {
-    "Name": "wilderwild:fragile_ice",
-    "Properties": {
-      "age": "0"
-    }
-  },
+  "base_block": "wilderwild:fragile_ice",
   "chance_of_speleothem_at_max_distance_from_center": 0.1,
   "density": {
     "type": "minecraft:uniform",
@@ -22,14 +17,7 @@
   "max_distance_from_center_affecting_height_bias": 8,
   "max_distance_from_edge_affecting_chance_of_speleothem": 3,
   "max_stalagmite_stalactite_height_diff": 1,
-  "pointed_block": {
-    "Name": "wilderwild:icicle",
-    "Properties": {
-      "thickness": "tip",
-      "vertical_direction": "up",
-      "waterlogged": "false"
-    }
-  },
+  "pointed_block": "wilderwild:icicle",
   "radius": {
     "type": "minecraft:uniform",
     "max_inclusive": 6,

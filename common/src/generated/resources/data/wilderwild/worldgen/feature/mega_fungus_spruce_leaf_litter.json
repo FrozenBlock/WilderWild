@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -33,12 +31,7 @@
             },
             "then": {
               "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "minecraft:podzol",
-                "Properties": {
-                  "snowy": "false"
-                }
-              }
+              "state": "minecraft:podzol"
             }
           }
         ]
@@ -53,16 +46,7 @@
         "property": "shelf_fungus_stage",
         "source": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:brown_shelf_fungi",
-            "Properties": {
-              "age": "0",
-              "face": "wall",
-              "facing": "north",
-              "shelf_fungus_stage": "1",
-              "waterlogged": "false"
-            }
-          }
+          "state": "wilderwild:brown_shelf_fungi"
         },
         "values": {
           "type": "minecraft:uniform",
@@ -77,19 +61,13 @@
         "type": "minecraft:weighted_state_provider",
         "entries": [
           {
-            "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
-                "facing": "north",
-                "segment_amount": "1"
-              }
-            },
+            "data": "wilderwild:spruce_leaf_litter",
             "weight": 1
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "1"
               }
@@ -98,8 +76,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "1"
               }
@@ -108,8 +86,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "1"
               }
@@ -118,8 +96,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "2"
               }
@@ -128,8 +106,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "2"
               }
@@ -138,8 +116,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "2"
               }
@@ -148,8 +126,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "2"
               }
@@ -158,8 +136,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "3"
               }
@@ -168,8 +146,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "3"
               }
@@ -178,8 +156,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "3"
               }
@@ -188,8 +166,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "3"
               }
@@ -208,19 +186,13 @@
         "type": "minecraft:weighted_state_provider",
         "entries": [
           {
-            "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
-                "facing": "north",
-                "segment_amount": "1"
-              }
-            },
+            "data": "wilderwild:spruce_leaf_litter",
             "weight": 1
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "1"
               }
@@ -229,8 +201,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "1"
               }
@@ -239,8 +211,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "1"
               }
@@ -249,8 +221,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "2"
               }
@@ -259,8 +231,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "2"
               }
@@ -269,8 +241,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "2"
               }
@@ -279,8 +251,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "2"
               }
@@ -289,8 +261,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "3"
               }
@@ -299,8 +271,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "3"
               }
@@ -309,8 +281,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "3"
               }
@@ -319,8 +291,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "3"
               }
@@ -329,8 +301,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "4"
               }
@@ -339,8 +311,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "4"
               }
@@ -349,8 +321,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "4"
               }
@@ -359,8 +331,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:spruce_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:spruce_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "4"
               }
@@ -385,14 +357,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:spruce_leaves",
-      "Properties": {
-        "distance": "7",
-        "persistent": "false",
-        "waterlogged": "false"
-      }
-    }
+    "state": "minecraft:spruce_leaves"
   },
   "ignore_vines": false,
   "minimum_size": {
@@ -408,11 +373,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:spruce_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:spruce_log"
   }
 }

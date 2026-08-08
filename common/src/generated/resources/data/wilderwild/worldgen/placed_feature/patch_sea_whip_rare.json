@@ -63,9 +63,7 @@
           },
           {
             "type": "minecraft:would_survive",
-            "state": {
-              "Name": "wilderwild:sea_whip"
-            }
+            "state": "wilderwild:sea_whip"
           }
         ]
       }

@@ -18,12 +18,7 @@
       },
       "state_provider": {
         "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "wilderwild:scorched_sand",
-          "Properties": {
-            "dusted": "0"
-          }
-        }
+        "state": "wilderwild:scorched_sand"
       }
     },
     "placement_chance": 0.95,
@@ -40,12 +35,7 @@
     },
     "state_provider": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:scorched_sand",
-        "Properties": {
-          "dusted": "0"
-        }
-      }
+      "state": "wilderwild:scorched_sand"
     }
   },
   "placement_radius": {

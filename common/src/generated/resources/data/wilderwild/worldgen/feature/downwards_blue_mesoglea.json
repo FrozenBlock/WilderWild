@@ -5,12 +5,7 @@
   "extra_edge_column_chance": 0.7,
   "ground_state": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:pearlescent_blue_mesoglea",
-      "Properties": {
-        "bubble_column_direction": "none"
-      }
-    }
+    "state": "wilderwild:pearlescent_blue_mesoglea"
   },
   "replaceable": "#minecraft:lush_ground_replaceable",
   "surface": "ceiling",

@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_carnation",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_carnation_baby",
-  "flower_block_state": {
-    "Name": "wilderwild:carnation"
-  }
+  "flower_block_state": "wilderwild:carnation"
 }

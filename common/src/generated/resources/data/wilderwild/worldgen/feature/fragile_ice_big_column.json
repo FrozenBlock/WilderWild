@@ -6,12 +6,7 @@
         "type": "frozenlib:column",
         "block_state": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:fragile_ice",
-            "Properties": {
-              "age": "0"
-            }
-          }
+          "state": "wilderwild:fragile_ice"
         },
         "direction": "up",
         "length": {
@@ -50,12 +45,7 @@
         "type": "frozenlib:column",
         "block_state": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:fragile_ice",
-            "Properties": {
-              "age": "0"
-            }
-          }
+          "state": "wilderwild:fragile_ice"
         },
         "direction": "up",
         "length": {

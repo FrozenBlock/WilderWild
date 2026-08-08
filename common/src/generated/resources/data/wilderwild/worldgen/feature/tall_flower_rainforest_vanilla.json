@@ -12,24 +12,9 @@
     "scale": 0.034833334,
     "seed": 5050,
     "states": [
-      {
-        "Name": "minecraft:rose_bush",
-        "Properties": {
-          "half": "lower"
-        }
-      },
-      {
-        "Name": "minecraft:lilac",
-        "Properties": {
-          "half": "lower"
-        }
-      },
-      {
-        "Name": "minecraft:peony",
-        "Properties": {
-          "half": "lower"
-        }
-      }
+      "minecraft:rose_bush",
+      "minecraft:lilac",
+      "minecraft:peony"
     ]
   }
 }

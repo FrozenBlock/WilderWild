@@ -12,12 +12,8 @@
     "scale": 0.020833334,
     "seed": 5234,
     "states": [
-      {
-        "Name": "minecraft:red_mushroom"
-      },
-      {
-        "Name": "minecraft:brown_mushroom"
-      }
+      "minecraft:red_mushroom",
+      "minecraft:brown_mushroom"
     ]
   }
 }

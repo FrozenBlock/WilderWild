@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_oxeye_daisy",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_oxeye_daisy_baby",
-  "flower_block_state": {
-    "Name": "minecraft:oxeye_daisy"
-  }
+  "flower_block_state": "minecraft:oxeye_daisy"
 }

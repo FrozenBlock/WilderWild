@@ -4,18 +4,13 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "wilderwild:prickly_pear",
-          "Properties": {
-            "age": "0"
-          }
-        },
+        "data": "wilderwild:prickly_pear",
         "weight": 5
       },
       {
         "data": {
-          "Name": "wilderwild:prickly_pear",
-          "Properties": {
+          "id": "wilderwild:prickly_pear",
+          "properties": {
             "age": "1"
           }
         },
@@ -23,8 +18,8 @@
       },
       {
         "data": {
-          "Name": "wilderwild:prickly_pear",
-          "Properties": {
+          "id": "wilderwild:prickly_pear",
+          "properties": {
             "age": "2"
           }
         },
@@ -32,20 +27,15 @@
       },
       {
         "data": {
-          "Name": "wilderwild:prickly_pear",
-          "Properties": {
+          "id": "wilderwild:prickly_pear",
+          "properties": {
             "age": "3"
           }
         },
         "weight": 2
       },
       {
-        "data": {
-          "Name": "minecraft:cactus",
-          "Properties": {
-            "age": "0"
-          }
-        },
+        "data": "minecraft:cactus",
         "weight": 3
       }
     ]

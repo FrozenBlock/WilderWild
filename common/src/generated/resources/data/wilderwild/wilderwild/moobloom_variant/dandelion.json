@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_dandelion",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_dandelion_baby",
-  "flower_block_state": {
-    "Name": "minecraft:dandelion"
-  }
+  "flower_block_state": "minecraft:dandelion"
 }

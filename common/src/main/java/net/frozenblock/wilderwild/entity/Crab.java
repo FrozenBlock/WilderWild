@@ -278,7 +278,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 
 	@Override
 	public void aiStep() {
-		this.updateSwingTime();
 		final AttributeInstance movementSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED);
 		if (movementSpeed != null) movementSpeed.setBaseValue(this.isInWater() ? WATER_MOVEMENT_SPEED : MOVEMENT_SPEED);
 		super.aiStep();

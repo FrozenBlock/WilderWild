@@ -78,16 +78,12 @@
                                     "if_true": "minecraft:on_ceiling",
                                     "then_run": {
                                       "type": "minecraft:block",
-                                      "result_state": {
-                                        "Name": "minecraft:stone"
-                                      }
+                                      "result_state": "minecraft:stone"
                                     }
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:gravel"
-                                    }
+                                    "result_state": "minecraft:gravel"
                                   }
                                 ]
                               }
@@ -112,16 +108,12 @@
                                       "if_true": "minecraft:on_ceiling",
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": {
-                                          "Name": "minecraft:stone"
-                                        }
+                                        "result_state": "minecraft:stone"
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": {
-                                        "Name": "minecraft:gravel"
-                                      }
+                                      "result_state": "minecraft:gravel"
                                     }
                                   ]
                                 }
@@ -197,16 +189,12 @@
                                     "if_true": "minecraft:on_ceiling",
                                     "then_run": {
                                       "type": "minecraft:block",
-                                      "result_state": {
-                                        "Name": "minecraft:sandstone"
-                                      }
+                                      "result_state": "minecraft:sandstone"
                                     }
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:sand"
-                                    }
+                                    "result_state": "minecraft:sand"
                                   }
                                 ]
                               }
@@ -231,16 +219,12 @@
                                       "if_true": "minecraft:on_ceiling",
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": {
-                                          "Name": "minecraft:sandstone"
-                                        }
+                                        "result_state": "minecraft:sandstone"
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": {
-                                        "Name": "minecraft:sand"
-                                      }
+                                      "result_state": "minecraft:sand"
                                     }
                                   ]
                                 }
@@ -316,16 +300,12 @@
                                     "if_true": "minecraft:on_ceiling",
                                     "then_run": {
                                       "type": "minecraft:block",
-                                      "result_state": {
-                                        "Name": "minecraft:sandstone"
-                                      }
+                                      "result_state": "minecraft:sandstone"
                                     }
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": {
-                                      "Name": "minecraft:sand"
-                                    }
+                                    "result_state": "minecraft:sand"
                                   }
                                 ]
                               }
@@ -350,16 +330,12 @@
                                       "if_true": "minecraft:on_ceiling",
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": {
-                                          "Name": "minecraft:sandstone"
-                                        }
+                                        "result_state": "minecraft:sandstone"
                                       }
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": {
-                                        "Name": "minecraft:sand"
-                                      }
+                                      "result_state": "minecraft:sand"
                                     }
                                   ]
                                 }
@@ -418,12 +394,7 @@
                 },
                 "then_run": {
                   "type": "minecraft:block",
-                  "result_state": {
-                    "Name": "minecraft:water",
-                    "Properties": {
-                      "level": "0"
-                    }
-                  }
+                  "result_state": "minecraft:water"
                 }
               }
             }
@@ -461,16 +432,12 @@
                           "if_true": "minecraft:on_ceiling",
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:sandstone"
-                            }
+                            "result_state": "minecraft:sandstone"
                           }
                         },
                         {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:sand"
-                          }
+                          "result_state": "minecraft:sand"
                         }
                       ]
                     }
@@ -498,16 +465,12 @@
                               "if_true": "minecraft:on_ceiling",
                               "then_run": {
                                 "type": "minecraft:block",
-                                "result_state": {
-                                  "Name": "minecraft:sandstone"
-                                }
+                                "result_state": "minecraft:sandstone"
                               }
                             },
                             {
                               "type": "minecraft:block",
-                              "result_state": {
-                                "Name": "minecraft:sand"
-                              }
+                              "result_state": "minecraft:sand"
                             }
                           ]
                         }
@@ -517,9 +480,7 @@
                         "if_true": "minecraft:very_deep_under_floor",
                         "then_run": {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:sandstone"
-                          }
+                          "result_state": "minecraft:sandstone"
                         }
                       }
                     ]
@@ -538,16 +499,12 @@
                     "if_true": "minecraft:on_ceiling",
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sandstone"
-                      }
+                      "result_state": "minecraft:sandstone"
                     }
                   },
                   {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:sand"
-                    }
+                    "result_state": "minecraft:sand"
                   }
                 ]
               }
@@ -583,16 +540,12 @@
                       "if_true": "minecraft:on_ceiling",
                       "then_run": {
                         "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "minecraft:sandstone"
-                        }
+                        "result_state": "minecraft:sandstone"
                       }
                     },
                     {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sand"
-                      }
+                      "result_state": "minecraft:sand"
                     }
                   ]
                 }
@@ -620,16 +573,12 @@
                           "if_true": "minecraft:on_ceiling",
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:sandstone"
-                            }
+                            "result_state": "minecraft:sandstone"
                           }
                         },
                         {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:sand"
-                          }
+                          "result_state": "minecraft:sand"
                         }
                       ]
                     }
@@ -639,9 +588,7 @@
                     "if_true": "minecraft:very_deep_under_floor",
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sandstone"
-                      }
+                      "result_state": "minecraft:sandstone"
                     }
                   }
                 ]
@@ -678,16 +625,12 @@
                       "if_true": "minecraft:on_ceiling",
                       "then_run": {
                         "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "minecraft:sandstone"
-                        }
+                        "result_state": "minecraft:sandstone"
                       }
                     },
                     {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sand"
-                      }
+                      "result_state": "minecraft:sand"
                     }
                   ]
                 }
@@ -715,16 +658,12 @@
                           "if_true": "minecraft:on_ceiling",
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:sandstone"
-                            }
+                            "result_state": "minecraft:sandstone"
                           }
                         },
                         {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:sand"
-                          }
+                          "result_state": "minecraft:sand"
                         }
                       ]
                     }
@@ -734,9 +673,7 @@
                     "if_true": "minecraft:very_deep_under_floor",
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sandstone"
-                      }
+                      "result_state": "minecraft:sandstone"
                     }
                   }
                 ]
@@ -776,19 +713,12 @@
                       "if_true": "minecraft:on_ceiling",
                       "then_run": {
                         "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "minecraft:dirt"
-                        }
+                        "result_state": "minecraft:dirt"
                       }
                     },
                     {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:grass_block",
-                        "Properties": {
-                          "snowy": "false"
-                        }
-                      }
+                      "result_state": "minecraft:grass_block"
                     }
                   ]
                 }
@@ -816,16 +746,12 @@
                           "if_true": "minecraft:on_ceiling",
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:dirt"
-                            }
+                            "result_state": "minecraft:dirt"
                           }
                         },
                         {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:dirt"
-                          }
+                          "result_state": "minecraft:dirt"
                         }
                       ]
                     }
@@ -835,9 +761,7 @@
                     "if_true": "minecraft:deep_under_floor",
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:dirt"
-                      }
+                      "result_state": "minecraft:dirt"
                     }
                   }
                 ]
@@ -877,16 +801,12 @@
                       "if_true": "minecraft:on_ceiling",
                       "then_run": {
                         "type": "minecraft:block",
-                        "result_state": {
-                          "Name": "minecraft:sandstone"
-                        }
+                        "result_state": "minecraft:sandstone"
                       }
                     },
                     {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sand"
-                      }
+                      "result_state": "minecraft:sand"
                     }
                   ]
                 }
@@ -914,16 +834,12 @@
                           "if_true": "minecraft:on_ceiling",
                           "then_run": {
                             "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "minecraft:sandstone"
-                            }
+                            "result_state": "minecraft:sandstone"
                           }
                         },
                         {
                           "type": "minecraft:block",
-                          "result_state": {
-                            "Name": "minecraft:sand"
-                          }
+                          "result_state": "minecraft:sand"
                         }
                       ]
                     }
@@ -933,9 +849,7 @@
                     "if_true": "minecraft:very_deep_under_floor",
                     "then_run": {
                       "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "minecraft:sandstone"
-                      }
+                      "result_state": "minecraft:sandstone"
                     }
                   }
                 ]
@@ -974,9 +888,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:coarse_dirt"
-                    }
+                    "result_state": "minecraft:coarse_dirt"
                   }
                 },
                 {
@@ -989,12 +901,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:podzol",
-                      "Properties": {
-                        "snowy": "false"
-                      }
-                    }
+                    "result_state": "minecraft:podzol"
                   }
                 },
                 {
@@ -1007,9 +914,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:powder_snow"
-                    }
+                    "result_state": "minecraft:powder_snow"
                   }
                 },
                 {
@@ -1022,9 +927,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:snow_block"
-                    }
+                    "result_state": "minecraft:snow_block"
                   }
                 }
               ]
@@ -1062,12 +965,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:podzol",
-                      "Properties": {
-                        "snowy": "false"
-                      }
-                    }
+                    "result_state": "minecraft:podzol"
                   }
                 }
               ]
@@ -1105,12 +1003,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:podzol",
-                      "Properties": {
-                        "snowy": "false"
-                      }
-                    }
+                    "result_state": "minecraft:podzol"
                   }
                 },
                 {
@@ -1123,9 +1016,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:moss_block"
-                    }
+                    "result_state": "minecraft:moss_block"
                   }
                 },
                 {
@@ -1138,9 +1029,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:coarse_dirt"
-                    }
+                    "result_state": "minecraft:coarse_dirt"
                   }
                 }
               ]
@@ -1178,9 +1067,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:moss_block"
-                    }
+                    "result_state": "minecraft:moss_block"
                   }
                 }
               ]
@@ -1221,12 +1108,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:podzol",
-                      "Properties": {
-                        "snowy": "false"
-                      }
-                    }
+                    "result_state": "minecraft:podzol"
                   }
                 },
                 {
@@ -1239,9 +1121,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:coarse_dirt"
-                    }
+                    "result_state": "minecraft:coarse_dirt"
                   }
                 }
               ]
@@ -1279,12 +1159,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:podzol",
-                      "Properties": {
-                        "snowy": "false"
-                      }
-                    }
+                    "result_state": "minecraft:podzol"
                   }
                 },
                 {
@@ -1297,9 +1172,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:rooted_dirt"
-                    }
+                    "result_state": "minecraft:rooted_dirt"
                   }
                 },
                 {
@@ -1312,9 +1185,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:coarse_dirt"
-                    }
+                    "result_state": "minecraft:coarse_dirt"
                   }
                 }
               ]
@@ -1352,12 +1223,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:podzol",
-                      "Properties": {
-                        "snowy": "false"
-                      }
-                    }
+                    "result_state": "minecraft:podzol"
                   }
                 },
                 {
@@ -1370,9 +1236,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:rooted_dirt"
-                    }
+                    "result_state": "minecraft:rooted_dirt"
                   }
                 },
                 {
@@ -1385,9 +1249,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:coarse_dirt"
-                    }
+                    "result_state": "minecraft:coarse_dirt"
                   }
                 },
                 {
@@ -1400,9 +1262,7 @@
                   },
                   "then_run": {
                     "type": "minecraft:block",
-                    "result_state": {
-                      "Name": "minecraft:coarse_dirt"
-                    }
+                    "result_state": "minecraft:coarse_dirt"
                   }
                 }
               ]

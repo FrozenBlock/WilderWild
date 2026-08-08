@@ -19,13 +19,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "wilderwild:cypress_sapling",
-          "Properties": {
-            "stage": "0",
-            "waterlogged": "false"
-          }
-        }
+        "state": "wilderwild:cypress_sapling"
       }
     }
   ]

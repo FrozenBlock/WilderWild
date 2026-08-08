@@ -5,12 +5,7 @@
   "extra_edge_column_chance": 0.7,
   "ground_state": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:grass_block",
-      "Properties": {
-        "snowy": "false"
-      }
-    }
+    "state": "minecraft:grass_block"
   },
   "replaceable": "#wilderwild:feature/river_pool_replaceable",
   "surface": "floor",

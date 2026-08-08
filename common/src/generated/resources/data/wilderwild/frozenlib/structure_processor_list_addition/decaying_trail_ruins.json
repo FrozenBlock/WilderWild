@@ -18,9 +18,7 @@
             "location_predicate": {
               "predicate_type": "minecraft:always_true"
             },
-            "output_state": {
-              "Name": "wilderwild:cracked_mud_bricks"
-            }
+            "output_state": "wilderwild:cracked_mud_bricks"
           },
           {
             "input_predicate": {
@@ -31,9 +29,7 @@
             "location_predicate": {
               "predicate_type": "minecraft:always_true"
             },
-            "output_state": {
-              "Name": "wilderwild:mossy_mud_bricks"
-            }
+            "output_state": "wilderwild:mossy_mud_bricks"
           }
         ]
       },

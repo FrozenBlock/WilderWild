@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -43,29 +41,11 @@
           "type": "minecraft:weighted_state_provider",
           "entries": [
             {
-              "data": {
-                "Name": "wilderwild:brown_shelf_fungi",
-                "Properties": {
-                  "age": "0",
-                  "face": "wall",
-                  "facing": "north",
-                  "shelf_fungus_stage": "1",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "wilderwild:brown_shelf_fungi",
               "weight": 17
             },
             {
-              "data": {
-                "Name": "wilderwild:red_shelf_fungi",
-                "Properties": {
-                  "age": "0",
-                  "face": "wall",
-                  "facing": "north",
-                  "shelf_fungus_stage": "1",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "wilderwild:red_shelf_fungi",
               "weight": 3
             }
           ]
@@ -86,14 +66,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:jungle_leaves",
-      "Properties": {
-        "distance": "7",
-        "persistent": "false",
-        "waterlogged": "false"
-      }
-    }
+    "state": "minecraft:jungle_leaves"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -107,11 +80,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:jungle_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:jungle_log"
   }
 }

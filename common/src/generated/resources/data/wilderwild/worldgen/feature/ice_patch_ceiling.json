@@ -11,18 +11,11 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "wilderwild:fragile_ice",
-          "Properties": {
-            "age": "0"
-          }
-        },
+        "data": "wilderwild:fragile_ice",
         "weight": 8
       },
       {
-        "data": {
-          "Name": "minecraft:packed_ice"
-        },
+        "data": "minecraft:packed_ice",
         "weight": 3
       }
     ]
@@ -35,12 +28,7 @@
       "type": "frozenlib:column",
       "block_state": {
         "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "wilderwild:fragile_ice",
-          "Properties": {
-            "age": "0"
-          }
-        }
+        "state": "wilderwild:fragile_ice"
       },
       "direction": "down",
       "length": {

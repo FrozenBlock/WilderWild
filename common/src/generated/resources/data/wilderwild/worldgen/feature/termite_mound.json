@@ -3,8 +3,8 @@
   "block_state": {
     "type": "minecraft:simple_state_provider",
     "state": {
-      "Name": "wilderwild:termite_mound",
-      "Properties": {
+      "id": "wilderwild:termite_mound",
+      "properties": {
         "natural": "true",
         "termites_awake": "false"
       }
@@ -14,15 +14,11 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "minecraft:coarse_dirt"
-        },
+        "data": "minecraft:coarse_dirt",
         "weight": 2
       },
       {
-        "data": {
-          "Name": "minecraft:packed_mud"
-        },
+        "data": "minecraft:packed_mud",
         "weight": 1
       }
     ]

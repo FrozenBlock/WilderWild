@@ -4,18 +4,11 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "minecraft:fern"
-        },
+        "data": "minecraft:fern",
         "weight": 4
       },
       {
-        "data": {
-          "Name": "minecraft:large_fern",
-          "Properties": {
-            "half": "lower"
-          }
-        },
+        "data": "minecraft:large_fern",
         "weight": 1
       }
     ]

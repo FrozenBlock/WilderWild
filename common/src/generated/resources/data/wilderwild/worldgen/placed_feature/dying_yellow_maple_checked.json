@@ -5,12 +5,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": {
-          "Name": "wilderwild:yellow_maple_sapling",
-          "Properties": {
-            "stage": "0"
-          }
-        }
+        "state": "wilderwild:yellow_maple_sapling"
       }
     }
   ]

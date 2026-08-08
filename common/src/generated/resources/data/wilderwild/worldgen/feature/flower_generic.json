@@ -12,27 +12,13 @@
     "scale": 0.048833333,
     "seed": 5050,
     "states": [
-      {
-        "Name": "minecraft:azure_bluet"
-      },
-      {
-        "Name": "minecraft:lily_of_the_valley"
-      },
-      {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "wilderwild:carnation"
-      },
-      {
-        "Name": "minecraft:allium"
-      },
-      {
-        "Name": "minecraft:oxeye_daisy"
-      }
+      "minecraft:azure_bluet",
+      "minecraft:lily_of_the_valley",
+      "minecraft:dandelion",
+      "minecraft:poppy",
+      "wilderwild:carnation",
+      "minecraft:allium",
+      "minecraft:oxeye_daisy"
     ]
   }
 }

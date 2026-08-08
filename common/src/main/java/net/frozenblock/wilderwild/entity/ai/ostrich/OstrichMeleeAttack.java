@@ -26,11 +26,9 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import org.jetbrains.annotations.Contract;
 
 public class OstrichMeleeAttack {
 
-	@Contract("_ -> new")
 	public static OneShot<AbstractOstrich> create(int cooldownBetweenAttacks) {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.registered(MemoryModuleType.LOOK_TARGET),
@@ -44,7 +42,7 @@ public class OstrichMeleeAttack {
 				&& instance.get(nearestEntities).contains(target)
 			) {
 				lookTarget.set(new EntityTracker(target, true));
-				ostrich.swing(InteractionHand.MAIN_HAND);
+				ostrich.swingForAttack(InteractionHand.MAIN_HAND);
 				attackCoolingDown.setWithExpiry(true, cooldownBetweenAttacks);
 				return true;
 			}

@@ -5,8 +5,8 @@
     "entries": [
       {
         "data": {
-          "Name": "wilderwild:tumbleweed_plant",
-          "Properties": {
+          "id": "wilderwild:tumbleweed_plant",
+          "properties": {
             "age": "3"
           }
         },
@@ -14,8 +14,8 @@
       },
       {
         "data": {
-          "Name": "wilderwild:tumbleweed_plant",
-          "Properties": {
+          "id": "wilderwild:tumbleweed_plant",
+          "properties": {
             "age": "2"
           }
         },
@@ -23,20 +23,15 @@
       },
       {
         "data": {
-          "Name": "wilderwild:tumbleweed_plant",
-          "Properties": {
+          "id": "wilderwild:tumbleweed_plant",
+          "properties": {
             "age": "1"
           }
         },
         "weight": 1
       },
       {
-        "data": {
-          "Name": "wilderwild:tumbleweed_plant",
-          "Properties": {
-            "age": "0"
-          }
-        },
+        "data": "wilderwild:tumbleweed_plant",
         "weight": 1
       }
     ]

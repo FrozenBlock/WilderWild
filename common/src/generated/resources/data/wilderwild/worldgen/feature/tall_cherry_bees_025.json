@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -40,16 +38,7 @@
         "property": "shelf_fungus_stage",
         "source": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:red_shelf_fungi",
-            "Properties": {
-              "age": "0",
-              "face": "wall",
-              "facing": "north",
-              "shelf_fungus_stage": "1",
-              "waterlogged": "false"
-            }
-          }
+          "state": "wilderwild:red_shelf_fungi"
         },
         "values": {
           "type": "minecraft:uniform",
@@ -71,14 +60,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:cherry_leaves",
-      "Properties": {
-        "distance": "7",
-        "persistent": "false",
-        "waterlogged": "false"
-      }
-    }
+    "state": "minecraft:cherry_leaves"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -112,11 +94,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:cherry_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:cherry_log"
   }
 }

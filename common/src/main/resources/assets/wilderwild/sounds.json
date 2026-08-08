@@ -4707,21 +4707,13 @@
     ],
     "subtitle": "subtitles.entity.potion.linger"
   },
-  "block.log_hollowed.axe": {
+  "item.axe.hollow": {
     "sounds": [
       "wilderwild:block/hollowed_log/hollow1",
       "wilderwild:block/hollowed_log/hollow2",
       "wilderwild:block/hollowed_log/hollow3"
     ],
-    "subtitle": "subtitles.block.log_hollowed.axe"
-  },
-  "block.stem_hollowed.axe": {
-    "sounds": [
-      "wilderwild:block/hollowed_log/hollow1",
-      "wilderwild:block/hollowed_log/hollow2",
-      "wilderwild:block/hollowed_log/hollow3"
-    ],
-    "subtitle": "subtitles.block.stem_hollowed.axe"
+    "subtitle": "subtitles.item.axe.hollow"
   },
   "block.log_hollowed": {
     "sounds": [

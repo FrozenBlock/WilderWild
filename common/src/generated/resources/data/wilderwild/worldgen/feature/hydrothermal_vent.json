@@ -9,9 +9,7 @@
         "extra_edge_column_chance": 0.5,
         "ground_state": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "wilderwild:gabbro"
-          }
+          "state": "wilderwild:gabbro"
         },
         "replaceable": "#wilderwild:feature/hydrothermal_vent_replaceable",
         "surface": "floor",

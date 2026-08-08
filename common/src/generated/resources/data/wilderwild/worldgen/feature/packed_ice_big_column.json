@@ -6,9 +6,7 @@
         "type": "frozenlib:column",
         "block_state": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:packed_ice"
-          }
+          "state": "minecraft:packed_ice"
         },
         "direction": "up",
         "length": {
@@ -47,9 +45,7 @@
         "type": "frozenlib:column",
         "block_state": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:packed_ice"
-          }
+          "state": "minecraft:packed_ice"
         },
         "direction": "up",
         "length": {

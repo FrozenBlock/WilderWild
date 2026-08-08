@@ -12,31 +12,10 @@
     "scale": 0.034833334,
     "seed": 5050,
     "states": [
-      {
-        "Name": "wilderwild:datura",
-        "Properties": {
-          "half": "lower"
-        }
-      },
-      {
-        "Name": "minecraft:rose_bush",
-        "Properties": {
-          "half": "lower"
-        }
-      },
-      {
-        "Name": "wilderwild:milkweed",
-        "Properties": {
-          "age": "0",
-          "half": "lower"
-        }
-      },
-      {
-        "Name": "minecraft:lilac",
-        "Properties": {
-          "half": "lower"
-        }
-      }
+      "wilderwild:datura",
+      "minecraft:rose_bush",
+      "wilderwild:milkweed",
+      "minecraft:lilac"
     ]
   }
 }

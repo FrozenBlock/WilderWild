@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_pink_tulip",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_pink_tulip_baby",
-  "flower_block_state": {
-    "Name": "minecraft:pink_tulip"
-  }
+  "flower_block_state": "minecraft:pink_tulip"
 }

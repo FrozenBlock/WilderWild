@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -29,8 +27,8 @@
         "source": {
           "type": "minecraft:simple_state_provider",
           "state": {
-            "Name": "wilderwild:baobab_nut",
-            "Properties": {
+            "id": "wilderwild:baobab_nut",
+            "properties": {
               "age": "0",
               "hanging": "true",
               "stage": "0"
@@ -57,19 +55,13 @@
         "type": "minecraft:weighted_state_provider",
         "entries": [
           {
-            "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
-                "facing": "north",
-                "segment_amount": "1"
-              }
-            },
+            "data": "wilderwild:baobab_leaf_litter",
             "weight": 1
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "1"
               }
@@ -78,8 +70,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "1"
               }
@@ -88,8 +80,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "1"
               }
@@ -98,8 +90,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "2"
               }
@@ -108,8 +100,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "2"
               }
@@ -118,8 +110,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "2"
               }
@@ -128,8 +120,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "2"
               }
@@ -138,8 +130,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "3"
               }
@@ -148,8 +140,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "3"
               }
@@ -158,8 +150,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "3"
               }
@@ -168,8 +160,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "3"
               }
@@ -188,19 +180,13 @@
         "type": "minecraft:weighted_state_provider",
         "entries": [
           {
-            "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
-                "facing": "north",
-                "segment_amount": "1"
-              }
-            },
+            "data": "wilderwild:baobab_leaf_litter",
             "weight": 1
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "1"
               }
@@ -209,8 +195,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "1"
               }
@@ -219,8 +205,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "1"
               }
@@ -229,8 +215,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "2"
               }
@@ -239,8 +225,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "2"
               }
@@ -249,8 +235,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "2"
               }
@@ -259,8 +245,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "2"
               }
@@ -269,8 +255,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "3"
               }
@@ -279,8 +265,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "3"
               }
@@ -289,8 +275,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "3"
               }
@@ -299,8 +285,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "3"
               }
@@ -309,8 +295,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "north",
                 "segment_amount": "4"
               }
@@ -319,8 +305,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "east",
                 "segment_amount": "4"
               }
@@ -329,8 +315,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "south",
                 "segment_amount": "4"
               }
@@ -339,8 +325,8 @@
           },
           {
             "data": {
-              "Name": "wilderwild:baobab_leaf_litter",
-              "Properties": {
+              "id": "wilderwild:baobab_leaf_litter",
+              "properties": {
                 "facing": "west",
                 "segment_amount": "4"
               }
@@ -361,14 +347,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:baobab_leaves",
-      "Properties": {
-        "distance": "7",
-        "persistent": "false",
-        "waterlogged": "false"
-      }
-    }
+    "state": "wilderwild:baobab_leaves"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -382,21 +361,11 @@
     "height_rand_b": 2,
     "inner_trunk_provider": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:stripped_baobab_log",
-        "Properties": {
-          "axis": "y"
-        }
-      }
+      "state": "wilderwild:stripped_baobab_log"
     }
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:baobab_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "wilderwild:baobab_log"
   }
 }

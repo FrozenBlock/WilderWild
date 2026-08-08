@@ -129,8 +129,7 @@ public final class WWSounds {
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_HOLLOWED_STEM_BREAK = register("block.hollowed_stem.break");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_HOLLOWED_STEM_STEP = register("block.hollowed_stem.step");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_HOLLOWED_STEM_FALL = register("block.hollowed_stem.fall");
-	public static final FrozenHolder<SoundEvent, SoundEvent> LOG_HOLLOWED_AXE = register("block.log_hollowed.axe");
-	public static final FrozenHolder<SoundEvent, SoundEvent> STEM_HOLLOWED_AXE = register("block.stem_hollowed.axe");
+	public static final FrozenHolder<SoundEvent, SoundEvent> AXE_HOLLOW = register("item.axe.hollow");
 	public static final FrozenHolder<SoundEvent, SoundEvent> LOG_HOLLOWED = register("block.log_hollowed");
 	public static final FrozenHolder<SoundEvent, SoundEvent> STEM_HOLLOWED = register("block.stem_hollowed");
 	public static final FrozenHolder<SoundEvent, SoundEvent> BLOCK_ICE_PLACE = register("block.ice.place");

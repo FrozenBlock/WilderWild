@@ -4,18 +4,11 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "wilderwild:frozen_large_fern",
-          "Properties": {
-            "half": "lower"
-          }
-        },
+        "data": "wilderwild:frozen_large_fern",
         "weight": 1
       },
       {
-        "data": {
-          "Name": "wilderwild:frozen_fern"
-        },
+        "data": "wilderwild:frozen_fern",
         "weight": 2
       }
     ]

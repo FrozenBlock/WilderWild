@@ -5,9 +5,7 @@
   "extra_edge_column_chance": 0.7,
   "ground_state": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:moss_block"
-    }
+    "state": "minecraft:moss_block"
   },
   "replaceable": "#wilderwild:feature/basin_replaceable",
   "surface": "floor",

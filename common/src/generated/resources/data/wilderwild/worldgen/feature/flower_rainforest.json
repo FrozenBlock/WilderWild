@@ -12,51 +12,21 @@
     "scale": 0.034833334,
     "seed": 5050,
     "states": [
-      {
-        "Name": "minecraft:lily_of_the_valley"
-      },
-      {
-        "Name": "wilderwild:seeding_dandelion"
-      },
-      {
-        "Name": "minecraft:oxeye_daisy"
-      },
-      {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:dandelion"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "minecraft:poppy"
-      },
-      {
-        "Name": "minecraft:allium"
-      },
-      {
-        "Name": "minecraft:allium"
-      },
-      {
-        "Name": "wilderwild:carnation"
-      },
-      {
-        "Name": "wilderwild:carnation"
-      },
-      {
-        "Name": "minecraft:cornflower"
-      },
-      {
-        "Name": "minecraft:cornflower"
-      },
-      {
-        "Name": "minecraft:blue_orchid"
-      },
-      {
-        "Name": "minecraft:blue_orchid"
-      }
+      "minecraft:lily_of_the_valley",
+      "wilderwild:seeding_dandelion",
+      "minecraft:oxeye_daisy",
+      "minecraft:dandelion",
+      "minecraft:dandelion",
+      "minecraft:poppy",
+      "minecraft:poppy",
+      "minecraft:allium",
+      "minecraft:allium",
+      "wilderwild:carnation",
+      "wilderwild:carnation",
+      "minecraft:cornflower",
+      "minecraft:cornflower",
+      "minecraft:blue_orchid",
+      "minecraft:blue_orchid"
     ]
   }
 }

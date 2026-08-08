@@ -4,18 +4,11 @@
     "type": "minecraft:weighted_state_provider",
     "entries": [
       {
-        "data": {
-          "Name": "wilderwild:frozen_tall_grass",
-          "Properties": {
-            "half": "lower"
-          }
-        },
+        "data": "wilderwild:frozen_tall_grass",
         "weight": 1
       },
       {
-        "data": {
-          "Name": "wilderwild:frozen_short_grass"
-        },
+        "data": "wilderwild:frozen_short_grass",
         "weight": 2
       }
     ]

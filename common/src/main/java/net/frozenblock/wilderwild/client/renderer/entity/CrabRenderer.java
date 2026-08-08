@@ -97,7 +97,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	public void extractRenderState(Crab crab, CrabRenderState renderState, float partialTicks) {
 		super.extractRenderState(crab, renderState, partialTicks);
 		renderState.climbXRot = Mth.lerp(partialTicks, crab.prevClimbAnimX, crab.climbAnimX) * 85F;
-		renderState.attackTime = crab.getAttackAnim(partialTicks);
+		renderState.attackTime = crab.getSwingAnimation(partialTicks);
 		renderState.isDitto = crab.isDitto();
 		renderState.hidingAnimationState.copyFrom(crab.hidingAnimationState);
 		renderState.diggingAnimationState.copyFrom(crab.diggingAnimationState);

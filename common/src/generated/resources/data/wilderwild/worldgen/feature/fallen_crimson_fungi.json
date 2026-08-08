@@ -2,9 +2,7 @@
   "type": "minecraft:tree",
   "below_trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:crimson_nylium"
-    }
+    "state": "minecraft:crimson_nylium"
   },
   "decorators": [
     {
@@ -18,29 +16,11 @@
           "type": "minecraft:weighted_state_provider",
           "entries": [
             {
-              "data": {
-                "Name": "wilderwild:crimson_shelf_fungi",
-                "Properties": {
-                  "age": "0",
-                  "face": "wall",
-                  "facing": "north",
-                  "shelf_fungus_stage": "1",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "wilderwild:crimson_shelf_fungi",
               "weight": 9
             },
             {
-              "data": {
-                "Name": "wilderwild:warped_shelf_fungi",
-                "Properties": {
-                  "age": "0",
-                  "face": "wall",
-                  "facing": "north",
-                  "shelf_fungus_stage": "1",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "wilderwild:warped_shelf_fungi",
               "weight": 1
             }
           ]
@@ -58,9 +38,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:air"
-    }
+    "state": "minecraft:air"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -74,13 +52,7 @@
     "hollowed_log_chance": 0.1,
     "hollowed_trunk_provider": {
       "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "wilderwild:hollowed_crimson_stem",
-        "Properties": {
-          "axis": "y",
-          "waterlogged": "false"
-        }
-      }
+      "state": "wilderwild:hollowed_crimson_stem"
     },
     "stump_placement_chance": 0.6,
     "success_in_water_chance": 0.8,
@@ -92,11 +64,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:crimson_stem",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:crimson_stem"
   }
 }

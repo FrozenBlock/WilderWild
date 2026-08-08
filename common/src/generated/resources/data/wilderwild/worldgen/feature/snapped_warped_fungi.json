@@ -2,9 +2,7 @@
   "type": "minecraft:tree",
   "below_trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:warped_nylium"
-    }
+    "state": "minecraft:warped_nylium"
   },
   "decorators": [
     {
@@ -18,29 +16,11 @@
           "type": "minecraft:weighted_state_provider",
           "entries": [
             {
-              "data": {
-                "Name": "wilderwild:warped_shelf_fungi",
-                "Properties": {
-                  "age": "0",
-                  "face": "wall",
-                  "facing": "north",
-                  "shelf_fungus_stage": "1",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "wilderwild:warped_shelf_fungi",
               "weight": 9
             },
             {
-              "data": {
-                "Name": "wilderwild:crimson_shelf_fungi",
-                "Properties": {
-                  "age": "0",
-                  "face": "wall",
-                  "facing": "north",
-                  "shelf_fungus_stage": "1",
-                  "waterlogged": "false"
-                }
-              },
+              "data": "wilderwild:crimson_shelf_fungi",
               "weight": 1
             }
           ]
@@ -58,9 +38,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:air"
-    }
+    "state": "minecraft:air"
   },
   "ignore_vines": false,
   "minimum_size": {
@@ -74,11 +52,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:warped_stem",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "minecraft:warped_stem"
   }
 }

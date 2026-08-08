@@ -2,9 +2,7 @@
   "type": "frozenlib:column",
   "block_state": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:magma_block"
-    }
+    "state": "minecraft:magma_block"
   },
   "direction": "down",
   "length": {

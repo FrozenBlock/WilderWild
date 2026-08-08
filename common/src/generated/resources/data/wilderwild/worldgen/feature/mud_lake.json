@@ -2,9 +2,7 @@
   "type": "minecraft:lake",
   "barrier": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:mud"
-    }
+    "state": "minecraft:mud"
   },
   "can_place_feature": {
     "type": "minecraft:not",
@@ -29,11 +27,6 @@
   },
   "fluid": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "minecraft:water",
-      "Properties": {
-        "level": "0"
-      }
-    }
+    "state": "minecraft:water"
   }
 }

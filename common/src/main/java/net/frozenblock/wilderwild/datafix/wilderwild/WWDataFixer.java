@@ -40,34 +40,34 @@ public final class WWDataFixer {
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
 		final Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WWConstants.id("white_dandelion"), WWConstants.id("blooming_dandelion"), schemaV1);
-		SimpleFixes.addBlockRenameFix(builder, "Rename potted_white_dandelion to potted_blooming_dandelion", WWConstants.id("potted_white_dandelion"), WWConstants.id("potted_blooming_dandelion"), schemaV1);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WWConstants.id("white_dandelion"), WWConstants.id("blooming_dandelion"), schemaV1);
+		SimpleFixes.addLegacyBlockRenameFix(builder, "Rename potted_white_dandelion to potted_blooming_dandelion", WWConstants.id("potted_white_dandelion"), WWConstants.id("potted_blooming_dandelion"), schemaV1);
 
 		final Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename blooming_dandelion to seeding_dandelion", WWConstants.id("blooming_dandelion"), WWConstants.id("seeding_dandelion"), schemaV2);
-		SimpleFixes.addBlockRenameFix(builder, "Rename potted_blooming_dandelion to potted_seeding_dandelion", WWConstants.id("potted_blooming_dandelion"), WWConstants.id("potted_seeding_dandelion"), schemaV2);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename blooming_dandelion to seeding_dandelion", WWConstants.id("blooming_dandelion"), WWConstants.id("seeding_dandelion"), schemaV2);
+		SimpleFixes.addLegacyBlockRenameFix(builder, "Rename potted_blooming_dandelion to potted_seeding_dandelion", WWConstants.id("potted_blooming_dandelion"), WWConstants.id("potted_seeding_dandelion"), schemaV2);
 
 		final Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename floating_moss to algae", WWConstants.id("floating_moss"), WWConstants.id("algae"), schemaV3);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename floating_moss to algae", WWConstants.id("floating_moss"), WWConstants.id("algae"), schemaV3);
 
 		final Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename test_1 to null_block", WWConstants.id("test_1"), WWConstants.id("null_block"), schemaV4);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename test_1 to null_block", WWConstants.id("test_1"), WWConstants.id("null_block"), schemaV4);
 
 		final Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename sculk_echoer to null_block", WWConstants.id("sculk_echoer"), WWConstants.id("null_block"), schemaV5);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename sculk_jaw to null_block", WWConstants.id("sculk_jaw"), WWConstants.id("null_block"), schemaV5);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename sculk_echoer to null_block", WWConstants.id("sculk_echoer"), WWConstants.id("null_block"), schemaV5);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename sculk_jaw to null_block", WWConstants.id("sculk_jaw"), WWConstants.id("null_block"), schemaV5);
 
 		final Schema schemaV6 = builder.addSchema(6, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename baobab_sapling to baobab_nut", WWConstants.id("baobab_sapling"), WWConstants.id("baobab_nut"), schemaV6);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", WWConstants.id("baobab_nut_sapling"), WWConstants.id("baobab_nut"), schemaV6);
-		SimpleFixes.addBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", WWConstants.id("potted_baobab_sapling"), WWConstants.id("potted_baobab_nut"), schemaV6);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename baobab_sapling to baobab_nut", WWConstants.id("baobab_sapling"), WWConstants.id("baobab_nut"), schemaV6);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename baobab_nut_sapling to baobab_nut", WWConstants.id("baobab_nut_sapling"), WWConstants.id("baobab_nut"), schemaV6);
+		SimpleFixes.addLegacyBlockRenameFix(builder, "Rename potted_baobab_sapling to potted_baobab_nut", WWConstants.id("potted_baobab_sapling"), WWConstants.id("potted_baobab_nut"), schemaV6);
 
 		final Schema schemaV7 = builder.addSchema(7, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename firefly_lantern to display_lantern", WWConstants.id("firefly_lantern"), WWConstants.id("display_lantern"), schemaV7);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", WWConstants.id("mesoglea"), WWConstants.id("blue_pearlescent_mesoglea"), schemaV7);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename firefly_lantern to display_lantern", WWConstants.id("firefly_lantern"), WWConstants.id("display_lantern"), schemaV7);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename mesoglea to blue_pearlescent_mesoglea", WWConstants.id("mesoglea"), WWConstants.id("blue_pearlescent_mesoglea"), schemaV7);
 
 		final Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
-		SimpleFixes.addBlockPropertyRenameAndFix(
+		SimpleFixes.addLegacyBlockPropertyRenameAndFix(
 			builder,
 			"display_lantern_rename_fix",
 			WWConstants.id("display_lantern"),
@@ -87,15 +87,15 @@ public final class WWDataFixer {
 		builder.addFixer(new NematocystStateFix(schemaV9, "yellow_nematocyst_fix", WWConstants.id("yellow_nematocyst")));
 
 		final Schema schemaV10 = builder.addSchema(10, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename palm_sapling to coconut", WWConstants.id("palm_sapling"), WWConstants.id("coconut"), schemaV10);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename palm_sapling to coconut", WWConstants.id("palm_sapling"), WWConstants.id("coconut"), schemaV10);
 
 		final Schema schemaV11 = builder.addSchema(11, NamespacedSchema::new);
 		builder.addFixer(new DrySandStateFix(schemaV11, "dry_sand_crackness_to_crackedness", WWConstants.id("dry_sand")));
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename dry_sand to scorched_sand", WWConstants.id("dry_sand"), WWConstants.id("scorched_sand"), schemaV11);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename dry_sand to scorched_sand", WWConstants.id("dry_sand"), WWConstants.id("scorched_sand"), schemaV11);
 		builder.addFixer(new DrySandStateFix(schemaV11, "scorched_sand_crackness_to_crackedness", WWConstants.id("scorched_sand")));
 
 		final Schema schemaV13 = builder.addSchema(13, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename palm_leaves to palm_fronds", WWConstants.id("palm_leaves"), WWConstants.id("palm_fronds"), schemaV13);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename palm_leaves to palm_fronds", WWConstants.id("palm_leaves"), WWConstants.id("palm_fronds"), schemaV13);
 
 		final Schema schemaV14 = builder.addSchema(14, NamespacedSchema::new);
 		builder.addFixer(new ScorchedSandStateFix2(schemaV14, "scorched_sand_integer_to_boolean", WWConstants.id("scorched_sand")));
@@ -112,16 +112,16 @@ public final class WWDataFixer {
 		SimpleFixes.addBiomeRenameFix(builder, "Rename wilderwild:magma_caves to wilderwild:magmatic_caves", WWConstants.id("magma_caves"), WWConstants.id("magmatic_caves"), schemaV17);
 
 		final Schema schemaV18 = builder.addSchema(18, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename palm_crown to palm_log", WWConstants.id("palm_crown"), WWConstants.id("palm_log"), schemaV18);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename palm_crown to palm_log", WWConstants.id("palm_crown"), WWConstants.id("palm_log"), schemaV18);
 
 		final Schema schemaV19 = builder.addSchema(19, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename small_sponge to sponge_bud", WWConstants.id("small_sponge"), WWConstants.id("sponge_bud"), schemaV19);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename small_sponge to sponge_bud", WWConstants.id("small_sponge"), WWConstants.id("sponge_bud"), schemaV19);
 		SimpleFixes.addItemRenameFix(builder, "Rename ancient_horn to echo_glass", WWConstants.id("ancient_horn"), WWConstants.id("echo_glass"), schemaV19);
 		SimpleFixes.addItemRenameFix(builder, "Rename ancient_horn_fragment to echo_glass", WWConstants.id("ancient_horn_fragment"), WWConstants.id("echo_glass"), schemaV19);
 
 		final Schema schemaV20 = builder.addSchema(20, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename brown_shelf_fungus to brown_shelf_fungi", WWConstants.id("brown_shelf_fungus"), WWConstants.id("brown_shelf_fungi"), schemaV20);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename red_shelf_fungus to red_shelf_fungi", WWConstants.id("red_shelf_fungus"), WWConstants.id("red_shelf_fungi"), schemaV20);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename brown_shelf_fungus to brown_shelf_fungi", WWConstants.id("brown_shelf_fungus"), WWConstants.id("brown_shelf_fungi"), schemaV20);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename red_shelf_fungus to red_shelf_fungi", WWConstants.id("red_shelf_fungus"), WWConstants.id("red_shelf_fungi"), schemaV20);
 
 		final Schema schemaV21 = builder.addSchema(21, NamespacedSchema::new);
 		SimpleFixes.addBiomeRenameFix(builder, "Rename jellyfish_caves to mesoglea_caves", WWConstants.id("jellyfish_caves"), WWConstants.id("mesoglea_caves"), schemaV21);
@@ -130,10 +130,10 @@ public final class WWDataFixer {
 		SimpleFixes.addBiomeRenameFix(builder, "Rename maple_grove to maple_forest", WWConstants.id("maple_grove"), WWConstants.id("maple_forest"), schemaV22);
 
 		final Schema schemaV23 = builder.addSchema(23, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename alba_glory_of_the_snow to white_glory_of_the_snow_petals", WWConstants.id("alba_glory_of_the_snow"), WWConstants.id("white_glory_of_the_snow_petals"), schemaV23);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename blue_giant_glory_of_the_snow to blue_glory_of_the_snow_petals", WWConstants.id("blue_giant_glory_of_the_snow"), WWConstants.id("blue_glory_of_the_snow_petals"), schemaV23);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename pink_giant_glory_of_the_snow to pink_glory_of_the_snow_petals", WWConstants.id("pink_giant_glory_of_the_snow"), WWConstants.id("pink_glory_of_the_snow_petals"), schemaV23);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename violet_beauty_glory_of_the_snow to purple_glory_of_the_snow_petals", WWConstants.id("violet_beauty_glory_of_the_snow"), WWConstants.id("purple_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename alba_glory_of_the_snow to white_glory_of_the_snow_petals", WWConstants.id("alba_glory_of_the_snow"), WWConstants.id("white_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename blue_giant_glory_of_the_snow to blue_glory_of_the_snow_petals", WWConstants.id("blue_giant_glory_of_the_snow"), WWConstants.id("blue_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename pink_giant_glory_of_the_snow to pink_glory_of_the_snow_petals", WWConstants.id("pink_giant_glory_of_the_snow"), WWConstants.id("pink_glory_of_the_snow_petals"), schemaV23);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename violet_beauty_glory_of_the_snow to purple_glory_of_the_snow_petals", WWConstants.id("violet_beauty_glory_of_the_snow"), WWConstants.id("purple_glory_of_the_snow_petals"), schemaV23);
 
 		final Schema schemaV24 = builder.addSchema(24, NamespacedSchema::new);
 		builder.addFixer(new FireflyBottleComponentizationFix(schemaV24));
@@ -157,11 +157,11 @@ public final class WWDataFixer {
 		SimpleFixes.addItemRenameFix(builder, "Rename yellow_firefly_bottle to firefly_bottle", WWConstants.id("yellow_firefly_bottle"), WWConstants.id("firefly_bottle"), schemaV25);
 
 		final Schema schemaV26 = builder.addSchema(26, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename white_glory_of_the_snow_petals to pollen", WWConstants.id("white_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename blue_glory_of_the_snow_petals to pollen", WWConstants.id("blue_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename pink_glory_of_the_snow_petals to pollen", WWConstants.id("pink_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
-		SimpleFixes.addRandomBlockRenameFix(
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename white_glory_of_the_snow_petals to pollen", WWConstants.id("white_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename blue_glory_of_the_snow_petals to pollen", WWConstants.id("blue_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename pink_glory_of_the_snow_petals to pollen", WWConstants.id("pink_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename purple_glory_of_the_snow_petals to pollen", WWConstants.id("purple_glory_of_the_snow_petals"), WWConstants.id("pollen"), schemaV26);
+		SimpleFixes.addRandomLegacyBlockRenameFix(
 			builder,
 			"Random datafix of glory_of_the_snow to Hibiscus variants",
 			WWConstants.id("glory_of_the_snow"),
@@ -195,8 +195,8 @@ public final class WWDataFixer {
 		SimpleFixes.addBiomeRenameFix(builder, "Rename autumnal_plains to tundra", WWConstants.id("autumnal_plains"), WWConstants.id("tundra"), schemaV28);
 
 		final Schema schemaV29 = builder.addSchema(29, NamespacedSchema::new);
-		SimpleFixes.addBlockItemRenameFix(builder, "Rename maple_sapling to yellow_maple_sapling", WWConstants.id("maple_sapling"), WWConstants.id("yellow_maple_sapling"), schemaV29);
-		SimpleFixes.addBlockRenameFix(builder, "Rename potted_maple_sapling to potted_yellow_maple_sapling", WWConstants.id("potted_maple_sapling"), WWConstants.id("potted_yellow_maple_sapling"), schemaV29);
+		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename maple_sapling to yellow_maple_sapling", WWConstants.id("maple_sapling"), WWConstants.id("yellow_maple_sapling"), schemaV29);
+		SimpleFixes.addLegacyBlockRenameFix(builder, "Rename potted_maple_sapling to potted_yellow_maple_sapling", WWConstants.id("potted_maple_sapling"), WWConstants.id("potted_yellow_maple_sapling"), schemaV29);
 
 		final Schema schemaV30 = builder.addSchema(30, NamespacedSchema::new);
 		builder.addFixer(new BushStateFix(schemaV30, "bush age 2 to age 3", WWConstants.id("bush")));

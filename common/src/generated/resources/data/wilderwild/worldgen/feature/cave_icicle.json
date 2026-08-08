@@ -4,20 +4,8 @@
     {
       "feature": {
         "type": "minecraft:speleothem",
-        "base_block": {
-          "Name": "wilderwild:fragile_ice",
-          "Properties": {
-            "age": "0"
-          }
-        },
-        "pointed_block": {
-          "Name": "wilderwild:icicle",
-          "Properties": {
-            "thickness": "tip",
-            "vertical_direction": "up",
-            "waterlogged": "false"
-          }
-        },
+        "base_block": "wilderwild:fragile_ice",
+        "pointed_block": "wilderwild:icicle",
         "replaceable_blocks": "#wilderwild:feature/icicle_replaceable"
       },
       "placement": [
@@ -53,20 +41,8 @@
     {
       "feature": {
         "type": "minecraft:speleothem",
-        "base_block": {
-          "Name": "wilderwild:fragile_ice",
-          "Properties": {
-            "age": "0"
-          }
-        },
-        "pointed_block": {
-          "Name": "wilderwild:icicle",
-          "Properties": {
-            "thickness": "tip",
-            "vertical_direction": "up",
-            "waterlogged": "false"
-          }
-        },
+        "base_block": "wilderwild:fragile_ice",
+        "pointed_block": "wilderwild:icicle",
         "replaceable_blocks": "#wilderwild:feature/icicle_replaceable"
       },
       "placement": [

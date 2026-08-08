@@ -1,7 +1,5 @@
 {
   "asset_id": "wilderwild:entity/moobloom/moobloom_pasqueflower",
   "baby_asset_id": "wilderwild:entity/moobloom/moobloom_pasqueflower_baby",
-  "flower_block_state": {
-    "Name": "wilderwild:pasqueflower"
-  }
+  "flower_block_state": "wilderwild:pasqueflower"
 }

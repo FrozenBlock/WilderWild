@@ -6,9 +6,7 @@
         "type": "minecraft:block_pile",
         "state_provider": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:stone"
-          }
+          "state": "minecraft:stone"
         }
       },
       "placement": []
@@ -30,9 +28,7 @@
             },
             "state_provider": {
               "type": "minecraft:simple_state_provider",
-              "state": {
-                "Name": "minecraft:stone"
-              }
+              "state": "minecraft:stone"
             }
           },
           "placement_chance": 0.95,
@@ -45,9 +41,7 @@
           },
           "state_provider": {
             "type": "minecraft:simple_state_provider",
-            "state": {
-              "Name": "minecraft:stone"
-            }
+            "state": "minecraft:stone"
           }
         },
         "heightmap": "OCEAN_FLOOR",

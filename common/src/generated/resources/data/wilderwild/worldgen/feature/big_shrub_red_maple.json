@@ -13,9 +13,7 @@
         },
         "then": {
           "type": "minecraft:simple_state_provider",
-          "state": {
-            "Name": "minecraft:dirt"
-          }
+          "state": "minecraft:dirt"
         }
       }
     ]
@@ -29,14 +27,7 @@
   },
   "foliage_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:red_maple_leaves",
-      "Properties": {
-        "distance": "7",
-        "persistent": "false",
-        "waterlogged": "false"
-      }
-    }
+    "state": "wilderwild:red_maple_leaves"
   },
   "ignore_vines": false,
   "minimum_size": {
@@ -52,11 +43,6 @@
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:maple_log",
-      "Properties": {
-        "axis": "y"
-      }
-    }
+    "state": "wilderwild:maple_log"
   }
 }

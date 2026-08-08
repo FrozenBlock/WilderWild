@@ -2,12 +2,7 @@
   "type": "frozenlib:column",
   "block_state": {
     "type": "minecraft:simple_state_provider",
-    "state": {
-      "Name": "wilderwild:pearlescent_blue_mesoglea",
-      "Properties": {
-        "bubble_column_direction": "none"
-      }
-    }
+    "state": "wilderwild:pearlescent_blue_mesoglea"
   },
   "direction": "up",
   "length": {
