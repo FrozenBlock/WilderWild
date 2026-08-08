@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.item.api.component.BlockTransformerMappingsApi;
@@ -34,7 +35,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesP
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 
 // TODO: NeoForge
-public final class WWBlockTransformerMappings implements BlockTransformerMappingsApi.ModifyAxeBlockTransformer {
+public final class WWBlockTransformerMappings implements BlockTransformerMappingsApi.ModifyAxeBlockTransformer, BlockTransformerMappingsApi.ModifyAxeStrippablesBuilder {
 	private static final BlockPredicate LOG_HOLLOWING_ENABLED = ConfigPredicate.equalTo(WWBlockConfig.LOG_HOLLOWING, true).asBlockPredicate();
 	private static final Function<Direction.Axis, BlockTransformer.BlockTransformData> AXE_HOLLOWABLES = axis -> BlockTransformer.BlockTransformData
 		.builder(fillWithHollowables(axis).build())
@@ -43,40 +44,39 @@ public final class WWBlockTransformerMappings implements BlockTransformerMapping
 		.build();
 
 	@Override
+	public void modifyAxeStrippablesBuilder(RuleBasedStateProvider.Builder builder, BiFunction<Block, Block, RuleBasedStateProvider.Builder> addStrippable) {
+		addStrippable.apply(WWBlocks.BAOBAB_LOG.get(), WWBlocks.STRIPPED_BAOBAB_LOG.get());
+		addStrippable.apply(WWBlocks.BAOBAB_WOOD.get(), WWBlocks.STRIPPED_BAOBAB_WOOD.get());
+		addStrippable.apply(WWBlocks.WILLOW_LOG.get(), WWBlocks.STRIPPED_WILLOW_LOG.get());
+		addStrippable.apply(WWBlocks.WILLOW_WOOD.get(), WWBlocks.STRIPPED_WILLOW_WOOD.get());
+		addStrippable.apply(WWBlocks.CYPRESS_LOG.get(), WWBlocks.STRIPPED_CYPRESS_LOG.get());
+		addStrippable.apply(WWBlocks.CYPRESS_WOOD.get(), WWBlocks.STRIPPED_CYPRESS_WOOD.get());
+		addStrippable.apply(WWBlocks.PALM_LOG.get(), WWBlocks.STRIPPED_PALM_LOG.get());
+		addStrippable.apply(WWBlocks.PALM_WOOD.get(), WWBlocks.STRIPPED_PALM_WOOD.get());
+		addStrippable.apply(WWBlocks.MAPLE_LOG.get(), WWBlocks.STRIPPED_MAPLE_LOG.get());
+		addStrippable.apply(WWBlocks.MAPLE_WOOD.get(), WWBlocks.STRIPPED_MAPLE_WOOD.get());
+
+		addStrippable.apply(WWBlocks.HOLLOWED_ACACIA_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_BIRCH_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_CHERRY_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_DARK_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_OAK_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_SPRUCE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_JUNGLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_MANGROVE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_PALE_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_POPLAR_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_CRIMSON_STEM.get(), WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_WARPED_STEM.get(), WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_WILLOW_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_PALM_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.get());
+		addStrippable.apply(WWBlocks.HOLLOWED_MAPLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.get());
+	}
+
+	@Override
 	public void modifyAxeBlockTransformer(BlockTransformerMappingsApi.Context context) {
-		// TODO: 26.3 stripping
-		/*
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.BAOBAB_LOG.get(), WWBlocks.STRIPPED_BAOBAB_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.BAOBAB_WOOD.get(), WWBlocks.STRIPPED_BAOBAB_WOOD.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.WILLOW_LOG.get(), WWBlocks.STRIPPED_WILLOW_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.WILLOW_WOOD.get(), WWBlocks.STRIPPED_WILLOW_WOOD.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.CYPRESS_LOG.get(), WWBlocks.STRIPPED_CYPRESS_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.CYPRESS_WOOD.get(), WWBlocks.STRIPPED_CYPRESS_WOOD.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.PALM_LOG.get(), WWBlocks.STRIPPED_PALM_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.PALM_WOOD.get(), WWBlocks.STRIPPED_PALM_WOOD.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.MAPLE_LOG.get(), WWBlocks.STRIPPED_MAPLE_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.MAPLE_WOOD.get(), WWBlocks.STRIPPED_MAPLE_WOOD.get()));
-
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_ACACIA_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_BIRCH_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_CHERRY_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_DARK_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_OAK_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_SPRUCE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_JUNGLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_MANGROVE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_PALE_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_POPLAR_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_CRIMSON_STEM.get(), WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_WARPED_STEM.get(), WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_WILLOW_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_CYPRESS_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_BAOBAB_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_PALM_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.get()));
-		context.addFirst(BlockTransformerMappings.getStrippableBlockData(WWBlocks.HOLLOWED_MAPLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.get()));
-		 */
-
-		// HOLLOWED
 		context.addFirst(AXE_HOLLOWABLES.apply(Direction.Axis.X));
 		context.addFirst(AXE_HOLLOWABLES.apply(Direction.Axis.Y));
 		context.addFirst(AXE_HOLLOWABLES.apply(Direction.Axis.Z));
