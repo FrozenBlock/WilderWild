@@ -454,6 +454,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.MILKWEED)
 			.add(WWBlockItemIds.SHRUB)
 			.add(BlockItemIds.FIREFLY_BUSH)
+			.add(BlockItemIds.RED_SHRUB)
 			.addOptionalTag(BlockTags.SMALL_FLOWERS);
 
 		this.builder(WWBlockTags.CRAB_HIDEABLE)
@@ -1249,7 +1250,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.YELLOW_MAPLE_SAPLING)
 			.add(WWBlockItemIds.ORANGE_MAPLE_SAPLING)
 			.add(WWBlockItemIds.RED_MAPLE_SAPLING)
-			.add(WWBlockItemIds.SHRUB)
 			.add(BlockItemIds.PALE_OAK_SAPLING)
 			.add(BlockItemIds.POPLAR_SAPLING)
 
@@ -1661,8 +1661,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.FERN)
 			.add(BlockItemIds.LARGE_FERN)
 			.add(BlockItemIds.BUSH)
-			.add(WWBlockItemIds.CLOVERS)
-			.add(BlockItemIds.RED_SHRUB);
+			.add(WWBlockItemIds.CLOVERS);
 
 		this.builder(WWBlockTags.SOUND_FROZEN_GRASS)
 			.add(WWBlockItemIds.FROZEN_SHORT_GRASS)

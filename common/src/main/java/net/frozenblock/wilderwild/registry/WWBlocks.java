@@ -734,6 +734,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.PLANT)
 			.noOcclusion()
 			.randomTicks()
+			.sound(SoundType.RED_SHRUB)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 	public static final FrozenDeferredBlock<Block> POTTED_SHRUB = registerFlowerPot(WWBlockIds.POTTED_SHRUB, SHRUB);
