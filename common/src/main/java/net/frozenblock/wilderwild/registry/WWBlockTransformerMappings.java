@@ -23,6 +23,7 @@ import java.util.function.Function;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.item.api.component.BlockTransformerMappingsApi;
 import net.frozenblock.lib.levelgen.blockpredicates.HasMatchingAxisPredicate;
+import net.frozenblock.lib.levelgen.feature.api.stateproviders.StrictRuleBasedStateProvider;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.BlockTransformer;
@@ -36,7 +37,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateP
 public final class WWBlockTransformerMappings implements BlockTransformerMappingsApi.ModifyAxeBlockTransformer {
 	private static final BlockPredicate LOG_HOLLOWING_ENABLED = ConfigPredicate.equalTo(WWBlockConfig.LOG_HOLLOWING, true).asBlockPredicate();
 	private static final Function<Direction.Axis, BlockTransformer.BlockTransformData> AXE_HOLLOWABLES = axis -> BlockTransformer.BlockTransformData
-		.builder(fillWithHollowables(RuleBasedStateProvider.builder(), axis).build())
+		.builder(fillWithHollowables(axis).build())
 		.disallowedFaces(Arrays.stream(Direction.values()).filter(direction -> direction.getAxis() != axis).toList())
 		.sound(WWSounds.AXE_HOLLOW.asHolder())
 		.build();
@@ -81,9 +82,10 @@ public final class WWBlockTransformerMappings implements BlockTransformerMapping
 		context.addFirst(AXE_HOLLOWABLES.apply(Direction.Axis.Z));
 	}
 
-	public static RuleBasedStateProvider.Builder fillWithHollowables(RuleBasedStateProvider.Builder builder, Direction.Axis axis) {
-		final BiConsumer<Block, Block> addHollowable = (fromBlock, toBlock) -> builder.ifTrueThenProvide(
-			BlockPredicate.allOf(LOG_HOLLOWING_ENABLED, HasMatchingAxisPredicate.of(axis), BlockPredicate.matchesBlocks(fromBlock)),
+	public static StrictRuleBasedStateProvider.Builder fillWithHollowables(Direction.Axis axis) {
+		final RuleBasedStateProvider.Builder nestedBuilder = RuleBasedStateProvider.builder();
+		final BiConsumer<Block, Block> addHollowable = (fromBlock, toBlock) -> nestedBuilder.ifTrueThenProvide(
+			BlockPredicate.matchesBlocks(fromBlock),
 			new CopyPropertiesProvider(toBlock)
 		);
 
@@ -124,6 +126,9 @@ public final class WWBlockTransformerMappings implements BlockTransformerMapping
 		addHollowable.accept(WWBlocks.STRIPPED_PALM_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALM_LOG.get());
 		addHollowable.accept(WWBlocks.STRIPPED_MAPLE_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG.get());
 
-		return builder;
+		return StrictRuleBasedStateProvider.builder().ifTrueThenProvide(
+			BlockPredicate.allOf(LOG_HOLLOWING_ENABLED, HasMatchingAxisPredicate.of(axis)),
+			nestedBuilder.build()
+		);
 	}
 }
