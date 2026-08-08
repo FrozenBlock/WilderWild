@@ -61,7 +61,6 @@ public interface WWBottleable {
 
 	@Deprecated
 	static void loadDefaultDataFromBottleTag(Mob entity, CompoundTag tag) {
-
 		tag.getBoolean(Mob.TAG_NO_AI).ifPresent(entity::setNoAi);
 		tag.getBoolean(LivingEntity.TAG_SILENT).ifPresent(entity::setSilent);
 		tag.getBoolean(LivingEntity.TAG_NO_GRAVITY).ifPresent(entity::setNoGravity);

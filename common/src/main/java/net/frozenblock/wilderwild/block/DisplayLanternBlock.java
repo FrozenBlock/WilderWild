@@ -43,6 +43,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -94,7 +95,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public InteractionResult useItemOn(
-		ItemStack stack,
+		ItemStack itemStack,
 		BlockState state,
 		Level level,
 		BlockPos pos,
@@ -121,51 +122,52 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		}
 
 		final List<DisplayLanternBlockEntity.Occupant> fireflies = displayLantern.getFireflies();
-		if (stack.has(WWDataComponents.FIREFLY_COLOR.get())) {
-			final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR.get());
+		if (itemStack.has(WWDataComponents.FIREFLY_COLOR.get())) {
+			final Holder<FireflyColor> fireflyColor = itemStack.get(WWDataComponents.FIREFLY_COLOR.get());
 			if (fireflyColor != null && fireflies.size() < MAX_FIREFLIES) {
 				String name = "";
-				if (stack.has(DataComponents.CUSTOM_NAME)) name = stack.getHoverName().getString();
+				if (itemStack.has(DataComponents.CUSTOM_NAME)) name = itemStack.getHoverName().getString();
 				displayLantern.addFirefly(level, fireflyColor.unwrapKey().orElseThrow().identifier(), name);
-				player.getItemInHand(hand).consume(1, player);
-				// FIXME: 26.3
-				//player.getInventory().placeItemBackInInventory(new ItemStack(Items.GLASS_BOTTLE));
+
+				final ItemStack emptyResult = ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE));
+
 				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				displayLantern.markForUpdate();
 				level.updateNeighbourForOutputSignal(pos, this);
-				return InteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS.heldItemTransformedTo(emptyResult);
 			}
-		} else if (stack.is(Items.GLASS_BOTTLE) && !fireflies.isEmpty()) {
+		} else if (itemStack.is(Items.GLASS_BOTTLE) && !fireflies.isEmpty()) {
 			final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.getRandom());
 			level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
-			player.getItemInHand(hand).consume(1, player);
-			final ItemStack bottleStack = new ItemStack(WWItems.FIREFLY_BOTTLE);
-			bottleStack.set(
+
+			final ItemStack filledBottle = new ItemStack(WWItems.FIREFLY_BOTTLE);
+			filledBottle.set(
 				WWDataComponents.FIREFLY_COLOR.get(),
 				level.registryAccess()
 					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
 					.get(fireflyInLantern.getColor()).orElseThrow()
 			);
-			if (!Objects.equals(fireflyInLantern.customName, "")) bottleStack.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
-			// FIXME: 26.3
-			//player.getInventory().placeItemBackInInventory(bottleStack);
+			if (!Objects.equals(fireflyInLantern.customName, "")) filledBottle.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
+
+			final ItemStack filledResult = ItemUtils.createFilledResult(itemStack, player, filledBottle);
+
 			displayLantern.removeFirefly(fireflyInLantern);
 			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 			displayLantern.markForUpdate();
 			level.updateNeighbourForOutputSignal(pos, this);
-			return InteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS.heldItemTransformedTo(filledResult);
 		}
 
-		if (!stack.isEmpty() && displayLantern.noFireflies()) {
+		if (!itemStack.isEmpty() && displayLantern.noFireflies()) {
 			int light = 0;
-			if (stack.getItem() instanceof BlockItem blockItem) {
+			if (itemStack.getItem() instanceof BlockItem blockItem) {
 				light = blockItem.getBlock().defaultBlockState().getLightEmission();
-			} else if (stack.isEnchanted()) {
-				light = (int) Math.round(stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).size() * 0.5D);
+			} else if (itemStack.isEnchanted()) {
+				light = (int) Math.round(itemStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).size() * 0.5D);
 			}
 			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, LightEngine.MAX_LEVEL)));
-			displayLantern.inventory.set(0, stack.split(1));
+			displayLantern.inventory.set(0, itemStack.split(1));
 			displayLantern.markForUpdate();
 			level.updateNeighbourForOutputSignal(pos, this);
 			return InteractionResult.SUCCESS;
