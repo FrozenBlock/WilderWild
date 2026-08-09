@@ -32,7 +32,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
       - `swirl_and_bounce`: The particle will swirl as it falls and bounce upon hitting the ground.
       - `flow_away_and_bounce`: The particle will flow with the wind and bounce upon hitting the ground.
       - `swirl_and_flow_away_and_bounce`: The particle will swirl and flow with the wind, and bounce upon hitting the ground.
-    - `use_alongside_vanilla_falling_leaves`: Whether this will replace Vanilla's falling leaf particles, or will be used alongside them.
+    - `use_alongside_vanilla_falling_leaves`: Whether this will replace or be used alongside Vanilla's falling leaf particles.
     - `falling_leaf_litter` (Optional):
       - `block`: The id of the Block to place upon landing.
       - `fall_chance`: The chance (between 0-1) a Leaf Litter fall from `leaves_block` each random tick.
@@ -43,6 +43,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Falling Maple Leaves now only have a 25% chance to place a leaf litter block.
 - Fixed an issue that prevented Orange Maple Leaves from being smelted into Orange Maple Leaf Litter.
 - The Dying Yellow Maple tree feature's height is now the same as its Orange and Red counterparts.
+- Removed the `#wilderwild:non_overriden_falling_leaves` Block Tag.
 - Wilder Wild's Wolf Variants spawn modifications are now data-driven.
     - These can be found within the `frozenlib/variant_spawn_injection` data folder.
     - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
