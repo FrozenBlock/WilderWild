@@ -109,6 +109,8 @@ public class BiolithIntegration extends ModIntegration {
 			);
 		}
 
+		if (WWWorldgenConfig.DAPPLED_FOREST_REMOVAL.get()) BiomePlacement.removeOverworld(Biomes.DAPPLED_FOREST);
+
 		// TRANSITION BIOMES
 
 		if (WWWorldgenConfig.ARID_FOREST_GENERATION.get()) {

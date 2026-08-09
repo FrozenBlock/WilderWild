@@ -138,5 +138,4 @@ public final class SparseBirchJungle extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

@@ -176,5 +176,4 @@ public final class SparseForest extends FrozenLibBiome {
 			0F
 		);
 	}
-
 }

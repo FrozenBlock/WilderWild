@@ -157,5 +157,4 @@ public final class Oasis extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

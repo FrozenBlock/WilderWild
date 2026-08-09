@@ -144,5 +144,4 @@ public final class DarkTaiga extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

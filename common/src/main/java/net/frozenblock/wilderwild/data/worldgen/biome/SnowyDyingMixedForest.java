@@ -168,5 +168,4 @@ public final class SnowyDyingMixedForest extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

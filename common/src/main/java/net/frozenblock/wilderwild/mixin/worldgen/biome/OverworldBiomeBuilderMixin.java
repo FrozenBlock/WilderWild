@@ -74,6 +74,7 @@ public final class OverworldBiomeBuilderMixin {
 			MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
 			MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
 		}
+		if (WWWorldgenConfig.DAPPLED_FOREST_REMOVAL.get()) MIDDLE_BIOMES_VARIANT[1][0] = null;
 	}
 
 	@Inject(method = "addLowSlice", at = @At("TAIL"))

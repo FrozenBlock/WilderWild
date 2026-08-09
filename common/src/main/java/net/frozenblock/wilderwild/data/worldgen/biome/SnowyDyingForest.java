@@ -144,5 +144,4 @@ public final class SnowyDyingForest extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

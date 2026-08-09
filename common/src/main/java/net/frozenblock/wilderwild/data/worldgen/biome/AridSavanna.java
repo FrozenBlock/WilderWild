@@ -141,5 +141,4 @@ public final class AridSavanna extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

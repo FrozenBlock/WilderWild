@@ -5,7 +5,7 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 /**
  * Used becaused Enum extension is not supported on common.
  */
-public class WWGrassColorModifier {
+public final class WWGrassColorModifier {
 	public static BiomeSpecialEffects.GrassColorModifier WILDERWILD_TUNDRA;
 
 	static {

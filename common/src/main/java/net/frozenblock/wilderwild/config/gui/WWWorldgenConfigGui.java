@@ -80,7 +80,8 @@ public final class WWWorldgenConfigGui {
 			biomePlacementBooleanEntry(builder, Biomes.STONY_SHORE, WWWorldgenConfig.STONY_SHORE_MODIFIED_PLACEMENT),
 			biomePlacementBooleanEntry(builder, Biomes.SWAMP, WWWorldgenConfig.SWAMP_MODIFIED_PLACEMENT),
 			biomePlacementBooleanEntry(builder, Biomes.WINDSWEPT_SAVANNA, WWWorldgenConfig.WINDSWEPT_SAVANNA_MODIFIED_PLACEMENT),
-			biomePlacementBooleanEntry(builder, WWBiomes.TUNDRA, WWWorldgenConfig.TUNDRA_MODIFIED_PLACEMENT)
+			biomePlacementBooleanEntry(builder, WWBiomes.TUNDRA, WWWorldgenConfig.TUNDRA_MODIFIED_PLACEMENT),
+			biomePlacementBooleanEntry(builder, Biomes.DAPPLED_FOREST, WWWorldgenConfig.DAPPLED_FOREST_REMOVAL)
 		);
 
 		// TREE GENERATION

@@ -131,7 +131,5 @@ public final class WarmRiver extends FrozenLibBiome {
 	}
 
 	@Override
-	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-	}
-
+	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {}
 }

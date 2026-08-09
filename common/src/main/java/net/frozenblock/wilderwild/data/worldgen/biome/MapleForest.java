@@ -157,5 +157,4 @@ public final class MapleForest extends FrozenLibBiome {
 			0F
 		);
 	}
-
 }

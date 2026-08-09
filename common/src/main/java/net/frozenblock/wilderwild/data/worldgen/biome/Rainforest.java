@@ -176,5 +176,4 @@ public final class Rainforest extends FrozenLibBiome {
 			}
 		}
 	}
-
 }

@@ -152,5 +152,4 @@ public final class SnowyOldGrowthPineTaiga extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

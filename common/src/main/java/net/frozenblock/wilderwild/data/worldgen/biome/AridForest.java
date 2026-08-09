@@ -144,5 +144,4 @@ public final class AridForest extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

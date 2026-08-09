@@ -138,5 +138,4 @@ public final class ParchedForest extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

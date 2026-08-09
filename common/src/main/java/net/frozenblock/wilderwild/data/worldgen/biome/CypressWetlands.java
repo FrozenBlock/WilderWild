@@ -273,5 +273,4 @@ public final class CypressWetlands extends FrozenLibBiome {
 			);
 		});
 	}
-
 }

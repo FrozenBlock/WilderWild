@@ -163,5 +163,4 @@ public final class MesogleaCaves extends FrozenLibBiome {
 			OFFSET
 		);
 	}
-
 }

@@ -96,6 +96,10 @@ public final class WWWorldgenConfig {
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("biome_placement.tundra." + bool))
 		.build();
+	public static final ConfigEntry<Boolean> DAPPLED_FOREST_REMOVAL = CONFIG.entryBuilder("biomePlacement/dappleForestRemoval", EntryType.BOOL, false)
+		.requireRestart()
+		.textSupplier(bool -> WWConstants.text("biome_placement.dapple_forest." + bool))
+		.build();
 
 	// TREE GENERATION
 	public static final ConfigEntry<Boolean> TREE_GENERATION = CONFIG.entryBuilder("treeGeneration/treeGeneration", EntryType.BOOL, true).requireRestart().build();

@@ -172,5 +172,4 @@ public final class SemiBirchForest extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

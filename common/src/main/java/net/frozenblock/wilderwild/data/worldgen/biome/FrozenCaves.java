@@ -178,5 +178,4 @@ public final class FrozenCaves extends FrozenLibBiome {
 			)
 		);
 	}
-
 }

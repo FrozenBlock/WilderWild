@@ -143,5 +143,4 @@ public final class OldGrowthBirchTaiga extends FrozenLibBiome {
 			);
 		}
 	}
-
 }

@@ -30,6 +30,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that resulted in Icicles dropping as items after landing instead of shattering as intended.
 
 ### 26.3+
+- Added a new Abandoned Camp structure for the Maple Forest biome.
+- Added the `Wilder Abandoned Camps` internal Data Pack, updating Swamp Abandoned Camps to include Wilder Wild's new blocks and Willow trees.
+  - This is enabled by default, but can be disabled in the Data Pack menu.
+- Swamp Abandoned Camps will now generate using the Willow wood set instead of Oak.
+  - Added a config option to toggle this behavior.
 - The Shrub now uses Vanilla's Red Shrub sound type.
+- Added a config option to toggle Dappled Forest generation.
 - Added the `wilderwild:termite_edible` Structure Processor, with the following format:
   - `value`: Can be either true or false. Sets the `termite_edible` property to this value for all Blocks with this property.

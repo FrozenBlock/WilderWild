@@ -176,5 +176,4 @@ public final class MagmaticCaves extends FrozenLibBiome {
 			OFFSET
 		);
 	}
-
 }
