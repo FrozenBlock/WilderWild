@@ -93,7 +93,7 @@ public class FallingLeafUtil {
 		);
 	}
 
-	public static Optional<FallingLeafData> tryAnimateTickAndGetFallingLeafdata(BlockState state, Level level, BlockPos pos, RandomSource random) {
+	public static Optional<FallingLeafData> tryAnimateTickAndGetFallingLeafData(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!WWAmbienceAndMiscConfig.USE_WILDER_WILD_FALLING_LEAVES.get()) return Optional.empty();
 
 		final Optional<FallingLeafData> fallingLeafData = getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());

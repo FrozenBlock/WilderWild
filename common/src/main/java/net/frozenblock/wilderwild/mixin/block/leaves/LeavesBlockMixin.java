@@ -47,7 +47,7 @@ public abstract class LeavesBlockMixin extends Block {
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
 		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> fallingLeafData
 	) {
-		fallingLeafData.set(FallingLeafUtil.tryAnimateTickAndGetFallingLeafdata(state, level, pos, random));
+		fallingLeafData.set(FallingLeafUtil.tryAnimateTickAndGetFallingLeafData(state, level, pos, random));
 	}
 
 	@WrapWithCondition(
