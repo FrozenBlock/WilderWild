@@ -6,21 +6,53 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
     - Added the `#wilderwild:music_pool/has_taiga_music`, `#wilderwild:music_pool/has_old_growth_taiga_music`, and `#wilderwild:music_pool/has_dappled_forest_music` Biome Tags.
     - Added config options to toggle new music in these biomes.
   - You can support [Cheryltje](https://linktr.ee/cheryltje) by purchasing `Better Days Ahead` on [BandCamp](https://cheryltje.bandcamp.com/track/better-days-ahead).
-- Updated the Jellyfish's loot table.
-  - One loot table is now used for the Jellyfish instead of multiple, with the previous loot tables now being referenced from within the new loot table.
+- Wilder Wild's Falling Leaves are now data-driven using the new `wilderwild:falling_leaf` dynamic registry, with the following format:
+  - `leaves_block`: An id, a list of ids, or a Block Tag defining which blocks `leaf_particle_data` and `falling_leaf_litter_data` pertain to.
+  - `leaf_litter_block`: An id, a list of ids, or a Block Tag defining which blocks `leaf_litter_particle` pertains to.
+  - `leaf_particle` (Optional) and `leaf_litter_particle` (Optional):
+    - `particle`: The id of the particle to spawn.
+    - `origin_block` (Optional): The id of the Block to obtain the following properties from:
+      - The Block's tint.
+      - Whether the Block is a Leaf Litter.
+    - `spawn_chance` (Optional): The chance (between 0-1) the particle can spawn each tick.
+      - If empty, the particle will not spawn.
+    - `spawn_chance_modifier` (Optional): The id of a Config Entry to obtain an Integer from.
+      - The value of the specified Config Entry will be divided by 100, then multiplied by `spawn_chance` to determine the final chance of spawning.
+      - If an invalid entry id is provided, an error will be thrown.
+    - `texture_size`: The size, in pixels, of the particle's sprites.
+      - This is used to determine the size of the particle, in order to remain pixel-consistent.
+    - `gravity_scale`: How fast the particle should fall.
+    - `wind_scale`: How much Wind will affect the particle's movement.
+    - `movement_type`:
+      - `none`: The particle will move straight down.
+      - `swirl`: The particle will swirl as it falls.
+      - `flow_away`: The particle will flow with the wind.
+      - `swirl_and_flow_away`: The particle will both swirl and flow with the wind.
+      - `bounce`: The particle will bounce upon hitting the ground.
+      - `swirl_and_bounce`: The particle will swirl as it falls and bounce upon hitting the ground.
+      - `flow_away_and_bounce`: The particle will flow with the wind and bounce upon hitting the ground.
+      - `swirl_and_flow_away_and_bounce`: The particle will swirl and flow with the wind, and bounce upon hitting the ground.
+    - `falling_leaf_litter` (Optional):
+      - `block`: The id of the Block to place upon landing.
+      - `fall_chance`: The chance (between 0-1) a Leaf Litter fall from `leaves_block` each random tick.
+      - `placement_on_land_chance`: The chance (between 0-1) for `block` to be placed upon landing.
+      - `fall_sound` (Optional): The sound to be played when a Leaf Litter falls from `leaves_block`.
+      - `land_sound` (Optional): The sound to be played upon landing.
 - Falling Maple Leaves can no longer increase the amount of leaves in an already existing leaf litter block.
 - Falling Maple Leaves now only have a 25% chance to place a leaf litter block.
 - Fixed an issue that prevented Orange Maple Leaves from being smelted into Orange Maple Leaf Litter.
 - The Dying Yellow Maple tree feature's height is now the same as its Orange and Red counterparts.
 - Wilder Wild's Wolf Variants spawn modifications are now data-driven.
-  - These can be found within the `frozenlib/variant_spawn_injection` data folder.
-  - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
-  - Added the following Biome Tags:
-    - `#wilderwild:entity/variant/wolf_ashen`
-    - `#wilderwild:entity/variant/wolf_woods`
-    - `#wilderwild:entity/variant/wolf_pale`
-    - `#wilderwild:entity/variant/wolf_black`
-    - `#wilderwild:entity/variant/wolf_chestnut`
-  - Added a config option to toggle these modifications.
+    - These can be found within the `frozenlib/variant_spawn_injection` data folder.
+    - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
+    - Added the following Biome Tags:
+        - `#wilderwild:entity/variant/wolf_ashen`
+        - `#wilderwild:entity/variant/wolf_woods`
+        - `#wilderwild:entity/variant/wolf_pale`
+        - `#wilderwild:entity/variant/wolf_black`
+        - `#wilderwild:entity/variant/wolf_chestnut`
+    - Added a config option to toggle these modifications.
+- Updated the Jellyfish's loot table.
+  - One loot table is now used for the Jellyfish instead of multiple, with the previous loot tables now being referenced from within the new loot table.
 - Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.
 - Fixed an issue that resulted in Icicles dropping as items after landing instead of shattering as intended.

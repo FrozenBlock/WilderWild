@@ -48,15 +48,15 @@ public record FallingLeafData(
 	public static final Codec<FallingLeafData> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
-		ParticleData.CODEC.optionalFieldOf("leaf_particle_data").forGetter(FallingLeafData::leafParticleData),
-		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle_data").forGetter(FallingLeafData::leafParticleData),
-		FallingLeafLitterData.CODEC.optionalFieldOf("falling_leaf_litter_data").forGetter(FallingLeafData::fallingLeafLitterData)
+		ParticleData.CODEC.optionalFieldOf("leaf_particle").forGetter(FallingLeafData::leafParticleData),
+		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData),
+		FallingLeafLitterData.CODEC.optionalFieldOf("falling_leaf_litter").forGetter(FallingLeafData::fallingLeafLitterData)
 	).apply(instance, FallingLeafData::new));
 	public static final Codec<FallingLeafData> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
-		ParticleData.CODEC.optionalFieldOf("leaf_particle_data").forGetter(FallingLeafData::leafParticleData),
-		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle_data").forGetter(FallingLeafData::leafParticleData)
+		ParticleData.CODEC.optionalFieldOf("leaf_particle").forGetter(FallingLeafData::leafParticleData),
+		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData)
 	).apply(instance, FallingLeafData::new));
 
 	public FallingLeafData(
@@ -72,7 +72,7 @@ public record FallingLeafData(
 		Holder<ParticleType<?>> particle,
 		Optional<Holder<Block>> originBlock,
 		float spawnChance,
-		Optional<ConfigEntryGetter<?>> spawnChanceModifier,
+		Optional<ConfigEntryGetter> spawnChanceModifier,
 		int textureSize,
 		float gravityScale,
 		float windScale,
@@ -197,7 +197,7 @@ public record FallingLeafData(
 		Optional<Holder<SoundEvent>> landSound
 	) {
 		public static final Codec<FallingLeafLitterData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			RegistryFixedCodec.create(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafLitterData::leafLitterBlock),
+			RegistryFixedCodec.create(Registries.BLOCK).fieldOf("block").forGetter(FallingLeafLitterData::leafLitterBlock),
 			ExtraCodecs.floatRange(0F, 1F).optionalFieldOf("fall_chance", 0.25F).forGetter(FallingLeafLitterData::fallChance),
 			ExtraCodecs.floatRange(0F, 1F).optionalFieldOf("placement_on_land_chance", 0F).forGetter(FallingLeafLitterData::fallChance),
 			RegistryFixedCodec.create(Registries.SOUND_EVENT).optionalFieldOf("fall_sound").forGetter(FallingLeafLitterData::fallSound),
@@ -246,10 +246,10 @@ public record FallingLeafData(
 		SWIRL(1, "swirl", true, false, false),
 		FLOW_AWAY(2, "flow_away", false, true, false),
 		SWIRL_AND_FLOW_AWAY(3, "swirl_and_flow_away", true, true, false),
-		GROUND_SUPPORTING(4, "ground_supporting", false, false, true),
-		GROUND_SUPPORTING_SWIRL(5, "ground_supporting_swirl", true, false, true),
-		GROUND_SUPPORTING_FLOW_AWAY(6, "ground_supporting_flow", true, false, true),
-		GROUND_SUPPORTING_SWIRL_AND_FLOW_AWAY(7, "ground_supporting_swirl_and_flow_away", true, true, true);
+		BOUNCE(4, "bounce", false, false, true),
+		SWIRL_AND_BOUNCE(5, "swirl_and_bounce", true, false, true),
+		FLOW_AWAY_AND_BOUNCE(6, "flow_away_and_bounce", true, false, true),
+		SWIRL_AND_FLOW_AWAY_AND_BOUNCE(7, "swirl_and_flow_away_and_bounce", true, true, true);
 		public static final Codec<LeafMovementType> CODEC = StringRepresentable.fromEnum(LeafMovementType::values);
 		private static final IntFunction<LeafMovementType> BY_ID = ByIdMap.continuous(LeafMovementType::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
 		public static final StreamCodec<ByteBuf, LeafMovementType> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, LeafMovementType::getId);
@@ -268,10 +268,10 @@ public record FallingLeafData(
 		}
 
 		public LeafMovementType getGroundSupportingEquivalent() {
-			if (this == LeafMovementType.NONE) return LeafMovementType.GROUND_SUPPORTING;
-			if (this == LeafMovementType.SWIRL) return LeafMovementType.GROUND_SUPPORTING_SWIRL;
-			if (this == LeafMovementType.FLOW_AWAY) return LeafMovementType.GROUND_SUPPORTING_FLOW_AWAY;
-			if (this == LeafMovementType.SWIRL_AND_FLOW_AWAY) return LeafMovementType.GROUND_SUPPORTING_SWIRL_AND_FLOW_AWAY;
+			if (this == LeafMovementType.NONE) return LeafMovementType.BOUNCE;
+			if (this == LeafMovementType.SWIRL) return LeafMovementType.SWIRL_AND_BOUNCE;
+			if (this == LeafMovementType.FLOW_AWAY) return LeafMovementType.FLOW_AWAY_AND_BOUNCE;
+			if (this == LeafMovementType.SWIRL_AND_FLOW_AWAY) return LeafMovementType.SWIRL_AND_FLOW_AWAY_AND_BOUNCE;
 			return this;
 		}
 
