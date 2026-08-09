@@ -20,5 +20,6 @@
     "texture_size": 4,
     "wind_scale": 2.0
   },
-  "leaves_block": "minecraft:cherry_leaves"
+  "leaves_block": "minecraft:cherry_leaves",
+  "use_alongside_vanilla_falling_leaves": true
 }

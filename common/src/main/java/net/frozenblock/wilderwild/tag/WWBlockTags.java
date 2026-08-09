@@ -62,8 +62,6 @@ public final class WWBlockTags {
 
 	public static final TagKey<Block> SNOW_GENERATION_CAN_SEARCH_THROUGH = bind("snow_generation_can_search_through");
 
-	public static final TagKey<Block> NON_OVERRIDEN_FALLING_LEAVES = bind("non_overriden_falling_leaves");
-
 	public static final TagKey<Block> WILLOW_ROOTS_CAN_GROW_THROUGH = bind("willow_roots_can_grow_through");
 	public static final TagKey<Block> FALLEN_TREE_STUMP_PLACEABLE_ON = bind("fallen_tree_stump_placeable_on");
 

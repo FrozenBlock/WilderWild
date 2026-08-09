@@ -19,9 +19,10 @@ package net.frozenblock.wilderwild.mixin.block.leaves;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import java.util.Optional;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -44,10 +45,9 @@ public abstract class LeavesBlockMixin extends Block {
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$fallingLeafParticles(
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
-		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
+		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> fallingLeafData
 	) {
-		final boolean hasCustomParticles = FallingLeafUtil.tryAnimateTick(state, level, pos, random);
-		usingCustomFallingLeaves.set(hasCustomParticles);
+		fallingLeafData.set(FallingLeafUtil.tryAnimateTickAndGetFallingLeafdata(state, level, pos, random));
 	}
 
 	@WrapWithCondition(
@@ -59,9 +59,11 @@ public abstract class LeavesBlockMixin extends Block {
 	)
 	public boolean wilderWild$fallingLeafParticles(
 		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below,
-		@Share("wilderWild$usingCustomFallingLeaves") LocalBooleanRef usingCustomFallingLeaves
+		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> fallingLeafData
 	) {
-		return !usingCustomFallingLeaves.get() || instance.builtInRegistryHolder().is(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES);
+		return fallingLeafData.get() == null
+			|| fallingLeafData.get().isEmpty()
+			|| fallingLeafData.get().get().useVanillaFallingLeaves();
 	}
 
 	@Override

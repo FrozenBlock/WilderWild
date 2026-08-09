@@ -43,6 +43,7 @@ public record FallingLeafData(
 	HolderSet<Block> leafLitterBlock,
 	Optional<ParticleData> leafParticleData,
 	Optional<ParticleData> leafLitterParticleData,
+	boolean useVanillaFallingLeaves,
 	Optional<FallingLeafLitterData> fallingLeafLitterData
 ) {
 	public static final Codec<FallingLeafData> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -50,22 +51,25 @@ public record FallingLeafData(
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
 		ParticleData.CODEC.optionalFieldOf("leaf_particle").forGetter(FallingLeafData::leafParticleData),
 		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData),
+		Codec.BOOL.optionalFieldOf("use_alongside_vanilla_falling_leaves", false).forGetter(FallingLeafData::useVanillaFallingLeaves),
 		FallingLeafLitterData.CODEC.optionalFieldOf("falling_leaf_litter").forGetter(FallingLeafData::fallingLeafLitterData)
 	).apply(instance, FallingLeafData::new));
 	public static final Codec<FallingLeafData> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
 		ParticleData.CODEC.optionalFieldOf("leaf_particle").forGetter(FallingLeafData::leafParticleData),
-		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData)
+		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData),
+		Codec.BOOL.optionalFieldOf("use_alongside_vanilla_falling_leaves", false).forGetter(FallingLeafData::useVanillaFallingLeaves)
 	).apply(instance, FallingLeafData::new));
 
 	public FallingLeafData(
 		HolderSet<Block> leavesBlock,
 		HolderSet<Block> leafLitterBlock,
 		Optional<ParticleData> leafParticleData,
-		Optional<ParticleData> leafLitterParticleData
+		Optional<ParticleData> leafLitterParticleData,
+		boolean useVanillaFallingLeaves
 	) {
-		this(leavesBlock, leafLitterBlock, leafParticleData, leafLitterParticleData, Optional.empty());
+		this(leavesBlock, leafLitterBlock, leafParticleData, leafLitterParticleData, useVanillaFallingLeaves, Optional.empty());
 	}
 
 	public record ParticleData(

@@ -32,6 +32,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
       - `swirl_and_bounce`: The particle will swirl as it falls and bounce upon hitting the ground.
       - `flow_away_and_bounce`: The particle will flow with the wind and bounce upon hitting the ground.
       - `swirl_and_flow_away_and_bounce`: The particle will swirl and flow with the wind, and bounce upon hitting the ground.
+    - `use_alongside_vanilla_falling_leaves`: Whether this will replace Vanilla's falling leaf particles, or will be used alongside them.
     - `falling_leaf_litter` (Optional):
       - `block`: The id of the Block to place upon landing.
       - `fall_chance`: The chance (between 0-1) a Leaf Litter fall from `leaves_block` each random tick.

@@ -20,5 +20,6 @@
     "texture_size": 5,
     "wind_scale": 20.0
   },
-  "leaves_block": "minecraft:pale_oak_leaves"
+  "leaves_block": "minecraft:pale_oak_leaves",
+  "use_alongside_vanilla_falling_leaves": true
 }
