@@ -1,0 +1,11 @@
+{
+  "processors": {
+    "processors": [
+      {
+        "processor_type": "wilderwild:termite_edible",
+        "value": true
+      }
+    ]
+  },
+  "structures": "#minecraft:abandoned_camp"
+}

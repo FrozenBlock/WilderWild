@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWStructureProcessorTypes;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
@@ -64,6 +65,7 @@ public final class WilderWild {
 		WWFeatures.init();
 		WWBiomes.init();
 		WWWorldgen.init();
+		WWStructureProcessorTypes.bootstrap();
 		WWStructureModifications.init();
 
 		WWWindDisturbances.init();

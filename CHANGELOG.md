@@ -28,4 +28,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle these modifications.
 - Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.
 - Fixed an issue that resulted in Icicles dropping as items after landing instead of shattering as intended.
-- The Shrub now uses Vanilla's Red Shrub sounds on 26.3+.
+
+### 26.3+
+- The Shrub now uses Vanilla's Red Shrub sound type.
+- Added the `wilderwild:termite_edible` Structure Processor, with the following format:
+  - `value`: Can be either true or false. Sets the `termite_edible` property to this value for all Blocks with this property.

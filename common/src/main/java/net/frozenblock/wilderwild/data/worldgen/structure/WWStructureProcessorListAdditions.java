@@ -27,11 +27,13 @@ import net.frozenblock.lib.levelgen.structure.impl.processor.StructureProcessorL
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.levelgen.structure.templatesystem.TermiteEdibleBlockProcessor;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -48,7 +50,7 @@ public final class WWStructureProcessorListAdditions {
 
 		StructureProcessorListAdditions.register(
 			context,
-			WWConstants.id("decaying_trail_ruins"),
+			WWConstants.id("trail_ruins_decay"),
 			HolderSet.direct(structures.getOrThrow(BuiltinStructures.TRAIL_RUINS)),
 			List.of(
 				new RuleProcessor(
@@ -70,7 +72,7 @@ public final class WWStructureProcessorListAdditions {
 
 		StructureProcessorListAdditions.register(
 			context,
-			WWConstants.id("palm_village_desert"),
+			WWConstants.id("village_desert_palms"),
 			HolderSet.direct(structures.getOrThrow(BuiltinStructures.VILLAGE_DESERT)),
 			List.of(
 				new BlockStateRespectingRuleProcessor(
@@ -103,7 +105,7 @@ public final class WWStructureProcessorListAdditions {
 
 		StructureProcessorListAdditions.register(
 			context,
-			WWConstants.id("willow_abandoned_camp_swamp"),
+			WWConstants.id("abandoned_camp_swamp_willow"),
 			HolderSet.direct(structures.getOrThrow(BuiltinStructures.ABANDONED_CAMP_SWAMP)),
 			List.of(
 				new BlockStateRespectingRuleProcessor(
@@ -137,7 +139,14 @@ public final class WWStructureProcessorListAdditions {
 
 		StructureProcessorListAdditions.register(
 			context,
-			WWConstants.id("stone_chest_ancient_city"),
+			WWConstants.id("abandoned_camp_termite_edible"),
+			structures.getOrThrow(StructureTags.ABANDONED_CAMP),
+			List.of(new TermiteEdibleBlockProcessor(true))
+		);
+
+		StructureProcessorListAdditions.register(
+			context,
+			WWConstants.id("ancient_city_stone_chest"),
 			HolderSet.direct(structures.getOrThrow(BuiltinStructures.ANCIENT_CITY)),
 			List.of(
 				new BlockStateRespectingRuleProcessor(

@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
 import net.frozenblock.wilderwild.tag.WWStructureTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.StructureTags;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
 public final class WWStructureTagsProvider extends FabricTagsProvider<Structure> {
@@ -34,6 +35,9 @@ public final class WWStructureTagsProvider extends FabricTagsProvider<Structure>
 
 	@Override
 	public void addTags(HolderLookup.Provider arg) {
+		this.builder(StructureTags.ABANDONED_CAMP)
+			.add(WWStructures.ABANDONED_CAMP_MAPLE_FOREST);
+
 		this.builder(WWStructureTags.ON_ABANDONED_CAMP_MAPLE_FOREST_MAPS)
 			.add(WWStructures.ABANDONED_CAMP_MAPLE_FOREST);
 	}
