@@ -28,6 +28,7 @@ public final class FallingLeafDatas {
 		Block leafLitterBlock,
 		Optional<FallingLeafData.ParticleData> leafParticle,
 		Optional<FallingLeafData.ParticleData> leafLitterParticle,
+		boolean useVanillaFallingLeaves,
 		Optional<FallingLeafData.FallingLeafLitterData> fallingLeafLitter
 	) {
 		context.register(
@@ -37,8 +38,31 @@ public final class FallingLeafDatas {
 				HolderSet.direct(leafLitterBlock.builtInRegistryHolder()),
 				leafParticle,
 				leafLitterParticle,
+				useVanillaFallingLeaves,
 				fallingLeafLitter
 			)
+		);
+	}
+
+	public static void register(
+		BootstrapContext<FallingLeafData> context,
+		ResourceKey<FallingLeafData> key,
+		Block leavesBlock,
+		Block leafLitterBlock,
+		FallingLeafData.ParticleData leafParticle,
+		FallingLeafData.ParticleData leafLitterParticle,
+		boolean useVanillaFallingLeaves,
+		FallingLeafData.FallingLeafLitterData fallingLeafLitter
+	) {
+		register(
+			context,
+			key,
+			leavesBlock,
+			leafLitterBlock,
+			Optional.of(leafParticle),
+			Optional.of(leafLitterParticle),
+			useVanillaFallingLeaves,
+			Optional.of(fallingLeafLitter)
 		);
 	}
 
@@ -56,9 +80,31 @@ public final class FallingLeafDatas {
 			key,
 			leavesBlock,
 			leafLitterBlock,
+			leafParticle,
+			leafLitterParticle,
+			false,
+			fallingLeafLitter
+		);
+	}
+
+	public static void register(
+		BootstrapContext<FallingLeafData> context,
+		ResourceKey<FallingLeafData> key,
+		Block leavesBlock,
+		Block leafLitterBlock,
+		FallingLeafData.ParticleData leafParticle,
+		FallingLeafData.ParticleData leafLitterParticle,
+		boolean useVanillaFallingLeaves
+	) {
+		register(
+			context,
+			key,
+			leavesBlock,
+			leafLitterBlock,
 			Optional.of(leafParticle),
 			Optional.of(leafLitterParticle),
-			Optional.of(fallingLeafLitter)
+			useVanillaFallingLeaves,
+			Optional.empty()
 		);
 	}
 
@@ -75,9 +121,9 @@ public final class FallingLeafDatas {
 			key,
 			leavesBlock,
 			leafLitterBlock,
-			Optional.of(leafParticle),
-			Optional.of(leafLitterParticle),
-			Optional.empty()
+			leafParticle,
+			leafLitterParticle,
+			false
 		);
 	}
 
@@ -93,7 +139,8 @@ public final class FallingLeafDatas {
 		int textureSize,
 		float gravityScale,
 		float windScale,
-		FallingLeafData.LeafMovementType movementType
+		FallingLeafData.LeafMovementType movementType,
+		boolean useVanillaFallingLeaves
 	) {
 		register(
 			context,
@@ -122,7 +169,39 @@ public final class FallingLeafDatas {
 					movementType.getGroundSupportingEquivalent()
 				)
 			),
+			useVanillaFallingLeaves,
 			Optional.empty()
+		);
+	}
+
+	public static void register(
+		BootstrapContext<FallingLeafData> context,
+		ResourceKey<FallingLeafData> key,
+		Block leavesBlock,
+		Block leafLitterBlock,
+		Holder<ParticleType<?>> leafParticle,
+		Holder<ParticleType<?>> leafLitterParticle,
+		float spawnChance,
+		ConfigEntry<Integer> spawnChanceModifier,
+		int textureSize,
+		float gravityScale,
+		float windScale,
+		FallingLeafData.LeafMovementType movementType
+	) {
+		register(
+			context,
+			key,
+			leavesBlock,
+			leafLitterBlock,
+			leafParticle,
+			leafLitterParticle,
+			spawnChance,
+			spawnChanceModifier,
+			textureSize,
+			gravityScale,
+			windScale,
+			movementType,
+			false
 		);
 	}
 
@@ -248,7 +327,8 @@ public final class FallingLeafDatas {
 				1.4F,
 				20F,
 				FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
-			)
+			),
+			true
 		);
 
 		register(
@@ -278,7 +358,8 @@ public final class FallingLeafDatas {
 			4,
 			1F,
 			2F,
-			FallingLeafData.LeafMovementType.FLOW_AWAY
+			FallingLeafData.LeafMovementType.FLOW_AWAY,
+			true
 		);
 
 		register(
@@ -314,6 +395,7 @@ public final class FallingLeafDatas {
 					)
 				),
 				Optional.empty(),
+				false,
 				Optional.empty()
 			)
 		);

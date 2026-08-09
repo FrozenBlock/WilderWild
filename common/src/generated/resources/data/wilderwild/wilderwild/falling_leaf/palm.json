@@ -1,26 +1,22 @@
 {
   "leaf_litter_block": "wilderwild:palm_frond_litter",
-  "leaf_litter_particle_data": {
+  "leaf_litter_particle": {
     "gravity_scale": 4.5,
     "movement_type": "swirl",
     "origin_block": "wilderwild:palm_fronds",
     "particle": "wilderwild:palm_fronds",
     "spawn_chance": 5.5E-4,
-    "spawn_chance_modifier": {
-      "entry": "wilderwild:misc/leafParticles/palmFrequency"
-    },
+    "spawn_chance_modifier": "wilderwild:misc/leafParticles/palmFrequency",
     "texture_size": 6,
     "wind_scale": 5.0
   },
-  "leaf_particle_data": {
+  "leaf_particle": {
     "gravity_scale": 4.5,
     "movement_type": "swirl",
     "origin_block": "wilderwild:palm_fronds",
     "particle": "wilderwild:palm_fronds",
     "spawn_chance": 5.5E-4,
-    "spawn_chance_modifier": {
-      "entry": "wilderwild:misc/leafParticles/palmFrequency"
-    },
+    "spawn_chance_modifier": "wilderwild:misc/leafParticles/palmFrequency",
     "texture_size": 6,
     "wind_scale": 5.0
   },

@@ -93,16 +93,18 @@ public class FallingLeafUtil {
 		);
 	}
 
-	public static boolean tryAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (!WWAmbienceAndMiscConfig.USE_WILDER_WILD_FALLING_LEAVES.get()) return false;
+	public static Optional<FallingLeafData> tryGetFallingLeafData(BlockState state, Level level) {
+		if (!WWAmbienceAndMiscConfig.USE_WILDER_WILD_FALLING_LEAVES.get()) return Optional.empty();
+		return getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());
+	}
 
-		final Optional<FallingLeafData> fallingLeafData = getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());
-		if (fallingLeafData.isEmpty()) return false;
+	public static void tryAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		final Optional<FallingLeafData> fallingLeafData = tryGetFallingLeafData(state, level);
+		if (fallingLeafData.isEmpty()) return;
 
 		fallingLeafData
 			.flatMap(FallingLeafData::leafParticleData)
 			.ifPresent(particleData -> particleData.animateTick(level, pos, random));
-		return true;
 	}
 
 	public static void trySpawnWalkParticles(BlockState state, Level level, BlockPos pos, Entity entity, boolean checkCollision) {

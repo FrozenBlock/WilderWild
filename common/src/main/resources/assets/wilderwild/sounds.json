@@ -4903,6 +4903,36 @@
       }
     ]
   },
+  "music.overworld.wilder_taigas": {
+    "sounds": [
+      {
+        "name": "music.game",
+        "type": "event",
+        "weight": 37
+      },
+      {
+        "name": "wilderwild:music/cheryltje/better_days_ahead",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 3
+      }
+    ]
+  },
+  "music.overworld.wilder_old_growth_taigas": {
+    "sounds": [
+      {
+        "name": "music.overworld.old_growth_taiga",
+        "type": "event",
+        "weight": 21
+      },
+      {
+        "name": "wilderwild:music/cheryltje/better_days_ahead",
+        "stream": true,
+        "volume": 0.7,
+        "weight": 2
+      }
+    ]
+  },
   "music.overworld.wilder_snowy": {
     "sounds": [
       {
@@ -5356,6 +5386,11 @@
         "stream": true,
         "volume": 0.7,
         "weight": 5
+      },
+      {
+        "name": "wilderwild:music/cheryltje/better_days_ahead",
+        "stream": true,
+        "volume": 0.7
       }
     ]
   },

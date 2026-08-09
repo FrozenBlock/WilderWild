@@ -106,11 +106,13 @@ public final class WWAmbienceAndMiscConfig {
 	public static final ConfigEntry<Boolean> WILDER_FOREST_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderForestMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_LUSH_CAVES_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderLushCavesMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_DRIPSTONE_CAVES_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderDripstoneCavesMusic", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WILDER_TAIGA_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderTaigaMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_CHERRY_GROVE_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderCherryGroveMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_GROVE_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderGroveMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_JUNGLE_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderJungleMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_BADLANDS_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderBadlandsMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_DESERT_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderDesertMusic", EntryType.BOOL, true).requireRestart().build();
+
 	public static final ConfigEntry<Boolean> WILDER_SNOWY_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderSnowyMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_OCEAN_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderOceanMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_EXTRA_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderExtraMusic", EntryType.BOOL, true).requireRestart().build();

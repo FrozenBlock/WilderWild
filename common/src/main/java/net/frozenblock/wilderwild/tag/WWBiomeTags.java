@@ -363,6 +363,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SNOWY_MUSIC = bind("music_pool/has_snowy_music");
 	public static final TagKey<Biome> HAS_LUSH_MUSIC = bind("music_pool/has_lush_music");
 	public static final TagKey<Biome> HAS_DRIPSTONE_MUSIC = bind("music_pool/has_dripstone_music");
+	public static final TagKey<Biome> HAS_TAIGA_MUSIC = bind("music_pool/has_taiga_music");
+	public static final TagKey<Biome> HAS_OLD_GROWTH_TAIGA_MUSIC = bind("music_pool/has_old_growth_taiga_music");
 	public static final TagKey<Biome> HAS_CHERRY_MUSIC = bind("music_pool/has_cherry_music");
 	public static final TagKey<Biome> HAS_GROVE_MUSIC = bind("music_pool/has_grove_music");
 	public static final TagKey<Biome> HAS_JUNGLE_MUSIC = bind("music_pool/has_jungle_music");

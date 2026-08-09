@@ -2,6 +2,11 @@
   "music.menu": {
     "sounds": [
       {
+        "name": "wilderwild:music/cheryltje/better_days_ahead",
+        "stream": true,
+        "volume": 0.8
+      },
+      {
         "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
         "volume": 0.8

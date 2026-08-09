@@ -721,10 +721,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockIds.PALM_WALL_HANGING_SIGN)
 			.add(WWBlockIds.MAPLE_WALL_HANGING_SIGN);
 
-		this.builder(WWBlockTags.NON_OVERRIDEN_FALLING_LEAVES)
-			.add(BlockItemIds.CHERRY_LEAVES)
-			.add(BlockItemIds.PALE_OAK_LEAVES);
-
 		this.builder(WWBlockTags.KILLS_TERMITE)
 			.add(BlockIds.WATER, BlockIds.WATER_CAULDRON)
 			.add(BlockIds.LAVA, BlockIds.LAVA_CAULDRON)

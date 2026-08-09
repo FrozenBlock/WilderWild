@@ -1,32 +1,28 @@
 {
-  "falling_leaf_litter_data": {
+  "falling_leaf_litter": {
+    "block": "wilderwild:yellow_maple_leaf_litter",
     "fall_chance": 0.04,
     "land_sound": "wilderwild:block.falling_leaf_litter.maple.land",
-    "leaf_litter_block": "wilderwild:yellow_maple_leaf_litter",
     "placement_on_land_chance": 0.04
   },
   "leaf_litter_block": "wilderwild:yellow_maple_leaf_litter",
-  "leaf_litter_particle_data": {
+  "leaf_litter_particle": {
     "gravity_scale": 3.0,
     "movement_type": "swirl",
     "origin_block": "wilderwild:yellow_maple_leaves",
     "particle": "wilderwild:yellow_maple_leaves",
     "spawn_chance": 0.0225,
-    "spawn_chance_modifier": {
-      "entry": "wilderwild:misc/leafParticles/mapleFrequency"
-    },
+    "spawn_chance_modifier": "wilderwild:misc/leafParticles/mapleFrequency",
     "texture_size": 5,
     "wind_scale": 10.0
   },
-  "leaf_particle_data": {
+  "leaf_particle": {
     "gravity_scale": 3.0,
     "movement_type": "swirl",
     "origin_block": "wilderwild:yellow_maple_leaves",
     "particle": "wilderwild:yellow_maple_leaves",
     "spawn_chance": 0.0225,
-    "spawn_chance_modifier": {
-      "entry": "wilderwild:misc/leafParticles/mapleFrequency"
-    },
+    "spawn_chance_modifier": "wilderwild:misc/leafParticles/mapleFrequency",
     "texture_size": 5,
     "wind_scale": 10.0
   },

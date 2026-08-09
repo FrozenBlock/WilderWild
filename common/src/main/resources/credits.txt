@@ -115,6 +115,10 @@ Willow/pictochats_:
     - Anemone
  - Penguin step sounds.
 
+Cheryltje (https://linktr.ee/cheryltje):
+ - Composer:
+    - Better Days Ahead (https://cheryltje.bandcamp.com/track/better-days-ahead)
+
 Contributors:
 
 DaDolphin:
