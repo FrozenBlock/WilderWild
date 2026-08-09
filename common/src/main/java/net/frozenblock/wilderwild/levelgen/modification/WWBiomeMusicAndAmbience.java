@@ -82,6 +82,22 @@ public final class WWBiomeMusicAndAmbience {
 				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_CHERRY_GROVES.asHolder());
 			});
 
+		BiomeModifications.create(WWConstants.id("modify_music_taigas")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_TAIGA_MUSIC),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.WILDER_TAIGA_MUSIC.get()) return;
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_TAIGAS.asHolder());
+			});
+
+		BiomeModifications.create(WWConstants.id("modify_music_old_growth_taigas")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_OLD_GROWTH_TAIGA_MUSIC),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.WILDER_TAIGA_MUSIC.get()) return;
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_OLD_GROWTH_TAIGAS.asHolder());
+			});
+
 		BiomeModifications.create(WWConstants.id("modify_music_groves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_GROVE_MUSIC),

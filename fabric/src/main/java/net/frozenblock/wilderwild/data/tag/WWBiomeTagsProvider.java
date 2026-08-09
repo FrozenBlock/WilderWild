@@ -188,7 +188,6 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 			.addOptional(Biomes.FOREST)
 			.addOptional(Biomes.BIRCH_FOREST)
 			.addOptional(Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.RAINFOREST)
@@ -203,6 +202,14 @@ public final class WWBiomeTagsProvider extends FrozenBiomeTagProvider {
 
 		this.builder(WWBiomeTags.HAS_DRIPSTONE_MUSIC)
 			.addOptional(Biomes.DRIPSTONE_CAVES);
+
+		this.builder(WWBiomeTags.HAS_TAIGA_MUSIC)
+			.addOptional(Biomes.TAIGA)
+			.addOptional(WWBiomes.MIXED_FOREST);
+
+		this.builder(WWBiomeTags.HAS_OLD_GROWTH_TAIGA_MUSIC)
+			.addOptional(Biomes.OLD_GROWTH_PINE_TAIGA)
+			.addOptional(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 
 		this.builder(WWBiomeTags.HAS_CHERRY_MUSIC)
 			.addOptional(Biomes.CHERRY_GROVE);

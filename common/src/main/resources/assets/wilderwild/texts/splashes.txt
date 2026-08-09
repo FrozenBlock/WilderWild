@@ -168,6 +168,7 @@ Less harsh borders!
 That's wild.
 Smooth biomes!
 Music by Willow/pictochats_!
+Music by Cheryltje!
 Splitting heads!
 Shackled and bound in chains!
 Significantly improved in 2.0!
@@ -409,7 +410,7 @@ Snapshot support!
 peak
 hey kitten
 these splashes make no sense
-please remove wilder wild splash text #412
+please remove wilder wild splash text #413
 *Crazy*
 funny sierra
 Programmer Art
@@ -431,6 +432,10 @@ Removed references to a problematic figure!
 No longer torn in two!
 Free of abuse!
 Save yourself, don't get love-bombed!
+The dappled rebellion!
+THE CUSHION'S SECRET CODE
+dum camping meenie
+The maples are better!
 1 minute
 last minute splash text
 MAIN MENU
@@ -441,4 +446,8 @@ Also try Configurable Everything!
 Also try Trailier Tales!
 Also try Particle Tweaks!
 Also try Simple Copper Pipes!
+Also try The Copperier Age!
+Also try Netherier Nether!
+Also try Pushier Pistons!
+Also try Chaos Hypercubed!
 Also try Fabric API!

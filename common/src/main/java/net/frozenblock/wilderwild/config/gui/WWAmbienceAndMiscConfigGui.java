@@ -108,6 +108,7 @@ public final class WWAmbienceAndMiscConfigGui {
 		// MUSIC
 		createSubCategory(builder, category, text("music"), tooltip("music"),
 			booleanEntry(builder, "wilder_forest_music", WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC),
+			booleanEntry(builder, "wilder_taiga_music", WWAmbienceAndMiscConfig.WILDER_TAIGA_MUSIC),
 			booleanEntry(builder, "wilder_cherry_grove_music", WWAmbienceAndMiscConfig.WILDER_CHERRY_GROVE_MUSIC),
 			booleanEntry(builder, "wilder_grove_music", WWAmbienceAndMiscConfig.WILDER_GROVE_MUSIC),
 			booleanEntry(builder, "wilder_jungle_music", WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC),

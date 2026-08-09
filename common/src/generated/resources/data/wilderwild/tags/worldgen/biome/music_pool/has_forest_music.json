@@ -13,10 +13,6 @@
       "required": false
     },
     {
-      "id": "wilderwild:mixed_forest",
-      "required": false
-    },
-    {
       "id": "wilderwild:semi_birch_forest",
       "required": false
     },

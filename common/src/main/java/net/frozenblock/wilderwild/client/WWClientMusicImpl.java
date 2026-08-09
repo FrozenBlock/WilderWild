@@ -42,6 +42,7 @@ public final class WWClientMusicImpl {
 
 	private static ModResourcePackApi.PackDownloadGroup createMusicDownloadGroup() {
 		final ModResourcePackApi.PackDownloadGroup downloadGroup = ModResourcePackApi.PackDownloadGroup.create("wilderwild_music");
+		addMusicDownloadInfo(downloadGroup, "better_days_ahead");
 		addMusicDownloadInfo(downloadGroup, "dove");
 		addMusicDownloadInfo(downloadGroup, "horizon_afoot");
 		addMusicDownloadInfo(downloadGroup, "serene_sonder");

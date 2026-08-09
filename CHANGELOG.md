@@ -1,6 +1,11 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
+- Added the song `Better Days Ahead` by [Cheryltje](https://linktr.ee/cheryltje)!
+  - This song plays in the Taiga, Old Growth Pine Taiga, Old Growth Spruce Taiga, Mixed Forest, Maple Forest, and Dappled Forest biomes.
+    - Added the `#wilderwild:music_pool/has_taiga_music`, `#wilderwild:music_pool/has_old_growth_taiga_music`, and `#wilderwild:music_pool/has_dappled_forest_music` Biome Tags.
+    - Added config options to toggle new music in these biomes.
+  - You can support [Cheryltje](https://linktr.ee/cheryltje) by purchasing `Better Days Ahead` on [BandCamp](https://cheryltje.bandcamp.com/track/better-days-ahead).
 - Updated the Jellyfish's loot table.
   - One loot table is now used for the Jellyfish instead of multiple, with the previous loot tables now being referenced from within the new loot table.
 - Falling Maple Leaves can no longer increase the amount of leaves in an already existing leaf litter block.
