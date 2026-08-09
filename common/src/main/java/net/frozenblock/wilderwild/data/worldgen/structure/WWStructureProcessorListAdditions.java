@@ -127,7 +127,8 @@ public final class WWStructureProcessorListAdditions {
 						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SLAB), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SLAB.get()),
 						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_STAIRS), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_STAIRS.get()),
 						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_SAPLING), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_SAPLING.get()),
-						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_LEAVES), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_LEAVES.get())
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.OAK_LEAVES), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_LEAVES.get()),
+						new BlockStateRespectingProcessorRule(new BlockMatchTest(Blocks.SPRUCE_PLANKS), AlwaysTrueTest.INSTANCE, WWBlocks.WILLOW_PLANKS.get())
 					)
 				)
 			),

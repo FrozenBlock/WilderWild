@@ -17,7 +17,10 @@
 
 package net.frozenblock.wilderwild.data.worldgen.structure;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -36,7 +39,20 @@ public final class WWAbandonedCampStructurePools {
 	public static void bootstrap(BootstrapContext<StructureTemplatePool> context) {
 		final HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
 		final Holder<StructureTemplatePool> empty = pools.getOrThrow(Pools.EMPTY);
+		bootstrapTrees(context, empty);
 		bootstrapCampsitePools(context, empty);
+	}
+
+	private static void bootstrapTrees(BootstrapContext<StructureTemplatePool> context, Holder<StructureTemplatePool> empty) {
+		AbandonedCampStructurePools.registerTrees(
+			context,
+			empty,
+			ImmutableList.of(
+				Pair.of(WWConstants.string("yellow_maple"), WWTreePlaced.MAPLE_CHECKED.yellow().getKey()),
+				Pair.of(WWConstants.string("orange_maple"), WWTreePlaced.MAPLE_CHECKED.orange().getKey()),
+				Pair.of(WWConstants.string("red_maple"), WWTreePlaced.MAPLE_CHECKED.red().getKey())
+			)
+		);
 	}
 
 	private static void bootstrapCampsitePools(BootstrapContext<StructureTemplatePool> context, Holder<StructureTemplatePool> empty) {

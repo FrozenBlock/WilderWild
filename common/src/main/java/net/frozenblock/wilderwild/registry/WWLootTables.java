@@ -19,20 +19,35 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.item.api.component.removable.RemovableItemTags;
 import net.frozenblock.lib.item.api.loot.LootTableEvents;
+import net.frozenblock.lib.item.api.loot.LootTableModification;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.wilderwild.tag.WWStructureTags;
+import net.minecraft.advancements.predicates.LocationPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.loot.packs.VanillaChestLoot;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
+import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public final class WWLootTables {
@@ -185,6 +200,34 @@ public final class WWLootTables {
 					});
 				}
 			}
+		});
+
+		// ABANDONED CAMP
+		// TODO: test to make sure this works properly, even with datapacks
+		LootTableModification.editTable(BuiltInLootTables.ABANDONED_CAMP_COMMON_CHEST, false, (id, table, registries) -> {
+			table.modifyPools(
+				pool -> pool.hasItem(Items.ABANDONED_CAMPSITE_MAP),
+				pool -> {
+					final HolderLookup.RegistryLookup<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
+					final HolderLookup.RegistryLookup<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
+
+					final UniformContainerBase.Builder<?> mapleForestAbandonedCampsiteMap = LootItem.lootTableItem(Items.ABANDONED_CAMPSITE_MAP)
+						.setWeight(1)
+						.apply(SetNameFunction.setName(Component.translatable("filled_map.maple_forest_abandoned_camp"), SetNameFunction.Target.ITEM_NAME))
+						.apply(
+							ExplorationMapFunction.makeExplorationMap(structures.getOrThrow(WWStructureTags.ON_ABANDONED_CAMP_MAPLE_FOREST_MAPS))
+								.setMapDecoration(MapDecorationTypes.ABANDONED_CAMP)
+								.setSkipKnownStructures(true)
+						)
+						.apply(VanillaChestLoot.discardIfNotValidMap())
+						.when(
+							LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomes.getOrThrow(WWBiomes.MAPLE_FOREST))))
+							.invert()
+						);
+
+					pool.add(mapleForestAbandonedCampsiteMap);
+				}
+			);
 		});
 
 		// ANCIENT CITY

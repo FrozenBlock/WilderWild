@@ -32,6 +32,26 @@ import org.spongepowered.asm.mixin.injection.At;
 public class AbandonedCampStructurePoolsMixin {
 
 	@WrapOperation(
+		method = "registerTrees",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/data/worldgen/Pools;register(Lnet/minecraft/data/worldgen/BootstrapContext;Ljava/lang/String;Lnet/minecraft/world/level/levelgen/structure/pools/StructureTemplatePool;)V"
+		)
+	)
+	private static void wilderWild$registerAbandonedCampTreesWithCorrectNamespace(
+		BootstrapContext<StructureTemplatePool> context, String name, StructureTemplatePool pool, Operation<Void> original
+	) {
+		final String wilderWildKey = WWConstants.MOD_ID + ":";
+		if (name.contains(wilderWildKey)) {
+			name = WWConstants.string(name.replace(wilderWildKey, ""));
+			context.register(Pools.parseKey(name), pool);
+			return;
+		}
+
+		original.call(context, name, pool);
+	}
+
+	@WrapOperation(
 		method = {"registerTentPool", "registerCampsitePool"},
 		at = @At(
 			value = "INVOKE",
@@ -42,10 +62,7 @@ public class AbandonedCampStructurePoolsMixin {
 		BootstrapContext<StructureTemplatePool> context, String name, StructureTemplatePool pool, Operation<Void> original
 	) {
 		if (name.startsWith(WWConstants.MOD_ID)) {
-			context.register(
-				Pools.parseKey(name),
-				pool
-			);
+			context.register(Pools.parseKey(name), pool);
 			return;
 		}
 

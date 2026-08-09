@@ -40,6 +40,7 @@ import net.frozenblock.wilderwild.data.tag.WWFeatureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWFluidTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWGameEventTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWItemTagsProvider;
+import net.frozenblock.wilderwild.data.tag.WWStructureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWTimelineTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
 import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
@@ -89,6 +90,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWGameEventTagsProvider::new);
 		pack.addProvider(WWVillagerTradesTagsProvider::new);
 		pack.addProvider(WWFeatureTagsProvider::new);
+		pack.addProvider(WWStructureTagsProvider::new);
 		pack.addProvider(WWTimelineTagsProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);

@@ -42,16 +42,6 @@ accessible method net/minecraft/world/level/storage/loot/providers/number/Number
 # Items
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/client/renderer/item/properties/select/SelectItemModelProperties ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
-accessible field net/minecraft/world/item/CreativeModeTabs BUILDING_BLOCKS Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs NATURAL_BLOCKS Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs FUNCTIONAL_BLOCKS Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs REDSTONE_BLOCKS Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs TOOLS_AND_UTILITIES Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs INGREDIENTS Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs FOOD_AND_DRINKS Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs COMBAT Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/world/item/CreativeModeTabs SPAWN_EGGS Lnet/minecraft/resources/ResourceKey;
-accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
 
 # Entity
 accessible method net/minecraft/world/entity/EntityTypes chestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
@@ -83,6 +73,7 @@ transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$Grass
 
 # Data Generation
 accessible method net/minecraft/client/data/models/BlockModelGenerators createMirroredCubeGenerator (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/client/renderer/block/dispatch/Variant;Lnet/minecraft/client/data/models/model/TextureMapping;Ljava/util/function/BiConsumer;)Lnet/minecraft/client/data/models/blockstates/BlockModelDefinitionGenerator;
+accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTrees (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Ljava/util/Collection;)V
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTentPool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerCampsitePool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
 accessible class net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource
@@ -95,5 +86,6 @@ accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minec
 accessible method net/minecraft/client/particle/BubblePopParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/particle/SpriteSet;)V
 accessible method net/minecraft/client/particle/SuspendedParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
 
-# Data Generation Loot
+# Loot
 accessible field net/minecraft/data/loot/BlockLootSubProvider blocks Lnet/minecraft/core/HolderGetter;
+accessible method net/minecraft/data/loot/packs/VanillaChestLoot discardIfNotValidMap ()Lnet/minecraft/world/level/storage/loot/functions/FilteredFunction$Builder;
