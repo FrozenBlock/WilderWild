@@ -265,7 +265,8 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(Items.PEONY, WWItems.DATURA);
 		insertAfterInNaturalBlocks(WWItems.DATURA, WWItems.MILKWEED);
 		insertBeforeInIngredients(Items.INK_SAC, WWItems.MILKWEED_POD);
-		insertAfterInNaturalBlocks(WWItems.MILKWEED, WWItems.CATTAIL);
+		// TALL PLANTS
+		insertBeforeInNaturalBlocks(Items.BIG_DRIPLEAF, WWItems.CATTAIL);
 
 		// PLANTS
 		insertBeforeInNaturalBlocks(Items.GLOW_LICHEN, WWItems.POLLEN);
@@ -274,7 +275,6 @@ public final class WWCreativeInventorySorting {
 		insertAfterInFoodAndDrinks(WWItems.PRICKLY_PEAR, WWItems.PEELED_PRICKLY_PEAR);
 		insertAfterInNaturalBlocks(WWItems.PRICKLY_PEAR, WWItems.TUMBLEWEED_PLANT);
 		insertAfterInNaturalBlocks(WWItems.TUMBLEWEED_PLANT, WWItems.TUMBLEWEED);
-		insertAfterInNaturalBlocks(WWItems.TUMBLEWEED, WWItems.SHRUB);
 		insertBeforeInNaturalBlocks(Items.LILY_PAD, WWItems.BARNACLES);
 		insertAfterInNaturalBlocks(WWItems.BARNACLES, WWItems.ALGAE);
 		insertAfterInNaturalBlocks(WWItems.ALGAE, WWItems.PLANKTON);
@@ -287,6 +287,7 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.CLOVERS, WWItems.FROZEN_SHORT_GRASS);
 		insertAfterInNaturalBlocks(WWItems.FROZEN_SHORT_GRASS, WWItems.FROZEN_FERN);
 		insertAfterInNaturalBlocks(Items.BUSH, WWItems.FROZEN_BUSH);
+		insertBeforeInNaturalBlocks(Items.RED_SHRUB, WWItems.SHRUB);
 		insertAfterInNaturalBlocks(Items.LARGE_FERN, WWItems.FROZEN_TALL_GRASS);
 		insertAfterInNaturalBlocks(WWItems.FROZEN_TALL_GRASS, WWItems.FROZEN_LARGE_FERN);
 
@@ -350,7 +351,7 @@ public final class WWCreativeInventorySorting {
 		insertAfterInBuildingBlocks(WWItems.MOSSY_MUD_BRICK_SLAB, WWItems.MOSSY_MUD_BRICK_WALL);
 
 		// SCULK
-		insertInBuildingBlocks(Items.SCULK);
+		insertAfterInBuildingBlocks(Items.REINFORCED_DEEPSLATE, Items.SCULK);
 		insertAfterInBuildingBlocks(Items.SCULK, WWItems.SCULK_STAIRS);
 		insertAfterInBuildingBlocks(WWItems.SCULK_STAIRS, WWItems.SCULK_SLAB);
 		insertAfterInBuildingBlocks(WWItems.SCULK_SLAB, WWItems.SCULK_WALL);
