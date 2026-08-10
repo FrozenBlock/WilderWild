@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.levelgen.structure.templatesystem;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
@@ -31,9 +30,9 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 public record TermiteEdibleBlockProcessor(boolean termiteEdible) implements StructureProcessor {
 	private static final BooleanProperty TERMITE_EDIBLE = WWBlockStateProperties.TERMITE_EDIBLE;
-	public static final MapCodec<TermiteEdibleBlockProcessor> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Codec.BOOL.fieldOf("value").forGetter(TermiteEdibleBlockProcessor::termiteEdible)
-	).apply(instance, TermiteEdibleBlockProcessor::new));
+	public static final MapCodec<TermiteEdibleBlockProcessor> MAP_CODEC = Codec.BOOL
+		.fieldOf("value")
+		.xmap(TermiteEdibleBlockProcessor::new, processor -> processor.termiteEdible);
 
 	@Override
 	public StructureTemplate.StructureBlockInfo processBlock(
