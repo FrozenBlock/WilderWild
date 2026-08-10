@@ -45,7 +45,7 @@ public interface WWBottleable {
 	SoundEvent wilderWild$getBottleCatchSound();
 
 	@Deprecated
-	static void saveDefaultDataToBottleTag(Mob mob, ItemStack stack) {
+	static void saveDefaultDataToBottleTag(Mob mob, ItemStack stack, float defaultMaxHealth) {
 		stack.set(DataComponents.CUSTOM_NAME, mob.getCustomName());
 		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA.get(), stack, compoundTag -> {
 			if (mob.isNoAi()) compoundTag.putBoolean("NoAI", mob.isNoAi());
@@ -53,7 +53,7 @@ public interface WWBottleable {
 			if (mob.isNoGravity()) compoundTag.putBoolean("NoGravity", mob.isNoGravity());
 			if (mob.hasGlowingTag()) compoundTag.putBoolean("Glowing", mob.hasGlowingTag());
 			if (mob.isInvulnerable()) compoundTag.putBoolean("Invulnerable", mob.isInvulnerable());
-			compoundTag.putFloat("Health", mob.getHealth());
+			if (mob.getHealth() != defaultMaxHealth) compoundTag.putFloat("Health", mob.getHealth());
 		});
 	}
 
