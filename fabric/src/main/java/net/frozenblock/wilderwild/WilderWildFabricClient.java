@@ -21,10 +21,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 @ClientOnly
 public final class WilderWildFabricClient implements ClientModInitializer {
@@ -38,7 +36,5 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		WWModelLayers.setup();
 
 		WWClientNetworking.registerPacketReceivers();
-
-		SpecialModelRenderers.ID_MAPPER.put(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
 }

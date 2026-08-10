@@ -92,5 +92,4 @@ public class TreeFeatureMixin {
 	private static BlockState wilderWild$setTermiteEdible(BlockState state) {
 		return TermiteMoundBlock.setTermiteEdibleIfPossible(state);
 	}
-
 }

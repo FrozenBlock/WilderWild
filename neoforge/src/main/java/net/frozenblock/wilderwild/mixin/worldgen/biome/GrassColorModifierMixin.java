@@ -3,9 +3,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.biome;
 import java.util.ArrayList;
 import java.util.Arrays;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.biome.Tundra;
 import net.frozenblock.wilderwild.data.worldgen.biome.impl.WWGrassColorModifier;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -47,19 +45,13 @@ public class GrassColorModifierMixin { // In common mixins.json
 		)
 	)
 	private static void wilderwild$addTundra(CallbackInfo info) {
-		// TODO perhaps make a universal modifier for tundras rather than duplicating code here and on fabric
 		final var modifiers = new ArrayList<>(Arrays.asList($VALUES));
 		final int ordinal = modifiers.getLast().ordinal() + 1;
 
 		final var tundraColorModifier = new BiomeSpecialEffects.GrassColorModifier.ColorModifier() {
 			@Override
 			public int modifyGrassColor(double x, double z, int baseColor) {
-				final double noise = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225D, z * 0.0225D, false);
-				if (noise < -0.5D) return Tundra.GRASS_COLOR_BROWN;
-				if (noise < -0.35D) return Tundra.GRASS_COLOR_ORANGE;
-				if (noise > 0.8D) return Tundra.GRASS_COLOR_BLUE_GREENISH;
-				if (noise > 0.5D) return Tundra.GRASS_COLOR_LIGHTER_GREEN;
-				return baseColor;
+				return WWGrassColorModifier.modifyColorTundra(x, z, baseColor);
 			}
 		};
 		final BiomeSpecialEffects.GrassColorModifier tundra = newType("WILDERWILD_TUNDRA", ordinal, WWConstants.safeString("tundra"), tundraColorModifier);

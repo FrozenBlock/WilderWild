@@ -80,5 +80,4 @@ public class SwampHutPieceMixin {
 		if (WWWorldgenConfig.NEW_WITCH_HUT_GENERATION.get()) return WWBlocks.WILLOW_STAIRS.get();
 		return original;
 	}
-
 }
