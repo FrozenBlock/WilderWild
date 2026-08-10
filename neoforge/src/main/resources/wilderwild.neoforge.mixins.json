@@ -5,6 +5,7 @@
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "warden.EntityFluidInteractionMixin"
   ],
   "client": [
     "client.block.block_break.IBlockStateExtensionMixin"

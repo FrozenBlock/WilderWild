@@ -36,12 +36,13 @@ public class EntityMixin {
 		method = "updateFluidInteraction",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/EntityFluidInteraction;applyCurrentTo(Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/Entity;D)V"
+			target = "Lnet/minecraft/world/entity/EntityFluidInteraction;applyCurrentTo(Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/Entity;D)V",
+			ordinal = 0
 		),
 		slice = @Slice(
-			to = @At(
+			from = @At(
 				value = "FIELD",
-				target = "Lnet/minecraft/world/attribute/EnvironmentAttributes;FAST_LAVA:Lnet/minecraft/world/attribute/EnvironmentAttribute;",
+				target = "Lnet/minecraft/tags/FluidTags;WATER:Lnet/minecraft/tags/TagKey;",
 				opcode = Opcodes.GETSTATIC
 			)
 		)
@@ -49,5 +50,4 @@ public class EntityMixin {
 	public boolean wilderWild$stopWaterFromPushingWardens(EntityFluidInteraction instance, TagKey<Fluid> fluid, Entity entity, double scale) {
 		return !WWEntityConfig.WARDEN_SWIMS.get() || (!(entity instanceof Warden));
 	}
-
 }

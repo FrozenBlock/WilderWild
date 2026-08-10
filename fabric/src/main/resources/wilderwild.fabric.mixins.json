@@ -8,6 +8,7 @@
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
     "item.tooltip.ItemStackMixin",
+    "warden.EntityMixin",
     "worldgen.structure.SwampHutPieceMixin"
   ],
   "client": [
