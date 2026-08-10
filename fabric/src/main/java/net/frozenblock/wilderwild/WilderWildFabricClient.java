@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.frozenblock.lib.menu.api.SplashTextAPI;
 import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
@@ -31,7 +30,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		WilderWildClient.init();
 
-		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
 		WWFluidRendering.init();
 		WWModelLayers.setup();
 
