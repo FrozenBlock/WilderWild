@@ -41,6 +41,7 @@ public class FallingParticlesLeavesBlockMixin {
 	public boolean wilderWild$fallingLeafParticles(FallingParticlesLeavesBlock instance, Level level, BlockPos pos, RandomSource random) {
 		final Optional<FallingLeafData> fallingLeafData = FallingLeafUtil.tryGetFallingLeafData(instance.defaultBlockState(), level);
 		return fallingLeafData.isEmpty()
-			|| fallingLeafData.get().useVanillaFallingLeaves();
+			|| fallingLeafData.get().leafParticleData().isEmpty()
+			|| !fallingLeafData.get().leafParticleData().get().cancelsVanillaParticles();
 	}
 }

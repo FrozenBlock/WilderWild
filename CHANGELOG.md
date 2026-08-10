@@ -32,13 +32,15 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
       - `swirl_and_bounce`: The particle will swirl as it falls and bounce upon hitting the ground.
       - `flow_away_and_bounce`: The particle will flow with the wind and bounce upon hitting the ground.
       - `swirl_and_flow_away_and_bounce`: The particle will swirl and flow with the wind, and bounce upon hitting the ground.
-    - `use_alongside_vanilla_falling_leaves`: Whether this will replace or be used alongside Vanilla's falling leaf particles.
-    - `falling_leaf_litter` (Optional):
-      - `block`: The id of the Block to place upon landing.
-      - `fall_chance`: The chance (between 0-1) a Leaf Litter fall from `leaves_block` each random tick.
-      - `placement_on_land_chance`: The chance (between 0-1) for `block` to be placed upon landing.
-      - `fall_sound` (Optional): The sound to be played when a Leaf Litter falls from `leaves_block`.
-      - `land_sound` (Optional): The sound to be played upon landing.
+    - `cancels_vanilla_particles` (Optional): Whether this will replace or be used alongside Vanilla's falling leaf particles.
+      - If empty or true, Vanilla's falling leaf particles will not spawn.
+      - Has no effect on Leaf Litter blocks.
+  - `falling_leaf_litter` (Optional):
+    - `block`: The id of the Block to place upon landing.
+    - `fall_chance`: The chance (between 0-1) a Leaf Litter fall from `leaves_block` each random tick.
+    - `placement_on_land_chance`: The chance (between 0-1) for `block` to be placed upon landing.
+    - `fall_sound` (Optional): The sound to be played when a Leaf Litter falls from `leaves_block`.
+    - `land_sound` (Optional): The sound to be played upon landing.
 - Falling Maple Leaves can no longer increase the amount of leaves in an already existing leaf litter block.
 - Falling Maple Leaves now only have a 25% chance to place a leaf litter block.
 - Fixed an issue that prevented Orange Maple Leaves from being smelted into Orange Maple Leaf Litter.
