@@ -26,9 +26,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Contract;
 
-public class SnowyBlockUtils {
+public final class SnowyBlockUtils {
 	public static final BiMap<Block, Block> SNOWY_BLOCK_MAP = ImmutableBiMap.<Block, Block>builder()
 		.put(Blocks.SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS.get())
 		.put(Blocks.TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS.get())
@@ -38,14 +37,12 @@ public class SnowyBlockUtils {
 		.build();
 	public static final BiMap<Block, Block> NON_SNOWY_BLOCK_MAP = SNOWY_BLOCK_MAP.inverse();
 
-	@Contract("_ -> param1")
 	public static BlockState getWorldgenSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
-	@Contract("_ -> param1")
 	public static BlockState getNonSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (NON_SNOWY_BLOCK_MAP.containsKey(block)) return NON_SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);

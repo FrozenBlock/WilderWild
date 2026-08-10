@@ -274,8 +274,14 @@ public final class TermiteBlockBehaviors {
 		registerPlayerOnly(context, WWBlocks.HOLLOWED_PALE_OAK_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG.get());
 		registerNaturalAndPlayer(context, Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD);
 
+		registerNaturalAndPlayer(context, Blocks.POPLAR_LOG, Blocks.STRIPPED_POPLAR_LOG);
+		registerHollowed(context, Blocks.STRIPPED_POPLAR_LOG, WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get());
+		registerPlayerOnly(context, WWBlocks.HOLLOWED_POPLAR_LOG.get(), WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG.get());
+		registerNaturalAndPlayer(context, Blocks.POPLAR_WOOD, Blocks.STRIPPED_POPLAR_WOOD);
+
 		registerPlayerOnly(context, Blocks.BUSH, Blocks.DEAD_BUSH);
 		registerPlayerOnly(context, WWBlocks.SHRUB.get(), Blocks.DEAD_BUSH);
+		registerPlayerOnly(context, Blocks.RED_SHRUB, Blocks.DEAD_BUSH);
 
 		registerBreakable(context, "leaves", BlockTags.LEAVES);
 		registerBreakable(context, "leaf_litters", WWBlockItemTags.LEAF_LITTERS.block());

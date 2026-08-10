@@ -40,7 +40,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SnowloggingUtils {
+public final class SnowloggingUtils {
 	public static final boolean HAS_ANTIQUE_ATLAS = ModLoader.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
@@ -136,5 +136,4 @@ public class SnowloggingUtils {
 		final VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
 		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
-
 }

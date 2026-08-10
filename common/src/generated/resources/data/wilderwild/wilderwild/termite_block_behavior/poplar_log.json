@@ -1,0 +1,7 @@
+{
+  "copy_blockstate_properties": true,
+  "edible_blocks": "minecraft:poplar_log",
+  "natural_termite_usable": true,
+  "output_block": "minecraft:stripped_poplar_log",
+  "player_placed_termite_usable": true
+}

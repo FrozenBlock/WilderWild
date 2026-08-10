@@ -31,7 +31,6 @@ public enum GeothermalVentType implements StringRepresentable {
 	WATER("water", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.get()),
 	LAVA("lava", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.get()),
 	HYDROTHERMAL_VENT("hydrothermal_vent", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.get());
-
 	public static final Codec<GeothermalVentType> CODEC = StringRepresentable.fromEnum(GeothermalVentType::values);
 
 	private final String name;

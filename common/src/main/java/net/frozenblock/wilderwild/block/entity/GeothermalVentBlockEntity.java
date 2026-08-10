@@ -26,7 +26,7 @@ import net.frozenblock.lib.wind.BlowingHelper;
 import net.frozenblock.lib.wind.disturbance.WindDisturbances;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
-import net.frozenblock.wilderwild.block.impl.GeothermalventParticleHandler;
+import net.frozenblock.wilderwild.block.impl.client.GeothermalVentParticleSpawner;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -379,7 +379,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		if (geothermalVentStage == GeothermalVentStage.ERUPTING || geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT) {
 			this.eruptionProgress = Math.min(1F, this.eruptionProgress + ERUPTION_PROGRESS_INTERVAL);
 			this.tickEruption(level, pos, geothermalVentType, direction, natural);
-			GeothermalventParticleHandler.spawnEruptionParticles(level, pos, geothermalVentType, direction, random);
+			GeothermalVentParticleSpawner.spawnEruptionParticles(level, pos, geothermalVentType, direction, random);
 		}
 	}
 

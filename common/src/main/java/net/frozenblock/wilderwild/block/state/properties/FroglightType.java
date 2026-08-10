@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.block.state.properties;
 
 import com.mojang.serialization.Codec;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -26,19 +27,25 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 public enum FroglightType implements StringRepresentable {
-	PEARLESCENT("pearlescent", () -> WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), () -> WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get()),
-	VERDANT("verdant", () -> WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), () -> WWBlocks.VERDANT_FROGLIGHT_GOOP.get()),
-	OCHRE("ochre", () -> WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY.get(), () -> WWBlocks.OCHRE_FROGLIGHT_GOOP.get());
+	PEARLESCENT("pearlescent", () -> Blocks.PEARLESCENT_FROGLIGHT, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP),
+	VERDANT("verdant", () -> Blocks.VERDANT_FROGLIGHT, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, WWBlocks.VERDANT_FROGLIGHT_GOOP),
+	OCHRE("ochre", () -> Blocks.OCHRE_FROGLIGHT, WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY, WWBlocks.OCHRE_FROGLIGHT_GOOP);
 	public static final Codec<FroglightType> CODEC = StringRepresentable.fromEnum(FroglightType::values);
 
 	private final String name;
-	private final Supplier<Block> bodyBlock;
-	private final Supplier<Block> headBlock;
+	private final Supplier<? extends Block> baseBlock;
+	private final Supplier<? extends Block> bodyBlock;
+	private final Supplier<? extends Block> headBlock;
 
-	FroglightType(String name, Supplier<Block> bodyBlock, Supplier<Block> headBlock) {
+	FroglightType(String name, Supplier<? extends Block> baseBlock, Supplier<? extends Block> bodyBlock, Supplier<? extends Block> headBlock) {
 		this.name = name;
+		this.baseBlock = baseBlock;
 		this.bodyBlock = bodyBlock;
 		this.headBlock = headBlock;
+	}
+
+	public Block getBaseBlock() {
+		return this.baseBlock.get();
 	}
 
 	public Block getBodyBlock() {
@@ -49,11 +56,10 @@ public enum FroglightType implements StringRepresentable {
 		return this.headBlock.get();
 	}
 
-	public static Optional<FroglightType> getFromBaseBlock(Block froglight) {
-		if (froglight == Blocks.PEARLESCENT_FROGLIGHT) return Optional.of(FroglightType.PEARLESCENT);
-		if (froglight == Blocks.VERDANT_FROGLIGHT)  return Optional.of(FroglightType.VERDANT);
-		if (froglight == Blocks.OCHRE_FROGLIGHT) return Optional.of(FroglightType.OCHRE);
-		return Optional.empty();
+	public static Optional<FroglightType> getFromBaseBlock(Block block) {
+		return Arrays.stream(FroglightType.values())
+			.filter(type -> type.getBaseBlock() == block)
+			.findFirst();
 	}
 
 	@Override

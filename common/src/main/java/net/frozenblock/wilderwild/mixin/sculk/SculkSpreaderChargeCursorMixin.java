@@ -48,6 +48,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SculkSpreader.ChargeCursor.class)
 public class SculkSpreaderChargeCursorMixin {
+	@Unique
+	private static final SculkBehaviour WILDERWILD$STONE_CHEST_BEHAVIOR = new BlockStatePropertySculkBehavior<>(WWBlockStateProperties.HAS_SCULK, true);
 
 	@Unique
 	private static boolean wilderWild$isReplaceableBuildingBlock(BlockState state, boolean isWorldGen) {
@@ -150,10 +152,10 @@ public class SculkSpreaderChargeCursorMixin {
 		@Share("wilderWild$isWorldGen") LocalBooleanRef isWorldGen
 	) {
 		if (isWorldGen.get()) {
-			if (wilderWild$isReplaceableBuildingBlock(state, true)) return new StairSlabWallSculkBehaviour();
-			if (state.is(WWBlocks.STONE_CHEST.get())) return new BlockStatePropertySculkBehavior<>(WWBlockStateProperties.HAS_SCULK, true);
+			if (wilderWild$isReplaceableBuildingBlock(state, true)) return StairSlabWallSculkBehaviour.INSTANCE;
+			if (state.is(WWBlocks.STONE_CHEST.get())) return WILDERWILD$STONE_CHEST_BEHAVIOR;
 		} else {
-			if (wilderWild$isReplaceableBuildingBlock(state, false)) return new StairSlabWallSculkBehaviour();
+			if (wilderWild$isReplaceableBuildingBlock(state, false)) return StairSlabWallSculkBehaviour.INSTANCE;
 		}
 		return operation.call(state);
 	}

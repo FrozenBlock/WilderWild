@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
 public class StairSlabWallSculkBehaviour implements SculkBehaviour {
+	public static final StairSlabWallSculkBehaviour INSTANCE = new StairSlabWallSculkBehaviour();
 
 	public static void clearSculkVeins(LevelAccessor level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();

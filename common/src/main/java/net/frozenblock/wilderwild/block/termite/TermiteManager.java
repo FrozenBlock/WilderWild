@@ -59,8 +59,7 @@ public class TermiteManager {
 	public Termite termite;
 	public int termiteSpawnCooldown;
 
-	public TermiteManager() {
-	}
+	public TermiteManager() {}
 
 	public static boolean areTermitesSafe(LevelReader level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
@@ -374,8 +373,10 @@ public class TermiteManager {
 
 		public static void spawnGnawParticles(Level level, BlockState eatState, BlockPos pos, RandomSource random) {
 			if (!(level instanceof ServerLevel serverLevel) || random.nextInt(GNAW_PARTICLE_CHANCE) != 0) return;
+
 			final int count = random.nextInt(MIN_GNAW_PARTICLES, MAX_GNAW_PARTICLES);
 			if (count <= 0) return;
+
 			serverLevel.sendParticles(
 				new BlockParticleOption(ParticleTypes.BLOCK, eatState),
 				pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,

@@ -41,7 +41,7 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 
-public class ChestUtil {
+public final class ChestUtil {
 
 	public static Optional<ChestBlockEntity> getCoupledChestBlockEntity(LevelReader level, BlockPos pos, BlockState state) {
 		if (!state.hasProperty(ChestBlock.TYPE)) return Optional.empty();
@@ -161,10 +161,10 @@ public class ChestUtil {
 	}
 
 	public static boolean canBubble(DataAttachmentTarget target) {
-		return target.frozenLib$getAttachedOrElse(WWAttachmentTypes.CHEST_CAN_BUBBLE, true);
+		return WWAttachmentTypes.CHEST_CAN_BUBBLE.getAttachedOrElse(target, true);
 	}
 
 	public static void setCanBubble(DataAttachmentTarget target, boolean canBubble) {
-		target.frozenLib$setAttached(WWAttachmentTypes.CHEST_CAN_BUBBLE, canBubble);
+		WWAttachmentTypes.CHEST_CAN_BUBBLE.set(target, canBubble);
 	}
 }

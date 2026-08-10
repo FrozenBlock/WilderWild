@@ -75,6 +75,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Wilder Wild's Structure Processor modifications are now data-driven per FrozenLib's changes.
 - Revamped the implementation of Chest bubbling.
 - The Shrub now uses Vanilla's Red Shrub sound type.
+- Red Shrubs can be eaten and turned into Dead Bushes by Termites.
 - Added a config option to toggle Dappled Forest generation.
 - Added the `wilderwild:termite_edible` Structure Processor, with the following format:
   - `value`: Can be either true or false. Sets the `termite_edible` property to this value for all Blocks with this property.

@@ -42,9 +42,9 @@ public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<Geother
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(ServerPlayer player, Entity entity, boolean playerPlaced, GeothermalVentType geothermalVentType) {
+	public void trigger(ServerPlayer player, Entity entity, boolean playerPlaced, GeothermalVentType type) {
 		LootContext pushedMob = EntityPredicate.createContext(player, entity);
-		this.trigger(player, conditions -> conditions.matches(pushedMob, playerPlaced, geothermalVentType));
+		this.trigger(player, conditions -> conditions.matches(pushedMob, playerPlaced, type));
 	}
 
 	public record TriggerInstance(
@@ -53,18 +53,16 @@ public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<Geother
 		boolean playerPlaced,
 		Optional<GeothermalVentType> geothermalVentType
 	) implements SimpleInstance {
-		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
-			instance.group(
-				LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-				LootItemCondition.CODEC.optionalFieldOf("pushed_mob").forGetter(TriggerInstance::pushedMob),
-				Codec.BOOL.fieldOf("requires_player_placed_geothermal_vent").forGetter(TriggerInstance::playerPlaced),
-				GeothermalVentType.CODEC.optionalFieldOf("geothermal_vent_type").forGetter(TriggerInstance::geothermalVentType)
-			).apply(instance, TriggerInstance::new)
-		);
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+			LootItemCondition.CODEC.optionalFieldOf("pushed_mob").forGetter(TriggerInstance::pushedMob),
+			Codec.BOOL.fieldOf("requires_player_placed_geothermal_vent").forGetter(TriggerInstance::playerPlaced),
+			GeothermalVentType.CODEC.optionalFieldOf("geothermal_vent_type").forGetter(TriggerInstance::geothermalVentType)
+		).apply(instance, TriggerInstance::new));
 
-		public static Criterion<TriggerInstance> geothermalVentPushMob(Optional<EntityPredicate> pushedMob, boolean playerPlaced, @Nullable GeothermalVentType geothermalVentType) {
+		public static Criterion<TriggerInstance> geothermalVentPushMob(Optional<EntityPredicate> pushedMob, boolean playerPlaced, @Nullable GeothermalVentType type) {
 			return WWCriteria.GEOTHERMAL_VENT_PUSH_MOB_TRIGGER.get().createCriterion(
-				new TriggerInstance(Optional.empty(), EntityPredicate.wrap(pushedMob), playerPlaced, Optional.ofNullable(geothermalVentType))
+				new TriggerInstance(Optional.empty(), EntityPredicate.wrap(pushedMob), playerPlaced, Optional.ofNullable(type))
 			);
 		}
 

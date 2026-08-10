@@ -58,5 +58,4 @@ public interface SculkBuildingBlockBehaviour extends SculkBehaviour {
 		}
 		return charge;
 	}
-
 }

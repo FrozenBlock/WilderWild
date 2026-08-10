@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.lib.wind.BlowingHelper;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
-import net.frozenblock.wilderwild.block.impl.GeothermalventParticleHandler;
+import net.frozenblock.wilderwild.block.impl.client.GeothermalVentParticleSpawner;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -178,7 +178,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 		final Direction direction = state.getValue(FACING);
 		final boolean natural = state.getValue(NATURAL);
 		final GeothermalVentStage stage = state.getValue(GEOTHERMAL_VENT_STAGE);
-		GeothermalventParticleHandler.spawnBaseGeothermalVentParticles(level, pos, direction, random, geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT);
+		GeothermalVentParticleSpawner.spawnBaseGeothermalVentParticles(level, pos, direction, random, geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT);
 
 		if (geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT && random.nextInt(27) == 0) {
 			level.playLocalSound(
@@ -194,9 +194,9 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 		}
 
 		if (stage == GeothermalVentStage.DORMANT) {
-			GeothermalventParticleHandler.spawnDormantParticles(level, pos, geothermalVentType, direction, random);
+			GeothermalVentParticleSpawner.spawnDormantParticles(level, pos, geothermalVentType, direction, random);
 		} else if (stage == GeothermalVentStage.ACTIVE) {
-			GeothermalventParticleHandler.spawnActiveParticles(level, pos, geothermalVentType, direction, random);
+			GeothermalVentParticleSpawner.spawnActiveParticles(level, pos, geothermalVentType, direction, random);
 		}
 
 		if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {

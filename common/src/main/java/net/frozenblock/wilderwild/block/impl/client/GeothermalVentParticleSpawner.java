@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.block.impl;
+package net.frozenblock.wilderwild.block.impl.client;
 
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
@@ -36,7 +36,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class GeothermalventParticleHandler {
+@ClientOnly
+public final class GeothermalVentParticleSpawner {
 	public static final float DORMANT_BUBBLE_CHANCE = 0.0195F;
 	public static final double DORMANT_BUBBLE_MIN_VELOCITY = 0.09D;
 	public static final double DORMANT_BUBBLE_MAX_VELOCITY = 0.12D;
@@ -146,7 +147,6 @@ public class GeothermalventParticleHandler {
 		}
 	}
 
-	@ClientOnly
 	public static void spawnEruptionParticles(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, RandomSource random) {
 		final Minecraft client = Minecraft.getInstance();
 		final ParticleStatus particleStatus = client.options.particles().get();
@@ -264,7 +264,6 @@ public class GeothermalventParticleHandler {
 		}
 	}
 
-	@ClientOnly
 	public static void spawnBaseGeothermalVentParticles(Level level, BlockPos pos, Direction direction, RandomSource random, boolean hydrothermalVent) {
 		final Minecraft client = Minecraft.getInstance();
 		final ParticleStatus particleStatus = client.options.particles().get();
@@ -312,5 +311,4 @@ public class GeothermalventParticleHandler {
 			}
 		}
 	}
-
 }
