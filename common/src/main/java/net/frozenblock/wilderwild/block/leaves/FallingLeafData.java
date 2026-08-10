@@ -43,38 +43,35 @@ public record FallingLeafData(
 	HolderSet<Block> leafLitterBlock,
 	Optional<ParticleData> leafParticleData,
 	Optional<ParticleData> leafLitterParticleData,
-	boolean useVanillaFallingLeaves,
 	Optional<FallingLeafLitterData> fallingLeafLitterData
 ) {
 	public static final Codec<FallingLeafData> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
 		ParticleData.CODEC.optionalFieldOf("leaf_particle").forGetter(FallingLeafData::leafParticleData),
-		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData),
-		Codec.BOOL.optionalFieldOf("use_alongside_vanilla_falling_leaves", false).forGetter(FallingLeafData::useVanillaFallingLeaves),
+		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafLitterParticleData),
 		FallingLeafLitterData.CODEC.optionalFieldOf("falling_leaf_litter").forGetter(FallingLeafData::fallingLeafLitterData)
 	).apply(instance, FallingLeafData::new));
 	public static final Codec<FallingLeafData> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaves_block").forGetter(FallingLeafData::leavesBlock),
 		RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("leaf_litter_block").forGetter(FallingLeafData::leafLitterBlock),
 		ParticleData.CODEC.optionalFieldOf("leaf_particle").forGetter(FallingLeafData::leafParticleData),
-		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafParticleData),
-		Codec.BOOL.optionalFieldOf("use_alongside_vanilla_falling_leaves", false).forGetter(FallingLeafData::useVanillaFallingLeaves)
+		ParticleData.CODEC.optionalFieldOf("leaf_litter_particle").forGetter(FallingLeafData::leafLitterParticleData)
 	).apply(instance, FallingLeafData::new));
 
 	public FallingLeafData(
 		HolderSet<Block> leavesBlock,
 		HolderSet<Block> leafLitterBlock,
 		Optional<ParticleData> leafParticleData,
-		Optional<ParticleData> leafLitterParticleData,
-		boolean useVanillaFallingLeaves
+		Optional<ParticleData> leafLitterParticleData
 	) {
-		this(leavesBlock, leafLitterBlock, leafParticleData, leafLitterParticleData, useVanillaFallingLeaves, Optional.empty());
+		this(leavesBlock, leafLitterBlock, leafParticleData, leafLitterParticleData, Optional.empty());
 	}
 
 	public record ParticleData(
 		Holder<ParticleType<?>> particle,
 		Optional<Holder<Block>> originBlock,
+		boolean cancelsVanillaParticles,
 		float spawnChance,
 		Optional<ConfigEntryGetter> spawnChanceModifier,
 		int textureSize,
@@ -85,6 +82,7 @@ public record FallingLeafData(
 		public static final Codec<ParticleData> CODEC = RecordCodecBuilder.<ParticleData>create(instance -> instance.group(
 			RegistryFixedCodec.create(Registries.PARTICLE_TYPE).fieldOf("particle").forGetter(ParticleData::particle),
 			RegistryFixedCodec.create(Registries.BLOCK).optionalFieldOf("origin_block").forGetter(ParticleData::originBlock),
+			Codec.BOOL.optionalFieldOf("cancels_vanilla_particles", true).forGetter(ParticleData::cancelsVanillaParticles),
 			ExtraCodecs.floatRange(0F, 1F).optionalFieldOf("spawn_chance", 0F).forGetter(ParticleData::spawnChance),
 			ConfigEntryGetter.CODEC.optionalFieldOf("spawn_chance_modifier").forGetter(ParticleData::spawnChanceModifier),
 			ExtraCodecs.POSITIVE_INT.fieldOf("texture_size").forGetter(ParticleData::textureSize),
@@ -103,6 +101,7 @@ public record FallingLeafData(
 		public static ParticleData forLeaves(
 			Holder<ParticleType<?>> particle,
 			Block leavesBlock,
+			boolean cancelsVanillaParticles,
 			float spawnChance,
 			ConfigEntry<Integer> spawnChanceModifier,
 			int textureSize,
@@ -113,6 +112,7 @@ public record FallingLeafData(
 			return new ParticleData(
 				particle,
 				Optional.of(leavesBlock.builtInRegistryHolder()),
+				cancelsVanillaParticles,
 				spawnChance,
 				Optional.of(new ConfigEntryGetter<>(spawnChanceModifier)),
 				textureSize,
@@ -120,6 +120,19 @@ public record FallingLeafData(
 				windScale,
 				movementType
 			);
+		}
+
+		public static ParticleData forLeaves(
+			Holder<ParticleType<?>> particle,
+			Block leavesBlock,
+			float spawnChance,
+			ConfigEntry<Integer> spawnChanceModifier,
+			int textureSize,
+			float gravityScale,
+			float windScale,
+			LeafMovementType movementType
+		) {
+			return forLeaves(particle, leavesBlock, true, spawnChance, spawnChanceModifier, textureSize, gravityScale, windScale, movementType);
 		}
 
 		public static ParticleData forLeafLitter(
@@ -133,6 +146,7 @@ public record FallingLeafData(
 			return new ParticleData(
 				particle,
 				Optional.of(leafLitterBlock.builtInRegistryHolder()),
+				true,
 				1F,
 				Optional.empty(),
 				textureSize,

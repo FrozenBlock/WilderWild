@@ -2,11 +2,10 @@
   "leaf_litter_block": "wilderwild:spruce_leaf_litter",
   "leaf_litter_particle": {
     "gravity_scale": 2.0,
-    "movement_type": "swirl",
-    "origin_block": "minecraft:spruce_leaves",
-    "particle": "wilderwild:spruce_leaves",
-    "spawn_chance": 0.0075,
-    "spawn_chance_modifier": "wilderwild:misc/leafParticles/spruceFrequency",
+    "movement_type": "swirl_and_bounce",
+    "origin_block": "wilderwild:spruce_leaf_litter",
+    "particle": "wilderwild:spruce_litter_leaves",
+    "spawn_chance": 1.0,
     "texture_size": 5,
     "wind_scale": 5.0
   },

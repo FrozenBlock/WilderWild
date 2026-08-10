@@ -2,11 +2,10 @@
   "leaf_litter_block": "wilderwild:mangrove_leaf_litter",
   "leaf_litter_particle": {
     "gravity_scale": 2.5,
-    "movement_type": "swirl",
-    "origin_block": "minecraft:mangrove_leaves",
-    "particle": "wilderwild:mangrove_leaves",
-    "spawn_chance": 0.0095,
-    "spawn_chance_modifier": "wilderwild:misc/leafParticles/mangroveFrequency",
+    "movement_type": "swirl_and_bounce",
+    "origin_block": "wilderwild:mangrove_leaf_litter",
+    "particle": "wilderwild:mangrove_litter_leaves",
+    "spawn_chance": 1.0,
     "texture_size": 6,
     "wind_scale": 10.0
   },

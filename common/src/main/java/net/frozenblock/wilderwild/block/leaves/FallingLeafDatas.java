@@ -28,7 +28,6 @@ public final class FallingLeafDatas {
 		Block leafLitterBlock,
 		Optional<FallingLeafData.ParticleData> leafParticle,
 		Optional<FallingLeafData.ParticleData> leafLitterParticle,
-		boolean useVanillaFallingLeaves,
 		Optional<FallingLeafData.FallingLeafLitterData> fallingLeafLitter
 	) {
 		context.register(
@@ -38,7 +37,6 @@ public final class FallingLeafDatas {
 				HolderSet.direct(leafLitterBlock.builtInRegistryHolder()),
 				leafParticle,
 				leafLitterParticle,
-				useVanillaFallingLeaves,
 				fallingLeafLitter
 			)
 		);
@@ -51,7 +49,6 @@ public final class FallingLeafDatas {
 		Block leafLitterBlock,
 		FallingLeafData.ParticleData leafParticle,
 		FallingLeafData.ParticleData leafLitterParticle,
-		boolean useVanillaFallingLeaves,
 		FallingLeafData.FallingLeafLitterData fallingLeafLitter
 	) {
 		register(
@@ -61,50 +58,7 @@ public final class FallingLeafDatas {
 			leafLitterBlock,
 			Optional.of(leafParticle),
 			Optional.of(leafLitterParticle),
-			useVanillaFallingLeaves,
 			Optional.of(fallingLeafLitter)
-		);
-	}
-
-	public static void register(
-		BootstrapContext<FallingLeafData> context,
-		ResourceKey<FallingLeafData> key,
-		Block leavesBlock,
-		Block leafLitterBlock,
-		FallingLeafData.ParticleData leafParticle,
-		FallingLeafData.ParticleData leafLitterParticle,
-		FallingLeafData.FallingLeafLitterData fallingLeafLitter
-	) {
-		register(
-			context,
-			key,
-			leavesBlock,
-			leafLitterBlock,
-			leafParticle,
-			leafLitterParticle,
-			false,
-			fallingLeafLitter
-		);
-	}
-
-	public static void register(
-		BootstrapContext<FallingLeafData> context,
-		ResourceKey<FallingLeafData> key,
-		Block leavesBlock,
-		Block leafLitterBlock,
-		FallingLeafData.ParticleData leafParticle,
-		FallingLeafData.ParticleData leafLitterParticle,
-		boolean useVanillaFallingLeaves
-	) {
-		register(
-			context,
-			key,
-			leavesBlock,
-			leafLitterBlock,
-			Optional.of(leafParticle),
-			Optional.of(leafLitterParticle),
-			useVanillaFallingLeaves,
-			Optional.empty()
 		);
 	}
 
@@ -121,9 +75,9 @@ public final class FallingLeafDatas {
 			key,
 			leavesBlock,
 			leafLitterBlock,
-			leafParticle,
-			leafLitterParticle,
-			false
+			Optional.of(leafParticle),
+			Optional.of(leafLitterParticle),
+			Optional.empty()
 		);
 	}
 
@@ -132,6 +86,7 @@ public final class FallingLeafDatas {
 		ResourceKey<FallingLeafData> key,
 		Block leavesBlock,
 		Block leafLitterBlock,
+		boolean cancelsVanillaParticles,
 		Holder<ParticleType<?>> leafParticle,
 		Holder<ParticleType<?>> leafLitterParticle,
 		float spawnChance,
@@ -139,8 +94,7 @@ public final class FallingLeafDatas {
 		int textureSize,
 		float gravityScale,
 		float windScale,
-		FallingLeafData.LeafMovementType movementType,
-		boolean useVanillaFallingLeaves
+		FallingLeafData.LeafMovementType movementType
 	) {
 		register(
 			context,
@@ -151,6 +105,7 @@ public final class FallingLeafDatas {
 				FallingLeafData.ParticleData.forLeaves(
 					leafParticle,
 					leavesBlock,
+					cancelsVanillaParticles,
 					spawnChance,
 					spawnChanceModifier,
 					textureSize,
@@ -169,7 +124,6 @@ public final class FallingLeafDatas {
 					movementType.getGroundSupportingEquivalent()
 				)
 			),
-			useVanillaFallingLeaves,
 			Optional.empty()
 		);
 	}
@@ -193,6 +147,7 @@ public final class FallingLeafDatas {
 			key,
 			leavesBlock,
 			leafLitterBlock,
+			true,
 			leafParticle,
 			leafLitterParticle,
 			spawnChance,
@@ -200,8 +155,7 @@ public final class FallingLeafDatas {
 			textureSize,
 			gravityScale,
 			windScale,
-			movementType,
-			false
+			movementType
 		);
 	}
 
@@ -313,6 +267,7 @@ public final class FallingLeafDatas {
 			FallingLeafData.ParticleData.forLeaves(
 				WWParticleTypes.PALE_OAK_LEAVES.asHolder(),
 				Blocks.PALE_OAK_LEAVES,
+				false,
 				0.0045F,
 				WWAmbienceAndMiscConfig.PALE_OAK_LEAF_FREQUENCY,
 				5,
@@ -327,8 +282,7 @@ public final class FallingLeafDatas {
 				1.4F,
 				20F,
 				FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
-			),
-			true
+			)
 		);
 
 		register(
@@ -351,6 +305,7 @@ public final class FallingLeafDatas {
 			createKey("cherry"),
 			Blocks.CHERRY_LEAVES,
 			WWBlocks.CHERRY_LEAF_LITTER.get(),
+			false,
 			WWParticleTypes.CHERRY_LEAVES.asHolder(),
 			WWParticleTypes.CHERRY_LITTER_LEAVES.asHolder(),
 			0.0125F,
@@ -358,8 +313,7 @@ public final class FallingLeafDatas {
 			4,
 			1F,
 			2F,
-			FallingLeafData.LeafMovementType.FLOW_AWAY,
-			true
+			FallingLeafData.LeafMovementType.FLOW_AWAY
 		);
 
 		register(
@@ -395,7 +349,6 @@ public final class FallingLeafDatas {
 					)
 				),
 				Optional.empty(),
-				false,
 				Optional.empty()
 			)
 		);
@@ -508,5 +461,4 @@ public final class FallingLeafDatas {
 			);
 		});
 	}
-
 }

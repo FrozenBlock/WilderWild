@@ -45,9 +45,9 @@ public abstract class LeavesBlockMixin extends Block {
 	@Inject(method = "animateTick", at = @At("HEAD"))
 	public void wilderWild$fallingLeafParticles(
 		BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info,
-		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> fallingLeafData
+		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> optionalFallingLeafData
 	) {
-		fallingLeafData.set(FallingLeafUtil.tryAnimateTickAndGetFallingLeafData(state, level, pos, random));
+		optionalFallingLeafData.set(FallingLeafUtil.tryAnimateTickAndGetFallingLeafData(state, level, pos, random));
 	}
 
 	@WrapWithCondition(
@@ -59,11 +59,13 @@ public abstract class LeavesBlockMixin extends Block {
 	)
 	public boolean wilderWild$fallingLeafParticles(
 		LeavesBlock instance, Level level, BlockPos pos, RandomSource random, BlockState belowState, BlockPos below,
-		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> fallingLeafData
+		@Share("wilderWild$fallingLeafData") LocalRef<Optional<FallingLeafData>> optionalFallingLeafData
 	) {
-		return fallingLeafData.get() == null
-			|| fallingLeafData.get().isEmpty()
-			|| fallingLeafData.get().get().useVanillaFallingLeaves();
+		final Optional<FallingLeafData> fallingLeafData = optionalFallingLeafData.get();
+		return fallingLeafData == null
+			|| fallingLeafData.isEmpty()
+			|| fallingLeafData.get().leafParticleData().isEmpty()
+			|| !fallingLeafData.get().leafParticleData().get().cancelsVanillaParticles();
 	}
 
 	@Override
