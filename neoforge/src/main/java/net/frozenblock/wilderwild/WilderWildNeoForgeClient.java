@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.client.WWModelLayers;
-import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -18,7 +17,6 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.AddSectionGeometryEvent;
-import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -31,11 +29,6 @@ public final class WilderWildNeoForgeClient {
 		// AFTER register event
 		modBus.addListener(FMLClientSetupEvent.class, event -> {
 			WWModelLayers.setup();
-		});
-
-		// TODO: multiloader
-		modBus.addListener(RegisterSpecialModelRendererEvent.class, event -> {
-			event.register(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 		});
 
 		// TODO: see if removing cloth causes a crash

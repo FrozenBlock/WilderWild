@@ -61,7 +61,7 @@ public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_SPONGE_BUD = register("shearing/sponge_bud");
 	public static final ResourceKey<LootTable> SHEAR_SHRUB = register("shearing/shrub");
 
-	// TODO: fabric & neo
+	// FIXME: I dont work on Neo for some reason :(
 	public static void init() {
 		// SHIPWRECK
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
@@ -145,7 +145,7 @@ public final class WWLootTables {
 				}
 
 				if (modified) {
-					pool.setRolls(UniformGenerator.between(2, 5));
+					pool.setRolls(UniformGenerator.between(2F, 5F));
 					tableBuilder.withPool(pool);
 				}
 			}

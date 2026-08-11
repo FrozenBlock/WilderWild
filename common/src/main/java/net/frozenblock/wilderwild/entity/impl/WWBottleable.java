@@ -46,7 +46,7 @@ public interface WWBottleable {
 	SoundEvent wilderWild$getBottleCatchSound();
 
 	@Deprecated
-	static void saveDefaultDataToBottleTag(Mob entity, ItemStack bottle) {
+	static void saveDefaultDataToBottleTag(Mob entity, ItemStack bottle, float defaultMaxHealth) {
 		bottle.set(DataComponents.CUSTOM_NAME, entity.getCustomName());
 		CustomData.update(WWDataComponents.BOTTLE_ENTITY_DATA.get(), bottle, tag -> {
 			if (entity.isNoAi()) tag.putBoolean(Mob.TAG_NO_AI, entity.isNoAi());
@@ -55,7 +55,7 @@ public interface WWBottleable {
 			if (entity.hasGlowingTag()) tag.putBoolean(LivingEntity.TAG_GLOWING, entity.hasGlowingTag());
 			if (entity.isInvulnerable()) tag.putBoolean(LivingEntity.TAG_INVULNERABLE, entity.isInvulnerable());
 			if (entity.isPersistenceRequired()) tag.putBoolean(Mob.TAG_PERSISTENCE_REQUIRED, entity.isPersistenceRequired());
-			tag.putFloat(LivingEntity.TAG_HEALTH, entity.getHealth());
+			if (entity.getHealth() != defaultMaxHealth) tag.putFloat(LivingEntity.TAG_HEALTH, entity.getHealth());
 		});
 	}
 

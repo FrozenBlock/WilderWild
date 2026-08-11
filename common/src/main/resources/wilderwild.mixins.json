@@ -103,7 +103,6 @@
     "snowlogging.worldgen.SimpleBlockFeatureMixin",
     "snowlogging.worldgen.SnowAndFreezeFeatureMixin",
     "trailiertales.FeatureFlagsMixin",
-    "warden.EntityMixin",
     "warden.LivingEntityMixin",
     "warden.SonicBoomMixin",
     "warden.WardenMixin",

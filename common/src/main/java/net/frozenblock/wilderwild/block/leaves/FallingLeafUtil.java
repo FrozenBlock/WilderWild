@@ -65,13 +65,13 @@ public class FallingLeafUtil {
 	}
 
 	public static Optional<FallingLeafData> getFallingLeafDataForBlock(RegistryAccess registryAccess, Block block) {
-		return (block.builtInRegistryHolder().is(WWBlockItemTags.LEAF_LITTERS.block()))
+		return block.builtInRegistryHolder().is(WWBlockItemTags.LEAF_LITTERS.block())
 			? getFallingLeafDataForLeafLitterBlock(registryAccess, block)
 			: getFallingLeafDataForLeavesBlock(registryAccess, block);
 	}
 
 	public static Optional<FallingLeafData.ParticleData> getLeafParticleDataForBlock(RegistryAccess registryAccess, Block block) {
-		return (block.builtInRegistryHolder().is(WWBlockItemTags.LEAF_LITTERS.block()))
+		return block.builtInRegistryHolder().is(WWBlockItemTags.LEAF_LITTERS.block())
 			? getFallingLeafDataForLeafLitterBlock(registryAccess, block).flatMap(FallingLeafData::leafLitterParticleData)
 			: getFallingLeafDataForLeavesBlock(registryAccess, block).flatMap(FallingLeafData::leafParticleData);
 	}
@@ -143,7 +143,9 @@ public class FallingLeafUtil {
 			: getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());
 		if (fallingLeafData.isEmpty()) return;
 
-		final Optional<FallingLeafData.ParticleData> particleData = fallingLeafData.get().leafLitterParticleData();
+		final Optional<FallingLeafData.ParticleData> particleData = isLitter
+			? fallingLeafData.get().leafLitterParticleData()
+			: fallingLeafData.get().leafParticleData();
 		if (particleData.isEmpty()) return;
 
 		final RandomSource random = level.getRandom();

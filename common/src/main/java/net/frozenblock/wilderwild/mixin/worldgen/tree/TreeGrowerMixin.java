@@ -63,7 +63,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	}
 
 	@Inject(method = "getConfiguredFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomFeatures(RandomSource random, boolean hasFlowers, CallbackInfoReturnable<@Nullable ResourceKey<Feature>> info) {
+	private void wilderWild$setCustomFeatures(RandomSource random, boolean hasFlowers, CallbackInfoReturnable<@Nullable ResourceKey<Feature>> info) {
 		if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 		final TreeGrower treeGrower = TreeGrower.class.cast(this);
 
@@ -119,7 +119,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 	}
 
 	@Inject(method = "getConfiguredMegaFeature", at = @At("HEAD"), cancellable = true)
-	private void setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<Feature>> info) {
+	private void wilderWild$setCustomMegaFeatures(RandomSource random, CallbackInfoReturnable<@Nullable ResourceKey<Feature>> info) {
 		if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 		final TreeGrower treeGrower = TreeGrower.class.cast(this);
 

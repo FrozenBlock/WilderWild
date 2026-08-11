@@ -91,6 +91,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class Firefly extends PathfinderMob implements WWBottleable {
+	public static final double DEFAULT_MAX_HEALTH = 1D;
 	public static final int RANDOM_FLICKER_AGE_MAX = 19;
 	private static final Supplier<Brain.Provider<Firefly>> BRAIN_PROVIDER = Suppliers.memoize(FireflyAi::brainProvider);
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
@@ -129,7 +130,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
-			.add(Attributes.MAX_HEALTH, 1D)
+			.add(Attributes.MAX_HEALTH, DEFAULT_MAX_HEALTH)
 			.add(Attributes.MOVEMENT_SPEED, 0.08D)
 			.add(Attributes.FLYING_SPEED, 0.08D)
 			.add(Attributes.FOLLOW_RANGE, 32D);
@@ -255,7 +256,7 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	public void wilderWild$saveToBottleTag(ItemStack stack) {
-		WWBottleable.saveDefaultDataToBottleTag(this, stack);
+		WWBottleable.saveDefaultDataToBottleTag(this, stack, (float) DEFAULT_MAX_HEALTH);
 		stack.copyFrom(WWDataComponents.FIREFLY_COLOR.get(), this);
 	}
 

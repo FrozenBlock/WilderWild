@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.mixin.block.termite;
 
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.world.level.block.Block;
@@ -43,7 +42,6 @@ public class RotatedPillarBlockMixin {
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		if (ModLoader.isNeoForge()) return; // TODO FIX NEOFORGE
 		if (FrozenBools.IS_DATAGEN || !WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) return;
 		final BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
 		if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
@@ -51,7 +49,6 @@ public class RotatedPillarBlockMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void wilderWild$appendFalseTermiteEdibleToState(BlockBehaviour.Properties properties, CallbackInfo info) {
-		if (ModLoader.isNeoForge()) return; // TODO FIX NEOFORGE
 		if (FrozenBools.IS_DATAGEN) return;
 		final RotatedPillarBlock rotatedPillarBlock = RotatedPillarBlock.class.cast(this);
 		final BlockState defaultBlockState = rotatedPillarBlock.defaultBlockState();

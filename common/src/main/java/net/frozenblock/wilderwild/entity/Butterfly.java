@@ -83,6 +83,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class Butterfly extends PathfinderMob implements WWBottleable {
+	public static final double DEFAULT_MAX_HEALTH = 2D;
 	public static final int TICKS_PER_FLAP = 3;
 	private static final Supplier<Brain.Provider<Butterfly>> BRAIN_PROVIDER = Suppliers.memoize(() -> ButterflyAi.brainProvider());
 	private static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
@@ -120,7 +121,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes()
-			.add(Attributes.MAX_HEALTH, 2D)
+			.add(Attributes.MAX_HEALTH, DEFAULT_MAX_HEALTH)
 			.add(Attributes.MOVEMENT_SPEED, 0.1D)
 			.add(Attributes.FLYING_SPEED, 0.8D)
 			.add(Attributes.FOLLOW_RANGE, 32D);
@@ -202,7 +203,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 
 	@Override
 	public void wilderWild$saveToBottleTag(ItemStack stack) {
-		WWBottleable.saveDefaultDataToBottleTag(this, stack);
+		WWBottleable.saveDefaultDataToBottleTag(this, stack, (float) DEFAULT_MAX_HEALTH);
 		stack.copyFrom(WWDataComponents.BUTTERFLY_VARIANT.get(), this);
 	}
 

@@ -24,13 +24,11 @@ import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModific
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.mod_compat.WWFabricModIntegrations;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 
@@ -46,7 +44,6 @@ public final class WilderWildFabric extends FrozenModInitializer {
 
 		WWItems.setup();
 		WWSoundTypes.setup();
-		WWLootTables.init();
 		WWPotions.init();
 
 		WWBlocks.setupBlockProperties();
@@ -54,7 +51,6 @@ public final class WilderWildFabric extends FrozenModInitializer {
 		WWAdvancementModifications.init();
 		WWWorldgen.setup();
 
-		WWModIntegrations.init();
 		WWFabricModIntegrations.init();
 		WWNetworking.setup();
 		WWCreativeInventorySorting.setup();

@@ -39,27 +39,14 @@ accessible field net/minecraft/client/color/block/BlockColors BLANK_LAYER Lnet/m
 accessible class net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo
 accessible method net/minecraft/world/level/storage/loot/providers/number/NumberProviders compostable (Lnet/minecraft/core/HolderGetter;I)Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;
 
-# Items
-accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
-accessible field net/minecraft/client/renderer/item/properties/select/SelectItemModelProperties ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
-
 # Entity
-accessible method net/minecraft/world/entity/EntityTypes chestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
-accessible method net/minecraft/world/entity/schedule/Activity <init> (Ljava/lang/String;)V
-accessible method net/minecraft/world/entity/ai/sensing/SensorType <init> (Ljava/util/function/Supplier;)V
-accessible method net/minecraft/world/entity/SpawnPlacements register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/SpawnPlacementType;Lnet/minecraft/world/level/levelgen/Heightmap$Types;Lnet/minecraft/world/entity/SpawnPlacements$SpawnPredicate;)V
 accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;
 accessible method net/minecraft/world/entity/monster/warden/Warden isDiggingOrEmerging ()Z
-accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
-extendable method net/minecraft/world/entity/Mob getLootTable ()Ljava/util/Optional;
-accessible method net/minecraft/world/entity/projectile/arrow/AbstractArrow isInGround ()Z
-accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
-accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
-accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
-accessible method net/minecraft/world/entity/EntityTypes boatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/world/entity/EntityType$EntityFactory;
-accessible method net/minecraft/world/entity/animal/Animal isBrightEnoughToSpawn (Lnet/minecraft/world/level/BlockAndLightGetter;Lnet/minecraft/core/BlockPos;)Z
-accessible field net/minecraft/world/entity/ai/navigation/WallClimberNavigation pathToPosition Lnet/minecraft/core/BlockPos;
-accessible method net/minecraft/world/effect/MobEffect <init> (Lnet/minecraft/world/effect/MobEffectCategory;I)V
+accessible class net/minecraft/world/entity/EntityFluidInteraction$Tracker
+
+# Item
+accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/client/renderer/item/properties/select/SelectItemModelProperties ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;

@@ -464,7 +464,10 @@ public final class WWItems {
 		() -> new Item.Properties()
 			.stacksTo(16)
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
-			.delayedComponent(WWDataComponents.FIREFLY_COLOR.get(), context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT).orElse(null))
+			.delayedComponent(
+				WWDataComponents.FIREFLY_COLOR.get(),
+				context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT).orElse(null)
+			)
 	);
 	public static final FrozenDeferredItem<MobBottleItem> BUTTERFLY_BOTTLE = REGISTER.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(
@@ -472,7 +475,9 @@ public final class WWItems {
 			WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY.get(),
 			properties
 		),
-		() -> new Item.Properties().stacksTo(1).component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
+		() -> new Item.Properties()
+			.stacksTo(1)
+			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
 	);
 
 	// FOOD
