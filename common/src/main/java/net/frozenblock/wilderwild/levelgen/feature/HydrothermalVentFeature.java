@@ -35,7 +35,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.material.FluidState;
 
-public class HydrothermalVentFeature implements Feature {
+public final class HydrothermalVentFeature implements Feature {
 	public static final HydrothermalVentFeature INSTANCE = new HydrothermalVentFeature();
 	public static final MapCodec<HydrothermalVentFeature> CODEC = MapCodec.unit(INSTANCE);
 	private static final IntProvider HEIGHT_PROVIDER = BiasedToBottomInt.of(0, 3);

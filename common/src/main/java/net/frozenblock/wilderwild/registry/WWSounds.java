@@ -496,6 +496,7 @@ public final class WWSounds {
 	public static final FrozenHolder<SoundEvent, SoundEvent> PLAYER_HURT_CACTUS = register("entity.player.hurt.cactus");
 	public static final FrozenHolder<SoundEvent, SoundEvent> MUSIC_OVERWORLD_WILD_FORESTS = register("music.overworld.wilder_forests");
 	public static final FrozenHolder<SoundEvent, SoundEvent> MUSIC_OVERWORLD_WILD_FLOWER_FORESTS = register("music.overworld.wilder_flower_forests");
+	public static final FrozenHolder<SoundEvent, SoundEvent> MUSIC_OVERWORLD_WILD_DAPPLED_FORESTS = register("music.overworld.wilder_dappled_forests");
 	public static final FrozenHolder<SoundEvent, SoundEvent> MUSIC_OVERWORLD_WILD_LUSH_CAVES = register("music.overworld.wilder_lush_caves");
 	public static final FrozenHolder<SoundEvent, SoundEvent> MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES = register("music.overworld.wilder_dripstone_caves");
 	public static final FrozenHolder<SoundEvent, SoundEvent> MUSIC_OVERWORLD_WILD_CHERRY_GROVES = register("music.overworld.wilder_cherry_groves");

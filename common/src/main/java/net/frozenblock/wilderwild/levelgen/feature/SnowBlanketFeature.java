@@ -36,7 +36,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
-public class SnowBlanketFeature implements Feature {
+public final class SnowBlanketFeature implements Feature {
 	public static final SnowBlanketFeature INSTANCE = new SnowBlanketFeature();
 	public static final MapCodec<SnowBlanketFeature> CODEC = MapCodec.unit(INSTANCE);
 

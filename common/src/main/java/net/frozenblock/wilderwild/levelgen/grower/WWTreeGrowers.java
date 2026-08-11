@@ -78,19 +78,17 @@ public final class WWTreeGrowers {
 		}
 	};
 
-	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> {
-		return new TreeGrower(
-			WWConstants.string(MapleCollection.NAMES.pick(color) + "_maple"),
-			WeightedList.of(),
-			WeightedList.of(),
-			WeightedList.of(),
-			null
-		) {
-			@Override
-			public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-				return hasFlowers ? WWConfiguredFeatures.COLORED_MAPLES_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_MAPLES_NO_BEES.pick(color).getKey();
-			}
-		};
+	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> new TreeGrower(
+		WWConstants.string(MapleCollection.NAMES.pick(color) + "_maple"),
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
+	) {
+		@Override
+		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+			return hasFlowers ? WWConfiguredFeatures.COLORED_MAPLES_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_MAPLES_NO_BEES.pick(color).getKey();
+		}
 	});
 
 	public static final TreeGrower WILLOW = new TreeGrower(

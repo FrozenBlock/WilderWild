@@ -1031,6 +1031,8 @@
     "tooltip.wilderwild.music": "Contains options for Wilder Wild music.",
     "option.wilderwild.wilder_forest_music": "Forest Music",
     "tooltip.wilderwild.wilder_forest_music": "Whether to use new music in some Forest-like biomes.",
+    "option.wilderwild.wilder_dappled_forest_music": "Dappled Forest Music",
+    "tooltip.wilderwild.wilder_dappled_forest_music": "Whether to use new music in Dappled Forests.",
     "option.wilderwild.wilder_lush_caves_music": "Lush Caves Music",
     "tooltip.wilderwild.wilder_lush_caves_music": "Whether to use new music in Lush Caves.",
     "option.wilderwild.wilder_dripstone_caves_music": "Dripstone Caves Music",

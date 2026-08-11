@@ -47,10 +47,10 @@ public class WillowRootPlacer extends RootPlacer {
 	private final WillowRootPlacement willowRootPlacement;
 
 	public WillowRootPlacer(
-		IntProvider intProvider, BlockStateProvider blockStateProvider, Optional<AboveRootPlacement> optional, WillowRootPlacement mangroveRootPlacement
+		IntProvider intProvider, BlockStateProvider rootProvider, Optional<AboveRootPlacement> aboveRootPlacement, WillowRootPlacement willowRootPlacement
 	) {
-		super(intProvider, blockStateProvider, optional);
-		this.willowRootPlacement = mangroveRootPlacement;
+		super(intProvider, rootProvider, aboveRootPlacement);
+		this.willowRootPlacement = willowRootPlacement;
 	}
 
 	@Override

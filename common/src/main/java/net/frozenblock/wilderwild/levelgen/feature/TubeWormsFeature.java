@@ -32,7 +32,7 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
-public class TubeWormsFeature implements Feature {
+public final class TubeWormsFeature implements Feature {
 	public static final TubeWormsFeature INSTANCE = new TubeWormsFeature();
 	public static final MapCodec<TubeWormsFeature> CODEC = MapCodec.unit(INSTANCE);
 

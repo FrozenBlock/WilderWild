@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.SpeleothemUtils;
 
-public class IcicleUtils {
+public final class IcicleUtils {
 
 	public static boolean growIcicleOnRandomTick(ServerLevel level, BlockPos pos) {
 		final BlockPos belowPos = pos.below();

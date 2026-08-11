@@ -58,6 +58,14 @@ public final class WWBiomeMusicAndAmbience {
 				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS.asHolder());
 			});
 
+		BiomeModifications.create(WWConstants.id("modify_music_dappled_forests")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.HAS_DAPPLED_FOREST_MUSIC),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.WILDER_DAPPLED_FOREST_MUSIC.get()) return;
+				setBackgroundMusic(context, WWSounds.MUSIC_OVERWORLD_WILD_DAPPLED_FORESTS.asHolder());
+			});
+
 		BiomeModifications.create(WWConstants.id("modify_music_lush_caves")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.HAS_LUSH_MUSIC),

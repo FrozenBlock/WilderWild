@@ -104,6 +104,7 @@ public final class WWAmbienceAndMiscConfig {
 
 	// MUSIC
 	public static final ConfigEntry<Boolean> WILDER_FOREST_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderForestMusic", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> WILDER_DAPPLED_FOREST_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderDappledForestMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_LUSH_CAVES_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderLushCavesMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_DRIPSTONE_CAVES_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderDripstoneCavesMusic", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILDER_TAIGA_MUSIC = CONFIG.unsyncableEntryBuilder("music/wilderTaigaMusic", EntryType.BOOL, true).requireRestart().build();
