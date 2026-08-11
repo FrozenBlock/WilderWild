@@ -332,7 +332,7 @@ public final class WWItems {
 
 	// VEGETATION
 	public static final FrozenDeferredItem<BlockItem> POLLEN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.POLLEN, WWBlocks.POLLEN,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(WWNumberProviders.COMPOSTABLE_POLLEN)
 	);
 	public static final FrozenDeferredItem<DamageOnUseBlockItem> PRICKLY_PEAR = registerBlockItem(WWBlockItemIds.PRICKLY_PEAR, WWBlocks.PRICKLY_PEAR,
 		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.get(), WWDamageTypes.PRICKLY_PEAR),

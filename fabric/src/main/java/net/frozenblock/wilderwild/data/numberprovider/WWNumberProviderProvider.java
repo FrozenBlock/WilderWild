@@ -37,5 +37,9 @@ public final class WWNumberProviderProvider extends NumberProviderProvider {
 		consumer.accept(
 			create(WWNumberProviders.COMPOSTABLE_MILKWEED_POD, NumberProviders.compostable(provider.lookupOrThrow(Registries.BLOCK), 25))
 		);
+
+		consumer.accept(
+			create(WWNumberProviders.COMPOSTABLE_POLLEN, NumberProviders.compostable(provider.lookupOrThrow(Registries.BLOCK), 10))
+		);
 	}
 }

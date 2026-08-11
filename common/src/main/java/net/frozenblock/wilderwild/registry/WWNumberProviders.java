@@ -24,6 +24,7 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 public final class WWNumberProviders {
 	public static final ResourceKey<NumberProvider> COMPOSTABLE_MILKWEED_POD = createKey("compostable/milkweed_pod");
+	public static final ResourceKey<NumberProvider> COMPOSTABLE_POLLEN = createKey("compostable/pollen");
 
 	private static ResourceKey<NumberProvider> createKey(String name) {
 		return ResourceKey.create(Registries.NUMBER_PROVIDER, WWConstants.id(name));
