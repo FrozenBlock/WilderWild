@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
+import net.frozenblock.wilderwild.data.numberprovider.WWNumberProviderProvider;
 import net.frozenblock.wilderwild.data.recipe.WWRecipeProvider;
 import net.frozenblock.wilderwild.data.sound.WWPlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.data.sound.WWSoundTypeOverrides;
@@ -95,6 +96,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWEntityLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
 		pack.addProvider(WWAdvancementProvider::new);
+		pack.addProvider(WWNumberProviderProvider::new);
 	}
 
 	@Override
@@ -110,7 +112,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 		registryBuilder.add(Registries.TEMPLATE_POOL, WWAbandonedCampStructurePools::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
-		//registryBuilder.add(Registries.NUMBER_PROVIDER, WWNumberProviders::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);

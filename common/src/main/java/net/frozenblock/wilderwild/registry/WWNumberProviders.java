@@ -18,22 +18,12 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 public final class WWNumberProviders {
 	public static final ResourceKey<NumberProvider> COMPOSTABLE_MILKWEED_POD = createKey("compostable/milkweed_pod");
-
-	public static void bootstrap(BootstrapContext<NumberProvider> context) {
-		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
-
-		context.register(COMPOSTABLE_MILKWEED_POD, NumberProviders.compostable(blocks, 25));
-	}
 
 	private static ResourceKey<NumberProvider> createKey(String name) {
 		return ResourceKey.create(Registries.NUMBER_PROVIDER, WWConstants.id(name));
