@@ -10,7 +10,7 @@
 			"name": "inside",
 			"from": [8, 2, 0],
 			"to": [8, 14, 12],
-			"shade": false,
+			"shade_direction_override": "up",
 			"light_emission": 15,
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 0]},
 			"faces": {
@@ -22,7 +22,7 @@
 			"name": "fan",
 			"from": [9, 2, 0],
 			"to": [9, 14, 10],
-			"shade": false,
+			"shade_direction_override": "up",
 			"light_emission": 15,
 			"rotation": {"angle": 22.5, "axis": "y", "origin": [9, 7, 0], "rescale": true},
 			"faces": {
@@ -34,7 +34,7 @@
 			"name": "fan",
 			"from": [7, 2, 0],
 			"to": [7, 14, 10],
-			"shade": false,
+			"shade_direction_override": "up",
 			"light_emission": 15,
 			"rotation": {"angle": -22.5, "axis": "y", "origin": [7, 9, 0], "rescale": true},
 			"faces": {

@@ -63,7 +63,7 @@
     {
       "from": [0, 4, 8],
       "to": [16, 20, 8],
-      "shade": false,
+      "shade_direction_override": "up",
       "rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
       "faces": {
         "north": {"uv": [0, 0, 16, 16], "texture": "#plant"},
@@ -73,7 +73,7 @@
     {
       "from": [8, 4, 0],
       "to": [8, 20, 16],
-      "shade": false,
+      "shade_direction_override": "up",
       "rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
       "faces": {
         "east": {"uv": [0, 0, 16, 16], "texture": "#plant"},
@@ -83,7 +83,7 @@
     {
       "from": [8, 4, 0],
       "to": [8, 20, 16],
-      "shade": false,
+      "shade_direction_override": "up",
       "rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
       "faces": {
         "east": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
@@ -93,7 +93,7 @@
     {
       "from": [0, 4, 8],
       "to": [16, 20, 8],
-      "shade": false,
+      "shade_direction_override": "up",
       "rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": true},
       "faces": {
         "north": {"uv": [0, 0, 16, 16], "texture": "#overlay", "tintindex": 0},
