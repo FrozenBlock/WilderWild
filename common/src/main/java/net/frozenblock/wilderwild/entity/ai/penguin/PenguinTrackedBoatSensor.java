@@ -29,7 +29,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.phys.AABB;
 
 public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
@@ -49,8 +49,8 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 		}
 
 		final AABB searchArea = entity.getBoundingBox().inflate(16D, 16D, 16D);
-		final List<Boat> boats = level.getEntitiesOfClass(
-			Boat.class,
+		final List<AbstractBoat> boats = level.getEntitiesOfClass(
+			AbstractBoat.class,
 			searchArea,
 			boat -> !boat.isSpectator()
 				&& boat.isAlive()
@@ -59,11 +59,9 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 		);
 		boats.sort(Comparator.comparingDouble(entity::distanceToSqr));
 
-		final List<Boat> temptingBoats = new ArrayList<>();
+		final List<AbstractBoat> temptingBoats = new ArrayList<>();
 		boats.forEach(boat -> {
-			if (boat.getControllingPassenger() instanceof Player player && player.isHolding(PenguinAi.getTemptations())) {
-				temptingBoats.add(boat);
-			}
+			if (boat.getControllingPassenger() instanceof Player player && player.isHolding(PenguinAi.getTemptations())) temptingBoats.add(boat);
 		});
 		temptingBoats.sort(Comparator.comparingDouble(entity::distanceToSqr));
 

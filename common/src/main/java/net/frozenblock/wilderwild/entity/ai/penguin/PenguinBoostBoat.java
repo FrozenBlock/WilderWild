@@ -17,12 +17,12 @@
 
 package net.frozenblock.wilderwild.entity.ai.penguin;
 
-import net.frozenblock.wilderwild.entity.impl.BoatBoostInterface;
+import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
-import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 
 public class PenguinBoostBoat {
 	private static final double MAX_DISTANCE = 3D;
@@ -32,12 +32,20 @@ public class PenguinBoostBoat {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(WWMemoryModuleTypes.TRACKED_BOAT.get())
 		).apply(instance, (trackedBoat) -> (level, penguin, l) -> {
-			final Boat boat = instance.get(trackedBoat);
-			if (boat instanceof BoatBoostInterface boatBoostInterface && penguin.distanceTo(boat) < MAX_DISTANCE) {
-				boatBoostInterface.wilderWild$boostBoatForTicks(BOOST_TICKS);
+			final AbstractBoat boat = instance.get(trackedBoat);
+			if (penguin.distanceTo(boat) < MAX_DISTANCE) {
+				boostForTicks(boat, BOOST_TICKS);
 				return true;
 			}
 			return true;
 		}));
+	}
+
+	public static void boostForTicks(AbstractBoat boat, int ticks) {
+		WWAttachmentTypes.BOAT_BOOST_TICKS.set(boat, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(boat, 0), ticks));
+	}
+
+	public static boolean isBoosted(AbstractBoat boat) {
+		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(boat, 0) > 0;
 	}
 }

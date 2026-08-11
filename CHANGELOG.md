@@ -60,6 +60,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - One loot table is now used for the Jellyfish instead of multiple, with the previous loot tables now being referenced from within the new loot table.
 - Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.
 - Fixed an issue that resulted in Icicles dropping as items after landing instead of shattering as intended.
+- Fixed an issue that prevented Penguins from applying a speed boost to Rafts.
 
 ### 26.3+
 - Added a new Abandoned Camp structure for the Maple Forest biome.

@@ -34,7 +34,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 
 public final class WWMemoryModuleTypes {
 	private static final FrozenDeferredRegister<MemoryModuleType<?>> REGISTER = FrozenDeferredRegister.create(
@@ -55,7 +55,7 @@ public final class WWMemoryModuleTypes {
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Unit>> FIRST_BRAIN_TICK = register("first_brain_tick");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<List<AbstractOstrich>>> NEARBY_OSTRICHES = register("nearby_ostriches");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<List<Penguin>>> NEARBY_PENGUINS = register("nearby_penguins");
-	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Boat>> TRACKED_BOAT = register("tracked_boat");
+	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<AbstractBoat>> TRACKED_BOAT = register("tracked_boat");
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Integer>> IDLE_TIME = register("idle_time", Codec.INT);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Integer>> DIVE_TICKS = register("dive_ticks", Codec.INT);
 	public static final FrozenHolder<MemoryModuleType<?>, MemoryModuleType<Unit>> LAYING_DOWN = register("laying_down", Unit.CODEC);

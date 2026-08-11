@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.entity.penguin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.entity.Penguin;
-import net.frozenblock.wilderwild.entity.impl.BoatBoostInterface;
+import net.frozenblock.wilderwild.entity.ai.penguin.PenguinBoostBoat;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
@@ -28,13 +28,12 @@ import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractBoat.class)
-public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoostInterface {
+public abstract class AbstractBoatMixin extends VehicleEntity {
 
 	public AbstractBoatMixin(EntityType<?> type, Level level) {
 		super(type, level);
@@ -58,19 +57,7 @@ public abstract class AbstractBoatMixin extends VehicleEntity implements BoatBoo
 		)
 	)
 	public Vec3 wilderWild$speedBoost(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
-		double multiplier = this.wilderWild$isBoatBoosted() ? Penguin.BOAT_BOOST_SPEED : 1D;
+		double multiplier = PenguinBoostBoat.isBoosted(AbstractBoat.class.cast(this)) ? Penguin.BOAT_BOOST_SPEED : 1D;
 		return original.call(instance, x * multiplier, y * multiplier, z * multiplier);
-	}
-
-	@Unique
-	@Override
-	public void wilderWild$boostBoatForTicks(int ticks) {
-		WWAttachmentTypes.BOAT_BOOST_TICKS.set(this, Math.max(WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(this, 0), ticks));
-	}
-
-	@Unique
-	@Override
-	public boolean wilderWild$isBoatBoosted() {
-		return WWAttachmentTypes.BOAT_BOOST_TICKS.getAttachedOrElse(this, 0) > 0;
 	}
 }
