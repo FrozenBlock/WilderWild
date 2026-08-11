@@ -4777,8 +4777,7 @@
       {
         "name": "wilderwild:music/ludocrypt/horizon_afoot",
         "stream": true,
-        "volume": 0.8,
-        "weight": 2
+        "volume": 0.8
       },
       {
         "name": "wilderwild:music/pictochats/amber",
@@ -4789,7 +4788,8 @@
       {
         "name": "wilderwild:music/cheryltje/better_days_ahead",
         "stream": true,
-        "volume": 0.7
+        "volume": 0.6,
+        "weight": 2
       }
     ]
   },
@@ -4939,7 +4939,7 @@
       {
         "name": "wilderwild:music/cheryltje/better_days_ahead",
         "stream": true,
-        "volume": 0.7,
+        "volume": 0.6,
         "weight": 3
       }
     ]
@@ -4954,7 +4954,7 @@
       {
         "name": "wilderwild:music/cheryltje/better_days_ahead",
         "stream": true,
-        "volume": 0.7,
+        "volume": 0.6,
         "weight": 2
       }
     ]
@@ -5416,7 +5416,7 @@
       {
         "name": "wilderwild:music/cheryltje/better_days_ahead",
         "stream": true,
-        "volume": 0.7
+        "volume": 0.6
       }
     ]
   },
