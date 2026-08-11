@@ -215,7 +215,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(Biomes.CHERRY_GROVE);
 
 		this.builder(WWBiomeTags.HAS_DAPPLED_FOREST_MUSIC)
-			.addOptional(Biomes.DARK_FOREST);
+			.addOptional(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_GROVE_MUSIC)
 			.addOptional(Biomes.GROVE);
