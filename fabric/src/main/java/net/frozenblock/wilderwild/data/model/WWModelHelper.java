@@ -473,7 +473,7 @@ public final class WWModelHelper {
 					.with(
 						PropertyDispatch.initial(SeaAnemoneBlock.GLOWING)
 							.select(false, BlockModelGenerators.plainVariant(model))
-							.select(false, BlockModelGenerators.plainVariant(glowingModel))
+							.select(true, BlockModelGenerators.plainVariant(glowingModel))
 					)
 			);
 	}

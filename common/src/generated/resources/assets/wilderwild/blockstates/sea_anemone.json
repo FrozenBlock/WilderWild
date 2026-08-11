@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "glowing=false": {
       "model": "wilderwild:block/sea_anemone"
+    },
+    "glowing=true": {
+      "model": "wilderwild:block/sea_anemone_glowing"
     }
   }
 }
