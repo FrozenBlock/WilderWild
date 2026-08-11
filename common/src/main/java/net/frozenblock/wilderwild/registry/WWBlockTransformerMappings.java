@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.item.api.component.BlockTransformerMappingsApi;
 import net.frozenblock.lib.levelgen.blockpredicates.HasMatchingAxisPredicate;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.StrictRuleBasedStateProvider;
@@ -36,7 +35,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateP
 
 // TODO: NeoForge
 public final class WWBlockTransformerMappings implements BlockTransformerMappingsApi.ModifyAxeBlockTransformer, BlockTransformerMappingsApi.ModifyAxeStrippablesBuilder {
-	private static final BlockPredicate LOG_HOLLOWING_ENABLED = ConfigPredicate.equalTo(WWBlockConfig.LOG_HOLLOWING, true).asBlockPredicate();
+	private static final BlockPredicate LOG_HOLLOWING_ENABLED = WWBlockConfig.LOG_HOLLOWING.equalTo(true).asBlockPredicate();
 	private static final Function<Direction.Axis, BlockTransformer.BlockTransformData> AXE_HOLLOWABLES = axis -> BlockTransformer.BlockTransformData
 		.builder(fillWithHollowables(axis).build())
 		.disallowedFaces(Arrays.stream(Direction.values()).filter(direction -> direction.getAxis() != axis).toList())

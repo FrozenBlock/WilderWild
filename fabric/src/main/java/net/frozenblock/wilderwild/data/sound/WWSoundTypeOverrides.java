@@ -81,8 +81,8 @@ public final class WWSoundTypeOverrides {
 			WWBlockTags.SOUND_PALE_OAK_LEAVES,
 			WWSoundTypes.PALE_OAK_LEAVES,
 			ConfigPredicate.allOf(
-				ConfigPredicate.equalTo(WWBlockConfig.PALE_OAK_SOUNDS, true),
-				ConfigPredicate.equalTo(WWBlockConfig.LEAF_SOUNDS, true)
+				WWBlockConfig.PALE_OAK_SOUNDS.equalTo(true),
+				WWBlockConfig.LEAF_SOUNDS.equalTo(true)
 			)
 		);
 		register(
@@ -91,8 +91,8 @@ public final class WWSoundTypeOverrides {
 			WWBlockTags.SOUND_PALE_OAK_LEAVES,
 			SoundType.AZALEA_LEAVES,
 			ConfigPredicate.allOf(
-				ConfigPredicate.equalTo(WWBlockConfig.PALE_OAK_SOUNDS, false),
-				ConfigPredicate.equalTo(WWBlockConfig.LEAF_SOUNDS, true)
+				WWBlockConfig.PALE_OAK_SOUNDS.equalTo(false),
+				WWBlockConfig.LEAF_SOUNDS.equalTo(true)
 			)
 		);
 		register(
@@ -101,8 +101,8 @@ public final class WWSoundTypeOverrides {
 			WWBlockTags.SOUND_PALE_OAK_LEAF_LITTER,
 			WWSoundTypes.PALE_OAK_LEAF_LITTER,
 			ConfigPredicate.allOf(
-				ConfigPredicate.equalTo(WWBlockConfig.PALE_OAK_SOUNDS, true),
-				ConfigPredicate.equalTo(WWBlockConfig.LEAF_SOUNDS, true)
+				WWBlockConfig.PALE_OAK_SOUNDS.equalTo(true),
+				WWBlockConfig.LEAF_SOUNDS.equalTo(true)
 			)
 		);
 		register(context, "pale_oak_wood", WWBlockTags.SOUND_PALE_OAK_WOOD, WWSoundTypes.PALE_OAK_WOOD, WWBlockConfig.PALE_OAK_SOUNDS);
@@ -126,7 +126,7 @@ public final class WWSoundTypeOverrides {
 		SoundType soundType,
 		ConfigEntry<Boolean> configEntry
 	) {
-		register(context, name, tagKey, soundType, ConfigPredicate.equalTo(configEntry, true));
+		register(context, name, tagKey, soundType, configEntry.equalTo(true));
 	}
 
 	private static void register(

@@ -18,9 +18,8 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchWithEdgeDecorationFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
@@ -34,6 +33,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
+import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
 import net.frozenblock.wilderwild.levelgen.feature.WaterCoverFeature;
@@ -57,7 +57,6 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
-import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -163,7 +162,7 @@ public final class WWAquaticConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						TubeWormsFeature.INSTANCE,
-						ConfigPredicate.equalTo(WWWorldgenConfig.TUBE_WORMS_GENERATION, true).asPlacementFilter(),
+						WWWorldgenConfig.TUBE_WORMS_GENERATION.equalTo(true).asPlacementFilter(),
 						CountPlacement.of(33),
 						OffsetPlacement.ofTriangle(5, 4)
 					)

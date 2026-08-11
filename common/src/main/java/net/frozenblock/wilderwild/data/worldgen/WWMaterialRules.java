@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.worldgen;
 
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.material.api.FrozenLibMaterialRules;
 import net.frozenblock.lib.levelgen.material.api.RuleSourceAdditions;
 import net.frozenblock.lib.levelgen.material.impl.RuleSourceAddition;
@@ -218,7 +217,7 @@ public final class WWMaterialRules {
 		);
 	}
 
-	public static SurfaceRules.RuleSource oldGrowthSnowyTaigaRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
+	public static SurfaceRules.RuleSource oldGrowthSnowyPineTaigaRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
 			SurfaceRules.isBiome(biomes, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
 			SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
@@ -444,7 +443,7 @@ public final class WWMaterialRules {
 
 	public static SurfaceRules.RuleSource betaBeaches(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			ConfigPredicate.equalTo(WWWorldgenConfig.BETA_BEACHES, true).asConditionSource(),
+			WWWorldgenConfig.BETA_BEACHES.equalTo(true).asConditionSource(),
 			SurfaceRules.sequence(
 				gravelBetaBeaches(biomes, materialConditions),
 				sandBetaBeaches(biomes, materialConditions),
@@ -455,7 +454,7 @@ public final class WWMaterialRules {
 
 	public static SurfaceRules.RuleSource snowUnderMountains(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		return SurfaceRules.ifTrue(
-			ConfigPredicate.equalTo(WWWorldgenConfig.SNOW_UNDER_MOUNTAINS, true).asConditionSource(),
+			WWWorldgenConfig.SNOW_UNDER_MOUNTAINS.equalTo(true).asConditionSource(),
 			SurfaceRules.ifTrue(
 				FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BELOW_SURFACE_SNOW),
 				SurfaceRules.ifTrue(SurfaceRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
@@ -479,7 +478,7 @@ public final class WWMaterialRules {
 		);
 	}
 
-	public static SurfaceRules.RuleSource frozenCavesSurfaceRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
+	public static SurfaceRules.RuleSource frozenCavesRules(HolderGetter<Biome> biomes, HolderGetter<SurfaceRules.ConditionSource> materialConditions) {
 		final SurfaceRules.RuleSource packedIce = SurfaceRules.state(Blocks.PACKED_ICE.defaultBlockState());
 		final SurfaceRules.RuleSource blueIce = SurfaceRules.state(Blocks.BLUE_ICE.defaultBlockState());
 		final SurfaceRules.RuleSource fragileIce = SurfaceRules.state(WWBlocks.FRAGILE_ICE.get().defaultBlockState());
@@ -528,34 +527,110 @@ public final class WWMaterialRules {
 
 		RuleSourceAdditions.register(
 			context,
-			WWConstants.id("overworld_surface"),
+			WWConstants.id("beta_beach"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			betaBeaches(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("cypress_wetlands"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			cypressSurfaceRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("warm_river"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			warmRiverRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("warm_beach"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			warmBeachRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("oasis"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			oasisRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("arid_savanna_and_arid_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
 			SurfaceRules.sequence(
-				betaBeaches(biomes, materialConditions),
-				cypressSurfaceRules(biomes, materialConditions),
-				warmRiverRules(biomes, materialConditions),
-				warmBeachRules(biomes, materialConditions),
-				oasisRules(biomes, materialConditions),
 				aridGrass(biomes, materialConditions),
-				aridRules(biomes, materialConditions),
-				oldGrowthSnowyTaigaRules(biomes, materialConditions),
-				oldGrowthDarkForestRules(biomes, materialConditions),
-				temperateRainforestRules(biomes, materialConditions),
-				rainforestRules(biomes, materialConditions),
-				dyingForestRules(biomes, materialConditions),
-				mapleForestRules(biomes, materialConditions),
-				tundraRules(biomes, materialConditions)
+				aridRules(biomes, materialConditions)
 			)
 		);
 
 		RuleSourceAdditions.register(
 			context,
-			WWConstants.id("overworld_no_surface"),
+			WWConstants.id("old_growth_snowy_pine_taiga"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			SurfaceRules.sequence(
-				snowUnderMountains(biomes, materialConditions),
-				frozenCavesSurfaceRules(biomes, materialConditions)
-			)
+			oldGrowthSnowyPineTaigaRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("old_growth_dark_forest"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			oldGrowthDarkForestRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("temperate_rainforest"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			temperateRainforestRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("rainforest"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			rainforestRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("dying_forest_and_dying_mixed_forest"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			dyingForestRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("maple_forest"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			mapleForestRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("tundra"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			tundraRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("frozen_caves"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			frozenCavesRules(biomes, materialConditions)
+		);
+
+		RuleSourceAdditions.register(
+			context,
+			WWConstants.id("snow_under_mountains"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			snowUnderMountains(biomes, materialConditions)
 		);
 	}
 }

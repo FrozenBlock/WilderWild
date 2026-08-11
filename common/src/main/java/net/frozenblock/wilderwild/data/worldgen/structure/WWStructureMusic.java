@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import java.util.List;
 import java.util.Optional;
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.music.api.structure.StructureMusic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -40,7 +39,7 @@ public final class WWStructureMusic {
 			List.of(BuiltinStructures.ANCIENT_CITY.identifier()),
 			new BackgroundMusic(Optional.of(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK)), Optional.of(Musics.CREATIVE), Optional.empty()),
 			false,
-			ConfigPredicate.equalTo(WWAmbienceAndMiscConfig.ANCIENT_CITY_MUSIC, true)
+			WWAmbienceAndMiscConfig.ANCIENT_CITY_MUSIC.equalTo(true)
 		);
 	}
 

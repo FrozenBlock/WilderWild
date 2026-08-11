@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorListAdditions;
@@ -67,7 +66,7 @@ public final class WWStructureProcessorListAdditions {
 					)
 				)
 			),
-			ConfigPredicate.equalTo(WWWorldgenConfig.DECAYING_TRAIL_RUINS_GENERATION, true)
+			WWWorldgenConfig.DECAYING_TRAIL_RUINS_GENERATION.equalTo(true)
 		);
 
 		StructureProcessorListAdditions.register(
@@ -100,7 +99,7 @@ public final class WWStructureProcessorListAdditions {
 					)
 				)
 			),
-			ConfigPredicate.equalTo(WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION, true)
+			WWWorldgenConfig.NEW_DESERT_VILLAGE_GENERATION.equalTo(true)
 		);
 
 		StructureProcessorListAdditions.register(
@@ -134,7 +133,7 @@ public final class WWStructureProcessorListAdditions {
 					)
 				)
 			),
-			ConfigPredicate.equalTo(WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION, true)
+			WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.equalTo(true)
 		);
 
 		StructureProcessorListAdditions.register(
@@ -155,7 +154,7 @@ public final class WWStructureProcessorListAdditions {
 					)
 				)
 			),
-			ConfigPredicate.equalTo(WWBlockConfig.ADD_STONE_CHESTS, true)
+			WWBlockConfig.ADD_STONE_CHESTS.equalTo(true)
 		);
 	}
 }

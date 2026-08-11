@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.entity.api.variant.CompoundCheck;
 import net.frozenblock.lib.entity.api.variant.VariantSpawnInjection;
 import net.frozenblock.wilderwild.WWConstants;
@@ -47,7 +46,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						ConfigPredicate.equalTo(WWEntityConfig.SPAWN_WOLF_VARIANTS, true).asSpawnCondition(),
+						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_ASHEN))
 					)
 				),
@@ -63,7 +62,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						ConfigPredicate.equalTo(WWEntityConfig.SPAWN_WOLF_VARIANTS, true).asSpawnCondition(),
+						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_WOODS))
 					)
 				),
@@ -79,7 +78,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						ConfigPredicate.equalTo(WWEntityConfig.SPAWN_WOLF_VARIANTS, true).asSpawnCondition(),
+						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_PALE))
 					)
 				),
@@ -95,7 +94,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						ConfigPredicate.equalTo(WWEntityConfig.SPAWN_WOLF_VARIANTS, true).asSpawnCondition(),
+						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_BLACK))
 					)
 				),
@@ -111,7 +110,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						ConfigPredicate.equalTo(WWEntityConfig.SPAWN_WOLF_VARIANTS, true).asSpawnCondition(),
+						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_CHESTNUT))
 					)
 				),
