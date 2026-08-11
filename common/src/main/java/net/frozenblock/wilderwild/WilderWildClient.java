@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild;
 
-import net.frozenblock.lib.menu.api.SplashTextAPI;
+import net.frozenblock.lib.menu.api.SplashTextEvents;
 import net.frozenblock.lib.renderer.special.SpecialModelRendererRegistry;
 import net.frozenblock.wilderwild.client.WWBlockColors;
 import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
@@ -19,7 +19,7 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 public final class WilderWildClient {
 
 	public static void init() {
-		SplashTextAPI.addSplashLocation(WWConstants.id("texts/splashes.txt"));
+		SplashTextEvents.ADD_SOURCE_FILES.register(sourceFiles -> sourceFiles.add(WWConstants.id("texts/splashes.txt")));
 		WWEasterEggs.hatchEasterEggs();
 
 		WWClientResources.init();
