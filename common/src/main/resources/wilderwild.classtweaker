@@ -38,6 +38,7 @@ accessible method net/minecraft/world/level/block/ChestBlock candidatePartnerFac
 accessible field net/minecraft/client/color/block/BlockColors BLANK_LAYER Lnet/minecraft/client/color/block/BlockTintSource;
 accessible class net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo
 accessible method net/minecraft/world/level/storage/loot/providers/number/NumberProviders compostable (Lnet/minecraft/core/HolderGetter;I)Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;
+accessible method net/minecraft/world/level/storage/loot/providers/number/NumberProviders cooking (Lnet/minecraft/core/HolderGetter;I)Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;
 
 # Entity
 accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;

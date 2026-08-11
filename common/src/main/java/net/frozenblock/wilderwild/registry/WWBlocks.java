@@ -153,6 +153,7 @@ import net.minecraft.world.phys.Vec3;
 
 public final class WWBlocks {
 	private static final FrozenDeferredRegister.Blocks REGISTER = FrozenDeferredRegister.createBlocks(WWConstants.MOD_ID);
+
 	// BLOCK SET TYPES
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
 	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("willow"));

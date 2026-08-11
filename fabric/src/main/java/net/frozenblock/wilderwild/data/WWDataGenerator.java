@@ -110,6 +110,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 		registryBuilder.add(Registries.TEMPLATE_POOL, WWAbandonedCampStructurePools::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
+		//registryBuilder.add(Registries.NUMBER_PROVIDER, WWNumberProviders::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);

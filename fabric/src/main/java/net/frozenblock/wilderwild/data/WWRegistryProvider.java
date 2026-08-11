@@ -55,6 +55,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.TEMPLATE_POOL)));
 		WWConstants.log("Adding finalized structures to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.STRUCTURE)));
+		WWConstants.log("Adding finalized number providers to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.NUMBER_PROVIDER)));
 
 		// FrozenLib Dynamic Registries
 		WWConstants.log("Adding finalized sound type overrides to datagen", true);
