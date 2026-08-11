@@ -7,7 +7,8 @@
 		"particle": "minecraft:block/flower_pot"
 	},
 	"elements": [
-    {   "from": [ 5, 0, 5 ],
+    {
+      "from": [ 5, 0, 5 ],
       "to": [ 6, 6, 11 ],
       "faces": {
         "down":  { "uv": [ 5, 5, 6, 11 ], "texture": "#flowerpot", "cullface": "down" },
@@ -18,7 +19,8 @@
         "east":  { "uv": [ 5, 10, 11, 16 ], "texture": "#flowerpot" }
       }
     },
-    {   "from": [ 10, 0, 5 ],
+    {
+      "from": [ 10, 0, 5 ],
       "to": [ 11, 6, 11 ],
       "faces": {
         "down":  { "uv": [ 10, 5, 11, 11 ], "texture": "#flowerpot", "cullface": "down" },
@@ -29,7 +31,8 @@
         "east":  { "uv": [ 5, 10, 11, 16 ], "texture": "#flowerpot" }
       }
     },
-    {   "from": [ 6, 0, 5 ],
+    {
+      "from": [ 6, 0, 5 ],
       "to": [ 10, 6, 6 ],
       "faces": {
         "down":  { "uv": [ 6, 10, 10, 11 ], "texture": "#flowerpot", "cullface": "down" },
@@ -38,7 +41,8 @@
         "south": { "uv": [ 6, 10, 10, 16 ], "texture": "#flowerpot" }
       }
     },
-    {   "from": [ 6, 0, 10 ],
+    {
+      "from": [ 6, 0, 10 ],
       "to": [ 10, 6, 11 ],
       "faces": {
         "down":  { "uv": [ 6, 5, 10, 6 ], "texture": "#flowerpot", "cullface": "down" },
@@ -47,7 +51,8 @@
         "south": { "uv": [ 6, 10, 10, 16 ], "texture": "#flowerpot" }
       }
     },
-    {   "from": [ 6, 0, 6 ],
+    {
+      "from": [ 6, 0, 6 ],
       "to": [ 10, 4, 10 ],
       "faces": {
         "down": { "uv": [ 6, 12, 10, 16 ], "texture": "#flowerpot", "cullface": "down" },
@@ -57,24 +62,27 @@
 		{
 			"from": [4, 4, 8],
 			"to": [12, 16, 8],
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8], "rescale": false },
+      "shade_direction_override": "up",
 			"faces": {
 				"north": {"uv": [8, 4, 16, 16], "texture": "#plant"},
-				"south": {"uv": [16, 4, 8, 16], "texture": "#plant"}
+				"south": {"uv": [8, 4, 16, 16], "texture": "#plant"}
 			}
 		},
-		{
-			"from": [8, 4, 4],
-			"to": [8, 16, 12],
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
-			"faces": {
-				"east": {"uv": [16, 4, 8, 16], "texture": "#plant"},
-				"west": {"uv": [8, 4, 16, 16], "texture": "#plant"}
-			}
-		},
+    {
+      "from": [4, 4, 8],
+      "to": [12, 16, 8],
+      "rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8], "rescale": false },
+      "shade_direction_override": "up",
+      "faces": {
+        "north": {"uv": [8, 4, 16, 16], "texture": "#plant"},
+        "south": {"uv": [8, 4, 16, 16], "texture": "#plant"}
+      }
+    },
 		{
 			"from": [4, 15, 1],
 			"to": [12, 16, 9],
+      "shade_direction_override": "up",
 			"faces": {
 				"north": {"uv": [0, 8, 8, 9], "texture": "#plant"},
 				"east": {"uv": [0, 8, 1, 16], "rotation": 90, "texture": "#plant"},
@@ -85,6 +93,7 @@
 		{
 			"from": [12, 16, 9],
 			"to": [4, 15, 1],
+      "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [7, 16, 8, 8], "rotation": 90, "texture": "#plant"},
 				"south": {"uv": [8, 8, 0, 9], "texture": "#plant"},

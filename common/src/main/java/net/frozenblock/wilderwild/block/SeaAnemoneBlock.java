@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockContainer {
 	private static final VoxelShape SHAPE = Block.box(4D, 0D, 4D, 12D, 8D, 12D);
-	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
+	public static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 4;
 
 	public SeaAnemoneBlock(Properties properties) {

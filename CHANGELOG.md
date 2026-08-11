@@ -47,15 +47,15 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The Dying Yellow Maple tree feature's height is now the same as its Orange and Red counterparts.
 - Removed the `#wilderwild:non_overriden_falling_leaves` Block Tag.
 - Wilder Wild's Wolf Variants spawn modifications are now data-driven.
-    - These can be found within the `frozenlib/variant_spawn_injection` data folder.
-    - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
-    - Added the following Biome Tags:
-        - `#wilderwild:entity/variant/wolf_ashen`
-        - `#wilderwild:entity/variant/wolf_woods`
-        - `#wilderwild:entity/variant/wolf_pale`
-        - `#wilderwild:entity/variant/wolf_black`
-        - `#wilderwild:entity/variant/wolf_chestnut`
-    - Added a config option to toggle these modifications.
+- These can be found within the `frozenlib/variant_spawn_injection` data folder.
+  - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
+  - Added the following Biome Tags:
+    - `#wilderwild:entity/variant/wolf_ashen`
+    - `#wilderwild:entity/variant/wolf_woods`
+    - `#wilderwild:entity/variant/wolf_pale`
+    - `#wilderwild:entity/variant/wolf_black`
+    - `#wilderwild:entity/variant/wolf_chestnut`
+  - Added a config option to toggle these modifications.
 - Updated the Jellyfish's loot table.
   - One loot table is now used for the Jellyfish instead of multiple, with the previous loot tables now being referenced from within the new loot table.
 - Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.
@@ -82,3 +82,17 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option to toggle Dappled Forest generation.
 - Added the `wilderwild:termite_edible` Structure Processor, with the following format:
   - `value`: Can be either true or false. Sets the `termite_edible` property to this value for all Blocks with this property.
+- Fixed inconsistent/incorrect shading for the following:
+  - Hanging Baobab Nut Stems
+  - Hanging Coconut Stems
+  - Lily Pad Roots
+  - Clovers Stems
+  - Potted Big Dripleaves
+  - Potted Small Dripleaves
+  - Potted Clovers Stems
+  - Potted Lantanas Stems
+  - Potted Phlox Stems
+  - Potted Wildflowers Stems
+  - Potted Pink Petals Stems
+- The stems of Potted Big Dripleaves and Potted Small Dripleaves are now properly rotated to match Vanilla's cross model.
+- The column of Sea Anemone are now more visible while the Sea Anemone is glowing.

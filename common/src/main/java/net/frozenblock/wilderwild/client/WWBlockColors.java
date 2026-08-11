@@ -41,14 +41,14 @@ public final class WWBlockColors {
 			WWBlocks.PHLOX,
 			WWBlocks.POTTED_PHLOX,
 			WWBlocks.LANTANAS,
-			WWBlocks.POTTED_LANTANAS
+			WWBlocks.POTTED_LANTANAS,
+			WWBlocks.POTTED_CLOVERS
 		);
 
 		BlockColorRegistry.registerTints(
 			BlockTintSources.grass(),
 			WWBlocks.POTTED_BUSH,
-			WWBlocks.CLOVERS,
-			WWBlocks.POTTED_CLOVERS
+			WWBlocks.CLOVERS
 		);
 
 		BlockColorRegistry.registerAverageFoliageTint(

@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
@@ -121,6 +122,12 @@ public final class WWModelHelper {
 	);
 	private static final ModelTemplate SEA_ANEMONE_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_sea_anemone")),
+		Optional.empty(),
+		TextureSlot.STEM,
+		TextureSlot.TOP
+	);
+	private static final ModelTemplate SEA_ANEMONE_GLOWING_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_sea_anemone_glowing")),
 		Optional.empty(),
 		TextureSlot.STEM,
 		TextureSlot.TOP
@@ -432,35 +439,43 @@ public final class WWModelHelper {
 			.put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(WWBlocks.SHRUB.get(), "_stage3_top_overlay"));
 		final Identifier stage3TopModel = SHRUB_MODEL.createWithSuffix(WWBlocks.SHRUB.get(), "_stage3_top", stage3TopMapping, generator.modelOutput);
 
-		generator.blockStateOutput
-			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.SHRUB.get())
-					.with(
-						PropertyDispatch.initial(ShrubBlock.HALF, ShrubBlock.AGE)
-							.select(DoubleBlockHalf.LOWER, 0, BlockModelGenerators.plainVariant(stage0Model))
-							.select(DoubleBlockHalf.UPPER, 0, BlockModelGenerators.plainVariant(stage0Model))
+		generator.blockStateOutput.accept(
+			MultiVariantGenerator.dispatch(WWBlocks.SHRUB.get())
+				.with(
+					PropertyDispatch.initial(ShrubBlock.HALF, ShrubBlock.AGE)
+						.select(DoubleBlockHalf.LOWER, 0, BlockModelGenerators.plainVariant(stage0Model))
+						.select(DoubleBlockHalf.UPPER, 0, BlockModelGenerators.plainVariant(stage0Model))
 
-							.select(DoubleBlockHalf.LOWER, 1, BlockModelGenerators.plainVariant(stage1Model))
-							.select(DoubleBlockHalf.UPPER, 1, BlockModelGenerators.plainVariant(stage1Model))
+						.select(DoubleBlockHalf.LOWER, 1, BlockModelGenerators.plainVariant(stage1Model))
+						.select(DoubleBlockHalf.UPPER, 1, BlockModelGenerators.plainVariant(stage1Model))
 
-							.select(DoubleBlockHalf.LOWER, 2, BlockModelGenerators.plainVariant(stage2Model))
-							.select(DoubleBlockHalf.UPPER, 2, BlockModelGenerators.plainVariant(stage2Model))
+						.select(DoubleBlockHalf.LOWER, 2, BlockModelGenerators.plainVariant(stage2Model))
+						.select(DoubleBlockHalf.UPPER, 2, BlockModelGenerators.plainVariant(stage2Model))
 
-							.select(DoubleBlockHalf.LOWER, 3, BlockModelGenerators.plainVariant(stage3BottomModel))
-							.select(DoubleBlockHalf.UPPER, 3, BlockModelGenerators.plainVariant(stage3TopModel))
-					)
-			);
+						.select(DoubleBlockHalf.LOWER, 3, BlockModelGenerators.plainVariant(stage3BottomModel))
+						.select(DoubleBlockHalf.UPPER, 3, BlockModelGenerators.plainVariant(stage3TopModel))
+				)
+		);
 	}
 
-	public static void createSeaAnemone(BlockModelGenerators generator, Block seaAnemoneBlock) {
-		TextureMapping seaAnemoneTextureMapping = new TextureMapping();
-		seaAnemoneTextureMapping.put(TextureSlot.STEM, TextureMapping.getBlockTexture(seaAnemoneBlock, "_stem"));
-		seaAnemoneTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemoneBlock, "_top"));
-		Identifier modelId = SEA_ANEMONE_MODEL.create(seaAnemoneBlock, seaAnemoneTextureMapping, generator.modelOutput);
+	public static void createSeaAnemone(BlockModelGenerators generator, Block seaAnemone) {
+		generator.registerSimpleFlatItemModel(seaAnemone.asItem());
 
-		MultiVariant variant = BlockModelGenerators.plainVariant(modelId);
-		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(seaAnemoneBlock, variant));
-		generator.registerSimpleFlatItemModel(seaAnemoneBlock.asItem());
+		final TextureMapping textureMapping = new TextureMapping();
+		textureMapping.put(TextureSlot.STEM, TextureMapping.getBlockTexture(seaAnemone, "_stem"));
+		textureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(seaAnemone, "_top"));
+		final Identifier model = SEA_ANEMONE_MODEL.create(seaAnemone, textureMapping, generator.modelOutput);
+		final Identifier glowingModel = SEA_ANEMONE_GLOWING_MODEL.createWithSuffix(seaAnemone, "_glowing", textureMapping, generator.modelOutput);
+
+		generator.blockStateOutput
+			.accept(
+				MultiVariantGenerator.dispatch(seaAnemone)
+					.with(
+						PropertyDispatch.initial(SeaAnemoneBlock.GLOWING)
+							.select(false, BlockModelGenerators.plainVariant(model))
+							.select(false, BlockModelGenerators.plainVariant(glowingModel))
+					)
+			);
 	}
 
 	public static void createSeaWhip(BlockModelGenerators generator) {

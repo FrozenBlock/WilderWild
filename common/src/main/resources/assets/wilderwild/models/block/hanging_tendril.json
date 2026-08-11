@@ -8,8 +8,8 @@
 		{
 			"from": [8, 0, 0],
 			"to": [8, 16, 16],
-			"shade_direction_override": "up",
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+      "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [0, 0, 16, 16], "texture": "#texture"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#texture"}
@@ -18,8 +18,8 @@
 		{
 			"from": [0, 0, 8],
 			"to": [16, 16, 8],
-			"shade_direction_override": "up",
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+      "shade_direction_override": "up",
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#texture"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#texture"}

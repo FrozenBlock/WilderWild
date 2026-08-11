@@ -1,6 +1,4 @@
 {
-	"format_version": "1.21.6",
-	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
 		"particle": "#inside"
@@ -10,9 +8,9 @@
 			"name": "inside",
 			"from": [8, 2, 0],
 			"to": [8, 14, 12],
-			"shade_direction_override": "up",
 			"light_emission": 15,
 			"rotation": {"angle": 0, "axis": "z", "origin": [8, 8, 0]},
+      "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [2, 4, 14, 16], "rotation": 270, "texture": "#inside"},
 				"west": {"uv": [2, 4, 14, 16], "rotation": 90, "texture": "#inside"}
@@ -22,9 +20,9 @@
 			"name": "fan",
 			"from": [9, 2, 0],
 			"to": [9, 14, 10],
-			"shade_direction_override": "up",
 			"light_emission": 15,
 			"rotation": {"angle": 22.5, "axis": "y", "origin": [9, 7, 0], "rescale": true},
+      "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [14, 6, 2, 16], "rotation": 270, "texture": "#fan"},
 				"west": {"uv": [2, 6, 14, 16], "rotation": 90, "texture": "#fan"}
@@ -34,9 +32,9 @@
 			"name": "fan",
 			"from": [7, 2, 0],
 			"to": [7, 14, 10],
-			"shade_direction_override": "up",
 			"light_emission": 15,
 			"rotation": {"angle": -22.5, "axis": "y", "origin": [7, 9, 0], "rescale": true},
+      "shade_direction_override": "up",
 			"faces": {
 				"east": {"uv": [14, 6, 2, 16], "rotation": 270, "texture": "#fan"},
 				"west": {"uv": [2, 6, 14, 16], "rotation": 90, "texture": "#fan"}
