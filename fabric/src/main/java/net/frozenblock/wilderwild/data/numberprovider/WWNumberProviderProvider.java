@@ -21,7 +21,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.lib.data.api.NumberProviderProvider;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWNumberProviders;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -38,10 +37,5 @@ public final class WWNumberProviderProvider extends NumberProviderProvider {
 		consumer.accept(
 			create(WWNumberProviders.COMPOSTABLE_MILKWEED_POD, NumberProviders.compostable(provider.lookupOrThrow(Registries.BLOCK), 25))
 		);
-	}
-
-	@Override
-	public String namespace() {
-		return WWConstants.MOD_ID;
 	}
 }
