@@ -79,7 +79,11 @@ public final class WWBlockEntityTypes {
 	public static void init() {}
 
 	@SafeVarargs
-	private static <T extends BlockEntity> FrozenHolder<BlockEntityType<?>, BlockEntityType<T>> register(ResourceKey<BlockEntityType<?>> id, BlockEntityType.BlockEntitySupplier<T> builder, Supplier<Block>... blocks) {
+	private static <T extends BlockEntity> FrozenHolder<BlockEntityType<?>, BlockEntityType<T>> register(
+		ResourceKey<BlockEntityType<?>> id,
+		BlockEntityType.BlockEntitySupplier<T> builder,
+		Supplier<Block>... blocks
+	) {
 		return REGISTER.register(id, () -> new BlockEntityType<>(builder, Arrays.stream(blocks).map(Supplier::get).collect(Collectors.toSet())));
 	}
 }

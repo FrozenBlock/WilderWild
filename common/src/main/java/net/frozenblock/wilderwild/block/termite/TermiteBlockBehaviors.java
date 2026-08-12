@@ -139,7 +139,7 @@ public final class TermiteBlockBehaviors {
 			true,
 			false,
 			true,
-			WWSounds.LOG_HOLLOWED.get()
+			WWSounds.BLOCK_TERMITE_MOUND_HOLLOW.get()
 		);
 	}
 

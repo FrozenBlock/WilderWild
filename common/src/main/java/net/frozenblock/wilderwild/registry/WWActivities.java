@@ -26,30 +26,22 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.schedule.Activity;
 
 public final class WWActivities {
-	public static final FrozenHolder<Activity, Activity> STAND_UP;
-	public static final FrozenHolder<Activity, Activity> PRE_SEARCH;
-	public static final FrozenHolder<Activity, Activity> SEARCH;
-	public static final FrozenHolder<Activity, Activity> ESCAPE;
-	public static final FrozenHolder<Activity, Activity> POST_ESCAPE;
-	public static final FrozenHolder<Activity, Activity> CHASE;
-	public static final FrozenHolder<Activity, Activity> CALL;
+	private static final FrozenDeferredRegister<Activity> REGISTER = RegistryHelper.createDeferredRegister(Registries.ACTIVITY, FrozenLibConstants.MOD_ID);
+	public static final FrozenHolder<Activity, Activity> STAND_UP = register("stand_up");
+	public static final FrozenHolder<Activity, Activity> PRE_SEARCH = register("pre_search");
+	public static final FrozenHolder<Activity, Activity> SEARCH = register("search");
+	public static final FrozenHolder<Activity, Activity> ESCAPE = register("escape");
+	public static final FrozenHolder<Activity, Activity> POST_ESCAPE = register("post_escape");
+	public static final FrozenHolder<Activity, Activity> CHASE = register("chase");
+	public static final FrozenHolder<Activity, Activity> CALL = register("call");
 
 	static {
-		var register = RegistryHelper.createDeferredRegister(Registries.ACTIVITY, FrozenLibConstants.MOD_ID);
-		STAND_UP = register(register, "stand_up");
-		PRE_SEARCH = register(register, "pre_search");
-		SEARCH = register(register, "search");
-		ESCAPE = register(register, "escape");
-		POST_ESCAPE = register(register, "post_escape");
-		CHASE = register(register, "chase");
-		CALL = register(register, "call");
-
-		register.register();
+		REGISTER.register();
 	}
 
 	public static void init() {}
 
-	private static FrozenHolder<Activity, Activity> register(FrozenDeferredRegister<Activity> register, String name) {
-		return register.register(name, () -> new Activity(WWConstants.safeString(name)));
+	private static FrozenHolder<Activity, Activity> register(String name) {
+		return WWActivities.REGISTER.register(name, () -> new Activity(WWConstants.safeString(name)));
 	}
 }

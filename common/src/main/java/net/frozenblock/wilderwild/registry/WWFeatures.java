@@ -52,6 +52,7 @@ import net.frozenblock.wilderwild.levelgen.trunkplacers.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.StraightWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.WillowTrunkPlacer;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
@@ -99,28 +100,26 @@ public final class WWFeatures {
 		TRUNK.register();
 		FOLIAGE.register();
 		ROOT.register();
-	}
 
-	public static void init() {
-		var register = FrozenDeferredRegister.create(
+		final FrozenDeferredRegister<MapCodec<? extends Feature>> featureRegister = FrozenDeferredRegister.create(
 			Registries.FEATURE_TYPE,
 			WWConstants.MOD_ID
 		);
-
-		register.register("shelf_fungi", () -> ShelfFungiFeature.CODEC);
-		register.register("sponge_bud", () -> SpongeBudFeature.CODEC);
-		register.register("cattail", () -> CattailFeature.CODEC);
-		register.register("water_cover", () -> WaterCoverFeature.CODEC);
-		register.register("seagrass", () -> SeagrassFeature.CODEC);
-		register.register("tube_worms", () -> TubeWormsFeature.CODEC);
-		register.register("hydrothermal_vent", () -> HydrothermalVentFeature.CODEC);
-		register.register("large_mesoglea", () -> LargeMesogleaFeature.CODEC);
-		register.register("snow_blanket", () -> SnowBlanketFeature.CODEC);
-		register.register("snow_and_freeze_disk", () -> SnowAndFreezeDiskFeature.CODEC);
-		register.register("huge_pale_mushroom", () -> HugePaleMushroomFeature.CODEC);
-
-		register.register();
+		featureRegister.register("shelf_fungi", () -> ShelfFungiFeature.CODEC);
+		featureRegister.register("sponge_bud", () -> SpongeBudFeature.CODEC);
+		featureRegister.register("cattail", () -> CattailFeature.CODEC);
+		featureRegister.register("water_cover", () -> WaterCoverFeature.CODEC);
+		featureRegister.register("seagrass", () -> SeagrassFeature.CODEC);
+		featureRegister.register("tube_worms", () -> TubeWormsFeature.CODEC);
+		featureRegister.register("hydrothermal_vent", () -> HydrothermalVentFeature.CODEC);
+		featureRegister.register("large_mesoglea", () -> LargeMesogleaFeature.CODEC);
+		featureRegister.register("snow_blanket", () -> SnowBlanketFeature.CODEC);
+		featureRegister.register("snow_and_freeze_disk", () -> SnowAndFreezeDiskFeature.CODEC);
+		featureRegister.register("huge_pale_mushroom", () -> HugePaleMushroomFeature.CODEC);
+		featureRegister.register();
 	}
+
+	public static void init() {}
 
 	private static <P extends TrunkPlacer> FrozenHolder<TrunkPlacerType<?>, TrunkPlacerType<P>> registerTrunk(String name, MapCodec<P> codec) {
 		return TRUNK.register(name, () -> new TrunkPlacerType<>(codec));

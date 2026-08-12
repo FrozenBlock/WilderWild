@@ -45,6 +45,6 @@ public class GeothermalVentEffectiveWindDisturbance extends AbstractGeothermalVe
 
 	@Override
 	public WindDisturbanceType<?> type() {
-		return WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE;
+		return WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE.get();
 	}
 }

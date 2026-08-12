@@ -36,9 +36,7 @@ import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class WWEntityTypes {
-	private static final FrozenDeferredRegister.Entities REGISTER = FrozenDeferredRegister.createEntities(
-		WWConstants.MOD_ID
-	);
+	private static final FrozenDeferredRegister.Entities REGISTER = FrozenDeferredRegister.createEntities(WWConstants.MOD_ID);
 
 	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY,
 		Firefly::new,

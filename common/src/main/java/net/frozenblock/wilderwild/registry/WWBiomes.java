@@ -92,8 +92,6 @@ public final class WWBiomes {
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = OldGrowthDarkForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = SnowyOldGrowthPineTaiga.INSTANCE.getKey();
 
-	public static void init() {}
-
 	public static void bootstrap(BootstrapContext<Biome> context) {
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));

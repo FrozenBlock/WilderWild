@@ -301,11 +301,11 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 	}
 
 	private boolean doesNotHaveEffectiveWindDisturbance(DataAttachmentTarget source) {
-		return WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE));
+		return WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE.get()));
 	}
 
 	private boolean doesNotHaveBaseWindDisturbance(DataAttachmentTarget source) {
-		return WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEOTHERMAL_VENT_BASE));
+		return WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEOTHERMAL_VENT_BASE.get()));
 	}
 
 	private AABB getPossibleEruptionBoundingBox(BlockPos pos, BlockPos maxEndPos) {

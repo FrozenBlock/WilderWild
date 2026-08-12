@@ -39,7 +39,7 @@ public final class WWBlockTransformerMappings implements BlockTransformerMapping
 	private static final Function<Direction.Axis, BlockTransformer.BlockTransformData> AXE_HOLLOWABLES = axis -> BlockTransformer.BlockTransformData
 		.builder(fillWithHollowables(axis).build())
 		.disallowedFaces(Arrays.stream(Direction.values()).filter(direction -> direction.getAxis() != axis).toList())
-		.sound(WWSounds.AXE_HOLLOW.asHolder())
+		.sound(WWSounds.ITEM_AXE_HOLLOW.asHolder())
 		.build();
 
 	@Override

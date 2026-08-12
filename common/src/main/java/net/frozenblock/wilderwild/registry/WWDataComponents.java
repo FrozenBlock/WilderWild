@@ -34,9 +34,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.component.CustomData;
 
 public final class WWDataComponents {
-	private static final FrozenDeferredRegister.DataComponents REGISTER = FrozenDeferredRegister.createDataComponents(
-		WWConstants.MOD_ID
-	);
+	private static final FrozenDeferredRegister.DataComponents REGISTER = FrozenDeferredRegister.createDataComponents(WWConstants.MOD_ID);
 
 	public static final FrozenHolder<DataComponentType<?>, DataComponentType<List<DisplayLanternBlockEntity.Occupant>>> FIREFLIES = register(
 		"fireflies",

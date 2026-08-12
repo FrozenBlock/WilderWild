@@ -26,11 +26,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 
 public final class WWStructureProcessorTypes {
 
-	public static void bootstrap() {
-		final FrozenDeferredRegister<MapCodec<? extends StructureProcessor>> REGISTER = FrozenDeferredRegister.create(
+	public static void init() {
+		final FrozenDeferredRegister<MapCodec<? extends StructureProcessor>> register = FrozenDeferredRegister.create(
 			Registries.STRUCTURE_PROCESSOR,
 			WWConstants.MOD_ID
 		);
-		REGISTER.register("termite_edible", () -> TermiteEdibleBlockProcessor.MAP_CODEC);
+		register.register("termite_edible", () -> TermiteEdibleBlockProcessor.MAP_CODEC);
 	}
 }

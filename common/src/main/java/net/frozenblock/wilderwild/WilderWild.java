@@ -12,7 +12,6 @@ import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureMod
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
-import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCriteria;
@@ -68,9 +67,8 @@ public final class WilderWild {
 		WWMobEffects.init();
 		WWCriteria.init();
 		WWFeatures.init();
-		WWBiomes.init();
 		WWWorldgen.init();
-		WWStructureProcessorTypes.bootstrap();
+		WWStructureProcessorTypes.init();
 		WWStructureModifications.init();
 
 		WWWindDisturbances.init();

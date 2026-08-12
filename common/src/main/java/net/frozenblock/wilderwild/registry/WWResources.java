@@ -26,12 +26,10 @@ import net.minecraft.network.chat.Component;
 public final class WWResources {
 
 	public static void register() {
-		var modId = WWConstants.MOD_ID;
-
 		if (WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_abandoned_camps"),
-				modId,
+				WWConstants.MOD_ID,
 				Component.translatable("pack.wilderwild.wilder_abandoned_camps"),
 				PackActivationType.ALWAYS_ENABLED
 			);

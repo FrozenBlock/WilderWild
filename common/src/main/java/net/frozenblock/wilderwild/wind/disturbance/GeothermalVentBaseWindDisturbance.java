@@ -45,6 +45,6 @@ public class GeothermalVentBaseWindDisturbance extends AbstractGeothermalVentWin
 
 	@Override
 	public WindDisturbanceType<?> type() {
-		return WWWindDisturbances.GEOTHERMAL_VENT_BASE;
+		return WWWindDisturbances.GEOTHERMAL_VENT_BASE.get();
 	}
 }

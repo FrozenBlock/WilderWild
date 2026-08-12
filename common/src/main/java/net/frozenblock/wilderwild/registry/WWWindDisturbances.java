@@ -17,22 +17,58 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import com.mojang.serialization.MapCodec;
+import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
+import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
+import net.frozenblock.lib.wind.disturbance.WindDisturbance;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public final class WWWindDisturbances {
-	public static final WindDisturbanceType<GeothermalVentEffectiveWindDisturbance> GEOTHERMAL_VENT_EFFECTIVE = WindDisturbanceType.register(
-		WWConstants.id("geothermal_vent_effective"),
+	private static final FrozenDeferredRegister<WindDisturbanceType<?>> REGISTER = FrozenDeferredRegister.create(
+		FrozenLibRegistries.WIND_DISTURBANCE_TYPE,
+		WWConstants.MOD_ID
+	);
+	public static final FrozenHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentEffectiveWindDisturbance>> GEOTHERMAL_VENT_EFFECTIVE = register(
+		"geothermal_vent_effective",
 		GeothermalVentEffectiveWindDisturbance.CODEC,
 		GeothermalVentEffectiveWindDisturbance.STREAM_CODEC
 	);
-	public static final WindDisturbanceType<GeothermalVentBaseWindDisturbance> GEOTHERMAL_VENT_BASE = WindDisturbanceType.register(
-		WWConstants.id("geothermal_vent_base"),
+	public static final FrozenHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentBaseWindDisturbance>> GEOTHERMAL_VENT_BASE = register(
+		"geothermal_vent_base",
 		GeothermalVentBaseWindDisturbance.CODEC,
 		GeothermalVentBaseWindDisturbance.STREAM_CODEC
 	);
 
+	static {
+		REGISTER.register();
+	}
+
 	public static void init() {}
+
+	private static <T extends WindDisturbance<?>> FrozenHolder<WindDisturbanceType<?>, WindDisturbanceType<T>> register(
+		String name,
+		MapCodec<T> codec,
+		StreamCodec<RegistryFriendlyByteBuf, T> streamCodec
+	) {
+		return REGISTER.register(
+			name,
+			() -> new WindDisturbanceType<>() {
+				@Override
+				public MapCodec<T> codec() {
+					return codec;
+				}
+
+				@Override
+				public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+					return streamCodec;
+				}
+			}
+		);
+	}
 }

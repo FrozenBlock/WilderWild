@@ -4715,21 +4715,13 @@
     ],
     "subtitle": "subtitles.item.axe.hollow"
   },
-  "block.log_hollowed": {
+  "block.termite_mound.hollow": {
     "sounds": [
       "wilderwild:block/hollowed_log/hollow1",
       "wilderwild:block/hollowed_log/hollow2",
       "wilderwild:block/hollowed_log/hollow3"
     ],
-    "subtitle": "subtitles.block.log_hollowed"
-  },
-  "block.stem_hollowed": {
-    "sounds": [
-      "wilderwild:block/hollowed_log/hollow1",
-      "wilderwild:block/hollowed_log/hollow2",
-      "wilderwild:block/hollowed_log/hollow3"
-    ],
-    "subtitle": "subtitles.block.stem_hollowed"
+    "subtitle": "subtitles.block.termite_mound.hollow"
   },
   "music.overworld.wilder_forests": {
     "sounds": [
