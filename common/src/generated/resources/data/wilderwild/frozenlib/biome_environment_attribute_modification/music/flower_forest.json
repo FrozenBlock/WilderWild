@@ -1,0 +1,17 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.wilder_flower_forests"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_flower_forest_music",
+  "enabled_when": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:misc/music/wilderForestMusic",
+    "target": true
+  }
+}

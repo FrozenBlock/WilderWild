@@ -27,7 +27,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 public final class WWWaterLikeTypes {
-	public static final ResourceKey<WaterLikeType> MESOGLEA = bind("mesoglea");
+	public static final ResourceKey<WaterLikeType> MESOGLEA = createKey("mesoglea");
 
 	public static void bootstrap(BootstrapContext<WaterLikeType> context) {
 		WaterLikeTypes.register(
@@ -47,7 +47,7 @@ public final class WWWaterLikeTypes {
 		);
 	}
 
-	private static ResourceKey<WaterLikeType> bind(String name) {
+	private static ResourceKey<WaterLikeType> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.WATER_LIKE_TYPE, WWConstants.id(name));
 	}
 }

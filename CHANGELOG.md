@@ -46,16 +46,28 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that prevented Orange Maple Leaves from being smelted into Orange Maple Leaf Litter.
 - The Dying Yellow Maple tree feature's height is now the same as its Orange and Red counterparts.
 - Removed the `#wilderwild:non_overriden_falling_leaves` Block Tag.
+- Wilder Wild's Biome fog, Biome particle, and Biome music modification is now data-driven.
+  - These can be found within the `frozenlib/biome_environment_attribute_modification` data folder.
+  - Renamed the following Biome Tags:
+    - `#wilderwild:music_pool/has_cherry_music` -> `#wilderwild:music_pool/has_cherry_grove_music`
+    - `#wilderwild:music_pool/has_dripstone_music` -> `#wilderwild:music_pool/has_dripstone_caves_music`
+    - `#wilderwild:music_pool/has_lush_music` -> `#wilderwild:music_pool/has_lush_caves_music`
+    - `#wilderwild:music_pool/has_dying_music` -> `#wilderwild:music_pool/has_dying_forest_music`
+    - `#wilderwild:music_pool/has_snowy_dying_music` -> `#wilderwild:music_pool/has_snowy_dying_forest_music`
+    - `#wilderwild:music_pool/has_frozen_music` -> `#wilderwild:music_pool/has_mesoglea_caves_music`
+    - `#wilderwild:music_pool/has_magmatic_music` -> `#wilderwild:music_pool/has_magmatic_caves_music`
+    - `#wilderwild:music_pool/has_maple_music` -> `#wilderwild:music_pool/has_maple_forest_music`
+  - Fixed an issue that prevented Underwater music from playing in some Ocean biomes.
 - Wilder Wild's Wolf Variants spawn modifications are now data-driven.
-    - These can be found within the `frozenlib/variant_spawn_injection` data folder.
-    - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
-    - Added the following Biome Tags:
-        - `#wilderwild:entity/variant/wolf_ashen`
-        - `#wilderwild:entity/variant/wolf_woods`
-        - `#wilderwild:entity/variant/wolf_pale`
-        - `#wilderwild:entity/variant/wolf_black`
-        - `#wilderwild:entity/variant/wolf_chestnut`
-    - Added a config option to toggle these modifications.
+  - These can be found within the `frozenlib/variant_spawn_injection` data folder.
+  - These modifications simply allow Wolf Variants to spawn in Wilder Wild's biomes without interfering with Data Packs or other mods.
+  - Added the following Biome Tags:
+    - `#wilderwild:entity/variant/wolf_ashen`
+    - `#wilderwild:entity/variant/wolf_woods`
+    - `#wilderwild:entity/variant/wolf_pale`
+    - `#wilderwild:entity/variant/wolf_black`
+    - `#wilderwild:entity/variant/wolf_chestnut`
+  - Added a config option to toggle these modifications.
 - Updated the Jellyfish's loot table.
   - One loot table is now used for the Jellyfish instead of multiple, with the previous loot tables now being referenced from within the new loot table.
 - Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.

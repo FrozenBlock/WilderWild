@@ -63,6 +63,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_MUSIC)));
 		WWConstants.log("Adding finalized variant spawn injections to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.VARIANT_SPAWN_INJECTION)));
+		WWConstants.log("Adding finalized variant biome environment attribute modifications to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BIOME_ENVIRONMENT_ATTRIBUTE_MODIFICATION)));
 
 		// Wilder Wild Dynamic Registries
 		WWConstants.log("Adding finalized firefly colors to datagen", true);

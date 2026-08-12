@@ -1,0 +1,11 @@
+{
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000"
+  },
+  "biomes": "minecraft:lush_caves",
+  "enabled_when": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/lushCavesFog",
+    "target": true
+  }
+}

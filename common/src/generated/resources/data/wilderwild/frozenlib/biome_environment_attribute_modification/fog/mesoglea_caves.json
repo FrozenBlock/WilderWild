@@ -1,0 +1,11 @@
+{
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000"
+  },
+  "biomes": "wilderwild:mesoglea_caves",
+  "enabled_when": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/mesogleaCavesFog",
+    "target": true
+  }
+}

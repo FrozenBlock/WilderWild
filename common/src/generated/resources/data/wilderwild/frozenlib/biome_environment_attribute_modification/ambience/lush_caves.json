@@ -1,0 +1,23 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "additions": {
+        "sound": "wilderwild:ambient.lush_caves.additions",
+        "tick_chance": 0.01
+      },
+      "loop": "wilderwild:ambient.lush_caves.loop",
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
+  "biomes": "minecraft:lush_caves",
+  "enabled_when": {
+    "type": "minecraft:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/lushCavesAmbience",
+    "target": true
+  }
+}
