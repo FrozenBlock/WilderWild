@@ -1,0 +1,11 @@
+{
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000"
+  },
+  "biomes": "minecraft:dripstone_caves",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/dripstoneCavesFog",
+    "target": true
+  }
+}

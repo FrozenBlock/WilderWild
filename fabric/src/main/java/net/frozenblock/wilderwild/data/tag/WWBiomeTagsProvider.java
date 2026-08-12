@@ -197,10 +197,10 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(Biomes.FLOWER_FOREST)
 			.addOptional(WWBiomes.FLOWER_FIELD);
 
-		this.builder(WWBiomeTags.HAS_LUSH_MUSIC)
+		this.builder(WWBiomeTags.HAS_LUSH_CAVES_MUSIC)
 			.addOptional(Biomes.LUSH_CAVES);
 
-		this.builder(WWBiomeTags.HAS_DRIPSTONE_MUSIC)
+		this.builder(WWBiomeTags.HAS_DRIPSTONE_CAVES_MUSIC)
 			.addOptional(Biomes.DRIPSTONE_CAVES);
 
 		this.builder(WWBiomeTags.HAS_TAIGA_MUSIC)
@@ -211,7 +211,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(Biomes.OLD_GROWTH_PINE_TAIGA)
 			.addOptional(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 
-		this.builder(WWBiomeTags.HAS_CHERRY_MUSIC)
+		this.builder(WWBiomeTags.HAS_CHERRY_GROVE_MUSIC)
 			.addOptional(Biomes.CHERRY_GROVE);
 
 		this.builder(WWBiomeTags.HAS_DAPPLED_FOREST_MUSIC)
@@ -261,25 +261,25 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(Biomes.LUKEWARM_OCEAN)
 			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 
-		this.builder(WWBiomeTags.HAS_MAPLE_MUSIC)
+		this.builder(WWBiomeTags.HAS_MAPLE_FOREST_MUSIC)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
-		this.builder(WWBiomeTags.HAS_DYING_MUSIC)
+		this.builder(WWBiomeTags.HAS_DYING_FOREST_MUSIC)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST);
 
-		this.builder(WWBiomeTags.HAS_SNOWY_DYING_MUSIC)
+		this.builder(WWBiomeTags.HAS_SNOWY_DYING_FOREST_MUSIC)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
-		this.builder(WWBiomeTags.HAS_MAGMATIC_MUSIC)
+		this.builder(WWBiomeTags.HAS_MAGMATIC_CAVES_MUSIC)
 			.addOptional(WWBiomes.MAGMATIC_CAVES);
 
-		this.builder(WWBiomeTags.HAS_FROZEN_MUSIC)
+		this.builder(WWBiomeTags.HAS_FROZEN_CAVES_MUSIC)
 			.addOptional(WWBiomes.FROZEN_CAVES);
 
-		this.builder(WWBiomeTags.HAS_MESOGLEA_MUSIC)
+		this.builder(WWBiomeTags.HAS_MESOGLEA_CAVES_MUSIC)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 	}
 

@@ -1,0 +1,22 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.wilder_oceans"
+      },
+      "underwater": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "minecraft:music.under_water"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_ocean_music",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/music/wilderOceanMusic",
+    "target": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "attributes": {
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:large_smoke"
+        },
+        "probability": 0.00123
+      }
+    ]
+  },
+  "biomes": "wilderwild:magmatic_caves",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/magmaticCavesParticles",
+    "target": true
+  }
+}

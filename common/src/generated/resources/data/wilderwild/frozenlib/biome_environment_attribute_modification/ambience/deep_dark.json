@@ -1,0 +1,23 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "additions": {
+        "sound": "wilderwild:ambient.deep_dark.additions",
+        "tick_chance": 0.005
+      },
+      "loop": "wilderwild:ambient.deep_dark.loop",
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
+  "biomes": "minecraft:deep_dark",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/deepDarkAmbience",
+    "target": true
+  }
+}

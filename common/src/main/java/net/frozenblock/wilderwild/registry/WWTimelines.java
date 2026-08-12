@@ -28,7 +28,7 @@ import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.timeline.Timeline;
 
 public final class WWTimelines {
-	public static final ResourceKey<Timeline> WILDERWILD_DAY = key("wilderwild_day");
+	public static final ResourceKey<Timeline> WILDERWILD_DAY = createKey("wilderwild_day");
 
 	public static void bootstrap(BootstrapContext<Timeline> context) {
 		final HolderGetter<WorldClock> clocks = context.lookup(Registries.WORLD_CLOCK);
@@ -45,7 +45,7 @@ public final class WWTimelines {
 		);
 	}
 
-	private static ResourceKey<Timeline> key(String name) {
+	private static ResourceKey<Timeline> createKey(String name) {
 		return ResourceKey.create(Registries.TIMELINE, WWConstants.id(name));
 	}
 }

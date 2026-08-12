@@ -1,0 +1,15 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.magmatic_caves"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_magmatic_caves_music",
+  "enabled_when": {
+    "type": "frozenlib:true"
+  }
+}

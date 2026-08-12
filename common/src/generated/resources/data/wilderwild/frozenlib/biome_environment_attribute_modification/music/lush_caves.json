@@ -1,0 +1,17 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.wilder_lush_caves"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_lush_caves_music",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/music/wilderLushCavesMusic",
+    "target": true
+  }
+}

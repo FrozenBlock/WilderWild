@@ -1,0 +1,11 @@
+{
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000"
+  },
+  "biomes": "minecraft:deep_dark",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/deepDarkFog",
+    "target": true
+  }
+}

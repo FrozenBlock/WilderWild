@@ -1,0 +1,17 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.wilder_cherry_groves"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_cherry_grove_music",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/music/wilderCherryGroveMusic",
+    "target": true
+  }
+}

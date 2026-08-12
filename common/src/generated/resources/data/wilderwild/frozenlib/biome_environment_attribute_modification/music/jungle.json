@@ -1,0 +1,17 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.wilder_jungles"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_jungle_music",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/music/wilderJungleMusic",
+    "target": true
+  }
+}

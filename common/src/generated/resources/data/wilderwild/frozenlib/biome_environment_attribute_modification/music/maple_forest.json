@@ -1,0 +1,15 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.maple_forest"
+      }
+    }
+  },
+  "biomes": "#wilderwild:music_pool/has_maple_forest_music",
+  "enabled_when": {
+    "type": "frozenlib:true"
+  }
+}

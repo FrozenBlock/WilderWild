@@ -1,0 +1,23 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "additions": {
+        "sound": "wilderwild:ambient.mesoglea_caves.additions",
+        "tick_chance": 0.005
+      },
+      "loop": "wilderwild:ambient.mesoglea_caves.loop",
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
+  "biomes": "wilderwild:mesoglea_caves",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/mesogleaCavesAmbience",
+    "target": true
+  }
+}

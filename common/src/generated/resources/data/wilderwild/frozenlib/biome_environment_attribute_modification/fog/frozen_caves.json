@@ -1,0 +1,11 @@
+{
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000"
+  },
+  "biomes": "wilderwild:frozen_caves",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/frozenCavesFog",
+    "target": true
+  }
+}

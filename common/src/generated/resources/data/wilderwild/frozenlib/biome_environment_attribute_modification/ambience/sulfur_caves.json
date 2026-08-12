@@ -1,0 +1,23 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "additions": {
+        "sound": "wilderwild:ambient.sulfur_caves.additions",
+        "tick_chance": 0.015
+      },
+      "loop": "wilderwild:ambient.sulfur_caves.loop",
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
+  "biomes": "minecraft:sulfur_caves",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/sulfurCavesAmbience",
+    "target": true
+  }
+}
