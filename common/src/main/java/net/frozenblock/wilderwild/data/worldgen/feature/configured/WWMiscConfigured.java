@@ -19,10 +19,10 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
 import java.util.Optional;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.VegetationPatchWithEdgeDecorationFeature;
@@ -32,10 +32,11 @@ import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallOuterRin
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
+import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -53,7 +54,6 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -1065,27 +1065,15 @@ public final class WWMiscConfigured {
 		);
 
 		MapleCollection.zipApply(MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER, (feature, leafLitter) -> {
-			final WeightedList.Builder<BlockState> leafLitterStates = WeightedList.builder();
-			for (int i = 1; i <= 4; i++) {
-				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					leafLitterStates.add(
-						leafLitter.get().defaultBlockState()
-							.setValue(((LeafLitterBlock) leafLitter.get()).getSegmentAmountProperty(), i)
-							.setValue(LeafLitterBlock.FACING, direction),
-						1
-					);
-				}
-			}
-
 			feature.makeAndSetHolder(
 				new BallFeature(
-					new BallBlockPlacement.Builder(new WeightedStateProvider(leafLitterStates.build()))
+					new BallBlockPlacement.Builder(new LeafLitterStateProvider(leafLitter.get(), 4))
 						.placementChance(0.75F)
 						.fadeStartPercentage(0.5F)
 						.searchingBlockPredicate(BlockPredicate.wouldSurvive(leafLitter.get()))
 						.verticalPlacementOffset(1)
 						.outerRingBlockPlacement(
-							new BallOuterRingBlockPlacement.Builder(new WeightedStateProvider(leafLitterStates.build()))
+							new BallOuterRingBlockPlacement.Builder(new LeafLitterStateProvider(leafLitter.get(), 4))
 								.placementChance(0.65F)
 								.outerRingStartPercentage(0.7F)
 								.searchingPredicate(BlockPredicate.wouldSurvive(leafLitter.get()))

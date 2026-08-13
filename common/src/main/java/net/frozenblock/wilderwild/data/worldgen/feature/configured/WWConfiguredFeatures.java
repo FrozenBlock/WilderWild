@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
+import net.frozenblock.lib.levelgen.feature.api.stateproviders.FlowerBedStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
@@ -46,7 +47,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -2212,37 +2212,13 @@ public final class WWConfiguredFeatures {
 		);
 
 		// FLOWERS
-		final WeightedList.Builder<BlockState> cloverStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				cloverStates.add(WWBlocks.CLOVERS.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
-			}
-		}
-		CLOVER.makeAndSetHolder(new SimpleBlockFeature(new WeightedStateProvider(cloverStates)));
+		CLOVER.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.CLOVERS.get())));
 
-		final WeightedList.Builder<BlockState> phloxStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				phloxStates.add(WWBlocks.PHLOX.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
-			}
-		}
-		PHLOX.makeAndSetHolder(new SimpleBlockFeature(new WeightedStateProvider(phloxStates)));
+		PHLOX.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.PHLOX.get())));
 
-		final WeightedList.Builder<BlockState> lantanasStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				lantanasStates.add(WWBlocks.LANTANAS.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
-			}
-		}
-		LANTANAS.makeAndSetHolder(new SimpleBlockFeature(new WeightedStateProvider(lantanasStates)));
+		LANTANAS.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.LANTANAS.get())));
 
-		WeightedList.Builder<BlockState> wildflowerStates = WeightedList.builder();
-		for (int i = 1; i <= 4; i++) {
-			for (Direction direction : Direction.Plane.HORIZONTAL) {
-				wildflowerStates.add(Blocks.WILDFLOWERS.defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1);
-			}
-		}
-		WILDFLOWERS.makeAndSetHolder(new SimpleBlockFeature(new WeightedStateProvider(wildflowerStates)));
+		WILDFLOWERS.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(Blocks.WILDFLOWERS)));
 
 		WILDFLOWERS_AND_PHLOX.makeAndSetHolder(
 			new RandomSelectorFeature(
