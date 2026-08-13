@@ -54,14 +54,14 @@ public final class WWMinecraftDataFixer {
 		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
 
 		final Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockRenameFix(builder, "Rename potted_grass to potted_short_grass", WWConstants.id("potted_grass"), WWConstants.id("potted_short_grass"), schemaV2);
+		SimpleFixes.addBlockRenameFix(builder, "Rename potted_grass to potted_short_grass", WWConstants.id("potted_grass"), WWConstants.id("potted_short_grass"), schemaV2);
 
 		final Schema schemaV3 = builder.addSchema(3, NamespacedSchema::new);
 		builder.addFixer(new DisplayLanternComponentizationFix(schemaV3));
 		builder.addFixer(new DisplayLanternItemComponentizationFix(schemaV3));
 
 		final Schema schemaV4 = builder.addSchema(4, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
+		SimpleFixes.addBlockItemRenameFix(builder, "Change wilderwild namespace to minecraft for wildflowers", WWConstants.id("wildflowers"), WWConstants.vanillaId("wildflowers"), schemaV4);
 		builder.addFixer(
 			new MobBottleVariantComponentizationFix(
 				schemaV4,
@@ -82,8 +82,8 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV5 = builder.addSchema(5, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
-		SimpleFixes.addLegacyBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV5);
+		SimpleFixes.addBlockItemRenameFix(builder, "Rename bush to shrub", WWConstants.id("bush"), WWConstants.id("shrub"), schemaV5);
+		SimpleFixes.addBlockRenameFix(builder, "Rename potted_bush to potted_shrub", WWConstants.id("potted_bush"), WWConstants.id("potted_shrub"), schemaV5);
 
 		final Schema schemaV6 = builder.addSchema(5, NamespacedSchema::new);
 		builder.addFixer(
@@ -114,28 +114,28 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV8 = builder.addSchema(8, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename blue_pearlescent_mesoglea to pearlescent_blue_mesoglea",
 			WWConstants.id("blue_pearlescent_mesoglea"),
 			WWConstants.id("pearlescent_blue_mesoglea"),
 			schemaV8
 		);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename blue_pearlescent_nematocyst to pearlescent_blue_nematocyst",
 			WWConstants.id("blue_pearlescent_nematocyst"),
 			WWConstants.id("pearlescent_blue_nematocyst"),
 			schemaV8
 		);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename purple_pearlescent_mesoglea to pearlescent_purple_mesoglea",
 			WWConstants.id("purple_pearlescent_mesoglea"),
 			WWConstants.id("pearlescent_purple_mesoglea"),
 			schemaV8
 		);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename purple_pearlescent_nematocyst to pearlescent_purple_nematocyst",
 			WWConstants.id("purple_pearlescent_nematocyst"),
@@ -144,7 +144,7 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV9 = builder.addSchema(9, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockItemEntityRenameFix(
+		SimpleFixes.addBlockItemEntityRenameFix(
 			builder,
 			"Rename geyser to geothermal_vent",
 			WWConstants.id("geyser"),
@@ -174,7 +174,7 @@ public final class WWMinecraftDataFixer {
 		);
 
 		final Schema schemaV9_1 = builder.addSchema(9, 1, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockPropertyRenameAndFix(
+		SimpleFixes.addBlockPropertyRenameAndFix(
 			builder,
 			"Rename geyser_type blockstate property to vent_type",
 			WWConstants.id("geothermal_vent"),
@@ -183,7 +183,7 @@ public final class WWMinecraftDataFixer {
 			"none",
 			schemaV9_1
 		);
-		SimpleFixes.addLegacyBlockPropertyRenameAndFix(
+		SimpleFixes.addBlockPropertyRenameAndFix(
 			builder,
 			"Rename geyser_stage blockstate property to vent_state",
 			WWConstants.id("geothermal_vent"),
@@ -232,21 +232,21 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11, WWConstants.string("stone_chest")));
 
 		final Schema schemaV12 = builder.addSchema(12, NamespacedSchema::new);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename wilderwild:brown_shelf_fungi to minecraft:shelf_mushroom",
 			WWConstants.id("brown_shelf_fungi"),
 			WWConstants.vanillaId("shelf_mushroom"),
 			schemaV12
 		);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename wilderwild:red_shelf_fungi to minecraft:shelf_mushroom",
 			WWConstants.id("red_shelf_fungi"),
 			WWConstants.vanillaId("shelf_mushroom"),
 			schemaV12
 		);
-		SimpleFixes.addLegacyBlockItemRenameFix(
+		SimpleFixes.addBlockItemRenameFix(
 			builder,
 			"Rename wilderwild:pale_shelf_fungi to minecraft:shelf_mushroom",
 			WWConstants.id("pale_shelf_fungi"),
@@ -273,7 +273,7 @@ public final class WWMinecraftDataFixer {
 	}
 
 	private static void addColumnDirectionToBubbleColumnDirectionPropertyFix(DataFixerBuilder builder, String blockId, Schema schema) {
-		SimpleFixes.addLegacyBlockPropertyRenameAndFix(
+		SimpleFixes.addBlockPropertyRenameAndFix(
 			builder,
 			"Rename column_direction blockstate property to bubble_column_direction for " + blockId,
 			WWConstants.id(blockId),
