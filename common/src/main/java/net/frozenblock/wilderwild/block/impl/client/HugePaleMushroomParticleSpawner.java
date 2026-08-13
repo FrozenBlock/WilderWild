@@ -48,7 +48,7 @@ public final class HugePaleMushroomParticleSpawner extends ParticleSpawner {
 	@Override
 	public ParticleOptions selectParticleOptions(Level level, BlockPos pos, RandomSource random) {
 		return Minecraft.getInstance().options.improvedTransparency().get()
-			? random.nextBoolean() ? WWParticleTypes.PALE_FOG_SMALL.get() : WWParticleTypes.PALE_FOG.get()
+			? random.nextFloat() <= 0.25F ? WWParticleTypes.PALE_FOG_SMALL.get() : WWParticleTypes.PALE_FOG.get()
 			: random.nextFloat() <= 0.65F ? WWParticleTypes.PALE_FOG_SMALL.get() : WWParticleTypes.PALE_FOG.get();
 	}
 }
