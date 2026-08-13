@@ -1456,6 +1456,8 @@ public final class WWTreeConfigured {
 		);
 
 		//JUNGLE
+		final TreeDecorator commonJungleShelfMushroom = shelfMushroom(0.5F, 0.25F, WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION);
+
 		JUNGLE_TREE.makeAndSetHolders(
 			new TreeFeature.Builder(
 				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
@@ -1495,7 +1497,7 @@ public final class WWTreeConfigured {
 				new MegaJungleFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
 				new TwoLayersFeatureSize(1, 1, 2),
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F), shelfFungus0054.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION)))
+			).decorators(List.of(commonJungleShelfMushroom, TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F)))
 				.ignoreVines()
 				.build()
 		);
@@ -1508,7 +1510,7 @@ public final class WWTreeConfigured {
 
 		LARGE_FALLEN_JUNGLE_TREE.makeAndSetHolder(
 			largeFallenBuilder(Blocks.JUNGLE_LOG, 5, 2, 4, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines08Under260075, mossJungleDarkOak, commonJungleShelfMushroom))
 				.build()
 		);
 
@@ -1520,7 +1522,7 @@ public final class WWTreeConfigured {
 
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(
 			largeSnappedTrunkBuilder(Blocks.JUNGLE_LOG, 3, 1, 2, 3, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossJungleDarkOak, commonJungleShelfMushroom))
 				.build()
 		);
 

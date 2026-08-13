@@ -20,13 +20,6 @@
   },
   "decorators": [
     {
-      "type": "minecraft:trunk_vine"
-    },
-    {
-      "type": "minecraft:leave_vine",
-      "probability": 0.25
-    },
-    {
       "type": "frozenlib:probability",
       "decorator": {
         "type": "frozenlib:config_predicate",
@@ -40,7 +33,14 @@
           "target": true
         }
       },
-      "probability": 0.054
+      "probability": 0.5
+    },
+    {
+      "type": "minecraft:trunk_vine"
+    },
+    {
+      "type": "minecraft:leave_vine",
+      "probability": 0.25
     },
     {
       "type": "minecraft:place_on_ground",

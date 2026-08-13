@@ -48,7 +48,7 @@
           "target": true
         }
       },
-      "probability": 0.09
+      "probability": 0.5
     }
   ],
   "foliage_placer": {
