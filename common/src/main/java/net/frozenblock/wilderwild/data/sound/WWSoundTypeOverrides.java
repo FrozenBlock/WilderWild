@@ -37,8 +37,6 @@ import net.minecraft.world.level.block.SoundType;
 public final class WWSoundTypeOverrides {
 
 	public static void bootstrap(BootstrapContext<SoundTypeOverride> context) {
-		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
-
 		register(context, "grass", WWBlockTags.SOUND_GRASS, WWSoundTypes.SHORT_GRASS, WWBlockConfig.GRASS_SOUNDS);
 		register(context, "frozen_grass", WWBlockTags.SOUND_FROZEN_GRASS, WWSoundTypes.FROZEN_GRASS, WWBlockConfig.GRASS_SOUNDS);
 		register(context, "dry_grass", WWBlockTags.SOUND_DRY_GRASS, WWSoundTypes.DRY_GRASS, WWBlockConfig.GRASS_SOUNDS);

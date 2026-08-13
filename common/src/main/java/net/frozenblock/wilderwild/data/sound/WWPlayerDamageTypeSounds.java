@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.sound;
 
-import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.impl.damage.PlayerDamageTypeSound;
 import net.frozenblock.wilderwild.WWConstants;
