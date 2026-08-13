@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.lib.platform.ModLoader;
-import net.frozenblock.wilderwild.block.impl.client.PaleParticleSpawners;
+import net.frozenblock.wilderwild.block.impl.client.HugePaleMushroomParticleSpawner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -36,6 +36,6 @@ public class HugePaleMushroomBlock extends HugeMushroomBlock {
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!ModLoader.isClient() || !PaleMushroomBlock.isActive(level, pos)) return;
 		if (!level.getBlockState(pos.below()).is(Blocks.MUSHROOM_STEM)) return;
-		PaleParticleSpawners.FOG_SPAWNER.tick(level, pos, random);
+		HugePaleMushroomParticleSpawner.INSTANCE.tick(level, pos, random);
 	}
 }

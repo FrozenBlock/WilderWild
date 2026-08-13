@@ -17,11 +17,12 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.lib.particle.api.ParticleSpawner;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -33,11 +34,17 @@ import net.minecraft.world.level.block.MultifaceSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class PollenBlock extends MultifaceSpreadeableBlock {
-	public static final int MIN_PARTICLE_SPAWN_WIDTH = -10;
-	public static final int MAX_PARTICLE_SPAWN_WIDTH = 10;
-	public static final int MIN_PARTICLE_SPAWN_HEIGHT = -10;
-	public static final int MAX_PARTICLE_SPAWN_HEIGHT = 7;
-	public static final int PARTICLE_SPAWN_ATTEMPTS = 5;
+	public static final ParticleSpawner PARTICLE_SPAWNER = new ParticleSpawner(1F, 5, 10, -10, 7) {
+		@Override
+		public boolean canSpawnAtPos(Level level, BlockPos pos) {
+			return !level.isRainingAt(pos);
+		}
+
+		@Override
+		public ParticleOptions selectParticleOptions(Level level, BlockPos pos, RandomSource random) {
+			return WWParticleTypes.POLLEN.get();
+		}
+	};
 	private final MultifaceSpreader spreader = new MultifaceSpreader(new PollenSpreaderConfig());
 
 	public PollenBlock(Properties properties) {
@@ -73,25 +80,7 @@ public class PollenBlock extends MultifaceSpreadeableBlock {
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 		if (!WWBlockConfig.POLLEN_PARTICLES.get()) return;
-
-		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		for (int l = 0; l < PARTICLE_SPAWN_ATTEMPTS; ++l) {
-			mutable.setWithOffset(
-				pos,
-				Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH),
-				Mth.nextInt(random, MIN_PARTICLE_SPAWN_HEIGHT, MAX_PARTICLE_SPAWN_HEIGHT),
-				Mth.nextInt(random, MIN_PARTICLE_SPAWN_WIDTH, MAX_PARTICLE_SPAWN_WIDTH)
-			);
-			final BlockState spawningInState = level.getBlockState(mutable);
-			if (spawningInState.isCollisionShapeFullBlock(level, mutable) || level.isRainingAt(mutable)) continue;
-			level.addParticle(
-				WWParticleTypes.POLLEN.get(),
-				mutable.getX() + random.nextDouble(),
-				mutable.getY() + random.nextDouble(),
-				mutable.getZ() + random.nextDouble(),
-				0D, 0D, 0D
-			);
-		}
+		PARTICLE_SPAWNER.tick(level, pos, random);
 	}
 
 	@Override

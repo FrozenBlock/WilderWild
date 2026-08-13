@@ -17,10 +17,11 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.lib.platform.ModLoader;
-import net.frozenblock.wilderwild.block.impl.client.PaleParticleSpawners;
+import net.frozenblock.lib.particle.api.ParticleSpawner;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
+import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -29,6 +30,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
 public class PaleMushroomBlock extends MushroomBlock {
+	public static final ParticleSpawner PARTICLE_SPAWNER = new ParticleSpawner(
+		0.25F,
+		7,
+		3,
+		-3,
+		3
+	) {
+		@Override
+		public boolean canSpawnAtPos(Level level, BlockPos pos) {
+			return !level.isRainingAt(pos);
+		}
+
+		@Override
+		public ParticleOptions selectParticleOptions(Level level, BlockPos pos, RandomSource random) {
+			return WWParticleTypes.PALE_SPORE.get();
+		}
+	};
 
 	public PaleMushroomBlock(ResourceKey<Feature> feature, Properties properties) {
 		super(feature, properties);
@@ -40,7 +58,7 @@ public class PaleMushroomBlock extends MushroomBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		if (!ModLoader.isClient() || !isActive(level, pos)) return;
-		PaleParticleSpawners.PALE_SPORE_SPAWNER.tick(level, pos, random);
+		if (!isActive(level, pos)) return;
+		PARTICLE_SPAWNER.tick(level, pos, random);
 	}
 }
