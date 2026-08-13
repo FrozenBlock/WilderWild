@@ -21,6 +21,7 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -45,6 +46,7 @@ public class PaleFogParticle extends SingleQuadParticle {
 		TextureAtlasSprite sprite
 	) {
 		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
+		final boolean hasImprovedTransparency = Minecraft.getInstance().options.improvedTransparency().get();
 		this.xd = 0D;
 		this.yd = -0.0025D;
 		this.zd = 0D;
@@ -55,7 +57,9 @@ public class PaleFogParticle extends SingleQuadParticle {
 		this.hasPhysics = true;
 		this.friction = 1F;
 		this.gravity = 0F;
-		this.quadSize *= large ? 8F : 4F;
+		this.quadSize *= hasImprovedTransparency
+			? (large ? 9F : 5F)
+			: (large ? 8F : 4F);
 	}
 
 	private double windIntensity = 0.025D;
@@ -127,5 +131,4 @@ public class PaleFogParticle extends SingleQuadParticle {
 			return seedParticle;
 		}
 	}
-
 }

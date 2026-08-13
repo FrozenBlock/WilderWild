@@ -104,6 +104,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - All overworld trees that used to generate Shelf Fungi can now generate Shelf Mushrooms.
     - This generation is disabled by default for all tree types other than Jungle trees, and can be toggled via new config options.
   - All overworld fallen trees that used to generate Shelf Fungi can now generate Mushrooms, similar to Vanilla's fallen trees.
+- Pale Mushroom Blocks now spawn Fog particles more frequently when Improved Transparency is enabled.
+- Fog particles will now appear slightly larger when Improved Transparency is enabled.
 - Fixed inconsistent/incorrect shading for the following:
   - Hanging Baobab Nut Stems
   - Hanging Coconut Stems
