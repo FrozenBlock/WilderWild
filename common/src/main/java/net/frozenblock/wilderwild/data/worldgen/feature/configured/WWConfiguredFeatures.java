@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
+import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
@@ -46,7 +47,6 @@ import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBedBlock;
-import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -2200,27 +2200,15 @@ public final class WWConfiguredFeatures {
 
 		// LEAF LITTERS
 		DARK_OAK_LEAF_LITTER_SINGLE.makeAndSetHolder(
-			new SimpleBlockFeature(
-				new WeightedStateProvider(
-					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.DARK_OAK_LEAF_LITTER.get(), 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
-				)
-			)
+			new SimpleBlockFeature(new LeafLitterStateProvider(WWBlocks.DARK_OAK_LEAF_LITTER.get(), 3))
 		);
 
 		PALE_OAK_LEAF_LITTER_SINGLE.makeAndSetHolder(
-			new SimpleBlockFeature(
-				new WeightedStateProvider(
-					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
-				)
-			)
+			new SimpleBlockFeature(new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 3))
 		);
 
 		SPRUCE_LEAF_LITTER_SINGLE.makeAndSetHolder(
-			new SimpleBlockFeature(
-				new WeightedStateProvider(
-					VegetationFeatures.segmentedBlockPatchBuilder(WWBlocks.SPRUCE_LEAF_LITTER.get(), 1, 3, LeafLitterBlock.AMOUNT, LeafLitterBlock.FACING)
-				)
-			)
+			new SimpleBlockFeature(new LeafLitterStateProvider(WWBlocks.SPRUCE_LEAF_LITTER.get(), 3))
 		);
 
 		// FLOWERS

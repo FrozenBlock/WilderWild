@@ -28,6 +28,7 @@ import java.util.function.Function;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
+import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.treedecorators.ProbabilityDecorator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -67,7 +68,6 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
@@ -79,7 +79,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
-import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -1562,29 +1561,13 @@ public final class WWTreeConfigured {
 						96,
 						4,
 						2,
-						new WeightedStateProvider(
-							VegetationFeatures.segmentedBlockPatchBuilder(
-								WWBlocks.ACACIA_LEAF_LITTER.get(),
-								1,
-								3,
-								LeafLitterBlock.AMOUNT,
-								LeafLitterBlock.FACING
-							)
-						)
+						new LeafLitterStateProvider(WWBlocks.ACACIA_LEAF_LITTER.get(), 3)
 					),
 					new PlaceOnGroundDecorator(
 						150,
 						2,
 						2,
-						new WeightedStateProvider(
-							VegetationFeatures.segmentedBlockPatchBuilder(
-								WWBlocks.ACACIA_LEAF_LITTER.get(),
-								1,
-								4,
-								LeafLitterBlock.AMOUNT,
-								LeafLitterBlock.FACING
-							)
-						)
+						new LeafLitterStateProvider(WWBlocks.ACACIA_LEAF_LITTER.get(), 4)
 					)
 				)
 				)
@@ -2368,15 +2351,7 @@ public final class WWTreeConfigured {
 					96,
 					4,
 					2,
-					new WeightedStateProvider(
-						VegetationFeatures.segmentedBlockPatchBuilder(
-							WWBlocks.PALE_OAK_LEAF_LITTER.get(),
-							1,
-							3,
-							LeafLitterBlock.AMOUNT,
-							LeafLitterBlock.FACING
-						)
-					)
+					new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 3)
 				));
 		}
 		if (leafLitter) {
@@ -2385,15 +2360,7 @@ public final class WWTreeConfigured {
 					150,
 					2,
 					2,
-					new WeightedStateProvider(
-						VegetationFeatures.segmentedBlockPatchBuilder(
-							WWBlocks.PALE_OAK_LEAF_LITTER.get(),
-							1,
-							4,
-							LeafLitterBlock.AMOUNT,
-							LeafLitterBlock.FACING
-						)
-					)
+					new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 4)
 				)
 			);
 		}
