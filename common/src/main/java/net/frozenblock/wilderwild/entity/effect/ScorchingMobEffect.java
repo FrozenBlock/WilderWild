@@ -58,11 +58,11 @@ public class ScorchingMobEffect extends MobEffect {
 	}
 
 	@Override
-	public void onMobHurt(ServerLevel level, LivingEntity entity, int i, DamageSource damageSource, float f) {
-		final RandomSource random = entity.getRandom();
-		if (random.nextFloat() > this.chanceToScorch || damageSource.getDirectEntity() == null) return;
+	public void onMobHurt(ServerLevel level, LivingEntity mob, int amplifier, DamageSource source, float damage) {
+		final RandomSource random = mob.getRandom();
+		if (random.nextFloat() > this.chanceToScorch || source.getDirectEntity() == null) return;
 		final int fireTicks = this.fireDurationInSeconds.applyAsInt(random);
-		damageSource.getDirectEntity().igniteForSeconds(fireTicks);
+		source.getDirectEntity().igniteForSeconds(fireTicks);
 	}
 
 	@Override
@@ -107,5 +107,4 @@ public class ScorchingMobEffect extends MobEffect {
 			}
 		}
 	}
-
 }

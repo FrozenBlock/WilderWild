@@ -23,6 +23,7 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.frozenblock.lib.entity.api.behavior.BehaviorUtil;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,16 +45,18 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 
-public class JellyfishAi {
+public final class JellyfishAi {
 	public static final List<SensorType<? extends Sensor<? super Jellyfish>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS
 	);
+
+	private JellyfishAi() {}
 
 	public static Brain.Provider<Jellyfish> brainProvider() {
 		return Brain.provider(SENSOR_TYPES, JellyfishAi::getActivities);
 	}
 
-	protected static List<ActivityData<Jellyfish>> getActivities(final Jellyfish body) {
+	public static List<ActivityData<Jellyfish>> getActivities(final Jellyfish body) {
 		return List.of(initCoreActivity(), initIdleActivity(), initFightActivity(body));
 	}
 
@@ -79,7 +82,10 @@ public class JellyfishAi {
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 					ImmutableList.of(
 						Pair.of(
-							BehaviorBuilder.triggerIf(jellyfish -> jellyfish.getTarget() == null && jellyfish.canRandomSwim(), BehaviorUtil.getOneShot(RandomStroll.swim(1F))),
+							BehaviorBuilder.triggerIf(
+								jellyfish -> jellyfish.getTarget() == null && jellyfish.canRandomSwim(),
+								BehaviorUtil.getOneShot(RandomStroll.swim(1F))
+							),
 							2
 						),
 						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 1),
@@ -106,21 +112,21 @@ public class JellyfishAi {
 		);
 	}
 
-	private static boolean isTarget(Jellyfish jellyfish, LivingEntity entity) {
-		return jellyfish.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(possibleEntity -> possibleEntity == entity).isPresent();
+	private static boolean isTarget(Jellyfish body, LivingEntity entity) {
+		return body.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(possibleEntity -> possibleEntity == entity).isPresent();
 	}
 
-	public static void updateActivity(Jellyfish jellyfish) {
-		Brain<Jellyfish> brain = jellyfish.getBrain();
+	public static void updateActivity(Jellyfish body) {
+		Brain<Jellyfish> brain = body.getBrain();
 		brain.setActiveActivityToFirstValid(List.of(Activity.FIGHT, Activity.IDLE));
 	}
 
-	private static float getSpeedModifierChasing(LivingEntity entity) {
+	private static float getSpeedModifierChasing(LivingEntity body) {
 		return 1.5F;
 	}
 
-	private static void onTargetInvalid(ServerLevel level, Jellyfish jellyfish, LivingEntity target) {
-		if (jellyfish.getTarget() == target) jellyfish.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+	private static void onTargetInvalid(ServerLevel level, Jellyfish body, LivingEntity target) {
+		if (body.getTarget() == target) body.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
 }

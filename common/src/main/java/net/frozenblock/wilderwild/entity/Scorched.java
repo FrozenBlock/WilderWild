@@ -75,7 +75,16 @@ public class Scorched extends Spider {
 	@Override
 	protected void registerGoals() {
 		//this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Armadillo.class, 6F, 1D, 1.2D, livingEntity -> !((Armadillo)livingEntity).isScared()));
+		this.goalSelector.addGoal(
+			2,
+			new AvoidEntityGoal<>(
+				this,
+				Armadillo.class,
+				6F,
+				1D,
+				1.2D,
+				livingEntity -> !((Armadillo)livingEntity).isScared())
+		);
 		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
 		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
@@ -195,5 +204,4 @@ public class Scorched extends Spider {
 	public float getLavaAnimProgress(float partialTicks) {
 		return Mth.lerp(partialTicks, this.prevLavaAnimProgress, this.lavaAnimProgress);
 	}
-
 }

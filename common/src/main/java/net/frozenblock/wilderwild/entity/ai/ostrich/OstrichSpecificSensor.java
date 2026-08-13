@@ -38,8 +38,8 @@ public class OstrichSpecificSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
-		final Brain<?> brain = entity.getBrain();
+	protected void doTick(ServerLevel level, LivingEntity body) {
+		final Brain<?> brain = body.getBrain();
 		final ArrayList<AbstractOstrich> ostriches = Lists.newArrayList();
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof AbstractOstrich ostrich) ostriches.add(ostrich);

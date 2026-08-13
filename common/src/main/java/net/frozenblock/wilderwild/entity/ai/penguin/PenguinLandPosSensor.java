@@ -36,13 +36,13 @@ public class PenguinLandPosSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
-		final Brain<?> brain = entity.getBrain();
+	protected void doTick(ServerLevel level, LivingEntity body) {
+		final Brain<?> brain = body.getBrain();
 		if (brain.checkMemory(MemoryModuleType.IS_IN_WATER, MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(WWMemoryModuleTypes.DIVE_TICKS.get(), MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(WWMemoryModuleTypes.LAND_POS.get(), MemoryStatus.VALUE_ABSENT)
 		) {
-			if (entity.onGround()) brain.setMemory(WWMemoryModuleTypes.LAND_POS.get(), GlobalPos.of(level.dimension(), entity.blockPosition()));
+			if (body.onGround()) brain.setMemory(WWMemoryModuleTypes.LAND_POS.get(), GlobalPos.of(level.dimension(), body.blockPosition()));
 		}
 	}
 }

@@ -25,8 +25,8 @@ import net.minecraft.world.level.block.Blocks;
 
 public class ScorchedNavigation extends WallClimberNavigation {
 
-	public ScorchedNavigation(Scorched scorched, Level level) {
-		super(scorched, level);
+	public ScorchedNavigation(Scorched mob, Level level) {
+		super(mob, level);
 	}
 
 	@Override

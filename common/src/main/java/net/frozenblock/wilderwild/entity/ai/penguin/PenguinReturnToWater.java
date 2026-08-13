@@ -29,7 +29,10 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import org.apache.commons.lang3.mutable.MutableLong;
 
-public class PenguinReturnToWater {
+public final class PenguinReturnToWater {
+
+	private PenguinReturnToWater() {}
+
 	public static BehaviorControl<PathfinderMob> create(float speedModifier) {
 		final MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
@@ -37,10 +40,10 @@ public class PenguinReturnToWater {
 			instance.absent(MemoryModuleType.ATTACK_TARGET),
 			instance.absent(MemoryModuleType.WALK_TARGET),
 			instance.registered(MemoryModuleType.LOOK_TARGET)
-		).apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (level, penguin, l) -> {
-			if (penguin.isInWater()) return false;
-			if (l < returnTimer.getValue()) {
-				returnTimer.setValue(l + 60L);
+		).apply(instance, (waterPos, memoryAccessor, walkTarget, lookTarget) -> (level, body, timestamp) -> {
+			if (body.isInWater()) return false;
+			if (timestamp < returnTimer.getValue()) {
+				returnTimer.setValue(timestamp + 60L);
 				return true;
 			}
 
@@ -54,13 +57,13 @@ public class PenguinReturnToWater {
 			lookTarget.set(new BlockPosTracker(pos));
 			walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
 
-			final PathNavigation pathNavigation = penguin.getNavigation();
+			final PathNavigation pathNavigation = body.getNavigation();
 			if (pathNavigation.isStuck()) {
 				waterPos.erase();
 				return false;
 			}
 
-			returnTimer.setValue(l + 60L);
+			returnTimer.setValue(timestamp + 60L);
 			return true;
 		}));
 	}

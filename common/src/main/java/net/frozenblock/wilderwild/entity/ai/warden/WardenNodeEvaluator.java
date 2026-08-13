@@ -32,22 +32,19 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import org.jetbrains.annotations.Nullable;
 
 public class WardenNodeEvaluator extends WalkNodeEvaluator {
-	private final boolean prefersShallowSwimming;
 	private float oldWalkableCost;
 	private float oldWaterBorderPenalty;
 
-	public WardenNodeEvaluator(boolean prefersShallowSwimming) {
-		this.prefersShallowSwimming = prefersShallowSwimming;
-	}
+	public WardenNodeEvaluator() {}
 
 	@Override
-	public void prepare(PathNavigationRegion level, Mob mob) {
-		super.prepare(level, mob);
-		mob.setPathfindingMalus(PathType.WATER, 0F);
-		this.oldWalkableCost = mob.getPathfindingMalus(PathType.WALKABLE);
-		mob.setPathfindingMalus(PathType.WALKABLE, 0F);
-		this.oldWaterBorderPenalty = mob.getPathfindingMalus(PathType.WATER_BORDER);
-		mob.setPathfindingMalus(PathType.WATER_BORDER, 4F);
+	public void prepare(PathNavigationRegion level, Mob entity) {
+		super.prepare(level, entity);
+		entity.setPathfindingMalus(PathType.WATER, 0F);
+		this.oldWalkableCost = entity.getPathfindingMalus(PathType.WALKABLE);
+		entity.setPathfindingMalus(PathType.WALKABLE, 0F);
+		this.oldWaterBorderPenalty = entity.getPathfindingMalus(PathType.WATER_BORDER);
+		entity.setPathfindingMalus(PathType.WATER_BORDER, 4F);
 	}
 
 	@Override
@@ -84,26 +81,16 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 		int neighbors = super.getNeighbors(successors, node);
 		final PathType abovePathType = this.getCachedPathType(node.x, node.y + 1, node.z);
 		final PathType pathType = this.getCachedPathType(node.x, node.y, node.z);
-		int j;
-		if (this.mob.getPathfindingMalus(abovePathType) >= 0F && pathType != PathType.STICKY_HONEY) {
-			j = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
-		} else {
-			j = 0;
-		}
+		int jumpSize = 0;
+		if (this.mob.getPathfindingMalus(abovePathType) >= 0F && pathType != PathType.STICKY_HONEY) jumpSize = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
 
-		final double floorLevel = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
-		final Node aboveNode = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, j - 1), floorLevel, Direction.UP, pathType);
-		final Node belowNode = this.findAcceptedNode(node.x, node.y - 1, node.z, j, floorLevel, Direction.DOWN, pathType);
+		final double posHeight = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
+		final Node aboveNode = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, jumpSize - 1), posHeight, Direction.UP, pathType);
+		final Node belowNode = this.findAcceptedNode(node.x, node.y - 1, node.z, jumpSize, posHeight, Direction.DOWN, pathType);
 
 		if (this.isVerticalNeighborValid(aboveNode, node)) successors[neighbors++] = aboveNode;
 		if (this.isVerticalNeighborValid(belowNode, node) && pathType != PathType.TRAPDOOR) successors[neighbors++] = belowNode;
-
-		for (int i = 0; i < neighbors; ++i) {
-			final Node successor = successors[i];
-			if (successor.type == PathType.WATER && this.prefersShallowSwimming && successor.y < this.mob.level().getSeaLevel() - 10) {
-				++successor.costMalus;
-			}
-		}
+		
 		return neighbors;
 	}
 

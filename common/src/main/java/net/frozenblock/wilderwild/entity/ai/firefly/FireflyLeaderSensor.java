@@ -37,22 +37,22 @@ public class FireflyLeaderSensor extends Sensor<Firefly> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, Firefly firefly) {
-		final Brain<Firefly> brain = firefly.getBrain();
-		if (!firefly.hasHome()) {
-			if (!firefly.isSwarmLeader()) {
-				final List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(firefly, true);
+	protected void doTick(ServerLevel level, Firefly body) {
+		final Brain<Firefly> brain = body.getBrain();
+		if (!body.hasHome()) {
+			if (!body.isSwarmLeader()) {
+				final List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(body, true);
 
 				if (!leaderFireflies.isEmpty()) {
 					brain.setMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get(), new EntityTracker(leaderFireflies.getFirst(), true));
 					return;
 				}
-				FireflyAi.setSwarmLeader(firefly);
+				FireflyAi.setSwarmLeader(body);
 			} else {
-				final List<Firefly> nonLeaderFirefliesCloseBy = FireflyAi.getNearbyFirefliesInRank(firefly, false)
-					.stream().filter(otherFirefly -> otherFirefly.distanceTo(firefly) <= NON_LEADER_MAX_DISTANCE)
+				final List<Firefly> nonLeaderFirefliesCloseBy = FireflyAi.getNearbyFirefliesInRank(body, false)
+					.stream().filter(otherFirefly -> otherFirefly.distanceTo(body) <= NON_LEADER_MAX_DISTANCE)
 					.toList();
-				final List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(firefly, true);
+				final List<Firefly> leaderFireflies = FireflyAi.getNearbyFirefliesInRank(body, true);
 
 				if (nonLeaderFirefliesCloseBy.isEmpty() && !leaderFireflies.isEmpty()) brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
 			}

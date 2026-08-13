@@ -38,8 +38,8 @@ public class FireflySpecificSensor extends Sensor<Firefly> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, Firefly firefly) {
-		final Brain<?> brain = firefly.getBrain();
+	protected void doTick(ServerLevel level, Firefly body) {
+		final Brain<?> brain = body.getBrain();
 		final ArrayList<Firefly> fireflies = Lists.newArrayList();
 		for (LivingEntity livingEntity : brain.getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).orElse(ImmutableList.of())) {
 			if (livingEntity instanceof Firefly otherFirefly) fireflies.add(otherFirefly);

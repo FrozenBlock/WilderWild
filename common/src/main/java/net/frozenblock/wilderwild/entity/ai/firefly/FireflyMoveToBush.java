@@ -35,11 +35,11 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(ServerLevel level, Firefly firefly) {
+	public boolean checkExtraStartConditions(ServerLevel level, Firefly body) {
 		return WWEntityConfig.FIREFLIES_NEED_BUSH.get()
-			&& !firefly.hasHome()
-			&& super.checkExtraStartConditions(level, firefly)
-			&& !this.blockPos.closerThan(firefly.blockPosition(), this.returnDistance);
+			&& !body.hasHome()
+			&& super.checkExtraStartConditions(level, body)
+			&& !this.blockPos.closerThan(body.blockPosition(), this.returnDistance);
 	}
 
 	@Override
@@ -53,10 +53,9 @@ public class FireflyMoveToBush extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	protected void moveMobToBlock(Firefly firefly) {
-		final RandomSource random = firefly.getRandom();
-		firefly
-			.getNavigation()
+	protected void moveMobToBlock(Firefly body) {
+		final RandomSource random = body.getRandom();
+		body.getNavigation()
 			.moveTo(
 				random.nextInt(-3, 3) + this.blockPos.getX() + 0.5D,
 				random.nextInt(-1, 3) + this.blockPos.getY() + 0.5D,

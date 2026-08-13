@@ -20,12 +20,12 @@ package net.frozenblock.wilderwild.entity.ai.ostrich;
 import net.frozenblock.wilderwild.entity.AbstractOstrich;
 import net.minecraft.world.entity.ai.control.MoveControl;
 
-public class OstrichMoveControl extends MoveControl {
+public class OstrichMoveControl extends MoveControl<AbstractOstrich> {
 	private final AbstractOstrich mob;
 
-	public OstrichMoveControl(AbstractOstrich ostrich) {
-		super(ostrich);
-		this.mob = ostrich;
+	public OstrichMoveControl(AbstractOstrich mob) {
+		super(mob);
+		this.mob = mob;
 	}
 
 	@Override

@@ -40,30 +40,30 @@ public class PenguinTrackedBoatSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
-		final Brain<?> brain = entity.getBrain();
+	protected void doTick(ServerLevel level, LivingEntity body) {
+		final Brain<?> brain = body.getBrain();
 
-		if (entity.isPassenger()) {
+		if (body.isPassenger()) {
 			brain.eraseMemory(WWMemoryModuleTypes.TRACKED_BOAT.get());
 			return;
 		}
 
-		final AABB searchArea = entity.getBoundingBox().inflate(16D, 16D, 16D);
+		final AABB searchArea = body.getBoundingBox().inflate(16D, 16D, 16D);
 		final List<AbstractBoat> boats = level.getEntitiesOfClass(
 			AbstractBoat.class,
 			searchArea,
 			boat -> !boat.isSpectator()
 				&& boat.isAlive()
 				&& boat.getControllingPassenger() instanceof Player
-				&& entity.hasLineOfSight(boat)
+				&& body.hasLineOfSight(boat)
 		);
-		boats.sort(Comparator.comparingDouble(entity::distanceToSqr));
+		boats.sort(Comparator.comparingDouble(body::distanceToSqr));
 
 		final List<AbstractBoat> temptingBoats = new ArrayList<>();
 		boats.forEach(boat -> {
 			if (boat.getControllingPassenger() instanceof Player player && player.isHolding(PenguinAi.getTemptations())) temptingBoats.add(boat);
 		});
-		temptingBoats.sort(Comparator.comparingDouble(entity::distanceToSqr));
+		temptingBoats.sort(Comparator.comparingDouble(body::distanceToSqr));
 
 		if (!temptingBoats.isEmpty()) {
 			brain.setMemory(WWMemoryModuleTypes.TRACKED_BOAT.get(), temptingBoats.getFirst());

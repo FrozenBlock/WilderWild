@@ -48,24 +48,23 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 
-public class ButterflyAi {
-	protected static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSOR_TYPES = List.of(
+public final class ButterflyAi {
+	public static final List<SensorType<? extends Sensor<? super Butterfly>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES
 	);
-	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
+	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
 		MemoryModuleType.HOME,
 		WWMemoryModuleTypes.NATURAL.get(),
 		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get()
 	);
 
-	private ButterflyAi() {
-	}
+	private ButterflyAi() {}
 
 	public static Brain.Provider<Butterfly> brainProvider() {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, butterfly -> getActivities());
 	}
 
-	protected static List<ActivityData<Butterfly>> getActivities() {
+	public static List<ActivityData<Butterfly>> getActivities() {
 		return List.of(initCoreActivity(), initIdleActivity());
 	}
 
@@ -112,30 +111,30 @@ public class ButterflyAi {
 		);
 	}
 
-	public static void updateActivity(Butterfly butterfly) {
-		butterfly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
+	public static void updateActivity(Butterfly body) {
+		body.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
 	}
 
-	public static void rememberHome(LivingEntity butterfly, BlockPos pos) {
-		butterfly.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(butterfly.level().dimension(), pos));
+	public static void rememberHome(LivingEntity body, BlockPos pos) {
+		body.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(body.level().dimension(), pos));
 	}
 
-	private static boolean shouldGoTowardsHome(LivingEntity butterfly, GlobalPos pos) {
-		return ((Butterfly) butterfly).hasHome() && butterfly.level().dimension() == pos.dimension();
+	private static boolean shouldGoTowardsHome(LivingEntity body, GlobalPos pos) {
+		return ((Butterfly) body).hasHome() && body.level().dimension() == pos.dimension();
 	}
 
-	private static Optional<PositionTracker> getHomeTarget(LivingEntity butterfly) {
-		final Optional<GlobalPos> home = butterfly.getBrain().getMemory(MemoryModuleType.HOME);
+	private static Optional<PositionTracker> getHomeTarget(LivingEntity body) {
+		final Optional<GlobalPos> home = body.getBrain().getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
 			final GlobalPos globalPos = home.get();
-			if (shouldGoTowardsHome(butterfly, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), butterfly.level())));
+			if (shouldGoTowardsHome(body, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), body.level())));
 		}
 
 		return Optional.empty();
 	}
 
-	private static Optional<PositionTracker> getLookTarget(LivingEntity butterfly) {
-		return butterfly.getBrain().getMemory(MemoryModuleType.LOOK_TARGET);
+	private static Optional<PositionTracker> getLookTarget(LivingEntity body) {
+		return body.getBrain().getMemory(MemoryModuleType.LOOK_TARGET);
 	}
 
 	private static BlockPos randomPosAround(BlockPos pos, Level level) {

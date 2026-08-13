@@ -31,8 +31,8 @@ public class WardenLookControl extends LookControl {
 		this.maxYRotFromCenter = maxYRotFromCenter;
 	}
 
-	private static boolean entityTouchingWaterOrLava(Entity entity) {
-		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
+	private static boolean entityTouchingWaterOrLava(Entity body) {
+		return body.isInWater() || body.isInLava() || body.isVisuallySwimming();
 	}
 
 	@Override

@@ -408,8 +408,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		this.playSound(this.getBeakSwingSound(), 0.4F, 0.9F + this.random.nextFloat() * 0.2F);
 
 		if (this.attackHasCommander) {
-			this.getAttribute(Attributes.ATTACK_DAMAGE)
-				.addOrUpdateTransientModifier(ADDITIONAL_DAMAGE_RIDER_MODIFIER);
+			this.getAttribute(Attributes.ATTACK_DAMAGE).addOrUpdateTransientModifier(ADDITIONAL_DAMAGE_RIDER_MODIFIER);
 		}
 	}
 
@@ -521,7 +520,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 
 		final boolean isBaby = this.isBaby();
 		if (isBaby) {
-			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0.0, 0.0, 0.0);
+			this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1D), this.getRandomY() + 0.5D, this.getRandomZ(1D), 0D, 0D, 0D);
 			if (!this.level().isClientSide()) this.ageUp(10);
 		}
 

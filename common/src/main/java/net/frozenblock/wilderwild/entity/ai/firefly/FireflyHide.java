@@ -32,21 +32,21 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(ServerLevel level, Firefly firefly) {
-		return firefly.shouldHide() && super.checkExtraStartConditions(level, firefly);
+	public boolean checkExtraStartConditions(ServerLevel level, Firefly body) {
+		return body.shouldHide() && super.checkExtraStartConditions(level, body);
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, Firefly firefly, long timestamp) {
-		return firefly.shouldHide() && super.canStillUse(level, firefly, timestamp);
+	public boolean canStillUse(ServerLevel level, Firefly body, long timestamp) {
+		return body.shouldHide() && super.canStillUse(level, body, timestamp);
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Firefly firefly, long timestamp) {
-		super.tick(level, firefly, timestamp);
+	protected void tick(ServerLevel level, Firefly body, long timestamp) {
+		super.tick(level, body, timestamp);
 		if (this.isReachedTarget()) {
-			firefly.playSound(WWSounds.ENTITY_FIREFLY_HIDE.get(), 0.6F, 0.9F + level.getRandom().nextFloat() * 0.2F);
-			firefly.discard();
+			body.playSound(WWSounds.ENTITY_FIREFLY_HIDE.get(), 0.6F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+			body.discard();
 		}
 	}
 
@@ -61,10 +61,8 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	}
 
 	@Override
-	protected void moveMobToBlock(Firefly firefly) {
-		firefly
-			.getNavigation()
-			.moveTo(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D, this.speedModifier);
+	protected void moveMobToBlock(Firefly body) {
+		body.getNavigation().moveTo(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D, this.speedModifier);
 	}
 
 	@Override

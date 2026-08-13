@@ -41,5 +41,4 @@ public class CrabCanDigSensor extends Sensor<Crab> {
 			brain.eraseMemory(WWMemoryModuleTypes.CAN_DIG.get());
 		}
 	}
-
 }

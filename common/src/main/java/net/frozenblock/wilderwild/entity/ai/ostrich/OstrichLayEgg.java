@@ -40,7 +40,7 @@ public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 		this.eggBlock = eggBlock;
 	}
 
-	private static boolean attemptPlace(AbstractOstrich ostrich, Level level, Block block, BlockPos placePos) {
+	private static boolean attemptPlace(AbstractOstrich body, Level level, Block block, BlockPos placePos) {
 		final BlockState state = level.getBlockState(placePos);
 		final BlockPos belowPos = placePos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
@@ -48,44 +48,41 @@ public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 
 		final BlockState placementState = block.defaultBlockState();
 		level.setBlockAndUpdate(placePos, placementState);
-		level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(ostrich, placementState));
-		level.playSound(null, ostrich, WWSounds.ENTITY_OSTRICH_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
+		level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(body, placementState));
+		level.playSound(null, body, WWSounds.ENTITY_OSTRICH_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
 		return true;
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich ostrich) {
+	public boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich body) {
 		return true;
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		return ostrich.isPregnant();
+	public boolean canStillUse(ServerLevel level, AbstractOstrich body, long timestamp) {
+		return body.isPregnant();
 	}
 
 	@Override
-	public void start(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-	}
+	public void start(ServerLevel level, AbstractOstrich body, long timestamp) {}
 
 	@Override
-	public void stop(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-	}
+	public void stop(ServerLevel level, AbstractOstrich body, long timestamp) {}
 
 	@Override
-	public void tick(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		if (ostrich.isInWater() || !ostrich.onGround()) return;
+	public void tick(ServerLevel level, AbstractOstrich body, long timestamp) {
+		if (body.isInWater() || !body.onGround()) return;
 
-		final BlockPos pos = ostrich.getOnPos().above();
-		if (attemptPlace(ostrich, level, this.eggBlock, pos)) {
-			ostrich.revokePregnancy();
+		final BlockPos pos = body.getOnPos().above();
+		if (attemptPlace(body, level, this.eggBlock, pos)) {
+			body.revokePregnancy();
 			return;
 		}
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			if (!attemptPlace(ostrich, level, this.eggBlock, pos.relative(direction))) continue;
-			ostrich.revokePregnancy();
+			if (!attemptPlace(body, level, this.eggBlock, pos.relative(direction))) continue;
+			body.revokePregnancy();
 			return;
 		}
 	}
-
 }

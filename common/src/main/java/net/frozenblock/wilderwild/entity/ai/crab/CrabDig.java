@@ -40,27 +40,27 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E crab, long timestamp) {
+	protected boolean canStillUse(ServerLevel level, E body, long timestamp) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, E crab, long timestamp) {
-		crab.endNavigation();
-		crab.stopInPlace();
-		crab.setPose(Pose.DIGGING);
-		crab.playSound(WWSounds.ENTITY_CRAB_DIG.get(), 0.5F, 1F);
-		crab.resetDiggingTicks();
+	protected void start(ServerLevel level, E body, long timestamp) {
+		body.endNavigation();
+		body.stopInPlace();
+		body.setPose(Pose.DIGGING);
+		body.playSound(WWSounds.ENTITY_CRAB_DIG.get(), 0.5F, 1F);
+		body.resetDiggingTicks();
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E crab, long timestamp) {
-		if (crab.hasPose(Pose.DIGGING)) {
-			crab.getBrain().setMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get(), true);
-			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(crab));
+	protected void stop(ServerLevel level, E body, long timestamp) {
+		if (body.hasPose(Pose.DIGGING)) {
+			body.getBrain().setMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get(), true);
+			body.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, CrabAi.getRandomEmergeCooldown(body));
 		} else {
-			crab.getBrain().eraseMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get());
-			crab.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 40L);
+			body.getBrain().eraseMemory(WWMemoryModuleTypes.IS_UNDERGROUND.get());
+			body.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 40L);
 		}
 	}
 }

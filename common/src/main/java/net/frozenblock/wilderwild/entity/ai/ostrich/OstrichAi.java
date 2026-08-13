@@ -68,7 +68,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gamerules.GameRules;
 import org.jetbrains.annotations.Nullable;
 
-public class OstrichAi {
+public final class OstrichAi {
 	private static final float SPEED_MULTIPLIER_WHEN_PANICKING = 2.0F;
 	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.75F;
 	private static final float SPEED_MULTIPLIER_WHEN_IDLING = 1.0F;
@@ -85,11 +85,13 @@ public class OstrichAi {
 		WWSensorTypes.OSTRICH_SPECIFIC_SENSOR.get()
 	);
 
+	private OstrichAi() {}
+
 	public static Brain.Provider<AbstractOstrich> brainProvider(boolean zombie) {
 		return Brain.provider(SENSOR_TYPES, body -> getActivities(body, zombie));
 	}
 
-	protected static List<ActivityData<AbstractOstrich>> getActivities(final AbstractOstrich body, final boolean zombie) {
+	public static List<ActivityData<AbstractOstrich>> getActivities(final AbstractOstrich body, final boolean zombie) {
 		return List.of(initCoreActivity(zombie), initIdleActivity(zombie), initFightActivity(body));
 	}
 
@@ -174,23 +176,23 @@ public class OstrichAi {
 		);
 	}
 
-	public static void updateActivity(AbstractOstrich ostrich) {
-		ostrich.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
+	public static void updateActivity(AbstractOstrich body) {
+		body.getBrain().setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
 	}
 
-	private static boolean isTarget(AbstractOstrich ostrich, LivingEntity entity) {
-		return ostrich.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == entity).isPresent();
+	private static boolean isTarget(AbstractOstrich body, LivingEntity entity) {
+		return body.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(livingEntity2 -> livingEntity2 == entity).isPresent();
 	}
 
-	private static void onTargetInvalid(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
-		if (ostrich.getTarget() == target) removeAttackAndAngerTarget(ostrich);
-		ostrich.getNavigation().stop();
+	private static void onTargetInvalid(ServerLevel level, AbstractOstrich body, LivingEntity target) {
+		if (body.getTarget() == target) removeAttackAndAngerTarget(body);
+		body.getNavigation().stop();
 	}
 
-	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, AbstractOstrich ostrich) {
-		final Brain<AbstractOstrich> brain = ostrich.getBrain();
-		final Optional<LivingEntity> angryAt = BehaviorUtils.getLivingEntityFromUUIDMemory(ostrich, MemoryModuleType.ANGRY_AT);
-		if (angryAt.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, angryAt.get())) return angryAt;
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(ServerLevel level, AbstractOstrich body) {
+		final Brain<AbstractOstrich> brain = body.getBrain();
+		final Optional<LivingEntity> angryAt = BehaviorUtils.getLivingEntityFromUUIDMemory(body, MemoryModuleType.ANGRY_AT);
+		if (angryAt.isPresent() && Sensor.isEntityAttackableIgnoringLineOfSight(level, body, angryAt.get())) return angryAt;
 
 		if (brain.hasMemoryValue(MemoryModuleType.UNIVERSAL_ANGER)) {
 			final Optional<? extends LivingEntity> nearestVisibleAttackablePlayer = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
@@ -199,39 +201,39 @@ public class OstrichAi {
 		return Optional.empty();
 	}
 
-	public static void wasHurtBy(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
-		if (!ostrich.canTargetEntity(target)) return;
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) return;
-		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(ostrich, target, 4.0)) return;
+	public static void wasHurtBy(ServerLevel level, AbstractOstrich body, LivingEntity target) {
+		if (!body.canTargetEntity(target)) return;
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target)) return;
+		if (BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(body, target, 4.0)) return;
 
-		if (ostrich.isBaby()) {
-			if (Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) broadcastAngerTarget(level, ostrich, target);
+		if (body.isBaby()) {
+			if (Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target)) broadcastAngerTarget(level, body, target);
 			return;
 		}
 
 		if (target.getType() == EntityTypes.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
-			setAngerTargetToNearestTargetablePlayerIfFound(level, ostrich, target);
-			broadcastUniversalAnger(level, ostrich);
+			setAngerTargetToNearestTargetablePlayerIfFound(level, body, target);
+			broadcastUniversalAnger(level, body);
 		} else {
-			setAngerTarget(level, ostrich, target);
-			broadcastAngerTarget(level, ostrich, target);
+			setAngerTarget(level, body, target);
+			broadcastAngerTarget(level, body, target);
 		}
 	}
 
-	public static void setAngerTarget(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
-		if (ostrich.isBaby()) return;
-		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, ostrich, target)) return;
+	public static void setAngerTarget(ServerLevel level, AbstractOstrich body, LivingEntity target) {
+		if (body.isBaby()) return;
+		if (!Sensor.isEntityAttackableIgnoringLineOfSight(level, body, target)) return;
 
-		ostrich.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-		ostrich.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
-		ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
+		body.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+		body.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
+		body.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
 		if (target.getType() == EntityTypes.PLAYER && level.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
-			ostrich.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
+			body.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
 		}
 	}
 
-	private static void broadcastUniversalAnger(ServerLevel level, AbstractOstrich ostrichEntity) {
-		final Optional<List<AbstractOstrich>> nearbyAbstractOstriches = getNearbyAbstractOstriches(ostrichEntity);
+	private static void broadcastUniversalAnger(ServerLevel level, AbstractOstrich body) {
+		final Optional<List<AbstractOstrich>> nearbyAbstractOstriches = getNearbyAbstractOstriches(body);
 		nearbyAbstractOstriches.ifPresent(
 			ostriches -> ostriches.forEach(
 				ostrich -> getNearestVisibleTargetablePlayer(ostrich).ifPresent(
@@ -241,54 +243,56 @@ public class OstrichAi {
 		);
 	}
 
-	public static void broadcastAngerTarget(ServerLevel level, AbstractOstrich ostrich, LivingEntity target) {
-		final Optional<List<AbstractOstrich>> nearbyAbstractOstriches = getNearbyAbstractOstriches(ostrich);
+	public static void broadcastAngerTarget(ServerLevel level, AbstractOstrich body, LivingEntity target) {
+		final Optional<List<AbstractOstrich>> nearbyAbstractOstriches = getNearbyAbstractOstriches(body);
 		nearbyAbstractOstriches.ifPresent(ostriches -> ostriches.forEach(
 			listedAbstractOstrich -> setAngerTargetIfCloserThanCurrent(level, listedAbstractOstrich, target)
 		));
 	}
 
-	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, AbstractOstrich ostrich, LivingEntity currentTarget) {
-		final Optional<LivingEntity> optional = getAngerTarget(ostrich);
-		final LivingEntity livingEntity = BehaviorUtils.getNearestTarget(ostrich, optional, currentTarget);
+	private static void setAngerTargetIfCloserThanCurrent(ServerLevel level, AbstractOstrich body, LivingEntity currentTarget) {
+		final Optional<LivingEntity> optional = getAngerTarget(body);
+		final LivingEntity livingEntity = BehaviorUtils.getNearestTarget(body, optional, currentTarget);
 		if (optional.isPresent() && optional.get() == livingEntity) return;
-		setAngerTarget(level, ostrich, livingEntity);
+		setAngerTarget(level, body, livingEntity);
 	}
 
-	private static void setAngerTargetToNearestTargetablePlayerIfFound(ServerLevel level, AbstractOstrich ostrich, LivingEntity currentTarget) {
-		final Optional<Player> optional = getNearestVisibleTargetablePlayer(ostrich);
+	private static void setAngerTargetToNearestTargetablePlayerIfFound(ServerLevel level, AbstractOstrich body, LivingEntity currentTarget) {
+		final Optional<Player> optional = getNearestVisibleTargetablePlayer(body);
 		if (optional.isPresent()) {
-			setAngerTarget(level, ostrich, optional.get());
+			setAngerTarget(level, body, optional.get());
 		} else {
-			setAngerTarget(level, ostrich, currentTarget);
+			setAngerTarget(level, body, currentTarget);
 		}
 	}
 
-	private static Optional<List<AbstractOstrich>> getNearbyAbstractOstriches(AbstractOstrich ostrich) {
-		return ostrich.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES.get());
+	private static Optional<List<AbstractOstrich>> getNearbyAbstractOstriches(AbstractOstrich body) {
+		return body.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_OSTRICHES.get());
 	}
 
-	public static Optional<Player> getNearestVisibleTargetablePlayer(AbstractOstrich ostrich) {
-		return ostrich.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) ? ostrich.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER) : Optional.empty();
+	public static Optional<Player> getNearestVisibleTargetablePlayer(AbstractOstrich body) {
+		return body.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)
+			? body.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)
+			: Optional.empty();
 	}
 
-	private static Optional<LivingEntity> getAngerTarget(AbstractOstrich ostrich) {
-		return ostrich.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
+	private static Optional<LivingEntity> getAngerTarget(AbstractOstrich body) {
+		return body.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 	}
 
-	public static void removeAttackAndAngerTarget(AbstractOstrich ostrich) {
-		final Brain<AbstractOstrich> brain = ostrich.getBrain();
+	public static void removeAttackAndAngerTarget(AbstractOstrich body) {
+		final Brain<AbstractOstrich> brain = body.getBrain();
 		brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);
 		brain.eraseMemory(MemoryModuleType.ANGRY_AT);
 		brain.eraseMemory(MemoryModuleType.UNIVERSAL_ANGER);
 	}
 
-	private static float getSpeedModifierChasing(@Nullable LivingEntity entity) {
+	private static float getSpeedModifierChasing(@Nullable LivingEntity body) {
 		return SPEED_MULTIPLIER_WHEN_ATTACKING;
 	}
 
 	public static Predicate<ItemStack> getTemptations() {
-		return stack -> stack.is(WWItemTags.OSTRICH_FOOD);
+		return itemStack -> itemStack.is(WWItemTags.OSTRICH_FOOD);
 	}
 
 }

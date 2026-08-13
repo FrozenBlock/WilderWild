@@ -24,7 +24,10 @@ import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
-public class SetTrackedBoatLookTarget {
+public final class SetTrackedBoatLookTarget {
+
+	private SetTrackedBoatLookTarget() {}
+
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.LOOK_TARGET),

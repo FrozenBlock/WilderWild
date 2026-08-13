@@ -29,7 +29,10 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import org.apache.commons.lang3.mutable.MutableLong;
 
-public class PenguinFollowReturnPos {
+public final class PenguinFollowReturnPos {
+
+	private PenguinFollowReturnPos() {}
+
 	public static BehaviorControl<PathfinderMob> create(float speedModifier) {
 		final MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
@@ -37,10 +40,10 @@ public class PenguinFollowReturnPos {
 			instance.absent(WWMemoryModuleTypes.DIVE_TICKS.get()),
 			instance.absent(MemoryModuleType.WALK_TARGET),
 			instance.registered(MemoryModuleType.LOOK_TARGET)
-		).apply(instance, (landPos, diveTicks, walkTarget, lookTarget) -> (level, penguin, l) -> {
-			if (penguin.onGround() && !penguin.isInWater()) return false;
-			if (l < returnTimer.getValue()) {
-				returnTimer.setValue(l + 60L);
+		).apply(instance, (landPos, diveTicks, walkTarget, lookTarget) -> (level, body, timestamp) -> {
+			if (body.onGround() && !body.isInWater()) return false;
+			if (timestamp < returnTimer.getValue()) {
+				returnTimer.setValue(timestamp + 60L);
 				return true;
 			}
 
@@ -54,13 +57,13 @@ public class PenguinFollowReturnPos {
 			lookTarget.set(new BlockPosTracker(pos));
 			walkTarget.set(new WalkTarget(new BlockPosTracker(pos), speedModifier, 1));
 
-			final PathNavigation pathNavigation = penguin.getNavigation();
+			final PathNavigation pathNavigation = body.getNavigation();
 			if (pathNavigation.isStuck()) {
 				landPos.erase();
 				return false;
 			}
 
-			returnTimer.setValue(l + 60L);
+			returnTimer.setValue(timestamp + 60L);
 			return true;
 		}));
 	}

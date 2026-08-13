@@ -32,13 +32,13 @@ public class OstrichPanic extends AnimalPanic<AbstractOstrich> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich ostrich) {
-		return super.checkExtraStartConditions(level, ostrich) && !ostrich.isMobControlled();
+	protected boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich body) {
+		return super.checkExtraStartConditions(level, body) && !body.isMobControlled();
 	}
 
 	@Override
-	public void start(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		ostrich.emergeBeak();
-		super.start(level, ostrich, timestamp);
+	public void start(ServerLevel level, AbstractOstrich body, long timestamp) {
+		body.emergeBeak();
+		super.start(level, body, timestamp);
 	}
 }

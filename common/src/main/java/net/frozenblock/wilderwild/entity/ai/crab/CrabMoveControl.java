@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.entity.ai.crab;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.minecraft.world.entity.ai.control.MoveControl;
 
-public class CrabMoveControl extends MoveControl {
-	private final Crab crab;
+public class CrabMoveControl<T extends Crab> extends MoveControl<T> {
+	private final T crab;
 
-	public CrabMoveControl(Crab crab) {
+	public CrabMoveControl(T crab) {
 		super(crab);
 		this.crab = crab;
 	}
@@ -33,5 +33,4 @@ public class CrabMoveControl extends MoveControl {
 		if (!this.crab.cancelMovementToDescend && !this.crab.isDiggingOrEmerging()) super.tick();
 		if (this.crab.getNavigation().isStuck()) this.operation = Operation.WAIT;
 	}
-
 }

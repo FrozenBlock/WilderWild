@@ -27,20 +27,19 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 
 public class PenguinAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
-	public PenguinAttackablesSensor() {
-	}
+	public PenguinAttackablesSensor() {}
 
 	@Override
-	protected boolean isMatchingEntity(ServerLevel level, LivingEntity attacker, LivingEntity target) {
-		return this.isClose(attacker, target) && this.isHuntTarget(attacker, target) && Sensor.isEntityAttackable(level, attacker, target);
+	protected boolean isMatchingEntity(ServerLevel level, LivingEntity body, LivingEntity target) {
+		return this.isClose(body, target) && this.isHuntTarget(body, target) && Sensor.isEntityAttackable(level, body, target);
 	}
 
-	private boolean isHuntTarget(LivingEntity attacker, LivingEntity target) {
-		return !attacker.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.is(WWEntityTypeTags.PENGUIN_HUNT_TARGETS);
+	private boolean isHuntTarget(LivingEntity body, LivingEntity target) {
+		return !body.getBrain().hasMemoryValue(MemoryModuleType.HAS_HUNTING_COOLDOWN) && target.is(WWEntityTypeTags.PENGUIN_HUNT_TARGETS);
 	}
 
-	private boolean isClose(LivingEntity attacker, LivingEntity target) {
-		return target.distanceToSqr(attacker) <= 64D;
+	private boolean isClose(LivingEntity body, LivingEntity target) {
+		return target.distanceToSqr(body) <= 64D;
 	}
 
 	@Override

@@ -27,7 +27,9 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ProjectileWeaponItem;
 
-public class OstrichMeleeAttack {
+public final class OstrichMeleeAttack {
+
+	private OstrichMeleeAttack() {}
 
 	public static OneShot<AbstractOstrich> create(int cooldownBetweenAttacks) {
 		return BehaviorBuilder.create(instance -> instance.group(
@@ -35,14 +37,14 @@ public class OstrichMeleeAttack {
 			instance.present(MemoryModuleType.ATTACK_TARGET),
 			instance.absent(MemoryModuleType.ATTACK_COOLING_DOWN),
 			instance.present(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES))
-		.apply(instance, (lookTarget, attackTarget, attackCoolingDown, nearestEntities) -> (level, ostrich, l) -> {
+		.apply(instance, (lookTarget, attackTarget, attackCoolingDown, nearestEntities) -> (level, body, timestamp) -> {
 			final LivingEntity target = instance.get(attackTarget);
-			if (!isHoldingUsableProjectileWeapon(ostrich)
-				&& ostrich.isWithinMeleeAttackRange(target)
+			if (!isHoldingUsableProjectileWeapon(body)
+				&& body.isWithinMeleeAttackRange(target)
 				&& instance.get(nearestEntities).contains(target)
 			) {
 				lookTarget.set(new EntityTracker(target, true));
-				ostrich.swingForAttack(InteractionHand.MAIN_HAND);
+				body.swingForAttack(InteractionHand.MAIN_HAND);
 				attackCoolingDown.setWithExpiry(true, cooldownBetweenAttacks);
 				return true;
 			}
@@ -50,10 +52,10 @@ public class OstrichMeleeAttack {
 		}));
 	}
 
-	private static boolean isHoldingUsableProjectileWeapon(AbstractOstrich ostrich) {
-		return ostrich.isHolding(stack -> {
+	private static boolean isHoldingUsableProjectileWeapon(AbstractOstrich body) {
+		return body.isHolding(stack -> {
 			final Item item = stack.getItem();
-			return item instanceof ProjectileWeaponItem && ostrich.canUseNonMeleeWeapon(stack);
+			return item instanceof ProjectileWeaponItem && body.canUseNonMeleeWeapon(stack);
 		});
 	}
 }

@@ -23,14 +23,13 @@ import net.minecraft.world.entity.ai.control.LookControl;
 public class OstrichLookControl extends LookControl {
 	private final AbstractOstrich mob;
 
-	public OstrichLookControl(AbstractOstrich ostrich) {
-		super(ostrich);
-		this.mob = ostrich;
+	public OstrichLookControl(AbstractOstrich mob) {
+		super(mob);
+		this.mob = mob;
 	}
 
 	@Override
 	public void tick() {
 		if (!this.mob.hasControllingPassenger()) super.tick();
 	}
-
 }

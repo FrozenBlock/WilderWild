@@ -103,7 +103,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 		this.setPathfindingMalus(PathType.WATER, -1F);
 		this.setPathfindingMalus(PathType.WATER_BORDER, 16F);
 		this.setPathfindingMalus(PathType.UNPASSABLE_RAIL, 0F);
-		this.moveControl = new FlyingMoveControl(this, 20, true);
+		this.moveControl = new FlyingMoveControl<>(this, 20, true);
 	}
 
 	@Override
@@ -235,8 +235,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	public void wilderWild$onBottled() {
-	}
+	public void wilderWild$onBottled() {}
 
 	@Override
 	public void wilderWild$onBottleRelease() {
@@ -305,12 +304,10 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState state) {
-	}
+	protected void playStepSound(BlockPos pos, BlockState state) {}
 
 	@Override
-	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
-	}
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
@@ -395,12 +392,10 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void doPush(Entity entity) {
-	}
+	protected void doPush(Entity entity) {}
 
 	@Override
-	protected void pushEntities() {
-	}
+	protected void pushEntities() {}
 
 	public static class ButterflySpawnGroupData extends AgeableMob.AgeableMobGroupData {
 		public final Holder<ButterflyVariant> type;

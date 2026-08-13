@@ -40,53 +40,50 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 		this.eggBlock = eggBlock;
 	}
 
-	private static boolean attemptPlace(Penguin penguin, Level level, Block block, BlockPos placePos) {
+	private static boolean attemptPlace(Penguin body, Level level, Block block, BlockPos placePos) {
 		final BlockState state = level.getBlockState(placePos);
 		final BlockPos belowPos = placePos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
 		if (state.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
 			final BlockState placementState = block.defaultBlockState();
 			level.setBlockAndUpdate(placePos, placementState);
-			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(penguin, placementState));
-			level.playSound(null, penguin, penguin.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG.get() : WWSounds.ENTITY_PENGUIN_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
+			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(body, placementState));
+			level.playSound(null, body, body.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG.get() : WWSounds.ENTITY_PENGUIN_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(ServerLevel level, Penguin owner) {
+	public boolean checkExtraStartConditions(ServerLevel level, Penguin body) {
 		return true;
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, Penguin penguin, long timestamp) {
-		return penguin.isPregnant();
+	public boolean canStillUse(ServerLevel level, Penguin body, long timestamp) {
+		return body.isPregnant();
 	}
 
 	@Override
-	public void start(ServerLevel level, Penguin penguin, long timestamp) {
-	}
+	public void start(ServerLevel level, Penguin body, long timestamp) {}
 
 	@Override
-	public void stop(ServerLevel level, Penguin penguin, long timestamp) {
-	}
+	public void stop(ServerLevel level, Penguin body, long timestamp) {}
 
 	@Override
-	public void tick(ServerLevel level, Penguin penguin, long timestamp) {
-		if (penguin.isInWater() || !penguin.onGround()) return;
+	public void tick(ServerLevel level, Penguin body, long timestamp) {
+		if (body.isInWater() || !body.onGround()) return;
 
-		final BlockPos pos = penguin.getOnPos().above();
-		if (attemptPlace(penguin, level, this.eggBlock, pos)) {
-			penguin.revokePregnancy();
+		final BlockPos pos = body.getOnPos().above();
+		if (attemptPlace(body, level, this.eggBlock, pos)) {
+			body.revokePregnancy();
 			return;
 		}
 
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			if (!attemptPlace(penguin, level, this.eggBlock, pos.relative(direction))) continue;
-			penguin.revokePregnancy();
+			if (!attemptPlace(body, level, this.eggBlock, pos.relative(direction))) continue;
+			body.revokePregnancy();
 			return;
 		}
 	}
-
 }

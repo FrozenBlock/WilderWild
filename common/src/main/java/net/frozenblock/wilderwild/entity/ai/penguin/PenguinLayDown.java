@@ -44,39 +44,39 @@ public class PenguinLayDown<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, E penguin) {
-		return !penguin.isTouchingWaterOrSwimming();
+	protected boolean checkExtraStartConditions(ServerLevel level, E body) {
+		return !body.isTouchingWaterOrSwimming();
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E penguin, long timestamp) {
-		final Brain<Penguin> brain = penguin.getBrain();
+	protected boolean canStillUse(ServerLevel level, E body, long timestamp) {
+		final Brain<Penguin> brain = body.getBrain();
 		return brain.checkMemory(MemoryModuleType.BREED_TARGET, MemoryStatus.VALUE_ABSENT)
 			&& brain.checkMemory(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
-			&& !penguin.isTouchingWaterOrSwimming();
+			&& !body.isTouchingWaterOrSwimming();
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long timestamp) {
-		final Brain<Penguin> brain = penguin.getBrain();
+	protected void start(ServerLevel level, E body, long timestamp) {
+		final Brain<Penguin> brain = body.getBrain();
 		brain.eraseMemory(WWMemoryModuleTypes.STARTING_SEARCH.get());
 		brain.setMemoryWithExpiry(WWMemoryModuleTypes.SEARCHING_FOR_WATER.get(), Unit.INSTANCE, 400L);
 		brain.setMemory(WWMemoryModuleTypes.LAYING_DOWN.get(), Unit.INSTANCE);
-		penguin.setPose(Pose.SLIDING);
-		penguin.stopInPlace();
+		body.setPose(Pose.SLIDING);
+		body.stopInPlace();
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E penguin, long timestamp) {
-		final Brain<Penguin> brain = penguin.getBrain();
+	protected void stop(ServerLevel level, E body, long timestamp) {
+		final Brain<Penguin> brain = body.getBrain();
 		brain.eraseMemory(WWMemoryModuleTypes.SEARCHING_FOR_WATER.get());
 		brain.eraseMemory(WWMemoryModuleTypes.LAYING_DOWN.get());
 
-		if (!penguin.isTouchingWaterOrSwimming()) {
-			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
+		if (!body.isTouchingWaterOrSwimming()) {
+			brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(body.getRandom()));
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.STANDING_UP.get(), Unit.INSTANCE, PenguinAi.STAND_UP_DURATION);
 		} else {
-			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS.get(), PenguinAi.DIVE_TIME.sample(penguin.getRandom()));
+			brain.setMemory(WWMemoryModuleTypes.DIVE_TICKS.get(), PenguinAi.DIVE_TIME.sample(body.getRandom()));
 		}
 	}
 }

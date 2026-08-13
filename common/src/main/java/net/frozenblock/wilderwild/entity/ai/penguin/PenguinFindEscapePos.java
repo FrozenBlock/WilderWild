@@ -38,23 +38,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.apache.commons.lang3.mutable.MutableLong;
 
-public class PenguinFindEscapePos {
+public final class PenguinFindEscapePos {
+
+	private PenguinFindEscapePos() {}
+
 	public static BehaviorControl<PathfinderMob> create(int searchRange, float speedModifier) {
 		final MutableLong timer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(WWMemoryModuleTypes.DIVE_TICKS.get()),
 			instance.absent(MemoryModuleType.WALK_TARGET),
 			instance.registered(MemoryModuleType.LOOK_TARGET)
-		).apply(instance, (diveTicks, walkTarget, lookTarget) -> (level, penguin, l) -> {
-			if (!level.getFluidState(penguin.blockPosition().above()).is(FluidTags.WATER)) return false;
-			if (l < timer.getValue()) {
-				timer.setValue(l + 60L);
+		).apply(instance, (diveTicks, walkTarget, lookTarget) -> (level, body, timestamp) -> {
+			if (!level.getFluidState(body.blockPosition().above()).is(FluidTags.WATER)) return false;
+			if (timestamp < timer.getValue()) {
+				timer.setValue(timestamp + 60L);
 				return true;
 			}
 
-			final BlockPos penguinPos = penguin.blockPosition();
+			final BlockPos penguinPos = body.blockPosition();
 			final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-			final CollisionContext collisionContext = CollisionContext.of(penguin);
+			final CollisionContext collisionContext = CollisionContext.of(body);
 
 			final List<BlockPos> possiblePoses = shuffleAndOrderByFarthest(penguinPos, searchRange, level.getRandom());
 
@@ -98,10 +101,10 @@ public class PenguinFindEscapePos {
 				final BlockPos severeEscapePos = penguinPos.relative(Direction.UP, 3);
 				lookTarget.set(new BlockPosTracker(severeEscapePos));
 				walkTarget.set(new WalkTarget(new BlockPosTracker(severeEscapePos), speedModifier, 1));
-				timer.setValue(l + 20L);
+				timer.setValue(timestamp + 20L);
 				return true;
 			}
-			timer.setValue(l + 60L);return true;
+			timer.setValue(timestamp + 60L);return true;
 		}));
 	}
 

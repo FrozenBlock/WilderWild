@@ -27,8 +27,7 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 
 public class CrabAttackablesSensor extends NearestVisibleLivingEntitySensor {
 
-	public CrabAttackablesSensor() {
-	}
+	public CrabAttackablesSensor() {}
 
 	@Override
 	protected boolean isMatchingEntity(ServerLevel level, LivingEntity attacker, LivingEntity target) {

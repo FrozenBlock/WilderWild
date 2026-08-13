@@ -38,11 +38,11 @@ public class PenguinSpecificSensor extends Sensor<LivingEntity> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, LivingEntity entity) {
-		final AABB searchArea = entity.getBoundingBox().inflate(48D, 32D, 48D);
-		final List<Penguin> penguins = level.getEntitiesOfClass(Penguin.class, searchArea, penguin -> penguin != entity && penguin.isAlive());
-		penguins.sort(Comparator.comparingDouble(entity::distanceToSqr));
-		final Brain<?> brain = entity.getBrain();
+	protected void doTick(ServerLevel level, LivingEntity body) {
+		final AABB searchArea = body.getBoundingBox().inflate(48D, 32D, 48D);
+		final List<Penguin> penguins = level.getEntitiesOfClass(Penguin.class, searchArea, penguin -> penguin != body && penguin.isAlive());
+		penguins.sort(Comparator.comparingDouble(body::distanceToSqr));
+		final Brain<?> brain = body.getBrain();
 		brain.setMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get(), penguins);
 	}
 }

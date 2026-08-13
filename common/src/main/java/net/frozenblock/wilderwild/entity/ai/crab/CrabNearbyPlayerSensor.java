@@ -34,13 +34,12 @@ public class CrabNearbyPlayerSensor extends Sensor<Crab> {
 	}
 
 	@Override
-	protected void doTick(ServerLevel level, Crab crab) {
-		final Brain<?> brain = crab.getBrain();
+	protected void doTick(ServerLevel level, Crab body) {
+		final Brain<?> brain = body.getBrain();
 		if (brain.hasMemoryValue(MemoryModuleType.NEAREST_PLAYERS) && !brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().isEmpty()) {
 			brain.setMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY.get(), true);
 		} else {
 			brain.eraseMemory(WWMemoryModuleTypes.IS_PLAYER_NEARBY.get());
 		}
 	}
-
 }

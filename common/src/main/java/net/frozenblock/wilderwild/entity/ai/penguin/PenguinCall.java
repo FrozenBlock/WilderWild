@@ -45,24 +45,24 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E penguin, long timestamp) {
+	protected boolean canStillUse(ServerLevel level, E body, long timestamp) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long timestamp) {
-		penguin.stopInPlace();
-		penguin.setPose(Pose.ROARING);
-		penguin.playSound(penguin.isLinux() ? WWSounds.ENTITY_LINUX_CALL.get() : WWSounds.ENTITY_PENGUIN_CALL.get(), 1.2F, 0.9F + penguin.getRandom().nextFloat() * 0.2F);
+	protected void start(ServerLevel level, E body, long timestamp) {
+		body.stopInPlace();
+		body.setPose(Pose.ROARING);
+		body.playSound(body.isLinux() ? WWSounds.ENTITY_LINUX_CALL.get() : WWSounds.ENTITY_PENGUIN_CALL.get(), 1.2F, 0.9F + body.getRandom().nextFloat() * 0.2F);
 
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALLING.get(), Unit.INSTANCE);
-		PenguinAi.addCallerMemoryToNearbyPenguins(penguin);
+		body.getBrain().setMemory(WWMemoryModuleTypes.CALLING.get(), Unit.INSTANCE);
+		PenguinAi.addCallerMemoryToNearbyPenguins(body);
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E penguin, long timestamp) {
-		if (penguin.hasPose(Pose.ROARING)) penguin.setPose(Pose.STANDING);
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), 2400);
-		penguin.getBrain().eraseMemory(WWMemoryModuleTypes.CALLING.get());
+	protected void stop(ServerLevel level, E body, long timestamp) {
+		if (body.hasPose(Pose.ROARING)) body.setPose(Pose.STANDING);
+		body.getBrain().setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), 2400);
+		body.getBrain().eraseMemory(WWMemoryModuleTypes.CALLING.get());
 	}
 }

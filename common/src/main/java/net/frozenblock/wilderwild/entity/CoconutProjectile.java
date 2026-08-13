@@ -132,5 +132,4 @@ public class CoconutProjectile extends ThrowableItemProjectile {
 		);
 		this.discard();
 	}
-
 }

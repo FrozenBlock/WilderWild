@@ -27,21 +27,22 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import org.jetbrains.annotations.Contract;
 
-public class CrabTryToEmerge {
+public final class CrabTryToEmerge {
 
-	@Contract(" -> new")
+	private CrabTryToEmerge() {}
+
 	public static BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.IS_EMERGING),
 			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND.get()),
 			instance.registered(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(MemoryModuleType.NEAREST_PLAYERS)
-		).apply(instance, (isEmerging, underground, digCooldown, players) -> (level, crab, l) -> {
-			final Brain<Crab> brain = crab.getBrain();
-			if (crab.canEmerge() || !crab.canHideOnGround()) {
+		).apply(instance, (isEmerging, underground, digCooldown, players) -> (level, body, timestamp) -> {
+			final Brain<Crab> brain = body.getBrain();
+			if (body.canEmerge() || !body.canHideOnGround()) {
 				if (brain.checkMemory(MemoryModuleType.DIG_COOLDOWN, MemoryStatus.VALUE_ABSENT) ||
 					(brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).isPresent() &&
-						brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().stream().anyMatch(player -> player.distanceTo(crab) < CrabAi.UNDERGROUND_PLAYER_RANGE))
+						brain.getMemory(MemoryModuleType.NEAREST_PLAYERS).get().stream().anyMatch(player -> player.distanceTo(body) < CrabAi.UNDERGROUND_PLAYER_RANGE))
 				) {
 					isEmerging.setWithExpiry(Unit.INSTANCE, Crab.EMERGE_LENGTH_IN_TICKS);
 					underground.erase();

@@ -31,13 +31,12 @@ public class PenguinPostEscape<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long timestamp) {
-		if (!penguin.isBaby()) PenguinAi.addCallMemoryIfPenguinsClose(penguin);
-		penguin.stopInPlace();
+	protected void start(ServerLevel level, E body, long timestamp) {
+		if (!body.isBaby()) PenguinAi.addCallMemoryIfPenguinsClose(body);
+		body.stopInPlace();
 
-		final Brain<Penguin> brain = penguin.getBrain();
-		brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(penguin.getRandom()));
+		final Brain<Penguin> brain = body.getBrain();
+		brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), PenguinAi.IDLE_TIME.sample(body.getRandom()));
 		brain.eraseMemory(WWMemoryModuleTypes.ESCAPING.get());
 	}
-
 }

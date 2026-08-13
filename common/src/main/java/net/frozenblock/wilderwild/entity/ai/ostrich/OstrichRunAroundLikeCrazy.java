@@ -43,10 +43,10 @@ public class OstrichRunAroundLikeCrazy extends Behavior<AbstractOstrich> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich ostrich) {
-		if (ostrich.isTamed() || !ostrich.isVehicle() || (this.zombie && ostrich.isMobControlled())) return false;
+	public boolean checkExtraStartConditions(ServerLevel level, AbstractOstrich body) {
+		if (body.isTamed() || !body.isVehicle() || (this.zombie && body.isMobControlled())) return false;
 
-		final Vec3 vec3 = DefaultRandomPos.getPos(ostrich, 5, 4);
+		final Vec3 vec3 = DefaultRandomPos.getPos(body, 5, 4);
 		if (vec3 == null) return false;
 		this.posX = vec3.x;
 		this.posY = vec3.y;
@@ -55,39 +55,38 @@ public class OstrichRunAroundLikeCrazy extends Behavior<AbstractOstrich> {
 	}
 
 	@Override
-	public boolean canStillUse(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		return !ostrich.isTamed() && !ostrich.getNavigation().isDone() && ostrich.isVehicle();
+	public boolean canStillUse(ServerLevel level, AbstractOstrich body, long timestamp) {
+		return !body.isTamed() && !body.getNavigation().isDone() && body.isVehicle();
 	}
 
 	@Override
-	public void start(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		ostrich.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(this.posX, this.posY, this.posZ), this.speedMultiplier, 0));
+	public void start(ServerLevel level, AbstractOstrich body, long timestamp) {
+		body.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(new Vec3(this.posX, this.posY, this.posZ), this.speedMultiplier, 0));
 	}
 
 	@Override
-	public void stop(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		ostrich.getBrain().eraseMemory(MemoryModuleType.IS_PANICKING);
+	public void stop(ServerLevel level, AbstractOstrich body, long timestamp) {
+		body.getBrain().eraseMemory(MemoryModuleType.IS_PANICKING);
 	}
 
 	@Override
-	public void tick(ServerLevel level, AbstractOstrich ostrich, long timestamp) {
-		if (ostrich.isTamed() || ostrich.getRandom().nextInt(50) != 0) return;
+	public void tick(ServerLevel level, AbstractOstrich body, long timestamp) {
+		if (body.isTamed() || body.getRandom().nextInt(50) != 0) return;
 
-		final Entity passenger = ostrich.getFirstPassenger();
+		final Entity passenger = body.getFirstPassenger();
 		if (passenger == null) return;
 
 		if (passenger instanceof Player player) {
-			final int maxTemper = ostrich.getMaxTemper();
-			if (maxTemper > 0 && ostrich.getRandom().nextInt(maxTemper) < ostrich.getTemper()) {
-				ostrich.tameWithName(player);
+			final int maxTemper = body.getMaxTemper();
+			if (maxTemper > 0 && body.getRandom().nextInt(maxTemper) < body.getTemper()) {
+				body.tameWithName(player);
 				return;
 			}
-			ostrich.modifyTemper(5);
+			body.modifyTemper(5);
 		}
 
-		ostrich.ejectPassengers();
-		ostrich.makeMad();
-		level.broadcastEntityEvent(ostrich, EntityEvent.TAMING_FAILED);
+		body.ejectPassengers();
+		body.makeMad();
+		level.broadcastEntityEvent(body, EntityEvent.TAMING_FAILED);
 	}
-
 }

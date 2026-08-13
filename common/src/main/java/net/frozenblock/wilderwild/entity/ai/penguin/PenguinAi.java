@@ -71,7 +71,7 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public class PenguinAi {
+public final class PenguinAi {
 	private static final float SPEED_MULTIPLIER_WHEN_ATTACKING = 1.15F;
 	private static final float SPEED_MULTIPLIER_WHEN_MAKING_LOVE = 1.15F;
 	private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(3, 16);
@@ -108,7 +108,7 @@ public class PenguinAi {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, PenguinAi::getActivities);
 	}
 
-	protected static List<ActivityData<Penguin>> getActivities(final Penguin body) {
+	public static List<ActivityData<Penguin>> getActivities(final Penguin body) {
 		return List.of(
 			initCoreActivity(),
 			initStandUpActivity(),
@@ -397,9 +397,9 @@ public class PenguinAi {
 		);
 	}
 
-	public static void updateActivity(final Penguin penguin) {
-		if (!penguin.isBaby()) {
-			penguin.getBrain().setActiveActivityToFirstValid(
+	public static void updateActivity(final Penguin body) {
+		if (!body.isBaby()) {
+			body.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
 					WWActivities.STAND_UP.get(),
 					WWActivities.CHASE.get(),
@@ -415,7 +415,7 @@ public class PenguinAi {
 				)
 			);
 		} else {
-			penguin.getBrain().setActiveActivityToFirstValid(
+			body.getBrain().setActiveActivityToFirstValid(
 				ImmutableList.of(
 					WWActivities.STAND_UP.get(),
 					WWActivities.CHASE.get(),
@@ -430,47 +430,47 @@ public class PenguinAi {
 		}
 	}
 
-	public static Optional<List<Penguin>> getNearbyPenguins(Penguin penguin) {
-		return penguin.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
+	public static Optional<List<Penguin>> getNearbyPenguins(Penguin body) {
+		return body.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
 	}
 
-	private static boolean isTarget(Penguin penguin, LivingEntity entity) {
-		return penguin.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(possibleEntity -> possibleEntity == entity).isPresent();
+	private static boolean isTarget(Penguin body, LivingEntity entity) {
+		return body.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).filter(possibleEntity -> possibleEntity == entity).isPresent();
 	}
 
-	private static float getSpeedModifierChasing(@Nullable LivingEntity entity) {
+	private static float getSpeedModifierChasing(@Nullable LivingEntity body) {
 		return SPEED_MULTIPLIER_WHEN_ATTACKING;
 	}
 
-	private static void onTargetInvalid(ServerLevel level, Penguin penguin, LivingEntity target) {
-		if (penguin.getTarget() == target) penguin.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
-		penguin.getNavigation().stop();
+	private static void onTargetInvalid(ServerLevel level, Penguin body, LivingEntity target) {
+		if (body.getTarget() == target) body.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+		body.getNavigation().stop();
 	}
 
-	private static boolean canAttack(ServerLevel level, Penguin penguin) {
-		return !penguin.isBaby() && !BehaviorUtils.isBreeding(penguin) && penguin.getBrain().checkMemory(MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryStatus.VALUE_ABSENT);
+	private static boolean canAttack(ServerLevel level, Penguin body) {
+		return !body.isBaby() && !BehaviorUtils.isBreeding(body) && body.getBrain().checkMemory(MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryStatus.VALUE_ABSENT);
 	}
 
-	public static void addCallMemoryIfPenguinsClose(Penguin penguin) {
-		if (!hasNearbyPenguins(penguin)) return;
-		final Brain<Penguin> brain = penguin.getBrain();
+	public static void addCallMemoryIfPenguinsClose(Penguin body) {
+		if (!hasNearbyPenguins(body)) return;
+		final Brain<Penguin> brain = body.getBrain();
 		if (brain.checkMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), MemoryStatus.VALUE_ABSENT)) {
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.WANTS_TO_CALL.get(), Unit.INSTANCE, 12000L);
 		}
 	}
 
-	public static boolean hasNearbyPenguins(Penguin penguin) {
-		return !getNearbyPenguins(penguin).orElse(List.of()).isEmpty();
+	public static boolean hasNearbyPenguins(Penguin body) {
+		return !getNearbyPenguins(body).orElse(List.of()).isEmpty();
 	}
 
-	public static void addCallerMemoryToNearbyPenguins(Penguin caller) {
-		final UUID callerUUID = caller.getUUID();
-		final List<Penguin> penguins = PenguinAi.getNearbyPenguins(caller).orElse(List.of());
-		final Brain<Penguin> callerBrain = caller.getBrain();
+	public static void addCallerMemoryToNearbyPenguins(Penguin body) {
+		final UUID callerUUID = body.getUUID();
+		final List<Penguin> penguins = PenguinAi.getNearbyPenguins(body).orElse(List.of());
+		final Brain<Penguin> callerBrain = body.getBrain();
 		final Optional<Integer> idleTime = callerBrain.getMemory(WWMemoryModuleTypes.IDLE_TIME.get());
 
 		penguins.forEach(penguin -> {
-			if (penguin == caller) return;
+			if (penguin == body) return;
 			final Brain<Penguin> brain = penguin.getBrain();
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER.get(), callerUUID, 400L);
 			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), 400);
@@ -482,8 +482,8 @@ public class PenguinAi {
 		});
 	}
 
-	public static Optional<LivingEntity> getCaller(LivingEntity entity, UUID callerID) {
-		final Optional<List<Penguin>> penguins = entity.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
+	public static Optional<LivingEntity> getCaller(LivingEntity body, UUID callerID) {
+		final Optional<List<Penguin>> penguins = body.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
 		if (penguins.isPresent()) {
 			final List<Penguin> penguinList = penguins.get();
 			for (Penguin penguin : penguinList) {
@@ -496,5 +496,4 @@ public class PenguinAi {
 	public static Predicate<ItemStack> getTemptations() {
 		return itemStack -> itemStack.is(WWItemTags.PENGUIN_FOOD);
 	}
-
 }

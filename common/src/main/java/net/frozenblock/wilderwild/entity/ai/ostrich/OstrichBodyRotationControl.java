@@ -32,5 +32,4 @@ public class OstrichBodyRotationControl extends BodyRotationControl {
 	public void clientTick() {
 		if (!this.mob.refuseToMove()) super.clientTick();
 	}
-
 }

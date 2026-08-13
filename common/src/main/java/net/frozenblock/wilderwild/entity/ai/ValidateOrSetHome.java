@@ -30,17 +30,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class ValidateOrSetHome {
+public final class ValidateOrSetHome {
+
+	private ValidateOrSetHome() {}
 
 	public static BehaviorControl<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(MemoryModuleType.HOME),
 			instance.absent(WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get())
-		).apply(instance, (homeMemory, homeValidateCooldown) -> (level, entity, l) -> {
+		).apply(instance, (homeMemory, homeValidateCooldown) -> (level, body, timestamp) -> {
 			homeValidateCooldown.set(200);
-			final BlockPos homePos = getHome(entity);
-			if (homePos != null && isInHomeDimension(entity) && !isValidHomePos(level, homePos)) {
-				setHomeAtCurrentPos(entity);
+			final BlockPos homePos = getHome(body);
+			if (homePos != null && isInHomeDimension(body) && !isValidHomePos(level, homePos)) {
+				setHomeAtCurrentPos(body);
 				return true;
 			}
 			return false;
@@ -48,18 +50,18 @@ public class ValidateOrSetHome {
 	}
 
 	@Nullable
-	private static BlockPos getHome(LivingEntity entity) {
-		final Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
+	private static BlockPos getHome(LivingEntity body) {
+		final Optional<GlobalPos> optional = body.getBrain().getMemory(MemoryModuleType.HOME);
 		return optional.map(GlobalPos::pos).orElse(null);
 	}
 
-	private static void setHomeAtCurrentPos(LivingEntity entity) {
-		entity.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(entity.level().dimension(), entity.blockPosition()));
+	private static void setHomeAtCurrentPos(LivingEntity body) {
+		body.getBrain().setMemory(MemoryModuleType.HOME, new GlobalPos(body.level().dimension(), body.blockPosition()));
 	}
 
-	private static boolean isInHomeDimension(LivingEntity entity) {
-		final  Optional<GlobalPos> optional = entity.getBrain().getMemory(MemoryModuleType.HOME);
-		return optional.filter(globalPos -> globalPos.dimension() == entity.level().dimension()).isPresent();
+	private static boolean isInHomeDimension(LivingEntity body) {
+		final  Optional<GlobalPos> optional = body.getBrain().getMemory(MemoryModuleType.HOME);
+		return optional.filter(globalPos -> globalPos.dimension() == body.level().dimension()).isPresent();
 	}
 
 	private static boolean isValidHomePos(Level level, BlockPos pos) {

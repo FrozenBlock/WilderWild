@@ -24,7 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.monster.warden.Warden;
 
-public class WardenMoveControl extends MoveControl {
+public class WardenMoveControl extends MoveControl<Warden> {
 	private final Warden warden;
 	private final float pitchChange;
 	private final float yawChange;
@@ -83,7 +83,7 @@ public class WardenMoveControl extends MoveControl {
 		}
 	}
 
-	private boolean touchingWaterOrLava(Entity entity) {
-		return entity.isInWater() || entity.isInLava() || entity.isVisuallySwimming();
+	private boolean touchingWaterOrLava(Entity body) {
+		return body.isInWater() || body.isInLava() || body.isVisuallySwimming();
 	}
 }

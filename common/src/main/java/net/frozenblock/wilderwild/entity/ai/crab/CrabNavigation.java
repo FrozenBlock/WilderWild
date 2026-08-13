@@ -35,5 +35,4 @@ public class CrabNavigation extends WallClimberNavigation {
 		}
 		super.tick();
 	}
-
 }

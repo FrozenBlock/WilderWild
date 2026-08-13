@@ -296,11 +296,11 @@ public class FlowerCow extends AbstractCow implements Shearable {
 		return flowerCow;
 	}
 
-	private MoobloomVariant getOffspringType(ServerLevel level, FlowerCow flowerCow) {
-		MoobloomVariant flowerType = this.getVariant();
-		MoobloomVariant otherFlowerType = flowerCow.getVariant();
-		if (flowerType == otherFlowerType) return flowerType;
-		return this.getOffspringVariant(level, flowerCow);
+	private MoobloomVariant getOffspringType(ServerLevel level, FlowerCow other) {
+		final MoobloomVariant thisType = this.getVariant();
+		final MoobloomVariant otherType = other.getVariant();
+		if (thisType == otherType) return thisType;
+		return this.getOffspringVariant(level, other);
 	}
 
 	private MoobloomVariant getOffspringVariant(ServerLevel level, FlowerCow otherFlowerCow) {

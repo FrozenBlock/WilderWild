@@ -40,16 +40,16 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	public boolean checkExtraStartConditions(ServerLevel level, Jellyfish owner) {
-		return owner.shouldHide() && super.checkExtraStartConditions(level, owner);
+	public boolean checkExtraStartConditions(ServerLevel level, Jellyfish entity) {
+		return entity.shouldHide() && super.checkExtraStartConditions(level, entity);
 	}
 
 	@Override
-	protected void tick(ServerLevel level, Jellyfish owner, long timestamp) {
-		super.tick(level, owner, timestamp);
-		if (this.isReachedTarget() && !owner.vanishing) {
-			level.broadcastEntityEvent(owner, EntityEvent.TENDRILS_SHIVER);
-			owner.vanishing = true;
+	protected void tick(ServerLevel level, Jellyfish entity, long timestamp) {
+		super.tick(level, entity, timestamp);
+		if (this.isReachedTarget() && !entity.vanishing) {
+			level.broadcastEntityEvent(entity, EntityEvent.TENDRILS_SHIVER);
+			entity.vanishing = true;
 		}
 	}
 
@@ -65,10 +65,8 @@ public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
 	}
 
 	@Override
-	protected void moveMobToBlock(Jellyfish jellyfish) {
-		jellyfish
-			.getNavigation()
-			.moveTo(this.blockPos.getX() + 0.5, this.blockPos.getY() + 0.5, this.blockPos.getZ() + 0.5, this.speedModifier);
+	protected void moveMobToBlock(Jellyfish entity) {
+		entity.getNavigation().moveTo(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D, this.speedModifier);
 	}
 
 	@Override

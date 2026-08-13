@@ -51,21 +51,20 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 
-public class FireflyAi {
-	protected static final List<SensorType<? extends Sensor<? super Firefly>>> SENSOR_TYPES = List.of(
+public final class FireflyAi {
+	public static final List<SensorType<? extends Sensor<? super Firefly>>> SENSOR_TYPES = List.of(
 		SensorType.NEAREST_LIVING_ENTITIES,
 		WWSensorTypes.FIREFLY_SPECIFIC_SENSOR.get(),
 		WWSensorTypes.FIREFLY_LEADER_SENSOR.get()
 	);
-	protected static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
+	public static final List<MemoryModuleType<?>> MEMORY_TYPES = List.of(
 		MemoryModuleType.HOME,
 		WWMemoryModuleTypes.NEARBY_FIREFLIES.get(),
 		WWMemoryModuleTypes.NATURAL.get(),
 		WWMemoryModuleTypes.HOME_VALIDATE_COOLDOWN.get()
 	);
 
-	private FireflyAi() {
-	}
+	private FireflyAi() {}
 
 	public static void setNatural(Firefly firefly) {
 		firefly.getBrain().setMemory(WWMemoryModuleTypes.NATURAL.get(), Unit.INSTANCE);
@@ -79,7 +78,7 @@ public class FireflyAi {
 		return Brain.provider(MEMORY_TYPES, SENSOR_TYPES, body -> getActivities());
 	}
 
-	protected static List<ActivityData<Firefly>> getActivities() {
+	public static List<ActivityData<Firefly>> getActivities() {
 		return List.of(initCoreActivity(), initIdleActivity());
 	}
 
@@ -117,27 +116,27 @@ public class FireflyAi {
 		);
 	}
 
-	public static void updateActivity(Firefly firefly) {
-		firefly.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
+	public static void updateActivity(Firefly body) {
+		body.getBrain().setActiveActivityToFirstValid(List.of(Activity.IDLE));
 	}
 
-	public static void rememberHome(LivingEntity firefly, BlockPos pos) {
-		firefly.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(firefly.level().dimension(), pos));
+	public static void rememberHome(LivingEntity body, BlockPos pos) {
+		body.getBrain().setMemory(MemoryModuleType.HOME, GlobalPos.of(body.level().dimension(), pos));
 	}
 
-	private static boolean shouldGoTowardsHome(LivingEntity firefly, GlobalPos pos) {
-		return ((Firefly) firefly).hasHome() && firefly.level().dimension() == pos.dimension() && !((Firefly) firefly).shouldHide();
+	private static boolean shouldGoTowardsHome(LivingEntity body, GlobalPos pos) {
+		return ((Firefly) body).hasHome() && body.level().dimension() == pos.dimension() && !((Firefly) body).shouldHide();
 	}
 
-	private static Optional<PositionTracker> getSwarmLeaderTarget(LivingEntity firefly) {
-		return !((Firefly)firefly).hasHome() ? firefly.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get()) : Optional.empty();
+	private static Optional<PositionTracker> getSwarmLeaderTarget(LivingEntity body) {
+		return !((Firefly)body).hasHome() ? body.getBrain().getMemory(WWMemoryModuleTypes.SWARM_LEADER_TRACKER.get()) : Optional.empty();
 	}
 
-	private static Optional<PositionTracker> getHomeTarget(LivingEntity firefly) {
-		final Optional<GlobalPos> home = firefly.getBrain().getMemory(MemoryModuleType.HOME);
+	private static Optional<PositionTracker> getHomeTarget(LivingEntity body) {
+		final Optional<GlobalPos> home = body.getBrain().getMemory(MemoryModuleType.HOME);
 		if (home.isPresent()) {
 			final GlobalPos globalPos = home.get();
-			if (shouldGoTowardsHome(firefly, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), firefly.level())));
+			if (shouldGoTowardsHome(body, globalPos)) return Optional.of(new BlockPosTracker(randomPosAround(globalPos.pos(), body.level())));
 		}
 
 		return Optional.empty();
@@ -147,28 +146,28 @@ public class FireflyAi {
 		return pos.offset(level.getRandom().nextIntBetweenInclusive(-7, 7), level.getRandom().nextIntBetweenInclusive(-7, 7), level.getRandom().nextIntBetweenInclusive(-7, 7));
 	}
 
-	public static List<Firefly> getNearbyFirefliesInRank(Firefly firefly, boolean searchingForLeader) {
-		return new ArrayList<>(firefly.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES.get()).orElse(ImmutableList.of()))
+	public static List<Firefly> getNearbyFirefliesInRank(Firefly body, boolean searchingForLeader) {
+		return new ArrayList<>(body.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_FIREFLIES.get()).orElse(ImmutableList.of()))
 			.stream()
 			.filter(otherFirefly -> otherFirefly.isSwarmLeader() == searchingForLeader)
-			.sorted(Comparator.comparingDouble(firefly::distanceToSqr))
+			.sorted(Comparator.comparingDouble(body::distanceToSqr))
 			.toList();
 	}
 
-	public static void transferLeadershipToRandomFirefly(Firefly firefly) {
-		final Brain<Firefly> brain = firefly.getBrain();
-		final List<Firefly> nonLeaderFireflies = getNearbyFirefliesInRank(firefly, false);
+	public static void transferLeadershipToRandomFirefly(Firefly body) {
+		final Brain<Firefly> brain = body.getBrain();
+		final List<Firefly> nonLeaderFireflies = getNearbyFirefliesInRank(body, false);
 
 		if (!nonLeaderFireflies.isEmpty()) {
-			transferLeadershipTo(firefly, nonLeaderFireflies.getFirst());
+			transferLeadershipTo(body, nonLeaderFireflies.getFirst());
 			return;
 		}
 
 		brain.eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
 	}
 
-	private static void transferLeadershipTo(Firefly firefly, Firefly newLeader) {
+	private static void transferLeadershipTo(Firefly body, Firefly newLeader) {
 		FireflyAi.setSwarmLeader(newLeader);
-		firefly.getBrain().eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
+		body.getBrain().eraseMemory(WWMemoryModuleTypes.IS_SWARM_LEADER.get());
 	}
 }

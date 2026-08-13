@@ -77,6 +77,5 @@ public class JellyfishTemptGoal extends Goal {
 			this.mob.moveToAccurate(this.player, this.speedModifier);
 		}
 	}
-
 }
 

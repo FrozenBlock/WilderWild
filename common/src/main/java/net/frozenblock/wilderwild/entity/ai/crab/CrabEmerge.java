@@ -33,21 +33,21 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean canStillUse(ServerLevel level, E crab, long timestamp) {
+	protected boolean canStillUse(ServerLevel level, E body, long timestamp) {
 		return true;
 	}
 
 	@Override
-	protected void start(ServerLevel level, E crab, long timestamp) {
-		crab.setPose(Pose.EMERGING);
-		crab.playSound(WWSounds.ENTITY_CRAB_EMERGE.get(), 0.5F, 1F);
-		crab.resetDiggingTicks();
-		crab.stopInPlace();
+	protected void start(ServerLevel level, E body, long timestamp) {
+		body.setPose(Pose.EMERGING);
+		body.playSound(WWSounds.ENTITY_CRAB_EMERGE.get(), 0.5F, 1F);
+		body.resetDiggingTicks();
+		body.stopInPlace();
 	}
 
 	@Override
-	protected void stop(ServerLevel level, E crab, long timestamp) {
-		crab.setPose(Pose.STANDING);
-		crab.resetDiggingTicks();
+	protected void stop(ServerLevel level, E body, long timestamp) {
+		body.setPose(Pose.STANDING);
+		body.resetDiggingTicks();
 	}
 }

@@ -24,16 +24,18 @@ import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 
-public class PenguinBoostBoat {
+public final class PenguinBoostBoat {
 	private static final double MAX_DISTANCE = 3D;
 	private static final int BOOST_TICKS = 100;
+
+	private PenguinBoostBoat() {}
 
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(WWMemoryModuleTypes.TRACKED_BOAT.get())
-		).apply(instance, (trackedBoat) -> (level, penguin, l) -> {
+		).apply(instance, (trackedBoat) -> (level, body, timestamp) -> {
 			final AbstractBoat boat = instance.get(trackedBoat);
-			if (penguin.distanceTo(boat) < MAX_DISTANCE) {
+			if (body.distanceTo(boat) < MAX_DISTANCE) {
 				boostForTicks(boat, BOOST_TICKS);
 				return true;
 			}

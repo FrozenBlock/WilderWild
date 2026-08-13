@@ -421,12 +421,10 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState state) {
-	}
+	protected void playStepSound(BlockPos pos, BlockState state) {}
 
 	@Override
-	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
-	}
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
@@ -518,13 +516,10 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void doPush(Entity entity) {
-	}
+	protected void doPush(Entity entity) {}
 
 	@Override
-	protected void pushEntities() {
-	}
+	protected void pushEntities() {}
 
-	public record FireflySpawnGroupData(Holder<FireflyColor> color) implements SpawnGroupData {
-	}
+	public record FireflySpawnGroupData(Holder<FireflyColor> color) implements SpawnGroupData { }
 }

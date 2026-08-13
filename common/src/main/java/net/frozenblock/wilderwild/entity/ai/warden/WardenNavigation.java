@@ -38,8 +38,9 @@ public class WardenNavigation extends GroundPathNavigation {
 
 	@Override
 	public PathFinder createPathFinder(int maxVisitedNodes) {
-		this.nodeEvaluator = new WardenNodeEvaluator(false);
+		this.nodeEvaluator = new WardenNodeEvaluator();
 		this.nodeEvaluator.setCanPassDoors(true);
+
 		return new PathFinder(this.nodeEvaluator, maxVisitedNodes) {
 			private static boolean entitySubmergedInWaterOrLava(Entity entity) {
 				return entity.isUnderWater() || entity.isEyeInFluid(FluidTags.LAVA) || entity.isVisuallySwimming();
@@ -47,25 +48,33 @@ public class WardenNavigation extends GroundPathNavigation {
 
 			@Override
 			public float distance(Node a, Node b) {
-				return WWEntityConfig.WARDEN_SWIMS.get() && this.entitySubmergedInWaterOrLava(warden) ? a.distanceTo(b) : a.distanceToXZ(b);
+				return WWEntityConfig.WARDEN_SWIMS.get() && this.entitySubmergedInWaterOrLava(warden)
+					? a.distanceTo(b)
+					: a.distanceToXZ(b);
 			}
 		};
 	}
 
 	@Override
 	protected Vec3 getTempMobPos() {
-		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid() ? new Vec3(this.warden.getX(), this.warden.getY(0.5), this.warden.getZ()) : super.getTempMobPos();
+		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid()
+			? new Vec3(this.warden.getX(), this.warden.getY(0.5), this.warden.getZ())
+			: super.getTempMobPos();
 	}
 
 	@Override
 	protected double getGroundY(Vec3 target) {
 		final BlockPos pos = BlockPos.containing(target);
-		return WWEntityConfig.WARDEN_SWIMS.get() && (this.isInLiquid() || this.level.getBlockState(pos.below()).isAir()) ? target.y : WardenNodeEvaluator.getFloorLevel(this.level, pos);
+		return WWEntityConfig.WARDEN_SWIMS.get() && (this.isInLiquid() || this.level.getBlockState(pos.below()).isAir())
+			? target.y
+			: WardenNodeEvaluator.getFloorLevel(this.level, pos);
 	}
 
 	@Override
 	protected boolean canMoveDirectly(Vec3 origin, Vec3 target) {
-		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid() ? isClearForMovementBetween(this.warden, origin, target, false) : super.canMoveDirectly(origin, target);
+		return WWEntityConfig.WARDEN_SWIMS.get() && this.isInLiquid()
+			? isClearForMovementBetween(this.warden, origin, target, false)
+			: super.canMoveDirectly(origin, target);
 	}
 
 	@Override

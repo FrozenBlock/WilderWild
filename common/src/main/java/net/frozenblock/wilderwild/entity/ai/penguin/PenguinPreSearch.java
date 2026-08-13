@@ -32,15 +32,14 @@ public class PenguinPreSearch<E extends Penguin> extends Behavior<E> {
 	}
 
 	@Override
-	protected boolean checkExtraStartConditions(ServerLevel level, E penguin) {
-		return !penguin.isTouchingWaterOrSwimming() && PenguinAi.hasNearbyPenguins(penguin);
+	protected boolean checkExtraStartConditions(ServerLevel level, E body) {
+		return !body.isTouchingWaterOrSwimming() && PenguinAi.hasNearbyPenguins(body);
 	}
 
 	@Override
-	protected void start(ServerLevel level, E penguin, long gameTime) {
-		PenguinAi.addCallMemoryIfPenguinsClose(penguin);
-		penguin.stopInPlace();
-		penguin.getBrain().setMemory(WWMemoryModuleTypes.STARTING_SEARCH.get(), Unit.INSTANCE);
+	protected void start(ServerLevel level, E body, long gameTime) {
+		PenguinAi.addCallMemoryIfPenguinsClose(body);
+		body.stopInPlace();
+		body.getBrain().setMemory(WWMemoryModuleTypes.STARTING_SEARCH.get(), Unit.INSTANCE);
 	}
-
 }

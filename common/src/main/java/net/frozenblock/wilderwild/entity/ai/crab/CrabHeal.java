@@ -25,16 +25,17 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import org.jetbrains.annotations.Contract;
 
-public class CrabHeal {
+public final class CrabHeal {
 
-	@Contract(" -> new")
+	private CrabHeal() {}
+
 	public static BehaviorControl<Crab> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.present(WWMemoryModuleTypes.IS_UNDERGROUND.get()),
 			instance.present(MemoryModuleType.DIG_COOLDOWN),
 			instance.registered(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get())
-		).apply(instance, (underground, digCooldown, healCooldown) -> (level, crab, l) -> {
-			final Brain<Crab> brain = crab.getBrain();
+		).apply(instance, (underground, digCooldown, healCooldown) -> (level, body, timestamp) -> {
+			final Brain<Crab> brain = body.getBrain();
 			if (brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get()).isPresent()) {
 				final int cooldownTicks = brain.getMemory(WWMemoryModuleTypes.HEAL_COOLDOWN_TICKS.get()).get();
 				if (cooldownTicks > 0) {
@@ -43,7 +44,7 @@ public class CrabHeal {
 				}
 			}
 			healCooldown.setWithExpiry(20, 5L);
-			crab.heal(0.05F);
+			body.heal(0.05F);
 			return true;
 		}));
 	}

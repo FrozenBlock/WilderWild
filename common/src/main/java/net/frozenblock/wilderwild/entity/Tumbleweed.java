@@ -244,14 +244,14 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	}
 
 	@Override
-	protected void pickUpItem(ServerLevel level, ItemEntity itemEntity) {
-		final ItemStack itemStack = itemEntity.getItem();
+	protected void pickUpItem(ServerLevel level, ItemEntity entity) {
+		final ItemStack itemStack = entity.getItem();
 		if (this.wantsToPickUp(level, itemStack)) {
-			this.onItemPickup(itemEntity);
+			this.onItemPickup(entity);
 			final ItemStack splitStack = itemStack.split(1);
 			this.getInventory().setItem(0, splitStack);
-			this.take(itemEntity, 1);
-			if (itemStack.isEmpty()) itemEntity.discard();
+			this.take(entity, 1);
+			if (itemStack.isEmpty()) entity.discard();
 		}
 	}
 
