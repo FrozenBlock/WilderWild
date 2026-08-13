@@ -2756,7 +2756,9 @@ public final class WWTreeConfigured {
 		return aboveLogsDecorator(
 			probability,
 			placementProbability,
-			singleBlock.get() != null ? BlockStateProvider.simple(singleBlock.get()) : new WeightedStateProvider(blockStates)
+			!singleBlock.get().defaultBlockState().isAir()
+				? BlockStateProvider.simple(singleBlock.get())
+				: new WeightedStateProvider(blockStates)
 		);
 	}
 
