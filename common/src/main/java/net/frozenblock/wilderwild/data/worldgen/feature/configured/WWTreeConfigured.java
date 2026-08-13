@@ -341,6 +341,7 @@ public final class WWTreeConfigured {
 		final TreeDecorator mushroomsFallenCherry = redMushroomDecorator(0.3F, 0.25F);
 		final TreeDecorator mushroomsFallenMossyCherry = redMushroomDecorator(1F, 0.3F);
 		final TreeDecorator mushroomsFallenCypress = brownMushroomDecorator(0.6F, 0.25F);
+		final TreeDecorator mushroomsFallenDarkOak = mushroomDecorator(0.75F, 0.25F, 17, 3);
 		final TreeDecorator mushroomsFallenJungle = mushroomDecorator(1F, 0.25F, 2, 1);
 		final TreeDecorator mushroomsFallenMangrove = brownMushroomDecorator(1F, 0.25F);
 		final TreeDecorator mushroomsFallenMaple = mushroomDecorator(0.3F, 0.25F, 17, 3);
@@ -933,13 +934,13 @@ public final class WWTreeConfigured {
 
 		LARGE_FALLEN_DARK_OAK.makeAndSetHolder(
 			largeFallenBuilder(Blocks.DARK_OAK_LOG, 4, 2, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines1Under26005, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines1Under26005, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenDarkOak))
 				.build()
 		);
 
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(
 			largeSnappedTrunkBuilder(Blocks.DARK_OAK_LOG, 1, 1, 1, 2, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossOak, shelfFungus003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossOak, shelfFungus003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenDarkOak))
 				.build()
 		);
 
@@ -2723,7 +2724,7 @@ public final class WWTreeConfigured {
 
 	public static TreeDecorator aboveLogsDecorator(float probability, float placementProbability, BlockStateProvider stateProvider) {
 		if (probability <= 0F) throw new IllegalArgumentException("Probability must be greater than zero!");
-		
+
 		final AttachedToLogsDecorator attachedToLogsDecorator = new AttachedToLogsDecorator(placementProbability, stateProvider, List.of(Direction.UP));
 		if (probability >= 1F) return attachedToLogsDecorator;
 		return new ProbabilityDecorator(attachedToLogsDecorator, probability);
