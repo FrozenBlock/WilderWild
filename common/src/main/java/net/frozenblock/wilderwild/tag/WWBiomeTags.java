@@ -240,10 +240,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_POLLEN = bind("feature/has_pollen");
 	public static final TagKey<Biome> HAS_FLOWER_FIELD_FLOWERS = bind("feature/has_flower_field_flowers");
 	public static final TagKey<Biome> HAS_FLOWER_FOREST_FLOWERS = bind("feature/has_flower_forest_flowers");
-	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI = bind("feature/has_crimson_shelf_fungi");
-	public static final TagKey<Biome> HAS_WARPED_SHELF_FUNGI = bind("feature/has_warped_shelf_fungi");
-	public static final TagKey<Biome> HAS_CRIMSON_SHELF_FUNGI_RARE = bind("feature/has_crimson_shelf_fungi_rare");
-	public static final TagKey<Biome> HAS_WARPED_SHELF_FUNGI_RARE = bind("feature/has_warped_shelf_fungi_rare");
 	public static final TagKey<Biome> HAS_RAINFOREST_MUSHROOM = bind("feature/has_rainforest_mushroom");
 	public static final TagKey<Biome> HAS_MIXED_MUSHROOM = bind("feature/has_mixed_mushroom");
 	public static final TagKey<Biome> HAS_HIBISCUS = bind("feature/has_hibiscus");

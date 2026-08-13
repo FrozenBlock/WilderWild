@@ -25,12 +25,11 @@ import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HugePaleMushroomFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
 import net.frozenblock.wilderwild.levelgen.feature.LargeMesogleaFeature;
-import net.frozenblock.wilderwild.levelgen.feature.ShelfFungiFeature;
+import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
-import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.frozenblock.wilderwild.levelgen.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.LegacyMapleFoliagePlacer;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.MapleFoliagePlacer;
@@ -105,7 +104,6 @@ public final class WWFeatures {
 			Registries.FEATURE_TYPE,
 			WWConstants.MOD_ID
 		);
-		featureRegister.register("shelf_fungi", () -> ShelfFungiFeature.CODEC);
 		featureRegister.register("sponge_bud", () -> SpongeBudFeature.CODEC);
 		featureRegister.register("cattail", () -> CattailFeature.CODEC);
 		featureRegister.register("water_cover", () -> WaterCoverFeature.CODEC);

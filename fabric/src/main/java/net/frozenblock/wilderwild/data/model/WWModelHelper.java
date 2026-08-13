@@ -24,7 +24,6 @@ import java.util.Optional;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
-import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
@@ -58,7 +57,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -217,45 +215,6 @@ public final class WWModelHelper {
 		generator.registerSimpleFlatItemModel(headBlock.asItem());
 		generator.createCrossBlock(headBlock, BlockModelGenerators.PlantType.NOT_TINTED);
 		generator.createCrossBlock(bodyBlock, BlockModelGenerators.PlantType.NOT_TINTED);
-	}
-
-	public static void createShelfFungi(BlockModelGenerators generator, Block shelfFungiBlock) {
-		final TextureMapping shelfFungiTextureMapping = new TextureMapping();
-		shelfFungiTextureMapping.put(TextureSlot.TOP, TextureMapping.getBlockTexture(shelfFungiBlock));
-		shelfFungiTextureMapping.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(shelfFungiBlock, "_bottom"));
-
-		final MultiVariant model1 = BlockModelGenerators.plainVariant(SHELF_FUNGI_1_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-		final MultiVariant model2 = BlockModelGenerators.plainVariant(SHELF_FUNGI_2_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-		final MultiVariant model3 = BlockModelGenerators.plainVariant(SHELF_FUNGI_3_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-		final MultiVariant model4 = BlockModelGenerators.plainVariant(SHELF_FUNGI_4_MODEL.create(shelfFungiBlock, shelfFungiTextureMapping, generator.modelOutput));
-
-		generator.registerSimpleFlatItemModel(shelfFungiBlock.asItem());
-		generator.blockStateOutput
-			.accept(
-				MultiVariantGenerator.dispatch(shelfFungiBlock)
-					.with(
-						PropertyDispatch.initial(ShelfFungiBlock.STAGE)
-							.select(1, model1)
-							.select(2, model2)
-							.select(3, model3)
-							.select(4, model4)
-					)
-					.with(
-						PropertyDispatch.modify(ShelfFungiBlock.FACE, ShelfFungiBlock.FACING)
-							.select(AttachFace.CEILING, Direction.NORTH, BlockModelGenerators.X_ROT_180.then(BlockModelGenerators.Y_ROT_180))
-							.select(AttachFace.CEILING, Direction.EAST, BlockModelGenerators.X_ROT_180.then(BlockModelGenerators.Y_ROT_270))
-							.select(AttachFace.CEILING, Direction.SOUTH, BlockModelGenerators.X_ROT_180)
-							.select(AttachFace.CEILING, Direction.WEST, BlockModelGenerators.X_ROT_180.then(BlockModelGenerators.Y_ROT_90))
-							.select(AttachFace.FLOOR, Direction.NORTH, BlockModelGenerators.NOP)
-							.select(AttachFace.FLOOR, Direction.EAST, BlockModelGenerators.Y_ROT_90)
-							.select(AttachFace.FLOOR, Direction.SOUTH, BlockModelGenerators.Y_ROT_180)
-							.select(AttachFace.FLOOR, Direction.WEST, BlockModelGenerators.Y_ROT_270)
-							.select(AttachFace.WALL, Direction.NORTH, BlockModelGenerators.X_ROT_90)
-							.select(AttachFace.WALL, Direction.EAST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
-							.select(AttachFace.WALL, Direction.SOUTH, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_180))
-							.select(AttachFace.WALL, Direction.WEST, BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_270))
-					)
-			);
 	}
 
 	public static void createMultifaceBlock(BlockModelGenerators generator, Block multifaceBlock) {

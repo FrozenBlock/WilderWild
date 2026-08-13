@@ -170,14 +170,8 @@ public final class WWBlockItemIds {
 	public static final BlockItemId MYCELIUM_GROWTH = create("mycelium_growth");
 
 	// MUSHROOMS
-	public static final BlockItemId BROWN_SHELF_FUNGI = create("brown_shelf_fungi");
-	public static final BlockItemId RED_SHELF_FUNGI = create("red_shelf_fungi");
-	public static final BlockItemId CRIMSON_SHELF_FUNGI = create("crimson_shelf_fungi");
-	public static final BlockItemId WARPED_SHELF_FUNGI = create("warped_shelf_fungi");
-
 	public static final BlockItemId PALE_MUSHROOM_BLOCK = create("pale_mushroom_block");
 	public static final BlockItemId PALE_MUSHROOM = create("pale_mushroom");
-	public static final BlockItemId PALE_SHELF_FUNGI = create("pale_shelf_fungi");
 
 	// MOSS
 	public static final BlockItemId AUBURN_MOSS_BLOCK = create("auburn_moss_block");
@@ -292,7 +286,7 @@ public final class WWBlockItemIds {
 	public static final BlockItemId PALM_TRAPDOOR = create("palm_trapdoor");
 	public static final BlockItemId PALM_FENCE = create("palm_fence");
 	public static final BlockItemId PALM_LOG = create("palm_log");
-	public static final BlockItemId STRIPPED_PALM_LOG = create("stripped_palm_log"	);
+	public static final BlockItemId STRIPPED_PALM_LOG = create("stripped_palm_log");
 	public static final BlockItemId STRIPPED_HOLLOWED_PALM_LOG = create("stripped_hollowed_palm_log");
 	public static final BlockItemId PALM_WOOD = create("palm_wood");
 	public static final BlockItemId STRIPPED_PALM_WOOD = create("stripped_palm_wood");

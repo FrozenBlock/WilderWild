@@ -18,14 +18,12 @@
 package net.frozenblock.wilderwild.data.loot;
 
 import java.util.stream.IntStream;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SegmentableBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -64,73 +62,6 @@ public class WWBlockLootHelper {
 										)
 								)
 								.when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), BlockLootSubProvider.NORMAL_LEAVES_STICK_CHANCES))
-						)
-				)
-		);
-	}
-
-	public static void makeShelfFungiLoot(BlockLootSubProvider lootProvider, Block shelfFungiBlock, ItemLike dropWithoutShearsOrSilkTouch) {
-		lootProvider.add(shelfFungiBlock,
-			LootTable.lootTable()
-				.withPool(
-					LootPool.lootPool()
-						.when(lootProvider.hasShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							lootProvider.applyExplosionDecay(
-								shelfFungiBlock,
-								LootItem.lootTableItem(shelfFungiBlock).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(1F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(2F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(3F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(ConstantValue.exactly(4F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
-						)
-				).withPool(
-					LootPool.lootPool()
-						.when(lootProvider.doesNotHaveShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
-						.add(
-							lootProvider.applyExplosionDecay(
-								shelfFungiBlock,
-								LootItem.lootTableItem(dropWithoutShearsOrSilkTouch).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 1))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(2F, 5F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 2))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(4F, 7F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 3))
-										)
-								).apply(
-									SetItemCountFunction.setCount(UniformGenerator.between(6F, 10F))
-										.when(
-											MatchBlock.blockMatches(lootProvider.blocks, shelfFungiBlock, StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.FUNGUS_STAGE, 4))
-										)
-								)
-							)
 						)
 				)
 		);

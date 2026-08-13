@@ -49,7 +49,7 @@ public class HeightBasedCobwebTreeDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.HEIGHT_BASED_COBWEB_TREE_DECORATOR.get();
+		return WWTreeDecorators.HEIGHT_BASED_COBWEB.get();
 	}
 
 	@Override

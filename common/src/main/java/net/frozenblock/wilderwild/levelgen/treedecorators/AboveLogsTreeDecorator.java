@@ -49,7 +49,7 @@ public class AboveLogsTreeDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.ABOVE_LOGS_TREE_DECORATOR.get();
+		return WWTreeDecorators.ABOVE_LOGS.get();
 	}
 
 	@Override

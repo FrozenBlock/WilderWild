@@ -53,11 +53,6 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_MILKWEED = register("shearing/milkweed");
 	public static final ResourceKey<LootTable> SHEAR_PRICKLY_PEAR = register("shearing/prickly_pear");
-	public static final ResourceKey<LootTable> SHEAR_RED_SHELF_FUNGI = register("shearing/red_shelf_fungi");
-	public static final ResourceKey<LootTable> SHEAR_BROWN_SHELF_FUNGI = register("shearing/brown_shelf_fungi");
-	public static final ResourceKey<LootTable> SHEAR_PALE_SHELF_FUNGI = register("shearing/pale_shelf_fungi");
-	public static final ResourceKey<LootTable> SHEAR_CRIMSON_SHELF_FUNGI = register("shearing/crimson_shelf_fungi");
-	public static final ResourceKey<LootTable> SHEAR_WARPED_SHELF_FUNGI = register("shearing/warped_shelf_fungi");
 	public static final ResourceKey<LootTable> SHEAR_SPONGE_BUD = register("shearing/sponge_bud");
 	public static final ResourceKey<LootTable> SHEAR_SHRUB = register("shearing/shrub");
 

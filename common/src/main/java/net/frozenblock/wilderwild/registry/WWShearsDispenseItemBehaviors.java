@@ -22,7 +22,6 @@ import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
-import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
@@ -41,11 +40,6 @@ public final class WWShearsDispenseItemBehaviors {
 			if (state.getBlock() != WWBlocks.PRICKLY_PEAR.get() || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
 			PricklyPearCactusBlock.onPricklyPearPick(level, pos, state, true, shears, null);
 			return true;
-		});
-
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
-			if (state.getBlock() instanceof ShelfFungiBlock) return ShelfFungiBlock.onShear(level, pos, state, shears, null);
-			return false;
 		});
 
 		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {

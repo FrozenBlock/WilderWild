@@ -63,7 +63,6 @@ import net.frozenblock.wilderwild.block.NematocystBlock;
 import net.frozenblock.wilderwild.block.OsseousSculkBlock;
 import net.frozenblock.wilderwild.block.OstrichEggBlock;
 import net.frozenblock.wilderwild.block.PaleMushroomBlock;
-import net.frozenblock.wilderwild.block.PaleShelfFungiBlock;
 import net.frozenblock.wilderwild.block.PalmFrondsBlock;
 import net.frozenblock.wilderwild.block.PenguinEggBlock;
 import net.frozenblock.wilderwild.block.PlanktonBlock;
@@ -76,7 +75,6 @@ import net.frozenblock.wilderwild.block.SculkWallBlock;
 import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
 import net.frozenblock.wilderwild.block.SeaWhipBlock;
 import net.frozenblock.wilderwild.block.SeedingFlowerBlock;
-import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.StoneChestBlock;
@@ -778,22 +776,6 @@ public final class WWBlocks {
 	public static final FrozenDeferredBlock<Block> POTTED_FROZEN_BUSH = registerFlowerPot(WWBlockIds.POTTED_FROZEN_BUSH, FROZEN_BUSH);
 
 	// MUSHROOMS
-	public static final FrozenDeferredBlock<ShelfFungiBlock> BROWN_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.BROWN_SHELF_FUNGI.block(),
-		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_BROWN_SHELF_FUNGI, properties),
-		() -> shelfFungiProperties(MapColor.COLOR_BROWN, WWSoundTypes.MUSHROOM).lightLevel(state -> 1)
-	);
-	public static final FrozenDeferredBlock<ShelfFungiBlock> RED_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.RED_SHELF_FUNGI.block(),
-		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_RED_SHELF_FUNGI, properties),
-		() -> shelfFungiProperties(MapColor.COLOR_RED, WWSoundTypes.MUSHROOM)
-	);
-	public static final FrozenDeferredBlock<ShelfFungiBlock> CRIMSON_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.CRIMSON_SHELF_FUNGI.block(),
-		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_CRIMSON_SHELF_FUNGI, properties),
-		() -> shelfFungiProperties(MapColor.NETHER, SoundType.FUNGUS)
-	);
-	public static final FrozenDeferredBlock<ShelfFungiBlock> WARPED_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.WARPED_SHELF_FUNGI.block(),
-		properties -> new ShelfFungiBlock(WWLootTables.SHEAR_WARPED_SHELF_FUNGI, properties),
-		() -> shelfFungiProperties(MapColor.NETHER, SoundType.FUNGUS)
-	);
 	public static final FrozenDeferredBlock<HugePaleMushroomBlock> PALE_MUSHROOM_BLOCK = REGISTER.registerBlock(WWBlockItemIds.PALE_MUSHROOM_BLOCK.block(),
 		HugePaleMushroomBlock::new,
 		() -> Properties.of()
@@ -815,22 +797,6 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.POPPED)
 	);
 	public static final FrozenDeferredBlock<Block> POTTED_PALE_MUSHROOM = registerFlowerPot(WWBlockIds.POTTED_PALE_MUSHROOM, PALE_MUSHROOM);
-	public static final FrozenDeferredBlock<PaleShelfFungiBlock> PALE_SHELF_FUNGI = REGISTER.registerBlock(WWBlockItemIds.PALE_SHELF_FUNGI.block(),
-		properties -> new PaleShelfFungiBlock(WWLootTables.SHEAR_PALE_SHELF_FUNGI, properties),
-		() -> shelfFungiProperties(MapColor.COLOR_GRAY, WWSoundTypes.MUSHROOM)
-	);
-
-	public static Properties shelfFungiProperties(MapColor mapColor, SoundType soundType) {
-		return Properties.of()
-			.mapColor(mapColor)
-			.strength(0.2F)
-			.randomTicks()
-			.noCollision()
-			.noOcclusion()
-			.sound(soundType)
-			.postProcess(Blocks::postProcessSelf)
-			.pushReaction(PushReaction.POPPED);
-	}
 
 	// MOSS
 	public static final FrozenDeferredBlock<AuburnMossBlock> AUBURN_MOSS_BLOCK = REGISTER.registerBlock(WWBlockItemIds.AUBURN_MOSS_BLOCK.block(),

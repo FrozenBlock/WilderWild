@@ -1530,18 +1530,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.GROVE)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-		this.builder(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI)
-			.add(Biomes.CRIMSON_FOREST);
-
-		this.builder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI)
-			.add(Biomes.WARPED_FOREST);
-
-		this.builder(WWBiomeTags.HAS_WARPED_SHELF_FUNGI_RARE)
-			.add(Biomes.CRIMSON_FOREST);
-
-		this.builder(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI_RARE)
-			.add(Biomes.WARPED_FOREST);
-
 		this.builder(WWBiomeTags.HAS_FALLEN_CRIMSON_FUNGI)
 			.add(Biomes.CRIMSON_FOREST);
 

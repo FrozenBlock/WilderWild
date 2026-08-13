@@ -50,7 +50,7 @@ public class HeightBasedVineTreeDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.HEIGHT_BASED_VINE_TREE_DECORATOR.get();
+		return WWTreeDecorators.HEIGHT_BASED_VINE.get();
 	}
 
 	@Override

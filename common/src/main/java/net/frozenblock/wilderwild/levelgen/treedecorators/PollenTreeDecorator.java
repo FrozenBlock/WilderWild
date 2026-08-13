@@ -51,7 +51,7 @@ public class PollenTreeDecorator extends TreeDecorator {
 
 	@Override
 	protected TreeDecoratorType<?> type() {
-		return WWTreeDecorators.POLLEN_TREE_DECORATOR.get();
+		return WWTreeDecorators.POLLEN.get();
 	}
 
 	@Override

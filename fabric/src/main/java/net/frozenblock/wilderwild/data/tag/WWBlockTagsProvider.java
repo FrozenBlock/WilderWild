@@ -292,14 +292,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE)
-			.add(BlockItemIds.MUSHROOM_STEM)
-			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
-
-		this.builder(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE_NETHER)
-			.addOptionalTag(BlockItemTags.CRIMSON_STEMS.block())
-			.addOptionalTag(BlockItemTags.WARPED_STEMS.block());
-
 		this.builder(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
 			.add(BlockItemIds.SAND, WWBlockItemIds.SCORCHED_SAND);
 
@@ -756,7 +748,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.RESIN_CLUMP)
 			.add(BlockItemIds.CREAKING_HEART)
 			.add(BlockItemIds.CLOSED_EYEBLOSSOM, BlockItemIds.OPEN_EYEBLOSSOM)
-			.add(WWBlockItemIds.PALE_MUSHROOM, WWBlockItemIds.PALE_SHELF_FUNGI, WWBlockItemIds.PALE_MUSHROOM_BLOCK);
+			.add(WWBlockItemIds.PALE_MUSHROOM, WWBlockItemIds.PALE_MUSHROOM_BLOCK);
 
 		this.builder(WWBlockTags.BLOCKS_TERMITE)
 			.addOptionalTag(ConventionalBlockTags.GLASS_BLOCKS)
@@ -776,8 +768,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.TUMBLEWEED, WWBlockItemIds.TUMBLEWEED_PLANT)
 			.add(WWBlockItemIds.PRICKLY_PEAR)
 			.add(WWBlockItemIds.MYCELIUM_GROWTH)
-			.add(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlockItemIds.RED_SHELF_FUNGI, WWBlockItemIds.PALE_SHELF_FUNGI)
-			.add(WWBlockItemIds.CRIMSON_SHELF_FUNGI, WWBlockItemIds.WARPED_SHELF_FUNGI)
 			.add(WWBlockItemIds.PALE_MUSHROOM_BLOCK, WWBlockItemIds.PALE_MUSHROOM)
 			.add(WWBlockItemIds.CLOVERS)
 			.add(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlockItemIds.FROZEN_TALL_GRASS)
@@ -845,8 +835,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.FLOWERING_LILY_PAD)
 			.add(WWBlockItemIds.ALGAE)
 			.add(WWBlockItemIds.PLANKTON)
-			.add(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlockItemIds.RED_SHELF_FUNGI, WWBlockItemIds.PALE_SHELF_FUNGI)
-			.add(WWBlockItemIds.CRIMSON_SHELF_FUNGI, WWBlockItemIds.WARPED_SHELF_FUNGI)
 			.add(WWBlockItemIds.SPONGE_BUD)
 			.add(WWBlockItemIds.BARNACLES)
 			.add(WWBlockItemIds.PRICKLY_PEAR)

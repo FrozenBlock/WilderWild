@@ -1,6 +1,6 @@
 {
   "copy_blockstate_properties": true,
-  "eat_sound": "wilderwild:block.log_hollowed",
+  "eat_sound": "wilderwild:block.termite_mound.hollow",
   "edible_blocks": "minecraft:stripped_jungle_log",
   "natural_termite_usable": false,
   "output_block": "wilderwild:stripped_hollowed_jungle_log",

@@ -659,24 +659,6 @@ public final class WWVegetationGeneration {
 					}
 				}
 
-				if (WWWorldgenConfig.SHELF_FUNGI_GENERATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.CRIMSON_SHELF_FUNGI.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WARPED_SHELF_FUNGI)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.WARPED_SHELF_FUNGI.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CRIMSON_SHELF_FUNGI_RARE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.CRIMSON_SHELF_FUNGI_RARE.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_WARPED_SHELF_FUNGI_RARE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWPlacedFeatures.WARPED_SHELF_FUNGI_RARE.getKey());
-					}
-				}
-
 				if (WWWorldgenConfig.PALE_MUSHROOM_GENERATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HUGE_PALE_MUSHROOM)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.HUGE_PALE_MUSHROOM.getKey());

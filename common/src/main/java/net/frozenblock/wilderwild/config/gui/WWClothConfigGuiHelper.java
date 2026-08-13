@@ -71,6 +71,15 @@ public final class WWClothConfigGuiHelper {
 		);
 	}
 
+	public static BooleanListEntry shelfMushroomGenerationBooleanEntry(ConfigEntryBuilder builder, String treeName, ConfigEntry<Boolean> configEntry) {
+		return FrozenLibClothConfigGuiHelper.booleanEntry(
+			builder,
+			Component.translatable("option.wilderwild.shelf_mushroom_generation." + treeName),
+			configEntry,
+			Component.translatable("tooltip.wilderwild.shelf_mushroom_generation." + treeName)
+		);
+	}
+
 	public static BooleanListEntry litterBlockGenerationBooleanEntry(ConfigEntryBuilder builder, Block block, ConfigEntry<Boolean> configEntry) {
 		final Component blockName = block.getName();
 		return FrozenLibClothConfigGuiHelper.booleanEntry(

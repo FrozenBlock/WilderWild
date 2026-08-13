@@ -133,12 +133,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.generatePaleMushroomBlock(generator);
 		generator.createPlantWithDefaultItem(WWBlocks.PALE_MUSHROOM.get(), WWBlocks.POTTED_PALE_MUSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
-		WWModelHelper.createShelfFungi(generator, WWBlocks.BROWN_SHELF_FUNGI.get());
-		WWModelHelper.createShelfFungi(generator, WWBlocks.RED_SHELF_FUNGI.get());
-		WWModelHelper.createShelfFungi(generator, WWBlocks.PALE_SHELF_FUNGI.get());
-		WWModelHelper.createShelfFungi(generator, WWBlocks.CRIMSON_SHELF_FUNGI.get());
-		WWModelHelper.createShelfFungi(generator, WWBlocks.WARPED_SHELF_FUNGI.get());
-
 		generator.createLeafLitter(WWBlocks.ACACIA_LEAF_LITTER.get());
 		generator.createLeafLitter(WWBlocks.AZALEA_LEAF_LITTER.get());
 		generator.createLeafLitter(WWBlocks.BAOBAB_LEAF_LITTER.get());

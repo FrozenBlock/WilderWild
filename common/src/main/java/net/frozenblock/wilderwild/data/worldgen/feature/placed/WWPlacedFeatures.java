@@ -195,10 +195,6 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature SNAPPED_MAPLE_CLEARING_PLACED = register("snapped_maple_clearing");
 	public static final FrozenLibPlacedFeature SNAPPED_PALE_OAK_PLACED = register("snapped_pale_oak");
 	// MUSHROOMS
-	public static final FrozenLibPlacedFeature CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi");
-	public static final FrozenLibPlacedFeature WARPED_SHELF_FUNGI = register("warped_shelf_fungi");
-	public static final FrozenLibPlacedFeature CRIMSON_SHELF_FUNGI_RARE = register("crimson_shelf_fungi_rare");
-	public static final FrozenLibPlacedFeature WARPED_SHELF_FUNGI_RARE = register("warped_shelf_fungi_rare");
 	public static final FrozenLibPlacedFeature BROWN_MUSHROOM = register("brown_mushroom");
 	public static final FrozenLibPlacedFeature RED_MUSHROOM = register("red_mushroom");
 	public static final FrozenLibPlacedFeature PALE_MUSHROOM = register("pale_mushroom");
@@ -1107,34 +1103,6 @@ public final class WWPlacedFeatures {
 			CountPlacement.of(96),
 			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
-		);
-
-		CRIMSON_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI,
-			CountPlacement.of(230),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP),
-			BiomeFilter.biome()
-		);
-
-		WARPED_SHELF_FUNGI.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI,
-			CountPlacement.of(230),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP),
-			BiomeFilter.biome()
-		);
-
-		CRIMSON_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.CRIMSON_SHELF_FUNGI,
-			CountPlacement.of(40),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP),
-			BiomeFilter.biome()
-		);
-
-		WARPED_SHELF_FUNGI_RARE.makeAndSetHolder(WWConfiguredFeatures.WARPED_SHELF_FUNGI,
-			CountPlacement.of(40),
-			InSquarePlacement.spread(),
-			HeightRangePlacement.triangle(VerticalAnchor.BOTTOM, VerticalAnchor.TOP),
-			BiomeFilter.biome()
 		);
 
 		RED_MUSHROOM.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.RED_MUSHROOM),

@@ -560,12 +560,6 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.SCORCHED_SAND.get());
 		this.dropSelf(WWBlocks.SCORCHED_RED_SAND.get());
 
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.BROWN_SHELF_FUNGI.get(), Items.BROWN_MUSHROOM);
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.RED_SHELF_FUNGI.get(), Items.RED_MUSHROOM);
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.PALE_SHELF_FUNGI.get(), WWBlocks.PALE_MUSHROOM.get());
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.CRIMSON_SHELF_FUNGI.get(), Items.CRIMSON_FUNGUS);
-		WWBlockLootHelper.makeShelfFungiLoot(this, WWBlocks.WARPED_SHELF_FUNGI.get(), Items.WARPED_FUNGUS);
-
 		this.dropSelf(WWBlocks.PALE_MUSHROOM.get());
 		this.dropPottedContents(WWBlocks.POTTED_PALE_MUSHROOM.get());
 		this.add(WWBlocks.PALE_MUSHROOM_BLOCK.get(), block -> this.createMushroomBlockDrop(block, WWBlocks.PALE_MUSHROOM.get()));

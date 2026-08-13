@@ -162,8 +162,6 @@ public final class WWBlockTags {
 	public static final TagKey<Block> TERMITE_DISK_REPLACEABLE = bind("feature/termite_disk_replaceable");
 	public static final TagKey<Block> PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/pearlescent_blue_nematocyst_placeable");
 	public static final TagKey<Block> PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE = bind("feature/pearlescent_purple_nematocyst_placeable");
-	public static final TagKey<Block> SHELF_FUNGI_FEATURE_PLACEABLE = bind("feature/shelf_fungi_feature_placeable");
-	public static final TagKey<Block> SHELF_FUNGI_FEATURE_PLACEABLE_NETHER = bind("feature/shelf_fungi_feature_placeable_nether");
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("feature/scorched_sand_feature_inner_replaceable");
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_REPLACEABLE = bind("feature/scorched_sand_feature_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("feature/red_scorched_sand_feature_inner_replaceable");

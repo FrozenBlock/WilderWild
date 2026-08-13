@@ -44,8 +44,9 @@ public final class WWMinecraftDataFixer {
 	// 9 is 26.2-snapshot-5 (mojang added sulfur geysers, team yelled at me to rename our geyser to geothermal vent)
 	// 10 is FrozenLib 2.5, for 26.2-snapshot-6+. Added waterlikes, which came with lots of refactoring.
 	// 11 is 26.2-snapshot-2 (i finally decided to start datafixing migrations to data attachments)
+	// 12 is 26.3-snapshot-7 (finally removed shelf fungi since Mojang added the shelf mushroom)
 
-	public static final int DATA_VERSION = 11;
+	public static final int DATA_VERSION = 12;
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
@@ -229,6 +230,43 @@ public final class WWMinecraftDataFixer {
 		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11,"minecraft:chest"));
 		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11, "minecraft:trapped_chest"));
 		builder.addFixer(new ChestBubbleToAttachmentFix(schemaV11, WWConstants.string("stone_chest")));
+
+		final Schema schemaV12 = builder.addSchema(12, NamespacedSchema::new);
+		SimpleFixes.addLegacyBlockItemRenameFix(
+			builder,
+			"Rename wilderwild:brown_shelf_fungi to minecraft:shelf_mushroom",
+			WWConstants.id("brown_shelf_fungi"),
+			WWConstants.vanillaId("shelf_mushroom"),
+			schemaV12
+		);
+		SimpleFixes.addLegacyBlockItemRenameFix(
+			builder,
+			"Rename wilderwild:red_shelf_fungi to minecraft:shelf_mushroom",
+			WWConstants.id("red_shelf_fungi"),
+			WWConstants.vanillaId("shelf_mushroom"),
+			schemaV12
+		);
+		SimpleFixes.addLegacyBlockItemRenameFix(
+			builder,
+			"Rename wilderwild:pale_shelf_fungi to minecraft:shelf_mushroom",
+			WWConstants.id("pale_shelf_fungi"),
+			WWConstants.vanillaId("shelf_mushroom"),
+			schemaV12
+		);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Rename wilderwild:crimson_shelf_fungi to minecraft:shelf_mushroom",
+			WWConstants.id("crimson_shelf_fungi"),
+			WWConstants.vanillaId("shelf_mushroom"),
+			schemaV12
+		);
+		SimpleFixes.addItemRenameFix(
+			builder,
+			"Rename wilderwild:warped_shelf_fungi to minecraft:shelf_mushroom",
+			WWConstants.id("warped_shelf_fungi"),
+			WWConstants.vanillaId("shelf_mushroom"),
+			schemaV12
+		);
 
 		QuiltDataFixes.buildAndRegisterMinecraftFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);

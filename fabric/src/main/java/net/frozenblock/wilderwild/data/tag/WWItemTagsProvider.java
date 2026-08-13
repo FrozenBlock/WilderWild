@@ -56,14 +56,6 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 		this.builder(ItemTags.ARMADILLO_FOOD)
 			.add(WWItemIds.SCORCHED_EYE);
 
-		this.builder(WWItemTags.BROWN_MUSHROOM_STEW_INGREDIENTS)
-			.add(BlockItemIds.BROWN_MUSHROOM)
-			.addOptional(WWBlockItemIds.BROWN_SHELF_FUNGI.item());
-
-		this.builder(WWItemTags.RED_MUSHROOM_STEW_INGREDIENTS)
-			.add(BlockItemIds.RED_MUSHROOM)
-			.addOptional(WWBlockItemIds.RED_SHELF_FUNGI.item());
-
 		this.builder(WWItemTags.TUMBLEWEED_COMMON)
 			.add(ItemIds.ROTTEN_FLESH)
 			.add(ItemIds.BONE_MEAL)
@@ -104,9 +96,6 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 
 		this.builder(WWItemTags.PENGUIN_FOOD)
 			.add(ItemIds.INK_SAC, ItemIds.GLOW_INK_SAC);
-
-		this.builder(ItemTags.MUSHROOMS)
-			.add(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlockItemIds.RED_SHELF_FUNGI);
 
 		this.builder(ItemTags.BOATS)
 			.add(WWItemIds.BAOBAB_BOAT)

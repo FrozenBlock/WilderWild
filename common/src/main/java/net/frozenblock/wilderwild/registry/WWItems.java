@@ -375,25 +375,10 @@ public final class WWItems {
 	);
 
 	// MUSHROOMS
-	public static final FrozenDeferredItem<BlockItem> BROWN_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BROWN_SHELF_FUNGI, WWBlocks.BROWN_SHELF_FUNGI,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
-	);
-	public static final FrozenDeferredItem<BlockItem> RED_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_SHELF_FUNGI, WWBlocks.RED_SHELF_FUNGI,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
-	);
-	public static final FrozenDeferredItem<BlockItem> CRIMSON_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CRIMSON_SHELF_FUNGI, WWBlocks.CRIMSON_SHELF_FUNGI,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
-	);
-	public static final FrozenDeferredItem<BlockItem> WARPED_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WARPED_SHELF_FUNGI, WWBlocks.WARPED_SHELF_FUNGI,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
-	);
 	public static final FrozenDeferredItem<BlockItem> PALE_MUSHROOM_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK,
 		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final FrozenDeferredItem<BlockItem> PALE_MUSHROOM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_MUSHROOM, WWBlocks.PALE_MUSHROOM,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
-	);
-	public static final FrozenDeferredItem<BlockItem> PALE_SHELF_FUNGI = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_SHELF_FUNGI, WWBlocks.PALE_SHELF_FUNGI,
 		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
 	);
 

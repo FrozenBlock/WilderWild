@@ -297,16 +297,9 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.AUBURN_MOSS_BLOCK, WWItems.AUBURN_MOSS_CARPET);
 		insertAfterInNaturalBlocks(WWItems.AUBURN_MOSS_CARPET, WWItems.AUBURN_CREEPING_MOSS);
 
-		// SHELF FUNGI
-		insertAfterInNaturalBlocks(Items.WARPED_FUNGUS, WWItems.BROWN_SHELF_FUNGI);
-		insertAfterInNaturalBlocks(WWItems.BROWN_SHELF_FUNGI, WWItems.RED_SHELF_FUNGI);
-		insertAfterInNaturalBlocks(WWItems.RED_SHELF_FUNGI, WWItems.CRIMSON_SHELF_FUNGI);
-		insertAfterInNaturalBlocks(WWItems.CRIMSON_SHELF_FUNGI, WWItems.WARPED_SHELF_FUNGI);
-
 		// PALE MUSHROOMS
 		insertAfterInNaturalBlocks(Items.RED_MUSHROOM_BLOCK, WWItems.PALE_MUSHROOM_BLOCK);
 		insertAfterInNaturalBlocks(Items.RED_MUSHROOM, WWItems.PALE_MUSHROOM);
-		insertAfterInNaturalBlocks(WWItems.RED_SHELF_FUNGI, WWItems.PALE_SHELF_FUNGI);
 
 		// SPONGE
 		insertAfterInNaturalBlocks(Items.WET_SPONGE, WWItems.SPONGE_BUD);

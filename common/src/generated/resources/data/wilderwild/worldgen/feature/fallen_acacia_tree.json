@@ -20,7 +20,7 @@
   },
   "decorators": [
     {
-      "type": "wilderwild:height_based_vine_tree_decorator",
+      "type": "wilderwild:height_based_vine",
       "max_height": 260,
       "placement_chance": 0.25,
       "probability": 0.12

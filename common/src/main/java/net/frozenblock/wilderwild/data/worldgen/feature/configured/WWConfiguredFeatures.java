@@ -22,10 +22,9 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
-import net.frozenblock.wilderwild.levelgen.feature.ShelfFungiFeature;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -64,8 +63,8 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WWConfiguredFeatures {
@@ -342,8 +341,6 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature GRASS_AND_FERN = register("grass_and_fern");
 	public static final FrozenLibFeature MYCELIUM_GROWTH = register("mycelium_growth");
 	public static final FrozenLibFeature POLLEN = register("pollen");
-	public static final FrozenLibFeature CRIMSON_SHELF_FUNGI = register("crimson_shelf_fungi");
-	public static final FrozenLibFeature WARPED_SHELF_FUNGI = register("warped_shelf_fungi");
 	public static final FrozenLibFeature TERMITE_MOUND = register("termite_mound");
 	public static final FrozenLibFeature TUMBLEWEED = register("tumbleweed");
 
@@ -3129,28 +3126,6 @@ public final class WWConfiguredFeatures {
 				true,
 				0.5F,
 				blocks.getOrThrow(WWBlockTags.POLLEN_FEATURE_PLACEABLE)
-			)
-		);
-
-		CRIMSON_SHELF_FUNGI.makeAndSetHolder(
-			new ShelfFungiFeature(
-				WWBlocks.CRIMSON_SHELF_FUNGI.get(),
-				12,
-				true,
-				true,
-				true,
-				blocks.getOrThrow(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE_NETHER)
-			)
-		);
-
-		WARPED_SHELF_FUNGI.makeAndSetHolder(
-			new ShelfFungiFeature(
-				WWBlocks.WARPED_SHELF_FUNGI.get(),
-				12,
-				true,
-				true,
-				true,
-				blocks.getOrThrow(WWBlockTags.SHELF_FUNGI_FEATURE_PLACEABLE_NETHER)
 			)
 		);
 

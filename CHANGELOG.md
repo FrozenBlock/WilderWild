@@ -94,6 +94,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added a config option to toggle Dappled Forest generation.
 - Added the `wilderwild:termite_edible` Structure Processor, with the following format:
   - `value`: Can be either true or false. Sets the `termite_edible` property to this value for all Blocks with this property.
+- Renamed the following Tree Decorator Types:
+  - `wilderwild:height_based_vine_tree_decorator` -> `wilderwild:height_based_vine`
+  - `wilderwild:height_based_cobweb_tree_decorator` -> `wilderiwld:height_based_cobweb`
+  - `wilderwild:pollen_tree_decorator` -> `wilderwild:pollen`
+  - `wilderwild:above_logs_tree_decorator` -> `wilderwild:above_logs`
+- Removed all Shelf Fungi blocks, as Vanilla's new Shelf Mushroom block offers a sufficient replacement.
+  - All overworld trees that used to generate Shelf Fungi can now generate Shelf Mushrooms.
+    - This generation is disabled by default for all tree types other than Jungle trees, and can be toggled via new config options.
 - Fixed inconsistent/incorrect shading for the following:
   - Hanging Baobab Nut Stems
   - Hanging Coconut Stems

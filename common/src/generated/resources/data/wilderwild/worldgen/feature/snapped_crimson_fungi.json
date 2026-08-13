@@ -4,35 +4,7 @@
     "type": "minecraft:simple_state_provider",
     "state": "minecraft:crimson_nylium"
   },
-  "decorators": [
-    {
-      "type": "wilderwild:shelf_fungi_tree_decorator",
-      "placement_chance": 0.25,
-      "probability": 0.0875,
-      "shelf_fungi_provider": {
-        "type": "minecraft:randomized_int_state_provider",
-        "property": "shelf_fungus_stage",
-        "source": {
-          "type": "minecraft:weighted_state_provider",
-          "entries": [
-            {
-              "data": "wilderwild:crimson_shelf_fungi",
-              "weight": 9
-            },
-            {
-              "data": "wilderwild:warped_shelf_fungi",
-              "weight": 1
-            }
-          ]
-        },
-        "values": {
-          "type": "minecraft:uniform",
-          "max_inclusive": 4,
-          "min_inclusive": 1
-        }
-      }
-    }
-  ],
+  "decorators": [],
   "foliage_placer": {
     "type": "wilderwild:no_op_foliage_placer"
   },

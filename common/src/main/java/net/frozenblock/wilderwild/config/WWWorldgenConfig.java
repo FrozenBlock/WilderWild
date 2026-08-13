@@ -114,6 +114,18 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> OAK_BRANCH_GENERATION = CONFIG.entry("treeGeneration/oakBranches", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> DARK_OAK_BRANCH_GENERATION = CONFIG.entry("treeGeneration/darkOakBranches", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> PALE_OAK_BRANCH_GENERATION = CONFIG.entry("treeGeneration/paleOakBranches", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ACACIA_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/acaciaShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> BIRCH_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/birchShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> CHERRY_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/cherryShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> CYPRESS_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/cypressShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> JUNGLE_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/jungleShelfMushroom", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> MANGROVE_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/mangroveShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> OAK_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/oakShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> DARK_OAK_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/darkOakShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> PALE_OAK_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/paleOakShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> SPRUCE_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/spruceShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> WILLOW_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/willowShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> MAPLE_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/mapleShelfMushroom", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> ACACIA_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/acaciaLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> AZALEA_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/azaleaLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> BAOBAB_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/baobabLeafLitter", EntryType.BOOL, true).requireRestart().build();
@@ -135,7 +147,6 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> FLOWER_GENERATION = CONFIG.entryBuilder("vegetation/flowerGeneration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SHRUB_GENERATION = CONFIG.entryBuilder("vegetation/shrubGeneration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> CACTUS_GENERATION = CONFIG.entryBuilder("vegetation/cactusGeneration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> SHELF_FUNGI_GENERATION = CONFIG.entryBuilder("vegetation/shelfFungiGeneration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MUSHROOM_GENERATION = CONFIG.entryBuilder("vegetation/mushroomGeneration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALE_MUSHROOM_GENERATION = CONFIG.entryBuilder("vegetation/paleMushroomGeneration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> POLLEN_GENERATION = CONFIG.entryBuilder("vegetation/pollen", EntryType.BOOL, true).requireRestart().build();
