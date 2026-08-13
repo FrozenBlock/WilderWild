@@ -26,13 +26,19 @@
       "probability": 0.12
     },
     {
-      "type": "wilderwild:above_logs",
-      "placement_chance": 0.28,
-      "probability": 0.47,
-      "state": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:moss_carpet"
-      }
+      "type": "frozenlib:probability",
+      "decorator": {
+        "type": "minecraft:attached_to_logs",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:moss_carpet"
+        },
+        "directions": [
+          "up"
+        ],
+        "probability": 0.28
+      },
+      "probability": 0.47
     },
     {
       "type": "frozenlib:probability",
@@ -49,6 +55,21 @@
         }
       },
       "probability": 0.0975
+    },
+    {
+      "type": "frozenlib:probability",
+      "decorator": {
+        "type": "minecraft:attached_to_logs",
+        "block_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:red_mushroom"
+        },
+        "directions": [
+          "up"
+        ],
+        "probability": 0.25
+      },
+      "probability": 0.3
     }
   ],
   "foliage_placer": {

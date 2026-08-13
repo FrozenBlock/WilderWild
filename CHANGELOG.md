@@ -99,9 +99,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - `wilderwild:height_based_cobweb_tree_decorator` -> `wilderiwld:height_based_cobweb`
   - `wilderwild:pollen_tree_decorator` -> `wilderwild:pollen`
   - `wilderwild:above_logs_tree_decorator` -> `wilderwild:above_logs`
+- Removed the `wilderwild:above_logs_tree_decorator` Tree Decorator Type, as `frozenlib:probability` and `minecraft:attached_to_logs` provide the same functionality.
 - Removed all Shelf Fungi blocks, as Vanilla's new Shelf Mushroom block offers a sufficient replacement.
   - All overworld trees that used to generate Shelf Fungi can now generate Shelf Mushrooms.
     - This generation is disabled by default for all tree types other than Jungle trees, and can be toggled via new config options.
+  - All overworld fallen trees that used to generate Shelf Fungi can now generate Mushrooms, similar to Vanilla's fallen trees.
 - Fixed inconsistent/incorrect shading for the following:
   - Hanging Baobab Nut Stems
   - Hanging Coconut Stems

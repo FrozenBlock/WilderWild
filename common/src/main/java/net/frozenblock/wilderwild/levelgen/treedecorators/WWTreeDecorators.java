@@ -34,7 +34,6 @@ public final class WWTreeDecorators {
 	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<HeightBasedVineTreeDecorator>> HEIGHT_BASED_VINE = register("height_based_vine", HeightBasedVineTreeDecorator.CODEC);
 	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<HeightBasedCobwebTreeDecorator>> HEIGHT_BASED_COBWEB = register("height_based_cobweb", HeightBasedCobwebTreeDecorator.CODEC);
 	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<PollenTreeDecorator>> POLLEN = register("pollen", PollenTreeDecorator.CODEC);
-	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<AboveLogsTreeDecorator>> ABOVE_LOGS = register("above_logs", AboveLogsTreeDecorator.CODEC);
 
 	static {
 		REGISTER.register();

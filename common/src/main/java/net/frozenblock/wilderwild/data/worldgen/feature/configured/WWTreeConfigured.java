@@ -22,11 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
-import net.frozenblock.lib.levelgen.feature.api.treedecorators.ConfigPredicateDecorator;
 import net.frozenblock.lib.levelgen.feature.api.treedecorators.ProbabilityDecorator;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
@@ -44,7 +45,6 @@ import net.frozenblock.wilderwild.levelgen.foliageplacers.WillowFoliagePlacer;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.WindmillPalmFoliagePlacer;
 import net.frozenblock.wilderwild.levelgen.rootplacers.WillowRootPlacement;
 import net.frozenblock.wilderwild.levelgen.rootplacers.WillowRootPlacer;
-import net.frozenblock.wilderwild.levelgen.treedecorators.AboveLogsTreeDecorator;
 import net.frozenblock.wilderwild.levelgen.treedecorators.HeightBasedCobwebTreeDecorator;
 import net.frozenblock.wilderwild.levelgen.treedecorators.HeightBasedVineTreeDecorator;
 import net.frozenblock.wilderwild.levelgen.treedecorators.PollenTreeDecorator;
@@ -69,6 +69,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -80,6 +81,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeafLitterBlock;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -106,6 +108,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateP
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLogsDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.CocoaDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.CreakingHeartDecorator;
@@ -269,11 +272,11 @@ public final class WWTreeConfigured {
 
 	// CYPRESS
 	public static final FrozenLibFeature CYPRESS = register("cypress");
-	public static final FrozenLibFeature FALLEN_CYPRESS_TREE = register("fallen_cypress_tree");
 	public static final FrozenLibFeature FUNGUS_CYPRESS = register("fungus_cypress");
 	public static final FrozenLibFeature SHORT_CYPRESS = register("short_cypress");
 	public static final FrozenLibFeature SHORT_FUNGUS_CYPRESS = register("short_fungus_cypress");
 	public static final FrozenLibFeature SWAMP_CYPRESS = register("swamp_cypress");
+	public static final FrozenLibFeature FALLEN_CYPRESS_TREE = register("fallen_cypress_tree");
 	public static final FrozenLibFeature SNAPPED_CYPRESS = register("snapped_cypress_tree");
 
 	// BUSHES
@@ -333,6 +336,20 @@ public final class WWTreeConfigured {
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfFungus00975 = entry -> shelfMushroom(0.0975F, 0.25F, entry);
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfFungus00875 = entry -> shelfMushroom(0.0875F, 0.25F, entry);
 
+		final TreeDecorator mushroomsFallenBirch = mushroomDecorator(0.3F, 0.25F, 2, 1);
+		final TreeDecorator mushroomsFallenMossyBirch = mushroomDecorator(1F, 0.3F, 2, 1);
+		final TreeDecorator mushroomsFallenCherry = redMushroomDecorator(0.3F, 0.25F);
+		final TreeDecorator mushroomsFallenMossyCherry = redMushroomDecorator(1F, 0.3F);
+		final TreeDecorator mushroomsFallenCypress = brownMushroomDecorator(0.6F, 0.25F);
+		final TreeDecorator mushroomsFallenJungle = mushroomDecorator(1F, 0.25F, 2, 1);
+		final TreeDecorator mushroomsFallenMangrove = brownMushroomDecorator(1F, 0.25F);
+		final TreeDecorator mushroomsFallenMaple = mushroomDecorator(0.3F, 0.25F, 17, 3);
+		final TreeDecorator mushroomsFallenOak = mushroomDecorator(0.3F, 0.25F, 17, 3);
+		final TreeDecorator mushroomsFallenMossyOak = mushroomDecorator(1F, 0.3F, 17, 3);
+		final TreeDecorator mushroomsFallenPaleOak = paleMushroomDecorator(1F, 0.25F);
+		final TreeDecorator mushroomsFallenSpruce = brownMushroomDecorator(0.6F, 0.25F);
+		final TreeDecorator mushroomsFallenMossyWillow = mushroomDecorator(1F, 0.3F, 17, 3);
+
 		final HeightBasedVineTreeDecorator vines012Under76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
 		final HeightBasedVineTreeDecorator vines012Under260 = new HeightBasedVineTreeDecorator(0.12F, 260, 0.25F);
 		final HeightBasedVineTreeDecorator vines008Under82 = new HeightBasedVineTreeDecorator(0.08F, 82, 0.25F);
@@ -341,14 +358,14 @@ public final class WWTreeConfigured {
 		final HeightBasedVineTreeDecorator vines1Under260075 = new HeightBasedVineTreeDecorator(1F, 260, 0.75F);
 		final HeightBasedVineTreeDecorator vines08Under260075 = new HeightBasedVineTreeDecorator(0.8F, 260, 0.75F);
 		final HeightBasedCobwebTreeDecorator cobweb1Under260017 = new HeightBasedCobwebTreeDecorator(1F, 260, 0.17F);
-		final AboveLogsTreeDecorator mossCypress = new AboveLogsTreeDecorator(0.6F, 0.24F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-		final AboveLogsTreeDecorator mossSprucePalm = new AboveLogsTreeDecorator(0.5F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-		final AboveLogsTreeDecorator mossBirch = new AboveLogsTreeDecorator(0.6F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-		final AboveLogsTreeDecorator mossOak = new AboveLogsTreeDecorator(0.4F, 0.2F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-		final AboveLogsTreeDecorator mossJungleDarkOak = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-		final AboveLogsTreeDecorator mossPaleOak = new AboveLogsTreeDecorator(0.6F, 0.35F, BlockStateProvider.simple(Blocks.PALE_MOSS_CARPET));
-		final AboveLogsTreeDecorator mossCherry = new AboveLogsTreeDecorator(0.47F, 0.28F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
-		final AboveLogsTreeDecorator mossMossy = new AboveLogsTreeDecorator(1F, 0.3F, BlockStateProvider.simple(Blocks.MOSS_CARPET));
+		final TreeDecorator mossCypress = mossDecorator(0.6F, 0.24F);
+		final TreeDecorator mossSprucePalm = mossDecorator(0.5F, 0.2F);
+		final TreeDecorator mossBirch = mossDecorator(0.6F, 0.2F);
+		final TreeDecorator mossOak = mossDecorator(0.4F, 0.2F);
+		final TreeDecorator mossJungleDarkOak = mossDecorator(0.6F, 0.35F);
+		final TreeDecorator mossPaleOak = aboveLogsDecorator(0.6F, 0.35F, Blocks.PALE_MOSS_CARPET);
+		final TreeDecorator mossCherry = mossDecorator(0.47F, 0.28F);
+		final TreeDecorator mossMossy = mossDecorator(1F, 0.3F);
 		final BeehiveDecorator bees0004 = new BeehiveDecorator(0.004F);
 		final BeehiveDecorator bees001 = new BeehiveDecorator(0.01F);
 		final BeehiveDecorator bees025 = new BeehiveDecorator(0.25F);
@@ -473,7 +490,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_BIRCH_TREE.makeAndSetHolder(
 			fallenBirch(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, mossBirch, shelfFungus009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines08Under260075, mossBirch, shelfFungus009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), mushroomsFallenBirch))
 				.build()
 		);
 
@@ -489,14 +506,14 @@ public final class WWTreeConfigured {
 				1F,
 				0.7F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyBirch))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_BIRCH.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.BIRCH_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossBirch, shelfFungus009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossBirch, shelfFungus009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), mushroomsFallenBirch))
 				.build()
 		);
 
@@ -539,7 +556,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(
 			fallenCherry(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, mossCherry, shelfFungus00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines08Under260075, mossCherry, shelfFungus00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), mushroomsFallenCherry))
 				.build()
 		);
 
@@ -555,14 +572,14 @@ public final class WWTreeConfigured {
 				0.075F,
 				0.5F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyCherry))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_CHERRY_TREE.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.CHERRY_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossCherry, shelfFungus00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossCherry, shelfFungus00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), mushroomsFallenCherry))
 				.build()
 		);
 
@@ -646,7 +663,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_MAPLE_TREE.makeAndSetHolder(
 			fallenMaple(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, shelfFungus0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines08Under260075, shelfFungus0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenMaple))
 				.build()
 		);
 
@@ -813,13 +830,13 @@ public final class WWTreeConfigured {
 
 		FALLEN_OAK_TREE.makeAndSetHolder(
 			fallenOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, mossOak))
+				.decorators(List.of(vines08Under260075, mossOak, mushroomsFallenOak))
 				.build()
 		);
 
 		FALLEN_OAK_TREE_NO_MOSS.makeAndSetHolder(
 			fallenOak(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260))
+				.decorators(List.of(vines012Under260, mushroomsFallenOak))
 				.build()
 		);
 
@@ -835,14 +852,14 @@ public final class WWTreeConfigured {
 				0.075F,
 				0.4F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyOak))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_OAK.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.OAK_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossOak, shelfFungus009.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossOak, shelfFungus009.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenOak))
 				.build()
 		);
 
@@ -981,13 +998,13 @@ public final class WWTreeConfigured {
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(
 			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(mossPaleOak, shelfFungus00875.apply(WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(mossPaleOak, shelfFungus00875.apply(WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenPaleOak))
 				.build()
 		);
 
 		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(
 			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(mossPaleOak, shelfFungus00875.apply(WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(mossPaleOak, shelfFungus00875.apply(WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenPaleOak))
 				.build()
 		);
 
@@ -1041,7 +1058,7 @@ public final class WWTreeConfigured {
 				1F,
 				0.075F,
 				0.75F
-			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION)))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyWillow))
 				.ignoreVines()
 				.build()
 		);
@@ -1195,7 +1212,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_SPRUCE_TREE.makeAndSetHolder(
 			fallenSpruce(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines1Under260075, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines1Under260075, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
 
@@ -1211,35 +1228,38 @@ public final class WWTreeConfigured {
 				0.075F,
 				0.6F,
 				defaultPlaceBelowTreeTrunkProvider
-			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
+			).decorators(List.of(vines08Under260075, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.ignoreVines()
 				.build()
 		);
 
 		CLEAN_FALLEN_SPRUCE_TREE.makeAndSetHolder(
 			fallenSpruce(defaultPlaceBelowTreeTrunkProvider)
+				.decorators(List.of(mushroomsFallenSpruce))
 				.build()
 		);
 
 		CLEAN_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(
-			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, defaultPlaceBelowTreeTrunkProvider).build()
+			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, defaultPlaceBelowTreeTrunkProvider)
+				.decorators(List.of(mushroomsFallenSpruce))
+				.build()
 		);
 
 		DECORATED_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(
 			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
 
 		SNAPPED_SPRUCE.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
 
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(
 			largeSnappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 2, 1, 2, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossSprucePalm, shelfFungus0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
 
@@ -1293,12 +1313,6 @@ public final class WWTreeConfigured {
 				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
 			).decorators(List.of(vines012Under76))
 				.ignoreVines()
-				.build()
-		);
-
-		FALLEN_CYPRESS_TREE.makeAndSetHolder(
-			fallenCypress()
-				.decorators(List.of(vines008Under82, mossCypress, shelfFungus0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
@@ -1361,9 +1375,15 @@ public final class WWTreeConfigured {
 				.build()
 		);
 
+		FALLEN_CYPRESS_TREE.makeAndSetHolder(
+			fallenCypress()
+				.decorators(List.of(vines008Under82, mossCypress, shelfFungus0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), mushroomsFallenCypress))
+				.build()
+		);
+
 		SNAPPED_CYPRESS.makeAndSetHolder(
 			snappedTrunkBuilder(WWBlocks.CYPRESS_LOG.get(), 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossCypress, shelfFungus0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossCypress, shelfFungus0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), mushroomsFallenCypress))
 			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
 			.build()
 		);
@@ -1504,25 +1524,25 @@ public final class WWTreeConfigured {
 
 		FALLEN_JUNGLE_TREE.makeAndSetHolder(
 			fallenJungle(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines08Under260075, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenJungle))
 				.build()
 		);
 
 		LARGE_FALLEN_JUNGLE_TREE.makeAndSetHolder(
 			largeFallenBuilder(Blocks.JUNGLE_LOG, 5, 2, 4, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines08Under260075, mossJungleDarkOak, commonJungleShelfMushroom))
+				.decorators(List.of(vines08Under260075, mossJungleDarkOak, commonJungleShelfMushroom, mushroomsFallenJungle))
 				.build()
 		);
 
 		SNAPPED_JUNGLE.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.JUNGLE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossJungleDarkOak, shelfFungus009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenJungle))
 				.build()
 		);
 
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(
 			largeSnappedTrunkBuilder(Blocks.JUNGLE_LOG, 3, 1, 2, 3, defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossJungleDarkOak, commonJungleShelfMushroom))
+				.decorators(List.of(vines012Under260, mossJungleDarkOak, commonJungleShelfMushroom, mushroomsFallenJungle))
 				.build()
 		);
 
@@ -1675,7 +1695,7 @@ public final class WWTreeConfigured {
 
 		FALLEN_MANGROVE_TREE.makeAndSetHolder(
 			fallenMangrove(defaultPlaceBelowTreeTrunkProvider)
-				.decorators(List.of(vines012Under260, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.MANGROVE_SHELF_MUSHROOM_GENERATION)))
+				.decorators(List.of(vines012Under260, mossMossy, shelfFungus0074.apply(WWWorldgenConfig.MANGROVE_SHELF_MUSHROOM_GENERATION), mushroomsFallenMangrove))
 				.build()
 		);
 
@@ -2698,7 +2718,60 @@ public final class WWTreeConfigured {
 	}
 
 	public static TreeDecorator shelfMushroom(float generationProbability, float placementChance, ConfigEntry<Boolean> entry) {
-		//return new ConfigPredicateDecorator(new ProbabilityDecorator(new ShelfMushroomDecorator(placementChance), generationProbability), entry.equalTo(true));
-		return new ProbabilityDecorator(new ConfigPredicateDecorator(new ShelfMushroomDecorator(placementChance), entry.equalTo(true)), generationProbability);
+		return new ProbabilityDecorator(entry.equalTo(true).asTreeDecorator(new ShelfMushroomDecorator(placementChance)), generationProbability);
+	}
+
+	public static TreeDecorator aboveLogsDecorator(float probability, float placementProbability, BlockStateProvider stateProvider) {
+		if (probability <= 0F) throw new IllegalArgumentException("Probability must be greater than zero!");
+		
+		final AttachedToLogsDecorator attachedToLogsDecorator = new AttachedToLogsDecorator(placementProbability, stateProvider, List.of(Direction.UP));
+		if (probability >= 1F) return attachedToLogsDecorator;
+		return new ProbabilityDecorator(attachedToLogsDecorator, probability);
+	}
+
+	public static TreeDecorator aboveLogsDecorator(float probability, float placementProbability, Block block) {
+		return aboveLogsDecorator(probability, placementProbability, BlockStateProvider.simple(block));
+	}
+
+	public static TreeDecorator mossDecorator(float probability, float placementProbability) {
+		return aboveLogsDecorator(probability, placementProbability, Blocks.MOSS_CARPET);
+	}
+
+	public static TreeDecorator mushroomDecorator(float probability, float placementProbability, int brownWeight, int redWeight, int paleWeight) {
+		if (brownWeight < 0 || redWeight < 0 || paleWeight < 0) throw new IllegalArgumentException("Mushroom weights cannot be less than zero!");
+		if (brownWeight == 0 && redWeight == 0 && paleWeight == 0) throw new IllegalArgumentException("Mushroom weights cannot both be zero!");
+
+		final AtomicReference<Block> singleBlock = new AtomicReference<>(null);
+		final WeightedList.Builder<BlockState> blockStates = WeightedList.builder();
+		final BiConsumer<Block, Integer> builder = (block, weight) -> {
+			if (weight <= 0) return;
+			blockStates.add(block.defaultBlockState(), weight);
+			singleBlock.set(singleBlock.get() != null ? Blocks.AIR : block);
+		};
+		if (brownWeight > 0) builder.accept(Blocks.BROWN_MUSHROOM, brownWeight);
+		if (redWeight > 0) builder.accept(Blocks.RED_MUSHROOM, redWeight);
+		if (paleWeight > 0) builder.accept(WWBlocks.PALE_MUSHROOM.get(), paleWeight);
+
+		return aboveLogsDecorator(
+			probability,
+			placementProbability,
+			singleBlock.get() != null ? BlockStateProvider.simple(singleBlock.get()) : new WeightedStateProvider(blockStates)
+		);
+	}
+
+	public static TreeDecorator mushroomDecorator(float probability, float placementProbability, int brownWeight, int redWeight) {
+		return mushroomDecorator(probability, placementProbability, brownWeight, redWeight, 0);
+	}
+
+	public static TreeDecorator brownMushroomDecorator(float probability, float placementProbability) {
+		return mushroomDecorator(probability, placementProbability, 1, 0, 0);
+	}
+
+	public static TreeDecorator redMushroomDecorator(float probability, float placementProbability) {
+		return mushroomDecorator(probability, placementProbability, 0, 1, 0);
+	}
+
+	public static TreeDecorator paleMushroomDecorator(float probability, float placementProbability) {
+		return mushroomDecorator(probability, placementProbability, 0, 0, 1);
 	}
 }
