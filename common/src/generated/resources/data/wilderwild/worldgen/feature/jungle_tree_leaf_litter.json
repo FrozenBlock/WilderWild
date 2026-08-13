@@ -61,8 +61,7 @@
       "type": "minecraft:place_on_ground",
       "block_state_provider": {
         "type": "frozenlib:leaf_litter_provider",
-        "block": "wilderwild:jungle_leaf_litter",
-        "max_segment": 4
+        "block": "wilderwild:jungle_leaf_litter"
       },
       "height": 2,
       "tries": 75

@@ -2,7 +2,6 @@
   "type": "minecraft:simple_block",
   "to_place": {
     "type": "frozenlib:flower_bed_provider",
-    "block": "minecraft:wildflowers",
-    "max_segment": 4
+    "block": "minecraft:wildflowers"
   }
 }

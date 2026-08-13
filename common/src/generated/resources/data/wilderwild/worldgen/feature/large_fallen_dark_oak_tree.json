@@ -57,28 +57,24 @@
       "probability": 0.09
     },
     {
-      "type": "frozenlib:probability",
-      "decorator": {
-        "type": "minecraft:attached_to_logs",
-        "block_provider": {
-          "type": "minecraft:weighted_state_provider",
-          "entries": [
-            {
-              "data": "minecraft:brown_mushroom",
-              "weight": 17
-            },
-            {
-              "data": "minecraft:red_mushroom",
-              "weight": 3
-            }
-          ]
-        },
-        "directions": [
-          "up"
-        ],
-        "probability": 0.25
+      "type": "minecraft:attached_to_logs",
+      "block_provider": {
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "data": "minecraft:brown_mushroom",
+            "weight": 17
+          },
+          {
+            "data": "minecraft:red_mushroom",
+            "weight": 3
+          }
+        ]
       },
-      "probability": 0.75
+      "directions": [
+        "up"
+      ],
+      "probability": 0.25
     }
   ],
   "foliage_placer": {

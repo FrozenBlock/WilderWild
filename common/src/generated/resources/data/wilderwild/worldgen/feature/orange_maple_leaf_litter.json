@@ -14,8 +14,7 @@
       },
       "state_provider": {
         "type": "frozenlib:leaf_litter_provider",
-        "block": "wilderwild:orange_maple_leaf_litter",
-        "max_segment": 4
+        "block": "wilderwild:orange_maple_leaf_litter"
       },
       "vertical_placement_offset": 1
     },
@@ -29,8 +28,7 @@
     },
     "state_provider": {
       "type": "frozenlib:leaf_litter_provider",
-      "block": "wilderwild:orange_maple_leaf_litter",
-      "max_segment": 4
+      "block": "wilderwild:orange_maple_leaf_litter"
     },
     "vertical_placement_offset": 1
   },

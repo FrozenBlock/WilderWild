@@ -335,19 +335,19 @@ public final class WWTreeConfigured {
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfFungus00975 = entry -> shelfMushroom(0.0975F, 0.25F, entry);
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfFungus00875 = entry -> shelfMushroom(0.0875F, 0.25F, entry);
 
-		final TreeDecorator mushroomsFallenBirch = mushroomDecorator(0.3F, 0.25F, 2, 1);
+		final TreeDecorator mushroomsFallenBirch = mushroomDecorator(0.75F, 0.25F, 2, 1);
 		final TreeDecorator mushroomsFallenMossyBirch = mushroomDecorator(1F, 0.3F, 2, 1);
-		final TreeDecorator mushroomsFallenCherry = redMushroomDecorator(0.3F, 0.25F);
+		final TreeDecorator mushroomsFallenCherry = redMushroomDecorator(0.8F, 0.25F);
 		final TreeDecorator mushroomsFallenMossyCherry = redMushroomDecorator(1F, 0.3F);
-		final TreeDecorator mushroomsFallenCypress = brownMushroomDecorator(0.6F, 0.25F);
-		final TreeDecorator mushroomsFallenDarkOak = mushroomDecorator(0.75F, 0.25F, 17, 3);
+		final TreeDecorator mushroomsFallenCypress = brownMushroomDecorator(1F, 0.25F);
+		final TreeDecorator mushroomsFallenDarkOak = mushroomDecorator(1F, 0.25F, 17, 3);
 		final TreeDecorator mushroomsFallenJungle = mushroomDecorator(1F, 0.25F, 2, 1);
 		final TreeDecorator mushroomsFallenMangrove = brownMushroomDecorator(1F, 0.25F);
-		final TreeDecorator mushroomsFallenMaple = mushroomDecorator(0.3F, 0.25F, 17, 3);
-		final TreeDecorator mushroomsFallenOak = mushroomDecorator(0.3F, 0.25F, 17, 3);
+		final TreeDecorator mushroomsFallenMaple = mushroomDecorator(0.5F, 0.25F, 17, 3);
+		final TreeDecorator mushroomsFallenOak = mushroomDecorator(0.45F, 0.25F, 17, 3);
 		final TreeDecorator mushroomsFallenMossyOak = mushroomDecorator(1F, 0.3F, 17, 3);
 		final TreeDecorator mushroomsFallenPaleOak = paleMushroomDecorator(1F, 0.25F);
-		final TreeDecorator mushroomsFallenSpruce = brownMushroomDecorator(0.6F, 0.25F);
+		final TreeDecorator mushroomsFallenSpruce = brownMushroomDecorator(0.75F, 0.25F);
 		final TreeDecorator mushroomsFallenMossyWillow = mushroomDecorator(1F, 0.3F, 17, 3);
 
 		final HeightBasedVineTreeDecorator vines012Under76 = new HeightBasedVineTreeDecorator(0.12F, 76, 0.25F);
