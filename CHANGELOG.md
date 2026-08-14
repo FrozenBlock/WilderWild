@@ -83,7 +83,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Modified the placement of Dappled Forests to not interfere as much with Maple Forests.
   - Maple Forests and Dappled Forests can often be seen near each other, though Dappled Forests favor higher and bumpier terrain a tad further from snowy regions.
 - Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.
-- Updated the Dappled Forest to include new Flowers, more common Pumpkin Patches, and denser Tree generation.
+- Updated the Dappled Forest to include new Flowers, more common Pumpkin Patches, denser Tree generation, Clearings, and new Fallen & Snapped Poplar Trees.
 - Added the Yellow Poplar Sapling and the Red Poplar Sapling.
 - Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Blocks Tag.
 - Wilder Wild's Material Rules (formerly known as Surface Rules) are now data-driven.
