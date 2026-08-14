@@ -274,8 +274,17 @@ public final class WWWorldgen {
 			BiomeSelectors.tag(WWBiomeTags.NORMAL_SAVANNA),
 			context -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				generationSettings.removeFeature(VegetationPlacements.TREES_SAVANNA);
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES.getKey());
+				if (WWWorldgenConfig.TREE_GENERATION.get()) {
+					generationSettings.removeFeature(VegetationPlacements.TREES_SAVANNA);
+					if (WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES_BAOBAB.getKey());
+					} else {
+						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES.getKey());
+					}
+				} else if (WWWorldgenConfig.BAOBAB_TREE_GENERATION.get()) {
+					generationSettings.removeFeature(VegetationPlacements.TREES_SAVANNA);
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SAVANNA_TREES_BAOBAB_VANILLA.getKey());
+				}
 		}).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.WINDSWEPT_SAVANNA),

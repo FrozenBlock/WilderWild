@@ -20,21 +20,17 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.List;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.FlowerBedStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -183,8 +179,11 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature MEADOW_TREES = register("meadow_trees");
 	public static final FrozenLibFeature SAVANNA_TREES_NO_LITTER = register("savanna_trees_no_litter");
 	public static final FrozenLibFeature SAVANNA_TREES_LEAF_LITTER = register("savanna_trees_leaf_litter");
+	public static final FrozenLibFeature SAVANNA_TREES = register("savanna_trees");
 	public static final FrozenLibFeature SAVANNA_TREES_BAOBAB_NO_LITTER = register("savanna_trees_baobab_no_litter");
 	public static final FrozenLibFeature SAVANNA_TREES_BAOBAB_LEAF_LITTER = register("savanna_trees_baobab_leaf_liter");
+	public static final FrozenLibFeature SAVANNA_TREES_BAOBAB = register("savanna_trees_baobab");
+	public static final FrozenLibFeature SAVANNA_TREES_BAOBAB_VANILLA = register("savanna_trees_baobab_vanilla");
 	public static final FrozenLibFeature WINDSWEPT_SAVANNA_TREES_NO_LITTER = register("windswept_savanna_trees_no_litter");
 	public static final FrozenLibFeature WINDSWEPT_SAVANNA_TREES_LEAF_LITTER = register("windswept_savanna_trees_leaf_litter");
 	public static final FrozenLibFeature WINDSWEPT_SAVANNA_TREES = register("windswept_savanna_trees");
@@ -1497,6 +1496,13 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		SAVANNA_TREES.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(SAVANNA_TREES_LEAF_LITTER.asWeightedPlacedFeature(0.5F)),
+				SAVANNA_TREES_NO_LITTER.asInlinePlaced()
+			)
+		);
+
 		SAVANNA_TREES_BAOBAB_NO_LITTER.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
@@ -1516,6 +1522,24 @@ public final class WWConfiguredFeatures {
 					WWTreePlaced.BAOBAB_TALL.litterAsWeightedPlacedFeature(0.035F)
 				),
 				WWTreePlaced.OAK_NO_FUNGI_CHECKED.getLitterVariantHolder()
+			)
+		);
+
+		SAVANNA_TREES_BAOBAB.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(SAVANNA_TREES_BAOBAB_LEAF_LITTER.asWeightedPlacedFeature(0.5F)),
+				SAVANNA_TREES_BAOBAB_NO_LITTER.asInlinePlaced()
+			)
+		);
+
+		SAVANNA_TREES_BAOBAB_VANILLA.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					new WeightedPlacedFeature(placedFeatures.getOrThrow(TreePlacements.ACACIA_CHECKED), 0.8F),
+					WWTreePlaced.BAOBAB.asWeightedPlacedFeature(0.062F),
+					WWTreePlaced.BAOBAB_TALL.asWeightedPlacedFeature(0.035F)
+				),
+				placedFeatures.getOrThrow(TreePlacements.OAK_CHECKED)
 			)
 		);
 
