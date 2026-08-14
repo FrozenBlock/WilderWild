@@ -1,35 +1,155 @@
 {
-  "feature": "wilderwild:savanna_trees",
-  "placement": [
-    {
-      "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:weighted_list",
-        "distribution": [
-          {
-            "data": 1,
-            "weight": 9
+  "feature": {
+    "type": "frozenlib:config_selector",
+    "config_predicate": {
+      "type": "frozenlib:equal_to",
+      "entry": "wilderwild:worldgen/treeGeneration/treeGeneration",
+      "target": true
+    },
+    "feature_if_false": {
+      "feature": {
+        "type": "frozenlib:config_selector",
+        "config_predicate": {
+          "type": "frozenlib:equal_to",
+          "entry": "wilderwild:worldgen/treeGeneration/baobab",
+          "target": true
+        },
+        "feature_if_false": "minecraft:trees_savanna",
+        "feature_if_true": {
+          "feature": {
+            "type": "minecraft:random_selector",
+            "default": "minecraft:oak_checked",
+            "features": [
+              {
+                "chance": 0.8,
+                "feature": "minecraft:acacia_checked"
+              },
+              {
+                "chance": 0.062,
+                "feature": "wilderwild:baobab_checked"
+              },
+              {
+                "chance": 0.035,
+                "feature": "wilderwild:baobab_tall_checked"
+              }
+            ]
           },
-          {
-            "data": 2,
-            "weight": 1
+          "placement": [
+            {
+              "type": "minecraft:count",
+              "count": {
+                "type": "minecraft:weighted_list",
+                "distribution": [
+                  {
+                    "data": 1,
+                    "weight": 9
+                  },
+                  {
+                    "data": 2,
+                    "weight": 1
+                  }
+                ]
+              }
+            },
+            {
+              "type": "minecraft:in_square"
+            },
+            {
+              "type": "minecraft:surface_water_depth_filter",
+              "max_water_depth": 0
+            },
+            {
+              "type": "minecraft:heightmap",
+              "heightmap": "OCEAN_FLOOR"
+            },
+            {
+              "type": "minecraft:biome"
+            }
+          ]
+        }
+      },
+      "placement": []
+    },
+    "feature_if_true": {
+      "feature": {
+        "type": "frozenlib:config_selector",
+        "config_predicate": {
+          "type": "frozenlib:equal_to",
+          "entry": "wilderwild:worldgen/treeGeneration/baobab",
+          "target": true
+        },
+        "feature_if_false": {
+          "feature": {
+            "type": "minecraft:random_selector",
+            "default": {
+              "feature": "wilderwild:savanna_trees_no_litter",
+              "placement": []
+            },
+            "features": [
+              {
+                "chance": 0.5,
+                "feature": {
+                  "feature": "wilderwild:savanna_trees_leaf_litter",
+                  "placement": []
+                }
+              }
+            ]
+          },
+          "placement": []
+        },
+        "feature_if_true": {
+          "feature": {
+            "type": "minecraft:random_selector",
+            "default": {
+              "feature": "wilderwild:savanna_trees_baobab_no_litter",
+              "placement": []
+            },
+            "features": [
+              {
+                "chance": 0.5,
+                "feature": {
+                  "feature": "wilderwild:savanna_trees_baobab_leaf_liter",
+                  "placement": []
+                }
+              }
+            ]
+          },
+          "placement": []
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:count",
+          "count": {
+            "type": "minecraft:weighted_list",
+            "distribution": [
+              {
+                "data": 1,
+                "weight": 9
+              },
+              {
+                "data": 2,
+                "weight": 1
+              }
+            ]
           }
-        ]
-      }
-    },
-    {
-      "type": "minecraft:in_square"
-    },
-    {
-      "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 0
-    },
-    {
-      "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
-    },
-    {
-      "type": "minecraft:biome"
+        },
+        {
+          "type": "minecraft:in_square"
+        },
+        {
+          "type": "minecraft:surface_water_depth_filter",
+          "max_water_depth": 0
+        },
+        {
+          "type": "minecraft:heightmap",
+          "heightmap": "OCEAN_FLOOR"
+        },
+        {
+          "type": "minecraft:biome"
+        }
+      ]
     }
-  ]
+  },
+  "placement": []
 }
