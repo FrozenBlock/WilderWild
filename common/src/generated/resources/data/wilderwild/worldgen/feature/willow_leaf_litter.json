@@ -106,20 +106,20 @@
   "trunk_placer": {
     "type": "wilderwild:willow_trunk_placer",
     "base_height": 5,
-    "branch_split_gap_chance": 0.35,
-    "height_rand_a": 2,
-    "height_rand_b": 1,
-    "trunk_branch_placement": {
-      "branch_length": {
+    "branch_placement": {
+      "foliage_probability": 1.0,
+      "foliage_radius_offset": -1,
+      "length": {
         "type": "minecraft:uniform",
         "max_inclusive": 3,
         "min_inclusive": 2
       },
-      "branch_placement_chance": 0.5,
-      "foliage_placement_chance": 1.0,
-      "foliage_radius_offset": -1,
-      "offset_last_log_chance": 1.0
+      "offset_last_log_probability": 1.0,
+      "probability": 0.5
     },
+    "branch_split_gap_probability": 0.35,
+    "height_rand_a": 2,
+    "height_rand_b": 1,
     "trunk_split_height": {
       "type": "minecraft:uniform",
       "max_inclusive": 5,

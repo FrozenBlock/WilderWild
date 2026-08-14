@@ -22,7 +22,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,19 +37,18 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<StraightWithBranchesTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
+			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
 			.apply(instance, StraightWithBranchesTrunkPlacer::new));
-
-	private final TrunkBranchPlacement trunkBranchPlacement;
+	private final BranchPlacement branchPlacement;
 
 	public StraightWithBranchesTrunkPlacer(
 		int baseHeight,
-		int firstRandomHeight,
-		int secondRandomHeight,
-		TrunkBranchPlacement trunkBranchPlacement
+		int heightRandA,
+		int heightRandB,
+		BranchPlacement branchPlacement
 	) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.trunkBranchPlacement = trunkBranchPlacement;
+		super(baseHeight, heightRandA, heightRandB);
+		this.branchPlacement = branchPlacement;
 	}
 
 	@Override
@@ -60,31 +59,31 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int height,
-		BlockPos startPos,
+		int treeHeight,
+		BlockPos origin,
 		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
+		placeBelowTrunkBlock(level, trunkSetter, random, origin.below(), tree);
 
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
-		final int branchCutoffFromTop = this.trunkBranchPlacement.branchCutoffFromTop().sample(random);
+		final int maxBranchCount = this.branchPlacement.getMaxBranchCount(random);
+		final int branchCutoffFromTop = this.branchPlacement.cutoffFromTop().sample(random);
 
 		int extraLogs = 0;
-		for (int i = 0; i < height; ++i) {
-			final int y = startPos.getY() + i;
-			if (this.placeLog(level, replacer, random, mutable.set(startPos.getX(), y, startPos.getZ()), tree)
-				&& i < height - 1
-				&& this.trunkBranchPlacement.canPlaceBranch(random)
+		for (int y = 0; y < treeHeight; ++y) {
+			final int dy = origin.getY() + y;
+			if (this.placeLog(level, trunkSetter, random, mutable.set(origin.getX(), dy, origin.getZ()), tree)
+				&& y < treeHeight - 1
+				&& this.branchPlacement.canPlaceBranch(random)
 				&& extraLogs < maxBranchCount
-				&& (height - 4) - i <= branchCutoffFromTop
+				&& (treeHeight - 4) - y <= branchCutoffFromTop
 			) {
-				this.trunkBranchPlacement.generateExtraBranch(
+				this.branchPlacement.generateExtraBranch(
 					level,
-					replacer,
+					trunkSetter,
 					random,
 					tree.trunkProvider(),
 					mutable.immutable(),
@@ -93,7 +92,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 				);
 				++extraLogs;
 			}
-			if (i == height - 1) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(mutable.set(startPos.getX(), y + 1, startPos.getZ()), 0, false));
+			if (y == treeHeight - 1) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(mutable.set(origin.getX(), dy + 1, origin.getZ()), 0, false));
 		}
 
 		return foliageAttachments;

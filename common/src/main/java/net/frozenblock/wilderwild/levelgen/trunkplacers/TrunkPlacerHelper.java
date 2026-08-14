@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public class TrunkPlacerHelper {
+public final class TrunkPlacerHelper {
 
 	public static BlockState getLogBlockState(
 		WorldGenLevel level,
@@ -43,5 +43,4 @@ public class TrunkPlacerHelper {
 	public static boolean isWaterAt(WorldGenLevel level, BlockPos pos) {
 		return level.isFluidAtPosition(pos, fluidState -> fluidState.is(FluidTags.WATER));
 	}
-
 }

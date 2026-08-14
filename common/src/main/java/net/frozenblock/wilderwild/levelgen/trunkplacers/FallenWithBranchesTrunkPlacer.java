@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -48,18 +48,18 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	private static final int STUMP_MAX_SEARCH_NEGATIVE_Y = 2;
 	public static final MapCodec<FallenWithBranchesTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(Codec.floatRange(0F, 1F).fieldOf("success_in_water_chance").forGetter(trunkPlacer -> trunkPlacer.successInWaterChance))
-			.and(BlockStateProvider.CODEC.fieldOf("hollowed_trunk_provider").forGetter(trunkPlacer -> trunkPlacer.hollowedTrunkProvider))
-			.and(Codec.floatRange(0F, 1F).fieldOf("hollowed_log_chance").forGetter(trunkPlacer -> trunkPlacer.hollowedLogChance))
-			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
-			.and(Codec.floatRange(0F, 1F).fieldOf("stump_placement_chance").forGetter(trunkPlacer -> trunkPlacer.stumpPlacementChance))
+			.and(Codec.floatRange(0F, 1F).fieldOf("water_success_probability").forGetter(trunkPlacer -> trunkPlacer.successInWaterChance))
+			.and(BlockStateProvider.CODEC.fieldOf("hollow_state").forGetter(trunkPlacer -> trunkPlacer.hollowedTrunkProvider))
+			.and(Codec.floatRange(0F, 1F).fieldOf("hollow_probability").forGetter(trunkPlacer -> trunkPlacer.hollowedLogChance))
+			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
+			.and(Codec.floatRange(0F, 1F).fieldOf("stump_probability").forGetter(trunkPlacer -> trunkPlacer.stumpProbability))
 			.apply(instance, FallenWithBranchesTrunkPlacer::new));
 
 	public final float successInWaterChance;
 	public final BlockStateProvider hollowedTrunkProvider;
 	public final float hollowedLogChance;
-	public final TrunkBranchPlacement trunkBranchPlacement;
-	public final float stumpPlacementChance;
+	public final BranchPlacement branchPlacement;
+	public final float stumpProbability;
 
 	public FallenWithBranchesTrunkPlacer(
 		int baseHeight,
@@ -68,15 +68,15 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		float successInWaterChance,
 		BlockStateProvider hollowedTrunkProvider,
 		float hollowedLogProbability,
-		TrunkBranchPlacement trunkBranchPlacement,
-		float stumpPlacementChance
+		BranchPlacement branchPlacement,
+		float stumpProbability
 	) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 		this.successInWaterChance = successInWaterChance;
 		this.hollowedTrunkProvider = hollowedTrunkProvider;
 		this.hollowedLogChance = hollowedLogProbability;
-		this.trunkBranchPlacement = trunkBranchPlacement;
-		this.stumpPlacementChance = stumpPlacementChance;
+		this.branchPlacement = branchPlacement;
+		this.stumpProbability = stumpProbability;
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
 			? this.hollowedTrunkProvider
 			: tree.trunkProvider();
-		final int maxBranches = this.trunkBranchPlacement.getMaxBranchCount(random);
+		final int maxBranches = this.branchPlacement.getMaxBranchCount(random);
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;
 
@@ -129,10 +129,10 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
 				this.placeLog(level, trunkSetter, random, stateProvider, mutable, trunkDirection);
-				if (this.trunkBranchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
+				if (this.branchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
 					final Direction branchDirection = random.nextFloat() <= 0.66F ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
 					if (trunkDirection.getAxis() != branchDirection.getAxis()) {
-						this.trunkBranchPlacement.generateExtraBranchForFallenLog(
+						this.branchPlacement.generateExtraBranchForFallenLog(
 							level,
 							trunkSetter,
 							random,
@@ -147,7 +147,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			}
 		}
 
-		if (random.nextFloat() <= this.stumpPlacementChance) {
+		if (random.nextFloat() <= this.stumpProbability) {
 			final Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, origin, trunkDirection);
 			if (optionalStumpPos.isPresent()) {
 				final BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();

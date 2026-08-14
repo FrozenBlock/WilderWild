@@ -55,14 +55,14 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 
 	public JuniperTrunkPlacer(
 		int baseHeight,
-		int firstRandomHeight,
-		int secondRandomHeight,
+		int heightRandA,
+		int heightRandB,
 		IntProvider branchCount,
 		IntProvider branchHorizontalLength,
 		UniformInt branchStartOffsetFromTop,
 		IntProvider branchEndOffsetFromTop
 	) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
+		super(baseHeight, heightRandA, heightRandB);
 		this.branchCount = branchCount;
 		this.branchHorizontalLength = branchHorizontalLength;
 		this.branchStartOffsetFromTop = branchStartOffsetFromTop;
@@ -78,40 +78,63 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int freeTreeHeight,
+		int treeHeight,
 		BlockPos pos,
 		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, pos.below(), tree);
-		int i = Math.max(0, freeTreeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
-		int j = Math.max(0, freeTreeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
-		if (j >= i) ++j;
+		placeBelowTrunkBlock(level, trunkSetter, random, pos.below(), tree);
+		int firstBranchOffsetFromOrigin = Math.max(0, treeHeight - 1 + this.branchStartOffsetFromTop.sample(random));
+		int secondBranchOffsetFromOrigin = Math.max(0, treeHeight - 1 + this.secondBranchStartOffsetFromTop.sample(random));
+		if (secondBranchOffsetFromOrigin >= firstBranchOffsetFromOrigin) ++secondBranchOffsetFromOrigin;
 
 		final int branchCount = this.branchCount.sample(random);
-		final boolean isThreeBranches = branchCount == 3;
-		final boolean moreThanOneBranch = branchCount >= 2;
-		final int l = isThreeBranches ? freeTreeHeight : (moreThanOneBranch ? Math.max(i, j) + 1 : i + 1);
-		for (int m = 0; m < l; ++m) this.placeLog(level, replacer, random, pos.above(m), tree);
+		final boolean hasMiddleBranch = branchCount == 3;
+		final boolean hasBothSideBranches = branchCount >= 2;
+		final int trunkHeight = hasMiddleBranch
+			? treeHeight
+			: (hasBothSideBranches ? Math.max(firstBranchOffsetFromOrigin, secondBranchOffsetFromOrigin) + 1 : firstBranchOffsetFromOrigin + 1);
+		for (int y = 0; y < trunkHeight; ++y) this.placeLog(level, trunkSetter, random, pos.above(y), tree);
 
-		final ArrayList<FoliagePlacer.FoliageAttachment> foliageAttachments = new ArrayList<>();
-		if (isThreeBranches) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(pos.above(l), 0, false));
+		final ArrayList<FoliagePlacer.FoliageAttachment> attachments = new ArrayList<>();
+		if (hasMiddleBranch) attachments.add(new FoliagePlacer.FoliageAttachment(pos.above(trunkHeight), 0, false));
 
-		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		Function<BlockState, BlockState> function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, direction.getAxis());
-		foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, tree, function, direction, i, i < l - 1, mutable));
+		final BlockPos.MutableBlockPos logPos = new BlockPos.MutableBlockPos();
+		final Direction treeDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		Function<BlockState, BlockState> sidewaysStateModifier = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, treeDirection.getAxis());
+		attachments.add(
+			this.generateBranch(
+				level,
+				trunkSetter,
+				random,
+				treeHeight,
+				pos,
+				tree,
+				sidewaysStateModifier,
+				treeDirection,
+				firstBranchOffsetFromOrigin,
+				firstBranchOffsetFromOrigin < trunkHeight - 1, logPos)
+		);
 
-		final ArrayList<Direction> allDirsMF = new ArrayList<>();
-		for (Direction d : Direction.Plane.HORIZONTAL) if (d != direction) allDirsMF.add(d);
-
-		final Direction secondDir = allDirsMF.get((int) (Math.random() * 2));
-		if (moreThanOneBranch) {
-			function = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondDir.getAxis());
-			foliageAttachments.add(this.generateBranch(level, replacer, random, freeTreeHeight, pos, tree, function, secondDir, j, j < l - 1, mutable));
+		final Direction secondTreeDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		if (hasBothSideBranches) {
+			sidewaysStateModifier = state -> (BlockState) state.setValue(RotatedPillarBlock.AXIS, secondTreeDirection.getAxis());
+			attachments.add(
+				this.generateBranch(
+					level,
+					trunkSetter,
+					random,
+					treeHeight,
+					pos,
+					tree,
+					sidewaysStateModifier,
+					secondTreeDirection,
+					secondBranchOffsetFromOrigin,
+					secondBranchOffsetFromOrigin < trunkHeight - 1, logPos)
+			);
 		}
-		return foliageAttachments;
+		return attachments;
 	}
 
 	private FoliagePlacer.FoliageAttachment generateBranch(
@@ -139,7 +162,7 @@ public class JuniperTrunkPlacer extends TrunkPlacer {
 			this.placeLog(level, trunkSetter, random, logPos.move(branchDirection), tree, sidewaysStateModifier);
 		}
 
-		Direction verticalDirection = branchEndPos.getY() > logPos.getY() ? Direction.UP : Direction.DOWN;
+		final Direction verticalDirection = branchEndPos.getY() > logPos.getY() ? Direction.UP : Direction.DOWN;
 
 		while ((distance = logPos.distManhattan(branchEndPos)) != 0) {
 			float chanceToGrowVertically = (float) Math.abs(branchEndPos.getY() - logPos.getY()) / (float) distance;

@@ -53,22 +53,22 @@
   "trunk_placer": {
     "type": "wilderwild:straight_with_branches_trunk_placer",
     "base_height": 4,
-    "height_rand_a": 1,
-    "height_rand_b": 0,
-    "trunk_branch_placement": {
-      "branch_cutoff_from_top": {
+    "branch_placement": {
+      "cutoff_from_top": {
         "type": "minecraft:uniform",
         "max_inclusive": 3,
         "min_inclusive": 1
       },
-      "branch_length": 1,
-      "branch_placement_chance": 0.095,
-      "max_branch_count": {
+      "length": 1,
+      "max_count": {
         "type": "minecraft:uniform",
         "max_inclusive": 2,
         "min_inclusive": 1
-      }
-    }
+      },
+      "probability": 0.095
+    },
+    "height_rand_a": 1,
+    "height_rand_b": 0
   },
   "trunk_provider": {
     "type": "minecraft:simple_state_provider",

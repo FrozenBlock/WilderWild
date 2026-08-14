@@ -60,7 +60,7 @@ import net.frozenblock.wilderwild.levelgen.trunkplacers.PalmTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.StraightWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.WillowTrunkPlacer;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
@@ -791,7 +791,7 @@ public final class WWTreeConfigured {
 					6,
 					2,
 					1,
-					new TrunkBranchPlacement.Builder()
+					new BranchPlacement.Builder()
 						.branchChance(0.225F)
 						.maxBranchCount(UniformInt.of(1, 2))
 						.branchCutoffFromTop(UniformInt.of(0, 2))
@@ -813,7 +813,7 @@ public final class WWTreeConfigured {
 					7,
 					2,
 					1,
-					new TrunkBranchPlacement.Builder()
+					new BranchPlacement.Builder()
 						.branchChance(0.235F)
 						.maxBranchCount(UniformInt.of(2, 3))
 						.branchCutoffFromTop(UniformInt.of(0, 2))
@@ -1718,7 +1718,7 @@ public final class WWTreeConfigured {
 				baseHeight,
 				firstRandomHeight,
 				secondRandomHeight,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(branchChance)
 					.maxBranchCount(maxBranchCount)
 					.branchCutoffFromTop(branchCutoffFromTop)
@@ -1748,7 +1748,7 @@ public final class WWTreeConfigured {
 			new StraightWithBranchesTrunkPlacer(
 				baseHeight, firstRandomHeight,
 				secondRandomHeight,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(branchChance)
 					.maxBranchCount(maxBranches)
 					.branchCutoffFromTop(branchCutoffFromTop)
@@ -1766,33 +1766,80 @@ public final class WWTreeConfigured {
 		Block log,
 		Block hollowedLog,
 		int baseHeight,
-		int firstRHeight,
-		int secondRHeight,
-		float branchPlacementChance,
-		IntProvider maxBranchCount,
-		float hollowedChance,
-		float stumpPlacementChance,
+		int heightRandA,
+		int heightRandB,
+		BranchPlacement branchPlacement,
+		float hollowedProbability,
+		float stumpProbability,
 		BlockStateProvider belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
 			BlockStateProvider.simple(log),
 			new FallenWithBranchesTrunkPlacer(
 				baseHeight,
-				firstRHeight,
-				secondRHeight,
+				heightRandA,
+				heightRandB,
 				0.8F,
 				BlockStateProvider.simple(hollowedLog),
-				hollowedChance,
-				new TrunkBranchPlacement.Builder()
-					.branchChance(branchPlacementChance)
-					.maxBranchCount(maxBranchCount)
-					.branchLength(ConstantInt.of(1))
-					.build(),
-				stumpPlacementChance
+				hollowedProbability,
+				branchPlacement,
+				stumpProbability
 			),
 			BlockStateProvider.simple(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
+			belowTrunkProvider
+		);
+	}
+
+	public static TreeFeature.Builder fallenTrunkBuilder(
+		Block log,
+		Block hollowedLog,
+		int baseHeight,
+		int heightRandA,
+		int heightRandB,
+		float branchPlacementChance,
+		IntProvider maxBranchCount,
+		float hollowedProbability,
+		float stumpProbability,
+		BlockStateProvider belowTrunkProvider
+	) {
+		return fallenTrunkBuilder(
+			log,
+			hollowedLog,
+			baseHeight,
+			heightRandA,
+			heightRandB,
+			new BranchPlacement.Builder()
+				.branchChance(branchPlacementChance)
+				.maxBranchCount(maxBranchCount)
+				.branchLength(ConstantInt.of(1))
+				.build(),
+			hollowedProbability,
+			stumpProbability,
+			belowTrunkProvider
+		);
+	}
+
+	public static TreeFeature.Builder fallenTrunkBuilder(
+		Block log,
+		Block hollowedLog,
+		int baseHeight,
+		int heightRandA,
+		int heightRandB,
+		float hollowedProbability,
+		float stumpProbability,
+		BlockStateProvider belowTrunkProvider
+	) {
+		return fallenTrunkBuilder(
+			log,
+			hollowedLog,
+			baseHeight,
+			heightRandA,
+			heightRandB,
+			BranchPlacement.EMPTY,
+			hollowedProbability,
+			stumpProbability,
 			belowTrunkProvider
 		);
 	}
@@ -1819,7 +1866,7 @@ public final class WWTreeConfigured {
 				0.8F,
 				BlockStateProvider.simple(hollowedLog),
 				hollowedChance,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(branchPlacementChance)
 					.maxBranchCount(maxBranchCount)
 					.branchLength(branchLength)
@@ -1870,7 +1917,7 @@ public final class WWTreeConfigured {
 				baseHeight,
 				firstRandomHeight,
 				secondRandomHeight,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(branchChance)
 					.maxBranchCount(maxBranchCount)
 					.branchLength(branchLength)
@@ -2403,7 +2450,7 @@ public final class WWTreeConfigured {
 				baseHeight,
 				randomHeight1,
 				randomHeight2,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(branchChance)
 					.maxBranchCount(maxBranchCount)
 					.branchLength(branchLength)
@@ -2450,14 +2497,14 @@ public final class WWTreeConfigured {
 				baseHeight,
 				randomHeight1,
 				randomHeight2,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(0.575F)
 					.branchCutoffFromTop(branchStartHeight)
 					.branchLength(BiasedToBottomInt.of(1, 2))
 					.foliagePlacementChance(1F)
 					.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
 					.build(),
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(0.3F)
 					.branchLength(UniformInt.of(1, 2))
 					.offsetLastLogChance(1F)
@@ -2567,8 +2614,6 @@ public final class WWTreeConfigured {
 			4,
 			2,
 			1,
-			0F,
-			ConstantInt.of(1),
 			0.1F,
 			0.6F,
 			belowTrunkProvider
@@ -2582,8 +2627,6 @@ public final class WWTreeConfigured {
 			4,
 			2,
 			1,
-			0F,
-			ConstantInt.of(1),
 			0.1F,
 			0.6F,
 			belowTrunkProvider
@@ -2616,7 +2659,7 @@ public final class WWTreeConfigured {
 				randomHeight2,
 				UniformInt.of(2, 5),
 				0.35F,
-				new TrunkBranchPlacement.Builder()
+				new BranchPlacement.Builder()
 					.branchChance(0.5F)
 					.branchLength(UniformInt.of(2, 3))
 					.offsetLastLogChance(1F)

@@ -23,7 +23,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,26 +41,26 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<WillowTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> trunkPlacerParts(instance).and(
 		instance.group(
 			IntProviders.NON_NEGATIVE_CODEC.fieldOf("trunk_split_height").forGetter(trunkPlacer -> trunkPlacer.trunkSplitHeight),
-			Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_chance").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapChance),
-			TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement)
+			Codec.floatRange(0F, 1F).fieldOf("branch_split_gap_probability").forGetter(trunkPlacer -> trunkPlacer.branchSplitGapProbability),
+			BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement)
 		)
 	).apply(instance, WillowTrunkPlacer::new));
 	private final IntProvider trunkSplitHeight;
-	private final float branchSplitGapChance;
-	private final TrunkBranchPlacement trunkBranchPlacement;
+	private final float branchSplitGapProbability;
+	private final BranchPlacement branchPlacement;
 
 	public WillowTrunkPlacer(
 		int baseHeight,
-		int firstRandomHeight,
-		int secondRandomHeight,
+		int heightRandA,
+		int heightRandB,
 		IntProvider trunkSplitHeight,
 		float branchSplitGapChance,
-		TrunkBranchPlacement trunkBranchPlacement
+		BranchPlacement branchPlacement
 	) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
+		super(baseHeight, heightRandA, heightRandB);
 		this.trunkSplitHeight = trunkSplitHeight;
-		this.branchSplitGapChance = branchSplitGapChance;
-		this.trunkBranchPlacement = trunkBranchPlacement;
+		this.branchSplitGapProbability = branchSplitGapChance;
+		this.branchPlacement = branchPlacement;
 	}
 
 	@Override
@@ -71,52 +71,52 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int height,
-		BlockPos startPos,
+		int treeHeight,
+		BlockPos origin,
 		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
-		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		placeBelowTrunkBlock(level, trunkSetter, random, origin.below(), tree);
+		final List<FoliagePlacer.FoliageAttachment> attachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockPos.MutableBlockPos branchMutable = new BlockPos.MutableBlockPos();
 		int splitHeight = this.trunkSplitHeight.sample(random);
 
 		int xOffset = 0;
 		int zOffset = 0;
-		for (int i = 0; i < height; ++i) {
-			mutable.setWithOffset(startPos, xOffset, i, zOffset);
-			if (i == splitHeight) {
+		for (int y = 0; y < treeHeight; ++y) {
+			mutable.setWithOffset(origin, xOffset, y, zOffset);
+			if (y == splitHeight) {
 				final Direction splitDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 				final BlockPos splitPos = mutable.immutable();
 				xOffset += splitDirection.getStepX();
 				zOffset += splitDirection.getStepZ();
-				mutable.setWithOffset(startPos, xOffset, i, zOffset);
+				mutable.setWithOffset(origin, xOffset, y, zOffset);
 
 				for (Direction branchDirection : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
-					if (!this.trunkBranchPlacement.canPlaceBranch(random)) continue;
+					if (!this.branchPlacement.canPlaceBranch(random)) continue;
 
-					if (random.nextFloat() <= this.branchSplitGapChance && splitDirection != branchDirection) {
+					if (random.nextFloat() <= this.branchSplitGapProbability && splitDirection != branchDirection) {
 						branchMutable.set(splitPos);
 					} else {
 						branchMutable.set(mutable);
 					}
-					this.trunkBranchPlacement.generateExtraBranch(
+					this.branchPlacement.generateExtraBranch(
 						level,
-						replacer,
+						trunkSetter,
 						random,
 						tree.trunkProvider(),
 						branchMutable.immutable(),
 						branchDirection,
-						foliageAttachments
+						attachments
 					);
 				}
 			}
 
-			this.placeLog(level, replacer, random, mutable, tree);
-			if (i == height - 1) foliageAttachments.add(new FoliagePlacer.FoliageAttachment(mutable.setWithOffset(startPos, xOffset, i + 1, zOffset), 0, false));
+			this.placeLog(level, trunkSetter, random, mutable, tree);
+			if (y == treeHeight - 1) attachments.add(new FoliagePlacer.FoliageAttachment(mutable.setWithOffset(origin, xOffset, y + 1, zOffset), 0, false));
 		}
-		return foliageAttachments;
+		return attachments;
 	}
 }

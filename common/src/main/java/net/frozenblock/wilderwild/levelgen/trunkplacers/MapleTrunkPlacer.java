@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,26 +43,26 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 	private static final List<Direction> EMPTY = ImmutableList.of();
 	public static final MapCodec<MapleTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
-			.and(TrunkBranchPlacement.CODEC.fieldOf("lower_trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.lowerTrunkBranchPlacement))
+			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
+			.and(BranchPlacement.CODEC.optionalFieldOf("lower_branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.lowerBranchPlacement))
 			.and(TrunkPlacer.CODEC.fieldOf("alt_trunk_placer").forGetter(trunkPlacer -> trunkPlacer.altTrunkPlacer))
 			.apply(instance, MapleTrunkPlacer::new)
 	);
-	private final TrunkBranchPlacement trunkBranchPlacement;
-	private final TrunkBranchPlacement lowerTrunkBranchPlacement;
+	private final BranchPlacement branchPlacement;
+	private final BranchPlacement lowerBranchPlacement;
 	private final TrunkPlacer altTrunkPlacer;
 
 	public MapleTrunkPlacer(
 		int baseHeight,
-		int firstRandomHeight,
-		int secondRandomHeight,
-		TrunkBranchPlacement trunkBranchPlacement,
-		TrunkBranchPlacement lowerTrunkBranchPlacement,
+		int heightRandA,
+		int heightRandB,
+		BranchPlacement branchPlacement,
+		BranchPlacement lowerBranchPlacement,
 		TrunkPlacer altTrunkPlacer
 	) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.trunkBranchPlacement = trunkBranchPlacement;
-		this.lowerTrunkBranchPlacement = lowerTrunkBranchPlacement;
+		super(baseHeight, heightRandA, heightRandB);
+		this.branchPlacement = branchPlacement;
+		this.lowerBranchPlacement = lowerBranchPlacement;
 		this.altTrunkPlacer = altTrunkPlacer;
 	}
 
@@ -90,7 +90,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final int branchCutoffFromTop = this.trunkBranchPlacement.branchCutoffFromTop().sample(random);
+		final int branchCutoffFromTop = this.branchPlacement.cutoffFromTop().sample(random);
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final Map<BlockPos, List<Direction>> branches = new Object2ObjectLinkedOpenHashMap<>();
 
@@ -102,7 +102,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 				|| currentHeight <= branchCutoffFromTop
 			) continue;
 
-			final TrunkBranchPlacement branchPlacement = currentHeight < (height / 2) ? this.lowerTrunkBranchPlacement : this.trunkBranchPlacement;
+			final BranchPlacement branchPlacement = currentHeight < (height / 2) ? this.lowerBranchPlacement : this.branchPlacement;
 			final BlockPos branchTrunkPos = mutable.immutable();
 			for (Direction direction : Direction.Plane.HORIZONTAL.shuffledCopy(random)) {
 				if (!branchPlacement.canPlaceBranch(random)) continue;

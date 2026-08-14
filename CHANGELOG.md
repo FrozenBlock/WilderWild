@@ -100,6 +100,35 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - `wilderwild:pollen_tree_decorator` -> `wilderwild:pollen`
   - `wilderwild:above_logs_tree_decorator` -> `wilderwild:above_logs`
 - Removed the `wilderwild:above_logs_tree_decorator` Tree Decorator Type, as `frozenlib:probability` and `minecraft:attached_to_logs` provide the same functionality.
+- Renamed the following fields in the `wilderwild:fallen_large_trunk_placer` Trunk Placer Type:
+  - `stump_placement_chance` -> `stump_probability`
+  - `success_in_water_chance` -> `water_success_probability`
+- Renamed the following fields in the `wilderwild:fallen_with_branches_trunk_placer` Trunk Placer Type:
+  - `stump_placement_chance` -> `stump_probability`
+  - `success_in_water_chance` -> `water_success_probability`
+  - `hollowed_trunk_provider` -> `hollow_state`
+  - `hollowed_log_chance` -> `hollow_probability`
+  - `trunk_branch_placement` -> `branch_placement`
+- Renamed the following fields in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+- Renamed the following fields in the `wilderwild:maple_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+  - `lower_trunk_branch_placement` -> `lower_branch_placement`
+- Renamed the following fields in the `wilderwild:straight_with_branches_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+- Renamed the following fields in the `wilderwild:willow_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+  - `branch_split_gap_chance` -> `branch_split_gap_probability`
+- Renamed the following fields in the `wilderwild:baobab_trunk_placer` Trunk Placer Type:
+  - `inner_trunk_provider` -> `inner_state`
+- Renamed the following fields in `branch_placement` (formerly `trunk_branch_placement`):
+  - `branch_placement_chance` -> `probability`
+  - `max_branch_count` -> `max_count`
+  - `branch_cutoff_from_top` -> `cutoff_from_top`
+  - `branch_length` -> `length`
+  - `offset_last_log_chance` -> `offset_last_log_probability`
+  - `minimum_branch_length_for_offset` -> `minimum_length_for_offset`
+  - `foliage_placement_chance` -> `foliage_probability`
 - Removed all Shelf Fungi blocks, as Vanilla's new Shelf Mushroom block offers a sufficient replacement.
   - All overworld trees that used to generate Shelf Fungi can now generate Shelf Mushrooms.
     - This generation is disabled by default for all tree types other than Jungle trees, and can be toggled via new config options.

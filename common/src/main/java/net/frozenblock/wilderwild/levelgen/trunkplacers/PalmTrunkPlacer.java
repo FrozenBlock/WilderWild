@@ -41,8 +41,8 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 		instance -> trunkPlacerParts(instance).apply(instance, PalmTrunkPlacer::new)
 	);
 
-	public PalmTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
+	public PalmTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {
+		super(baseHeight, heightRandA, heightRandB);
 	}
 
 	@Override
@@ -53,37 +53,37 @@ public class PalmTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> blockSetter,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int freeTreeHeight,
-		BlockPos pos,
+		int treeHeight,
+		BlockPos origin,
 		TreeFeature tree
 	) {
-		placeBelowTrunkBlock(level, blockSetter, random, pos.below(), tree);
+		placeBelowTrunkBlock(level, trunkSetter, random, origin.below(), tree);
 
-		final ArrayList<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+		final ArrayList<FoliagePlacer.FoliageAttachment> attachments = Lists.newArrayList();
 		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		final Vector3f offset = direction.step();
-		int i = freeTreeHeight - random.nextInt(4) - 1;
-		int j = 4 - random.nextInt(3);
+		final int leanHeight = treeHeight - random.nextInt(4) - 1;
+		int leanSteps = 4 - random.nextInt(3);
 		BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		double x = pos.getX();
-		double z = pos.getZ();
-		OptionalInt optionalInt = OptionalInt.empty();
-		for (int m = 0; m < freeTreeHeight; ++m) {
-			int n = pos.getY() + m;
-			if (m >= i && j > 0) {
+		double x = origin.getX();
+		double z = origin.getZ();
+		OptionalInt foliageHeight = OptionalInt.empty();
+		for (int y = 0; y < treeHeight; ++y) {
+			int dy = origin.getY() + y;
+			if (y >= leanHeight && leanSteps > 0) {
 				x += offset.x();
 				z += offset.z();
-				--j;
+				--leanSteps;
 			}
-			if (!this.placeLog(level, blockSetter, random, mutable.set(x, n, z), tree)) continue;
-			optionalInt = OptionalInt.of(n + 1);
+			if (!this.placeLog(level, trunkSetter, random, mutable.set(x, dy, z), tree)) continue;
+			foliageHeight = OptionalInt.of(dy + 1);
 		}
-		if (optionalInt.isPresent()) {
-			foliageAttachments.add(new FoliagePlacer.FoliageAttachment(BlockPos.containing(x, optionalInt.getAsInt(), z), 1, false));
+		if (foliageHeight.isPresent()) {
+			attachments.add(new FoliagePlacer.FoliageAttachment(BlockPos.containing(x, foliageHeight.getAsInt(), z), 1, false));
 		}
-		return foliageAttachments;
+		return attachments;
 	}
 }
 

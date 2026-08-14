@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.levelgen.trunkplacers.branch;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -37,27 +36,37 @@ import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-public record TrunkBranchPlacement(
-	float branchChance,
-	IntProvider maxBranchCount,
-	IntProvider branchCutoffFromTop,
-	IntProvider branchLength,
-	float offsetLastLogChance,
-	int minBranchLengthForOffset,
-	float foliagePlacementChance,
+public record BranchPlacement(
+	float probability,
+	IntProvider maxCount,
+	IntProvider cutoffFromTop,
+	IntProvider length,
+	float offsetLastLogProbability,
+	int minLengthForOffset,
+	float foliageProbability,
 	IntProvider foliageRadiusOffset
 ) {
-	public static final MapCodec<TrunkBranchPlacement> CODEC = RecordCodecBuilder.mapCodec(
+	public static final BranchPlacement EMPTY = new BranchPlacement(
+		0F,
+		ConstantInt.ZERO,
+		ConstantInt.ZERO,
+		ConstantInt.ZERO,
+		0F,
+		1,
+		0F,
+		ConstantInt.ZERO
+	);
+	public static final Codec<BranchPlacement> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			Codec.floatRange(0F, 1F).fieldOf("branch_placement_chance").forGetter(trunkPlacer -> trunkPlacer.branchChance),
-			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_branch_count", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.maxBranchCount),
-			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("branch_cutoff_from_top", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.branchCutoffFromTop),
-			IntProviders.NON_NEGATIVE_CODEC.fieldOf("branch_length").forGetter(trunkPlacer -> trunkPlacer.branchLength),
-			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.offsetLastLogChance),
-			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_branch_length_for_offset", 1).forGetter(trunkPlacer -> trunkPlacer.minBranchLengthForOffset),
-			Codec.FLOAT.lenientOptionalFieldOf("foliage_placement_chance", 0F).forGetter(trunkPlacer -> trunkPlacer.foliagePlacementChance),
-			IntProviders.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(trunkPlacer -> trunkPlacer.foliageRadiusOffset)
-		).apply(instance, TrunkBranchPlacement::new)
+			Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(branchPlacement -> branchPlacement.probability),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_count", ConstantInt.ZERO).forGetter(branchPlacement -> branchPlacement.maxCount),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("cutoff_from_top", ConstantInt.ZERO).forGetter(branchPlacement -> branchPlacement.cutoffFromTop),
+			IntProviders.NON_NEGATIVE_CODEC.fieldOf("length").forGetter(branchPlacement -> branchPlacement.length),
+			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_probability", 0F).forGetter(branchPlacement -> branchPlacement.offsetLastLogProbability),
+			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_length_for_offset", 1).forGetter(branchPlacement -> branchPlacement.minLengthForOffset),
+			Codec.FLOAT.lenientOptionalFieldOf("foliage_probability", 0F).forGetter(branchPlacement -> branchPlacement.foliageProbability),
+			IntProviders.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(branchPlacement -> branchPlacement.foliageRadiusOffset)
+		).apply(instance, BranchPlacement::new)
 	);
 
 	public static Builder builder() {
@@ -65,23 +74,23 @@ public record TrunkBranchPlacement(
 	}
 
 	public boolean canPlaceBranch(RandomSource random) {
-		return random.nextFloat() <= this.branchChance;
+		return random.nextFloat() <= this.probability;
 	}
 
 	public int getMaxBranchCount(RandomSource random) {
-		return this.maxBranchCount.sample(random);
+		return this.maxCount.sample(random);
 	}
 
 	public int getBranchLength(RandomSource random) {
-		return this.branchLength.sample(random);
+		return this.length.sample(random);
 	}
 
 	public boolean canOffsetLastLog(RandomSource random, int length) {
-		return random.nextFloat() <= this.offsetLastLogChance && length > this.minBranchLengthForOffset;
+		return random.nextFloat() <= this.offsetLastLogProbability && length > this.minLengthForOffset;
 	}
 
 	public boolean canPlaceFoliage(RandomSource random) {
-		return random.nextFloat() <= this.foliagePlacementChance;
+		return random.nextFloat() <= this.foliageProbability;
 	}
 
 	public IntProvider getFoliageRadiusOffset() {
@@ -224,8 +233,8 @@ public record TrunkBranchPlacement(
 			return this;
 		}
 
-		public TrunkBranchPlacement build() {
-			return new TrunkBranchPlacement(
+		public BranchPlacement build() {
+			return new BranchPlacement(
 				this.branchChance,
 				this.maxBranchCount,
 				this.branchCutoffFromTop,

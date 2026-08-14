@@ -43,8 +43,8 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 
 	public final UniformInt additionalHeight;
 
-	public LargeSnappedTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, UniformInt additionalHeight) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
+	public LargeSnappedTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, UniformInt additionalHeight) {
+		super(baseHeight, heightRandA, heightRandB);
 		this.additionalHeight = additionalHeight;
 	}
 
@@ -56,48 +56,48 @@ public class LargeSnappedTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int height,
-		BlockPos startPos,
+		int treeHeight,
+		BlockPos origin,
 		TreeFeature tree
 	) {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
-		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.DOWN), tree);
-		placeQuarter(level, replacer, random, tree, mutable.setWithOffset(startPos, 0, -1, 0), height);
+		placeBelowTrunkBlock(level, trunkSetter, random, mutable.setWithOffset(origin, Direction.DOWN), tree);
+		placeQuarter(level, trunkSetter, random, tree, mutable.setWithOffset(origin, 0, -1, 0), treeHeight);
 
-		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.EAST).move(Direction.DOWN), tree);
-		placeQuarter(level, replacer, random, tree, mutable.setWithOffset(startPos, 1, -1, 0), height);
+		placeBelowTrunkBlock(level, trunkSetter, random, mutable.setWithOffset(origin, Direction.EAST).move(Direction.DOWN), tree);
+		placeQuarter(level, trunkSetter, random, tree, mutable.setWithOffset(origin, 1, -1, 0), treeHeight);
 
-		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.DOWN), tree);
-		placeQuarter(level, replacer, random, tree, mutable.setWithOffset(startPos, 0, -1, 1), height);
+		placeBelowTrunkBlock(level, trunkSetter, random, mutable.setWithOffset(origin, Direction.SOUTH).move(Direction.DOWN), tree);
+		placeQuarter(level, trunkSetter, random, tree, mutable.setWithOffset(origin, 0, -1, 1), treeHeight);
 
-		placeBelowTrunkBlock(level, replacer, random, mutable.setWithOffset(startPos, Direction.SOUTH).move(Direction.EAST).move(Direction.DOWN), tree);
-		placeQuarter(level, replacer, random, tree, mutable.setWithOffset(startPos, 1, -1, 1), height);
+		placeBelowTrunkBlock(level, trunkSetter, random, mutable.setWithOffset(origin, Direction.SOUTH).move(Direction.EAST).move(Direction.DOWN), tree);
+		placeQuarter(level, trunkSetter, random, tree, mutable.setWithOffset(origin, 1, -1, 1), treeHeight);
 
 		return Lists.newArrayList();
 	}
 
 	private void placeQuarter(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
 		TreeFeature tree,
-		BlockPos.MutableBlockPos pos,
-		int height
+		BlockPos.MutableBlockPos mutable,
+		int treeHeight
 	) {
-		final int newHeight = height + this.additionalHeight.sample(random);
-		for (int i = 0; i < newHeight; ++i) this.placeLog(level, replacer, random, tree, pos.move(Direction.UP));
+		final int newHeight = treeHeight + this.additionalHeight.sample(random);
+		for (int i = 0; i < newHeight; ++i) this.placeLog(level, trunkSetter, random, tree, mutable.move(Direction.UP));
 	}
 
 	private void placeLog(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> blockSetter,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
 		TreeFeature tree,
-		BlockPos.MutableBlockPos pos
+		BlockPos.MutableBlockPos mutable
 	) {
-		this.placeLogIfFree(level, blockSetter, random, pos, tree);
+		this.placeLogIfFree(level, trunkSetter, random, mutable, tree);
 	}
 }

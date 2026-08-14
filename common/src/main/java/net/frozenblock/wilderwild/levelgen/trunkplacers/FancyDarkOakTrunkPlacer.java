@@ -23,11 +23,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.TrunkBranchPlacement;
+import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -39,15 +40,15 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(TrunkBranchPlacement.CODEC.fieldOf("trunk_branch_placement").forGetter(trunkPlacer -> trunkPlacer.trunkBranchPlacement))
+			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
 			.apply(instance, FancyDarkOakTrunkPlacer::new)
 	);
 
-	private final TrunkBranchPlacement trunkBranchPlacement;
+	private final BranchPlacement branchPlacement;
 
-	public FancyDarkOakTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, TrunkBranchPlacement trunkBranchPlacement) {
-		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.trunkBranchPlacement = trunkBranchPlacement;
+	public FancyDarkOakTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, BranchPlacement branchPlacement) {
+		super(baseHeight, heightRandA, heightRandB);
+		this.branchPlacement = branchPlacement;
 	}
 
 	@Override
@@ -58,89 +59,92 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(
 		WorldGenLevel level,
-		BiConsumer<BlockPos, BlockState> replacer,
+		BiConsumer<BlockPos, BlockState> trunkSetter,
 		RandomSource random,
-		int freeTreeHeight,
-		BlockPos pos,
+		int treeHeight,
+		BlockPos origin,
 		TreeFeature tree
 	) {
-		int r;
-		int q;
+		final ArrayList<FoliagePlacer.FoliageAttachment> attachments = Lists.newArrayList();
+		final BlockPos below = origin.below();
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below, tree);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below.east(), tree);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below.south(), tree);
+		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below.south().east(), tree);
 
-		final ArrayList<FoliagePlacer.FoliageAttachment> list = Lists.newArrayList();
-		final BlockPos belowPos = pos.below();
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos, tree);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.east(), tree);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south(), tree);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, replacer, random, belowPos.south().east(), tree);
-
-		final Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		int maxBranchCount = this.trunkBranchPlacement.getMaxBranchCount(random);
+		final Direction leanDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+		final int maxBranchCount = this.branchPlacement.getMaxBranchCount(random);
 		int extraLogs = 0;
-		int i = freeTreeHeight - random.nextInt(4);
-		int j = 2 - random.nextInt(3);
-		int k = pos.getX();
-		int l = pos.getY();
-		int m = pos.getZ();
-		int n = k;
-		int o = m;
-		int p = l + freeTreeHeight - 1;
-		for (q = 0; q < freeTreeHeight; ++q) {
-			BlockPos blockPos2;
-			if (q >= i && j > 0) {
-				n += direction.getStepX();
-				o += direction.getStepZ();
-				--j;
+		final int leanHeight = treeHeight - random.nextInt(4);
+		int leanSteps = 2 - random.nextInt(3);
+		final int x = origin.getX();
+		final int y = origin.getY();
+		final int z = origin.getZ();
+		int tx = x;
+		int tz = z;
+		final int ey = y + treeHeight - 1;
+		for (int dy = 0; dy < treeHeight; ++dy) {
+			if (dy >= leanHeight && leanSteps > 0) {
+				tx += leanDirection.getStepX();
+				tz += leanDirection.getStepZ();
+				--leanSteps;
 			}
-			if (!TreeFeature.isAirOrLeaves(level, blockPos2 = new BlockPos(n, l + q, o))) continue;
-			final boolean placedWest = this.placeLog(level, replacer, random, blockPos2, tree);
-			final boolean placedEast = this.placeLog(level, replacer, random, blockPos2.east(), tree);
-			final boolean placedSouth = this.placeLog(level, replacer, random, blockPos2.south(), tree);
-			final boolean placedSouthEast = this.placeLog(level, replacer, random, blockPos2.east().south(), tree);
-			if (extraLogs < maxBranchCount && this.trunkBranchPlacement.canPlaceBranch(random) && (q * 3) > freeTreeHeight) {
+
+			final int yy = y + dy;
+			final BlockPos blockPos = new BlockPos(tx, yy, tz);
+			if (!TreeFeature.isAirOrLeaves(level, blockPos)) continue;
+
+			final boolean placedWest = this.placeLog(level, trunkSetter, random, blockPos, tree);
+			final boolean placedEast = this.placeLog(level, trunkSetter, random, blockPos.east(), tree);
+			final boolean placedSouth = this.placeLog(level, trunkSetter, random, blockPos.south(), tree);
+			final boolean placedSouthEast = this.placeLog(level, trunkSetter, random, blockPos.east().south(), tree);
+			if (extraLogs < maxBranchCount && this.branchPlacement.canPlaceBranch(random) && (dy * 3) > treeHeight) {
 				final Direction branchDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-				final BlockPos.MutableBlockPos branchPos = blockPos2.mutable();
-				final ArrayList<BlockPos> possiblePoses = new ArrayList<>();
+				final BlockPos.MutableBlockPos branchPos = blockPos.mutable();
+				final ArrayList<BlockPos> possibleBranchPositions = new ArrayList<>();
 				if (branchDirection == Direction.NORTH) {
-					if (placedWest) possiblePoses.add(blockPos2);
-					if (placedEast) possiblePoses.add(blockPos2.east());
+					if (placedWest) possibleBranchPositions.add(blockPos);
+					if (placedEast) possibleBranchPositions.add(blockPos.east());
 				} else if (branchDirection == Direction.EAST) {
-					if (placedEast) possiblePoses.add(blockPos2.east());
-					if (placedSouthEast) possiblePoses.add(blockPos2.east().south());
+					if (placedEast) possibleBranchPositions.add(blockPos.east());
+					if (placedSouthEast) possibleBranchPositions.add(blockPos.east().south());
 				} else if (branchDirection == Direction.SOUTH) {
-					if (placedSouth) possiblePoses.add(blockPos2.south());
-					if (placedSouthEast) possiblePoses.add(blockPos2.east().south());
+					if (placedSouth) possibleBranchPositions.add(blockPos.south());
+					if (placedSouthEast) possibleBranchPositions.add(blockPos.east().south());
 				} else if (branchDirection == Direction.WEST) {
-					if (placedWest) possiblePoses.add(blockPos2);
-					if (placedSouth) possiblePoses.add(blockPos2.south());
+					if (placedWest) possibleBranchPositions.add(blockPos);
+					if (placedSouth) possibleBranchPositions.add(blockPos.south());
 				}
-				if (!possiblePoses.isEmpty()) {
-					branchPos.set(possiblePoses.get((int) (random.nextDouble() * possiblePoses.size())));
-					this.trunkBranchPlacement.generateExtraBranch(
+
+				if (!possibleBranchPositions.isEmpty()) {
+					branchPos.set(Util.getRandom(possibleBranchPositions, random));
+					this.branchPlacement.generateExtraBranch(
 						level,
-						replacer,
+						trunkSetter,
 						random,
 						tree.trunkProvider(),
 						branchPos,
 						branchDirection,
-						list
+						attachments
 					);
 					extraLogs += 1;
 				}
 			}
 		}
-		list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(n, p, o), 0, true));
-		for (q = -1; q <= 2; ++q) {
-			for (r = -1; r <= 2; ++r) {
-				if (q >= 0 && q <= 1 && r >= 0 && r <= 1 || random.nextInt(3) > 0) continue;
-				int s = random.nextInt(3) + 2;
-				for (int t = 0; t < s; ++t) {
-					this.placeLog(level, replacer, random, new BlockPos(k + q, p - t - 1, m + r), tree);
+
+		attachments.add(new FoliagePlacer.FoliageAttachment(new BlockPos(tx, ey, tz), 0, true));
+
+		for (int ox = -1; ox <= 2; ++ox) {
+			for (int oz = -1; oz <= 2; ++oz) {
+				if (ox >= 0 && ox <= 1 && oz >= 0 && oz <= 1 || random.nextInt(3) > 0) continue;
+				final int length = random.nextInt(3) + 2;
+				for (int branchY = 0; branchY < length; ++branchY) {
+					this.placeLog(level, trunkSetter, random, new BlockPos(x + ox, ey - branchY - 1, z + oz), tree);
 				}
-				list.add(new FoliagePlacer.FoliageAttachment(new BlockPos(n + q, p, o + r), 0, false));
+				attachments.add(new FoliagePlacer.FoliageAttachment(new BlockPos(x + ox, ey, z + oz), 0, false));
 			}
 		}
 
-		return list;
+		return attachments;
 	}
 }
