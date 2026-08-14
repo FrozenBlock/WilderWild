@@ -22,7 +22,10 @@ import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.minecraft.data.worldgen.biome.BiomeData;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.ARGB;
+import net.minecraft.world.level.biome.Biomes;
 
 public final class WWBiomeSettings {
 
@@ -33,6 +36,14 @@ public final class WWBiomeSettings {
 			context -> {
 				if (!WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR.get()) return;
 				context.getEffects().setFoliageColorOverride(11445290);
+			});
+
+		BiomeModifications.create(WWConstants.id("grass_color_dappled_forest")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST),
+			context -> {
+				if (!WWAmbienceAndMiscConfig.DAPPLED_FOREST_GRASS_COLOR.get()) return;
+				context.getEffects().setGrassColorOverride(ARGB.color(0, 229, 125, 47));
 			});
 
 		WWWaterColors.init();

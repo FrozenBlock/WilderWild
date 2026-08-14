@@ -1037,6 +1037,8 @@
     "tooltip.wilderwild.vegetation_colors": "Contains options that change the foliage colors of biomes.",
     "option.wilderwild.badlands_foliage": "Badlands Foliage Color",
     "tooltip.wilderwild.badlands_foliage": "Whether Badlands biomes should use a dark green color for their foliage.",
+    "option.wilderwild.dappled_forest_grass": "Dappled Forest Grass Color",
+   "tooltip.wilderwild.dappled_forest_grass": "Whether Dappled Forests should use a slightly brighter color for grass.",
     "option.wilderwild.water_colors": "Water Colors",
     "tooltip.wilderwild.water_colors": "Contains options that change the water colors of biomes to match their temperature.",
     "option.wilderwild.frozen_water": "Frozen and Icy Water",

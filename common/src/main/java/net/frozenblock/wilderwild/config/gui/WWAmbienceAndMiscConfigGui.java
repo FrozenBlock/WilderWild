@@ -102,7 +102,8 @@ public final class WWAmbienceAndMiscConfigGui {
 
 		// VEGETATION COLORS
 		createSubCategory(builder, category, text("vegetation_colors"), tooltip("vegetation_colors"),
-			booleanEntry(builder, "badlands_foliage", WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR)
+			booleanEntry(builder, "badlands_foliage", WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR),
+			booleanEntry(builder, "dappled_forest_grass", WWAmbienceAndMiscConfig.DAPPLED_FOREST_GRASS_COLOR)
 		);
 
 		// MUSIC

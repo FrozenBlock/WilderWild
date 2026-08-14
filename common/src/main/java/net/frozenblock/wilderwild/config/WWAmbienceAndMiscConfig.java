@@ -126,4 +126,8 @@ public final class WWAmbienceAndMiscConfig {
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("new." + bool))
 		.build();
+	public static final ConfigEntry<Boolean> DAPPLED_FOREST_GRASS_COLOR = CONFIG.unsyncableEntryBuilder("vegetationColors/dappledForestGrass", EntryType.BOOL, true)
+		.requireRestart()
+		.textSupplier(bool -> WWConstants.text("new." + bool))
+		.build();
 }
