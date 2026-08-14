@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:noise_provider",
+    "noise": {
+      "amplitude_modifiers": [
+        1.0
+      ],
+      "base_octave": 0,
+      "normalize": false
+    },
+    "scale": 0.048833333,
+    "seed": 5050,
+    "states": [
+      "minecraft:lily_of_the_valley",
+      "minecraft:lily_of_the_valley",
+      "minecraft:lily_of_the_valley",
+      "minecraft:lily_of_the_valley",
+      "minecraft:azure_bluet",
+      "minecraft:azure_bluet",
+      "minecraft:azure_bluet",
+      "wilderwild:marigold",
+      "wilderwild:marigold",
+      "wilderwild:marigold",
+      "wilderwild:marigold",
+      "minecraft:poppy",
+      "minecraft:poppy",
+      "minecraft:allium",
+      "minecraft:allium",
+      "wilderwild:seeding_dandelion",
+      "wilderwild:seeding_dandelion",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower",
+      "wilderwild:pasqueflower"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:dying_yellow_poplar",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "wilderwild:yellow_poplar_sapling"
+      }
+    }
+  ]
+}

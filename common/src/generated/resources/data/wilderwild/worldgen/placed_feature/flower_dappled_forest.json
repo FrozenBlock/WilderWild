@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:marigold",
+  "feature": "wilderwild:flower_dappled_forest",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 16
+      "chance": 6
     },
     {
       "type": "minecraft:in_square"
@@ -17,7 +17,7 @@
     },
     {
       "type": "minecraft:count",
-      "count": 24
+      "count": 42
     },
     {
       "type": "minecraft:offset",

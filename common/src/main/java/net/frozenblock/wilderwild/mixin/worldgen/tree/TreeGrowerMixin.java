@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.levelgen.grower.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -150,5 +151,15 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
 			}
 		}
+	}
+
+
+	@Inject(method = "growTree", at = @At("HEAD"), cancellable = true)
+	private void wilderWild$growOrangePoplarTree(
+		ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random, CallbackInfoReturnable<Boolean> info
+	) {
+		if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
+		final TreeGrower treeGrower = TreeGrower.class.cast(this);
+		if (treeGrower == TreeGrower.POPLAR) info.setReturnValue(WWTreeGrowers.POPLAR.orange().growTree(level, generator, pos, state, random));
 	}
 }

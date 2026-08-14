@@ -93,6 +93,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature FALLEN_PALE_OAK_PLACED = register("fallen_pale_oak_placed");
 	public static final FrozenLibPlacedFeature FALLEN_MANGROVE_PLACED = register("fallen_mangrove_placed");
 	public static final FrozenLibPlacedFeature FALLEN_MAPLE_PLACED = register("fallen_maple_placed");
+	public static final FrozenLibPlacedFeature FALLEN_POPLAR_PLACED = register("fallen_poplar_placed");
 	// TREES
 	public static final FrozenLibPlacedFeature TREES_PLAINS = register("trees_plains");
 	public static final FrozenLibPlacedFeature BIG_BUSHES_FOREST = register("big_bushes_forest");
@@ -118,6 +119,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature SPRUCE_PLACED = register("spruce_placed");
 	public static final FrozenLibPlacedFeature SPRUCE_PLACED_NO_LITTER = register("spruce_placed_no_litter");
 	public static final FrozenLibPlacedFeature SHORT_SPRUCE_PLACED = register("short_spruce_placed");
+	public static final FrozenLibPlacedFeature SHORT_SPRUCE_SPARSE = register("short_spruce_sparse");
 	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_PLACED = register("short_mega_spruce_placed");
 	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW_PLACED = register("short_mega_spruce_on_snow_placed");
 	public static final FrozenLibPlacedFeature TREES_OLD_GROWTH_PINE_TAIGA = register("trees_old_growth_pine_taiga");
@@ -162,6 +164,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature TREES_MANGROVE = register("trees_mangrove");
 	public static final FrozenLibPlacedFeature CHERRY_TREES = register("cherry_trees");
 	public static final FrozenLibPlacedFeature MAPLE_TREES = register("maple_trees");
+	public static final FrozenLibPlacedFeature POPLAR_TREES = register("poplar_trees");
 	public static final FrozenLibPlacedFeature TREES_PALE_GARDEN = register("trees_pale_garden");
 	public static final FrozenLibPlacedFeature SNAPPED_OAK_PLACED = register("snapped_oak");
 	public static final FrozenLibPlacedFeature SNAPPED_OAK_CLEARING_PLACED = register("snapped_oak_clearing");
@@ -193,6 +196,8 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature SNAPPED_DARK_OAK_CLEARING_PLACED = register("snapped_dark_oak_clearing");
 	public static final FrozenLibPlacedFeature SNAPPED_MAPLE_PLACED = register("snapped_maple");
 	public static final FrozenLibPlacedFeature SNAPPED_MAPLE_CLEARING_PLACED = register("snapped_maple_clearing");
+	public static final FrozenLibPlacedFeature SNAPPED_POPLAR_PLACED = register("snapped_poplar");
+	public static final FrozenLibPlacedFeature SNAPPED_POPLAR_CLEARING_PLACED = register("snapped_poplar_clearing");
 	public static final FrozenLibPlacedFeature SNAPPED_PALE_OAK_PLACED = register("snapped_pale_oak");
 	// MUSHROOMS
 	public static final FrozenLibPlacedFeature BROWN_MUSHROOM = register("brown_mushroom");
@@ -273,7 +278,6 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature CARNATION = register("carnation");
 	public static final FrozenLibPlacedFeature MARIGOLD = register("marigold");
 	public static final FrozenLibPlacedFeature MARIGOLD_SPARSE = register("marigold_sparse");
-	public static final FrozenLibPlacedFeature MARIGOLD_RARE = register("marigold_rare");
 	public static final FrozenLibPlacedFeature EYEBLOSSOM = register("eyeblossom");
 	public static final FrozenLibPlacedFeature PINK_TULIP_UNCOMMON = register("pink_tulip_uncommon");
 	public static final FrozenLibPlacedFeature ALLIUM_UNCOMMON = register("allium_uncommon");
@@ -289,6 +293,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature FLOWER_PLAINS = register("flower_plains");
 	public static final FrozenLibPlacedFeature FLOWER_SNOWY_PLAINS = register("flower_snowy_plains");
 	public static final FrozenLibPlacedFeature FLOWER_TUNDRA = register("flower_tundra");
+	public static final FrozenLibPlacedFeature FLOWER_DAPPLED_FOREST = register("flower_dappled_forest");
 	public static final FrozenLibPlacedFeature FLOWER_BIRCH = register("flower_birch");
 	public static final FrozenLibPlacedFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenLibPlacedFeature DENSE_FLOWER_PLACED = register("dense_flower_placed");
@@ -568,6 +573,13 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
+		FALLEN_POPLAR_PLACED.makeAndSetHolder(WWConfiguredFeatures.FALLEN_POPLAR,
+			RarityFilter.onAverageOnceEvery(9),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
 		// TREES
 		TREES_PLAINS.makeAndSetHolder(WWConfiguredFeatures.TREES_PLAINS,
 			PlacementUtils.countExtra(1, 0.1F, 1),
@@ -717,6 +729,11 @@ public final class WWPlacedFeatures {
 
 		SHORT_SPRUCE_PLACED.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(5, 0.1F, 1))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+		);
+
+		SHORT_SPRUCE_SPARSE.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA,
+			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(0, 0.2F, 1))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
@@ -951,6 +968,16 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
+		POPLAR_TREES.makeAndSetHolder(WWConfiguredFeatures.POPLARS,
+			PlacementUtils.countExtra(9, 0.1F, 2),
+			InSquarePlacement.spread(),
+			TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			PlacementUtils.filteredByBlockSurvival(Blocks.POPLAR_SAPLING),
+			WWPlacementUtils.TREE_CLEARING_FILTER,
+			BiomeFilter.biome()
+		);
+
 		TREES_PALE_GARDEN.makeAndSetHolder(WWConfiguredFeatures.TREES_PALE_GARDEN,
 			PlacementUtils.countExtra(18, 0.1F, 2),
 			InSquarePlacement.spread(),
@@ -1088,6 +1115,15 @@ public final class WWPlacedFeatures {
 
 		SNAPPED_MAPLE_CLEARING_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_MAPLE,
 			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(3))
+				.add(WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED).build()
+		);
+
+		SNAPPED_POPLAR_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_POPLAR,
+			treePlacement(RarityFilter.onAverageOnceEvery(36))
+		);
+
+		SNAPPED_POPLAR_CLEARING_PLACED.makeAndSetHolder(WWConfiguredFeatures.SNAPPED_POPLAR,
+			VegetationPlacements.treePlacementBase(RarityFilter.onAverageOnceEvery(2))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED).build()
 		);
 
@@ -1905,16 +1941,6 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		MARIGOLD_RARE.makeAndSetHolder(WWConfiguredFeatures.MARIGOLD,
-			RarityFilter.onAverageOnceEvery(16),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome(),
-			CountPlacement.of(24),
-			OffsetPlacement.ofTriangle(7, 3),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
-		);
-
 		EYEBLOSSOM.makeAndSetHolder(configuredFeatures.getOrThrow(VegetationFeatures.FLOWER_PALE_GARDEN),
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
@@ -2057,6 +2083,16 @@ public final class WWPlacedFeatures {
 
 		FLOWER_TUNDRA.makeAndSetHolder(WWConfiguredFeatures.FLOWER_TUNDRA,
 			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			CountPlacement.of(42),
+			OffsetPlacement.ofTriangle(7, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+		);
+
+		FLOWER_DAPPLED_FOREST.makeAndSetHolder(WWConfiguredFeatures.FLOWER_DAPPLED_FOREST,
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),

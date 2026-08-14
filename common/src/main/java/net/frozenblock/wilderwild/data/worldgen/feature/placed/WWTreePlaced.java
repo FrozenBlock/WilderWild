@@ -18,11 +18,16 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -90,6 +95,17 @@ public final class WWTreePlaced {
 
 	public static final FrozenLibPlacedFeature FALLEN_MAPLE_CHECKED = register("fallen_maple_checked");
 	public static final FrozenLibPlacedFeature SNAPPED_MAPLE_CHECKED = register("snapped_maple_checked");
+
+	// POPLAR
+	public static final PoplarCollection<FrozenLibPlacedTreeFeature> POPLAR_CHECKED = WWTreeConfigured.POPLAR_TREE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final PoplarCollection<FrozenLibPlacedTreeFeature> DYING_POPLAR_CHECKED = WWTreeConfigured.DYING_POPLAR_TREE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final PoplarCollection<FrozenLibPlacedTreeFeature> TALL_POPLAR_CHECKED = WWTreeConfigured.TALL_POPLAR_TREE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final PoplarCollection<FrozenLibPlacedTreeFeature> TALL_DYING_POPLAR_CHECKED = WWTreeConfigured.TALL_DYING_POPLAR_TREE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final PoplarCollection<FrozenLibPlacedTreeFeature> POPLAR_BEES_CHECKED = WWTreeConfigured.POPLAR_BEES_0002.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final PoplarCollection<FrozenLibPlacedTreeFeature> TALL_POPLAR_BEES_CHECKED = WWTreeConfigured.TALL_POPLAR_BEES_0002.map(FrozenLibTreeFeature::toPlacedFeature);
+
+	public static final FrozenLibPlacedFeature FALLEN_POPLAR_CHECKED = register("fallen_poplar_checked");
+	public static final FrozenLibPlacedFeature SNAPPED_POPLAR_CHECKED = register("snapped_poplar_checked");
 
 	//OAK
 	public static final FrozenLibPlacedTreeFeature OAK_CHECKED = WWTreeConfigured.OAK.toPlacedFeature();
@@ -253,9 +269,7 @@ public final class WWTreePlaced {
 		WWConstants.logWithModId("Registering WWTreePlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(
-			BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE)
-		);
+		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE));
 		final List<PlacementModifier> snowTreePlacementFilters = List.of(
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
 			BlockPredicateFilter.forPredicate(
@@ -320,42 +334,43 @@ public final class WWTreePlaced {
 		final MapleCollection<BlockPredicateFilter> mapleSaplingPlacement = WWBlocks.MAPLE_SAPLING.map(sapling -> {
 			return PlacementUtils.filteredByBlockSurvival(sapling.get());
 		});
+		final BiConsumer<MapleCollection<FrozenLibPlacedFeature>, MapleCollection<FrozenLibFeature>> registerMaple = (placedCollection, collection) -> {
+			MapleCollection.zipApply(placedCollection, MapleCollection.DYE_COLORS, (feature, color) -> {
+				feature.makeAndSetHolder(collection.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
+			});
+		};
 
-		MapleCollection.zipApply(MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.MAPLE_TREE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(DYING_MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.DYING_MAPLE_TREE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(MAPLE_BEES_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.MAPLE_BEES_0004.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(TALL_MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.TALL_MAPLE_TREE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(TALL_DYING_MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.TALL_DYING_MAPLE_TREE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(TALL_MAPLE_BEES_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.TALL_MAPLE_BEES_0004.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(SHORT_MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.SHORT_MAPLE_TREE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(FULL_MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.FULL_MAPLE_TREE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
-		MapleCollection.zipApply(BIG_BUSH_MAPLE_CHECKED, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(WWTreeConfigured.BIG_SHRUB_MAPLE.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-		});
+		registerMaple.accept(MAPLE_CHECKED, WWTreeConfigured.MAPLE_TREE);
+		registerMaple.accept(DYING_MAPLE_CHECKED, WWTreeConfigured.DYING_MAPLE_TREE);
+		registerMaple.accept(MAPLE_BEES_CHECKED, WWTreeConfigured.MAPLE_BEES_0004);
+		registerMaple.accept(TALL_MAPLE_CHECKED, WWTreeConfigured.TALL_MAPLE_TREE);
+		registerMaple.accept(TALL_DYING_MAPLE_CHECKED, WWTreeConfigured.TALL_DYING_MAPLE_TREE);
+		registerMaple.accept(TALL_MAPLE_BEES_CHECKED, WWTreeConfigured.TALL_MAPLE_BEES_0004);
+		registerMaple.accept(SHORT_MAPLE_CHECKED, WWTreeConfigured.SHORT_MAPLE_TREE);
+		registerMaple.accept(FULL_MAPLE_CHECKED, WWTreeConfigured.FULL_MAPLE_TREE);
+		registerMaple.accept(BIG_BUSH_MAPLE_CHECKED, WWTreeConfigured.BIG_SHRUB_MAPLE);
 
-		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MAPLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
-		);
+		FALLEN_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_MAPLE_TREE.getHolder(), fallenTreePlacement);
+		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(), fallenTreePlacement);
 
-		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE))
-		);
+		// POPLAR
+		// TODO: poplar saplings
+		final PoplarCollection<BlockPredicateFilter> poplarSaplingPlacement = WWBlocks.POPLAR_SAPLING.map(sapling -> {
+			return PlacementUtils.filteredByBlockSurvival(sapling.get());
+		});
+		final Consumer<PoplarCollection<FrozenLibPlacedTreeFeature>> registerPoplar = collection -> {
+			PoplarCollection.zipApply(collection, PoplarCollection.DYE_COLORS, (feature, color) -> feature.makeAndSetHolders(poplarSaplingPlacement.pick(color)));
+		};
+
+		registerPoplar.accept(POPLAR_CHECKED);
+		registerPoplar.accept(DYING_POPLAR_CHECKED);
+		registerPoplar.accept(POPLAR_BEES_CHECKED);
+		registerPoplar.accept(TALL_POPLAR_CHECKED);
+		registerPoplar.accept(TALL_DYING_POPLAR_CHECKED);
+		registerPoplar.accept(TALL_POPLAR_BEES_CHECKED);
+
+		FALLEN_POPLAR_CHECKED.makeAndSetHolder(WWTreeConfigured.FALLEN_POPLAR_TREE.getHolder(), fallenTreePlacement);
+		SNAPPED_POPLAR_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_POPLAR_TREE.getHolder(), fallenTreePlacement);
 
 		// OAK
 		final BlockPredicateFilter oakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING);

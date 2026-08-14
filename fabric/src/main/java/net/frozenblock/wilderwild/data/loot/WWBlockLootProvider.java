@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.advancements.predicates.DataComponentMatchers;
@@ -37,6 +38,8 @@ import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -192,6 +195,11 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		WWBlocks.MAPLE_SAPLING.forEach(sapling -> this.dropSelf(sapling.get()));
 		MapleCollection.zipApply(WWBlocks.MAPLE_LEAVES, WWBlocks.MAPLE_SAPLING, (leaves, sapling) -> {
 			this.add(leaves.get(), block -> this.createLeavesDrops(block, sapling.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+		});
+
+		WWBlocks.POPLAR_SAPLING.forEach(sapling -> {
+			if (sapling.get() == Blocks.POPLAR_SAPLING) return;
+			this.dropSelf(sapling.get());
 		});
 
 		this.dropSelf(WWBlocks.HOLLOWED_ACACIA_LOG.get());
@@ -450,6 +458,10 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropPottedContents(WWBlocks.POTTED_WILLOW_SAPLING.get());
 		this.dropPottedContents(WWBlocks.POTTED_CYPRESS_SAPLING.get());
 		WWBlocks.POTTED_MAPLE_SAPLING.forEach(sapling -> this.dropPottedContents(sapling.get()));
+		WWBlocks.POTTED_POPLAR_SAPLING.forEach(sapling -> {
+			if (sapling == Blocks.POTTED_POPLAR_SAPLING) return;
+			this.dropPottedContents(sapling.get());
+		});
 		this.dropPottedContents(WWBlocks.POTTED_CARNATION.get());
 		this.dropPottedContents(WWBlocks.POTTED_MARIGOLD.get());
 		this.dropPottedContents(WWBlocks.POTTED_PASQUEFLOWER.get());

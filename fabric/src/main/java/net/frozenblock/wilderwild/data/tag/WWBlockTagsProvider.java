@@ -32,6 +32,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.BlockItemTagsProvider;
 import net.minecraft.references.BlockIds;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -994,7 +995,8 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockIds.POTTED_WILLOW_SAPLING)
 			.add(WWBlockIds.POTTED_CYPRESS_SAPLING)
 			.add(WWBlockIds.POTTED_COCONUT)
-			.add(WWBlockIds.POTTED_MAPLE_SAPLING.yellow(), WWBlockIds.POTTED_MAPLE_SAPLING.orange(), WWBlockIds.POTTED_MAPLE_SAPLING.red())
+			.addAll(WWBlockIds.POTTED_MAPLE_SAPLING.asList())
+			.add(WWBlockIds.POTTED_POPLAR_SAPLING.yellow(), WWBlockIds.POTTED_POPLAR_SAPLING.red())
 			.add(WWBlockIds.POTTED_SHRUB)
 			.add(WWBlockIds.POTTED_BUSH)
 			.add(WWBlockIds.POTTED_BIG_DRIPLEAF)
@@ -1231,11 +1233,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.WILLOW_SAPLING)
 			.add(WWBlockItemIds.CYPRESS_SAPLING)
 			.add(WWBlockItemIds.PALM_FRONDS)
-			.add(WWBlockItemIds.YELLOW_MAPLE_SAPLING)
-			.add(WWBlockItemIds.ORANGE_MAPLE_SAPLING)
-			.add(WWBlockItemIds.RED_MAPLE_SAPLING)
-			.add(BlockItemIds.PALE_OAK_SAPLING)
-			.add(BlockItemIds.POPLAR_SAPLING)
+			.addAll(WWBlockItemIds.MAPLE_SAPLING.map(BlockItemId::block).asList())
+			.add(BlockItemIds.PALE_OAK_SAPLING.block())
+			.addAll(WWBlockItemIds.POPLAR_SAPLING.map(BlockItemId::block).asList())
 
 			.addOptional(this.getKey("betterend", "pythadendron_sapling"))
 			.addOptional(this.getKey("betterend", "lacugrove_sapling"))

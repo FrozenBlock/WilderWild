@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -54,6 +55,11 @@ public final class WWVillagerTrades {
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_COCONUT = resourceKey("wandering_trader/emerald_coconut");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_MAPLE_LOG = resourceKey("wandering_trader/emerald_maple_log");
 	public static final MapleCollection<ResourceKey<VillagerTrade>> WANDERING_TRADER_EMERALD_MAPLE_SAPLING = MapleCollection.NAMES.map(name -> resourceKey("wandering_trader/emerald_" + name +"_maple_sapling"));
+	public static final PoplarCollection<ResourceKey<VillagerTrade>> WANDERING_TRADER_EMERALD_POPLAR_SAPLING = new PoplarCollection<>(
+		resourceKey("wandering_trader/emerald_yelow_poplar_sapling"),
+		VillagerTrades.WANDERING_TRADER_EMERALD_POPLAR_SAPLING,
+		resourceKey("wandering_trader/emerald_red_poplar_sapling")
+	);
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_SEEDING_DANDELION = resourceKey("wandering_trader/emerald_seeding_dandelion");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_CARNATION = resourceKey("wandering_trader/emerald_carnation");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_PASQUEFLOWER = resourceKey("wandering_trader/emerald_pasqueflower");
@@ -163,6 +169,12 @@ public final class WWVillagerTrades {
 		);
 		MapleCollection.zipApply(WANDERING_TRADER_EMERALD_MAPLE_SAPLING, WWItems.MAPLE_SAPLING,
 			(key, item) -> context.register(key, emeraldTrade(5, item, 1, 8, 1))
+		);
+		PoplarCollection.zipApply(WANDERING_TRADER_EMERALD_POPLAR_SAPLING, WWItems.POPLAR_SAPLING,
+			(key, item) -> {
+				if (key.equals(VillagerTrades.WANDERING_TRADER_EMERALD_POPLAR_SAPLING)) return;
+				context.register(key, emeraldTrade(5, item.get(), 1, 8, 1));
+			}
 		);
 		context.register(
 			WANDERING_TRADER_EMERALD_SEEDING_DANDELION,

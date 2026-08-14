@@ -173,6 +173,9 @@ public final class WWCreativeInventorySorting {
 		// MAPLE (TOOLS AND UTILITIES)
 		insertAfterInToolsAndUtilities(Items.CHERRY_CHEST_BOAT, WWItems.MAPLE_BOAT);
 		insertAfterInToolsAndUtilities(WWItems.MAPLE_BOAT, WWItems.MAPLE_CHEST_BOAT);
+		// POPLAR (NATURAL BLOCKS)
+		insertBeforeInNaturalBlocks(Items.POPLAR_SAPLING, WWItems.POPLAR_SAPLING.yellow().get());
+		insertAfterInNaturalBlocks(Items.POPLAR_SAPLING, WWItems.POPLAR_SAPLING.red().get());
 
 		// HOLLOWED LOGS
 		insertAfterInBuildingAndNaturalBlocks(Items.OAK_LOG, WWItems.HOLLOWED_OAK_LOG);

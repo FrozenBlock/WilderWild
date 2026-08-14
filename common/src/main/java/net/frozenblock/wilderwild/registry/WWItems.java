@@ -29,6 +29,7 @@ import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
 import net.frozenblock.lib.platform.api.registry.FrozenHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
@@ -41,6 +42,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
 import net.minecraft.references.BlockItemId;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
@@ -50,6 +52,7 @@ import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SpawnEggItem;
@@ -57,7 +60,10 @@ import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.ChatFormatting;
@@ -96,6 +102,16 @@ public final class WWItems {
 		(id, block) -> REGISTER.registerSimpleBlockItem(id, block,
 			() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS)
 		)
+	);
+	public static final PoplarCollection<Supplier<? extends Item>> POPLAR_SAPLING = PoplarCollection.zipMap(WWBlockItemIds.POPLAR_SAPLING, WWBlocks.POPLAR_SAPLING,
+		(id, block) -> {
+			if (id.equals(BlockItemIds.POPLAR_SAPLING)) return () -> Items.POPLAR_SAPLING;
+			return REGISTER.registerSimpleBlockItem(id, block,
+				() -> new Item.Properties()
+					.compostable(NumberProviders.COMPOSTABLE_LOW)
+					.cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS)
+			);
+		}
 	);
 
 	// LEAVES

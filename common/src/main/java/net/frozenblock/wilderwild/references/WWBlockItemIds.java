@@ -19,7 +19,9 @@ package net.frozenblock.wilderwild.references;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.minecraft.references.BlockItemId;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.Identifier;
 
 public final class WWBlockItemIds {
@@ -41,9 +43,11 @@ public final class WWBlockItemIds {
 	public static final BlockItemId CYPRESS_SAPLING = create("cypress_sapling");
 	public static final BlockItemId COCONUT = create("coconut");
 	public static final MapleCollection<BlockItemId> MAPLE_SAPLING = MapleCollection.NAMES.map(name -> create(name + "_maple_sapling"));
-	public static final BlockItemId YELLOW_MAPLE_SAPLING = create("yellow_maple_sapling");
-	public static final BlockItemId ORANGE_MAPLE_SAPLING = create("orange_maple_sapling");
-	public static final BlockItemId RED_MAPLE_SAPLING = create("red_maple_sapling");
+	public static final PoplarCollection<BlockItemId> POPLAR_SAPLING = new PoplarCollection<>(
+		create("yellow_poplar_sapling"),
+		BlockItemIds.POPLAR_SAPLING,
+		create("red_poplar_sapling")
+	);
 
 	// LEAVES
 	public static final BlockItemId BAOBAB_LEAVES = create("baobab_leaves");

@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.minecraft.data.worldgen.biome.BiomeData;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -49,10 +50,6 @@ public final class WWVegetationGeneration {
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MARIGOLD_SPARSE)) {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MARIGOLD_SPARSE.getKey());
-				}
-
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MARIGOLD_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MARIGOLD_RARE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_EYEBLOSSOM)) {
@@ -254,6 +251,10 @@ public final class WWVegetationGeneration {
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUNDRA_FLOWERS)) {
 					generationSettings.removeFeature(VegetationPlacements.FOREST_FLOWERS);
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TUNDRA.getKey());
+				}
+
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DAPPLED_FOREST_FLOWERS)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_DAPPLED_FOREST.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GENERIC_FLOWERS)) {

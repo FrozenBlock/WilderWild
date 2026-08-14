@@ -939,6 +939,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.HAS_FALLEN_MAPLE_TREES)
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
+		this.builder(WWBiomeTags.HAS_FALLEN_POPLAR_TREES)
+			.addOptional(Biomes.DAPPLED_FOREST);
+
 		this.builder(WWBiomeTags.BAMBOO_JUNGLE_TREES)
 			.add(Biomes.BAMBOO_JUNGLE);
 
@@ -1084,9 +1087,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
-
-		this.builder(WWBiomeTags.HAS_MARIGOLD_RARE)
-			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_EYEBLOSSOM)
 			.add(Biomes.PALE_GARDEN);
@@ -1358,6 +1358,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.SWAMP_TREES)
 			.add(Biomes.SWAMP);
 
+		this.builder(WWBiomeTags.POPLAR_TREES)
+			.add(Biomes.DAPPLED_FOREST);
+
 		this.builder(WWBiomeTags.HAS_PALMS)
 			.add(Biomes.DESERT)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE)
@@ -1375,6 +1378,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA);
+
+		this.builder(WWBiomeTags.HAS_SHORT_SPRUCE_SPARSE)
+			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_BIG_COARSE_BUSH)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
@@ -1481,6 +1487,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_SNAPPED_MAPLE)
 			.addOptional(WWBiomes.MAPLE_FOREST);
+
+		this.builder(WWBiomeTags.HAS_SNAPPED_POPLAR)
+			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_POLLEN)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -1609,6 +1618,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_TUNDRA_FLOWERS)
 			.addOptional(WWBiomes.TUNDRA);
+
+		this.builder(WWBiomeTags.HAS_DAPPLED_FOREST_FLOWERS)
+			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_BIRCH_FLOWERS)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)

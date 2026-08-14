@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -83,6 +84,11 @@ public final class WWModelProvider extends FabricModelProvider {
 			generator.createPlantWithDefaultItem(sapling.get(), potted.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		});
 		WWBlocks.MAPLE_LEAVES.forEach(block -> generator.createTrivialBlock(block.get(), TexturedModel.LEAVES));
+
+		PoplarCollection.zipApply(WWBlocks.POPLAR_SAPLING, WWBlocks.POTTED_POPLAR_SAPLING, (sapling, potted) -> {
+			if (sapling.get() == Blocks.POPLAR_SAPLING) return;
+			generator.createPlantWithDefaultItem(sapling.get(), potted.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		});
 
 		generator.createDoublePlantWithDefaultItem(WWBlocks.DATURA.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:yellow_poplar_sapling"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

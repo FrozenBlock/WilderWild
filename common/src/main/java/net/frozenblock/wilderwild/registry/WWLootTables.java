@@ -33,10 +33,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaChestLoot;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -47,8 +51,11 @@ import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import java.util.List;
 
 public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_MILKWEED = register("shearing/milkweed");
@@ -259,6 +266,25 @@ public final class WWLootTables {
 			CustomData.update(DataComponents.CUSTOM_DATA, itemStack, compoundTag -> compoundTag.putBoolean("wilderwild_is_ancient", true));
 		});
 		RemovableItemTags.register("wilderwild_is_ancient", (level, entity, equipmentSlot) -> true, true);
+
+		// POPLAR SAPLINGS
+		LootTableEvents.MODIFY_DROPS.register((table, context, drops) -> {
+			if (!context.hasParameter(LootContextParams.BLOCK_STATE)) return;
+			final BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+			if (state.is(Blocks.YELLOW_POPLAR_LEAVES)) {
+				final List<ItemStack> poplarSaplings = drops.stream().filter(itemStack -> itemStack.is(Items.POPLAR_SAPLING)).toList();
+				drops.removeAll(poplarSaplings);
+				drops.addAll(poplarSaplings.stream().map(itemStack -> itemStack.transmuteCopy(WWItems.POPLAR_SAPLING.yellow().get())).toList());
+				return;
+			}
+
+			if (state.is(Blocks.RED_POPLAR_LEAVES)) {
+				final List<ItemStack> poplarSaplings = drops.stream().filter(itemStack -> itemStack.is(Items.POPLAR_SAPLING)).toList();
+				drops.removeAll(poplarSaplings);
+				drops.addAll(poplarSaplings.stream().map(itemStack -> itemStack.transmuteCopy(WWItems.POPLAR_SAPLING.red().get())).toList());
+				return;
+			}
+		});
 	}
 
 	private static ResourceKey<LootTable> register(String name) {

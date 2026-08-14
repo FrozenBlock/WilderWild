@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.levelgen.grower;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.levelgen.grower.impl.TreeGrowerInterface;
@@ -88,6 +89,19 @@ public final class WWTreeGrowers {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
 			return hasFlowers ? WWConfiguredFeatures.COLORED_MAPLES_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_MAPLES_NO_BEES.pick(color).getKey();
+		}
+	});
+
+	public static final PoplarCollection<TreeGrower> POPLAR = PoplarCollection.DYE_COLORS.map(color -> new TreeGrower(
+		WWConstants.string(PoplarCollection.NAMES.pick(color) + "_poplar"),
+		WeightedList.of(),
+		WeightedList.of(),
+		WeightedList.of(),
+		null
+	) {
+		@Override
+		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
+			return hasFlowers ? WWConfiguredFeatures.COLORED_POPLARS_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_POPLARS_NO_BEES.pick(color).getKey();
 		}
 	});
 

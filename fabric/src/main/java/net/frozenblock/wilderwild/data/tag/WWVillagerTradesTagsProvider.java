@@ -49,6 +49,10 @@ public final class WWVillagerTradesTagsProvider extends FabricTagsProvider<Villa
 				WWVillagerTrades.WANDERING_TRADER_EMERALD_MAPLE_SAPLING.yellow(),
 				WWVillagerTrades.WANDERING_TRADER_EMERALD_MAPLE_SAPLING.orange(),
 				WWVillagerTrades.WANDERING_TRADER_EMERALD_MAPLE_SAPLING.red()
+			)
+			.add(
+				WWVillagerTrades.WANDERING_TRADER_EMERALD_POPLAR_SAPLING.yellow(),
+				WWVillagerTrades.WANDERING_TRADER_EMERALD_POPLAR_SAPLING.red()
 			).add(WWVillagerTrades.WANDERING_TRADER_EMERALD_SEEDING_DANDELION)
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_CARNATION)
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_PASQUEFLOWER)

@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:red_poplar",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "wilderwild:red_poplar_sapling"
+      }
+    }
+  ]
+}

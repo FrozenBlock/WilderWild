@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -100,6 +101,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature FALLEN_MANGROVE = register("fallen_mangrove");
 	public static final FrozenLibFeature FALLEN_DARK_OAKS = register("fallen_dark_oaks");
 	public static final FrozenLibFeature FALLEN_MAPLE = register("fallen_maple");
+	public static final FrozenLibFeature FALLEN_POPLAR = register("fallen_poplar");
 	public static final FrozenLibFeature FALLEN_PALE_OAKS = register("fallen_pale_oaks");
 
 	// TREES
@@ -233,12 +235,21 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature MANGROVE_VEGETATION_LEAF_LITTER = register("mangrove_vegetation_leaf_litter");
 	public static final FrozenLibFeature MANGROVE_VEGETATION = register("mangrove_vegetation");
 	public static final FrozenLibFeature CHERRIES = register("cherries");
+
+	// MAPLE
 	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLES = MapleCollection.NAMES.map(name -> register(name + "_maples"));
 	public static final FrozenLibFeature MAPLES = register("maples");
 	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLES_NO_BEES = MapleCollection.NAMES.map(name -> register(name + "_maples_no_bees"));
-	public static final FrozenLibFeature MAPLES_NO_BEES = register("maples_no_bees");
 	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLES_BEES_SAPLING = MapleCollection.NAMES.map(name -> register(name + "_maples_bees_sapling"));
 	public static final FrozenLibFeature MAPLES_BEES_SAPLING = register("maples_bees_sapling");
+
+	// POPLAR
+	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS = PoplarCollection.NAMES.map(name -> register(name + "_poplars"));
+	public static final FrozenLibFeature POPLARS = register("poplars");
+	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_NO_BEES = PoplarCollection.NAMES.map(name -> register(name + "_poplars_no_bees"));
+	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_BEES_SAPLING = PoplarCollection.NAMES.map(name -> register(name + "_poplars_bees_sapling"));
+	public static final FrozenLibFeature POPLARS_BEES_SAPLING = register("poplars_bees_sapling");
+
 	public static final FrozenLibFeature PALE_OAKS = register("pale_oaks");
 	public static final FrozenLibFeature PALE_OAKS_CREAKING = register("pale_oaks_creaking");
 	public static final FrozenLibFeature TREES_PALE_GARDEN = register("trees_pale_garden");
@@ -260,6 +271,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature SNAPPED_CHERRY = register("snapped_cherry");
 	public static final FrozenLibFeature SNAPPED_DARK_OAKS = register("snapped_dark_oaks");
 	public static final FrozenLibFeature SNAPPED_MAPLE = register("snapped_maple");
+	public static final FrozenLibFeature SNAPPED_POPLAR = register("snapped_poplar");
 	public static final FrozenLibFeature SNAPPED_PALE_OAKS = register("snapped_pale_oaks");
 
 	// LEAF LITTERS
@@ -289,6 +301,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature FLOWER_PLAINS = register("flower_plains");
 	public static final FrozenLibFeature FLOWER_SNOWY_PLAINS = register("flower_snowy_plains");
 	public static final FrozenLibFeature FLOWER_TUNDRA = register("flower_tundra");
+	public static final FrozenLibFeature FLOWER_DAPPLED_FOREST = register("flower_dappled_forest");
 	public static final FrozenLibFeature FLOWER_BIRCH = register("flower_birch");
 	public static final FrozenLibFeature FLOWER_MEADOW = register("flower_meadow");
 	public static final FrozenLibFeature MILKWEED = register("milkweed");
@@ -488,6 +501,8 @@ public final class WWConfiguredFeatures {
 		FALLEN_DARK_OAKS.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.LARGE_FALLEN_DARK_OAK_CHECKED.asHolderSet()));
 
 		FALLEN_MAPLE.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.FALLEN_MAPLE_CHECKED.asHolderSet()));
+
+		FALLEN_POPLAR.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.FALLEN_POPLAR_CHECKED.asHolderSet()));
 
 		TREES_PLAINS.makeAndSetHolder(
 			new RandomSelectorFeature(
@@ -2002,6 +2017,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
+		// MAPLE
 		MapleCollection.zipApply(COLORED_MAPLES, MapleCollection.DYE_COLORS, (feature, color) -> {
 			feature.makeAndSetHolder(
 				new SequenceFeature(
@@ -2085,19 +2101,72 @@ public final class WWConfiguredFeatures {
 			);
 		});
 
-		MAPLES_NO_BEES.makeAndSetHolder(
+		// POPLAR
+		PoplarCollection.zipApply(COLORED_POPLARS, PoplarCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlaced.POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.45F),
+						WWTreePlaced.TALL_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlaced.DYING_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.TALL_POPLAR_BEES_CHECKED.pick(color).asWeightedPlacedFeature(0.37F),
+						WWTreePlaced.TALL_DYING_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.1F)
+					),
+					WWTreePlaced.POPLAR_BEES_CHECKED.pick(color).getHolder()
+				)
+			);
+		});
+
+		POPLARS.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					COLORED_MAPLES_NO_BEES.yellow().asWeightedPlacedFeature(0.4F),
-					COLORED_MAPLES_NO_BEES.orange().asWeightedPlacedFeature(0.55F),
-					COLORED_MAPLES_NO_BEES.red().asWeightedPlacedFeature(0.9F)
+					COLORED_POPLARS.red().asWeightedPlacedFeature(0.377F),
+					COLORED_POPLARS.orange().asWeightedPlacedFeature(0.45F)
 				),
-				WWTreePlaced.MAPLE_CHECKED.yellow().getHolder()
+				COLORED_POPLARS.yellow().asInlinePlaced()
 			)
 		);
 
-		PALE_OAKS.makeAndSetHolder(
+		PoplarCollection.zipApply(COLORED_POPLARS_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlaced.POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.45F),
+						WWTreePlaced.TALL_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlaced.DYING_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.TALL_POPLAR_BEES_CHECKED.pick(color).asWeightedPlacedFeature(0.37F),
+						WWTreePlaced.TALL_DYING_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.1F)
+					),
+					WWTreePlaced.POPLAR_BEES_CHECKED.pick(color).getHolder()
+				)
+			);
+		});
 
+		POPLARS_BEES_SAPLING.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					COLORED_POPLARS_BEES_SAPLING.red().asWeightedPlacedFeature(0.377F),
+					COLORED_POPLARS_BEES_SAPLING.orange().asWeightedPlacedFeature(0.45F)
+				),
+				WWTreePlaced.POPLAR_BEES_CHECKED.yellow().getHolder()
+			)
+		);
+
+		PoplarCollection.zipApply(COLORED_POPLARS_NO_BEES, PoplarCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlaced.POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.45F),
+						WWTreePlaced.TALL_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlaced.DYING_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.TALL_DYING_POPLAR_CHECKED.pick(color).asWeightedPlacedFeature(0.1F)
+					),
+					WWTreePlaced.POPLAR_CHECKED.pick(color).getHolder()
+				)
+			);
+		});
+
+		PALE_OAKS.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlaced.TALL_PALE_OAK_CHECKED.asWeightedPlacedFeature(0.075F),
@@ -2195,6 +2264,8 @@ public final class WWConfiguredFeatures {
 		SNAPPED_DARK_OAKS.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.LARGE_SNAPPED_DARK_OAK_CHECKED.asHolderSet()));
 
 		SNAPPED_MAPLE.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.SNAPPED_MAPLE_CHECKED.asHolderSet()));
+
+		SNAPPED_POPLAR.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.SNAPPED_POPLAR_CHECKED.asHolderSet()));
 
 		SNAPPED_PALE_OAKS.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.LARGE_SNAPPED_PALE_OAK_CHECKED.asHolderSet()));
 
@@ -2396,6 +2467,44 @@ public final class WWConfiguredFeatures {
 						Blocks.POPPY.defaultBlockState(),
 						Blocks.POPPY.defaultBlockState(),
 						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
+						WWBlocks.PASQUEFLOWER.get().defaultBlockState()
+					)
+				)
+			)
+		);
+
+		FLOWER_DAPPLED_FOREST.makeAndSetHolder(
+			new SimpleBlockFeature(
+				new NoiseProvider(
+					5050L,
+					SINGLE_OCTAVE_NOISE,
+					0.048833334F,
+					List.of(
+						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+						Blocks.LILY_OF_THE_VALLEY.defaultBlockState(),
+						Blocks.AZURE_BLUET.defaultBlockState(),
+						Blocks.AZURE_BLUET.defaultBlockState(),
+						Blocks.AZURE_BLUET.defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						WWBlocks.MARIGOLD.get().defaultBlockState(),
+						Blocks.POPPY.defaultBlockState(),
+						Blocks.POPPY.defaultBlockState(),
+						Blocks.ALLIUM.defaultBlockState(),
+						Blocks.ALLIUM.defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
+						WWBlocks.SEEDING_DANDELION.get().defaultBlockState(),
 						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
 						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),
 						WWBlocks.PASQUEFLOWER.get().defaultBlockState(),

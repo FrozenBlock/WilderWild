@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:tall_red_poplar_bees_0002_leaf_litter",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "wilderwild:red_poplar_sapling"
+      }
+    }
+  ]
+}

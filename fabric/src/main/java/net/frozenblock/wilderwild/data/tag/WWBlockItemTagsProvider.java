@@ -162,14 +162,15 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.add(WWBlockItemIds.WILLOW_LEAVES)
 			.add(WWBlockItemIds.CYPRESS_LEAVES)
 			.add(WWBlockItemIds.PALM_FRONDS)
-			.add(WWBlockItemIds.MAPLE_LEAVES.yellow(), WWBlockItemIds.MAPLE_LEAVES.orange(), WWBlockItemIds.MAPLE_LEAVES.red());
+			.addAll(WWBlockItemIds.MAPLE_LEAVES.asList());
 
 		this.tag(BlockItemTags.SAPLINGS)
 			.add(WWBlockItemIds.BAOBAB_NUT)
 			.add(WWBlockItemIds.WILLOW_SAPLING)
 			.add(WWBlockItemIds.CYPRESS_SAPLING)
 			.add(WWBlockItemIds.COCONUT)
-			.add(WWBlockItemIds.YELLOW_MAPLE_SAPLING, WWBlockItemIds.ORANGE_MAPLE_SAPLING, WWBlockItemIds.RED_MAPLE_SAPLING);
+			.addAll(WWBlockItemIds.MAPLE_SAPLING.asList())
+			.add(WWBlockItemIds.POPLAR_SAPLING.yellow(), WWBlockItemIds.POPLAR_SAPLING.red());
 
 		this.tag(BlockItemTags.FLOWERS)
 			.add(WWBlockItemIds.DATURA)

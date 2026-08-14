@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:yellow_poplar_checked",
+  "features": [
+    {
+      "chance": 0.45,
+      "feature": "wilderwild:yellow_poplar_checked"
+    },
+    {
+      "chance": 0.25,
+      "feature": "wilderwild:tall_yellow_poplar_checked"
+    },
+    {
+      "chance": 0.0785,
+      "feature": "wilderwild:dying_yellow_poplar_checked"
+    },
+    {
+      "chance": 0.1,
+      "feature": "wilderwild:tall_dying_yellow_poplar_checked"
+    }
+  ]
+}

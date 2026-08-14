@@ -1,0 +1,113 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": {
+    "type": "minecraft:rule_based_state_provider",
+    "rules": [
+      {
+        "if_true": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:cannot_replace_below_tree_trunk"
+          }
+        },
+        "then": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:dirt"
+        }
+      }
+    ]
+  },
+  "decorators": [
+    {
+      "type": "minecraft:beehive",
+      "probability": 0.002
+    },
+    {
+      "type": "wilderwild:pollen",
+      "max_count": 3,
+      "placement_chance": 0.025,
+      "probability": 0.1
+    },
+    {
+      "type": "minecraft:shelf_mushroom",
+      "probability": 0.4
+    },
+    {
+      "type": "minecraft:place_on_ground",
+      "block_state_provider": {
+        "type": "frozenlib:leaf_litter_provider",
+        "block": "minecraft:leaf_litter",
+        "max_segment": 3
+      },
+      "height": 2,
+      "radius": 4,
+      "tries": 43
+    },
+    {
+      "type": "minecraft:place_on_ground",
+      "block_state_provider": {
+        "type": "frozenlib:leaf_litter_provider",
+        "block": "minecraft:leaf_litter"
+      },
+      "height": 2,
+      "tries": 75
+    }
+  ],
+  "foliage_placer": {
+    "type": "minecraft:poplar_foliage_placer",
+    "height": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 8,
+      "min_inclusive": 6
+    },
+    "offset": 0,
+    "radius": {
+      "type": "minecraft:weighted_list",
+      "distribution": [
+        {
+          "data": 5,
+          "weight": 5
+        },
+        {
+          "data": 6,
+          "weight": 5
+        },
+        {
+          "data": 7,
+          "weight": 1
+        },
+        {
+          "data": 8,
+          "weight": 1
+        }
+      ]
+    },
+    "side_hole_chance": 0.15
+  },
+  "foliage_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": "minecraft:red_poplar_leaves"
+  },
+  "ignore_vines": true,
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size",
+    "upper_size": 2
+  },
+  "trunk_placer": {
+    "type": "minecraft:poplar_trunk_placer",
+    "base_height": 9,
+    "branch_amount": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 1
+    },
+    "height_rand_a": 3,
+    "height_rand_b": 2,
+    "trunk_height_above_branches": 4
+  },
+  "trunk_provider": {
+    "type": "minecraft:simple_state_provider",
+    "state": "minecraft:poplar_log"
+  }
+}

@@ -225,6 +225,16 @@ public final class WWWorldgen {
 				}
 			});
 
+		BiomeModifications.create(WWConstants.id("replace_poplar_trees")).add(
+			ModificationPhase.REPLACEMENTS,
+			BiomeSelectors.tag(WWBiomeTags.POPLAR_TREES),
+			context -> {
+				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+				if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
+				generationSettings.removeFeature(VegetationPlacements.TREES_DAPPLED_FOREST);
+				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POPLAR_TREES.getKey());
+			});
+
 		BiomeModifications.create(WWConstants.id("replace_taiga_trees")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(WWBiomeTags.SHORT_TAIGA),

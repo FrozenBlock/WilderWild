@@ -19,7 +19,11 @@ package net.frozenblock.wilderwild.references;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.references.BlockIds;
+import net.minecraft.references.BlockItemId;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 
@@ -30,7 +34,11 @@ public final class WWBlockIds {
 	public static final ResourceKey<Block> POTTED_CYPRESS_SAPLING = create("potted_cypress_sapling");
 	public static final ResourceKey<Block> POTTED_COCONUT = create("potted_coconut");
 	public static final MapleCollection<ResourceKey<Block>> POTTED_MAPLE_SAPLING = MapleCollection.NAMES.map(name -> create("potted_" + name + "_maple_sapling"));
-
+	public static final PoplarCollection<ResourceKey<Block>> POTTED_POPLAR_SAPLING = new PoplarCollection<>(
+		create("potted_yellow_poplar_sapling"),
+		BlockIds.POTTED_POPLAR_SAPLING,
+		create("potted_red_poplar_sapling")
+	);
 	// FLOWERS
 	public static final ResourceKey<Block> POTTED_CACTUS_FLOWER = create("potted_cactus_flower");
 	public static final ResourceKey<Block> POTTED_SEEDING_DANDELION = create("potted_seeding_dandelion");

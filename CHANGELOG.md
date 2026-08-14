@@ -82,8 +82,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle this behavior.
 - Modified the placement of Dappled Forests to not interfere as much with Maple Forests.
   - Maple Forests and Dappled Forests can often be seen near each other, though Dappled Forests favor higher and bumpier terrain a tad further from snowy regions.
-- Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Blocks Tag.
 - Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.
+- Updated the Dappled Forest to include new Flowers, more common Pumpkin Patches, and denser Tree generation.
+- Added the Yellow Poplar Sapling and the Red Poplar Sapling.
+- Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Blocks Tag.
 - Wilder Wild's Material Rules (formerly known as Surface Rules) are now data-driven.
 - Wilder Wild's custom Cactus damage sound now only plays if the Cactus block sounds config option is enabled.
 - Removed Wilder Wild's Potent Sulfur Geyser Wind Disturbance, as it has been moved into FrozenLib.

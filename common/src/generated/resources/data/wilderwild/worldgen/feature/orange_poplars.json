@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:orange_poplar_bees_0002_checked",
+  "features": [
+    {
+      "chance": 0.45,
+      "feature": "wilderwild:orange_poplar_checked"
+    },
+    {
+      "chance": 0.25,
+      "feature": "wilderwild:tall_orange_poplar_checked"
+    },
+    {
+      "chance": 0.0785,
+      "feature": "wilderwild:dying_orange_poplar_checked"
+    },
+    {
+      "chance": 0.37,
+      "feature": "wilderwild:tall_orange_poplar_bees_0002_checked"
+    },
+    {
+      "chance": 0.1,
+      "feature": "wilderwild:tall_dying_orange_poplar_checked"
+    }
+  ]
+}

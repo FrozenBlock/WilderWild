@@ -131,6 +131,11 @@ public final class WWTreeGeneration {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_MAPLE_CLEARING_PLACED.getKey());
 				}
 
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_POPLAR)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_POPLAR_PLACED.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SNAPPED_POPLAR_CLEARING_PLACED.getKey());
+				}
+
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_CRIMSON_FUNGI)) {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlaced.SNAPPED_CRIMSON_FUNGI.getKey());
 				}
@@ -257,6 +262,10 @@ public final class WWTreeGeneration {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_MAPLE_PLACED.getKey());
 				}
 
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_POPLAR_TREES)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_POPLAR_PLACED.getKey());
+				}
+
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_OAK_AND_CYPRESS_TREES)) {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FALLEN_OAK_AND_CYPRESS_PLACED.getKey());
 				}
@@ -328,6 +337,10 @@ public final class WWTreeGeneration {
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_SPRUCE)) {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());
+				}
+
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_SPRUCE_SPARSE)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_COARSE_BUSH)) {
