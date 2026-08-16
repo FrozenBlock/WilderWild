@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.block.api.beacon.BeaconEffectRegistry;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -32,12 +32,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public final class WWMobEffects {
-	private static final FrozenDeferredRegister<MobEffect> REGISTER = FrozenDeferredRegister.create(
+	private static final DeferredRegister<MobEffect> REGISTER = DeferredRegister.create(
 		Registries.MOB_EFFECT,
 		WWConstants.MOD_ID
 	);
 
-	public static final FrozenHolder<MobEffect, MobEffect> REACH_BOOST = REGISTER.register(
+	public static final DeferredHolder<MobEffect, MobEffect> REACH_BOOST = REGISTER.register(
 		"reach_boost",
 		() -> new MobEffect(
 			MobEffectCategory.BENEFICIAL,
@@ -55,7 +55,7 @@ public final class WWMobEffects {
 		)
 	);
 
-	public static final FrozenHolder<MobEffect, MobEffect> SCORCHING = REGISTER.register(
+	public static final DeferredHolder<MobEffect, MobEffect> SCORCHING = REGISTER.register(
 		"scorching",
 		() -> new ScorchingMobEffect(
 			MobEffectCategory.HARMFUL,

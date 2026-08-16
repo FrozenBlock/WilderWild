@@ -19,37 +19,33 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.platform.RegistryHelper;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredActivity;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.schedule.Activity;
 
 public final class WWActivities {
-	public static final FrozenHolder<Activity, Activity> STAND_UP;
-	public static final FrozenHolder<Activity, Activity> PRE_SEARCH;
-	public static final FrozenHolder<Activity, Activity> SEARCH;
-	public static final FrozenHolder<Activity, Activity> ESCAPE;
-	public static final FrozenHolder<Activity, Activity> POST_ESCAPE;
-	public static final FrozenHolder<Activity, Activity> CHASE;
-	public static final FrozenHolder<Activity, Activity> CALL;
+	private static final DeferredRegister.Activities REGISTER = RegistryHelper.createDeferredActivitiesRegister(FrozenLibConstants.MOD_ID);
+
+	public static final DeferredActivity STAND_UP = register("stand_up");
+	public static final DeferredActivity PRE_SEARCH = register("pre_search");
+	public static final DeferredActivity SEARCH = register("search");
+	public static final DeferredActivity ESCAPE = register("escape");
+	public static final DeferredActivity POST_ESCAPE = register("post_escape");
+	public static final DeferredActivity CHASE = register("chase");
+	public static final DeferredActivity CALL = register("call");
 
 	static {
-		var register = RegistryHelper.createDeferredRegister(Registries.ACTIVITY, FrozenLibConstants.MOD_ID);
-		STAND_UP = register(register, "stand_up");
-		PRE_SEARCH = register(register, "pre_search");
-		SEARCH = register(register, "search");
-		ESCAPE = register(register, "escape");
-		POST_ESCAPE = register(register, "post_escape");
-		CHASE = register(register, "chase");
-		CALL = register(register, "call");
-
-		register.register();
+		REGISTER.register();
 	}
+
+	private WWActivities() {}
 
 	public static void init() {}
 
-	private static FrozenHolder<Activity, Activity> register(FrozenDeferredRegister<Activity> register, String name) {
-		return register.register(name, () -> new Activity(WWConstants.safeString(name)));
+	private static DeferredActivity register(String name) {
+		return REGISTER.register(name);
 	}
 }

@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.item.api.registry.PotionBrewingRegistry;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -29,29 +29,29 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public final class WWPotions {
-	private static final FrozenDeferredRegister<Potion> REGISTER = FrozenDeferredRegister.create(
+	private static final DeferredRegister<Potion> REGISTER = DeferredRegister.create(
 		Registries.POTION,
 		WWConstants.MOD_ID
 	);
 
-	public static final FrozenHolder<Potion, Potion> REACH = REGISTER.register("reach",
+	public static final DeferredHolder<Potion, Potion> REACH = REGISTER.register("reach",
 		() -> new Potion("reach",
 			new MobEffectInstance(WWMobEffects.REACH_BOOST.asHolder(), 3600)
 		)
 	);
-	public static final FrozenHolder<Potion, Potion> LONG_REACH = REGISTER.register("long_reach",
+	public static final DeferredHolder<Potion, Potion> LONG_REACH = REGISTER.register("long_reach",
 		() -> new Potion(
 			"reach",
 			new MobEffectInstance(WWMobEffects.REACH_BOOST.asHolder(), 9600)
 		)
 	);
-	public static final FrozenHolder<Potion, Potion> STRONG_REACH = REGISTER.register("strong_reach",
+	public static final DeferredHolder<Potion, Potion> STRONG_REACH = REGISTER.register("strong_reach",
 		() -> new Potion(
 			"reach",
 			new MobEffectInstance(WWMobEffects.REACH_BOOST.asHolder(), 2700, 1)
 		)
 	);
-	public static final FrozenHolder<Potion, Potion> SCORCHING = REGISTER.register("scorching",
+	public static final DeferredHolder<Potion, Potion> SCORCHING = REGISTER.register("scorching",
 		() -> new Potion(
 			"scorching",
 			new MobEffectInstance(WWMobEffects.SCORCHING.asHolder(), 2700)

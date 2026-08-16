@@ -22,7 +22,7 @@ import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.biome.api.attribute.BiomeEnvironmentAttributeModification;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -308,8 +308,8 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	private static void registerAmbience(
 		BootstrapContext<BiomeEnvironmentAttributeModification> context,
 		ResourceKey<Biome> biome,
-		FrozenHolder<SoundEvent, SoundEvent> loop,
-		FrozenHolder<SoundEvent, SoundEvent> additions,
+		DeferredHolder<SoundEvent, SoundEvent> loop,
+		DeferredHolder<SoundEvent, SoundEvent> additions,
 		double additionsChance,
 		ConfigEntry<Boolean> entry
 	) {
@@ -333,7 +333,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		BootstrapContext<BiomeEnvironmentAttributeModification> context,
 		String name,
 		TagKey<Biome> biomes,
-		FrozenHolder<SoundEvent, SoundEvent> music,
+		DeferredHolder<SoundEvent, SoundEvent> music,
 		ConfigPredicate mergeWhen,
 		boolean hasUnderWater
 	) {
@@ -353,7 +353,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		BootstrapContext<BiomeEnvironmentAttributeModification> context,
 		String name,
 		TagKey<Biome> biomes,
-		FrozenHolder<SoundEvent, SoundEvent> music,
+		DeferredHolder<SoundEvent, SoundEvent> music,
 		ConfigPredicate mergeWhen
 	) {
 		registerMusic(context, name, biomes, music, mergeWhen, false);
@@ -363,7 +363,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		BootstrapContext<BiomeEnvironmentAttributeModification> context,
 		String name,
 		TagKey<Biome> biomes,
-		FrozenHolder<SoundEvent, SoundEvent> music,
+		DeferredHolder<SoundEvent, SoundEvent> music,
 		ConfigEntry<Boolean> entry,
 		boolean hasUnderWater
 	) {
@@ -374,7 +374,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		BootstrapContext<BiomeEnvironmentAttributeModification> context,
 		String name,
 		TagKey<Biome> biomes,
-		FrozenHolder<SoundEvent, SoundEvent> music,
+		DeferredHolder<SoundEvent, SoundEvent> music,
 		ConfigEntry<Boolean> entry
 	) {
 		registerMusic(context, name, biomes, music, entry, false);

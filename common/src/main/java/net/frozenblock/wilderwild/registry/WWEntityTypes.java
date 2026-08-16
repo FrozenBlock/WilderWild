@@ -3,9 +3,9 @@ package net.frozenblock.wilderwild.registry;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 import net.frozenblock.lib.entity.api.attribute.DefaultAttributeRegistry;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredItem;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
+import net.frozenblock.lib.platform.api.registry.DeferredItem;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Butterfly;
 import net.frozenblock.wilderwild.entity.CoconutProjectile;
@@ -34,11 +34,9 @@ import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class WWEntityTypes {
-	private static final FrozenDeferredRegister.Entities REGISTER = FrozenDeferredRegister.createEntities(
-		WWConstants.MOD_ID
-	);
+	private static final DeferredRegister.Entities REGISTER = DeferredRegister.createEntities(WWConstants.MOD_ID);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Firefly>> FIREFLY = register(WWEntityTypeIds.FIREFLY,
+	public static final DeferredEntityType<Firefly> FIREFLY = register(WWEntityTypeIds.FIREFLY,
 		Firefly::new,
 		WWMobCategories.FIREFLY,
 		builder -> builder
@@ -56,7 +54,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Butterfly>> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
+	public static final DeferredEntityType<Butterfly> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
 		Butterfly::new,
 		WWMobCategories.BUTTERFLY,
 		builder -> builder
@@ -74,7 +72,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Jellyfish>> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
+	public static final DeferredEntityType<Jellyfish> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
 		Jellyfish::new,
 		WWMobCategories.JELLYFISH,
 		builder -> builder
@@ -92,7 +90,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Tumbleweed>> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
+	public static final DeferredEntityType<Tumbleweed> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
 		Tumbleweed::new,
 		WWMobCategories.TUMBLEWEED,
 		builder -> builder
@@ -110,7 +108,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Crab>> CRAB = register(WWEntityTypeIds.CRAB,
+	public static final DeferredEntityType<Crab> CRAB = register(WWEntityTypeIds.CRAB,
 		Crab::new,
 		WWMobCategories.CRAB,
 		builder -> builder
@@ -127,7 +125,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Ostrich>> OSTRICH = register(WWEntityTypeIds.OSTRICH,
+	public static final DeferredEntityType<Ostrich> OSTRICH = register(WWEntityTypeIds.OSTRICH,
 		Ostrich::new,
 		MobCategory.CREATURE,
 		builder -> builder
@@ -145,7 +143,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<ZombieOstrich>> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH,
+	public static final DeferredEntityType<ZombieOstrich> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH,
 		ZombieOstrich::new,
 		MobCategory.MONSTER,
 		builder -> builder
@@ -163,7 +161,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Scorched>> SCORCHED = register(WWEntityTypeIds.SCORCHED,
+	public static final DeferredEntityType<Scorched> SCORCHED = register(WWEntityTypeIds.SCORCHED,
 		Scorched::new,
 		MobCategory.MONSTER,
 		builder -> builder
@@ -183,7 +181,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<FlowerCow>> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM,
+	public static final DeferredEntityType<FlowerCow> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM,
 		FlowerCow::new,
 		MobCategory.CREATURE,
 		builder -> builder
@@ -202,7 +200,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Penguin>> PENGUIN = register(WWEntityTypeIds.PENGUIN,
+	public static final DeferredEntityType<Penguin> PENGUIN = register(WWEntityTypeIds.PENGUIN,
 		Penguin::new,
 		MobCategory.CREATURE,
 		builder -> builder
@@ -221,7 +219,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<CoconutProjectile>> COCONUT = register(WWEntityTypeIds.COCONUT,
+	public static final DeferredEntityType<CoconutProjectile> COCONUT = register(WWEntityTypeIds.COCONUT,
 		CoconutProjectile::new,
 		MobCategory.MISC,
 		builder -> builder
@@ -231,7 +229,7 @@ public final class WWEntityTypes {
 		entityType -> {}
 	);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<FallingLeafTicker>> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
+	public static final DeferredEntityType<FallingLeafTicker> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
 		FallingLeafTicker::new,
 		MobCategory.MISC,
 		builder -> builder
@@ -241,20 +239,20 @@ public final class WWEntityTypes {
 	);
 
 	// BOATS
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, WWItems.BAOBAB_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, WWItems.BAOBAB_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, WWItems.BAOBAB_BOAT);
+	public static final DeferredEntityType<ChestBoat> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, WWItems.BAOBAB_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, WWItems.WILLOW_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, WWItems.WILLOW_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, WWItems.WILLOW_BOAT);
+	public static final DeferredEntityType<ChestBoat> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, WWItems.WILLOW_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, WWItems.CYPRESS_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, WWItems.CYPRESS_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, WWItems.CYPRESS_BOAT);
+	public static final DeferredEntityType<ChestBoat> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, WWItems.CYPRESS_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, WWItems.PALM_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, WWItems.PALM_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, WWItems.PALM_BOAT);
+	public static final DeferredEntityType<ChestBoat> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, WWItems.PALM_CHEST_BOAT);
 
-	public static final FrozenHolder<EntityType<?>, EntityType<Boat>> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, WWItems.MAPLE_BOAT);
-	public static final FrozenHolder<EntityType<?>, EntityType<ChestBoat>> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, WWItems.MAPLE_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, WWItems.MAPLE_BOAT);
+	public static final DeferredEntityType<ChestBoat> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, WWItems.MAPLE_CHEST_BOAT);
 
 	public static void init() {}
 
@@ -262,16 +260,16 @@ public final class WWEntityTypes {
 		REGISTER.register();
 	}
 
-	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(
+	private static <E extends Entity> DeferredEntityType<E> register(
 		ResourceKey<EntityType<?>> id,
 		EntityType.EntityFactory<E> factory,
 		MobCategory category,
 		UnaryOperator<EntityType.Builder<E>> builder
 	) {
-		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder, null);
+		return REGISTER.register(id.identifier().getPath(), factory, category, builder, null);
 	}
 
-	private static <E extends AbstractBoat> FrozenHolder<EntityType<?>, EntityType<E>> registerAbstractBoat(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory) {
+	private static <E extends AbstractBoat> DeferredEntityType<E> registerAbstractBoat(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory) {
 		return register(
 			id,
 			factory,
@@ -284,21 +282,21 @@ public final class WWEntityTypes {
 		);
 	}
 
-	private static <E extends Boat> FrozenHolder<EntityType<?>, EntityType<E>> registerBoat(ResourceKey<EntityType<?>> id, FrozenDeferredItem<?> item) {
+	private static <E extends Boat> DeferredEntityType<E> registerBoat(ResourceKey<EntityType<?>> id, DeferredItem<?> item) {
 		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.boatFactory(() -> item.get()));
 	}
 
-	private static <E extends ChestBoat> FrozenHolder<EntityType<?>, EntityType<E>> registerChestBoat(ResourceKey<EntityType<?>> id, FrozenDeferredItem<?> item) {
+	private static <E extends ChestBoat> DeferredEntityType<E> registerChestBoat(ResourceKey<EntityType<?>> id, DeferredItem<?> item) {
 		return registerAbstractBoat(id, (EntityType.EntityFactory<E>) EntityTypes.chestBoatFactory(() -> item.get()));
 	}
 
-	private static <E extends Entity> FrozenHolder<EntityType<?>, EntityType<E>> register(
+	private static <E extends Entity> DeferredEntityType<E> register(
 		ResourceKey<EntityType<?>> id,
 		EntityType.EntityFactory<E> factory,
 		MobCategory category,
 		UnaryOperator<EntityType.Builder<E>> builder,
 		Consumer<EntityType<E>> also
 	) {
-		return REGISTER.registerEntityType(id.identifier().getPath(), factory, category, builder, also);
+		return REGISTER.register(id.identifier().getPath(), factory, category, builder, also);
 	}
 }
