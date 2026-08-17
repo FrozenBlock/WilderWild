@@ -527,7 +527,6 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.hasPose(Pose.DIGGING) && this.getDiggingTicks() > DIG_LENGTH_IN_TICKS;
 	}
 
-	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
@@ -535,7 +534,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
-			&& livingEntity.getType() != WWEntityTypes.CRAB
+			&& livingEntity.getType() != WWEntityTypes.CRAB.get()
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()
