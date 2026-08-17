@@ -27,7 +27,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.schedule.Activity;
 
 public final class WWActivities {
-	private static final DeferredRegister.Activities REGISTER = RegistryHelper.createDeferredActivitiesRegister(FrozenLibConstants.MOD_ID);
+	private static final DeferredRegister.Activities REGISTER = DeferredRegister.createActivities(FrozenLibConstants.MOD_ID);
 
 	public static final DeferredActivity STAND_UP = register("stand_up");
 	public static final DeferredActivity PRE_SEARCH = register("pre_search");
