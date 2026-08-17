@@ -62,4 +62,6 @@ public final class WWBlockStateProperties {
 	// Vanilla Blocks
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
+
+	private WWBlockStateProperties() {}
 }

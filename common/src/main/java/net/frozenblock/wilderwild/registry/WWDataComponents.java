@@ -78,4 +78,6 @@ public final class WWDataComponents {
 	private static <T> DeferredDataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
 		return REGISTER.register(name, builder);
 	}
+
+	private WWDataComponents() {}
 }

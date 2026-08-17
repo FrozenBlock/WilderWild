@@ -48,4 +48,6 @@ public final class WWCriteria {
 	private static <T extends CriterionTrigger<?>> DeferredHolder<CriterionTrigger<?>, T> register(String name, Supplier<T> criterion) {
 		return REGISTER.register(name, criterion);
 	}
+
+	private WWCriteria() {}
 }

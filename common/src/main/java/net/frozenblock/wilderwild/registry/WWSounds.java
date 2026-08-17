@@ -522,4 +522,6 @@ public final class WWSounds {
 	public static DeferredSoundEvent register(String path) {
 		return REGISTER.register(path);
 	}
+
+	private WWSounds() {}
 }

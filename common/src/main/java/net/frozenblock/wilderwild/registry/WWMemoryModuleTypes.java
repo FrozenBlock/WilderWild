@@ -77,4 +77,6 @@ public final class WWMemoryModuleTypes {
 	private static <U> DeferredMemoryModuleType<U> register(String name) {
 		return REGISTER.register(name);
 	}
+
+	private WWMemoryModuleTypes() {}
 }

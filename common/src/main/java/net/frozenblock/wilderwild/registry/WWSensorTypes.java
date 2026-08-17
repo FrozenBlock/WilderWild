@@ -53,4 +53,6 @@ public final class WWSensorTypes {
 	private static <U extends Sensor<?>> DeferredHolder<SensorType<?>, SensorType<U>> register(String name, Supplier<U> sensorSupplier) {
 		return REGISTER.register(name, () -> new SensorType<>(sensorSupplier));
 	}
+
+	private WWSensorTypes() {}
 }

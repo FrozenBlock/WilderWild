@@ -40,4 +40,6 @@ public final class WWDamageTypes {
 	private static ResourceKey<DamageType> bind(String name) {
 		return ResourceKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
 	}
+
+	private WWDamageTypes() {}
 }

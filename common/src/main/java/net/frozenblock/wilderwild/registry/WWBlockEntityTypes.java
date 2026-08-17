@@ -46,31 +46,31 @@ public final class WWBlockEntityTypes {
 
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HangingTendrilBlockEntity>> HANGING_TENDRIL = register(WWBlockEntityTypeIds.HANGING_TENDRIL,
 		HangingTendrilBlockEntity::new,
-		WWBlocks.HANGING_TENDRIL::get
+		WWBlocks.HANGING_TENDRIL
 	);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TermiteMoundBlockEntity>> TERMITE_MOUND = register(WWBlockEntityTypeIds.TERMITE_MOUND,
 		TermiteMoundBlockEntity::new,
-		WWBlocks.TERMITE_MOUND::get
+		WWBlocks.TERMITE_MOUND
 	);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DisplayLanternBlockEntity>> DISPLAY_LANTERN = register(WWBlockEntityTypeIds.DISPLAY_LANTERN,
 		DisplayLanternBlockEntity::new,
-		WWBlocks.DISPLAY_LANTERN::get
+		WWBlocks.DISPLAY_LANTERN
 	);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StoneChestBlockEntity>> STONE_CHEST = register(WWBlockEntityTypeIds.STONE_CHEST,
 		StoneChestBlockEntity::new,
-		WWBlocks.STONE_CHEST::get
+		WWBlocks.STONE_CHEST
 	);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ScorchedBlockEntity>> SCORCHED_BLOCK = register(WWBlockEntityTypeIds.SCORCHED_BLOCK,
 		ScorchedBlockEntity::new,
-		WWBlocks.SCORCHED_SAND::get, WWBlocks.SCORCHED_RED_SAND::get
+		WWBlocks.SCORCHED_SAND, WWBlocks.SCORCHED_RED_SAND
 	);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GeothermalVentBlockEntity>> GEOTHERMAL_VENT = register(WWBlockEntityTypeIds.GEOTHERMAL_VENT,
 		GeothermalVentBlockEntity::new,
-		WWBlocks.GEOTHERMAL_VENT::get
+		WWBlocks.GEOTHERMAL_VENT
 	);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IcicleBlockEntity>> ICICLE = register(WWBlockEntityTypeIds.ICICLE,
 		IcicleBlockEntity::new,
-		WWBlocks.ICICLE::get
+		WWBlocks.ICICLE
 	);
 
 	static {
@@ -80,7 +80,13 @@ public final class WWBlockEntityTypes {
 	public static void init() {}
 
 	@SafeVarargs
-	private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(ResourceKey<BlockEntityType<?>> id, BlockEntityType.BlockEntitySupplier<T> builder, Supplier<Block>... blocks) {
+	private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(
+		ResourceKey<BlockEntityType<?>> id,
+		BlockEntityType.BlockEntitySupplier<T> builder,
+		Supplier<? extends Block>... blocks
+	) {
 		return REGISTER.register(id, () -> new BlockEntityType<>(builder, Arrays.stream(blocks).map(Supplier::get).collect(Collectors.toSet())));
 	}
+
+	private WWBlockEntityTypes() {}
 }

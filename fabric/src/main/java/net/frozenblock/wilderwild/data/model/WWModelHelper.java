@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
+import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShelfFungiBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
@@ -63,6 +64,7 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 
+@ClientOnly
 public final class WWModelHelper {
 	private static final ModelTemplate VERTICAL_HOLLOWED_LOG_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_hollowed_log")),
@@ -527,21 +529,22 @@ public final class WWModelHelper {
 		Identifier swayingTopWeak = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_swaying_top_weak", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 		Identifier swayingBottom = generator.createSuffixedVariant(WWBlocks.CATTAIL.get(), "_swaying_bottom", ModelTemplates.SEAGRASS, TextureMapping::defaultTexture);
 
-		generator.blockStateOutput
-			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.CATTAIL.get())
-					.with(
-						PropertyDispatch.initial(BlockStateProperties.DOUBLE_BLOCK_HALF, BlockStateProperties.WATERLOGGED , WWBlockStateProperties.SWAYING)
-							.select(DoubleBlockHalf.LOWER, false, false, BlockModelGenerators.plainVariant(bottomModel))
-							.select(DoubleBlockHalf.LOWER, false, true, BlockModelGenerators.plainVariant(bottomModel))
-							.select(DoubleBlockHalf.LOWER, true, false, BlockModelGenerators.plainVariant(bottomModel))
-							.select(DoubleBlockHalf.LOWER, true, true, BlockModelGenerators.plainVariant(swayingBottom))
+		generator.blockStateOutput.accept(
+			MultiVariantGenerator.dispatch(WWBlocks.CATTAIL.get())
+				.with(
+					PropertyDispatch.initial(BlockStateProperties.DOUBLE_BLOCK_HALF, BlockStateProperties.WATERLOGGED , WWBlockStateProperties.SWAYING)
+						.select(DoubleBlockHalf.LOWER, false, false, BlockModelGenerators.plainVariant(bottomModel))
+						.select(DoubleBlockHalf.LOWER, false, true, BlockModelGenerators.plainVariant(bottomModel))
+						.select(DoubleBlockHalf.LOWER, true, false, BlockModelGenerators.plainVariant(bottomModel))
+						.select(DoubleBlockHalf.LOWER, true, true, BlockModelGenerators.plainVariant(swayingBottom))
 
-							.select(DoubleBlockHalf.UPPER, false, false, BlockModelGenerators.plainVariant(topModel))
-							.select(DoubleBlockHalf.UPPER, false, true, BlockModelGenerators.plainVariant(swayingTopWeak))
-							.select(DoubleBlockHalf.UPPER, true, false, BlockModelGenerators.plainVariant(topModel))
-							.select(DoubleBlockHalf.UPPER, true, true, BlockModelGenerators.plainVariant(swayingTopStrong))
-					)
-			);
+						.select(DoubleBlockHalf.UPPER, false, false, BlockModelGenerators.plainVariant(topModel))
+						.select(DoubleBlockHalf.UPPER, false, true, BlockModelGenerators.plainVariant(swayingTopWeak))
+						.select(DoubleBlockHalf.UPPER, true, false, BlockModelGenerators.plainVariant(topModel))
+						.select(DoubleBlockHalf.UPPER, true, true, BlockModelGenerators.plainVariant(swayingTopStrong))
+				)
+		);
 	}
+
+	private WWModelHelper() {}
 }

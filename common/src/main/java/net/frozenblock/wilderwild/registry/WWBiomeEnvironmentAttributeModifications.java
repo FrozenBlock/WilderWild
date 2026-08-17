@@ -379,4 +379,6 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	) {
 		registerMusic(context, name, biomes, music, entry, false);
 	}
+
+	private WWBiomeEnvironmentAttributeModifications() {}
 }

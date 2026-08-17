@@ -44,4 +44,6 @@ public final class WWGameEvents {
 	private static DeferredHolder<GameEvent, GameEvent> register(String name, int notificationRadius) {
 		return REGISTER.register(name, () -> new GameEvent(notificationRadius));
 	}
+
+	private WWGameEvents() {}
 }

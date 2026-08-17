@@ -509,13 +509,5 @@ public final class WWCreativeInventorySorting {
 		CreativeModeTabSorter.insertAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
 
-	@SafeVarargs
-	private static void addInstrumentBefore(
-		Item comparedItem,
-		Item instrument,
-		TagKey<Instrument> tagKey,
-		ResourceKey<CreativeModeTab>... tabs
-	) {
-		CreativeModeTabSorter.addInstrumentBefore(comparedItem, instrument, tagKey, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
+	private WWCreativeInventorySorting() {}
 }

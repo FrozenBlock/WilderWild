@@ -87,4 +87,6 @@ public final class WWBlockTicks {
 			}
 		);
 	}
+
+	private WWBlockTicks() {}
 }

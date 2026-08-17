@@ -41,4 +41,6 @@ public final class WWWindDisturbances {
 	);
 
 	public static void init() {}
+
+	private WWWindDisturbances() {}
 }

@@ -73,4 +73,6 @@ public final class WWMobCategories implements MobCategoryApiEntrypoint {
 			category -> TUMBLEWEED = category
 		);
 	}
+
+	private WWMobCategories() {}
 }

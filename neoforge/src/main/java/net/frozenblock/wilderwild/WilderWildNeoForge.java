@@ -32,7 +32,7 @@ public final class WilderWildNeoForge {
 		modBus.addListener(RegisterPayloadHandlersEvent.class, event -> {
 			WWNetworking.setup();
 
-			if (ModLoader.isClient()) WWClientNetworking.registerPacketReceivers();
+			if (ModLoader.isClient()) WWClientNetworking.setup();
 
 			final PayloadRegistrar registrar = event.registrar(WWPreLoadConstants.MOD_ID);
 			NetworkingHelperImpl.flush(registrar);

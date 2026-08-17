@@ -46,4 +46,6 @@ public final class WWModIntegrations {
 	public static boolean isBiolithRegisteredAndLoaded() {
 		return BIOLITH_INTEGRATION.isBound() && BIOLITH_INTEGRATION.get().modLoaded();
 	}
+
+	private WWModIntegrations() {}
 }

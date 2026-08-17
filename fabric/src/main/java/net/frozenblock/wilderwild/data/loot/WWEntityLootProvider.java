@@ -200,7 +200,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.BEEF)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
-								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
+								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(registryLookup, UniformGenerator.between(0F, 1F)))
 						)
 				)

@@ -41,11 +41,11 @@ public final class WWActivities {
 		REGISTER.register();
 	}
 
-	private WWActivities() {}
-
 	public static void init() {}
 
 	private static DeferredActivity register(String name) {
 		return REGISTER.register(name);
 	}
+
+	private WWActivities() {}
 }

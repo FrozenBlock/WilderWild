@@ -73,4 +73,6 @@ public final class WWMobEffects {
 	public static void init() {
 		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST.asHolder(), 3);
 	}
+
+	private WWMobEffects() {}
 }

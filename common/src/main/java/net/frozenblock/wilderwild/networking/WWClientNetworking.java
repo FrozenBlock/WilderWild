@@ -49,7 +49,7 @@ import net.minecraft.world.phys.Vec3;
 @ClientOnly
 public final class WWClientNetworking {
 
-	public static void registerPacketReceivers() {
+	public static void setup() {
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();

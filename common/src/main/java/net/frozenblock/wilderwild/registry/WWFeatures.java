@@ -151,4 +151,6 @@ public final class WWFeatures {
 	private static <P extends RootPlacer> DeferredHolder<RootPlacerType<?>, RootPlacerType<P>> register(String name, MapCodec<P> codec) {
 		return ROOT.register(name, () -> new RootPlacerType<>(codec));
 	}
+
+	private WWFeatures() {}
 }

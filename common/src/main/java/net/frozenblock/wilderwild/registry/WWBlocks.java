@@ -21,6 +21,7 @@ import com.google.common.base.Suppliers;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.block.api.blockentity.BlockEntityTypeExtension;
 import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
@@ -31,6 +32,7 @@ import net.frozenblock.lib.item.api.axe.StrippableBlockRegistry;
 import net.frozenblock.lib.item.api.bonemeal.BoneMealApi;
 import net.frozenblock.lib.item.api.registry.CompostableRegistry;
 import net.frozenblock.lib.item.api.registry.FuelRegistry;
+import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.lib.platform.api.registry.DeferredBlock;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
@@ -1517,6 +1519,9 @@ public final class WWBlocks {
 				WWConstants.id("cactus")
 			)
 		);
+
+		// TODO: ml scp
+		//if (ModLoader.isModLoaded(FrozenLibConstants.SIMPLE_COPPER_PIPES_MOD_ID)) SimpleCopperPipesIntegration.setup();
 	}
 
 	private static void registerDispenses() {
@@ -2070,4 +2075,6 @@ public final class WWBlocks {
 	private static void registerInventories() {
 		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST.get());
 	}
+
+	private WWBlocks() {}
 }

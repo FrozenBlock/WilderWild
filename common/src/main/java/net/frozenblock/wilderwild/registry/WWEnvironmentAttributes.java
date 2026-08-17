@@ -62,4 +62,6 @@ public final class WWEnvironmentAttributes {
 	private static <Value> DeferredHolder<EnvironmentAttribute<?>, EnvironmentAttribute<Value>> register(String name, Supplier<EnvironmentAttribute.Builder<Value>> builder) {
 		return REGISTER.register(name, () -> builder.get().build());
 	}
+
+	private WWEnvironmentAttributes() {}
 }

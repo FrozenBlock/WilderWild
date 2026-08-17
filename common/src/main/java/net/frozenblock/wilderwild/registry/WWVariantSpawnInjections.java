@@ -119,4 +119,6 @@ public final class WWVariantSpawnInjections {
 			)
 		);
 	}
+
+	private WWVariantSpawnInjections() {}
 }

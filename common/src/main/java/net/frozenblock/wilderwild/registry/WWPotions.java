@@ -72,4 +72,6 @@ public final class WWPotions {
 			builder.frozenLib$registerPotionRecipe(Potions.AWKWARD, Ingredient.of(WWItems.FERMENTED_SCORCHED_EYE), SCORCHING.asHolder());
 		});
 	}
+
+	private WWPotions() {}
 }

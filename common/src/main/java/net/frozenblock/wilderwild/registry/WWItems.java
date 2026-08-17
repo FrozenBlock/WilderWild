@@ -60,9 +60,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.ChatFormatting;
 
 public final class WWItems {
-	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(
-		WWConstants.MOD_ID
-	);
+	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(WWConstants.MOD_ID);
 
 	// BLOCK ITEMS
 	// MUD
@@ -83,9 +81,9 @@ public final class WWItems {
 	);
 	public static final DeferredItem<BlockItem> WILLOW_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_SAPLING, WWBlocks.WILLOW_SAPLING);
 	public static final DeferredItem<BlockItem> CYPRESS_SAPLING = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_SAPLING, WWBlocks.CYPRESS_SAPLING);
-	public static final DeferredItem<CoconutItem> COCONUT = REGISTER.registerItem(WWBlockItemIds.COCONUT.item(),
-		properties -> new CoconutItem(WWBlocks.COCONUT.get(), properties),
-		() -> new Item.Properties().useBlockDescriptionPrefix()
+	public static final DeferredItem<CoconutItem> COCONUT = REGISTER.registerBlockItem(WWBlockItemIds.COCONUT,
+		(properties, block) -> new CoconutItem(block, properties),
+		WWBlocks.COCONUT
 	);
 	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING, REGISTER::registerSimpleBlockItem);
 
@@ -194,19 +192,19 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> CLOVERS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CLOVERS, WWBlocks.CLOVERS);
 
 	// TALL FLOWERS
-	public static final DeferredItem<DoubleHighBlockItem> DATURA = registerBlockItem(WWBlockItemIds.DATURA, WWBlocks.DATURA, DoubleHighBlockItem::new);
-	public static final DeferredItem<DoubleHighBlockItem> MILKWEED = registerBlockItem(WWBlockItemIds.MILKWEED, WWBlocks.MILKWEED, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> DATURA = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.DATURA, WWBlocks.DATURA);
+	public static final DeferredItem<DoubleHighBlockItem> MILKWEED = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.MILKWEED, WWBlocks.MILKWEED);
 
 	// VEGETATION
 	public static final DeferredItem<BlockItem> POLLEN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.POLLEN, WWBlocks.POLLEN);
-	public static final DeferredItem<DamageOnUseBlockItem> PRICKLY_PEAR = registerBlockItem(WWBlockItemIds.PRICKLY_PEAR, WWBlocks.PRICKLY_PEAR,
-		(block, properties) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.get(), WWDamageTypes.PRICKLY_PEAR),
-		new Item.Properties().food(WWFoods.PRICKLY_PEAR)
+	public static final DeferredItem<DamageOnUseBlockItem> PRICKLY_PEAR = REGISTER.registerBlockItem(WWBlockItemIds.PRICKLY_PEAR,
+		(properties, block) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.get(), WWDamageTypes.PRICKLY_PEAR),
+		WWBlocks.PRICKLY_PEAR,
+		properties -> properties.food(WWFoods.PRICKLY_PEAR)
 	);
 	public static final DeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
 	public static final DeferredItem<BlockItem> TUMBLEWEED_PLANT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT);
-	public static final DeferredItem<SpawnEggItem> TUMBLEWEED = REGISTER.registerItem(
-		WWBlockItemIds.TUMBLEWEED.item(),
+	public static final DeferredItem<SpawnEggItem> TUMBLEWEED = REGISTER.registerItem(WWBlockItemIds.TUMBLEWEED.item(),
 		SpawnEggItem::new,
 		() -> new Item.Properties()
 			.useBlockDescriptionPrefix()
@@ -214,9 +212,9 @@ public final class WWItems {
 			.spawnEgg(WWEntityTypes.TUMBLEWEED.get())
 	);
 	public static final DeferredItem<BlockItem> FROZEN_SHORT_GRASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS);
-	public static final DeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = registerBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS);
 	public static final DeferredItem<BlockItem> FROZEN_FERN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_FERN, WWBlocks.FROZEN_FERN);
-	public static final DeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = registerBlockItem(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN);
 	public static final DeferredItem<BlockItem> FROZEN_BUSH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_BUSH, WWBlocks.FROZEN_BUSH);
 	public static final DeferredItem<BlockItem> MYCELIUM_GROWTH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MYCELIUM_GROWTH, WWBlocks.MYCELIUM_GROWTH);
 
@@ -235,10 +233,10 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> AUBURN_CREEPING_MOSS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_CREEPING_MOSS, WWBlocks.AUBURN_CREEPING_MOSS);
 
 	// AQUATIC
-	public static final DeferredItem<DoubleHighBlockItem> CATTAIL = registerBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL, DoubleHighBlockItem::new);
-	public static final DeferredItem<PlaceOnWaterBlockItem> FLOWERING_LILY_PAD = registerBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD, PlaceOnWaterBlockItem::new);
-	public static final DeferredItem<PlaceOnWaterBlockItem> ALGAE = registerBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE, PlaceOnWaterBlockItem::new);
-	public static final DeferredItem<PlaceOnWaterBlockItem> PLANKTON = registerBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON, PlaceOnWaterBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> CATTAIL = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL);
+	public static final DeferredItem<PlaceOnWaterBlockItem> FLOWERING_LILY_PAD = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD);
+	public static final DeferredItem<PlaceOnWaterBlockItem> ALGAE = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE);
+	public static final DeferredItem<PlaceOnWaterBlockItem> PLANKTON = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON);
 	public static final DeferredItem<BlockItem> SPONGE_BUD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPONGE_BUD, WWBlocks.SPONGE_BUD);
 	public static final DeferredItem<BlockItem> BARNACLES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BARNACLES, WWBlocks.BARNACLES);
 	public static final DeferredItem<BlockItem> SEA_ANEMONE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SEA_ANEMONE, WWBlocks.SEA_ANEMONE);
@@ -280,7 +278,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> BAOBAB_SLAB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_SLAB, WWBlocks.BAOBAB_SLAB);
 	public static final DeferredItem<BlockItem> BAOBAB_PRESSURE_PLATE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_PRESSURE_PLATE, WWBlocks.BAOBAB_PRESSURE_PLATE);
 	public static final DeferredItem<BlockItem> BAOBAB_BUTTON = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_BUTTON, WWBlocks.BAOBAB_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> BAOBAB_DOOR = registerBlockItem(WWBlockItemIds.BAOBAB_DOOR, WWBlocks.BAOBAB_DOOR, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> BAOBAB_DOOR = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.BAOBAB_DOOR, WWBlocks.BAOBAB_DOOR);
 	public static final DeferredItem<BlockItem> BAOBAB_TRAPDOOR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_TRAPDOOR);
 	public static final DeferredItem<BlockItem> BAOBAB_FENCE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_FENCE, WWBlocks.BAOBAB_FENCE);
 	public static final DeferredItem<BlockItem> BAOBAB_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_LOG, WWBlocks.BAOBAB_LOG);
@@ -288,17 +286,9 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_BAOBAB_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
 	public static final DeferredItem<BlockItem> BAOBAB_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_WOOD, WWBlocks.BAOBAB_WOOD);
 	public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
-	public static final DeferredItem<SignItem> BAOBAB_SIGN = registerBlockItem(WWBlockItemIds.BAOBAB_SIGN, WWBlocks.BAOBAB_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.BAOBAB_WALL_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<HangingSignItem> BAOBAB_HANGING_SIGN = registerBlockItem(WWBlockItemIds.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_HANGING_SIGN,
-		(block, properties) -> new HangingSignItem(block, WWBlocks.BAOBAB_WALL_HANGING_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<BlockItem> BAOBAB_SHELF = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BAOBAB_SHELF, WWBlocks.BAOBAB_SHELF,
-		properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-	);
+	public static final DeferredItem<SignItem> BAOBAB_SIGN = REGISTER.registerSignItem(WWBlockItemIds.BAOBAB_SIGN, WWBlocks.BAOBAB_SIGN, WWBlocks.BAOBAB_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> BAOBAB_HANGING_SIGN = REGISTER.registerHangingSignItem(WWBlockItemIds.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> BAOBAB_SHELF = REGISTER.registerShelfItem(WWBlockItemIds.BAOBAB_SHELF, WWBlocks.BAOBAB_SHELF);
 
 	// WILLOW
 	public static final DeferredItem<BlockItem> WILLOW_PLANKS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_PLANKS, WWBlocks.WILLOW_PLANKS);
@@ -307,7 +297,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> WILLOW_SLAB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_SLAB, WWBlocks.WILLOW_SLAB);
 	public static final DeferredItem<BlockItem> WILLOW_PRESSURE_PLATE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_PRESSURE_PLATE, WWBlocks.WILLOW_PRESSURE_PLATE);
 	public static final DeferredItem<BlockItem> WILLOW_BUTTON = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_BUTTON, WWBlocks.WILLOW_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> WILLOW_DOOR = registerBlockItem(WWBlockItemIds.WILLOW_DOOR, WWBlocks.WILLOW_DOOR, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> WILLOW_DOOR = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.WILLOW_DOOR, WWBlocks.WILLOW_DOOR);
 	public static final DeferredItem<BlockItem> WILLOW_TRAPDOOR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_TRAPDOOR, WWBlocks.WILLOW_TRAPDOOR);
 	public static final DeferredItem<BlockItem> WILLOW_FENCE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_FENCE, WWBlocks.WILLOW_FENCE);
 	public static final DeferredItem<BlockItem> WILLOW_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_LOG, WWBlocks.WILLOW_LOG);
@@ -315,17 +305,9 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_WILLOW_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
 	public static final DeferredItem<BlockItem> WILLOW_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_WOOD, WWBlocks.WILLOW_WOOD);
 	public static final DeferredItem<BlockItem> STRIPPED_WILLOW_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
-	public static final DeferredItem<SignItem> WILLOW_SIGN = registerBlockItem(WWBlockItemIds.WILLOW_SIGN, WWBlocks.WILLOW_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.WILLOW_WALL_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<HangingSignItem> WILLOW_HANGING_SIGN = registerBlockItem(WWBlockItemIds.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_HANGING_SIGN,
-		(block, properties) -> new HangingSignItem(block, WWBlocks.WILLOW_WALL_HANGING_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<BlockItem> WILLOW_SHELF = REGISTER.registerSimpleBlockItem(WWBlockItemIds.WILLOW_SHELF, WWBlocks.WILLOW_SHELF,
-		properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-	);
+	public static final DeferredItem<SignItem> WILLOW_SIGN = REGISTER.registerSignItem(WWBlockItemIds.WILLOW_SIGN, WWBlocks.WILLOW_SIGN, WWBlocks.WILLOW_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> WILLOW_HANGING_SIGN = REGISTER.registerHangingSignItem(WWBlockItemIds.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> WILLOW_SHELF = REGISTER.registerShelfItem(WWBlockItemIds.WILLOW_SHELF, WWBlocks.WILLOW_SHELF);
 
 	// CYPRESS
 	public static final DeferredItem<BlockItem> CYPRESS_PLANKS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_PLANKS, WWBlocks.CYPRESS_PLANKS);
@@ -334,7 +316,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> CYPRESS_SLAB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_SLAB, WWBlocks.CYPRESS_SLAB);
 	public static final DeferredItem<BlockItem> CYPRESS_PRESSURE_PLATE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_PRESSURE_PLATE, WWBlocks.CYPRESS_PRESSURE_PLATE);
 	public static final DeferredItem<BlockItem> CYPRESS_BUTTON = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_BUTTON, WWBlocks.CYPRESS_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> CYPRESS_DOOR = registerBlockItem(WWBlockItemIds.CYPRESS_DOOR, WWBlocks.CYPRESS_DOOR, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> CYPRESS_DOOR = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.CYPRESS_DOOR, WWBlocks.CYPRESS_DOOR);
 	public static final DeferredItem<BlockItem> CYPRESS_TRAPDOOR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_TRAPDOOR, WWBlocks.CYPRESS_TRAPDOOR);
 	public static final DeferredItem<BlockItem> CYPRESS_FENCE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_FENCE, WWBlocks.CYPRESS_FENCE);
 	public static final DeferredItem<BlockItem> CYPRESS_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_LOG, WWBlocks.CYPRESS_LOG);
@@ -342,17 +324,9 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_CYPRESS_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
 	public static final DeferredItem<BlockItem> CYPRESS_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_WOOD, WWBlocks.CYPRESS_WOOD);
 	public static final DeferredItem<BlockItem> STRIPPED_CYPRESS_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
-	public static final DeferredItem<SignItem> CYPRESS_SIGN = registerBlockItem(WWBlockItemIds.CYPRESS_SIGN, WWBlocks.CYPRESS_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.CYPRESS_WALL_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<HangingSignItem> CYPRESS_HANGING_SIGN = registerBlockItem(WWBlockItemIds.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_HANGING_SIGN,
-		(block, properties) -> new HangingSignItem(block, WWBlocks.CYPRESS_WALL_HANGING_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<BlockItem> CYPRESS_SHELF = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CYPRESS_SHELF, WWBlocks.CYPRESS_SHELF,
-		properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-	);
+	public static final DeferredItem<SignItem> CYPRESS_SIGN = REGISTER.registerSignItem(WWBlockItemIds.CYPRESS_SIGN, WWBlocks.CYPRESS_SIGN, WWBlocks.CYPRESS_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> CYPRESS_HANGING_SIGN = REGISTER.registerHangingSignItem(WWBlockItemIds.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> CYPRESS_SHELF = REGISTER.registerShelfItem(WWBlockItemIds.CYPRESS_SHELF, WWBlocks.CYPRESS_SHELF);
 
 	// PALM
 	public static final DeferredItem<BlockItem> PALM_PLANKS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_PLANKS, WWBlocks.PALM_PLANKS);
@@ -361,7 +335,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> PALM_SLAB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_SLAB, WWBlocks.PALM_SLAB);
 	public static final DeferredItem<BlockItem> PALM_PRESSURE_PLATE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_PRESSURE_PLATE, WWBlocks.PALM_PRESSURE_PLATE);
 	public static final DeferredItem<BlockItem> PALM_BUTTON = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_BUTTON, WWBlocks.PALM_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> PALM_DOOR = registerBlockItem(WWBlockItemIds.PALM_DOOR, WWBlocks.PALM_DOOR, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> PALM_DOOR = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.PALM_DOOR, WWBlocks.PALM_DOOR);
 	public static final DeferredItem<BlockItem> PALM_TRAPDOOR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_TRAPDOOR, WWBlocks.PALM_TRAPDOOR);
 	public static final DeferredItem<BlockItem> PALM_FENCE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_FENCE, WWBlocks.PALM_FENCE);
 	public static final DeferredItem<BlockItem> PALM_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_LOG, WWBlocks.PALM_LOG);
@@ -369,17 +343,9 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_PALM_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
 	public static final DeferredItem<BlockItem> PALM_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_WOOD, WWBlocks.PALM_WOOD);
 	public static final DeferredItem<BlockItem> STRIPPED_PALM_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
-	public static final DeferredItem<SignItem> PALM_SIGN = registerBlockItem(WWBlockItemIds.PALM_SIGN, WWBlocks.PALM_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.PALM_WALL_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<HangingSignItem> PALM_HANGING_SIGN = registerBlockItem(WWBlockItemIds.PALM_HANGING_SIGN, WWBlocks.PALM_HANGING_SIGN,
-		(block, properties) -> new HangingSignItem(block, WWBlocks.PALM_WALL_HANGING_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<BlockItem> PALM_SHELF = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALM_SHELF, WWBlocks.PALM_SHELF,
-		properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-	);
+	public static final DeferredItem<SignItem> PALM_SIGN = REGISTER.registerSignItem(WWBlockItemIds.PALM_SIGN, WWBlocks.PALM_SIGN, WWBlocks.PALM_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> PALM_HANGING_SIGN = REGISTER.registerHangingSignItem(WWBlockItemIds.PALM_HANGING_SIGN, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> PALM_SHELF = REGISTER.registerShelfItem(WWBlockItemIds.PALM_SHELF, WWBlocks.PALM_SHELF);
 
 	// MAPLE
 	public static final DeferredItem<BlockItem> MAPLE_PLANKS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_PLANKS, WWBlocks.MAPLE_PLANKS);
@@ -388,7 +354,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> MAPLE_SLAB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_SLAB, WWBlocks.MAPLE_SLAB);
 	public static final DeferredItem<BlockItem> MAPLE_PRESSURE_PLATE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_PRESSURE_PLATE, WWBlocks.MAPLE_PRESSURE_PLATE);
 	public static final DeferredItem<BlockItem> MAPLE_BUTTON = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_BUTTON, WWBlocks.MAPLE_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> MAPLE_DOOR = registerBlockItem(WWBlockItemIds.MAPLE_DOOR, WWBlocks.MAPLE_DOOR, DoubleHighBlockItem::new);
+	public static final DeferredItem<DoubleHighBlockItem> MAPLE_DOOR = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.MAPLE_DOOR, WWBlocks.MAPLE_DOOR);
 	public static final DeferredItem<BlockItem> MAPLE_TRAPDOOR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_TRAPDOOR, WWBlocks.MAPLE_TRAPDOOR);
 	public static final DeferredItem<BlockItem> MAPLE_FENCE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_FENCE, WWBlocks.MAPLE_FENCE);
 	public static final DeferredItem<BlockItem> MAPLE_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_LOG, WWBlocks.MAPLE_LOG);
@@ -396,17 +362,9 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_MAPLE_LOG = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
 	public static final DeferredItem<BlockItem> MAPLE_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_WOOD, WWBlocks.MAPLE_WOOD);
 	public static final DeferredItem<BlockItem> STRIPPED_MAPLE_WOOD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
-	public static final DeferredItem<SignItem> MAPLE_SIGN = registerBlockItem(WWBlockItemIds.MAPLE_SIGN, WWBlocks.MAPLE_SIGN,
-		(block, properties) -> new SignItem(block, WWBlocks.MAPLE_WALL_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<HangingSignItem> MAPLE_HANGING_SIGN = registerBlockItem(WWBlockItemIds.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_HANGING_SIGN,
-		(block, properties) -> new HangingSignItem(block, WWBlocks.MAPLE_WALL_HANGING_SIGN.get(), properties),
-		new Item.Properties().stacksTo(16)
-	);
-	public static final DeferredItem<BlockItem> MAPLE_SHELF = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MAPLE_SHELF, WWBlocks.MAPLE_SHELF,
-		properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
-	);
+	public static final DeferredItem<SignItem> MAPLE_SIGN = REGISTER.registerSignItem(WWBlockItemIds.MAPLE_SIGN, WWBlocks.MAPLE_SIGN, WWBlocks.MAPLE_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> MAPLE_HANGING_SIGN = REGISTER.registerHangingSignItem(WWBlockItemIds.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> MAPLE_SHELF = REGISTER.registerShelfItem(WWBlockItemIds.MAPLE_SHELF, WWBlocks.MAPLE_SHELF);
 
 	// ICE
 	public static final DeferredItem<BlockItem> FRAGILE_ICE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FRAGILE_ICE, WWBlocks.FRAGILE_ICE);
@@ -477,15 +435,15 @@ public final class WWItems {
 		() -> new Item.Properties().stacksTo(1).component(DataComponents.FOOD, WWFoods.CRAB_CLAW)
 	);
 
-	public static final DeferredItem<SpawnEggItem> FIREFLY_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.FIREFLY_SPAWN_EGG, WWEntityTypes.FIREFLY::get);
-	public static final DeferredItem<SpawnEggItem> JELLYFISH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.JELLYFISH_SPAWN_EGG, WWEntityTypes.JELLYFISH::get);
-	public static final DeferredItem<SpawnEggItem> CRAB_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.CRAB_SPAWN_EGG, WWEntityTypes.CRAB::get);
-	public static final DeferredItem<SpawnEggItem> OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.OSTRICH_SPAWN_EGG, WWEntityTypes.OSTRICH::get);
-	public static final DeferredItem<SpawnEggItem> ZOMBIE_OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.ZOMBIE_OSTRICH_SPAWN_EGG, WWEntityTypes.ZOMBIE_OSTRICH::get);
-	public static final DeferredItem<SpawnEggItem> SCORCHED_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SCORCHED_SPAWN_EGG, WWEntityTypes.SCORCHED::get);
-	public static final DeferredItem<SpawnEggItem> BUTTERFLY_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.BUTTERFLY_SPAWN_EGG, WWEntityTypes.BUTTERFLY::get);
-	public static final DeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM::get);
-	public static final DeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN::get);
+	public static final DeferredItem<SpawnEggItem> FIREFLY_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.FIREFLY_SPAWN_EGG, WWEntityTypes.FIREFLY);
+	public static final DeferredItem<SpawnEggItem> JELLYFISH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.JELLYFISH_SPAWN_EGG, WWEntityTypes.JELLYFISH);
+	public static final DeferredItem<SpawnEggItem> CRAB_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.CRAB_SPAWN_EGG, WWEntityTypes.CRAB);
+	public static final DeferredItem<SpawnEggItem> OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.OSTRICH_SPAWN_EGG, WWEntityTypes.OSTRICH);
+	public static final DeferredItem<SpawnEggItem> ZOMBIE_OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.ZOMBIE_OSTRICH_SPAWN_EGG, WWEntityTypes.ZOMBIE_OSTRICH);
+	public static final DeferredItem<SpawnEggItem> SCORCHED_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SCORCHED_SPAWN_EGG, WWEntityTypes.SCORCHED);
+	public static final DeferredItem<SpawnEggItem> BUTTERFLY_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.BUTTERFLY_SPAWN_EGG, WWEntityTypes.BUTTERFLY);
+	public static final DeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM);
+	public static final DeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN);
 
 	public static void init() {}
 
@@ -512,14 +470,6 @@ public final class WWItems {
 		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT.get()));
 	}
 
-	private static <I extends Item> DeferredItem<I> registerBlockItem(BlockItemId id, Supplier<? extends Block> block, BiFunction<Block, Item.Properties, ? extends I> itemFactory) {
-		return REGISTER.registerItem(id.item(), properties -> itemFactory.apply(block.get(), properties), () -> new Item.Properties().useBlockDescriptionPrefix().setId(id.item()));
-	}
-
-	private static <I extends Item> DeferredItem<I> registerBlockItem(BlockItemId id, Supplier<? extends Block> block, BiFunction<Block, Item.Properties, ? extends I> itemFactory, Item.Properties properties) {
-		return REGISTER.registerItem(id.item(), p -> itemFactory.apply(block.get(), p), () -> properties.useBlockDescriptionPrefix());
-	}
-
 	private static <T extends AbstractBoat> DeferredItem<BoatItem> registerBoatItem(ResourceKey<Item> id, DeferredHolder<EntityType<?>, EntityType<T>> boat) {
 		return REGISTER.registerItem(id, properties -> new BoatItem(boat.get(), properties), () -> new Item.Properties().stacksTo(1));
 	}
@@ -527,4 +477,6 @@ public final class WWItems {
 	static {
 		REGISTER.register();
 	}
+
+	private WWItems() {}
 }

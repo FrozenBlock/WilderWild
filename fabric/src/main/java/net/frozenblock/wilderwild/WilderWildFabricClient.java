@@ -33,6 +33,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 		WWFluidRendering.init();
 		WWModelLayers.setup();
 
-		WWClientNetworking.registerPacketReceivers();
+		WWClientNetworking.setup();
 	}
 }

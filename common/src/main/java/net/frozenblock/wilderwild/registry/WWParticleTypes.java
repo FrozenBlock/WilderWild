@@ -210,4 +210,6 @@ public final class WWParticleTypes {
 	) {
 		return REGISTER.register(name, ParticleTypeHelper.complex(overrideLimiter, codec, streamCodec));
 	}
+
+	private WWParticleTypes() {}
 }

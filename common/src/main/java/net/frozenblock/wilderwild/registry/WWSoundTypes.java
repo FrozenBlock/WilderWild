@@ -428,4 +428,6 @@ public final class WWSoundTypes {
 	 * Must be called after register on NeoForge.
 	 */
 	public static void setup() {}
+
+	private WWSoundTypes() {}
 }

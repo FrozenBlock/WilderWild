@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.data.sound;
+package net.frozenblock.wilderwild.registry;
 
 import java.util.Optional;
 import net.frozenblock.lib.block.api.sound.SoundTypeOverrides;
@@ -24,7 +24,6 @@ import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -142,4 +141,6 @@ public final class WWSoundTypeOverrides {
 	private static ResourceKey<SoundTypeOverride> key(String name) {
 		return SoundTypeOverrides.createKey(WWConstants.id(name));
 	}
+
+	private WWSoundTypeOverrides() {}
 }

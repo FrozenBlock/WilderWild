@@ -299,4 +299,6 @@ public final class WWEntityTypes {
 	) {
 		return REGISTER.register(id.identifier().getPath(), factory, category, builder, also);
 	}
+
+	private WWEntityTypes() {}
 }
