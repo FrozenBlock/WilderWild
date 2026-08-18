@@ -30,7 +30,7 @@ import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
 import net.frozenblock.wilderwild.data.recipe.WWRecipeProvider;
-import net.frozenblock.wilderwild.registry.WWSoundTypeOverrides;
+import net.frozenblock.wilderwild.data.sound.WWSoundTypeOverrides;
 import net.frozenblock.wilderwild.data.tag.WWBiomeTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWBlockTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWDamageTypeTagsProvider;

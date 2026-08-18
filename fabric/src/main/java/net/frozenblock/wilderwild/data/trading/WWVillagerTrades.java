@@ -265,4 +265,6 @@ public final class WWVillagerTrades {
 	public static ResourceKey<VillagerTrade> resourceKey(String path) {
 		return ResourceKey.create(Registries.VILLAGER_TRADE, WWConstants.id(path));
 	}
+
+	private WWVillagerTrades() {}
 }

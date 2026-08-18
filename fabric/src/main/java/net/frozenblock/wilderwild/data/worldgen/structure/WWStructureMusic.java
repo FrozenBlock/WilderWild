@@ -30,7 +30,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 
-public class WWStructureMusic {
+public final class WWStructureMusic {
 	public static final ResourceKey<StructureMusic> ANCIENT_CITY = createKey("ancient_city");
 
 	public static void bootstrap(BootstrapContext<StructureMusic> context) {
@@ -47,4 +47,6 @@ public class WWStructureMusic {
 	private static ResourceKey<StructureMusic> createKey(String name) {
 		return StructureMusic.createKey(WWConstants.id(name));
 	}
+
+	private WWStructureMusic() {}
 }
