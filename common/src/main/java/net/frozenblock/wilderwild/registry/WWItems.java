@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.item.api.component.DamageOnConsume;
+import net.frozenblock.lib.item.api.component.consume_effects.DamageConsumeEffect;
 import net.frozenblock.lib.item.api.component.FrozenLibDataComponents;
 import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
@@ -51,6 +51,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
@@ -197,9 +198,12 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> PRICKLY_PEAR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PRICKLY_PEAR,
 		WWBlocks.PRICKLY_PEAR,
 		properties -> properties.food(WWFoods.PRICKLY_PEAR)
+			.component(DataComponents.FOOD, WWFoods.PRICKLY_PEAR)
 			.delayedComponent(
-				FrozenLibDataComponents.DAMAGE_ON_CONSUME.get(),
-				provider -> new DamageOnConsume(2F, Optional.empty(), provider.getOrThrow(WWDamageTypes.PRICKLY_PEAR))
+				DataComponents.CONSUMABLE,
+				provider -> Consumables.defaultFood()
+					.onConsume(new DamageConsumeEffect(2F, Optional.empty(), provider.getOrThrow(WWDamageTypes.PRICKLY_PEAR)))
+					.build()
 			)
 	);
 	public static final DeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
