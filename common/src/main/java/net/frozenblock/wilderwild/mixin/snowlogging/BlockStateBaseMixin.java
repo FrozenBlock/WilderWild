@@ -175,7 +175,7 @@ public abstract class BlockStateBaseMixin {
 	) {
 		final BlockState newState = SnowloggingUtils.onRandomTick(state, level, pos);
 		if (newState != state) {
-			state.randomTick(level, pos, random);
+			newState.randomTick(level, pos, random);
 			return;
 		}
 		original.call(instance, state, level, pos, random);
