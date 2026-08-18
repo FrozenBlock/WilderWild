@@ -59,4 +59,6 @@ public final class WWBlockItemTags {
 		final Identifier id = WWConstants.id(name);
 		return BlockItemTagId.create(id, id);
 	}
+
+	private WWBlockItemTags() {}
 }

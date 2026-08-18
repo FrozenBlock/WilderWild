@@ -34,6 +34,7 @@ import net.frozenblock.wilderwild.data.sound.WWSoundTypeOverrides;
 import net.frozenblock.wilderwild.data.tag.WWBiomeTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWBlockTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWDamageTypeTagsProvider;
+import net.frozenblock.wilderwild.data.tag.WWEnchantmentTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWEntityTypeTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWFeatureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWFluidTagsProvider;
@@ -81,6 +82,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWFluidTagsProvider::new);
 		pack.addProvider(WWDamageTypeTagsProvider::new);
 		pack.addProvider(WWItemTagsProvider::new);
+		pack.addProvider(WWEnchantmentTagsProvider::new);
 		pack.addProvider(WWEntityTypeTagsProvider::new);
 		pack.addProvider(WWGameEventTagsProvider::new);
 		pack.addProvider(WWVillagerTradesTagsProvider::new);

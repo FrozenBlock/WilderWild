@@ -381,4 +381,6 @@ public final class WWBiomeTags {
 	private static TagKey<Biome> bind(String name) {
 		return TagKey.create(Registries.BIOME, WWConstants.id(name));
 	}
+
+	private WWBiomeTags() {}
 }

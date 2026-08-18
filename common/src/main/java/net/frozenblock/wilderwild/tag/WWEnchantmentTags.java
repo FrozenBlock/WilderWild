@@ -20,14 +20,15 @@ package net.frozenblock.wilderwild.tag;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.gameevent.GameEvent;
 
-public final class WWDamageTypeTags {
-	public static final TagKey<DamageType> EMPTY = bind("empty");
+public final class WWEnchantmentTags {
+	public static final TagKey<Enchantment> PREVENTS_ECHO_GLASS_CRACKING = bind("prevents_echo_glass_cracking");
 
-	private static TagKey<DamageType> bind(String name) {
-		return TagKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
+	private static TagKey<Enchantment> bind(String name) {
+		return TagKey.create(Registries.ENCHANTMENT, WWConstants.id(name));
 	}
 
-	private WWDamageTypeTags() {}
+	private WWEnchantmentTags() {}
 }

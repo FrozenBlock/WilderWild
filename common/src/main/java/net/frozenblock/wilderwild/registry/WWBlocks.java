@@ -27,6 +27,7 @@ import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
 import net.frozenblock.lib.block.api.registry.WoodTypeBuilder;
 import net.frozenblock.lib.block.api.storage.hopper.HopperApi;
+import net.frozenblock.lib.event.api.events.PlayerBlockBreakEvents;
 import net.frozenblock.lib.event.api.events.ServerLevelEvents;
 import net.frozenblock.lib.item.api.axe.StrippableBlockRegistry;
 import net.frozenblock.lib.item.api.bonemeal.BoneMealApi;
@@ -93,6 +94,7 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
@@ -100,6 +102,7 @@ import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
+import net.frozenblock.wilderwild.tag.WWEnchantmentTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -117,6 +120,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
@@ -131,6 +135,7 @@ import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -152,6 +157,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -1462,7 +1468,34 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.DESTROY);
 	}
 
-	public static void init() {}
+	public static void init() {
+		PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> {
+			if (SnowloggingUtils.isSnowlogged(state)) {
+				level.setBlockAndUpdate(pos, state.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
+				level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+				level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, state));
+
+				if (level.isClientSide()) return false;
+
+				final BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
+				if (!player.preventsBlockDrops() && player.hasCorrectToolForDrops(snowState)) {
+					ItemStack itemStack = player.getMainHandItem();
+					ItemStack destroyedWith = itemStack.copy();
+					itemStack.mineBlock(level, state, pos, player);
+					Blocks.SNOW.playerDestroy(level, player, pos, snowState, blockEntity, destroyedWith);
+				}
+				return false;
+			}
+
+			if (state.getBlock() instanceof EchoGlassBlock && EchoGlassBlock.canDamage(state) && !player.getAbilities().instabuild) {
+				if (EnchantmentHelper.hasTag(player.getMainHandItem(), WWEnchantmentTags.PREVENTS_ECHO_GLASS_CRACKING)) return true;
+				EchoGlassBlock.setDamagedState(level, pos, state, player);
+				return false;
+			}
+
+			return true;
+		});
+	}
 
 	public static DeferredBlock<Block> registerFlowerPot(ResourceKey<Block> id, Supplier<? extends Block> potted) {
 		return REGISTER.registerBlock(id, properties -> new FlowerPotBlock(potted.get(), properties), Blocks::flowerPotProperties);

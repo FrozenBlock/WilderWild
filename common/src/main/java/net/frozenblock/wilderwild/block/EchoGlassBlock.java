@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
@@ -52,6 +53,8 @@ import org.jetbrains.annotations.Nullable;
 public class EchoGlassBlock extends TransparentBlock {
 	public static final int MIN_CRACK_PARTICLES = 18;
 	public static final int MAX_DAMAGE_PARTICLES = 25;
+	private static final int MAX_DAMAGE = 3;
+	private static final int MAX_SAFE_LIGHT_LEVEL = 8;
 	public static final IntegerProperty DAMAGE = WWBlockStateProperties.DAMAGE;
 	public static final MapCodec<EchoGlassBlock> CODEC = simpleCodec(EchoGlassBlock::new);
 
@@ -61,11 +64,22 @@ public class EchoGlassBlock extends TransparentBlock {
 	}
 
 	public static boolean canDamage(BlockState state) {
-		return state.hasProperty(DAMAGE) && state.getValue(DAMAGE) < 3;
+		return state.hasProperty(DAMAGE) && state.getValue(DAMAGE) < MAX_DAMAGE;
 	}
 
-	public static void setDamagedState(LevelAccessor level, BlockPos pos, BlockState state) {
+	public static void setDamagedState(LevelAccessor level, BlockPos pos, BlockState state, @Nullable Player player) {
 		level.setBlock(pos, state.cycle(DAMAGE), UPDATE_ALL);
+		level.playSound(player, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK.get(), SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+		level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
+
+		if (!(level instanceof ServerLevel serverLevel)) return;
+		serverLevel.sendParticles(
+			new BlockParticleOption(ParticleTypes.BLOCK, state),
+			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+			level.getRandom().nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
+			0.3F, 0.3F, 0.3F,
+			0.05D
+		);
 	}
 
 	public static void damage(Level level, BlockPos pos, BlockState state, boolean shouldDrop) {
@@ -74,17 +88,7 @@ public class EchoGlassBlock extends TransparentBlock {
 			return;
 		}
 
-		setDamagedState(level, pos, state);
-		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK.get(), SoundSource.BLOCKS, 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
-		if (!(level instanceof ServerLevel serverLevel)) return;
-
-		serverLevel.sendParticles(
-			new BlockParticleOption(ParticleTypes.BLOCK, state),
-			pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-			level.getRandom().nextInt(MIN_CRACK_PARTICLES, MAX_DAMAGE_PARTICLES),
-			0.3F, 0.3F, 0.3F,
-			0.05D
-		);
+		setDamagedState(level, pos, state, null);
 	}
 
 	public static void heal(Level level, BlockPos pos) {
@@ -129,7 +133,7 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (getLightLevel(level, pos) <= 8) {
+		if (getLightLevel(level, pos) <= MAX_SAFE_LIGHT_LEVEL) {
 			if (random.nextBoolean()) heal(level, pos);
 		} else {
 			if (random.nextFloat() <= 0.75F) damage(level, pos, state, true);

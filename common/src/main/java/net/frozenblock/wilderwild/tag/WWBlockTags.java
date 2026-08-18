@@ -181,4 +181,6 @@ public final class WWBlockTags {
 	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, WWConstants.id(name));
 	}
+
+	private WWBlockTags() {}
 }

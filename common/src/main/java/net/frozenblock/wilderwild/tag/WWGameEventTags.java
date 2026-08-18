@@ -30,4 +30,6 @@ public final class WWGameEventTags {
 	private static TagKey<GameEvent> bind(String name) {
 		return TagKey.create(Registries.GAME_EVENT, WWConstants.id(name));
 	}
+
+	private WWGameEventTags() {}
 }

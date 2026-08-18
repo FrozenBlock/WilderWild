@@ -6,7 +6,6 @@
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
     "TempTagLoaderMixin",
-    "block.block_break.ServerPlayerGameModeMixin",
     "block.cactus.CactusBlockMixin",
     "block.cactus.EntityTypeMixin",
     "block.cactus.WalkNodeEvaluatorMixin",

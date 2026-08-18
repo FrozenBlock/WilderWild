@@ -12,7 +12,6 @@
     "worldgen.structure.SwampHutPieceMixin"
   ],
   "client": [
-    "client.block_break.MultiPlayerGameModeMixin",
     "client.sodium.BlockRendererMixin",
     "datagen.client.BlockModelGeneratorsMixin"
   ],

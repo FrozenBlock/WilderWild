@@ -38,4 +38,6 @@ public final class WWItemTags {
 	private static TagKey<Item> bind(String name) {
 		return TagKey.create(Registries.ITEM, WWConstants.id(name));
 	}
+
+	private WWItemTags() {}
 }
