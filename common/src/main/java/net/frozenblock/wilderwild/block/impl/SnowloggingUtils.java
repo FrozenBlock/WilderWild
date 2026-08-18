@@ -123,11 +123,14 @@ public class SnowloggingUtils {
 		return getSnowEquivalent(state).getDestroySpeed(level, pos);
 	}
 
-	public static void onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
-		if (!isSnowlogged(state)) return;
-		if (level.getBrightness(LightLayer.BLOCK, pos) <= 11) return;
+	public static BlockState onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
+		if (!isSnowlogged(state)) return state;
+		if (level.getBrightness(LightLayer.BLOCK, pos) <= 11) return state.setValue(SNOW_LAYERS, 0);
 		Block.dropResources(getSnowEquivalent(state), level, pos);
-		level.setBlockAndUpdate(pos, state.setValue(SNOW_LAYERS, 0));
+
+		final BlockState nonSnowState = state.trySetValue(SNOW_LAYERS, 0);
+		level.setBlockAndUpdate(pos, nonSnowState);
+		return nonSnowState;
 	}
 
 	public static boolean isOriginalBlockCovered(BlockState state, BlockGetter level, BlockPos pos) {
@@ -136,5 +139,4 @@ public class SnowloggingUtils {
 		final VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
 		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
-
 }

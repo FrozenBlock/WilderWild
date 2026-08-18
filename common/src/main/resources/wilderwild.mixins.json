@@ -77,7 +77,6 @@
     "sculk.SculkVeinBlockMixin",
     "sculk.SculkVeinSpreaderConfigMixin",
     "snowlogging.BlockItemMixin",
-    "snowlogging.BlockMixin",
     "snowlogging.BlockStateBaseMixin",
     "snowlogging.BoneMealItemMixin",
     "snowlogging.DoublePlantBlockMixin",
@@ -140,6 +139,7 @@
     "client.wind.WindParticleMixin",
     "client.wind.cloud.LevelExtractorMixin",
     "client.wind.cloud.LevelRendererMixin",
+    "snowlogging.client.ClientLevelMixin",
     "snowlogging.client.LevelExtractorMixin",
     "snowlogging.client.SectionCompilerMixin"
   ],

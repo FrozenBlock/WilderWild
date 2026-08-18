@@ -66,17 +66,6 @@ public abstract class FenceGateBlockMixin extends HorizontalDirectionalBlock {
 		}
 	}
 
-	@Unique
-	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-		} else {
-			super.playerDestroy(level, player, pos, state, blockEntity, stack);
-		}
-	}
-
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogPropertiesToBlockade(builder);

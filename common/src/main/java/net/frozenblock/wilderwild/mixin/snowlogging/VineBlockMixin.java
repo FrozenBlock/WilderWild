@@ -49,27 +49,6 @@ public abstract class VineBlockMixin extends Block {
 		return SnowloggingUtils.getSnowPlacementState(original, context);
 	}
 
-	@Unique
-	@Override
-	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			super.destroy(level, pos, SnowloggingUtils.getSnowEquivalent(state));
-		} else {
-			super.destroy(level, pos, state);
-		}
-	}
-
-	@Unique
-	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, stack);
-		} else {
-			super.playerDestroy(level, player, pos, state, blockEntity, stack);
-		}
-	}
-
 	@Inject(method = "createBlockStateDefinition", at = @At(value = "TAIL"))
 	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		SnowloggingUtils.appendSnowlogProperties(builder);

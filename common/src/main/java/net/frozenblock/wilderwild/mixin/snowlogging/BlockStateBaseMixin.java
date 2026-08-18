@@ -170,8 +170,14 @@ public abstract class BlockStateBaseMixin {
 			target = "Lnet/minecraft/world/level/block/Block;randomTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V"
 		)
 	)
-	public void wilderWild$randomTick(Block instance, BlockState state, ServerLevel level, BlockPos pos, RandomSource random, Operation<Void> original) {
-		SnowloggingUtils.onRandomTick(state, level, pos);
+	public void wilderWild$randomTick(
+		Block instance, BlockState state, ServerLevel level, BlockPos pos, RandomSource random, Operation<Void> original
+	) {
+		final BlockState newState = SnowloggingUtils.onRandomTick(state, level, pos);
+		if (newState != state) {
+			state.randomTick(level, pos, random);
+			return;
+		}
 		original.call(instance, state, level, pos, random);
 	}
 
@@ -208,11 +214,11 @@ public abstract class BlockStateBaseMixin {
 		Block instance,
 		BlockState state,
 		LevelReader level,
-		ScheduledTickAccess scheduledTickAccess,
+		ScheduledTickAccess tickAccess,
 		BlockPos pos,
-		Direction direction,
-		BlockPos neighborPos,
-		BlockState neighborState,
+		Direction directionToNeighbour,
+		BlockPos neighbourPos,
+		BlockState neighborstate,
 		RandomSource random,
 		Operation<BlockState> original
 	) {
@@ -220,16 +226,18 @@ public abstract class BlockStateBaseMixin {
 			instance,
 			SnowloggingUtils.onUpdateShape(state, level, pos),
 			level,
-			scheduledTickAccess,
+			tickAccess,
 			pos,
-			direction,
-			neighborPos,
-			neighborState,
+			directionToNeighbour,
+			neighbourPos,
+			neighborstate,
 			random
 		);
 		BlockState snowEquivalent;
-		if (newState.isAir() && SnowloggingUtils.isSnowlogged(state)
-			&& (snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)).canSurvive(level, pos)) {
+		if (newState.isAir()
+			&& SnowloggingUtils.isSnowlogged(state)
+			&& (snowEquivalent = SnowloggingUtils.getSnowEquivalent(state)).canSurvive(level, pos)
+		) {
 			state = snowEquivalent;
 		} else {
 			state = newState;

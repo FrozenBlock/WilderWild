@@ -1472,18 +1472,9 @@ public final class WWBlocks {
 		PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> {
 			if (SnowloggingUtils.isSnowlogged(state)) {
 				level.setBlockAndUpdate(pos, state.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
-				level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
-				level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, state));
-
-				if (level.isClientSide()) return false;
 
 				final BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
-				if (!player.preventsBlockDrops() && player.hasCorrectToolForDrops(snowState)) {
-					ItemStack itemStack = player.getMainHandItem();
-					ItemStack destroyedWith = itemStack.copy();
-					itemStack.mineBlock(level, state, pos, player);
-					Blocks.SNOW.playerDestroy(level, player, pos, snowState, blockEntity, destroyedWith);
-				}
+				PlayerBlockBreakEvents.onDestroyLoggedBlock(level, player, pos, snowState, blockEntity);
 				return false;
 			}
 

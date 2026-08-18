@@ -38,7 +38,7 @@ public class SpongeBlockMixin {
 			ordinal = 2
 		)
 	)
-	private static boolean wilderWild$addCheckForNewAquaticBlocks(BlockState instance, Object block, Operation<Boolean> original) {
+	private static boolean wilderWild$checkForNewAquaticBlocks(BlockState instance, Object block, Operation<Boolean> original) {
 		return original.call(instance, block)
 			|| instance.getBlock() instanceof SeaAnemoneBlock
 			|| instance.getBlock() instanceof TubeWormsBlock

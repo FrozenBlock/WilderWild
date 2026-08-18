@@ -41,7 +41,6 @@ public final class WWDataComponents {
 		builder -> builder.persistent(DisplayLanternBlockEntity.Occupant.LIST_CODEC)
 			.networkSynchronized(DisplayLanternBlockEntity.Occupant.STREAM_CODEC.apply(ByteBufCodecs.list()))
 	);
-
 	public static final DeferredDataComponentType<CustomData> BOTTLE_ENTITY_DATA = register(
 		"bottle_entity_data",
 		builder -> builder.persistent(CustomData.CODEC)
@@ -76,7 +75,7 @@ public final class WWDataComponents {
 	public static void init() {}
 
 	private static <T> DeferredDataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
-		return REGISTER.register(name, builder);
+		return REGISTER.registerComponent(name, builder);
 	}
 
 	private WWDataComponents() {}

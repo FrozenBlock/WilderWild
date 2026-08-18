@@ -52,7 +52,7 @@ public class BoneMealItemMixin {
 			target = "Lnet/minecraft/core/Holder;is(Lnet/minecraft/tags/TagKey;)Z"
 		)
 	)
-	private static boolean wilderWild$growBarnaclesA(
+	private static boolean wilderWild$growWWWaterPlants(
 		Holder<Biome> instance, TagKey<Biome> tagKey, Operation<Boolean> original,
 		ItemStack stack, Level level, BlockPos pos, @Nullable Direction clickedFace,
 		@Local(name = "random") RandomSource random,

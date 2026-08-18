@@ -41,7 +41,6 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -233,7 +232,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	@Override
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		if (isFullyGrown(state)) {
-			Block.popResource(level, pos, new ItemStack(this));
+			popResource(level, pos, new ItemStack(this));
 		} else {
 			this.grow(level, state, pos);
 		}
@@ -250,43 +249,20 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-		if (!level.isClientSide() && !SnowloggingUtils.isSnowlogged(state)) {
-			final boolean creative = player.isCreative();
-			boolean canContinue = true;
-			if (!creative) {
-				if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-					final BlockPos belowPos = pos.below();
-					final BlockState belowState = level.getBlockState(belowPos);
-					if (SnowloggingUtils.isSnowlogged(belowState)) {
-						Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
-						canContinue = false;
-					}
-				}
-			}
-
-			if (canContinue && isFullyGrown(state)) {
-				if (creative) {
-					try {
-						preventDropFromBottomPart(level, pos, state, player);
-					} catch (IllegalArgumentException e) {
-						Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
-					}
-				} else {
-					Block.dropResources(state, level, pos, null, player, player.getMainHandItem());
-				}
+		if (!level.isClientSide() && isFullyGrown(state)) {
+			if (player.preventsBlockDrops()) {
+				preventDropFromBottomPart(level, pos, state, player);
+			} else {
+				dropResources(state, level, pos, null, player, player.getMainHandItem());
 			}
 		}
+
 		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override
 	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack destroyedWith) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, destroyedWith);
-		} else {
-			super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, destroyedWith);
-		}
+		super.playerDestroy(level, player, pos, isFullyGrown(state) ? Blocks.AIR.defaultBlockState() : state, blockEntity, destroyedWith);
 	}
 
 	public BlockState setAgeOnBothHalves(BlockState state, Level level, BlockPos pos, int age, boolean spawnParticles) {
@@ -296,10 +272,10 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		final BlockState secondState = level.getBlockState(movedPos);
 		if (secondState.is(this)) {
 			level.setBlockAndUpdate(movedPos, secondState.setValue(AGE, age));
-			if (spawnParticles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, Block.getId(secondState));
+			if (spawnParticles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, movedPos, getId(secondState));
 		}
 
-		if (spawnParticles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
+		if (spawnParticles) level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, getId(state));
 		return setState;
 	}
 

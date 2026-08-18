@@ -260,23 +260,4 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		level.setBlock(pos, state.cycle(STAGE).setValue(AGE, 0), UPDATE_CLIENTS);
 	}
-
-	@Override
-	public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			super.destroy(level, pos, SnowloggingUtils.getSnowEquivalent(state));
-		} else {
-			super.destroy(level, pos, state);
-		}
-	}
-
-	@Override
-	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack destroyedWith) {
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-			if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, destroyedWith);
-		} else {
-			super.playerDestroy(level, player, pos, state, blockEntity, destroyedWith);
-		}
-	}
 }
