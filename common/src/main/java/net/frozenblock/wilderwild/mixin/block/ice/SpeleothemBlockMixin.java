@@ -60,7 +60,7 @@ public class SpeleothemBlockMixin {
 		)
 	)
 	private static void wilderWild$fallingIciclesAreWeaker(FallingBlockEntity instance, float damagePerDistance, int damageMax, Operation<Void> original) {
-		if (instance.getBlockState().is(WWBlocks.ICICLE.get())) damagePerDistance *= 10F;
+		if (instance.getBlockState().is(WWBlocks.ICICLE.get())) damageMax = 10;
 		original.call(instance, damagePerDistance, damageMax);
 	}
 }
