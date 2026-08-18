@@ -27,9 +27,10 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Contract;
 
 public enum FroglightType implements StringRepresentable {
-	PEARLESCENT("pearlescent", WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP),
-	VERDANT("verdant", WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY, WWBlocks.VERDANT_FROGLIGHT_GOOP),
-	OCHRE("ochre", WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY, WWBlocks.OCHRE_FROGLIGHT_GOOP);
+	// Although DeferredBlock is a Supplier itself, for whatever reason not using the () -> DeferredBlock.get() format causes a crash.
+	PEARLESCENT("pearlescent", () -> WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), () -> WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get()),
+	VERDANT("verdant", () -> WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), () -> WWBlocks.VERDANT_FROGLIGHT_GOOP.get()),
+	OCHRE("ochre", () -> WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY.get(), () -> WWBlocks.OCHRE_FROGLIGHT_GOOP.get());
 	public static final Codec<FroglightType> CODEC = StringRepresentable.fromEnum(FroglightType::values);
 	private final String name;
 	private final Supplier<? extends Block> bodyBlock;
