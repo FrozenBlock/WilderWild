@@ -18,10 +18,10 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
+import java.util.Optional;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.item.api.DamageOnUseBlockItem;
+import net.frozenblock.lib.item.api.component.DamageOnConsume;
+import net.frozenblock.lib.item.api.component.FrozenLibDataComponents;
 import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
@@ -38,7 +38,6 @@ import net.frozenblock.wilderwild.references.WWItemIds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
-import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
@@ -53,8 +52,6 @@ import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.ChatFormatting;
@@ -197,10 +194,13 @@ public final class WWItems {
 
 	// VEGETATION
 	public static final DeferredItem<BlockItem> POLLEN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.POLLEN, WWBlocks.POLLEN);
-	public static final DeferredItem<DamageOnUseBlockItem> PRICKLY_PEAR = REGISTER.registerBlockItem(WWBlockItemIds.PRICKLY_PEAR,
-		(properties, block) -> new DamageOnUseBlockItem(block, properties, 2F, WWSounds.PLAYER_HURT_CACTUS.get(), WWDamageTypes.PRICKLY_PEAR),
+	public static final DeferredItem<BlockItem> PRICKLY_PEAR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PRICKLY_PEAR,
 		WWBlocks.PRICKLY_PEAR,
 		properties -> properties.food(WWFoods.PRICKLY_PEAR)
+			.delayedComponent(
+				FrozenLibDataComponents.DAMAGE_ON_CONSUME.get(),
+				provider -> new DamageOnConsume(2F, Optional.empty(), provider.getOrThrow(WWDamageTypes.PRICKLY_PEAR))
+			)
 	);
 	public static final DeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
 	public static final DeferredItem<BlockItem> TUMBLEWEED_PLANT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT);

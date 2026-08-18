@@ -1520,6 +1520,14 @@ public final class WWBlocks {
 			)
 		);
 
+		ServerLevelEvents.LOAD.register(
+			(server, level) -> PlayerDamageTypeSounds.addDamageSound(
+				level.damageSources().damageTypes.getValueOrThrow(WWDamageTypes.PRICKLY_PEAR),
+				WWSounds.PLAYER_HURT_CACTUS.get(),
+				WWConstants.id("prickly_pear")
+			)
+		);
+
 		// TODO: ml scp
 		//if (ModLoader.isModLoaded(FrozenLibConstants.SIMPLE_COPPER_PIPES_MOD_ID)) SimpleCopperPipesIntegration.setup();
 	}
