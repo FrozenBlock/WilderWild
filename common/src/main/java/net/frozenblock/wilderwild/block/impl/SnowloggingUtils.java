@@ -125,9 +125,9 @@ public class SnowloggingUtils {
 
 	public static BlockState onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
 		if (!isSnowlogged(state)) return state;
-		if (level.getBrightness(LightLayer.BLOCK, pos) <= 11) return state.setValue(SNOW_LAYERS, 0);
-		Block.dropResources(getSnowEquivalent(state), level, pos);
+		if (level.getBrightness(LightLayer.BLOCK, pos) <= 11) return state;
 
+		Block.dropResources(getSnowEquivalent(state), level, pos);
 		final BlockState nonSnowState = state.trySetValue(SNOW_LAYERS, 0);
 		level.setBlockAndUpdate(pos, nonSnowState);
 		return nonSnowState;
