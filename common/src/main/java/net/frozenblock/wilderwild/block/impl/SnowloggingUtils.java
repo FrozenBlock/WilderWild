@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -44,8 +43,8 @@ public class SnowloggingUtils {
 	public static final boolean HAS_ANTIQUE_ATLAS = ModLoader.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
-	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog() && !FrozenBools.IS_DATAGEN;
-	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls() && !FrozenBools.IS_DATAGEN;
+	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog();
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls();
 
 	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
 		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
@@ -138,4 +137,6 @@ public class SnowloggingUtils {
 		final VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
 		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
+
+	private SnowloggingUtils() {}
 }

@@ -26,7 +26,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Contract;
 
 public class SnowyBlockUtils {
 	public static final BiMap<Block, Block> SNOWY_BLOCK_MAP = ImmutableBiMap.<Block, Block>builder()
@@ -38,22 +37,20 @@ public class SnowyBlockUtils {
 		.build();
 	public static final BiMap<Block, Block> NON_SNOWY_BLOCK_MAP = SNOWY_BLOCK_MAP.inverse();
 
-	@Contract("_ -> param1")
-	public static BlockState getWorldgenSnowyEquivalent(BlockState state) {
+	public static BlockState getSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
-	@Contract("_ -> param1")
 	public static BlockState getNonSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (NON_SNOWY_BLOCK_MAP.containsKey(block)) return NON_SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
 	}
 
-	public static BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, BlockState state, BlockPos pos) {
-		final BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
+	public static BlockState replaceWithSnowyEquivalent(WorldGenLevel level, BlockState state, BlockPos pos) {
+		final BlockState snowyEquivalent = getSnowyEquivalent(state);
 		if (!state.equals(snowyEquivalent)) {
 			if (state.getBlock() instanceof DoublePlantBlock) {
 				DoublePlantBlock.placeAt(level, snowyEquivalent, pos, Block.UPDATE_CLIENTS);
@@ -75,4 +72,6 @@ public class SnowyBlockUtils {
 		}
 		return nonSnowyEquivalent;
 	}
+
+	private SnowyBlockUtils() {}
 }

@@ -71,7 +71,7 @@ public class SnowBlanketFeature extends Feature<NoneFeatureConfiguration> {
 
 		if (!biome.shouldSnow(level, mutable1)) return SnowGenerationState.CONTINUE;
 
-		final BlockState replacingState = SnowyBlockUtils.replaceWithWorldgenSnowyEquivalent(level, level.getBlockState(mutable1), mutable1);
+		final BlockState replacingState = SnowyBlockUtils.replaceWithSnowyEquivalent(level, level.getBlockState(mutable1), mutable1);
 		if (SnowloggingUtils.canSnowlog(replacingState) && !SnowloggingUtils.isSnowlogged(replacingState)) {
 			level.setBlock(mutable1, replacingState.setValue(SnowloggingUtils.SNOW_LAYERS, 1), Block.UPDATE_CLIENTS);
 		} else {
