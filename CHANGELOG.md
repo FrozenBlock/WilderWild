@@ -74,3 +74,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that resulted in Icicles dropping as items after landing instead of shattering as intended.
 - Fixed an issue that prevented Penguins from applying a speed boost to Rafts.
 - Fixed an issue that caused a damage sound to play when eating a Prickly Pear in situations damage was not received from it.
+- Happy Ghasts will no longer pathfind into Prickly Pears.
