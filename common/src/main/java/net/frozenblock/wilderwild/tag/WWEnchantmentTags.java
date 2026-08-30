@@ -21,7 +21,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class WWEnchantmentTags {
 	public static final TagKey<Enchantment> PREVENTS_ECHO_GLASS_CRACKING = bind("prevents_echo_glass_cracking");

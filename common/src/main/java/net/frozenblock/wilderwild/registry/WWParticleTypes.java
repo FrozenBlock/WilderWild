@@ -18,14 +18,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import net.frozenblock.lib.particle.api.ParticleTypeHelper;
 import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
-import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredParticleType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredSimpleParticleType;
-import net.frozenblock.lib.platform.api.registry.ParticleTypeHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
@@ -36,12 +33,8 @@ import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
 
 public final class WWParticleTypes {
 	private static final DeferredRegister.ParticleTypes REGISTER = DeferredRegister.createParticleTypes(WWConstants.MOD_ID);

@@ -19,12 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.creative.CreativeModeTabSorter;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;

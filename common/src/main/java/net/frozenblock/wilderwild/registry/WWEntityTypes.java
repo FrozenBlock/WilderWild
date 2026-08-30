@@ -266,7 +266,7 @@ public final class WWEntityTypes {
 		MobCategory category,
 		UnaryOperator<EntityType.Builder<E>> builder
 	) {
-		return REGISTER.register(id.identifier().getPath(), factory, category, builder, null);
+		return REGISTER.register(id, factory, category, builder, null);
 	}
 
 	private static <E extends AbstractBoat> DeferredEntityType<E> registerAbstractBoat(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory) {
@@ -297,7 +297,7 @@ public final class WWEntityTypes {
 		UnaryOperator<EntityType.Builder<E>> builder,
 		Consumer<EntityType<E>> also
 	) {
-		return REGISTER.register(id.identifier().getPath(), factory, category, builder, also);
+		return REGISTER.register(id, factory, category, builder, also);
 	}
 
 	private WWEntityTypes() {}

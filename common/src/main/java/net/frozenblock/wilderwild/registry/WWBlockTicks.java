@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.List;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
-import net.frozenblock.lib.block.api.tick.BlockTickEvents;
 import net.frozenblock.lib.block.api.tick.BlockTickRegistry;
 import net.frozenblock.lib.tag.api.ConventionalBlockTags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
@@ -19,7 +19,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import java.util.List;
 
 public final class WWBlockTicks {
 

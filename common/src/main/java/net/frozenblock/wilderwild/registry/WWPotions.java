@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.item.api.registry.PotionBrewingRegistry;
-import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;

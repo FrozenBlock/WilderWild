@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Contract;
 
 public enum FroglightType implements StringRepresentable {
 	// Although DeferredBlock is a Supplier itself, for whatever reason not using the () -> DeferredBlock.get() format causes a crash.

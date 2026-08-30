@@ -1,7 +1,6 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
-import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredSensorType;
 import net.frozenblock.wilderwild.WWConstants;
@@ -19,9 +18,7 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinAttackablesSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinLandPosSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinTrackedBoatSensor;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
 
 public final class WWSensorTypes {

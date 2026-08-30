@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.GameEventTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class WWGameEventTagsProvider extends FabricTagsProvider<GameEvent> {
