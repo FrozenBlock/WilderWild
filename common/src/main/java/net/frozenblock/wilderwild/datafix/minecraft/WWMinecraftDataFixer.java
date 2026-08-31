@@ -27,9 +27,9 @@ import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBottleVariantC
 import net.frozenblock.wilderwild.datafix.minecraft.datafixers.MobBucketVariantComponentizationFix;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
+import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 
 public final class WWMinecraftDataFixer {
 	// 1 is 1.20.1 (base version)
@@ -47,8 +47,8 @@ public final class WWMinecraftDataFixer {
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
-		final QuiltDataFixerBuilder builder = new QuiltDataFixerBuilder(DATA_VERSION);
-		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
+		final FabricDataFixerBuilder builder = new FabricDataFixerBuilder(DATA_VERSION);
+		builder.addSchema(0, FabricDataFixes.BASE_SCHEMA);
 
 		final Schema schemaV2 = builder.addSchema(2, NamespacedSchema::new);
 		SimpleFixes.addBlockRenameFix(builder, "Rename potted_grass to potted_short_grass", WWConstants.id("potted_grass"), WWConstants.id("potted_short_grass"), schemaV2);
@@ -223,7 +223,7 @@ public final class WWMinecraftDataFixer {
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "red_mesoglea", schemaV10);
 		addColumnDirectionToBubbleColumnDirectionPropertyFix(builder, "pink_mesoglea", schemaV10);
 
-		QuiltDataFixes.buildAndRegisterMinecraftFixer(WWConstants.MOD_ID, builder);
+		FabricDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, "Minecraft", builder);
 		WWConstants.log("Minecraft-Version-Specific DataFixes for Wilder Wild have been applied", true);
 	}
 

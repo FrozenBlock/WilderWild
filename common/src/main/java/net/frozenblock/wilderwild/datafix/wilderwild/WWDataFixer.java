@@ -27,17 +27,17 @@ import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.NematocystStateF
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.datafixers.ScorchedSandStateFix2;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixerBuilder;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.QuiltDataFixes;
-import org.quiltmc.qsl.frozenblock.misc.datafixerupper.api.SimpleFixes;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
+import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 
 public final class WWDataFixer {
 	public static final int DATA_VERSION = 30;
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
-		final QuiltDataFixerBuilder builder = new QuiltDataFixerBuilder(DATA_VERSION);
-		builder.addSchema(0, QuiltDataFixes.BASE_SCHEMA);
+		final FabricDataFixerBuilder builder = new FabricDataFixerBuilder(DATA_VERSION);
+		builder.addSchema(0, FabricDataFixes.BASE_SCHEMA);
 
 		final Schema schemaV1 = builder.addSchema(1, NamespacedSchema::new);
 		SimpleFixes.addBlockItemRenameFix(builder, "Rename white_dandelion to blooming_dandelion", WWConstants.id("white_dandelion"), WWConstants.id("blooming_dandelion"), schemaV1);
@@ -201,7 +201,7 @@ public final class WWDataFixer {
 		final Schema schemaV30 = builder.addSchema(30, NamespacedSchema::new);
 		builder.addFixer(new BushStateFix(schemaV30, "bush age 2 to age 3", WWConstants.id("bush")));
 
-		QuiltDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, builder);
+		FabricDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);
 	}
 }

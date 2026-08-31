@@ -3,6 +3,9 @@
   "entrypoints": {
     "frozenlib:mob_category": [
       "net.frozenblock.wilderwild.registry.WWMobCategories"
+    ],
+    "frozenlib:data_fixer": [
+      "net.frozenblock.wilderwild.datafix.minecraft.WWDataFixerEntrypoint"
     ]
   }
 }
