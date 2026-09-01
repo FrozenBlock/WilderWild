@@ -224,6 +224,17 @@ public abstract class BlockStateBaseMixin {
 		return state;
 	}
 
+	@ModifyExpressionValue(
+		method = "initCache",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;hasDynamicShape()Z"
+		)
+	)
+	public boolean wilderWild$treatSnowloggedStatesAsDynamic(boolean original) {
+		return original || SnowloggingUtils.isSnowlogged(this.asState());
+	}
+
 	@WrapOperation(
 		method = "initCache",
 		at = @At(
