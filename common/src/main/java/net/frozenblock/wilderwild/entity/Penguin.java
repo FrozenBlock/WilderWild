@@ -197,7 +197,6 @@ public class Penguin extends Animal {
 		this.slideProgress += ((this.hasPose(Pose.SLIDING) ? 1F : 0F) - this.slideProgress) * 0.175F;
 	}
 
-	@Contract("null->false")
 	public boolean canTargetEntity(@Nullable Entity entity) {
 		return entity instanceof LivingEntity livingEntity
 			&& this.level() == livingEntity.level()
