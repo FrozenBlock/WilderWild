@@ -50,4 +50,6 @@ public final class WWWaterLikeTypes {
 	private static ResourceKey<WaterLikeType> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.WATER_LIKE_TYPE, WWConstants.id(name));
 	}
+
+	private WWWaterLikeTypes() {}
 }

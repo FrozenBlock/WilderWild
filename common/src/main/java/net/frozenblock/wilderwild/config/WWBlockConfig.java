@@ -17,7 +17,8 @@
 
 package net.frozenblock.wilderwild.config;
 
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibConstants;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -84,7 +85,7 @@ public final class WWBlockConfig {
 		.build();
 
 	public static boolean canSnowlog() {
-		return SNOWLOGGING.get() && !SnowloggingUtils.HAS_ANTIQUE_ATLAS && !FrozenBools.IS_DATAGEN;
+		return SNOWLOGGING.get() && !SnowloggingUtils.HAS_ANTIQUE_ATLAS && !FrozenLibEarlyConstants.IS_DATAGEN;
 	}
 
 	public static boolean canSnowlogWalls() {

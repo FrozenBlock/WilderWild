@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.data.model;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
@@ -28,6 +26,7 @@ import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRende
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
@@ -36,7 +35,7 @@ import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Blocks;
 
-@Environment(EnvType.CLIENT)
+@ClientOnly
 public final class WWModelProvider extends FabricModelProvider {
 
 	public WWModelProvider(FabricPackOutput output) {

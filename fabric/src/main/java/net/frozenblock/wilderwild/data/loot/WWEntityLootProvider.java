@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
-import net.frozenblock.lib.data.api.EntityLootHelper;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -197,7 +196,7 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 						.add(
 							LootItem.lootTableItem(Items.BEEF)
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
-								.apply(SmeltItemFunction.smelted().when(EntityLootHelper.shouldSmeltLoot(registryLookup)))
+								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
 						)
 				)

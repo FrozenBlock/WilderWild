@@ -1062,6 +1062,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.FROZEN_SHORT_GRASS)
 			.add(WWBlockItemIds.FROZEN_FERN);
 
+		this.builder(BlockTags.HAPPY_GHAST_AVOIDS)
+			.add(WWBlockItemIds.PRICKLY_PEAR);
+
 		this.builder(BlockTags.TRIGGERS_AMBIENT_DESERT_SAND_BLOCK_SOUNDS)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
 

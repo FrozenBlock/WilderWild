@@ -290,4 +290,6 @@ public final class WWLootTables {
 	private static ResourceKey<LootTable> register(String name) {
 		return ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id(name));
 	}
+
+	private WWLootTables() {}
 }

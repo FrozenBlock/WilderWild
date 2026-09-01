@@ -25,17 +25,14 @@ import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.VegetationBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -64,25 +61,6 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		if (SnowloggingUtils.isItemSnow(itemStack) && WWBlockConfig.canSnowlog()) info.cancel();
 	}
 
-	@ModifyExpressionValue(
-		method = "playerWillDestroy",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/Level;isClientSide()Z"
-		)
-	)
-	public boolean wilderWild$playerWillDestroy(boolean original, Level level, BlockPos pos, BlockState state, Player player) {
-		final boolean snowlogged = SnowloggingUtils.isSnowlogged(state);
-		if (!original && !player.isCreative() && !snowlogged && state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-			final BlockPos belowPos = pos.below();
-			final BlockState belowState = level.getBlockState(belowPos);
-			if (SnowloggingUtils.isSnowlogged(belowState)) {
-				Block.dropResources(state.setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER), level, pos, null, player, player.getMainHandItem());
-			}
-		}
-		return original || snowlogged;
-	}
-
 	@WrapOperation(
 		method = "preventDropFromBottomPart",
 		at = @At(
@@ -98,14 +76,6 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 			blockState = SnowloggingUtils.getSnowEquivalent(bottomState);
 		}
 		return original.call(instance, pos, blockState, updateFlags);
-	}
-
-	@Inject(method = "playerDestroy", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$playerDestroy(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack destroyedWith, CallbackInfo info) {
-		if (!SnowloggingUtils.isSnowlogged(state)) return;
-		info.cancel();
-		final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(state);
-		if (player.hasCorrectToolForDrops(snowEquivalent)) super.playerDestroy(level, player, pos, snowEquivalent, blockEntity, destroyedWith);
 	}
 
 	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))

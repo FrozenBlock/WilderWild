@@ -137,4 +137,6 @@ public final class WWBiomes {
 		WWConstants.log("Registering biome " + key.identifier(), true);
 		entries.register(key, biome);
 	}
+
+	private WWBiomes() {}
 }

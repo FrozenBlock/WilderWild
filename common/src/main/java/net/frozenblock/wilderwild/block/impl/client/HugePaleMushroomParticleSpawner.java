@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.block.impl.client;
 
 import net.frozenblock.lib.particle.api.ParticleSpawner;
-import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;

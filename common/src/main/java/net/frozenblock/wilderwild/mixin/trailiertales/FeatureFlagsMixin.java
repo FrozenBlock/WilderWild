@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.trailiertales;
 
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
@@ -39,6 +39,6 @@ public class FeatureFlagsMixin {
 
 	@Inject(method = "<clinit>", at = @At("TAIL"))
 	private static void wilderWild$modifyDefaultSet(CallbackInfo info) {
-		if (FrozenBools.HAS_TRAILIERTALES) DEFAULT_FLAGS = DEFAULT_FLAGS.join(WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
+		if (FrozenLibConstants.HAS_TRAILIER_TALES) DEFAULT_FLAGS = DEFAULT_FLAGS.join(WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 	}
 }

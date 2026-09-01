@@ -6,7 +6,6 @@
   "plugin": "net.frozenblock.wilderwild.mixin.WilderWildMixinPlugin",
   "mixins": [
     "TempTagLoaderMixin",
-    "block.block_break.ServerPlayerGameModeMixin",
     "block.cactus.CactusBlockMixin",
     "block.chest.BlockEntityMixin",
     "block.chest.ChestBlockEntityAccessor",
@@ -34,9 +33,6 @@
     "block.sound.WoodTypeMixin",
     "block.spawner.BaseSpawnerMixin",
     "block.termite.RotatedPillarBlockMixin",
-    "datafix.DataFixersMixin",
-    "datafix.V3328Mixin",
-    "datafix.V3438Mixin",
     "datafix.boat.BoatSplitFixMixin",
     "datafix.boat.V4067Mixin",
     "entity.ai.MobMixin",
@@ -79,7 +75,6 @@
     "sculk.SculkVeinBlockMixin",
     "sculk.SculkVeinSpreaderConfigMixin",
     "snowlogging.BlockItemMixin",
-    "snowlogging.BlockMixin",
     "snowlogging.BlockStateBaseMixin",
     "snowlogging.BoneMealItemMixin",
     "snowlogging.DoublePlantBlockMixin",
@@ -145,6 +140,7 @@
     "client.wind.WindParticleMixin",
     "client.wind.cloud.LevelExtractorMixin",
     "client.wind.cloud.LevelRendererMixin",
+    "snowlogging.client.ClientLevelMixin",
     "snowlogging.client.LevelExtractorMixin",
     "snowlogging.client.SectionCompilerMixin"
   ],

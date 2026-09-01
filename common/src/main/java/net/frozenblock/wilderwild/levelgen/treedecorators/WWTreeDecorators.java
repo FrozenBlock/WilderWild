@@ -18,22 +18,22 @@
 package net.frozenblock.wilderwild.levelgen.treedecorators;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
 public final class WWTreeDecorators {
-	private static final FrozenDeferredRegister<TreeDecoratorType<?>> REGISTER = FrozenDeferredRegister.create(
+	private static final DeferredRegister<TreeDecoratorType<?>> REGISTER = DeferredRegister.create(
 		Registries.TREE_DECORATOR_TYPE,
 		WWConstants.MOD_ID
 	);
 
-	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<HeightBasedVineTreeDecorator>> HEIGHT_BASED_VINE = register("height_based_vine", HeightBasedVineTreeDecorator.CODEC);
-	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<HeightBasedCobwebTreeDecorator>> HEIGHT_BASED_COBWEB = register("height_based_cobweb", HeightBasedCobwebTreeDecorator.CODEC);
-	public static final FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<PollenTreeDecorator>> POLLEN = register("pollen", PollenTreeDecorator.CODEC);
+	public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<HeightBasedVineTreeDecorator>> HEIGHT_BASED_VINE = register("height_based_vine", HeightBasedVineTreeDecorator.CODEC);
+	public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<HeightBasedCobwebTreeDecorator>> HEIGHT_BASED_COBWEB = register("height_based_cobweb", HeightBasedCobwebTreeDecorator.CODEC);
+	public static final DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<PollenTreeDecorator>> POLLEN = register("pollen", PollenTreeDecorator.CODEC);
 
 	static {
 		REGISTER.register();
@@ -41,7 +41,7 @@ public final class WWTreeDecorators {
 
 	public static void init() {}
 
-	private static <P extends TreeDecorator> FrozenHolder<TreeDecoratorType<?>, TreeDecoratorType<P>> register(String name, MapCodec<P> codec) {
+	private static <P extends TreeDecorator> DeferredHolder<TreeDecoratorType<?>, TreeDecoratorType<P>> register(String name, MapCodec<P> codec) {
 		return REGISTER.register(name, () -> new TreeDecoratorType<P>(codec));
 	}
 }

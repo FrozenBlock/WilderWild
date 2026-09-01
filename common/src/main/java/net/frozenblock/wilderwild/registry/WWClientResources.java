@@ -74,4 +74,6 @@ public final class WWClientResources {
 			}
 		);
 	}
+
+	private WWClientResources() {}
 }

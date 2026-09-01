@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -44,8 +43,8 @@ public final class SnowloggingUtils {
 	public static final boolean HAS_ANTIQUE_ATLAS = ModLoader.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
-	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog() && !FrozenBools.IS_DATAGEN;
-	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls() && !FrozenBools.IS_DATAGEN;
+	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog();
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls();
 
 	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
 		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
@@ -123,11 +122,13 @@ public final class SnowloggingUtils {
 		return getSnowEquivalent(state).getDestroySpeed(level, pos);
 	}
 
-	public static void onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
-		if (!isSnowlogged(state)) return;
-		if (level.getBrightness(LightLayer.BLOCK, pos) <= 11) return;
+	public static BlockState onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
+		if (!isSnowlogged(state) || level.getBrightness(LightLayer.BLOCK, pos) <= 11) return state;
+
 		Block.dropResources(getSnowEquivalent(state), level, pos);
-		level.setBlockAndUpdate(pos, state.setValue(SNOW_LAYERS, 0));
+		final BlockState nonSnowState = state.trySetValue(SNOW_LAYERS, 0);
+		level.setBlockAndUpdate(pos, nonSnowState);
+		return nonSnowState;
 	}
 
 	public static boolean isOriginalBlockCovered(BlockState state, BlockGetter level, BlockPos pos) {
@@ -136,4 +137,6 @@ public final class SnowloggingUtils {
 		final VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
 		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
+
+	private SnowloggingUtils() {}
 }

@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
+package net.frozenblock.wilderwild.datafix.wilderwild.fixes;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -26,19 +26,17 @@ import java.util.Optional;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 
-public final class OsseousSculkStateFix extends DataFix {
-	private static final String OLD_STATE = "axis";
-	private static final String NEW_STATE = "facing";
-	private static final String DEFAULT_VALUE = "y";
-	private static final String UPSIDE_DOWN_STATE = "upside_down";
+public final class NematocystStateFix extends DataFix {
+	private static final String OLD_STATE = "facing";
+	private static final String DEFAULT_VALUE = "up";
 	private final String name;
 	private final String blockId;
 
-	public OsseousSculkStateFix(Schema outputSchema, String name, Identifier blockId) {
+	public NematocystStateFix(Schema outputSchema, String name, Identifier blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private OsseousSculkStateFix(Schema outputSchema, String name, String blockId) {
+	private NematocystStateFix(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
@@ -48,14 +46,16 @@ public final class OsseousSculkStateFix extends DataFix {
 		final Optional<String> name = dynamic.get("Name").asString().result();
 		return name.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
 			final String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
-			String direction;
+			String trueDirection;
 			switch (string) {
-				case "x" -> direction = "west";
-				case "y" -> direction = dynamicx.get(UPSIDE_DOWN_STATE).asBoolean(true) ? "down" : "up";
-				case "z" -> direction = "north";
-				default -> direction = "down";
-			}
-			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(direction));
+				case "down" -> trueDirection = "up";
+				case "north" -> trueDirection = "south";
+				case "south" -> trueDirection = "north";
+				case "east" -> trueDirection = "west";
+				case "west" -> trueDirection = "east";
+				default -> trueDirection = "down";
+			};
+			return dynamicx.remove(OLD_STATE).set(trueDirection, dynamicx.createString("true"));
 		}) : dynamic;
 	}
 

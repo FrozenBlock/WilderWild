@@ -16,4 +16,6 @@ public final class WWFabricBlocks {
 			STONE_CHEST.get()
 		);
 	}
+
+	private WWFabricBlocks() {}
 }

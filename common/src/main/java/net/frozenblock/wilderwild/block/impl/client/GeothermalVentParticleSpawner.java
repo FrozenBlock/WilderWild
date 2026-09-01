@@ -18,10 +18,10 @@
 package net.frozenblock.wilderwild.block.impl.client;
 
 import net.frozenblock.lib.particle.options.WindParticleOptions;
-import net.frozenblock.lib.platform.api.ClientOnly;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleEngine;

@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
+package net.frozenblock.wilderwild.datafix.wilderwild.fixes;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -26,17 +26,19 @@ import java.util.Optional;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 
-public final class NematocystStateFix extends DataFix {
-	private static final String OLD_STATE = "facing";
-	private static final String DEFAULT_VALUE = "up";
+public final class ScorchedSandStateFix2 extends DataFix {
+	private static final String STATE = "crackedness";
+	private static final String NEW_STATE = "cracked";
+	private static final String DEFAULT_VALUE = "false";
+
 	private final String name;
 	private final String blockId;
 
-	public NematocystStateFix(Schema outputSchema, String name, Identifier blockId) {
+	public ScorchedSandStateFix2(Schema outputSchema, String name, Identifier blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private NematocystStateFix(Schema outputSchema, String name, String blockId) {
+	private ScorchedSandStateFix2(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
@@ -45,17 +47,9 @@ public final class NematocystStateFix extends DataFix {
 	private Dynamic<?> fix(Dynamic<?> dynamic) {
 		final Optional<String> name = dynamic.get("Name").asString().result();
 		return name.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			final String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
-			String trueDirection;
-			switch (string) {
-				case "down" -> trueDirection = "up";
-				case "north" -> trueDirection = "south";
-				case "south" -> trueDirection = "north";
-				case "east" -> trueDirection = "west";
-				case "west" -> trueDirection = "east";
-				default -> trueDirection = "down";
-			};
-			return dynamicx.remove(OLD_STATE).set(trueDirection, dynamicx.createString("true"));
+			final String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
+			final String boolValue = string.equals("1") ? "true" : "false";
+			return dynamicx.remove(STATE).set(NEW_STATE, dynamicx.createString(boolValue));
 		}) : dynamic;
 	}
 

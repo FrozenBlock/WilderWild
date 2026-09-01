@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.config.gui;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
 
@@ -28,7 +28,7 @@ public final class WilderWildModMenuIntegration implements ModMenuApi {
 
 	@Override
 	public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-		if (FrozenBools.HAS_CLOTH_CONFIG) return WWMainConfigGui::buildScreen;
+		if (FrozenLibConstants.HAS_CLOTH_CONFIG) return WWMainConfigGui::buildScreen;
 		return screen -> null;
 	}
 }

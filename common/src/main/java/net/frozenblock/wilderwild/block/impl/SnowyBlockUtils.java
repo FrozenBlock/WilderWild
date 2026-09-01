@@ -37,7 +37,7 @@ public final class SnowyBlockUtils {
 		.build();
 	public static final BiMap<Block, Block> NON_SNOWY_BLOCK_MAP = SNOWY_BLOCK_MAP.inverse();
 
-	public static BlockState getWorldgenSnowyEquivalent(BlockState state) {
+	public static BlockState getSnowyEquivalent(BlockState state) {
 		final Block block = state.getBlock();
 		if (SNOWY_BLOCK_MAP.containsKey(block)) return SNOWY_BLOCK_MAP.get(block).withPropertiesOf(state);
 		return state;
@@ -49,8 +49,8 @@ public final class SnowyBlockUtils {
 		return state;
 	}
 
-	public static BlockState replaceWithWorldgenSnowyEquivalent(WorldGenLevel level, BlockState state, BlockPos pos) {
-		final BlockState snowyEquivalent = getWorldgenSnowyEquivalent(state);
+	public static BlockState replaceWithSnowyEquivalent(WorldGenLevel level, BlockState state, BlockPos pos) {
+		final BlockState snowyEquivalent = getSnowyEquivalent(state);
 		if (!state.equals(snowyEquivalent)) {
 			if (state.getBlock() instanceof DoublePlantBlock) {
 				DoublePlantBlock.placeAt(level, snowyEquivalent, pos, Block.UPDATE_CLIENTS);
@@ -72,4 +72,6 @@ public final class SnowyBlockUtils {
 		}
 		return nonSnowyEquivalent;
 	}
+
+	private SnowyBlockUtils() {}
 }

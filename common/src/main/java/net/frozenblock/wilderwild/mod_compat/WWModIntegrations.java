@@ -18,18 +18,18 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import net.frozenblock.lib.integration.api.ModIntegrationSupplier;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWModIntegrations {
-	private static final FrozenDeferredRegister<ModIntegrationSupplier<?>> REGISTER = FrozenDeferredRegister.create(
+	private static final DeferredRegister<ModIntegrationSupplier<?>> REGISTER = DeferredRegister.create(
 		FrozenLibRegistries.MOD_INTEGRATION_REGISTRY,
 		WWConstants.MOD_ID
 	);
 
-	public static final FrozenHolder<ModIntegrationSupplier<?>, ModIntegrationSupplier<BiolithIntegration>> BIOLITH_INTEGRATION = REGISTER.register(
+	public static final DeferredHolder<ModIntegrationSupplier<?>, ModIntegrationSupplier<BiolithIntegration>> BIOLITH_INTEGRATION = REGISTER.register(
 		"biolith",
 		() -> new ModIntegrationSupplier(
 			() -> new BiolithIntegration(),
@@ -46,4 +46,6 @@ public final class WWModIntegrations {
 	public static boolean isBiolithRegisteredAndLoaded() {
 		return BIOLITH_INTEGRATION.isBound() && BIOLITH_INTEGRATION.get().modLoaded();
 	}
+
+	private WWModIntegrations() {}
 }

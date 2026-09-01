@@ -74,4 +74,6 @@ public final class WWSoundPredicates {
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});
 	}
+
+	private WWSoundPredicates() {}
 }

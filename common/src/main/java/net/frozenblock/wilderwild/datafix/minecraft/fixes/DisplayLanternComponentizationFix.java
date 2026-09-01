@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
+package net.frozenblock.wilderwild.datafix.minecraft.fixes;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.DSL;

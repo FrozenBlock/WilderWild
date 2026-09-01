@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import java.util.Optional;
 import net.frozenblock.wilderwild.block.impl.FroglightTypeHolder;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -54,25 +53,21 @@ public class FroglightGoopBlock extends GrowingPlantHeadBlock implements Froglig
 		return this.froglightType.getBodyBlock();
 	}
 
-	public static void growFromFroglight(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public static void growFromFroglight(FroglightType type, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (random.nextFloat() > GROWTH_FROM_FROGLIGHT_CHANCE || !WWBlockConfig.FROGLIGHT_GOOP_GROWTH.get()) return;
-
-		final Optional<FroglightType> optionalType = FroglightType.getFromBaseBlock(state.getBlock());
-		if (optionalType.isEmpty()) return;
 
 		final BlockState aboveState = level.getBlockState(pos.above());
 		if (!aboveState.getFluidState().is(FluidTags.WATER)) return;
 
-		final FroglightType froglightType = optionalType.get();
 		final BlockPos belowPos = pos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
 		final Block belowBlock = belowState.getBlock();
 		if (belowState.isAir()) {
-			final Block headBlock = froglightType.getHeadBlock();
+			final Block headBlock = type.getHeadBlock();
 			if (!(headBlock instanceof FroglightGoopBlock)) return;
 			level.setBlockAndUpdate(belowPos, headBlock.defaultBlockState().setValue(AGE, random.nextInt(10, MAX_AGE)));
 		} else if (belowBlock instanceof FroglightTypeHolder froglightTypeHolder) {
-			if (froglightTypeHolder.getFroglightType() != froglightType) return;
+			if (froglightTypeHolder.getFroglightType() != type) return;
 			if (!(belowBlock instanceof BonemealableBlock bonemealableBlock)) return;
 			bonemealableBlock.performBonemeal(level, random, belowPos, belowState, BonemealSource.MOB);
 		}

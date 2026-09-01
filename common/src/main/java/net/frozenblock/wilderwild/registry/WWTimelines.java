@@ -48,4 +48,6 @@ public final class WWTimelines {
 	private static ResourceKey<Timeline> createKey(String name) {
 		return ResourceKey.create(Registries.TIMELINE, WWConstants.id(name));
 	}
+
+	private WWTimelines() {}
 }

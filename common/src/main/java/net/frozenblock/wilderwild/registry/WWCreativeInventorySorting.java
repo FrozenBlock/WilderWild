@@ -17,14 +17,9 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.item.api.creative.CreativeModeTabSorter;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -416,7 +411,7 @@ public final class WWCreativeInventorySorting {
 		insertAfterInBuildingBlocks(WWItems.GABBRO_STAIRS, WWItems.GABBRO_SLAB);
 		insertAfterInBuildingBlocks(WWItems.GABBRO_SLAB, WWItems.GABBRO_WALL);
 		// BACK TO WW
-		insertAfterInBuildingBlocks(FrozenBools.HAS_TRAILIERTALES ? WWItems.GABBRO_WALL : WWItems.GABBRO, WWItems.POLISHED_GABBRO);
+		insertAfterInBuildingBlocks(FrozenLibConstants.HAS_TRAILIER_TALES ? WWItems.GABBRO_WALL : WWItems.GABBRO, WWItems.POLISHED_GABBRO);
 		insertAfterInBuildingBlocks(WWItems.POLISHED_GABBRO, WWItems.POLISHED_GABBRO_STAIRS);
 		insertAfterInBuildingBlocks(WWItems.POLISHED_GABBRO_STAIRS, WWItems.POLISHED_GABBRO_SLAB);
 		insertAfterInBuildingBlocks(WWItems.POLISHED_GABBRO_SLAB, WWItems.POLISHED_GABBRO_WALL);
@@ -509,13 +504,5 @@ public final class WWCreativeInventorySorting {
 		CreativeModeTabSorter.insertAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
 
-	@SafeVarargs
-	private static void addInstrumentBefore(
-		Item comparedItem,
-		Item instrument,
-		TagKey<Instrument> tagKey,
-		ResourceKey<CreativeModeTab>... tabs
-	) {
-		CreativeModeTabSorter.addInstrumentBefore(comparedItem, instrument, tagKey, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS, tabs);
-	}
+	private WWCreativeInventorySorting() {}
 }

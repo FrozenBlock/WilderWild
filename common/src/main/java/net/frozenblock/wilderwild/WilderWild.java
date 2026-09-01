@@ -75,7 +75,7 @@ public final class WilderWild {
 		WWWindManagerExtension.init();
 		WWSoundPredicates.init();
 
-		WWResources.register();
+		WWResources.init();
 
 		WWAmbienceAndMiscConfig.CONFIG.load(true);
 		WWBlockConfig.CONFIG.load(true);

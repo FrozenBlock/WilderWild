@@ -25,9 +25,9 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -355,11 +355,13 @@ public final class WWTreePlaced {
 
 		// POPLAR
 		// TODO: poplar saplings
-		final PoplarCollection<BlockPredicateFilter> poplarSaplingPlacement = WWBlocks.POPLAR_SAPLING.map(sapling -> {
-			return PlacementUtils.filteredByBlockSurvival(sapling.get());
-		});
+		final PoplarCollection<BlockPredicateFilter> poplarSaplingPlacement = WWBlocks.POPLAR_SAPLING.map(sapling -> PlacementUtils.filteredByBlockSurvival(sapling.get()));
 		final Consumer<PoplarCollection<FrozenLibPlacedTreeFeature>> registerPoplar = collection -> {
-			PoplarCollection.zipApply(collection, PoplarCollection.DYE_COLORS, (feature, color) -> feature.makeAndSetHolders(poplarSaplingPlacement.pick(color)));
+			PoplarCollection.zipApply(
+				collection,
+				PoplarCollection.DYE_COLORS,
+				(feature, color) -> feature.makeAndSetHolders(poplarSaplingPlacement.pick(color))
+			);
 		};
 
 		registerPoplar.accept(POPLAR_CHECKED);

@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
+package net.frozenblock.wilderwild.datafix.wilderwild.fixes;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.mojang.datafixers.DSL;

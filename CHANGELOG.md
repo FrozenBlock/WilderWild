@@ -73,6 +73,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that caused Hanging Tendrils to continue rendering as a Block Entity whilst the billboard rendering config option is disabled.
 - Fixed an issue that resulted in Icicles dropping as items after landing instead of shattering as intended.
 - Fixed an issue that prevented Penguins from applying a speed boost to Rafts.
+- Fixed an issue that caused a damage sound to play when eating a Prickly Pear in situations where damage was not received from it.
+- Blocks such as Sugar Cane no longer break/update incorrectly when their Snowlogged layers are broken.
+- Happy Ghasts will no longer pathfind into Prickly Pears.
+- Echo Glass now emits the `minecraft:block_change` Game Event upon cracking.
 
 ### 26.3+
 - Added a new Abandoned Camp structure for the Maple Forest biome.

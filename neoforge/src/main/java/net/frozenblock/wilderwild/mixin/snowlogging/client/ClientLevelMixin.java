@@ -15,28 +15,29 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.world.level.block.Block;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(Block.class)
-public class BlockMixin {
+@ClientOnly
+@Mixin(ClientLevel.class)
+public class ClientLevelMixin { // in common mixins.json
 
-	@WrapOperation(
-		method = "spawnDestroyByEntityParticles",
+	@ModifyExpressionValue(
+		method = "addBreakingBlockEffect(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/world/phys/HitResult;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;getId(Lnet/minecraft/world/level/block/state/BlockState;)I"
+			target = "Lnet/minecraft/client/multiplayer/ClientLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public int wilderWild$spawnDestroyParticles(BlockState blockState, Operation<Integer> original) {
-		if (SnowloggingUtils.isSnowlogged(blockState)) return original.call(SnowloggingUtils.getSnowEquivalent(blockState));
-		return original.call(blockState);
+	public BlockState wilderWild$snowloggedBreakingParticles(BlockState original) {
+		if (!SnowloggingUtils.isSnowlogged(original)) return original;
+		return SnowloggingUtils.getSnowEquivalent(original);
 	}
 }

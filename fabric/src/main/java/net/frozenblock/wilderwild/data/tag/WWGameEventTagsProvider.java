@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.tag.WWGameEventTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.GameEventTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public final class WWGameEventTagsProvider extends FabricTagsProvider<GameEvent> {
@@ -47,11 +46,11 @@ public final class WWGameEventTagsProvider extends FabricTagsProvider<GameEvent>
 
 		this.tag(WWGameEventTags.CRAB_CAN_DETECT)
 			.addTag(WWGameEventTags.CRAB_CAN_ALWAYS_DETECT)
-			.addOptionalTag(TagKey.create(Registries.GAME_EVENT, GameEventTags.VIBRATIONS.location()));
+			.addOptionalTag(GameEventTags.VIBRATIONS);
 
 		this.tag(WWGameEventTags.MAKES_ICICLE_FALL)
 			.add(GameEvent.EXPLODE.key())
 			.add(GameEvent.PROJECTILE_LAND.key())
-			.add(WWGameEvents.BIG_FALL.asHolder().unwrapKey().orElseThrow());
+			.add(WWGameEvents.BIG_FALL.getKey());
 	}
 }

@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.datafix.wilderwild.datafixers;
+package net.frozenblock.wilderwild.datafix.wilderwild.fixes;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
@@ -26,28 +26,29 @@ import java.util.Optional;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.References;
 
-public final class DrySandStateFix extends DataFix {
-	private static final String OLD_STATE = "crackness";
-	private static final String NEW_STATE = "crackedness";
+public final class BushStateFix extends DataFix {
+	private static final String STATE = "age";
 	private static final String DEFAULT_VALUE = "0";
+
 	private final String name;
 	private final String blockId;
 
-	public DrySandStateFix(Schema outputSchema, String name, Identifier blockId) {
+	public BushStateFix(Schema outputSchema, String name, Identifier blockId) {
 		this(outputSchema, name, blockId.toString());
 	}
 
-	private DrySandStateFix(Schema outputSchema, String name, String blockId) {
+	private BushStateFix(Schema outputSchema, String name, String blockId) {
 		super(outputSchema, false);
 		this.name = name;
 		this.blockId = blockId;
 	}
 
 	private Dynamic<?> fix(Dynamic<?> dynamic) {
-		final Optional<String> optional = dynamic.get("Name").asString().result();
-		return optional.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
-			String string = dynamicx.get(OLD_STATE).asString(DEFAULT_VALUE);
-			return dynamicx.remove(OLD_STATE).set(NEW_STATE, dynamicx.createString(string));
+		final Optional<String> optionalName = dynamic.get("Name").asString().result();
+		return optionalName.equals(Optional.of(this.blockId)) ? dynamic.update("Properties", dynamicx -> {
+			final String string = dynamicx.get(STATE).asString(DEFAULT_VALUE);
+			final String fixedString = string.equals("2") ? "3" : string;
+			return dynamicx.remove(STATE).set(STATE, dynamicx.createString(fixedString));
 		}) : dynamic;
 	}
 

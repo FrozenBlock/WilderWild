@@ -28,4 +28,6 @@ public final class WWDamageTypeTags {
 	private static TagKey<DamageType> bind(String name) {
 		return TagKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
 	}
+
+	private WWDamageTypeTags() {}
 }

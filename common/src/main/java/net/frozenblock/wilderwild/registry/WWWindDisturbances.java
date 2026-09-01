@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.lib.wind.disturbance.WindDisturbance;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
@@ -30,16 +30,16 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
 public final class WWWindDisturbances {
-	private static final FrozenDeferredRegister<WindDisturbanceType<?>> REGISTER = FrozenDeferredRegister.create(
+	private static final DeferredRegister<WindDisturbanceType<?>> REGISTER = DeferredRegister.create(
 		FrozenLibRegistries.WIND_DISTURBANCE_TYPE,
 		WWConstants.MOD_ID
 	);
-	public static final FrozenHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentEffectiveWindDisturbance>> GEOTHERMAL_VENT_EFFECTIVE = register(
+	public static final DeferredHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentEffectiveWindDisturbance>> GEOTHERMAL_VENT_EFFECTIVE = register(
 		"geothermal_vent_effective",
 		GeothermalVentEffectiveWindDisturbance.CODEC,
 		GeothermalVentEffectiveWindDisturbance.STREAM_CODEC
 	);
-	public static final FrozenHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentBaseWindDisturbance>> GEOTHERMAL_VENT_BASE = register(
+	public static final DeferredHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentBaseWindDisturbance>> GEOTHERMAL_VENT_BASE = register(
 		"geothermal_vent_base",
 		GeothermalVentBaseWindDisturbance.CODEC,
 		GeothermalVentBaseWindDisturbance.STREAM_CODEC
@@ -51,7 +51,7 @@ public final class WWWindDisturbances {
 
 	public static void init() {}
 
-	private static <T extends WindDisturbance<?>> FrozenHolder<WindDisturbanceType<?>, WindDisturbanceType<T>> register(
+	private static <T extends WindDisturbance<?>> DeferredHolder<WindDisturbanceType<?>, WindDisturbanceType<T>> register(
 		String name,
 		MapCodec<T> codec,
 		StreamCodec<RegistryFriendlyByteBuf, T> streamCodec
@@ -71,4 +71,6 @@ public final class WWWindDisturbances {
 			}
 		);
 	}
+
+	private WWWindDisturbances() {}
 }

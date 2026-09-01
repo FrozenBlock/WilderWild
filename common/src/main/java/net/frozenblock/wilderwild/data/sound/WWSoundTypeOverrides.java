@@ -140,4 +140,6 @@ public final class WWSoundTypeOverrides {
 	private static ResourceKey<SoundTypeOverride> key(String name) {
 		return SoundTypeOverrides.createKey(WWConstants.id(name));
 	}
+
+	private WWSoundTypeOverrides() {}
 }

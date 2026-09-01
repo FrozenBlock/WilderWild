@@ -80,4 +80,6 @@ public final class WWShearsDispenseItemBehaviors {
 			return false;
 		});
 	}
+
+	private WWShearsDispenseItemBehaviors() {}
 }

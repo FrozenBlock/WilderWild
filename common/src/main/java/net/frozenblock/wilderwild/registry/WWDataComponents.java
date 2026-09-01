@@ -19,8 +19,8 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredDataComponentType;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
@@ -34,37 +34,36 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.component.CustomData;
 
 public final class WWDataComponents {
-	private static final FrozenDeferredRegister.DataComponents REGISTER = FrozenDeferredRegister.createDataComponents(WWConstants.MOD_ID);
+	private static final DeferredRegister.DataComponents REGISTER = DeferredRegister.createDataComponents(WWConstants.MOD_ID);
 
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<List<DisplayLanternBlockEntity.Occupant>>> FIREFLIES = register(
+	public static final DeferredDataComponentType<List<DisplayLanternBlockEntity.Occupant>> FIREFLIES = register(
 		"fireflies",
 		builder -> builder.persistent(DisplayLanternBlockEntity.Occupant.LIST_CODEC)
 			.networkSynchronized(DisplayLanternBlockEntity.Occupant.STREAM_CODEC.apply(ByteBufCodecs.list()))
 	);
-
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<CustomData>> BOTTLE_ENTITY_DATA = register(
+	public static final DeferredDataComponentType<CustomData> BOTTLE_ENTITY_DATA = register(
 		"bottle_entity_data",
 		builder -> builder.persistent(CustomData.CODEC)
 			.networkSynchronized(CustomData.STREAM_CODEC)
 	);
 
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<Holder<FireflyColor>>> FIREFLY_COLOR = register(
+	public static final DeferredDataComponentType<Holder<FireflyColor>> FIREFLY_COLOR = register(
 		"firefly/color",
 		builder -> builder.persistent(FireflyColor.CODEC).networkSynchronized(FireflyColor.STREAM_CODEC)
 	);
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<Holder<ButterflyVariant>>> BUTTERFLY_VARIANT = register(
+	public static final DeferredDataComponentType<Holder<ButterflyVariant>> BUTTERFLY_VARIANT = register(
 		"butterfly/variant",
 		builder -> builder.persistent(ButterflyVariant.CODEC).networkSynchronized(ButterflyVariant.STREAM_CODEC)
 	);
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<Holder<CrabVariant>>> CRAB_VARIANT = register(
+	public static final DeferredDataComponentType<Holder<CrabVariant>> CRAB_VARIANT = register(
 		"crab/variant",
 		builder -> builder.persistent(CrabVariant.CODEC).networkSynchronized(CrabVariant.STREAM_CODEC)
 	);
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<Holder<JellyfishVariant>>> JELLYFISH_VARIANT = register(
+	public static final DeferredDataComponentType<Holder<JellyfishVariant>> JELLYFISH_VARIANT = register(
 		"jellyfish/variant",
 		builder -> builder.persistent(JellyfishVariant.CODEC).networkSynchronized(JellyfishVariant.STREAM_CODEC)
 	);
-	public static final FrozenHolder<DataComponentType<?>, DataComponentType<Holder<MoobloomVariant>>> MOOBLOOM_VARIANT = register(
+	public static final DeferredDataComponentType<Holder<MoobloomVariant>> MOOBLOOM_VARIANT = register(
 		"moobloom/variant",
 		builder -> builder.persistent(MoobloomVariant.CODEC).networkSynchronized(MoobloomVariant.STREAM_CODEC)
 	);
@@ -75,7 +74,9 @@ public final class WWDataComponents {
 
 	public static void init() {}
 
-	private static <T> FrozenHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
+	private static <T> DeferredDataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
 		return REGISTER.registerComponent(name, builder);
 	}
+
+	private WWDataComponents() {}
 }

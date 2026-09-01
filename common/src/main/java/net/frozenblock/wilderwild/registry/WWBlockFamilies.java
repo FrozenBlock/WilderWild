@@ -132,4 +132,6 @@ public final class WWBlockFamilies {
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
+
+	private WWBlockFamilies() {}
 }

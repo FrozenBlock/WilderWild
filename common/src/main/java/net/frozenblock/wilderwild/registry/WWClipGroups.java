@@ -36,4 +36,6 @@ public final class WWClipGroups {
 	private static ResourceKey<ClipGroup> bind(String name) {
 		return ResourceKey.create(FrozenLibRegistries.CLIP_GROUP, WWConstants.id(name));
 	}
+
+	private WWClipGroups() {}
 }

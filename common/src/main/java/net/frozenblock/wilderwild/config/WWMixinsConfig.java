@@ -18,21 +18,20 @@
 package net.frozenblock.wilderwild.config;
 
 import blue.endless.jankson.Comment;
-import net.frozenblock.lib.config.api.instance.Config;
-import net.frozenblock.lib.config.api.instance.json.JsonConfig;
-import net.frozenblock.lib.config.api.instance.json.JsonType;
-import net.frozenblock.lib.config.api.registry.ConfigRegistry;
 import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
+import net.frozenblock.lib.config.v1.instance.BasicConfig;
+import net.frozenblock.lib.config.v1.instance.json.JsonBasicConfig;
+import net.frozenblock.lib.config.v1.instance.json.JsonType;
+import net.frozenblock.lib.config.v1.registry.BasicConfigRegistry;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWMixinsConfig {
-	public static final Config<WWMixinsConfig> INSTANCE = ConfigRegistry.register(
-		new JsonConfig<>(
+	public static final BasicConfig<WWMixinsConfig> INSTANCE = BasicConfigRegistry.register(
+		new JsonBasicConfig<>(
 			MOD_ID,
 			WWMixinsConfig.class,
 			WWPreLoadConstants.configPath("mixins", true),
-			JsonType.JSON5,
-			false
+			JsonType.JSON5
 		)
 	);
 

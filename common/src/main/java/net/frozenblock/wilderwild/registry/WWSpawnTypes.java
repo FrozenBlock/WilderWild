@@ -53,4 +53,6 @@ public final class WWSpawnTypes {
 			return SpawnPlacementTypes.ON_GROUND.adjustSpawnPosition(level, candidate);
 		}
 	};
+
+	private WWSpawnTypes() {}
 }

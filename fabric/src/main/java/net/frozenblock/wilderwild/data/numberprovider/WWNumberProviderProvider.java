@@ -24,6 +24,7 @@ import net.frozenblock.lib.data.api.NumberProviderProvider;
 import net.frozenblock.wilderwild.registry.WWNumberProviders;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 public final class WWNumberProviderProvider extends NumberProviderProvider {
@@ -34,12 +35,9 @@ public final class WWNumberProviderProvider extends NumberProviderProvider {
 
 	@Override
 	public void generateNumberProvider(HolderLookup.Provider provider, Consumer<Holder> consumer) {
-		consumer.accept(
-			create(WWNumberProviders.COMPOSTABLE_MILKWEED_POD, NumberProviders.compostable(provider.lookupOrThrow(Registries.BLOCK), 25))
-		);
+		final HolderLookup.RegistryLookup<Block> blocks = provider.lookupOrThrow(Registries.BLOCK);
 
-		consumer.accept(
-			create(WWNumberProviders.COMPOSTABLE_POLLEN, NumberProviders.compostable(provider.lookupOrThrow(Registries.BLOCK), 10))
-		);
+		consumer.accept(create(WWNumberProviders.COMPOSTABLE_MILKWEED_POD, NumberProviders.compostable(blocks, 25)));
+		consumer.accept(create(WWNumberProviders.COMPOSTABLE_POLLEN, NumberProviders.compostable(blocks, 10)));
 	}
 }

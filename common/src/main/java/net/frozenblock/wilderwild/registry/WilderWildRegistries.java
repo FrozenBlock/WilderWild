@@ -47,4 +47,6 @@ public final class WilderWildRegistries {
 		RegistryHelper.registerSyncedDynamicRegistry(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC, TermiteBlockBehavior.DIRECT_CODEC);
 		RegistryHelper.registerSyncedDynamicRegistry(FALLING_LEAF, FallingLeafData.DIRECT_CODEC, FallingLeafData.NETWORK_CODEC);
 	}
+
+	private WilderWildRegistries() {}
 }

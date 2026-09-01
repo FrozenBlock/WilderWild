@@ -532,7 +532,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
-			&& livingEntity.getType() != WWEntityTypes.CRAB
+			&& livingEntity.getType() != WWEntityTypes.CRAB.get()
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()

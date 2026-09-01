@@ -46,4 +46,6 @@ public final class WWStructureMusic {
 	private static ResourceKey<StructureMusic> createKey(String name) {
 		return StructureMusic.createKey(WWConstants.id(name));
 	}
+
+	private WWStructureMusic() {}
 }

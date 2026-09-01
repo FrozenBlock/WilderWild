@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin;
 
 import java.util.List;
 import java.util.Set;
-import net.frozenblock.lib.FrozenBools;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +35,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = WWMixinsConfig.get();
-		this.disableNonSodium = FrozenBools.HAS_SODIUM;
+		this.disableNonSodium = FrozenLibEarlyConstants.HAS_SODIUM;
 		this.hasFallingLeavesMod = ModLoader.isModLoaded("fallingleaves");
 	}
 
@@ -47,10 +47,10 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		if (mixinClassName.contains("datagen.")) return FrozenBools.IS_DATAGEN;
+		if (mixinClassName.contains("datagen.")) return FrozenLibEarlyConstants.IS_DATAGEN;
 
 		if (mixinClassName.contains("client.sodium.")) {
-			return this.mixinsConfig.client_sodium && FrozenBools.HAS_SODIUM;
+			return this.mixinsConfig.client_sodium && FrozenLibEarlyConstants.HAS_SODIUM;
 		}
 		if (mixinClassName.contains("client.block_break.")) return this.mixinsConfig.client_block_break;
 		if (mixinClassName.contains("client.allay.")) return this.mixinsConfig.client_allay;
@@ -84,7 +84,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		if (mixinClassName.contains("block.spawner.")) return this.mixinsConfig.block_spawner;
 		if (mixinClassName.contains("block.termite.")) return this.mixinsConfig.block_termite;
 		if (mixinClassName.contains("block.block_break.")) return this.mixinsConfig.block_break;
-		if (mixinClassName.contains("snowlogging.")) return this.mixinsConfig.snowlogging && !FrozenBools.IS_DATAGEN;
+		if (mixinClassName.contains("snowlogging.")) return this.mixinsConfig.snowlogging && !FrozenLibEarlyConstants.IS_DATAGEN;
 		if (mixinClassName.contains("entity.ai.")) return this.mixinsConfig.entity_ai;
 		if (mixinClassName.contains("entity.allay.")) return this.mixinsConfig.entity_allay;
 		if (mixinClassName.contains("entity.boat.")) return this.mixinsConfig.entity_boat;

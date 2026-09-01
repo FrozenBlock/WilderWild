@@ -41,4 +41,6 @@ public final class WWEntityTypeTags {
 	private static TagKey<EntityType<?>> bind(String name) {
 		return TagKey.create(Registries.ENTITY_TYPE, WWConstants.id(name));
 	}
+
+	private WWEntityTypeTags() {}
 }

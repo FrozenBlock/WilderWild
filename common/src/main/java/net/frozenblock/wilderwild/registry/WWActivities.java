@@ -18,22 +18,19 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.FrozenLibConstants;
-import net.frozenblock.lib.platform.RegistryHelper;
-import net.frozenblock.lib.platform.api.registry.FrozenDeferredRegister;
-import net.frozenblock.lib.platform.api.registry.FrozenHolder;
-import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.schedule.Activity;
+import net.frozenblock.lib.platform.api.registry.DeferredActivity;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 
 public final class WWActivities {
-	private static final FrozenDeferredRegister<Activity> REGISTER = RegistryHelper.createDeferredRegister(Registries.ACTIVITY, FrozenLibConstants.MOD_ID);
-	public static final FrozenHolder<Activity, Activity> STAND_UP = register("stand_up");
-	public static final FrozenHolder<Activity, Activity> PRE_SEARCH = register("pre_search");
-	public static final FrozenHolder<Activity, Activity> SEARCH = register("search");
-	public static final FrozenHolder<Activity, Activity> ESCAPE = register("escape");
-	public static final FrozenHolder<Activity, Activity> POST_ESCAPE = register("post_escape");
-	public static final FrozenHolder<Activity, Activity> CHASE = register("chase");
-	public static final FrozenHolder<Activity, Activity> CALL = register("call");
+	private static final DeferredRegister.Activities REGISTER = DeferredRegister.createActivities(FrozenLibConstants.MOD_ID);
+
+	public static final DeferredActivity STAND_UP = register("stand_up");
+	public static final DeferredActivity PRE_SEARCH = register("pre_search");
+	public static final DeferredActivity SEARCH = register("search");
+	public static final DeferredActivity ESCAPE = register("escape");
+	public static final DeferredActivity POST_ESCAPE = register("post_escape");
+	public static final DeferredActivity CHASE = register("chase");
+	public static final DeferredActivity CALL = register("call");
 
 	static {
 		REGISTER.register();
@@ -41,7 +38,9 @@ public final class WWActivities {
 
 	public static void init() {}
 
-	private static FrozenHolder<Activity, Activity> register(String name) {
-		return WWActivities.REGISTER.register(name, () -> new Activity(WWConstants.safeString(name)));
+	private static DeferredActivity register(String name) {
+		return REGISTER.register(name);
 	}
+
+	private WWActivities() {}
 }

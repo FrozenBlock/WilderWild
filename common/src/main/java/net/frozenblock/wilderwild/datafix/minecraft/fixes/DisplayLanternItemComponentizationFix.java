@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.datafix.minecraft.datafixers;
+package net.frozenblock.wilderwild.datafix.minecraft.fixes;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.DSL;
@@ -51,7 +51,7 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 
 		final List<Dynamic<?>> oldDynamics = optionalFireflies.orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		final List<Dynamic<?>> newDynamics = Lists.newArrayList();
-		for (Dynamic<?> embeddedDynamic : oldDynamics) newDynamics.add(net.frozenblock.wilderwild.datafix.minecraft.datafixers.DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
+		for (Dynamic<?> embeddedDynamic : oldDynamics) newDynamics.add(net.frozenblock.wilderwild.datafix.minecraft.fixes.DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
 
 		return ((Dynamic<?>) optionalFireflies.result().get()).createList(newDynamics.stream());
 	}

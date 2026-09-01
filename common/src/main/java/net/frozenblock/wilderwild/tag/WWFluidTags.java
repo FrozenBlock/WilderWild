@@ -29,4 +29,6 @@ public final class WWFluidTags {
 	private static TagKey<Fluid> bind(String name) {
 		return TagKey.create(Registries.FLUID, WWConstants.id(name));
 	}
+
+	private WWFluidTags() {}
 }

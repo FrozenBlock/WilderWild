@@ -1,9 +1,13 @@
 package net.frozenblock.wilderwild.registry;
 
+import java.util.List;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
-import net.frozenblock.lib.block.api.tick.BlockRandomTicks;
-import net.frozenblock.lib.block.api.tick.BlockScheduledTicks;
-import net.frozenblock.wilderwild.config.WWEntityConfig;import net.minecraft.util.SpawnUtil;
+import net.frozenblock.lib.block.api.tick.BlockTickRegistry;
+import net.frozenblock.lib.tag.api.ConventionalBlockTags;
+import net.frozenblock.wilderwild.block.FroglightGoopBlock;
+import net.frozenblock.wilderwild.block.state.properties.FroglightType;
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.level.block.Block;
@@ -15,13 +19,11 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import java.util.List;
 
 public final class WWBlockTicks {
 
 	public static void setup() {
-		DripstoneDripApi.addWaterDrip(
-			Blocks.WET_SPONGE,
+		DripstoneDripApi.addWaterDrip(Blocks.WET_SPONGE,
 			(level, pos, fluidInfo) -> {
 				BlockState blockState = Blocks.SPONGE.defaultBlockState();
 				level.setBlockAndUpdate(fluidInfo.pos(), blockState);
@@ -29,8 +31,7 @@ public final class WWBlockTicks {
 				level.gameEvent(GameEvent.BLOCK_CHANGE, fluidInfo.pos(), GameEvent.Context.of(blockState));
 				level.levelEvent(LevelEvent.DRIPSTONE_DRIP, pos, 0);
 			});
-		DripstoneDripApi.addWaterDrip(
-			Blocks.MUD,
+		DripstoneDripApi.addWaterDrip(Blocks.MUD,
 			(level, pos, fluidInfo) -> {
 				BlockState blockState = Blocks.CLAY.defaultBlockState();
 				level.setBlockAndUpdate(fluidInfo.pos(), blockState);
@@ -40,22 +41,22 @@ public final class WWBlockTicks {
 			}
 		);
 
-		BlockScheduledTicks.addToBlock(
-			Blocks.DIRT,
-			(state, level, pos, random) -> {
-				if (DripstoneDripApi.getDripstoneFluid(level, pos) == Fluids.WATER) {
-					level.setBlockAndUpdate(pos, Blocks.MUD.defaultBlockState());
-				}
-			}
+		BlockTickRegistry.registerTick(Blocks.DIRT,
+			((state, level, pos, random) -> {
+				if (DripstoneDripApi.getDripstoneFluid(level, pos) == Fluids.WATER) level.setBlockAndUpdate(pos, Blocks.MUD.defaultBlockState());
+			})
 		);
 
-		BlockRandomTicks.addToBlock(Blocks.PEARLESCENT_FROGLIGHT, net.frozenblock.wilderwild.block.FroglightGoopBlock::growFromFroglight);
-		BlockRandomTicks.addToBlock(Blocks.VERDANT_FROGLIGHT, net.frozenblock.wilderwild.block.FroglightGoopBlock::growFromFroglight);
-		BlockRandomTicks.addToBlock(Blocks.OCHRE_FROGLIGHT, net.frozenblock.wilderwild.block.FroglightGoopBlock::growFromFroglight);
+		BlockTickRegistry.registerRandomTick(ConventionalBlockTags.FROGLIGHTS,
+			((state, level, pos, random) -> {
+				FroglightType.getFromBaseBlock(state.getBlock()).ifPresent(froglightType -> {
+					FroglightGoopBlock.growFromFroglight(froglightType, level, pos, random);
+				});
+			})
+		);
 
-		BlockRandomTicks.addToBlock(
-			Blocks.FIREFLY_BUSH,
-			(state, level, pos, random) -> {
+		BlockTickRegistry.registerRandomTick(Blocks.FIREFLY_BUSH,
+			((state, level, pos, random) -> {
 				if (!WWEntityConfig.FIREFLIES_NEED_BUSH.get() || !WWEntityConfig.SPAWN_FIREFLIES.get() || level.isClientSide()) return;
 				if (level.getMaxLocalRawBrightness(pos) > FireflyBushBlock.FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL) return;
 				if (!level.hasNearbyAlivePlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 24D)) return;
@@ -84,7 +85,9 @@ public final class WWBlockTicks {
 						false
 					);
 				}
-			}
+			})
 		);
 	}
+
+	private WWBlockTicks() {}
 }

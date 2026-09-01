@@ -459,7 +459,7 @@ public class Jellyfish extends NoFlopAbstractFish {
 			&& EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(livingEntity)
 			&& !this.isAlliedTo(livingEntity)
 			&& livingEntity.getType() != EntityTypes.ARMOR_STAND
-			&& livingEntity.getType() != WWEntityTypes.JELLYFISH
+			&& livingEntity.getType() != WWEntityTypes.JELLYFISH.get()
 			&& !livingEntity.isInvulnerable()
 			&& !livingEntity.isDeadOrDying()
 			&& !livingEntity.isRemoved()

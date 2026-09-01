@@ -25,7 +25,7 @@ import net.minecraft.network.chat.Component;
 
 public final class WWResources {
 
-	public static void register() {
+	public static void init() {
 		if (WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_abandoned_camps"),
@@ -35,4 +35,6 @@ public final class WWResources {
 			);
 		}
 	}
+
+	private WWResources() {}
 }
