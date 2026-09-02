@@ -38,7 +38,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 public final class WWEntityTypes {
 	private static final DeferredRegister.Entities REGISTER = DeferredRegister.createEntities(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
 
-	public static final DeferredEntityType<Firefly> FIREFLY = register(WWEntityTypeIds.FIREFLY,
+	public static final DeferredEntityType<Firefly> FIREFLY = REGISTER.register(WWEntityTypeIds.FIREFLY,
 		Firefly::new,
 		WWMobCategories.FIREFLY,
 		builder -> builder
@@ -56,7 +56,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Butterfly> BUTTERFLY = register(WWEntityTypeIds.BUTTERFLY,
+	public static final DeferredEntityType<Butterfly> BUTTERFLY = REGISTER.register(WWEntityTypeIds.BUTTERFLY,
 		Butterfly::new,
 		WWMobCategories.BUTTERFLY,
 		builder -> builder
@@ -74,7 +74,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Jellyfish> JELLYFISH = register(WWEntityTypeIds.JELLYFISH,
+	public static final DeferredEntityType<Jellyfish> JELLYFISH = REGISTER.register(WWEntityTypeIds.JELLYFISH,
 		Jellyfish::new,
 		WWMobCategories.JELLYFISH,
 		builder -> builder
@@ -92,7 +92,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Tumbleweed> TUMBLEWEED = register(WWEntityTypeIds.TUMBLEWEED,
+	public static final DeferredEntityType<Tumbleweed> TUMBLEWEED = REGISTER.register(WWEntityTypeIds.TUMBLEWEED,
 		Tumbleweed::new,
 		WWMobCategories.TUMBLEWEED,
 		builder -> builder
@@ -110,7 +110,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Crab> CRAB = register(WWEntityTypeIds.CRAB,
+	public static final DeferredEntityType<Crab> CRAB = REGISTER.register(WWEntityTypeIds.CRAB,
 		Crab::new,
 		WWMobCategories.CRAB,
 		builder -> builder
@@ -127,7 +127,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Ostrich> OSTRICH = register(WWEntityTypeIds.OSTRICH,
+	public static final DeferredEntityType<Ostrich> OSTRICH = REGISTER.register(WWEntityTypeIds.OSTRICH,
 		Ostrich::new,
 		MobCategory.CREATURE,
 		builder -> builder
@@ -145,7 +145,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<ZombieOstrich> ZOMBIE_OSTRICH = register(WWEntityTypeIds.ZOMBIE_OSTRICH,
+	public static final DeferredEntityType<ZombieOstrich> ZOMBIE_OSTRICH = REGISTER.register(WWEntityTypeIds.ZOMBIE_OSTRICH,
 		ZombieOstrich::new,
 		MobCategory.MONSTER,
 		builder -> builder
@@ -163,7 +163,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Scorched> SCORCHED = register(WWEntityTypeIds.SCORCHED,
+	public static final DeferredEntityType<Scorched> SCORCHED = REGISTER.register(WWEntityTypeIds.SCORCHED,
 		Scorched::new,
 		MobCategory.MONSTER,
 		builder -> builder
@@ -183,7 +183,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<FlowerCow> MOOBLOOM = register(WWEntityTypeIds.MOOBLOOM,
+	public static final DeferredEntityType<FlowerCow> MOOBLOOM = REGISTER.register(WWEntityTypeIds.MOOBLOOM,
 		FlowerCow::new,
 		MobCategory.CREATURE,
 		builder -> builder
@@ -202,7 +202,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<Penguin> PENGUIN = register(WWEntityTypeIds.PENGUIN,
+	public static final DeferredEntityType<Penguin> PENGUIN = REGISTER.register(WWEntityTypeIds.PENGUIN,
 		Penguin::new,
 		MobCategory.CREATURE,
 		builder -> builder
@@ -221,7 +221,7 @@ public final class WWEntityTypes {
 		}
 	);
 
-	public static final DeferredEntityType<CoconutProjectile> COCONUT = register(WWEntityTypeIds.COCONUT,
+	public static final DeferredEntityType<CoconutProjectile> COCONUT = REGISTER.register(WWEntityTypeIds.COCONUT,
 		CoconutProjectile::new,
 		MobCategory.MISC,
 		builder -> builder
@@ -230,7 +230,7 @@ public final class WWEntityTypes {
 			.updateInterval(20)
 	);
 
-	public static final DeferredEntityType<FallingLeafTicker> FALLING_LEAVES = register(WWEntityTypeIds.FALLING_LEAVES,
+	public static final DeferredEntityType<FallingLeafTicker> FALLING_LEAVES = REGISTER.register(WWEntityTypeIds.FALLING_LEAVES,
 		FallingLeafTicker::new,
 		MobCategory.MISC,
 		builder -> builder
@@ -260,17 +260,8 @@ public final class WWEntityTypes {
 		REGISTER.register();
 	}
 
-	private static <E extends Entity> DeferredEntityType<E> register(
-		ResourceKey<EntityType<?>> id,
-		EntityType.EntityFactory<E> factory,
-		MobCategory category,
-		UnaryOperator<EntityType.Builder<E>> builder
-	) {
-		return REGISTER.register(id, factory, category, builder, null);
-	}
-
 	private static <E extends AbstractBoat> DeferredEntityType<E> registerAbstractBoat(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory) {
-		return register(
+		return REGISTER.register(
 			id,
 			factory,
 			MobCategory.MISC,
@@ -288,16 +279,6 @@ public final class WWEntityTypes {
 
 	private static DeferredEntityType<ChestBoat> registerChestBoat(ResourceKey<EntityType<?>> id, DeferredItem<?> item) {
 		return registerAbstractBoat(id, EntityTypes.chestBoatFactory(() -> item.get()));
-	}
-
-	private static <E extends Entity> DeferredEntityType<E> register(
-		ResourceKey<EntityType<?>> id,
-		EntityType.EntityFactory<E> factory,
-		MobCategory category,
-		UnaryOperator<EntityType.Builder<E>> builder,
-		Consumer<EntityType<E>> also
-	) {
-		return REGISTER.register(id, factory, category, builder, also);
 	}
 
 	private WWEntityTypes() {}

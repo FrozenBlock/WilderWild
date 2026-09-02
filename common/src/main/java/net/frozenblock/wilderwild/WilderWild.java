@@ -46,7 +46,6 @@ public final class WilderWild {
 		WWMinecraftDataFixer.applyDataFixes();
 		WWDataFixer.applyDataFixes();
 
-		WWEntityTypes.init();
 		WWDataComponents.init();
 		WWMemoryModuleTypes.init();
 		WWSensorTypes.init();
@@ -61,6 +60,7 @@ public final class WilderWild {
 		WWSounds.init();
 		WWBlocks.init();
 		WWItems.init();
+		WWEntityTypes.init();
 		WWShearsDispenseItemBehaviors.init();
 		WWBlockEntityTypes.init();
 		WWParticleTypes.init();
