@@ -23,6 +23,7 @@ import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -92,7 +93,7 @@ public final class WarmBeach extends FrozenLibBiome {
 
 	@Override
 	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
-		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
+		builder.set(EnvironmentAttributes.SKY_COLOR, ARGB.vector3fFromRGB24(SKY_COLOR));
 	}
 
 	@Override

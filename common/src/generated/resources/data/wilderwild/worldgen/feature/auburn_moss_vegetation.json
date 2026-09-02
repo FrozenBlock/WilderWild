@@ -35,8 +35,10 @@
         "feature": {
           "type": "minecraft:simple_block",
           "to_place": {
-            "type": "minecraft:simple_state_provider",
-            "state": "wilderwild:auburn_moss_carpet"
+            "id": "wilderwild:auburn_moss_carpet",
+            "properties": {
+              "waterlogged": "false"
+            }
           }
         },
         "placement": [

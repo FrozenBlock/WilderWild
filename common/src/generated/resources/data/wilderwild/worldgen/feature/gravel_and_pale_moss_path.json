@@ -24,8 +24,7 @@
           }
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:gravel"
+          "id": "minecraft:gravel"
         }
       },
       {
@@ -50,8 +49,7 @@
           }
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:pale_moss_block"
+          "id": "minecraft:pale_moss_block"
         }
       }
     ],

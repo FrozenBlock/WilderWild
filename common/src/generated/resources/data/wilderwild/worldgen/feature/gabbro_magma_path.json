@@ -48,8 +48,7 @@
           ]
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:magma_block"
+          "id": "minecraft:magma_block"
         }
       },
       {
@@ -72,8 +71,7 @@
           "search_area": 2
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "wilderwild:gabbro"
+          "id": "wilderwild:gabbro"
         }
       }
     ],

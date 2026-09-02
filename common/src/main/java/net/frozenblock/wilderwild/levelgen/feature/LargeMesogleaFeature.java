@@ -23,6 +23,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
@@ -51,7 +52,7 @@ public record LargeMesogleaFeature(
 	HolderSet<Block> replaceableBlocks,
 	int floorToCeilingSearchRange,
 	IntProvider columnRadius,
-	BlockStateProvider block,
+	Holder<BlockStateProvider> block,
 	FloatProvider heightScale,
 	float maxColumnRadiusToCaveHeightRatio,
 	FloatProvider stalactiteBluntness,
@@ -126,7 +127,7 @@ public record LargeMesogleaFeature(
 			origin,
 			this.floorToCeilingSearchRange,
 			SpeleothemUtils::isEmptyOrWater,
-			state -> SpeleothemUtils.isBaseOrLava(state, this.block.getState(level, random, origin).getBlock(), this.replaceableBlocks)
+			state -> SpeleothemUtils.isBaseOrLava(state, this.block.value().getState(level, random, origin).getBlock(), this.replaceableBlocks)
 		);
 		if (column.isEmpty() || !(column.get() instanceof Column.Range columnRange)) return false;
 
@@ -217,7 +218,7 @@ public record LargeMesogleaFeature(
 							final BlockPos pos = windOffsetter.offset(mutable);
 							if (isEmptyOrWaterOrLava(level, pos)) {
 								bl = true;
-								level.setBlockAndUpdate(pos, feature.block().getState(level, random, mutable));
+								level.setBlockAndUpdate(pos, feature.block().value().getState(level, random, mutable));
 							} else if (bl && level.getBlockState(pos).is(BlockTags.BASE_STONE_OVERWORLD)) {
 								break;
 							}

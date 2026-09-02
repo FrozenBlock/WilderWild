@@ -19,7 +19,7 @@
           "name": "wilderwild:tumbleweed_plant"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -77,8 +77,8 @@
               },
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
+                "max": 1,
+                "min": 0
               }
             },
             {
@@ -92,8 +92,8 @@
               },
               "count": {
                 "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
+                "max": 4,
+                "min": 2
               }
             },
             {
@@ -103,7 +103,7 @@
           "name": "minecraft:stick"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -144,12 +144,12 @@
           },
           "modifier": {
             "type": "minecraft:set_count",
-            "count": 1.0
+            "count": 1
           },
           "name": "wilderwild:tumbleweed"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

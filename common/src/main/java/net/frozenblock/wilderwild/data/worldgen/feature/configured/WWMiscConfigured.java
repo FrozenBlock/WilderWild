@@ -43,6 +43,7 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -197,7 +198,7 @@ public final class WWMiscConfigured {
 		EMPTY.makeAndSetHolder(new NoOpFeature());
 
 		SINGLE_MYCELIUM_GROWTH.makeAndSetHolder(
-			new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH.get()))
+			new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.MYCELIUM_GROWTH.get()))
 		);
 
 		COARSE_DIRT_PATH_RARE.makeAndSetHolder(
@@ -206,7 +207,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 							.within(-0.2D, 0.3D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_PATH_REPLACEABLE))
 							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
@@ -223,7 +224,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 							.within(-0.2D, 0.3D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -240,7 +241,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.STONE))
 							.within(-0.2D, 0.3D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -257,7 +258,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.07D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 							.within(-0.075D, 0.175D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_CLEARING_REPLACEABLE))
 							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
@@ -274,7 +275,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.07D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 							.within(-0.075D, 0.175D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_CLEARING_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirWithin(2))
@@ -291,7 +292,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.07D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.ROOTED_DIRT))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.ROOTED_DIRT))
 							.within(-0.035D, 0.135D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.ROOTED_DIRT_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -305,15 +306,15 @@ public final class WWMiscConfigured {
 		STONE_DISK_AND_PILE.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
-					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.simple(Blocks.STONE.defaultBlockState()))),
+					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.STONE.defaultBlockState()))),
 					PlacementUtils.inlinePlaced(
 						new BallFeature(
-							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+							new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.STONE))
 								.placementChance(0.95F)
 								.fadeStartPercentage(0.8F)
 								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
 								.outerRingBlockPlacement(
-									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.STONE))
 										.placementChance(0.7F)
 										.outerRingStartPercentage(0.7F)
 										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
@@ -329,17 +330,19 @@ public final class WWMiscConfigured {
 
 		DISK_MUD.makeAndSetHolder(
 			new DiskFeature(
-				new RuleBasedStateProvider(
-					BlockStateProvider.simple(Blocks.MUD),
-					List.of(
-						new RuleBasedStateProvider.Rule(
-							BlockPredicate.not(
-								BlockPredicate.anyOf(
-									BlockPredicate.solid(Direction.UP),
-									BlockPredicate.matchesFluids(Direction.UP, Fluids.WATER)
-								)
-							),
-							BlockStateProvider.simple(Blocks.MUD)
+				Holder.direct(
+					new RuleBasedStateProvider(
+						BlockStateProvider.holderOf(Blocks.MUD),
+						List.of(
+							new RuleBasedStateProvider.Rule(
+								BlockPredicate.not(
+									BlockPredicate.anyOf(
+										BlockPredicate.solid(Direction.UP),
+										BlockPredicate.matchesFluids(Direction.UP, Fluids.WATER)
+									)
+								),
+								BlockStateProvider.holderOf(Blocks.MUD)
+							)
 						)
 					)
 				),
@@ -355,7 +358,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.1D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MUD))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MUD))
 							.within(0.23D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
@@ -368,12 +371,12 @@ public final class WWMiscConfigured {
 
 		MUD_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MUD))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MUD))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MUD))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MUD))
 							.placementChance(0.5F)
 							.outerRingStartPercentage(0.5F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_REPLACEABLE))
@@ -390,7 +393,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 							.within(-0.2D, 0.3D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_PATH_REPLACEABLE))
 							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
@@ -409,7 +412,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 							.within(0.2D, 0.54D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
@@ -428,7 +431,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 							.within(-0.7D, -0.3D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
@@ -447,7 +450,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.CLAY))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.CLAY))
 							.within(0.5D, 0.85D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
@@ -466,7 +469,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.CLAY))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.CLAY))
 							.within(0.5D, 0.85D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.BEACH_CLAY_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
@@ -485,7 +488,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 							.within(0.5D, 0.85D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
@@ -498,12 +501,12 @@ public final class WWMiscConfigured {
 
 		STONE_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.STONE))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.STONE))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.STONE))
 							.placementChance(0.5F)
 							.outerRingStartPercentage(0.5F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_REPLACEABLE))
@@ -516,12 +519,12 @@ public final class WWMiscConfigured {
 
 		SMALL_SAND_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 							.placementChance(0.75F)
 							.outerRingStartPercentage(0.5F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
@@ -537,12 +540,12 @@ public final class WWMiscConfigured {
 
 		BETA_BEACH_SAND_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 							.placementChance(0.5F)
 							.outerRingStartPercentage(0.5F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
@@ -555,12 +558,12 @@ public final class WWMiscConfigured {
 
 		SMALL_GRAVEL_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 							.placementChance(0.5F)
 							.outerRingStartPercentage(0.5F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE))
@@ -574,7 +577,7 @@ public final class WWMiscConfigured {
 		RIVER_POOL.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -589,7 +592,7 @@ public final class WWMiscConfigured {
 		SMALL_RIVER_POOL.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(WWBlockTags.RIVER_POOL_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.GRASS_BLOCK),
+				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -607,7 +610,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.12D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.PACKED_MUD))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.PACKED_MUD))
 							.within(0.2D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.PACKED_MUD_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -626,7 +629,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
 							.within(0.18D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MOSS_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -653,7 +656,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SANDSTONE))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SANDSTONE))
 							.within(0.4D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SANDSTONE_PATH_REPLACEABLE))
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
@@ -666,12 +669,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -684,12 +687,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK_HUGE.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -702,13 +705,13 @@ public final class WWMiscConfigured {
 
 		SCORCHED_SAND_DISK_LIGHTNING.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_SAND.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -722,12 +725,12 @@ public final class WWMiscConfigured {
 
 		SAND_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.5F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
 							.placementChance(0.6F)
 							.outerRingStartPercentage(0.4F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_REPLACEABLE))
@@ -747,7 +750,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.15D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 							.within(0.2D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE))
 							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
@@ -764,7 +767,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.7D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.PACKED_MUD))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.PACKED_MUD))
 							.within(0.2D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -777,12 +780,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -795,12 +798,12 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_HUGE.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -813,13 +816,13 @@ public final class WWMiscConfigured {
 
 		SCORCHED_RED_SAND_DISK_LIGHTNING.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.8F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.SCORCHED_RED_SAND.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
 							.placementChance(0.895F)
 							.outerRingStartPercentage(0.6F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE))
@@ -833,12 +836,12 @@ public final class WWMiscConfigured {
 
 		RED_SAND_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.RED_SAND))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.RED_SAND))
 					.placementChance(0.65F)
 					.fadeStartPercentage(0.5F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.RED_SAND))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.RED_SAND))
 							.placementChance(0.6F)
 							.outerRingStartPercentage(0.4F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE))
@@ -860,7 +863,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.15D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRASS_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRASS_BLOCK))
 							.within(0.4D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.OASIS_PATH_REPLACEABLE))
 							.searchingPredicate(
@@ -886,7 +889,7 @@ public final class WWMiscConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
 							.within(0.12D, 1D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.OASIS_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
@@ -905,7 +908,7 @@ public final class WWMiscConfigured {
 					.noiseScale(0.15D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 							.within(-0.15D, 0.55D)
 							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD))
 							.searchingPredicate(
@@ -926,12 +929,12 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.simple(Blocks.MOSS_BLOCK)));
+		MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK)));
 
 		BASIN_PODZOL.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.PODZOL),
+				BlockStateProvider.holderOf(Blocks.PODZOL),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(2),
@@ -946,7 +949,7 @@ public final class WWMiscConfigured {
 		BASIN_MOSS.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
+				BlockStateProvider.holderOf(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(2),
@@ -960,20 +963,20 @@ public final class WWMiscConfigured {
 
 		MOSS_LAKE.makeAndSetHolder(
 			new LakeFeature(
-				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK.defaultBlockState()),
+				BlockStateProvider.holderOf(Blocks.WATER.defaultBlockState()),
+				BlockStateProvider.holderOf(Blocks.MOSS_BLOCK.defaultBlockState()),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
 			)
 		);
 
-		MUD_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.simple(Blocks.MUD)));
+		MUD_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.MUD)));
 
 		BASIN_MUD.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.BASIN_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.MUD),
+				BlockStateProvider.holderOf(Blocks.MUD),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(2),
@@ -987,15 +990,15 @@ public final class WWMiscConfigured {
 
 		MUD_LAKE.makeAndSetHolder(
 			new LakeFeature(
-				BlockStateProvider.simple(Blocks.WATER.defaultBlockState()),
-				BlockStateProvider.simple(Blocks.MUD.defaultBlockState()),
+				BlockStateProvider.holderOf(Blocks.WATER.defaultBlockState()),
+				BlockStateProvider.holderOf(Blocks.MUD.defaultBlockState()),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
 			)
 		);
 
-		PALE_MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK)));
+		PALE_MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.PALE_MOSS_BLOCK)));
 
 		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(
 			new NoisePathFeature(
@@ -1003,13 +1006,13 @@ public final class WWMiscConfigured {
 					.noiseScale(0.1D)
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
 					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.GRAVEL))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
 							.within(-0.2D, 0.3D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE))
 							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
 							.placementChance(0.35F)
 							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.PALE_MOSS_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.PALE_MOSS_BLOCK))
 							.within(-0.21D, 0.31D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE))
 							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
@@ -1024,15 +1027,15 @@ public final class WWMiscConfigured {
 		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
-					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.simple(Blocks.COARSE_DIRT.defaultBlockState()))),
+					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.COARSE_DIRT.defaultBlockState()))),
 					PlacementUtils.inlinePlaced(
 						new BallFeature(
-							new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+							new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 								.placementChance(0.95F)
 								.fadeStartPercentage(0.5F)
 								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
 								.outerRingBlockPlacement(
-									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 										.placementChance(0.875F)
 										.outerRingStartPercentage(0.7F)
 										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
@@ -1048,12 +1051,12 @@ public final class WWMiscConfigured {
 
 		COARSE_TRANSITION_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 					.placementChance(0.95F)
 					.fadeStartPercentage(0.5F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(Blocks.COARSE_DIRT))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
 							.placementChance(0.875F)
 							.outerRingStartPercentage(0.7F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE))
@@ -1091,7 +1094,7 @@ public final class WWMiscConfigured {
 				List.of(
 					new WeightedPlacedFeature(
 						PlacementUtils.inlinePlaced(
-							new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_CARPET.get())),
+							new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_CARPET.get())),
 							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 						),
 						0.275F
@@ -1115,7 +1118,7 @@ public final class WWMiscConfigured {
 		AUBURN_MOSS_PATCH.makeAndSetHolder(
 			new VegetationPatchWithEdgeDecorationFeature(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -1174,7 +1177,7 @@ public final class WWMiscConfigured {
 		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(
 			new VegetationPatchWithEdgeDecorationFeature(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -1199,7 +1202,7 @@ public final class WWMiscConfigured {
 
 		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
 					.placementChance(0.85F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(
@@ -1210,7 +1213,7 @@ public final class WWMiscConfigured {
 					)
 					.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
 							.placementChance(0.75F)
 							.outerRingStartPercentage(0.675F)
 							.replacementPredicate(
@@ -1241,7 +1244,7 @@ public final class WWMiscConfigured {
 		MOSS_PATCH_BONEMEAL_NO_AZALEA.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.MOSS_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.MOSS_BLOCK),
+				BlockStateProvider.holderOf(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(MOSS_VEGETATION_NO_AZALEA.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),

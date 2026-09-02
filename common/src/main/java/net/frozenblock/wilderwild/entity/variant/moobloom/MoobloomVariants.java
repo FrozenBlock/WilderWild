@@ -83,7 +83,7 @@ public final class MoobloomVariants {
 		for (Feature feature : boneMealFeatures) {
 			if (!(feature instanceof SimpleBlockFeature simpleBlockFeature)) continue;
 
-			final BlockState state = simpleBlockFeature.toPlace().getOptionalState(context.level().getLevel(), random, context.pos());
+			final BlockState state = simpleBlockFeature.toPlace().value().getOptionalState(context.level().getLevel(), random, context.pos());
 			foundBlockStates.add(state);
 		}
 

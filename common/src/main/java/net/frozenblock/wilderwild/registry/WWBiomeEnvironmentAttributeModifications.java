@@ -32,6 +32,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.attribute.AmbientAdditionsSettings;
 import net.minecraft.world.attribute.AmbientMoodSettings;
 import net.minecraft.world.attribute.AmbientParticle;
@@ -307,7 +308,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 			context,
 			WWConstants.id("fog/" + biome.identifier().getPath()),
 			biome,
-			EnvironmentAttributeMap.builder().set(EnvironmentAttributes.FOG_COLOR, 0).build(),
+			EnvironmentAttributeMap.builder().set(EnvironmentAttributes.FOG_COLOR, ARGB.vector3fFromRGB24(0)).build(),
 			entry.equalTo(true)
 		);
 	}

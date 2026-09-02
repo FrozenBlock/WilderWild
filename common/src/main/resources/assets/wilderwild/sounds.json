@@ -4709,9 +4709,18 @@
   },
   "item.axe.hollow": {
     "sounds": [
-      "wilderwild:block/hollowed_log/hollow1",
-      "wilderwild:block/hollowed_log/hollow2",
-      "wilderwild:block/hollowed_log/hollow3"
+      {
+        "name": "wilderwild:block/hollowed_log/hollow1",
+        "volume": 0.5
+      },
+      {
+        "name": "wilderwild:block/hollowed_log/hollow2",
+        "volume": 0.5
+      },
+      {
+        "name": "wilderwild:block/hollowed_log/hollow3",
+        "volume": 0.5
+      }
     ],
     "subtitle": "subtitles.item.axe.hollow"
   },

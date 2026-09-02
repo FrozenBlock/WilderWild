@@ -73,10 +73,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.CRAB_BUCKET,
+				WWItems.CRAB_BUCKET.get(),
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.crab_in_a_bucket.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -88,10 +87,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.FIREFLY_BOTTLE,
+				WWItems.FIREFLY_BOTTLE.get(),
 				Component.translatable("wilderwild.advancements.husbandry.firefly_in_a_bottle.title"),
 				Component.translatable("wilderwild.advancements.husbandry.firefly_in_a_bottle.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -103,10 +101,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.BUTTERFLY_BOTTLE,
+				WWItems.BUTTERFLY_BOTTLE.get(),
 				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.title"),
 				Component.translatable("wilderwild.advancements.husbandry.butterfly_in_a_bottle.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -118,10 +115,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(husbandry)
 			.display(
-				WWItems.JELLYFISH_BUCKET,
+				WWItems.JELLYFISH_BUCKET.get(),
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.title"),
 				Component.translatable("wilderwild.advancements.husbandry.jellyfish_in_a_bucket.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -133,10 +129,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.TERMITE_MOUND.get(),
+				WWItems.TERMITE_MOUND.get(),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.title"),
 				Component.translatable("wilderwild.advancements.adventure.use_termite_on_tree.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -148,10 +143,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		AdvancementHolder geothermalVentPushedFlightlessBird = Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.GEOTHERMAL_VENT.get(),
+				WWItems.GEOTHERMAL_VENT.get(),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.title"),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_pushed_flightless_bird.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -195,7 +189,6 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 				Items.COOKED_BEEF,
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_sets_cow_on_fire.title"),
 				Component.translatable("wilderwild.advancements.adventure.geothermal_vent_sets_cow_on_fire.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -225,10 +218,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/walk_on_powder_snow_with_leather_boots")))
 			.display(
-				WWBlocks.FRAGILE_ICE.get(),
+				WWItems.FRAGILE_ICE.get(),
 				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.title"),
 				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,
@@ -240,10 +232,9 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(adventure)
 			.display(
-				WWBlocks.NULL_BLOCK.get(),
+				WWItems.NULL_BLOCK.get(),
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.title"),
 				Component.translatable("wilderwild.advancements.adventure.obtain_null_block.description"),
-				null,
 				AdvancementType.TASK,
 				true,
 				true,

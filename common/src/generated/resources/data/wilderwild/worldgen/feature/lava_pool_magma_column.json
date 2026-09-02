@@ -1,8 +1,7 @@
 {
   "type": "frozenlib:column",
   "block_state": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:magma_block"
+    "id": "minecraft:magma_block"
   },
   "direction": "up",
   "length": {

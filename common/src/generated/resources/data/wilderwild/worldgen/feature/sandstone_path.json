@@ -22,8 +22,7 @@
           "search_area": 2
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:sandstone"
+          "id": "minecraft:sandstone"
         }
       }
     ],

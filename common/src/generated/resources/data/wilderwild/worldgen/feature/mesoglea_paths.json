@@ -27,8 +27,10 @@
           "search_area": 2
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "wilderwild:pearlescent_blue_mesoglea"
+          "id": "wilderwild:pearlescent_blue_mesoglea",
+          "properties": {
+            "bubble_column_direction": "none"
+          }
         }
       },
       {
@@ -56,8 +58,10 @@
           "search_area": 2
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "wilderwild:pearlescent_purple_mesoglea"
+          "id": "wilderwild:pearlescent_purple_mesoglea",
+          "properties": {
+            "bubble_column_direction": "none"
+          }
         }
       }
     ],

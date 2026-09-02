@@ -27,6 +27,7 @@ import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -49,9 +50,9 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 			.and(BlockStateProvider.CODEC.fieldOf("inner_state").forGetter(placer -> placer.innerState))
 			.apply(instance, BaobabTrunkPlacer::new));
 
-	protected final BlockStateProvider innerState;
+	protected final Holder<BlockStateProvider> innerState;
 
-	public BaobabTrunkPlacer(int i, int j, int k, BlockStateProvider innerState) {
+	public BaobabTrunkPlacer(int i, int j, int k, Holder<BlockStateProvider> innerState) {
 		super(i, j, k);
 		this.innerState = innerState;
 	}
@@ -91,7 +92,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		TreeFeature tree,
 		List<BlockPos> logPositions
 	) {
-		final BlockState blockBelowTrunk = tree.belowTrunkProvider().getOptionalState(level, random, pos);
+		final BlockState blockBelowTrunk = tree.belowTrunkProvider().value().getOptionalState(level, random, pos);
 		if (blockBelowTrunk != null) trunkSetter.accept(pos, blockBelowTrunk);
 		logPositions.add(pos.immutable());
 	}
@@ -226,7 +227,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				if (!placedLogs.contains(placedLogPos)) isSurrounded = false;
 			}
 			if (isSurrounded && level.isStateAtPosition(pos, state -> !state.is(BlockTags.DIRT))) {
-				trunkSetter.accept(pos, this.innerState.getState(level, random, pos));
+				trunkSetter.accept(pos, this.innerState.value().getState(level, random, pos));
 			}
 		}
 

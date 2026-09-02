@@ -24,6 +24,7 @@ import java.util.List;
 import net.frozenblock.lib.entity.api.behavior.BehaviorUtil;
 import net.frozenblock.wilderwild.entity.Jellyfish;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
+import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +38,7 @@ import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetEntityLookTarget;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
-import net.minecraft.world.entity.ai.behavior.TryFindWater;
+import net.minecraft.world.entity.ai.behavior.TryFindLiquid;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -77,7 +78,7 @@ public final class JellyfishAi {
 			Activity.IDLE,
 			10,
 			ImmutableList.of(
-				TryFindWater.create(6, 0.15F),
+				TryFindLiquid.create(6, 0.15F, WWFluidTags.JELLYFISH_TRIES_TO_FIND),
 				new RunOne<>(
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 					ImmutableList.of(

@@ -29,7 +29,7 @@ import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
-import net.frozenblock.wilderwild.data.numberprovider.WWNumberProviderProvider;
+import net.frozenblock.wilderwild.data.numberprovider.WWContextIntProviderProvider;
 import net.frozenblock.wilderwild.data.recipe.WWRecipeProvider;
 import net.frozenblock.wilderwild.data.sound.WWPlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.data.sound.WWSoundTypeOverrides;
@@ -59,6 +59,7 @@ import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
 import net.frozenblock.wilderwild.registry.WWBiomeEnvironmentAttributeModifications;
 import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWClipGroups;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
@@ -99,7 +100,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWEntityLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
 		pack.addProvider(WWAdvancementProvider::new);
-		pack.addProvider(WWNumberProviderProvider::new);
+		pack.addProvider(WWContextIntProviderProvider::new);
 	}
 
 	@Override
@@ -115,13 +116,14 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 		registryBuilder.add(Registries.TEMPLATE_POOL, WWAbandonedCampStructurePools::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
+		registryBuilder.add(Registries.BLOCK_STATE_PROVIDER, WWBlockStateProviders::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.RULE_SOURCE_ADDITION, WWMaterialRules::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.MATERIAL_RULE_ADDITION, WWMaterialRules::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND, WWPlayerDamageTypeSounds::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, WWStructureProcessorListAdditions::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.VARIANT_SPAWN_INJECTION, WWVariantSpawnInjections::bootstrap);

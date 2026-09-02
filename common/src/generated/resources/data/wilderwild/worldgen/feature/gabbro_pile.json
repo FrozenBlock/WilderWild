@@ -5,8 +5,7 @@
       "feature": {
         "type": "minecraft:block_pile",
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "wilderwild:gabbro"
+          "id": "wilderwild:gabbro"
         }
       },
       "placement": []
@@ -27,8 +26,7 @@
               "type": "minecraft:true"
             },
             "state_provider": {
-              "type": "minecraft:simple_state_provider",
-              "state": "wilderwild:gabbro"
+              "id": "wilderwild:gabbro"
             }
           },
           "placement_chance": 0.9,
@@ -40,8 +38,7 @@
             "type": "minecraft:true"
           },
           "state_provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": "wilderwild:gabbro"
+            "id": "wilderwild:gabbro"
           }
         },
         "placement_radius": {

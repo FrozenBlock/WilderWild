@@ -22,7 +22,6 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
-import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.advancements.predicates.DataComponentMatchers;
@@ -38,7 +37,6 @@ import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -55,8 +53,7 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
@@ -64,11 +61,13 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		super(dataOutput, registries);
 	}
 
+	// FIXME: fabric doesnt let us use the normal method :/
 	@Override
 	public Holder<LootItemCondition> hasShears() {
 		return Holder.direct(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.items, Items.SHEARS)).build());
 	}
 
+	// FIXME: fabric doesnt let us use the normal method :/
 	@Override
 	public Holder<LootItemCondition> hasSilkTouch() {
 		return Holder.direct(
@@ -87,6 +86,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 			).build()
 		);
 	}
+
 
 	@Override
 	public void generate() {
@@ -261,7 +261,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.MOSSY_GABBRO_BRICK_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_GABBRO_BRICK_WALL.get());
 
-		this.add(WWBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, Holder.direct(this.hasShearsOrSilkTouch().build())));
+		this.add(WWBlocks.POLLEN.get(), block -> this.createMultifaceBlockDrops(block, this.hasSilkTouch()));
 		this.dropSelf(WWBlocks.SEEDING_DANDELION.get());
 		this.dropSelf(WWBlocks.CARNATION.get());
 		this.dropSelf(WWBlocks.MARIGOLD.get());
@@ -293,24 +293,24 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 					this.applyExplosionCondition(
 						WWBlocks.TUMBLEWEED_PLANT.get(),
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.when(ExplosionCondition.survivesExplosion())
 							.add(LootItem.lootTableItem(WWBlocks.TUMBLEWEED_PLANT.get()))
 					)
 				).withPool(
 						LootPool.lootPool()
 							.when(this.doesNotHaveShearsOrSilkTouch())
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.add(
 								this.applyExplosionDecay(
 									WWBlocks.TUMBLEWEED_PLANT.get(),
 									LootItem.lootTableItem(Items.STICK).apply(
-										SetItemCountFunction.setCount(UniformGenerator.between(0F, 1F))
+										SetItemCountFunction.setCount(ContextIntProviders.between(0, 1))
 											.when(
 												MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
 											)
 									).apply(
-										SetItemCountFunction.setCount(UniformGenerator.between(2F, 4F))
+										SetItemCountFunction.setCount(ContextIntProviders.between(2, 4))
 											.when(
 												MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 											)
@@ -320,9 +320,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 				).withPool(
 					LootPool.lootPool()
 						.when(this.hasShearsOrSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
-							LootItem.lootTableItem(WWBlocks.TUMBLEWEED.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+							LootItem.lootTableItem(WWBlocks.TUMBLEWEED.get()).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
 								.when(
 									MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
 								)
@@ -334,22 +334,22 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							this.applyExplosionDecay(
 									WWBlocks.SPONGE_BUD.get(),
 									LootItem.lootTableItem(WWBlocks.SPONGE_BUD.get()).apply(
-										SetItemCountFunction.setCount(ConstantValue.exactly(1F))
+										SetItemCountFunction.setCount(ContextIntProviders.exactly(1))
 											.when(
 												MatchBlock.blockMatches(this.blocks, WWBlocks.SPONGE_BUD.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 0))
 											)
 									).apply(
-										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
+										SetItemCountFunction.setCount(ContextIntProviders.exactly(2))
 										.when(
 											MatchBlock.blockMatches(this.blocks, WWBlocks.SPONGE_BUD.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 1))
 										)
 									).apply(
-										SetItemCountFunction.setCount(ConstantValue.exactly(3F))
+										SetItemCountFunction.setCount(ContextIntProviders.exactly(3))
 											.when(
 												MatchBlock.blockMatches(this.blocks, WWBlocks.SPONGE_BUD.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
 											)
@@ -358,7 +358,8 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						)
 				)
 		);
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.ALGAE.get());
+
+		this.add(WWBlocks.ALGAE.get(), this::createShearsOrSilkTouchOnlyDrop);
 		this.dropSelf(WWBlocks.PLANKTON.get());
 		this.add(WWBlocks.BARNACLES.get(), block -> this.createMultifaceBlockDrops(block, Holder.direct(ExplosionCondition.survivesExplosion().build())));
 		this.dropSelf(WWBlocks.SEA_ANEMONE.get());
@@ -375,7 +376,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 					this.applyExplosionCondition(
 						WWBlocks.BAOBAB_NUT.get(),
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.when(
 								MatchBlock.blockMatches(this.blocks, WWBlocks.BAOBAB_NUT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_2, 2))
 							)
@@ -390,7 +391,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 					this.applyExplosionCondition(
 						WWBlocks.COCONUT.get(),
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.when(
 								MatchBlock.blockMatches(this.blocks, WWBlocks.COCONUT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.HANGING, false))
 							)
@@ -400,7 +401,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 					this.applyExplosionDecay(
 						WWBlocks.COCONUT.get(),
 						LootPool.lootPool()
-							.setRolls(UniformGenerator.between(1F, 4F))
+							.setRolls(ContextIntProviders.between(1, 4))
 							.when(
 								MatchBlock.blockMatches(
 									this.blocks,
@@ -421,7 +422,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 					this.applyExplosionCondition(
 						WWBlocks.SHRUB.get(),
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
+							.setRolls(ContextIntProviders.exactly(1))
 							.when(
 								MatchBlock.blockMatches(
 									this.blocks,
@@ -436,7 +437,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 					this.applyExplosionDecay(
 						WWBlocks.SHRUB.get(),
 						LootPool.lootPool()
-							.setRolls(UniformGenerator.between(0F, 1F))
+							.setRolls(ContextIntProviders.between(0, 1))
 							.when(
 								MatchBlock.blockMatches(
 									this.blocks,
@@ -524,13 +525,13 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 				.withPool(
 					LootPool.lootPool()
 						.when(this.hasSilkTouch())
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							this.applyExplosionDecay(
 								WWBlocks.SCULK_SLAB.get(),
 								LootItem.lootTableItem(WWBlocks.SCULK_SLAB.get())
 									.apply(
-										SetItemCountFunction.setCount(ConstantValue.exactly(2F))
+										SetItemCountFunction.setCount(ContextIntProviders.exactly(2))
 											.when(
 												MatchBlock.blockMatches(this.blocks, WWBlocks.SCULK_SLAB.get(), StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))
 											)
@@ -546,7 +547,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(LootItem.lootTableItem(WWBlocks.DISPLAY_LANTERN.get()).when(ExplosionCondition.survivesExplosion()))
 				)
 		);
@@ -555,10 +556,10 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWBlocks.ECHO_GLASS.get())
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
 								.apply(CopyBlockState.copyState(WWBlocks.ECHO_GLASS.get()).copy(WWBlockStateProperties.DAMAGE)
 									.when(
 										MatchBlock.blockMatches(this.blocks, WWBlocks.ECHO_GLASS.get(), StatePropertiesPredicate.Builder.properties().hasProperty(WWBlockStateProperties.DAMAGE, 0))
@@ -583,10 +584,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.MOSSY_MUD_BRICK_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(WWBlocks.MOSSY_MUD_BRICK_WALL.get());
 
-		WWBlockLootHelper.makeShearsOrSilkTouchRequiredLoot(this, WWBlocks.MYCELIUM_GROWTH.get());
+		this.add(WWBlocks.MYCELIUM_GROWTH.get(), this::createShearsOrSilkTouchOnlyDrop);
 
 		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE.get());
 		this.dropWhenSilkTouch(WWBlocks.ICICLE.get());
 	}
-
 }

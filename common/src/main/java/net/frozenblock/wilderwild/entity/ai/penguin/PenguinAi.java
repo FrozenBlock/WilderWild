@@ -31,8 +31,10 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
+import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -61,7 +63,7 @@ import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
 import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.behavior.TryFindLand;
-import net.minecraft.world.entity.ai.behavior.TryFindWater;
+import net.minecraft.world.entity.ai.behavior.TryFindLiquid;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -290,7 +292,7 @@ public final class PenguinAi {
 				Pair.of(1, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.6F)),
 				Pair.of(2, new AnimalMakeLove(WWEntityTypes.PENGUIN.get(), SPEED_MULTIPLIER_WHEN_MAKING_LOVE, 2)),
 				Pair.of(3, new FollowTemptation(entity -> 1.25F)),
-				Pair.of(4, TryFindWater.create(8, 0.8F)),
+				Pair.of(4, TryFindLiquid.create(8, 0.8F, WWFluidTags.PENGUIN_TRIES_TO_FIND)),
 				Pair.of(5, PenguinReturnToWater.create(0.8F)),
 				Pair.of(
 					6,

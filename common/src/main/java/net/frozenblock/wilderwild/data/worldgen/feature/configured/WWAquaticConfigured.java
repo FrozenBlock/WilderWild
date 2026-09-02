@@ -93,13 +93,13 @@ public final class WWAquaticConfigured {
 
 		CATTAIL.makeAndSetHolder(CattailFeature.INSTANCE);
 
-		FLOWERING_WATERLILY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.FLOWERING_LILY_PAD.get())));
+		FLOWERING_WATERLILY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FLOWERING_LILY_PAD.get())));
 
-		PATCH_ALGAE.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.simple(WWBlocks.ALGAE.get()), UniformInt.of(4, 10)));
+		PATCH_ALGAE.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.holderOf(WWBlocks.ALGAE.get()), UniformInt.of(4, 10)));
 
-		PATCH_ALGAE_SMALL.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.simple(WWBlocks.ALGAE.get()), UniformInt.of(2, 6)));
+		PATCH_ALGAE_SMALL.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.holderOf(WWBlocks.ALGAE.get()), UniformInt.of(2, 6)));
 
-		PATCH_PLANKTON.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.simple(WWBlocks.PLANKTON.get()), UniformInt.of(2, 4)));
+		PATCH_PLANKTON.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.holderOf(WWBlocks.PLANKTON.get()), UniformInt.of(2, 4)));
 
 		SEAGRASS_MEADOW.makeAndSetHolder(new SeagrassFeature(0.025F));
 
@@ -137,9 +137,9 @@ public final class WWAquaticConfigured {
 			)
 		);
 
-		SEA_ANEMONE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.SEA_ANEMONE.get())));
+		SEA_ANEMONE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.SEA_ANEMONE.get())));
 
-		SEA_WHIP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.SEA_WHIP.get())));
+		SEA_WHIP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.SEA_WHIP.get())));
 
 		TUBE_WORMS.makeAndSetHolder(TubeWormsFeature.INSTANCE);
 
@@ -149,7 +149,7 @@ public final class WWAquaticConfigured {
 					PlacementUtils.inlinePlaced(
 						new UnderwaterVegetationPatchFeature(
 							blocks.getOrThrow(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
-							BlockStateProvider.simple(WWBlocks.GABBRO.get()),
+							BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 							PlacementUtils.inlinePlaced(HydrothermalVentFeature.INSTANCE),
 							CaveSurface.FLOOR,
 							ConstantInt.of(2),
@@ -178,13 +178,13 @@ public final class WWAquaticConfigured {
 					.scaleYNoise()
 					.heightmapType(Heightmap.Types.OCEAN_FLOOR_WG)
 					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
 							.within(0.4D, 0.9D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
 							.searchingPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
 							.placementChance(0.915F)
 							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MOSS_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
 							.within(-0.9D, -0.4D)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.OCEAN_MOSS_REPLACEABLE))
 							.searchingPredicate(SearchInDirectionBlockPredicate.hasWaterAbove(1))
@@ -214,7 +214,7 @@ public final class WWAquaticConfigured {
 		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(
 			new UnderwaterVegetationPatchWithEdgeDecorationFeature(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
@@ -264,7 +264,7 @@ public final class WWAquaticConfigured {
 		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(
 			new UnderwaterVegetationPatchWithEdgeDecorationFeature(
 				blocks.getOrThrow(WWBlockTags.AUBURN_MOSS_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),

@@ -47,7 +47,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
-	public static final double HOLLOW_PARTICLE_DIRECTION_OFFSET = 0.3375D;
+	public static final double HOLLOW_PARTICLE_AXIS_OFFSET = 0.3375D;
 	public static final int HOLLOW_PARTICLES_MIN = 12;
 	public static final int HOLLOW_PARTICLES_MAX = 28;
 	public static final double ENTRANCE_DIRECTION_STEP_SCALE = 0.475D;
@@ -55,6 +55,7 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	private static final double EDGE_AMOUNT = 0.140625D;
 	private static final double CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+	//TODO: delegate to helper methods instead of manual shapes
 	protected static final VoxelShape X_SHAPE = Shapes.or(
 		Block.box(0D, 0D, 0D, 16D, 16D, 3D),
 		Block.box(0D, 13D, 0D, 16D, 16D, 16D),
@@ -98,22 +99,17 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y));
 	}
 
-	// TODO: figure out how to add this to Block Transformers
-	@Deprecated(forRemoval = true, since = "26.3-snapshot-2")
-	public static void hollowEffects(Level level, Direction face, BlockState state, BlockPos pos, boolean isStem) {
+	public static void spawnHollowParticles(Level level, Direction.Axis axis, BlockState state, BlockPos pos) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
-		final double offsetX = Math.abs(face.getStepX()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
-		final double offsetY = Math.abs(face.getStepY()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
-		final double offsetZ = Math.abs(face.getStepZ()) * HOLLOW_PARTICLE_DIRECTION_OFFSET;
 		serverLevel.sendParticles(
 			new BlockParticleOption(ParticleTypes.BLOCK, state),
 			pos.getX() + 0.5D,
 			pos.getY() + 0.5D,
 			pos.getZ() + 0.5D,
 			level.getRandom().nextInt(HOLLOW_PARTICLES_MIN, HOLLOW_PARTICLES_MAX),
-			0.1625D + offsetX,
-			0.1625D + offsetY,
-			0.1625D + offsetZ,
+			0.1625D + axis.choose(HOLLOW_PARTICLE_AXIS_OFFSET, 0D, 0D),
+			0.1625D + axis.choose(0D, HOLLOW_PARTICLE_AXIS_OFFSET, 0D),
+			0.1625D + axis.choose(0D, 0D, HOLLOW_PARTICLE_AXIS_OFFSET),
 			0.05D
 		);
 	}

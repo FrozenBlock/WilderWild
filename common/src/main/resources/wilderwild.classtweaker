@@ -14,7 +14,6 @@ accessible field net/minecraft/world/level/block/SpeleothemBlock DELAY_BEFORE_FA
 accessible method net/minecraft/world/level/block/SpeleothemBlock isStalagmite (Lnet/minecraft/world/level/block/state/BlockState;)Z
 accessible method net/minecraft/world/level/block/SpeleothemBlock isTip (Lnet/minecraft/world/level/block/state/BlockState;Z)Z
 accessible field net/minecraft/world/level/block/state/StateHolder propertyKeys [Lnet/minecraft/world/level/block/state/properties/Property;
-#accessible method net/minecraft/world/level/block/state/BlockBehaviour getSoundType (Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties instrument Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
 accessible method net/minecraft/world/level/block/Block registerDefaultState (Lnet/minecraft/world/level/block/state/BlockState;)V
@@ -37,8 +36,6 @@ accessible method net/minecraft/data/BlockFamilies familyBuilder (Lnet/minecraft
 accessible method net/minecraft/world/level/block/ChestBlock candidatePartnerFacing (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Lnet/minecraft/core/Direction;
 accessible field net/minecraft/client/color/block/BlockColors BLANK_LAYER Lnet/minecraft/client/color/block/BlockTintSource;
 accessible class net/minecraft/world/level/block/PointedDripstoneBlock$FluidInfo
-accessible method net/minecraft/world/level/storage/loot/providers/number/NumberProviders compostable (Lnet/minecraft/core/HolderGetter;I)Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;
-accessible method net/minecraft/world/level/storage/loot/providers/number/NumberProviders cooking (Lnet/minecraft/core/HolderGetter;I)Lnet/minecraft/world/level/storage/loot/providers/number/NumberProvider;
 
 # Entity
 accessible field  net/minecraft/world/entity/npc/villager/VillagerType BY_BIOME Ljava/util/Map;
@@ -51,7 +48,6 @@ accessible field net/minecraft/client/renderer/item/properties/select/SelectItem
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
-#accessible method net/minecraft/world/level/block/entity/ChestBlockEntity signalOpenCount (Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)V
 
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
@@ -64,10 +60,6 @@ accessible method net/minecraft/client/data/models/BlockModelGenerators createMi
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTrees (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Ljava/util/Collection;)V
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTentPool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerCampsitePool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
-accessible class net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource
-accessible method net/minecraft/world/level/levelgen/SurfaceRules$BiomeConditionSource <init> (Lnet/minecraft/core/HolderSet;)V
-accessible class net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource
-accessible method net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource <init> (Ljava/util/List;)V
 
 # Particles
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
@@ -77,3 +69,7 @@ accessible method net/minecraft/client/particle/SuspendedParticle <init> (Lnet/m
 # Loot
 accessible field net/minecraft/data/loot/BlockLootSubProvider blocks Lnet/minecraft/core/HolderGetter;
 accessible method net/minecraft/data/loot/packs/VanillaChestLoot discardIfNotValidMap ()Lnet/minecraft/world/level/storage/loot/functions/FilteredFunction$Builder;
+
+# Context Number Providers
+accessible method net/minecraft/world/level/storage/loot/providers/number/ints/ContextIntProviders compostable (Lnet/minecraft/core/HolderGetter;I)Lnet/minecraft/world/level/storage/loot/providers/number/ints/ContextIntProvider;
+accessible method net/minecraft/world/level/storage/loot/providers/number/ints/ContextIntProviders cooking (Lnet/minecraft/core/HolderGetter;Lnet/minecraft/core/Holder$Reference;Lnet/minecraft/core/Holder$Reference;I)Lnet/minecraft/world/level/storage/loot/providers/number/ints/ContextIntProvider;

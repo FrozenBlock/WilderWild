@@ -55,8 +55,8 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class WWItems {
 	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
@@ -80,7 +80,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> CYPRESS_SAPLING = REGISTER.registerOverworldSaplingItem(WWBlockItemIds.CYPRESS_SAPLING, WWBlocks.CYPRESS_SAPLING);
 	public static final DeferredItem<CoconutItem> COCONUT = REGISTER.registerItem(WWBlockItemIds.COCONUT.item(),
 		properties -> new CoconutItem(WWBlocks.COCONUT.get(), properties),
-		() -> new Item.Properties().useBlockDescriptionPrefix().compostable(NumberProviders.COMPOSTABLE_MEDIUM).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS)
+		() -> new Item.Properties().useBlockDescriptionPrefix().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM).cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS)
 	);
 	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING, REGISTER::registerOverworldSaplingItem);
 	public static final PoplarCollection<Supplier<? extends Item>> POPLAR_SAPLING = PoplarCollection.zipMap(WWBlockItemIds.POPLAR_SAPLING, WWBlocks.POPLAR_SAPLING,
@@ -202,13 +202,13 @@ public final class WWItems {
 
 	// VEGETATION
 	public static final DeferredItem<BlockItem> POLLEN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.POLLEN, WWBlocks.POLLEN,
-		() -> new Item.Properties().compostable(WWNumberProviders.COMPOSTABLE_POLLEN)
+		() -> new Item.Properties().compostable(WWContextIntProviders.COMPOSTABLE_POLLEN)
 	);
 	public static final DeferredItem<BlockItem> PRICKLY_PEAR = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PRICKLY_PEAR,
 		WWBlocks.PRICKLY_PEAR,
 		properties -> properties.food(WWFoods.PRICKLY_PEAR)
 			.component(DataComponents.FOOD, WWFoods.PRICKLY_PEAR)
-			.compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM)
+			.compostable(ContextIntProviders.COMPOSTABLE_LOW_MEDIUM)
 			.delayedComponent(
 				DataComponents.CONSUMABLE,
 				provider -> Consumables.defaultFood()
@@ -217,10 +217,10 @@ public final class WWItems {
 			)
 	);
 	public static final DeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 	public static final DeferredItem<BlockItem> TUMBLEWEED_PLANT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW_MEDIUM)
 	);
 	public static final DeferredItem<SpawnEggItem> TUMBLEWEED = REGISTER.registerItem(WWBlockItemIds.TUMBLEWEED.item(),
 		SpawnEggItem::new,
@@ -228,56 +228,56 @@ public final class WWItems {
 			.useBlockDescriptionPrefix()
 			.requiredFeatures(WWBlocks.TUMBLEWEED.get().requiredFeatures())
 			.spawnEgg(WWEntityTypes.TUMBLEWEED.get())
-			.compostable(NumberProviders.COMPOSTABLE_LOW)
+			.compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 	public static final DeferredItem<BlockItem> FROZEN_SHORT_GRASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 	public static final DeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS,
-		properties -> properties.compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM)
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> FROZEN_FERN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_FERN, WWBlocks.FROZEN_FERN,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN,
-		properties -> properties.compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> FROZEN_BUSH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_BUSH, WWBlocks.FROZEN_BUSH,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 	public static final DeferredItem<BlockItem> MYCELIUM_GROWTH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MYCELIUM_GROWTH, WWBlocks.MYCELIUM_GROWTH,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 
 	// MUSHROOMS
 	public static final DeferredItem<BlockItem> PALE_MUSHROOM_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_MUSHROOM_BLOCK, WWBlocks.PALE_MUSHROOM_BLOCK,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> PALE_MUSHROOM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PALE_MUSHROOM, WWBlocks.PALE_MUSHROOM,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 
 	// MOSS
 	public static final DeferredItem<BlockItem> AUBURN_MOSS_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_MOSS_BLOCK, WWBlocks.AUBURN_MOSS_BLOCK,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> AUBURN_MOSS_CARPET = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_MOSS_CARPET, WWBlocks.AUBURN_MOSS_CARPET,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 	public static final DeferredItem<BlockItem> AUBURN_CREEPING_MOSS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.AUBURN_CREEPING_MOSS, WWBlocks.AUBURN_CREEPING_MOSS,
-		() -> new Item.Properties().compostable(NumberProviders.COMPOSTABLE_LOW)
+		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 
 	// AQUATIC
 	public static final DeferredItem<DoubleHighBlockItem> CATTAIL = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL);
 	public static final DeferredItem<PlaceOnWaterBlockItem> FLOWERING_LILY_PAD = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD,
-		properties -> properties.compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<PlaceOnWaterBlockItem> ALGAE = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE,
-		properties -> properties.compostable(NumberProviders.COMPOSTABLE_LOW)
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
 	public static final DeferredItem<PlaceOnWaterBlockItem> PLANKTON = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON,
-		properties -> properties.compostable(NumberProviders.COMPOSTABLE_MEDIUM)
+		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> SPONGE_BUD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPONGE_BUD, WWBlocks.SPONGE_BUD);
 	public static final DeferredItem<BlockItem> BARNACLES = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BARNACLES, WWBlocks.BARNACLES);
@@ -433,7 +433,7 @@ public final class WWItems {
 
 	public static final DeferredItem<MilkweedPodItem> MILKWEED_POD = REGISTER.registerItem(WWItemIds.MILKWEED_POD,
 		MilkweedPodItem::new,
-		() -> new Item.Properties().compostable(WWNumberProviders.COMPOSTABLE_MILKWEED_POD)
+		() -> new Item.Properties().compostable(WWContextIntProviders.COMPOSTABLE_MILKWEED_POD)
 	);
 	public static final DeferredItem<MobBottleItem> FIREFLY_BOTTLE = REGISTER.registerItem(WWItemIds.FIREFLY_BOTTLE,
 		properties -> new MobBottleItem(
@@ -462,10 +462,10 @@ public final class WWItems {
 
 	// FOOD
 	public static final DeferredItem<Item> PEELED_PRICKLY_PEAR = REGISTER.registerSimpleItem(WWItemIds.PEELED_PRICKLY_PEAR,
-		() -> new Item.Properties().food(Foods.APPLE).compostable(NumberProviders.COMPOSTABLE_LOW_MEDIUM)
+		() -> new Item.Properties().food(Foods.APPLE).compostable(ContextIntProviders.COMPOSTABLE_LOW_MEDIUM)
 	);
 	public static final DeferredItem<Item> SPLIT_COCONUT = REGISTER.registerSimpleItem(WWItemIds.SPLIT_COCONUT,
-		() -> new Item.Properties().food(WWFoods.SPLIT_COCONUT).compostable(NumberProviders.COMPOSTABLE_MEDIUM).cookingFuel(NumberProviders.COOKING_TIME_DRY_PLANTS)
+		() -> new Item.Properties().food(WWFoods.SPLIT_COCONUT).compostable(ContextIntProviders.COMPOSTABLE_MEDIUM).cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS)
 	);
 	public static final DeferredItem<CrabClawItem> CRAB_CLAW = REGISTER.registerItem(WWItemIds.CRAB_CLAW,
 		CrabClawItem::new,

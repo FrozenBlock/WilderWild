@@ -1,7 +1,10 @@
 {
   "type": "minecraft:simple_block",
   "to_place": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:milkweed"
+    "id": "wilderwild:milkweed",
+    "properties": {
+      "age": "0",
+      "half": "lower"
+    }
   }
 }

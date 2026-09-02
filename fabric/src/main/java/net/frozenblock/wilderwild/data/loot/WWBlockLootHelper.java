@@ -32,8 +32,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public class WWBlockLootHelper {
 
@@ -44,21 +43,21 @@ public class WWBlockLootHelper {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(leavesBlock)
 								.when(lootProvider.hasShearsOrSilkTouch())
 						)
 				).withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.when(lootProvider.doesNotHaveShearsOrSilkTouch())
 						.add(
 							lootProvider.applyExplosionDecay(
 									leavesBlock,
 									LootItem.lootTableItem(Items.STICK)
 										.apply(
-											SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F))
+											SetItemCountFunction.setCount(ContextIntProviders.between(1, 2))
 										)
 								)
 								.when(BonusLevelTableCondition.bonusLevelFlatChance(enchantments.getOrThrow(Enchantments.FORTUNE), BlockLootSubProvider.NORMAL_LEAVES_STICK_CHANCES))
@@ -72,16 +71,20 @@ public class WWBlockLootHelper {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(LootItem.lootTableItem(block).when(lootProvider.hasShearsOrSilkTouch()))
 				)
 		);
 	}
 
 	public static void makeHangingFroglightLoot(BlockLootSubProvider lootProvider, Block bodyBlock, Block headBlock) {
+		/*
 		final LootTable.Builder builder = lootProvider.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock));
 		lootProvider.add(bodyBlock, builder);
 		lootProvider.add(headBlock, builder);
+		 */
+		lootProvider.add(bodyBlock, lootProvider.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock)));
+		lootProvider.add(headBlock, lootProvider.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock)));
 	}
 
 	public static void createShearsOrSilkTouchRequiredSegmentedBlockDrops(BlockLootSubProvider lootProvider, Block block) {
@@ -90,12 +93,12 @@ public class WWBlockLootHelper {
 				? LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(block)
 								.apply(
 									IntStream.rangeClosed(1, 4).boxed().toList(),
-									integer -> SetItemCountFunction.setCount(ConstantValue.exactly(integer))
+									integer -> SetItemCountFunction.setCount(ContextIntProviders.exactly(integer))
 										.when(
 											MatchBlock.blockMatches(
 												lootProvider.blocks,

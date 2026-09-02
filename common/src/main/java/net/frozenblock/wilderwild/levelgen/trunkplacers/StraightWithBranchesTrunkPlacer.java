@@ -85,7 +85,7 @@ public class StraightWithBranchesTrunkPlacer extends TrunkPlacer {
 					level,
 					trunkSetter,
 					random,
-					tree.trunkProvider(),
+					tree.trunkProvider().value(),
 					mutable.immutable(),
 					Direction.Plane.HORIZONTAL.getRandomDirection(random),
 					foliageAttachments

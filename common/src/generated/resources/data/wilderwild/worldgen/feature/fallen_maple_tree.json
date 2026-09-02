@@ -1,23 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:cannot_replace_below_tree_trunk"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "minecraft:soil_beneath_tree",
   "decorators": [
     {
       "type": "wilderwild:height_based_vine",
@@ -46,7 +29,7 @@
       "decorator": {
         "type": "minecraft:attached_to_logs",
         "block_provider": {
-          "type": "minecraft:weighted_state_provider",
+          "type": "minecraft:weighted",
           "entries": [
             {
               "data": "minecraft:brown_mushroom",
@@ -70,8 +53,7 @@
     "type": "wilderwild:no_op_foliage_placer"
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:air"
+    "id": "minecraft:air"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -93,14 +75,19 @@
     "height_rand_b": 2,
     "hollow_probability": 0.075,
     "hollow_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": "wilderwild:hollowed_maple_log"
+      "id": "wilderwild:hollowed_maple_log",
+      "properties": {
+        "axis": "y",
+        "waterlogged": "false"
+      }
     },
     "stump_probability": 0.7,
     "water_success_probability": 0.8
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:maple_log"
+    "id": "wilderwild:maple_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

@@ -21,6 +21,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public record WaterCoverFeature(
-	BlockStateProvider blockStateProvider,
+	Holder<BlockStateProvider> blockStateProvider,
 	IntProvider radius
 ) implements Feature {
 	public static final MapCodec<WaterCoverFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -71,11 +72,11 @@ public record WaterCoverFeature(
 						generatedThisRound = true;
 						if (fade) {
 							if (random.nextBoolean()) {
-								level.setBlock(diskPos, this.blockStateProvider.getState(level, random, diskPos), Block.UPDATE_CLIENTS);
+								level.setBlock(diskPos, this.blockStateProvider.value().getState(level, random, diskPos), Block.UPDATE_CLIENTS);
 								generated = true;
 							}
 						} else {
-							level.setBlock(diskPos, this.blockStateProvider.getState(level, random, diskPos), Block.UPDATE_CLIENTS);
+							level.setBlock(diskPos, this.blockStateProvider.value().getState(level, random, diskPos), Block.UPDATE_CLIENTS);
 							generated = true;
 						}
 					}
@@ -84,7 +85,7 @@ public record WaterCoverFeature(
 						diskPos.set(x, y + aY, z);
 						if (!level.getBlockState(diskPos.move(Direction.DOWN)).is(Blocks.WATER) || !level.getBlockState(diskPos.move(Direction.UP)).isAir()) continue;
 						generatedThisRound = true;
-						generated = placeBlock(level, this.blockStateProvider, random, diskPos, fade) || generated;
+						generated = placeBlock(level, this.blockStateProvider.value(), random, diskPos, fade) || generated;
 					}
 				}
 
@@ -92,7 +93,7 @@ public record WaterCoverFeature(
 					for (int aY = -3; aY < 0; aY++) {
 						diskPos.set(x, y + aY, z);
 						if (!level.getBlockState(diskPos.move(Direction.DOWN)).is(Blocks.WATER) || !level.getBlockState(diskPos.move(Direction.UP)).isAir()) continue;
-						generated = placeBlock(level, this.blockStateProvider, random, diskPos, fade) || generated;
+						generated = placeBlock(level, this.blockStateProvider.value(), random, diskPos, fade) || generated;
 					}
 				}
 			}

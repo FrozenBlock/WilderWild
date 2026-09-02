@@ -1,23 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "wilderwild:cannot_replace_below_tree_trunk_desert"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "wilderwild:soil_beneath_desert_tree",
   "decorators": [
     {
       "type": "minecraft:place_on_ground",
@@ -55,8 +38,12 @@
     }
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:palm_fronds"
+    "id": "wilderwild:palm_fronds",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
   },
   "ignore_vines": false,
   "minimum_size": {
@@ -69,7 +56,9 @@
     "height_rand_b": 2
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:palm_log"
+    "id": "wilderwild:palm_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

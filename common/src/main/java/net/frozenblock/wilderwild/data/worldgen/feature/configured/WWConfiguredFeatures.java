@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -2341,23 +2342,23 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		SEEDING_DANDELION.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.SEEDING_DANDELION.get())));
+		SEEDING_DANDELION.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.SEEDING_DANDELION.get())));
 
-		CARNATION.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.CARNATION.get())));
+		CARNATION.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.CARNATION.get())));
 
-		MARIGOLD.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MARIGOLD.get())));
+		MARIGOLD.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.MARIGOLD.get())));
 
-		PINK_TULIP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.PINK_TULIP)));
+		PINK_TULIP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.PINK_TULIP)));
 
-		ALLIUM.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.ALLIUM)));
+		ALLIUM.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.ALLIUM)));
 
-		DATURA.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.DATURA.get())));
+		DATURA.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.DATURA.get())));
 
-		ROSE_BUSH.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.ROSE_BUSH)));
+		ROSE_BUSH.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.ROSE_BUSH)));
 
-		PEONY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.PEONY)));
+		PEONY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.PEONY)));
 
-		LILAC.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.LILAC)));
+		LILAC.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.LILAC)));
 
 		FLOWER_GENERIC.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -2565,7 +2566,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		MILKWEED.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MILKWEED.get())));
+		MILKWEED.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.MILKWEED.get())));
 
 		HIBISCUS.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -2719,7 +2720,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		PALE_MUSHROOM.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM.get())));
+		PALE_MUSHROOM.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.PALE_MUSHROOM.get())));
 
 		MUSHROOMS_DARK_FOREST.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -2897,25 +2898,25 @@ public final class WWConfiguredFeatures {
 			new SimpleRandomSelectorFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						new SimpleBlockFeature(BlockStateProvider.simple(Blocks.LILAC)),
+						new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.LILAC)),
 						CountPlacement.of(9),
 						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					),
 					PlacementUtils.inlinePlaced(
-						new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MILKWEED.get())),
+						new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.MILKWEED.get())),
 						CountPlacement.of(9),
 						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					),
 					PlacementUtils.inlinePlaced(
-						new SimpleBlockFeature(BlockStateProvider.simple(Blocks.ROSE_BUSH)),
+						new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.ROSE_BUSH)),
 						CountPlacement.of(9),
 						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					),
 					PlacementUtils.inlinePlaced(
-						new SimpleBlockFeature(BlockStateProvider.simple(Blocks.PEONY)),
+						new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.PEONY)),
 						CountPlacement.of(9),
 						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
@@ -2936,9 +2937,9 @@ public final class WWConfiguredFeatures {
 		);
 
 		// VEGETATION
-		MOSS_CARPET.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.MOSS_CARPET)));
+		MOSS_CARPET.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.MOSS_CARPET)));
 
-		FROZEN_BUSH.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.FROZEN_BUSH.get())));
+		FROZEN_BUSH.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FROZEN_BUSH.get())));
 
 		TAIGA_FROZEN_GRASS.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -2951,7 +2952,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		FROZEN_GRASS.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS.get())));
+		FROZEN_GRASS.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FROZEN_SHORT_GRASS.get())));
 
 		FROZEN_LARGE_FERN.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -2975,7 +2976,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		SINGLE_PIECE_OF_FROZEN_GRASS.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.FROZEN_SHORT_GRASS.get())));
+		SINGLE_PIECE_OF_FROZEN_GRASS.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FROZEN_SHORT_GRASS.get())));
 
 		GRASS_OASIS.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -3064,10 +3065,10 @@ public final class WWConfiguredFeatures {
 		CACTUS_OASIS.makeAndSetHolder(
 			new BlockColumnFeature(
 				List.of(
-					BlockColumnFeature.layer(BiasedToBottomInt.of(3, 5), BlockStateProvider.simple(Blocks.CACTUS)),
+					BlockColumnFeature.layer(BiasedToBottomInt.of(3, 5), BlockStateProvider.holderOf(Blocks.CACTUS)),
 					BlockColumnFeature.layer(
 						new WeightedListInt(WeightedList.<IntProvider>builder().add(ConstantInt.of(0), 3).add(ConstantInt.of(1), 1).build()),
-						BlockStateProvider.simple(Blocks.CACTUS_FLOWER)
+						BlockStateProvider.holderOf(Blocks.CACTUS_FLOWER)
 					)
 				),
 				Direction.UP,
@@ -3079,10 +3080,10 @@ public final class WWConfiguredFeatures {
 		CACTUS_TALL.makeAndSetHolder(
 			new BlockColumnFeature(
 				List.of(
-					BlockColumnFeature.layer(BiasedToBottomInt.of(4, 5), BlockStateProvider.simple(Blocks.CACTUS)),
+					BlockColumnFeature.layer(BiasedToBottomInt.of(4, 5), BlockStateProvider.holderOf(Blocks.CACTUS)),
 					BlockColumnFeature.layer(
 						new WeightedListInt(WeightedList.<IntProvider>builder().add(ConstantInt.of(0), 4).add(ConstantInt.of(1), 1).build()),
-						BlockStateProvider.simple(Blocks.CACTUS_FLOWER)
+						BlockStateProvider.holderOf(Blocks.CACTUS_FLOWER)
 					)
 				),
 				Direction.UP,
@@ -3094,10 +3095,10 @@ public final class WWConfiguredFeatures {
 		CACTUS_TALL_BADLANDS.makeAndSetHolder(
 			new BlockColumnFeature(
 				List.of(
-					BlockColumnFeature.layer(BiasedToBottomInt.of(2, 6), BlockStateProvider.simple(Blocks.CACTUS)),
+					BlockColumnFeature.layer(BiasedToBottomInt.of(2, 6), BlockStateProvider.holderOf(Blocks.CACTUS)),
 					BlockColumnFeature.layer(
 						new WeightedListInt(WeightedList.<IntProvider>builder().add(ConstantInt.of(0), 4).add(ConstantInt.of(1), 1).build()),
-						BlockStateProvider.simple(Blocks.CACTUS_FLOWER)
+						BlockStateProvider.holderOf(Blocks.CACTUS_FLOWER)
 					)
 				),
 				Direction.UP,
@@ -3153,7 +3154,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		TALL_GRASS_SWAMP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(Blocks.TALL_GRASS)));
+		TALL_GRASS_SWAMP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.TALL_GRASS)));
 
 		FERN_SWAMP.makeAndSetHolder(
 			new SimpleBlockFeature(
@@ -3188,7 +3189,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		MYCELIUM_GROWTH.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.MYCELIUM_GROWTH.get())));
+		MYCELIUM_GROWTH.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.MYCELIUM_GROWTH.get())));
 
 		POLLEN.makeAndSetHolder(
 			new MultifaceGrowthFeature(
@@ -3204,16 +3205,18 @@ public final class WWConfiguredFeatures {
 
 		TERMITE_MOUND.makeAndSetHolder(
 			new ColumnWithDiskFeature(
-				BlockStateProvider.simple(WWBlocks.TERMITE_MOUND.get().defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true)),
+				BlockStateProvider.holderOf(WWBlocks.TERMITE_MOUND.get().defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true)),
 				UniformInt.of(4, 9),
 				UniformInt.of(3, 7),
 				0.75F,
 				blocks.getOrThrow(WWBlockTags.TERMITE_DISK_REPLACEABLE),
-				new WeightedStateProvider(
-					WeightedList.<BlockState>builder()
-						.add(Blocks.COARSE_DIRT.defaultBlockState(), 2)
-						.add(Blocks.PACKED_MUD.defaultBlockState(), 1)
-						.build()
+				Holder.direct(
+					new WeightedStateProvider(
+						WeightedList.<BlockState>builder()
+							.add(Blocks.COARSE_DIRT.defaultBlockState(), 2)
+							.add(Blocks.PACKED_MUD.defaultBlockState(), 1)
+							.build()
+					)
 				)
 			)
 		);

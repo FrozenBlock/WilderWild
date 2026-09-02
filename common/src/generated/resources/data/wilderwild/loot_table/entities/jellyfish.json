@@ -28,8 +28,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -45,7 +45,7 @@
                         "name": "wilderwild:blue_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -72,8 +72,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -89,7 +89,7 @@
                         "name": "wilderwild:lime_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -116,8 +116,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -133,7 +133,7 @@
                         "name": "wilderwild:pearlescent_blue_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -160,8 +160,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -177,7 +177,7 @@
                         "name": "wilderwild:pearlescent_purple_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -204,8 +204,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -221,7 +221,7 @@
                         "name": "wilderwild:pink_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -248,8 +248,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -265,7 +265,7 @@
                         "name": "wilderwild:red_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -292,8 +292,8 @@
                             "type": "minecraft:set_count",
                             "count": {
                               "type": "minecraft:uniform",
-                              "max": 3.0,
-                              "min": 0.0
+                              "max": 3,
+                              "min": 0
                             }
                           },
                           {
@@ -309,7 +309,7 @@
                         "name": "wilderwild:yellow_nematocyst"
                       }
                     ],
-                    "rolls": 1.0
+                    "rolls": 1
                   }
                 ]
               }
@@ -317,7 +317,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

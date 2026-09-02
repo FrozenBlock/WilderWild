@@ -49,8 +49,8 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
@@ -81,12 +81,12 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 				final LootTable.Builder builder = LootTable.lootTable()
 					.withPool(
 						LootPool.lootPool()
-							.setRolls(ConstantValue.exactly(1F))
-							.setBonusRolls(ConstantValue.exactly(0F))
+							.setRolls(ContextIntProviders.exactly(1))
+							.setBonusRolls(ContextFloatProviders.exactly(0))
 							.add(
 								LootItem.lootTableItem(item)
-									.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
-									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+									.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 3)))
+									.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0, 1)))
 							)
 					);
 				this.add(WWEntityTypes.JELLYFISH.get(), lootTableName, builder);
@@ -102,12 +102,12 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWItems.CRAB_CLAW)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 1)))
 								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 		);
@@ -117,11 +117,11 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.FEATHER)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 4)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 		);
@@ -131,11 +131,11 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.ROTTEN_FLESH)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 4)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 		);
@@ -145,20 +145,20 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.STRING)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWItems.SCORCHED_EYE)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 1)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
 				)
@@ -169,11 +169,11 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.STICK)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 3F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 3)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 		);
@@ -183,21 +183,21 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.LEATHER)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.BEEF)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3)))
 								.apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 		);
@@ -207,11 +207,11 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(Items.FEATHER)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 2F)))
-								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, UniformGenerator.between(0F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 				)
 		);

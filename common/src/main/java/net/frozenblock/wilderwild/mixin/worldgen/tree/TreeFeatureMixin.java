@@ -24,8 +24,11 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.TermiteMoundBlock;
+import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.WorldGenLevel;
@@ -42,7 +45,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(TreeFeature.class)
 public class TreeFeatureMixin {
-
 	@Unique
 	private static final float WILDERWILD$COCONUT_CHANCE = 0.25F;
 	@Unique
@@ -68,10 +70,15 @@ public class TreeFeatureMixin {
 		if (original.isEmpty() || !original.get()) return original;
 
 		final TreeFeature treeFeature = TreeFeature.class.cast(this);
-		if (!treeFeature.foliageProvider().equals(BlockStateProvider.simple(WWBlocks.PALM_FRONDS.get()))) return original;
+		if (!treeFeature.foliageProvider().value().equals(BlockStateProvider.of(WWBlocks.PALM_FRONDS.get()))) return original;
+
+		final Optional<Holder<BlockStateProvider>> coconutProviderHolder = level.registryAccess().lookup(Registries.BLOCK_STATE_PROVIDER)
+			.flatMap(blockStateProviders -> blockStateProviders.get(WWBlockStateProviders.COCONUT));
+		if (coconutProviderHolder.isEmpty()) return original;
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final AtomicInteger coconutCount = new AtomicInteger();
+		final BlockStateProvider coconutProvider = coconutProviderHolder.get().value();
 		Util.toShuffledList(foliage.stream(), random).forEach(pos -> {
 			final int currentCoconuts = coconutCount.get();
 			if (currentCoconuts >= WILDERWILD$MAX_COCONUTS) return;
@@ -81,9 +88,13 @@ public class TreeFeatureMixin {
 			if (state.getOptionalValue(BlockStateProperties.DISTANCE).orElse(0) > CoconutBlock.VALID_FROND_DISTANCE) return;
 			if (!level.getBlockState(mutable.setWithOffset(pos, 0, -1, 0)).isAir()) return;
 
-			level.setBlock(mutable, WWBlocks.COCONUT.get().defaultBlockState().setValue(BlockStateProperties.HANGING, true), BLOCK_UPDATE_FLAGS);
+			final BlockState optionalState = coconutProvider.getOptionalState(level, random, mutable);
+			if (optionalState == null) return;
+
+			level.setBlock(mutable, optionalState, BLOCK_UPDATE_FLAGS);
 			coconutCount.incrementAndGet();
 		});
+
 		return original;
 	}
 

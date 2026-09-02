@@ -17,8 +17,7 @@
           }
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:moss_block"
+          "id": "minecraft:moss_block"
         }
       }
     ],

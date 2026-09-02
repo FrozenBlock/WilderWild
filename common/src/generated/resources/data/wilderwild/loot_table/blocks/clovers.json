@@ -41,7 +41,7 @@
                   "flower_amount": "1"
                 }
               },
-              "count": 1.0
+              "count": 1
             },
             {
               "type": "minecraft:set_count",
@@ -52,7 +52,7 @@
                   "flower_amount": "2"
                 }
               },
-              "count": 2.0
+              "count": 2
             },
             {
               "type": "minecraft:set_count",
@@ -63,7 +63,7 @@
                   "flower_amount": "3"
                 }
               },
-              "count": 3.0
+              "count": 3
             },
             {
               "type": "minecraft:set_count",
@@ -74,13 +74,13 @@
                   "flower_amount": "4"
                 }
               },
-              "count": 4.0
+              "count": 4
             }
           ],
           "name": "wilderwild:clovers"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

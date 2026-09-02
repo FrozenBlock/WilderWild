@@ -8,7 +8,7 @@
   "extra_bottom_block_chance": 0.4,
   "extra_edge_column_chance": 0.6,
   "ground_state": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "wilderwild:fragile_ice",
@@ -27,8 +27,10 @@
     "feature": {
       "type": "frozenlib:column",
       "block_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": "wilderwild:fragile_ice"
+        "id": "wilderwild:fragile_ice",
+        "properties": {
+          "age": "0"
+        }
       },
       "direction": "down",
       "length": {

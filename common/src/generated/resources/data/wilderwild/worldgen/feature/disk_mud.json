@@ -7,10 +7,9 @@
     "min_inclusive": 2
   },
   "state_provider": {
-    "type": "minecraft:rule_based_state_provider",
+    "type": "minecraft:rule_based",
     "fallback": {
-      "type": "minecraft:simple_state_provider",
-      "state": "minecraft:mud"
+      "id": "minecraft:mud"
     },
     "rules": [
       {
@@ -40,8 +39,7 @@
           }
         },
         "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:mud"
+          "id": "minecraft:mud"
         }
       }
     ]

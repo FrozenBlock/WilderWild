@@ -5,31 +5,25 @@
     "tag": "minecraft:substrate_overworld"
   },
   "cap_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": {
-      "id": "wilderwild:pale_mushroom_block",
-      "properties": {
-        "down": "false",
-        "east": "true",
-        "north": "true",
-        "south": "true",
-        "up": "true",
-        "west": "true"
-      }
+    "id": "wilderwild:pale_mushroom_block",
+    "properties": {
+      "down": "false",
+      "east": "true",
+      "north": "true",
+      "south": "true",
+      "up": "true",
+      "west": "true"
     }
   },
   "stem_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": {
-      "id": "minecraft:mushroom_stem",
-      "properties": {
-        "down": "false",
-        "east": "true",
-        "north": "true",
-        "south": "true",
-        "up": "false",
-        "west": "true"
-      }
+    "id": "minecraft:mushroom_stem",
+    "properties": {
+      "down": "false",
+      "east": "true",
+      "north": "true",
+      "south": "true",
+      "up": "false",
+      "west": "true"
     }
   }
 }

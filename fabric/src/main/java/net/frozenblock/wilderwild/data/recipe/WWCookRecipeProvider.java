@@ -38,67 +38,37 @@ public final class WWCookRecipeProvider {
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, CookingBookCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
 			.unlockedBy("has_crab_claw", provider.has(WWItems.CRAB_CLAW))
 			.save(output);
-		cookRecipes(provider, output, "smoking", SmokingRecipe::new, 100);
-		cookRecipes(provider, output, "campfire_cooking", CampfireCookingRecipe::new, 600);
+		cookRecipes("smoking", SmokingRecipe::new, 200, provider, output);
+		cookRecipes("campfire_cooking", CampfireCookingRecipe::new, 600, provider, output);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.ACACIA_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.ACACIA_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_acacia_leaves", provider.has(Items.ACACIA_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.AZALEA_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.AZALEA_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_azalea_leaves", provider.has(Items.AZALEA_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.BAOBAB_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.BAOBAB_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_baobab_leaves", provider.has(WWItems.BAOBAB_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.BIRCH_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.BIRCH_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_birch_leaves", provider.has(Items.BIRCH_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.CHERRY_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.CHERRY_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_cherry_leaves", provider.has(Items.CHERRY_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CYPRESS_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.CYPRESS_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_cypress_leaves", provider.has(WWItems.CYPRESS_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.DARK_OAK_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.DARK_OAK_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_dark_oak_leaves", provider.has(Items.DARK_OAK_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.JUNGLE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.JUNGLE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_jungle_leaves", provider.has(Items.JUNGLE_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.MANGROVE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.MANGROVE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_mangrove_leaves", provider.has(Items.MANGROVE_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.PALE_OAK_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.PALE_OAK_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_pale_oak_leaves", provider.has(Items.PALE_OAK_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.PALM_FRONDS), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.PALM_FROND_LITTER, 0.1F, 200)
-			.unlockedBy("has_palm_fronds", provider.has(WWItems.PALM_FRONDS))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.SPRUCE_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.SPRUCE_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_spruce_leaves", provider.has(Items.SPRUCE_LEAVES))
-			.save(output);
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.WILLOW_LEAVES), RecipeCategory.MISC, CookingBookCategory.BLOCKS, WWItems.WILLOW_LEAF_LITTER, 0.1F, 200)
-			.unlockedBy("has_willow_leaves", provider.has(WWItems.WILLOW_LEAVES))
-			.save(output);
+		leafLitterSmelting(Items.ACACIA_LEAVES, WWItems.ACACIA_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.AZALEA_LEAVES, WWItems.AZALEA_LEAF_LITTER, provider, output);
+		leafLitterSmelting(WWItems.BAOBAB_LEAVES, WWItems.BAOBAB_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.BIRCH_LEAVES, WWItems.BIRCH_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.CHERRY_LEAVES, WWItems.CHERRY_LEAF_LITTER, provider, output);
+		leafLitterSmelting(WWItems.CYPRESS_LEAVES, WWItems.CYPRESS_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.DARK_OAK_LEAVES, WWItems.DARK_OAK_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.JUNGLE_LEAVES, WWItems.JUNGLE_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.MANGROVE_LEAVES, WWItems.MANGROVE_LEAF_LITTER, provider, output);
+		leafLitterSmelting(Items.PALE_OAK_LEAVES, WWItems.PALE_OAK_LEAF_LITTER, provider, output);
+		leafLitterSmelting(WWItems.PALM_FRONDS, WWItems.PALM_FROND_LITTER, provider, output);
+		leafLitterSmelting(Items.SPRUCE_LEAVES, WWItems.SPRUCE_LEAF_LITTER, provider, output);
+		leafLitterSmelting(WWItems.WILLOW_LEAVES, WWItems.WILLOW_LEAF_LITTER, provider, output);
 
 		MapleCollection.zipApply(WWItems.MAPLE_LEAF_LITTER, WWItems.MAPLE_LEAVES,
-			(leafLitter, leaves) -> {
-			SimpleCookingRecipeBuilder.smelting(Ingredient.of(leaves), RecipeCategory.MISC, CookingBookCategory.BLOCKS, leafLitter, 0.1F, 200)
-				.unlockedBy(RecipeProvider.getHasName(leaves), provider.has(leaves))
-				.save(output);
-			}
+			(leafLitter, leaves) -> leafLitterSmelting(leaves, leafLitter, provider, output)
 		);
 	}
 
 	private static <T extends AbstractCookingRecipe> void cookRecipes(
-		RecipeProvider provider, RecipeOutput exporter, String source, AbstractCookingRecipe.Factory<T> factory, int cookingTime
+		String source, AbstractCookingRecipe.Factory<T> factory, int cookingTime, RecipeProvider provider, RecipeOutput output
 	) {
-		simpleCookingRecipe(provider, exporter, source, factory, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
+		simpleCookingRecipe(provider, output, source, factory, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
 	}
 
 	private static <T extends AbstractCookingRecipe> void simpleCookingRecipe(
 		RecipeProvider provider,
-		RecipeOutput exporter,
+		RecipeOutput output,
 		String source,
 		AbstractCookingRecipe.Factory<T> factory,
 		int cookingTime,
@@ -108,6 +78,12 @@ public final class WWCookRecipeProvider {
 	) {
 		SimpleCookingRecipeBuilder.generic(Ingredient.of(base), RecipeCategory.FOOD, CookingBookCategory.FOOD, result, experience, cookingTime, factory)
 			.unlockedBy(RecipeProvider.getHasName(base), provider.has(base))
-			.save(exporter, WWConstants.string(RecipeProvider.getItemName(result) + "_from_" + source));
+			.save(output, WWConstants.string(RecipeProvider.getItemName(result) + "_from_" + source));
+	}
+
+	private static void leafLitterSmelting(ItemLike leafBlock, ItemLike leafLitter, RecipeProvider provider, RecipeOutput output) {
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(leafBlock), RecipeCategory.MISC, CookingBookCategory.BLOCKS, leafLitter, 0.1F, 200)
+			.unlockedBy(RecipeProvider.getHasName(leafBlock), provider.has(leafBlock))
+			.save(output);
 	}
 }

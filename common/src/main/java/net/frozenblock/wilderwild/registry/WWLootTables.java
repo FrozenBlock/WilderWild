@@ -51,10 +51,9 @@ import net.minecraft.world.level.storage.loot.entries.UniformContainerBase;
 import net.minecraft.world.level.storage.loot.functions.ExplorationMapFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import java.util.List;
 
 public final class WWLootTables {
@@ -76,7 +75,7 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.ALGAE.get().asItem())
 							.setWeight(4)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 3F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 3)))
 					);
 					modified = true;
 				}
@@ -86,7 +85,7 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.PLANKTON.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 4)))
 					);
 					modified = true;
 				}
@@ -96,7 +95,7 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.BARNACLES.get().asItem())
 							.setWeight(3)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 4F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 4)))
 					);
 					modified = true;
 				}
@@ -106,7 +105,7 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.TUBE_WORMS.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.UNCOMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 2)))
 					);
 					modified = true;
 				}
@@ -116,7 +115,7 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.SEA_ANEMONE.get().asItem())
 							.setWeight(2)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(2F, 6F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 6)))
 					);
 					modified = true;
 				}
@@ -126,28 +125,28 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_BLOCK.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 2)))
 					);
 
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.AUBURN_MOSS_CARPET.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 2)))
 					);
 
 					pool.add(
 						LootItem.lootTableItem(WWBlocks.AUBURN_CREEPING_MOSS.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 2F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 2)))
 					);
 
 					modified = true;
 				}
 
 				if (modified) {
-					pool.setRolls(UniformGenerator.between(2F, 5F));
+					pool.setRolls(ContextIntProviders.between(2, 5));
 					tableBuilder.withPool(pool);
 				}
 			}
@@ -161,12 +160,12 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWItems.BAOBAB_NUT)
 							.setWeight(2)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 1)))
 					).add(
 						LootItem.lootTableItem(WWBlocks.BAOBAB_LOG.get().asItem())
 							.setWeight(2)
 							.setQuality(Rarity.COMMON.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 1)))
 					);
 				});
 			}
@@ -181,12 +180,12 @@ public final class WWLootTables {
 							LootItem.lootTableItem(WWItems.COCONUT)
 								.setWeight(2)
 								.setQuality(Rarity.COMMON.ordinal() + 1)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 1)))
 						).add(
 							LootItem.lootTableItem(WWBlocks.PALM_LOG.get().asItem())
 								.setWeight(2)
 								.setQuality(Rarity.COMMON.ordinal() + 1)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(-1F, 1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(-1, 1)))
 						);
 					});
 				}
@@ -197,7 +196,7 @@ public final class WWLootTables {
 							LootItem.lootTableItem(WWItems.PRICKLY_PEAR)
 								.setWeight(1)
 								.setQuality(Rarity.COMMON.ordinal() + 1)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(0F, 4F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 4)))
 						);
 					});
 				}
@@ -208,14 +207,15 @@ public final class WWLootTables {
 		// TODO: test to make sure this works properly, even with datapacks
 		LootTableModification.editTable(BuiltInLootTables.ABANDONED_CAMP_COMMON_CHEST, false, (id, table, registries) -> {
 			table.modifyPools(
-				pool -> pool.hasItem(Items.ABANDONED_CAMPSITE_MAP),
+				pool -> pool.hasItem(Items.ABANDONED_CAMP_MAP),
 				pool -> {
 					final HolderLookup.RegistryLookup<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
 					final HolderLookup.RegistryLookup<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
 
-					final UniformContainerBase.Builder<?> mapleForestAbandonedCampsiteMap = LootItem.lootTableItem(Items.ABANDONED_CAMPSITE_MAP)
+					final UniformContainerBase.Builder<?> mapleForestAbandonedCampsiteMap = LootItem.lootTableItem(Items.ABANDONED_CAMP_MAP)
 						.setWeight(1)
-						.apply(SetNameFunction.setName(Component.translatable("filled_map.maple_forest_abandoned_camp"), SetNameFunction.Target.ITEM_NAME))
+						// TODO: new translation key
+						.apply(SetNameFunction.setName(Component.translatable("filled_map.maple_forest_camp_map"), SetNameFunction.Target.ITEM_NAME))
 						.apply(
 							ExplorationMapFunction.makeExplorationMap(structures.getOrThrow(WWStructureTags.ON_ABANDONED_CAMP_MAPLE_FOREST_MAPS))
 								.setMapDecoration(MapDecorationTypes.ABANDONED_CAMP)
@@ -243,7 +243,7 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.OSSEOUS_SCULK.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 5F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 5)))
 					);
 				}
 				if (WWBlockConfig.TENDRIL_GENERATION.get()) {
@@ -251,11 +251,11 @@ public final class WWLootTables {
 						LootItem.lootTableItem(WWBlocks.HANGING_TENDRIL.get().asItem())
 							.setWeight(1)
 							.setQuality(Rarity.RARE.ordinal() + 1)
-							.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3)))
 					);
 				}
 
-				pool.setRolls(UniformGenerator.between(1, 5));
+				pool.setRolls(ContextIntProviders.between(1, 5));
 				tableBuilder.withPool(pool);
 			}
 		});

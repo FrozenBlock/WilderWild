@@ -1,23 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "wilderwild:cannot_replace_below_tree_trunk_waterloggable"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "wilderwild:soil_beneath_waterloggable_tree",
   "decorators": [
     {
       "type": "frozenlib:probability",
@@ -57,8 +40,12 @@
     }
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:cypress_leaves"
+    "id": "wilderwild:cypress_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -74,7 +61,9 @@
     "height_rand_b": 1
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:cypress_log"
+    "id": "wilderwild:cypress_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

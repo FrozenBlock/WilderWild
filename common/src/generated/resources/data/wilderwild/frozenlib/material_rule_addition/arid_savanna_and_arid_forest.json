@@ -1,0 +1,184 @@
+{
+  "dimensions": "#frozenlib:overworld",
+  "rule": {
+    "type": "minecraft:sequence",
+    "sequence": [
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "wilderwild:arid_savanna",
+            "wilderwild:arid_forest"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:sequence",
+          "sequence": [
+            {
+              "type": "minecraft:condition",
+              "if_true": "minecraft:on_floor",
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:noise_threshold",
+                  "max_threshold": 0.3666,
+                  "min_threshold": 0.155,
+                  "noise": "minecraft:surface"
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": "minecraft:on_ceiling",
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": "minecraft:dirt"
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": "minecraft:grass_block"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:noise_threshold",
+                "max_threshold": 0.3666,
+                "min_threshold": 0.155,
+                "noise": "minecraft:surface"
+              },
+              "then_run": {
+                "type": "minecraft:sequence",
+                "sequence": [
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": "minecraft:under_floor",
+                    "then_run": {
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": "minecraft:on_ceiling",
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": "minecraft:dirt"
+                          }
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": "minecraft:dirt"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": "minecraft:deep_under_floor",
+                    "then_run": {
+                      "type": "minecraft:block",
+                      "result_state": "minecraft:dirt"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "wilderwild:arid_savanna",
+            "wilderwild:arid_forest"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:sequence",
+          "sequence": [
+            {
+              "type": "minecraft:condition",
+              "if_true": "minecraft:on_floor",
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:water",
+                  "add_stone_depth": false,
+                  "offset": -1,
+                  "surface_depth_multiplier": 0
+                },
+                "then_run": {
+                  "type": "minecraft:sequence",
+                  "sequence": [
+                    {
+                      "type": "minecraft:condition",
+                      "if_true": "minecraft:on_ceiling",
+                      "then_run": {
+                        "type": "minecraft:block",
+                        "result_state": "minecraft:sandstone"
+                      }
+                    },
+                    {
+                      "type": "minecraft:block",
+                      "result_state": "minecraft:sand"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:water",
+                "add_stone_depth": true,
+                "offset": -6,
+                "surface_depth_multiplier": -1
+              },
+              "then_run": {
+                "type": "minecraft:sequence",
+                "sequence": [
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": "minecraft:under_floor",
+                    "then_run": {
+                      "type": "minecraft:sequence",
+                      "sequence": [
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": "minecraft:on_ceiling",
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": "minecraft:sandstone"
+                          }
+                        },
+                        {
+                          "type": "minecraft:block",
+                          "result_state": "minecraft:sand"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "minecraft:condition",
+                    "if_true": "minecraft:very_deep_under_floor",
+                    "then_run": {
+                      "type": "minecraft:block",
+                      "result_state": "minecraft:sandstone"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

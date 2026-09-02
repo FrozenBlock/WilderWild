@@ -31,8 +31,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
@@ -55,10 +54,10 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWItems.MILKWEED_POD)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 3F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3)))
 						)
 				)
 		);
@@ -68,10 +67,10 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWItems.PRICKLY_PEAR)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(1F, 2F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
 						)
 				)
 		);
@@ -81,10 +80,10 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWBlocks.SPONGE_BUD.get().asItem())
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
 						)
 				)
 		);
@@ -94,10 +93,10 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
-						.setRolls(ConstantValue.exactly(1F))
+						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWBlocks.SHRUB.get().asItem())
-								.apply(SetItemCountFunction.setCount(ConstantValue.exactly(1F)))
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
 						)
 				)
 		);

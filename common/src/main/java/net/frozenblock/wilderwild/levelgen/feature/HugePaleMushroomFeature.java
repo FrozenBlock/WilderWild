@@ -21,6 +21,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -30,8 +31,8 @@ import net.minecraft.world.level.levelgen.feature.AbstractHugeMushroomFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public record HugePaleMushroomFeature(
-	BlockStateProvider capProvider,
-	BlockStateProvider stemProvider,
+	Holder<BlockStateProvider> capProvider,
+	Holder<BlockStateProvider> stemProvider,
 	int foliageRadius,
 	BlockPredicate canPlaceOn
 ) implements AbstractHugeMushroomFeature {
@@ -77,7 +78,7 @@ public record HugePaleMushroomFeature(
 					blockPos.setWithOffset(origin, x, y, z);
 					if (level.getBlockState(blockPos).isSolidRender()) continue;
 
-					BlockState state = this.capProvider.getState(level, random, origin);
+					BlockState state = this.capProvider.value().getState(level, random, origin);
 					if (state.hasProperty(HugeMushroomBlock.WEST)
 						&& state.hasProperty(HugeMushroomBlock.EAST)
 						&& state.hasProperty(HugeMushroomBlock.NORTH)

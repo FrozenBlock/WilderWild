@@ -62,7 +62,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 			poseStack.pushPose();
 			poseStack.translate(0.5F, renderState.isHanging ? 0.25F : 0.125F, 0.5F);
 			poseStack.scale(0.7F, 0.7F, 0.7F);
-			poseStack.mulPose(Axis.YP.rotation(renderState.age / 20F));
+			poseStack.rotate(Axis.YP.rotation(renderState.age / 20F));
 
 			renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 

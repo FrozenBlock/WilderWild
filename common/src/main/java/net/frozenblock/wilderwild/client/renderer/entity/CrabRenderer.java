@@ -56,7 +56,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	@Override
 	protected void setupRotations(CrabRenderState renderState, PoseStack poseStack, float bodyRot, float entityScale) {
 		poseStack.translate(0F, 0.17F * renderState.ageScale, 0F);
-		poseStack.mulPose(Axis.YP.rotationDegrees(-90F));
+		poseStack.rotate(Axis.YP.rotationDegrees(-90F));
 		super.setupRotations(renderState, poseStack, bodyRot, entityScale);
 	}
 

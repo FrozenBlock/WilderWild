@@ -47,8 +47,8 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	}
 
 	@Override
-	protected AABB getBoundingBoxForCulling(FlowerCow flowerCow) {
-		final AABB boundingBox = super.getBoundingBoxForCulling(flowerCow);
+	protected AABB getBoundingBoxForCulling(FlowerCow flowerCow, float partialTicks) {
+		final AABB boundingBox = super.getBoundingBoxForCulling(flowerCow, partialTicks);
 		if (flowerCow.getVariantForRendering().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
 		return boundingBox;
 	}

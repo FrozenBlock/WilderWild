@@ -154,8 +154,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, scale);
 		poseStack.translate(xOffset, yOffset, zOffset);
-		poseStack.mulPose(rotation);
-		poseStack.mulPose(QUAT_180);
+		poseStack.rotate(rotation);
+		poseStack.rotate(QUAT_180);
 	}
 
 	//CREDIT TO magistermaks ON GITHUB!!

@@ -1,16 +1,14 @@
 {
   "type": "minecraft:tree",
   "below_trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:crimson_nylium"
+    "id": "minecraft:crimson_nylium"
   },
   "decorators": [],
   "foliage_placer": {
     "type": "wilderwild:no_op_foliage_placer"
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:air"
+    "id": "minecraft:air"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -23,14 +21,19 @@
     "height_rand_b": 1,
     "hollow_probability": 0.1,
     "hollow_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": "wilderwild:hollowed_crimson_stem"
+      "id": "wilderwild:hollowed_crimson_stem",
+      "properties": {
+        "axis": "y",
+        "waterlogged": "false"
+      }
     },
     "stump_probability": 0.6,
     "water_success_probability": 0.8
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:crimson_stem"
+    "id": "minecraft:crimson_stem",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

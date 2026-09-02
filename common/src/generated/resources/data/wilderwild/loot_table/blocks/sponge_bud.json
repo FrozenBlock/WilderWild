@@ -15,7 +15,7 @@
                   "age": "0"
                 }
               },
-              "count": 1.0
+              "count": 1
             },
             {
               "type": "minecraft:set_count",
@@ -26,7 +26,7 @@
                   "age": "1"
                 }
               },
-              "count": 2.0
+              "count": 2
             },
             {
               "type": "minecraft:set_count",
@@ -37,7 +37,7 @@
                   "age": "2"
                 }
               },
-              "count": 3.0
+              "count": 3
             },
             {
               "type": "minecraft:explosion_decay"
@@ -46,7 +46,7 @@
           "name": "wilderwild:sponge_bud"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

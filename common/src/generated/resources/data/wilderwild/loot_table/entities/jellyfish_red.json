@@ -10,8 +10,8 @@
               "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 0.0
+                "max": 3,
+                "min": 0
               }
             },
             {
@@ -27,7 +27,7 @@
           "name": "wilderwild:red_nematocyst"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

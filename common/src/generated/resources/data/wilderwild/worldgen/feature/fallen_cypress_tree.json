@@ -1,23 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "wilderwild:cannot_replace_below_tree_trunk_waterloggable"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "wilderwild:soil_beneath_waterloggable_tree",
   "decorators": [
     {
       "type": "wilderwild:height_based_vine",
@@ -30,8 +13,7 @@
       "decorator": {
         "type": "minecraft:attached_to_logs",
         "block_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:moss_carpet"
+          "id": "minecraft:moss_carpet"
         },
         "directions": [
           "up"
@@ -59,8 +41,7 @@
     {
       "type": "minecraft:attached_to_logs",
       "block_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:brown_mushroom"
+        "id": "minecraft:brown_mushroom"
       },
       "directions": [
         "up"
@@ -72,8 +53,7 @@
     "type": "wilderwild:no_op_foliage_placer"
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:air"
+    "id": "minecraft:air"
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -95,14 +75,18 @@
     "height_rand_b": 2,
     "hollow_probability": 0.125,
     "hollow_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": "wilderwild:cypress_log"
+      "id": "wilderwild:cypress_log",
+      "properties": {
+        "axis": "y"
+      }
     },
     "stump_probability": 0.7,
     "water_success_probability": 0.8
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:cypress_log"
+    "id": "wilderwild:cypress_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

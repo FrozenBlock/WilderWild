@@ -31,6 +31,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.biome.impl.WWGrassColorModifier;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -163,7 +164,7 @@ public final class Tundra extends FrozenLibBiome {
 
 	@Override
 	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
-		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
+		builder.set(EnvironmentAttributes.SKY_COLOR, ARGB.vector3fFromRGB24(SKY_COLOR));
 	}
 
 	@Override

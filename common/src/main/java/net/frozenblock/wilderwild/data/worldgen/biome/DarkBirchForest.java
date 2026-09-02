@@ -31,6 +31,7 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -104,7 +105,7 @@ public final class DarkBirchForest extends FrozenLibBiome {
 
 	@Override
 	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
-		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
+		builder.set(EnvironmentAttributes.SKY_COLOR, ARGB.vector3fFromRGB24(SKY_COLOR));
 		builder.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_FOREST));
 		builder.set(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true);
 	}

@@ -40,7 +40,7 @@
               },
               "modifier": {
                 "type": "minecraft:set_count",
-                "count": 2.0
+                "count": 2
               },
               "name": "wilderwild:frozen_short_grass"
             },
@@ -63,7 +63,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -104,7 +104,7 @@
               },
               "modifier": {
                 "type": "minecraft:set_count",
-                "count": 2.0
+                "count": 2
               },
               "name": "wilderwild:frozen_short_grass"
             },
@@ -127,7 +127,7 @@
           ]
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

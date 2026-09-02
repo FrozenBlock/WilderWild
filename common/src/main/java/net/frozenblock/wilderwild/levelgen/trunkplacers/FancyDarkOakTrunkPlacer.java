@@ -122,7 +122,7 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 						level,
 						trunkSetter,
 						random,
-						tree.trunkProvider(),
+						tree.trunkProvider().value(),
 						branchPos,
 						branchDirection,
 						attachments

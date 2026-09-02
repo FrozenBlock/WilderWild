@@ -17,8 +17,7 @@
         }
       },
       "state_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "wilderwild:gabbro"
+        "id": "wilderwild:gabbro"
       }
     },
     "placement_chance": 0.9,
@@ -34,8 +33,7 @@
       }
     },
     "state_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": "wilderwild:gabbro"
+      "id": "wilderwild:gabbro"
     }
   },
   "placement_radius": {

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:simple_block",
   "to_place": {
-    "type": "minecraft:noise_provider",
+    "type": "minecraft:noise",
     "noise": {
       "amplitude_modifiers": [
         1.0

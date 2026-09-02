@@ -1,8 +1,14 @@
 {
   "type": "frozenlib:column",
   "block_state": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:geothermal_vent"
+    "id": "wilderwild:geothermal_vent",
+    "properties": {
+      "facing": "up",
+      "natural": "true",
+      "powered": "false",
+      "vent_state": "dormant",
+      "vent_type": "none"
+    }
   },
   "direction": "up",
   "length": {

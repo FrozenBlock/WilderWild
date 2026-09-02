@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.modifier.FloatModifier;
@@ -101,8 +102,8 @@ public final class MesogleaCaves extends FrozenLibBiome {
 
 	@Override
 	public void fillEnvironmentAttributes(EnvironmentAttributeMap.Builder builder) {
-		builder.set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
-		builder.set(EnvironmentAttributes.WATER_FOG_COLOR, WATER_FOG_COLOR);
+		builder.set(EnvironmentAttributes.SKY_COLOR, ARGB.vector3fFromRGB24(SKY_COLOR));
+		builder.set(EnvironmentAttributes.WATER_FOG_COLOR, ARGB.vector3fFromRGB24(WATER_FOG_COLOR));
 		builder.modify(EnvironmentAttributes.WATER_FOG_END_DISTANCE, FloatModifier.MULTIPLY, 0.85F);
 		builder.set(EnvironmentAttributes.INCREASED_FIRE_BURNOUT, true);
 	}

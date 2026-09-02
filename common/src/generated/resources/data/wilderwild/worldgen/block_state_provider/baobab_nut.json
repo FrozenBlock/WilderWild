@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:randomized_int",
+  "property": "age",
+  "source": {
+    "id": "wilderwild:baobab_nut",
+    "properties": {
+      "age": "0",
+      "hanging": "true",
+      "stage": "0"
+    }
+  },
+  "values": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 2,
+    "min_inclusive": 0
+  }
+}

@@ -203,7 +203,7 @@ public class FlowerCowFlowerLayer extends RenderLayer<FlowerCowRenderState, CowM
 
 	private static void preparePose(PoseStack poseStack, float xOffset, float yOffset, float zOffset, float rotation) {
 		poseStack.translate(xOffset, yOffset, zOffset);
-		if (rotation != 0F) poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
+		if (rotation != 0F) poseStack.rotate(Axis.YP.rotationDegrees(rotation));
 		poseStack.scale(-FLOWER_SCALE, -FLOWER_SCALE, FLOWER_SCALE);
 		poseStack.translate(-0.5F, -FLOWER_SCALE, -0.5F);
 	}

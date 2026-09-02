@@ -1,7 +1,9 @@
 {
   "type": "minecraft:simple_block",
   "to_place": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:fragile_ice"
+    "id": "wilderwild:fragile_ice",
+    "properties": {
+      "age": "0"
+    }
   }
 }

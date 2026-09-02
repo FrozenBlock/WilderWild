@@ -1,17 +1,14 @@
 {
   "type": "frozenlib:column_with_disk",
   "block_state": {
-    "type": "minecraft:simple_state_provider",
-    "state": {
-      "id": "wilderwild:termite_mound",
-      "properties": {
-        "natural": "true",
-        "termites_awake": "false"
-      }
+    "id": "wilderwild:termite_mound",
+    "properties": {
+      "natural": "true",
+      "termites_awake": "false"
     }
   },
   "disk_block_state": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "minecraft:coarse_dirt",

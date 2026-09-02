@@ -41,6 +41,7 @@ import net.frozenblock.wilderwild.levelgen.feature.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -154,7 +155,7 @@ public final class WWCaveConfigured {
 		STONE_POOL.makeAndSetHolder(
 			new CircularWaterloggedVegetationPatchLessBordersFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.STONE),
+				BlockStateProvider.holderOf(Blocks.STONE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),
@@ -168,7 +169,7 @@ public final class WWCaveConfigured {
 
 		BLUE_MESOGLEA_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get())
@@ -181,7 +182,7 @@ public final class WWCaveConfigured {
 
 		PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get())
@@ -194,7 +195,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_BLUE_MESOGLEA_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get())
@@ -207,7 +208,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_PURPLE_MESOGLEA_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get())
@@ -225,12 +226,12 @@ public final class WWCaveConfigured {
 					.calculateNoiseWithY()
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()))
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_REPLACEABLE))
 							.within(0.5125D, 0.5875D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()))
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_REPLACEABLE))
 							.within(-0.5875D, -0.5125D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
@@ -245,7 +246,7 @@ public final class WWCaveConfigured {
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 10),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				UniformFloat.of(0.2F, 0.75F),
 				0.15F,
 				UniformFloat.of(0.1F, 0.25F),
@@ -261,7 +262,7 @@ public final class WWCaveConfigured {
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 10),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				UniformFloat.of(0.2F, 0.75F),
 				0.15F,
 				UniformFloat.of(0.1F, 0.25F),
@@ -275,7 +276,7 @@ public final class WWCaveConfigured {
 		DOWNWARD_BLUE_MESOGLEA.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
 				DOWNWARDS_BLUE_MESOGLEA_COLUMN.asInlinePlaced(),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -290,7 +291,7 @@ public final class WWCaveConfigured {
 		DOWNWARD_PURPLE_MESOGLEA.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
 				DOWNWARDS_PURPLE_MESOGLEA_COLUMN.asInlinePlaced(),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -332,7 +333,7 @@ public final class WWCaveConfigured {
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 19),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get().defaultBlockState()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get().defaultBlockState()),
 				UniformFloat.of(0.2F, 2F),
 				0.33F,
 				UniformFloat.of(0.1F, 0.9F),
@@ -348,7 +349,7 @@ public final class WWCaveConfigured {
 				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 19),
-				BlockStateProvider.simple(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get().defaultBlockState()),
+				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get().defaultBlockState()),
 				UniformFloat.of(0.2F, 2F),
 				0.33F,
 				UniformFloat.of(0.1F, 0.9F),
@@ -363,7 +364,7 @@ public final class WWCaveConfigured {
 		GABBRO_LAVA_POOL.makeAndSetHolder(
 			new CircularLavaVegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
-				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
+				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 				LAVA_POOL_MAGMA_COLUMN.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),
@@ -377,7 +378,7 @@ public final class WWCaveConfigured {
 
 		LAVA_POOL_MAGMA_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
+				BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
 				BlockPredicate.matchesFluids(Fluids.LAVA),
 				UniformInt.of(1, 8),
 				Direction.UP,
@@ -392,7 +393,7 @@ public final class WWCaveConfigured {
 					.calculateNoiseWithY()
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(Blocks.MAGMA_BLOCK))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK))
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.26D, -0.16D)
 							.searchingPredicate(
@@ -408,7 +409,7 @@ public final class WWCaveConfigured {
 							)
 							.scheduleTickOnPlacement()
 							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.46D, -0.005D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
@@ -420,7 +421,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_MAGMA_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK),
+				BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(Blocks.MAGMA_BLOCK)
@@ -441,13 +442,13 @@ public final class WWCaveConfigured {
 
 		GABBRO_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 					.placementChance(0.9F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 							.placementChance(0.75F)
 							.outerRingStartPercentage(0.75F)
 							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.BASE_STONE_OVERWORLD))
@@ -461,7 +462,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_GABBRO_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
+				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get())
@@ -474,7 +475,7 @@ public final class WWCaveConfigured {
 
 		GABBRO_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.GABBRO.get()),
+				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 				BlockPredicate.anyOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get())
@@ -488,15 +489,15 @@ public final class WWCaveConfigured {
 		GABBRO_PILE.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
-					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.simple(WWBlocks.GABBRO.get()))),
+					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))),
 					PlacementUtils.inlinePlaced(
 						new BallFeature(
-							new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
+							new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 								.placementChance(0.9F)
 								.fadeStartPercentage(0.675F)
 								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
 								.outerRingBlockPlacement(
-									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.GABBRO.get()))
+									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 										.placementChance(0.75F)
 										.outerRingStartPercentage(0.75F)
 										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
@@ -511,7 +512,7 @@ public final class WWCaveConfigured {
 		);
 
 		final Function<Direction, SimpleBlockFeature> geothermalVentFeature = direction -> new SimpleBlockFeature(
-			BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, direction))
+			BlockStateProvider.holderOf(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, direction))
 		);
 		GEOTHERMAL_VENT_UP.makeAndSetHolder(geothermalVentFeature.apply(Direction.UP));
 		GEOTHERMAL_VENT_DOWN.makeAndSetHolder(geothermalVentFeature.apply(Direction.DOWN));
@@ -522,7 +523,7 @@ public final class WWCaveConfigured {
 
 		DOWNWARDS_GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)),
+				BlockStateProvider.holderOf(WWBlocks.GEOTHERMAL_VENT.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN)),
 				BlockPredicate.replaceable(),
 				UniformInt.of(2, 4),
 				Direction.DOWN,
@@ -532,7 +533,7 @@ public final class WWCaveConfigured {
 
 		GEOTHERMAL_VENT_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.GEOTHERMAL_VENT.get()),
+				BlockStateProvider.holderOf(WWBlocks.GEOTHERMAL_VENT.get()),
 				BlockPredicate.replaceable(),
 				UniformInt.of(3, 5),
 				Direction.UP,
@@ -543,7 +544,7 @@ public final class WWCaveConfigured {
 		UPSIDE_DOWN_MAGMA.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.MAGMA_BLOCK.defaultBlockState()),
+				BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK.defaultBlockState()),
 				DOWNWARDS_MAGMA_COLUMN.asInlinePlaced(),
 				CaveSurface.CEILING,
 				ConstantInt.of(3),
@@ -643,13 +644,13 @@ public final class WWCaveConfigured {
 
 		FRAGILE_ICE_DISK.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
 					.placementChance(0.8F)
 					.fadeStartPercentage(0.675F)
 					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
 					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
 							.placementChance(0.7F)
 							.outerRingStartPercentage(0.5F)
 							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
@@ -666,7 +667,7 @@ public final class WWCaveConfigured {
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 9),
 							Direction.UP,
@@ -678,7 +679,7 @@ public final class WWCaveConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
 							Direction.UP,
@@ -698,7 +699,7 @@ public final class WWCaveConfigured {
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 6),
 							Direction.DOWN,
@@ -709,7 +710,7 @@ public final class WWCaveConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
 							Direction.DOWN,
@@ -729,7 +730,7 @@ public final class WWCaveConfigured {
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 9),
 							Direction.UP,
@@ -740,7 +741,7 @@ public final class WWCaveConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(Blocks.PACKED_ICE),
+							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
 							Direction.UP,
@@ -760,7 +761,7 @@ public final class WWCaveConfigured {
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 9),
 							Direction.UP,
@@ -771,7 +772,7 @@ public final class WWCaveConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
 							Direction.UP,
@@ -791,7 +792,7 @@ public final class WWCaveConfigured {
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 7),
 							Direction.UP,
@@ -802,7 +803,7 @@ public final class WWCaveConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
 							Direction.UP,
@@ -819,7 +820,7 @@ public final class WWCaveConfigured {
 
 		SMALL_FRAGILE_ICE_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
-				BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 				BlockPredicate.replaceable(),
 				UniformInt.of(0, 4),
 				Direction.UP,
@@ -832,7 +833,7 @@ public final class WWCaveConfigured {
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(2, 6),
 							Direction.DOWN,
@@ -843,7 +844,7 @@ public final class WWCaveConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						new ColumnFeature(
-							BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 							BlockPredicate.replaceable(),
 							UniformInt.of(0, 4),
 							Direction.DOWN,
@@ -857,7 +858,7 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_PILE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get())));
+		FRAGILE_ICE_PILE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get())));
 
 		HANGING_ICE.makeAndSetHolder(
 			new RandomSelectorFeature(
@@ -880,7 +881,7 @@ public final class WWCaveConfigured {
 		HANGING_PACKED_ICE.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.PACKED_ICE),
+				BlockStateProvider.holderOf(Blocks.PACKED_ICE),
 				HANGING_ICE.asInlinePlaced(),
 				CaveSurface.CEILING,
 				UniformInt.of(2, 3),
@@ -895,14 +896,16 @@ public final class WWCaveConfigured {
 		ICE_PATCH_CEILING.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				new WeightedStateProvider(WeightedList.<BlockState>builder()
-					.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 8)
-					.add(Blocks.PACKED_ICE.defaultBlockState(), 3)
-					.build()
+				Holder.direct(
+					new WeightedStateProvider(WeightedList.<BlockState>builder()
+						.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 8)
+						.add(Blocks.PACKED_ICE.defaultBlockState(), 3)
+						.build()
+					)
 				),
 				PlacementUtils.inlinePlaced(
 					new ColumnFeature(
-						BlockStateProvider.simple(WWBlocks.FRAGILE_ICE.get()),
+						BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 						BlockPredicate.replaceable(),
 						UniformInt.of(0, 4),
 						Direction.DOWN,
@@ -922,10 +925,12 @@ public final class WWCaveConfigured {
 		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				new WeightedStateProvider(WeightedList.<BlockState>builder()
-					.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
-					.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
-					.build()
+				Holder.direct(
+					new WeightedStateProvider(WeightedList.<BlockState>builder()
+						.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
+						.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
+						.build()
+					)
 				),
 				ICE_COLUMNS.asInlinePlaced(),
 				CaveSurface.FLOOR,
@@ -941,10 +946,12 @@ public final class WWCaveConfigured {
 		FRAGILE_ICE_PATCH.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				new WeightedStateProvider(WeightedList.<BlockState>builder()
-					.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
-					.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
-					.build()
+				Holder.direct(
+					new WeightedStateProvider(WeightedList.<BlockState>builder()
+						.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
+						.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
+						.build()
+					)
 				),
 				SMALL_FRAGILE_ICE_COLUMN.asInlinePlaced(),
 				CaveSurface.FLOOR,
@@ -960,7 +967,7 @@ public final class WWCaveConfigured {
 		DIORITE_PATCH.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.DIORITE_ICE_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.DIORITE),
+				BlockStateProvider.holderOf(Blocks.DIORITE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),
 				CaveSurface.FLOOR,
 				UniformInt.of(2, 3),
@@ -975,7 +982,7 @@ public final class WWCaveConfigured {
 		DIORITE_PATCH_CEILING.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.DIORITE_ICE_REPLACEABLE),
-				BlockStateProvider.simple(Blocks.DIORITE),
+				BlockStateProvider.holderOf(Blocks.DIORITE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),
 				CaveSurface.CEILING,
 				UniformInt.of(2, 3),

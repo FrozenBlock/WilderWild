@@ -108,7 +108,7 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 				if (!branchPlacement.canPlaceBranch(random)) continue;
 				if (containsNearbyBranchWithSameDirection(branchTrunkPos, direction, 2, branches)) continue;
 
-				branchPlacement.generateExtraBranch(level, replacer, random, tree.trunkProvider(), branchTrunkPos, direction, foliageAttachments);
+				branchPlacement.generateExtraBranch(level, replacer, random, tree.trunkProvider().value(), branchTrunkPos, direction, foliageAttachments);
 
 				final List<Direction> branchDirections = branches.computeIfAbsent(branchTrunkPos, pos -> new ArrayList<>());
 				branchDirections.add(direction);

@@ -6,7 +6,6 @@
     "min_inclusive": 2
   },
   "state": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:algae"
+    "id": "wilderwild:algae"
   }
 }

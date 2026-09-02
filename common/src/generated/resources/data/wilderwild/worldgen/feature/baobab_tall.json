@@ -1,46 +1,10 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:cannot_replace_below_tree_trunk"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "minecraft:soil_beneath_tree",
   "decorators": [
     {
       "type": "minecraft:attached_to_leaves",
-      "block_provider": {
-        "type": "minecraft:randomized_int_state_provider",
-        "property": "age",
-        "source": {
-          "type": "minecraft:simple_state_provider",
-          "state": {
-            "id": "wilderwild:baobab_nut",
-            "properties": {
-              "age": "0",
-              "hanging": "true",
-              "stage": "0"
-            }
-          }
-        },
-        "values": {
-          "type": "minecraft:uniform",
-          "max_inclusive": 2,
-          "min_inclusive": 0
-        }
-      },
+      "block_provider": "wilderwild:baobab_nut",
       "directions": [
         "down"
       ],
@@ -56,8 +20,12 @@
     "radius": 2
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:baobab_leaves"
+    "id": "wilderwild:baobab_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
   },
   "ignore_vines": true,
   "minimum_size": {
@@ -70,12 +38,16 @@
     "height_rand_a": 4,
     "height_rand_b": 2,
     "inner_state": {
-      "type": "minecraft:simple_state_provider",
-      "state": "wilderwild:stripped_baobab_log"
+      "id": "wilderwild:stripped_baobab_log",
+      "properties": {
+        "axis": "y"
+      }
     }
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:baobab_log"
+    "id": "wilderwild:baobab_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

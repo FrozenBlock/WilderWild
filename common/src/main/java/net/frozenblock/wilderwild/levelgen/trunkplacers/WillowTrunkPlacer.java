@@ -106,7 +106,7 @@ public class WillowTrunkPlacer extends TrunkPlacer {
 						level,
 						trunkSetter,
 						random,
-						tree.trunkProvider(),
+						tree.trunkProvider().value(),
 						branchMutable.immutable(),
 						branchDirection,
 						attachments

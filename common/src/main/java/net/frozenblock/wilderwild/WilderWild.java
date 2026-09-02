@@ -13,6 +13,7 @@ import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
+import net.frozenblock.wilderwild.registry.WWBlockTransformers;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -70,6 +71,7 @@ public final class WilderWild {
 		WWWorldgen.init();
 		WWStructureProcessorTypes.init();
 		WWStructureModifications.init();
+		WWBlockTransformers.init();
 
 		WWWindDisturbances.init();
 		WWWindManagerExtension.init();

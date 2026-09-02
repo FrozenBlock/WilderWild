@@ -13,8 +13,10 @@
         "type": "minecraft:true"
       },
       "state_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "wilderwild:scorched_sand"
+        "id": "wilderwild:scorched_sand",
+        "properties": {
+          "dusted": "0"
+        }
       }
     },
     "placement_chance": 0.95,
@@ -26,8 +28,10 @@
       "type": "minecraft:true"
     },
     "state_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": "wilderwild:scorched_sand"
+      "id": "wilderwild:scorched_sand",
+      "properties": {
+        "dusted": "0"
+      }
     }
   },
   "heightmap": "OCEAN_FLOOR",

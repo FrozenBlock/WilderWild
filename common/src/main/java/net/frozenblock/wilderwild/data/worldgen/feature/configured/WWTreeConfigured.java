@@ -62,12 +62,15 @@ import net.frozenblock.wilderwild.levelgen.trunkplacers.SnappedTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.StraightWithBranchesTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.WillowTrunkPlacer;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
+import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BlockStateProviders;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
@@ -131,10 +134,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlac
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 
 public final class WWTreeConfigured {
-	public static final BlockPredicate CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE = BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE));
-	public static final RuleBasedStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE = RuleBasedStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_WATERLOGGABLE, Blocks.DIRT);
-	public static final BlockPredicate CAN_PLACE_BELOW_TRUNKS_DESERT = BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT));
-	public static final RuleBasedStateProvider PLACE_BELOW_OVERWORLD_TRUNKS_DESERT = RuleBasedStateProvider.ifTrueThenProvide(CAN_PLACE_BELOW_TRUNKS_DESERT, Blocks.DIRT);
 	// BIRCH
 	public static final FrozenLibTreeFeature BIRCH_TREE = registerBirch("birch_tree");
 	public static final FrozenLibTreeFeature BIRCH_BEES_0004 = registerBirch("birch_bees_0004");
@@ -340,7 +339,11 @@ public final class WWTreeConfigured {
 		WWConstants.logWithModId("Registering WWTreeConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 		final HolderGetter<Biome> biomes = entries.lookup(Registries.BIOME);
-		final BlockStateProvider defaultPlaceBelowTreeTrunkProvider = TreeFeature.defaultPlaceBelowTreeTrunkProvider(biomes);
+		final HolderGetter<BlockStateProvider> blockStateProviders = entries.lookup(Registries.BLOCK_STATE_PROVIDER);
+
+		final Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
+		final Holder<BlockStateProvider> belowWaterloggableTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_WATERLOGGABLE_TREE);
+		final Holder<BlockStateProvider> belowDesertTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_DESERT_TREE);
 
 		// DECORATOR
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfMushroom009 = entry -> shelfMushroom(0.09F, 0.25F, entry);
@@ -394,120 +397,120 @@ public final class WWTreeConfigured {
 
 		// BIRCH
 		BIRCH_TREE.makeAndSetHolders(
-			birch(defaultPlaceBelowTreeTrunkProvider)
+			birch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION))).build()
 		);
 
 		BIRCH_BEES_0004.makeAndSetHolders(
-			birch(defaultPlaceBelowTreeTrunkProvider)
+			birch(belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		BIRCH_BEES_025.makeAndSetHolders(
-			birch(defaultPlaceBelowTreeTrunkProvider)
+			birch(belowTrunkProvider)
 				.decorators(List.of(bees025, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), pollen025))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_BIRCH.makeAndSetHolders(
-			birch(defaultPlaceBelowTreeTrunkProvider)
+			birch(belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		SUPER_BIRCH_BEES_0004.makeAndSetHolders(
-			superBirch(defaultPlaceBelowTreeTrunkProvider)
+			superBirch(belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), pollen01))
 				.build()
 		);
 
 		DYING_SUPER_BIRCH.makeAndSetHolders(
-			superBirch(defaultPlaceBelowTreeTrunkProvider)
+			superBirch(belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		SHORT_BIRCH_BEES_0004.makeAndSetHolders(
-			shortBirch(defaultPlaceBelowTreeTrunkProvider)
+			shortBirch(belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		SHORT_BIRCH.makeAndSetHolders(
-			shortBirch(defaultPlaceBelowTreeTrunkProvider)
+			shortBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_SHORT_BIRCH.makeAndSetHolders(
-			shortBirch(defaultPlaceBelowTreeTrunkProvider)
+			shortBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH_BEES_0004.makeAndSetHolders(
-			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
+			mediumBirch(belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH_BEES_025.makeAndSetHolders(
-			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
+			mediumBirch(belowTrunkProvider)
 				.decorators(List.of(bees025, shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH.makeAndSetHolders(
-			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
+			mediumBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_MEDIUM_BIRCH.makeAndSetHolders(
-			mediumBirch(defaultPlaceBelowTreeTrunkProvider)
+			mediumBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		SUPER_BIRCH_BEES.makeAndSetHolders(
-			superBirch(defaultPlaceBelowTreeTrunkProvider)
+			superBirch(belowTrunkProvider)
 				.decorators(List.of(bees, pollen, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		SUPER_BIRCH.makeAndSetHolders(
-			superBirch(defaultPlaceBelowTreeTrunkProvider)
+			superBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		DEAD_BIRCH.makeAndSetHolders(
-			deadBirch(defaultPlaceBelowTreeTrunkProvider)
+			deadBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		DEAD_MEDIUM_BIRCH.makeAndSetHolders(
-			deadMediumBirch(defaultPlaceBelowTreeTrunkProvider)
+			deadMediumBirch(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		FALLEN_BIRCH_TREE.makeAndSetHolder(
-			fallenBirch(defaultPlaceBelowTreeTrunkProvider)
+			fallenBirch(belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossBirch, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), mushroomsFallenBirch))
 				.build()
 		);
@@ -523,57 +526,57 @@ public final class WWTreeConfigured {
 				UniformInt.of(1, 2),
 				1F,
 				0.7F,
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(vines08Under260075, mossMossy, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyBirch))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_BIRCH.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.BIRCH_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.BIRCH_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossBirch, shelfMushroom009.apply(WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION), mushroomsFallenBirch))
 				.build()
 		);
 
 		// CHERRY
 		CHERRY_TREE.makeAndSetHolder(
-			cherry(defaultPlaceBelowTreeTrunkProvider)
+			cherry(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		DYING_CHERRY_TREE.makeAndSetHolder(
-			cherry(defaultPlaceBelowTreeTrunkProvider)
+			cherry(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 				.build()
 		);
 
 		TALL_CHERRY_TREE.makeAndSetHolder(
-			tallCherry(defaultPlaceBelowTreeTrunkProvider)
+			tallCherry(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		TALL_DYING_CHERRY_TREE.makeAndSetHolder(
-			tallCherry(defaultPlaceBelowTreeTrunkProvider)
+			tallCherry(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 				.build()
 		);
 
 		CHERRY_BEES_025.makeAndSetHolder(
-			cherry(defaultPlaceBelowTreeTrunkProvider)
+			cherry(belowTrunkProvider)
 				.decorators(List.of(bees025, pollen01, shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		TALL_CHERRY_BEES_025.makeAndSetHolder(
-			tallCherry(defaultPlaceBelowTreeTrunkProvider)
+			tallCherry(belowTrunkProvider)
 				.decorators(List.of(bees025, pollen01, shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FALLEN_CHERRY_TREE.makeAndSetHolder(
-			fallenCherry(defaultPlaceBelowTreeTrunkProvider)
+			fallenCherry(belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossCherry, shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), mushroomsFallenCherry))
 				.build()
 		);
@@ -589,14 +592,14 @@ public final class WWTreeConfigured {
 				UniformInt.of(1, 2),
 				0.075F,
 				0.5F,
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(vines08Under260075, mossMossy, shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyCherry))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_CHERRY_TREE.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.CHERRY_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.CHERRY_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossCherry, shelfMushroom00975.apply(WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION), mushroomsFallenCherry))
 				.build()
 		);
@@ -604,7 +607,7 @@ public final class WWTreeConfigured {
 		// MAPLE
 		MapleCollection.zipApply(MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				maple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				maple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
 					.build()
 			);
@@ -612,7 +615,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(DYING_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				maple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				maple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 					.build()
 			);
@@ -620,7 +623,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(TALL_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				tallMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				tallMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
 					.build()
 			);
@@ -628,7 +631,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(TALL_DYING_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				tallMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				tallMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION), vines1Under26003))
 					.build()
 			);
@@ -636,7 +639,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				maple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				maple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(bees0004, pollen01, shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
 					.build()
 			);
@@ -644,7 +647,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(TALL_MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				tallMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				tallMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(bees0004, pollen01, shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
 					.build()
 			);
@@ -652,7 +655,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(SHORT_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				shortMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				shortMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
 					.build()
 			);
@@ -660,7 +663,7 @@ public final class WWTreeConfigured {
 
 		MapleCollection.zipApply(FULL_MAPLE_TREE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
-				fullMaple(leaves.get(), defaultPlaceBelowTreeTrunkProvider)
+				fullMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION)))
 					.build()
 			);
@@ -669,24 +672,24 @@ public final class WWTreeConfigured {
 		MapleCollection.zipApply(BIG_SHRUB_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolder(
 				new TreeFeature.Builder(
-					BlockStateProvider.simple(WWBlocks.MAPLE_LOG.get()),
+					BlockStateProvider.of(WWBlocks.MAPLE_LOG.get()),
 					new StraightTrunkPlacer(1, 0, 0),
-					BlockStateProvider.simple(leaves.get()),
+					BlockStateProvider.of(leaves.get()),
 					new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
 					new TwoLayersFeatureSize(0, 0, 0),
-					defaultPlaceBelowTreeTrunkProvider
+					belowTrunkProvider
 				).build()
 			);
 		});
 
 		FALLEN_MAPLE_TREE.makeAndSetHolder(
-			fallenMaple(defaultPlaceBelowTreeTrunkProvider)
+			fallenMaple(belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenMaple))
 				.build()
 		);
 
 		SNAPPED_MAPLE_TREE.makeAndSetHolder(
-			snappedTrunkBuilder(WWBlocks.MAPLE_LOG.get(), 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(WWBlocks.MAPLE_LOG.get(), 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, shelfMushroom0074.apply(WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenMaple))
 				.build()
 		);
@@ -696,7 +699,7 @@ public final class WWTreeConfigured {
 
 		PoplarCollection.zipApply(POPLAR_TREE, poplarLeaves, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				poplar(leaves, defaultPlaceBelowTreeTrunkProvider)
+				poplar(leaves, belowTrunkProvider)
 					.decorators(List.of(shelfMushroomPoplar))
 					.build()
 			);
@@ -704,7 +707,7 @@ public final class WWTreeConfigured {
 
 		PoplarCollection.zipApply(DYING_POPLAR_TREE, poplarLeaves, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				poplar(leaves, defaultPlaceBelowTreeTrunkProvider)
+				poplar(leaves, belowTrunkProvider)
 					.decorators(List.of(shelfMushroomPoplar, vines1Under26003))
 					.build()
 			);
@@ -712,7 +715,7 @@ public final class WWTreeConfigured {
 
 		PoplarCollection.zipApply(TALL_POPLAR_TREE, poplarLeaves, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				tallPoplar(leaves, defaultPlaceBelowTreeTrunkProvider)
+				tallPoplar(leaves, belowTrunkProvider)
 					.decorators(List.of(shelfMushroomPoplar))
 					.build()
 			);
@@ -720,7 +723,7 @@ public final class WWTreeConfigured {
 
 		PoplarCollection.zipApply(TALL_DYING_POPLAR_TREE, poplarLeaves, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				tallPoplar(leaves, defaultPlaceBelowTreeTrunkProvider)
+				tallPoplar(leaves, belowTrunkProvider)
 					.decorators(List.of(shelfMushroomPoplar, vines1Under26003))
 					.build()
 			);
@@ -728,7 +731,7 @@ public final class WWTreeConfigured {
 
 		PoplarCollection.zipApply(POPLAR_BEES_0002, poplarLeaves, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				poplar(leaves, defaultPlaceBelowTreeTrunkProvider)
+				poplar(leaves, belowTrunkProvider)
 					.decorators(List.of(bees0002, pollen01, shelfMushroomPoplar))
 					.build()
 			);
@@ -736,138 +739,138 @@ public final class WWTreeConfigured {
 
 		PoplarCollection.zipApply(TALL_POPLAR_BEES_0002, poplarLeaves, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				tallPoplar(leaves, defaultPlaceBelowTreeTrunkProvider)
+				tallPoplar(leaves, belowTrunkProvider)
 					.decorators(List.of(bees0002, pollen01, shelfMushroomPoplar))
 					.build()
 			);
 		});
 
 		FALLEN_POPLAR_TREE.makeAndSetHolder(
-			fallenPoplar(defaultPlaceBelowTreeTrunkProvider)
+			fallenPoplar(belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, shelfMushroomPoplar, mushroomsFallenPoplar))
 				.build()
 		);
 
 		SNAPPED_POPLAR_TREE.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.POPLAR_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.POPLAR_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, shelfMushroomPoplar, mushroomsFallenPoplar))
 				.build()
 		);
 
 		// OAK
 		OAK.makeAndSetHolders(
-			oak(defaultPlaceBelowTreeTrunkProvider)
+			oak(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		OAK_NO_FUNGI.makeAndSetHolders(
-			oak(defaultPlaceBelowTreeTrunkProvider)
+			oak(belowTrunkProvider)
 				.build()
 		);
 
 		SHORT_OAK.makeAndSetHolders(
-			shortOak(defaultPlaceBelowTreeTrunkProvider)
+			shortOak(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		OAK_BEES_0004.makeAndSetHolders(
-			oak(defaultPlaceBelowTreeTrunkProvider)
+			oak(belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_OAK.makeAndSetHolders(
-			oak(defaultPlaceBelowTreeTrunkProvider)
+			oak(belowTrunkProvider)
 				.decorators(List.of(vines1Under26003, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_OAK.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FANCY_DYING_OAK.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FANCY_DYING_OAK_BEES_0004.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(bees0004, vines1Under26005, pollen01, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FANCY_OAK_BEES_0004.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(bees0004, pollen01, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FANCY_DYING_OAK_BEES_025.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(bees025, vines1Under26005, pollen01, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FANCY_OAK_BEES_025.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(bees025, pollen01, shelfMushroom0054.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		FANCY_OAK_BEES.makeAndSetHolders(
-			fancyOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyOak(belowTrunkProvider)
 				.decorators(List.of(bees, pollen, shelfMushroom0074.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		OLD_FANCY_DYING_OAK_BEES_0004.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.OAK_LOG),
+				BlockStateProvider.of(Blocks.OAK_LOG),
 				new FancyTrunkPlacer(5, 12, 0),
-				BlockStateProvider.simple(Blocks.OAK_LEAVES),
+				BlockStateProvider.of(Blocks.OAK_LEAVES),
 				new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
 				new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(bees0004, vines1Under26005, pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_DEAD_OAK.makeAndSetHolders(
-			fancyDeadOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyDeadOak(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), vines012Under260))
 				.build()
 		);
 
 		FANCY_SEMI_DEAD_OAK.makeAndSetHolders(
-			fancySemiDeadOak(blocks, defaultPlaceBelowTreeTrunkProvider)
+			fancySemiDeadOak(blocks, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), vines012Under260))
 				.build()
 		);
 
 		SMALL_FANCY_SEMI_DEAD_OAK.makeAndSetHolders(
-			smallFancySemiDeadOak(blocks, defaultPlaceBelowTreeTrunkProvider)
+			smallFancySemiDeadOak(blocks, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), vines012Under260))
 				.build()
 		);
 
 		SMALL_FANCY_DEAD_OAK.makeAndSetHolders(
-			smallFancySemiDeadOak(blocks, defaultPlaceBelowTreeTrunkProvider)
+			smallFancySemiDeadOak(blocks, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), vines012Under260))
 				.build()
 		);
 
 		DEAD_OAK.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.OAK_LOG),
+				BlockStateProvider.of(Blocks.OAK_LOG),
 				new StraightWithBranchesTrunkPlacer(
 					6,
 					2,
@@ -879,17 +882,17 @@ public final class WWTreeConfigured {
 						.branchLength(ConstantInt.of(1))
 						.build()
 				),
-				BlockStateProvider.simple(Blocks.AIR),
+				BlockStateProvider.of(Blocks.AIR),
 				NoOpFoliagePlacer.INSTANCE,
 				new TwoLayersFeatureSize(1, 0, 1),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(new LeaveVineDecorator(0.1F), shelfMushroom003.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), vines012Under260))
 				.build()
 		);
 
 		DEAD_OAK_BRANCHES.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.OAK_LOG),
+				BlockStateProvider.of(Blocks.OAK_LOG),
 				new StraightWithBranchesTrunkPlacer(
 					7,
 					2,
@@ -901,22 +904,22 @@ public final class WWTreeConfigured {
 						.branchLength(UniformInt.of(1, 2))
 						.build()
 				),
-				BlockStateProvider.simple(Blocks.AIR),
+				BlockStateProvider.of(Blocks.AIR),
 				NoOpFoliagePlacer.INSTANCE,
 				new TwoLayersFeatureSize(1, 0, 1),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(new LeaveVineDecorator(0.1F), shelfMushroom0074.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), vines012Under260))
 				.build()
 		);
 
 		FALLEN_OAK_TREE.makeAndSetHolder(
-			fallenOak(defaultPlaceBelowTreeTrunkProvider)
+			fallenOak(belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossOak, mushroomsFallenOak))
 				.build()
 		);
 
 		FALLEN_OAK_TREE_NO_MOSS.makeAndSetHolder(
-			fallenOak(defaultPlaceBelowTreeTrunkProvider)
+			fallenOak(belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mushroomsFallenOak))
 				.build()
 		);
@@ -932,14 +935,14 @@ public final class WWTreeConfigured {
 				UniformInt.of(1, 2),
 				0.075F,
 				0.4F,
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(vines08Under260075, mossMossy, shelfMushroom0074.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyOak))
 				.ignoreVines()
 				.build()
 		);
 
 		SNAPPED_OAK.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.OAK_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.OAK_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossOak, shelfMushroom009.apply(WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenOak))
 				.build()
 		);
@@ -947,12 +950,12 @@ public final class WWTreeConfigured {
 		// DARK OAK
 		DARK_OAK.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
+				BlockStateProvider.of(Blocks.DARK_OAK_LOG),
 				new DarkOakTrunkPlacer(6, 2, 1),
-				BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
+				BlockStateProvider.of(Blocks.DARK_OAK_LEAVES),
 				new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
@@ -960,139 +963,139 @@ public final class WWTreeConfigured {
 
 		DYING_DARK_OAK.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.DARK_OAK_LOG),
+				BlockStateProvider.of(Blocks.DARK_OAK_LOG),
 				new DarkOakTrunkPlacer(6, 2, 1),
-				BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),
+				BlockStateProvider.of(Blocks.DARK_OAK_LEAVES),
 				new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(vines1Under26005, shelfMushroom0074.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		TALL_DARK_OAK.makeAndSetHolders(
-			tallDarkOak(defaultPlaceBelowTreeTrunkProvider)
+			tallDarkOak(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_TALL_DARK_OAK.makeAndSetHolders(
-			fancyTallDarkOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyTallDarkOak(belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_TALL_DARK_OAK.makeAndSetHolders(
-			tallDarkOak(defaultPlaceBelowTreeTrunkProvider)
+			tallDarkOak(belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom009.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		FANCY_DYING_TALL_DARK_OAK.makeAndSetHolders(
-			fancyTallDarkOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyTallDarkOak(belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom009.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 		COBWEB_TALL_DARK_OAK.makeAndSetHolders(
-			tallDarkOak(defaultPlaceBelowTreeTrunkProvider)
+			tallDarkOak(belowTrunkProvider)
 				.decorators(List.of(cobweb1Under260017, shelfMushroom003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolders(
-			fancyTallDarkOak(defaultPlaceBelowTreeTrunkProvider)
+			fancyTallDarkOak(belowTrunkProvider)
 				.decorators(List.of(cobweb1Under260017, shelfMushroom003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		LARGE_FALLEN_DARK_OAK.makeAndSetHolder(
-			largeFallenBuilder(Blocks.DARK_OAK_LOG, 4, 2, 1, defaultPlaceBelowTreeTrunkProvider)
+			largeFallenBuilder(Blocks.DARK_OAK_LOG, 4, 2, 1, belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, mossJungleDarkOak, shelfMushroom009.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenDarkOak))
 				.build()
 		);
 
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(
-			largeSnappedTrunkBuilder(Blocks.DARK_OAK_LOG, 1, 1, 1, 2, defaultPlaceBelowTreeTrunkProvider)
+			largeSnappedTrunkBuilder(Blocks.DARK_OAK_LOG, 1, 1, 1, 2, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossOak, shelfMushroom003.apply(WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenDarkOak))
 				.build()
 		);
 
 		// PALE OAK
 		PALE_OAK.makeAndSetHolder(
-			paleOak(true, false, false, true, defaultPlaceBelowTreeTrunkProvider).build()
+			paleOak(true, false, false, true, belowTrunkProvider).build()
 		);
 
 		PALE_OAK_BONEMEAL.makeAndSetHolder(
-			paleOak(false, false, false, false, defaultPlaceBelowTreeTrunkProvider).build()
+			paleOak(false, false, false, false, belowTrunkProvider).build()
 		);
 
 		PALE_OAK_CREAKING.makeAndSetHolder(
-			paleOak(true, true, false, true, defaultPlaceBelowTreeTrunkProvider).build()
+			paleOak(true, true, false, true, belowTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK.makeAndSetHolder(
-			tallPaleOak(true, false, false, true, defaultPlaceBelowTreeTrunkProvider).build()
+			tallPaleOak(true, false, false, true, belowTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(
-			tallPaleOak(false, false, false, false, defaultPlaceBelowTreeTrunkProvider).build()
+			tallPaleOak(false, false, false, false, belowTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			tallPaleOak(true, true, false, true, defaultPlaceBelowTreeTrunkProvider).build()
+			tallPaleOak(true, true, false, true, belowTrunkProvider).build()
 		);
 
 		FANCY_TALL_PALE_OAK.makeAndSetHolder(
-			fancyPaleOak(true, false, false, true, defaultPlaceBelowTreeTrunkProvider).build()
+			fancyPaleOak(true, false, false, true, belowTrunkProvider).build()
 		);
 
 		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(
-			fancyPaleOak(false, false, false, false, defaultPlaceBelowTreeTrunkProvider).build()
+			fancyPaleOak(false, false, false, false, belowTrunkProvider).build()
 		);
 
 		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			fancyPaleOak(true, true, false, true, defaultPlaceBelowTreeTrunkProvider).build()
+			fancyPaleOak(true, true, false, true, belowTrunkProvider).build()
 		);
 
 		COBWEB_TALL_PALE_OAK.makeAndSetHolder(
-			tallPaleOak(true, false, true, true, defaultPlaceBelowTreeTrunkProvider).build()
+			tallPaleOak(true, false, true, true, belowTrunkProvider).build()
 		);
 
 		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			tallPaleOak(true, true, true, true, defaultPlaceBelowTreeTrunkProvider).build()
+			tallPaleOak(true, true, true, true, belowTrunkProvider).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(
-			fancyPaleOak(true, false, true, true, defaultPlaceBelowTreeTrunkProvider).build()
+			fancyPaleOak(true, false, true, true, belowTrunkProvider).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(
-			fancyPaleOak(true, true, true, true, defaultPlaceBelowTreeTrunkProvider).build()
+			fancyPaleOak(true, true, true, true, belowTrunkProvider).build()
 		);
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(
-			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, defaultPlaceBelowTreeTrunkProvider)
+			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, belowTrunkProvider)
 				.decorators(List.of(mossPaleOak, shelfMushroom00875.apply(WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenPaleOak))
 				.build()
 		);
 
 		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(
-			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, defaultPlaceBelowTreeTrunkProvider)
+			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, belowTrunkProvider)
 				.decorators(List.of(mossPaleOak, shelfMushroom00875.apply(WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION), mushroomsFallenPaleOak))
 				.build()
 		);
 
 		HUGE_PALE_MUSHROOM.makeAndSetHolder(
 			new HugePaleMushroomFeature(
-				BlockStateProvider.simple(WWBlocks.PALE_MUSHROOM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)),
-				BlockStateProvider.simple(Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)),
+				BlockStateProvider.holderOf(WWBlocks.PALE_MUSHROOM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, false)),
+				BlockStateProvider.holderOf(Blocks.MUSHROOM_STEM.defaultBlockState().setValue(HugeMushroomBlock.UP, false).setValue(HugeMushroomBlock.DOWN, false)),
 				2,
 				BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)
 			)
@@ -1100,28 +1103,28 @@ public final class WWTreeConfigured {
 
 		// SWAMP TREE
 		WILLOW.makeAndSetHolders(
-			willow(5, 2, 1, blocks)
+			willow(5, 2, 1, blocks, belowWaterloggableTrunkProvider)
 				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfMushroom009.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		WILLOW_TALL.makeAndSetHolders(
-			willow(7, 2, 2, blocks)
+			willow(7, 2, 2, blocks, belowWaterloggableTrunkProvider)
 				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfMushroom009.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		WILLOW_TALLER.makeAndSetHolders(
-			willow(9, 2, 2, blocks)
+			willow(9, 2, 2, blocks, belowWaterloggableTrunkProvider)
 				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfMushroom009.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
 		);
 
 		SWAMP_OAK.makeAndSetHolders(
-			oak(defaultPlaceBelowTreeTrunkProvider)
+			oak(belowTrunkProvider)
 				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfMushroom009.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
@@ -1138,7 +1141,8 @@ public final class WWTreeConfigured {
 				UniformInt.of(1, 3),
 				1F,
 				0.075F,
-				0.75F
+				0.75F,
+				belowWaterloggableTrunkProvider
 			).decorators(List.of(vines08Under260075, mossMossy, shelfMushroom0074.apply(WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION), mushroomsFallenMossyWillow))
 				.ignoreVines()
 				.build()
@@ -1147,12 +1151,12 @@ public final class WWTreeConfigured {
 		// SPRUCE
 		SPRUCE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new StraightTrunkPlacer(8, 4, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(2, 3)),
 				new TwoLayersFeatureSize(2, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
@@ -1160,24 +1164,24 @@ public final class WWTreeConfigured {
 
 		SPRUCE_SHORT.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new StraightTrunkPlacer(3, 1, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new SpruceFoliagePlacer(UniformInt.of(1, 2), UniformInt.of(0, 2), UniformInt.of(2, 3)),
 				new TwoLayersFeatureSize(2, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).ignoreVines()
 				.build()
 		);
 
 		FUNGUS_PINE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new StraightTrunkPlacer(6, 4, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
 				new TwoLayersFeatureSize(2, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
@@ -1185,76 +1189,74 @@ public final class WWTreeConfigured {
 
 		DYING_FUNGUS_PINE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new StraightTrunkPlacer(6, 4, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
 				new TwoLayersFeatureSize(2, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), vines1Under26005))
 				.ignoreVines()
 				.build()
 		);
 
-		final AlterGroundDecorator podzolGroundDecorator = new AlterGroundDecorator(
-			RuleBasedStateProvider.ifTrueThenProvide(BlockPredicate.matchesTag(BlockTags.BENEATH_TREE_PODZOL_REPLACEABLE), Blocks.PODZOL)
-		);
+		final AlterGroundDecorator podzolGroundDecorator = new AlterGroundDecorator(blockStateProviders.getOrThrow(BlockStateProviders.PODZOL_BENEATH_TREE));
 		MEGA_FUNGUS_SPRUCE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new GiantTrunkPlacer(13, 2, 14),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(13, 17)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(podzolGroundDecorator, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		MEGA_FUNGUS_PINE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new GiantTrunkPlacer(13, 2, 14),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(3, 7)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(podzolGroundDecorator, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		DYING_MEGA_FUNGUS_PINE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new GiantTrunkPlacer(13, 2, 14),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(3, 7)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(podzolGroundDecorator, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), vines1Under260075))
 				.build()
 		);
 
 		SHORT_MEGA_SPRUCE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new GiantTrunkPlacer(12, 2, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
 
 		SHORT_MEGA_FUNGUS_SPRUCE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new GiantTrunkPlacer(12, 2, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(
 				List.of(
 					shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION),
@@ -1265,12 +1267,12 @@ public final class WWTreeConfigured {
 
 		SHORT_MEGA_DYING_FUNGUS_SPRUCE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
 				new GiantTrunkPlacer(12, 2, 2),
-				BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(
 				List.of(
 					shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION),
@@ -1282,17 +1284,17 @@ public final class WWTreeConfigured {
 
 		SHORT_MEGA_DYING_SPRUCE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.SPRUCE_LOG),
-				new GiantTrunkPlacer(12, 2, 2), BlockStateProvider.simple(Blocks.SPRUCE_LEAVES),
+				BlockStateProvider.of(Blocks.SPRUCE_LOG),
+				new GiantTrunkPlacer(12, 2, 2), BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
 				new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(11, 14)),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), vines1Under260075))
 				.build()
 		);
 
 		FALLEN_SPRUCE_TREE.makeAndSetHolder(
-			fallenSpruce(defaultPlaceBelowTreeTrunkProvider)
+			fallenSpruce(belowTrunkProvider)
 				.decorators(List.of(vines1Under260075, mossSprucePalm, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
@@ -1308,38 +1310,38 @@ public final class WWTreeConfigured {
 				UniformInt.of(1, 2),
 				0.075F,
 				0.6F,
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(vines08Under260075, mossMossy, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.ignoreVines()
 				.build()
 		);
 
 		CLEAN_FALLEN_SPRUCE_TREE.makeAndSetHolder(
-			fallenSpruce(defaultPlaceBelowTreeTrunkProvider)
+			fallenSpruce(belowTrunkProvider)
 				.decorators(List.of(mushroomsFallenSpruce))
 				.build()
 		);
 
 		CLEAN_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(
-			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, defaultPlaceBelowTreeTrunkProvider)
+			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, belowTrunkProvider)
 				.decorators(List.of(mushroomsFallenSpruce))
 				.build()
 		);
 
 		DECORATED_LARGE_FALLEN_SPRUCE_TREE.makeAndSetHolder(
-			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, defaultPlaceBelowTreeTrunkProvider)
+			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossSprucePalm, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
 
 		SNAPPED_SPRUCE.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossSprucePalm, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
 
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(
-			largeSnappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 2, 1, 2, defaultPlaceBelowTreeTrunkProvider)
+			largeSnappedTrunkBuilder(Blocks.SPRUCE_LOG, 2, 2, 1, 2, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossSprucePalm, shelfMushroom0074.apply(WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION), mushroomsFallenSpruce))
 				.build()
 		);
@@ -1349,22 +1351,18 @@ public final class WWTreeConfigured {
 			0.0875F,
 			1,
 			0,
-			new RandomizedIntStateProvider(
-				BlockStateProvider.simple(WWBlocks.BAOBAB_NUT.get().defaultBlockState().setValue(BlockStateProperties.HANGING, true)),
-				BaobabNutBlock.AGE,
-				UniformInt.of(0, 2)
-			),
+			blockStateProviders.getOrThrow(WWBlockStateProviders.BAOBAB_NUT),
 			2,
 			List.of(Direction.DOWN)
 		);
 		BAOBAB.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.BAOBAB_LOG.get()),
-				new BaobabTrunkPlacer(13, 3, 2, BlockStateProvider.simple(WWBlocks.STRIPPED_BAOBAB_LOG.get())),
-				BlockStateProvider.simple(WWBlocks.BAOBAB_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.BAOBAB_LOG.get()),
+				new BaobabTrunkPlacer(13, 3, 2, BlockStateProvider.holderOf(WWBlocks.STRIPPED_BAOBAB_LOG.get())),
+				BlockStateProvider.of(WWBlocks.BAOBAB_LEAVES.get()),
 				new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
 				new TwoLayersFeatureSize(1, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(baobabNutDecorator))
 				.ignoreVines()
 				.build()
@@ -1372,12 +1370,12 @@ public final class WWTreeConfigured {
 
 		BAOBAB_TALL.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.BAOBAB_LOG.get()),
-				new BaobabTrunkPlacer(16, 4, 2, BlockStateProvider.simple(WWBlocks.STRIPPED_BAOBAB_LOG.get())),
-				BlockStateProvider.simple(WWBlocks.BAOBAB_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.BAOBAB_LOG.get()),
+				new BaobabTrunkPlacer(16, 4, 2, BlockStateProvider.holderOf(WWBlocks.STRIPPED_BAOBAB_LOG.get())),
+				BlockStateProvider.of(WWBlocks.BAOBAB_LEAVES.get()),
 				new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
 				new TwoLayersFeatureSize(1, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(baobabNutDecorator))
 				.ignoreVines()
 				.build()
@@ -1386,12 +1384,12 @@ public final class WWTreeConfigured {
 		// CYPRESS
 		CYPRESS.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LOG.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LOG.get()),
 				new StraightTrunkPlacer(6, 2, 3),
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LEAVES.get()),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2),
-				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+				belowWaterloggableTrunkProvider
 			).decorators(List.of(vines012Under76))
 				.ignoreVines()
 				.build()
@@ -1399,12 +1397,12 @@ public final class WWTreeConfigured {
 
 		FUNGUS_CYPRESS.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LOG.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LOG.get()),
 				new StraightTrunkPlacer(8, 4, 3),
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LEAVES.get()),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)),
 				new TwoLayersFeatureSize(2, 1, 2),
-				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+				belowWaterloggableTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), vines008Under82))
 				.ignoreVines()
 				.build()
@@ -1412,12 +1410,12 @@ public final class WWTreeConfigured {
 
 		SHORT_CYPRESS.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LOG.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LOG.get()),
 				new StraightTrunkPlacer(3, 2, 3),
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LEAVES.get()),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(4, 6)),
 				new TwoLayersFeatureSize(2, 1, 2),
-				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+				belowWaterloggableTrunkProvider
 			).decorators(List.of(vines012Under76))
 				.ignoreVines()
 				.build()
@@ -1425,12 +1423,12 @@ public final class WWTreeConfigured {
 
 		SHORT_FUNGUS_CYPRESS.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LOG.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LOG.get()),
 				new StraightTrunkPlacer(4, 3, 1),
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LEAVES.get()),
 				new SpruceFoliagePlacer(ConstantInt.of(1), UniformInt.of(1, 3), UniformInt.of(6, 8)),
 				new TwoLayersFeatureSize(2, 1, 2),
-				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+				belowWaterloggableTrunkProvider
 			).decorators(List.of(shelfMushroom0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), vines008Under82))
 				.ignoreVines()
 				.build()
@@ -1438,7 +1436,7 @@ public final class WWTreeConfigured {
 
 		SWAMP_CYPRESS.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LOG.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LOG.get()),
 				new UpwardsBranchingTrunkPlacer(
 					15,
 					5,
@@ -1448,24 +1446,24 @@ public final class WWTreeConfigured {
 					UniformInt.of(1, 3),
 					blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 				),
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LEAVES.get()),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 14),
 				new TwoLayersFeatureSize(1, 0, 1),
-				PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+				belowWaterloggableTrunkProvider
 			).decorators(List.of(new LeaveVineDecorator(0.1F), shelfMushroom0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), vines008Under82))
 				.build()
 		);
 
 		FALLEN_CYPRESS_TREE.makeAndSetHolder(
-			fallenCypress()
+			fallenCypress(belowWaterloggableTrunkProvider)
 				.decorators(List.of(vines008Under82, mossCypress, shelfMushroom0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), mushroomsFallenCypress))
 				.build()
 		);
 
 		SNAPPED_CYPRESS.makeAndSetHolder(
-			snappedTrunkBuilder(WWBlocks.CYPRESS_LOG.get(), 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(WWBlocks.CYPRESS_LOG.get(), 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossCypress, shelfMushroom0074.apply(WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION), mushroomsFallenCypress))
-			.belowTrunkProvider(PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE)
+			.belowTrunkProvider(belowWaterloggableTrunkProvider)
 			.build()
 		);
 
@@ -1473,23 +1471,23 @@ public final class WWTreeConfigured {
 
 		LARGE_BUSH.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.OAK_LOG),
+				BlockStateProvider.of(Blocks.OAK_LOG),
 				new StraightTrunkPlacer(1, 0, 0),
-				BlockStateProvider.simple(Blocks.OAK_LEAVES),
+				BlockStateProvider.of(Blocks.OAK_LEAVES),
 				new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
 				new TwoLayersFeatureSize(0, 0, 0),
-				PLACE_BELOW_OVERWORLD_TRUNKS_DESERT
+				belowDesertTrunkProvider
 			).build()
 		);
 
 		BIG_BUSH.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.OAK_LOG),
+				BlockStateProvider.of(Blocks.OAK_LOG),
 				new StraightTrunkPlacer(1, 0, 0),
-				BlockStateProvider.simple(Blocks.OAK_LEAVES),
+				BlockStateProvider.of(Blocks.OAK_LEAVES),
 				new SmallBushFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), 2),
 				new TwoLayersFeatureSize(0, 0, 0),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).build()
 		);
 
@@ -1500,7 +1498,8 @@ public final class WWTreeConfigured {
 				WWBlocks.PALM_FRONDS.get(),
 				6, 2, 1,
 				1, 2,
-				1, 2
+				1, 2,
+				belowDesertTrunkProvider
 			).build()
 		);
 
@@ -1510,7 +1509,8 @@ public final class WWTreeConfigured {
 				WWBlocks.PALM_FRONDS.get(),
 				8, 3, 2,
 				2, 2,
-				1, 2
+				1, 2,
+				belowDesertTrunkProvider
 			).build()
 		);
 
@@ -1518,7 +1518,8 @@ public final class WWTreeConfigured {
 			windmillPalmBuilder(
 				WWBlocks.PALM_LOG.get(),
 				WWBlocks.PALM_FRONDS.get(),
-				10, 3, 3
+				10, 3, 3,
+				belowDesertTrunkProvider
 			).build()
 		);
 
@@ -1526,12 +1527,13 @@ public final class WWTreeConfigured {
 			windmillPalmBuilder(
 				WWBlocks.PALM_LOG.get(),
 				WWBlocks.PALM_FRONDS.get(),
-				5, 1, 2
+				5, 1, 2,
+				belowDesertTrunkProvider
 			).build()
 		);
 
 		FALLEN_PALM.makeAndSetHolder(
-			fallenPalm()
+			fallenPalm(belowDesertTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossSprucePalm))
 				.build()
 		);
@@ -1539,7 +1541,7 @@ public final class WWTreeConfigured {
 		// JUNIPER
 		JUNIPER.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LOG.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LOG.get()),
 				new JuniperTrunkPlacer(
 					2,
 					1,
@@ -1549,10 +1551,10 @@ public final class WWTreeConfigured {
 					UniformInt.of(-8, -5),
 					UniformInt.of(-3, 2)
 				),
-				BlockStateProvider.simple(WWBlocks.CYPRESS_LEAVES.get()),
+				BlockStateProvider.of(WWBlocks.CYPRESS_LEAVES.get()),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 32),
 				new TwoLayersFeatureSize(1, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).build()
 		);
 
@@ -1561,12 +1563,12 @@ public final class WWTreeConfigured {
 
 		JUNGLE_TREE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
+				BlockStateProvider.of(Blocks.JUNGLE_LOG),
 				new StraightTrunkPlacer(4, 8, 0),
-				BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+				BlockStateProvider.of(Blocks.JUNGLE_LEAVES),
 				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
 				new TwoLayersFeatureSize(1, 0, 1),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(
 				List.of(
 					new CocoaDecorator(0.2F),
@@ -1579,12 +1581,12 @@ public final class WWTreeConfigured {
 
 		JUNGLE_TREE_NO_VINE.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
+				BlockStateProvider.of(Blocks.JUNGLE_LOG),
 				new StraightTrunkPlacer(4, 8, 0),
-				BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+				BlockStateProvider.of(Blocks.JUNGLE_LEAVES),
 				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
 				new TwoLayersFeatureSize(1, 0, 1),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(shelfMushroom0054.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION)))
 				.ignoreVines()
 				.build()
@@ -1592,37 +1594,37 @@ public final class WWTreeConfigured {
 
 		MEGA_JUNGLE_TREE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.JUNGLE_LOG),
+				BlockStateProvider.of(Blocks.JUNGLE_LOG),
 				new MegaJungleTrunkPlacer(10, 2, 19),
-				BlockStateProvider.simple(Blocks.JUNGLE_LEAVES),
+				BlockStateProvider.of(Blocks.JUNGLE_LEAVES),
 				new MegaJungleFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2),
 				new TwoLayersFeatureSize(1, 1, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(List.of(commonJungleShelfMushroom, TrunkVineDecorator.INSTANCE, new LeaveVineDecorator(0.25F)))
 				.ignoreVines()
 				.build()
 		);
 
 		FALLEN_JUNGLE_TREE.makeAndSetHolder(
-			fallenJungle(defaultPlaceBelowTreeTrunkProvider)
+			fallenJungle(belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossJungleDarkOak, shelfMushroom009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenJungle))
 				.build()
 		);
 
 		LARGE_FALLEN_JUNGLE_TREE.makeAndSetHolder(
-			largeFallenBuilder(Blocks.JUNGLE_LOG, 5, 2, 4, defaultPlaceBelowTreeTrunkProvider)
+			largeFallenBuilder(Blocks.JUNGLE_LOG, 5, 2, 4, belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossJungleDarkOak, commonJungleShelfMushroom, mushroomsFallenJungle))
 				.build()
 		);
 
 		SNAPPED_JUNGLE.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.JUNGLE_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.JUNGLE_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossJungleDarkOak, shelfMushroom009.apply(WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION), mushroomsFallenJungle))
 				.build()
 		);
 
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(
-			largeSnappedTrunkBuilder(Blocks.JUNGLE_LOG, 3, 1, 2, 3, defaultPlaceBelowTreeTrunkProvider)
+			largeSnappedTrunkBuilder(Blocks.JUNGLE_LOG, 3, 1, 2, 3, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossJungleDarkOak, commonJungleShelfMushroom, mushroomsFallenJungle))
 				.build()
 		);
@@ -1630,25 +1632,25 @@ public final class WWTreeConfigured {
 		//ACACIA
 		ACACIA_LEAF_LITTER.makeAndSetHolder(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.ACACIA_LOG),
+				BlockStateProvider.of(Blocks.ACACIA_LOG),
 				new ForkingTrunkPlacer(5, 2, 2),
-				BlockStateProvider.simple(Blocks.ACACIA_LEAVES),
+				BlockStateProvider.of(Blocks.ACACIA_LEAVES),
 				new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
 				new TwoLayersFeatureSize(1, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(
 				List.of(
 					new PlaceOnGroundDecorator(
 						96,
 						4,
 						2,
-						new LeafLitterStateProvider(WWBlocks.ACACIA_LEAF_LITTER.get(), 3)
+						Holder.direct(new LeafLitterStateProvider(WWBlocks.ACACIA_LEAF_LITTER.get(), 3))
 					),
 					new PlaceOnGroundDecorator(
 						150,
 						2,
 						2,
-						new LeafLitterStateProvider(WWBlocks.ACACIA_LEAF_LITTER.get(), 4)
+						Holder.direct(new LeafLitterStateProvider(WWBlocks.ACACIA_LEAF_LITTER.get(), 4))
 					)
 				)
 				)
@@ -1657,13 +1659,13 @@ public final class WWTreeConfigured {
 		);
 
 		FALLEN_ACACIA_TREE.makeAndSetHolder(
-			fallenAcacia(defaultPlaceBelowTreeTrunkProvider)
+			fallenAcacia(belowTrunkProvider)
 				.decorators(List.of(vines012Under260))
 				.build()
 		);
 
 		SNAPPED_ACACIA.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.ACACIA_LOG, 2, 1, 1, defaultPlaceBelowTreeTrunkProvider)
+			snappedTrunkBuilder(Blocks.ACACIA_LOG, 2, 1, 1, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, shelfMushroom0074.apply(WWWorldgenConfig.ACACIA_SHELF_MUSHROOM_GENERATION)))
 				.build()
 		);
@@ -1675,11 +1677,7 @@ public final class WWTreeConfigured {
 				0.14F,
 				1,
 				0,
-				new RandomizedIntStateProvider(
-					BlockStateProvider.simple(Blocks.MANGROVE_PROPAGULE.defaultBlockState().setValue(MangrovePropaguleBlock.HANGING, true)),
-					MangrovePropaguleBlock.AGE,
-					UniformInt.of(0, 4)
-				),
+				blockStateProviders.getOrThrow(BlockStateProviders.MANGROVE_PROPAGULE),
 				2,
 				List.of(Direction.DOWN)
 			),
@@ -1688,7 +1686,7 @@ public final class WWTreeConfigured {
 		);
 		MANGROVE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.MANGROVE_LOG),
+				BlockStateProvider.of(Blocks.MANGROVE_LOG),
 				new UpwardsBranchingTrunkPlacer(
 					2,
 					1,
@@ -1698,17 +1696,17 @@ public final class WWTreeConfigured {
 					UniformInt.of(0, 1),
 					blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 				),
-				BlockStateProvider.simple(Blocks.MANGROVE_LEAVES),
+				BlockStateProvider.of(Blocks.MANGROVE_LEAVES),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 70),
 				Optional.of(
 					new MangroveRootPlacer(
 						UniformInt.of(1, 3),
-						BlockStateProvider.simple(Blocks.MANGROVE_ROOTS),
-						Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.5F)),
+						BlockStateProvider.holderOf(Blocks.MANGROVE_ROOTS),
+						Optional.of(new AboveRootPlacement(BlockStateProvider.holderOf(Blocks.MOSS_CARPET), 0.5F)),
 						new MangroveRootPlacement(
 							blocks.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
 							HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS),
-							BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS),
+							BlockStateProvider.holderOf(Blocks.MUDDY_MANGROVE_ROOTS),
 							8,
 							15,
 							0.2F
@@ -1716,7 +1714,7 @@ public final class WWTreeConfigured {
 					)
 				),
 				new TwoLayersFeatureSize(2, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(mangroveDecorators)
 				.ignoreVines()
 				.build()
@@ -1724,7 +1722,7 @@ public final class WWTreeConfigured {
 
 		TALL_MANGROVE.makeAndSetHolders(
 			new TreeFeature.Builder(
-				BlockStateProvider.simple(Blocks.MANGROVE_LOG),
+				BlockStateProvider.of(Blocks.MANGROVE_LOG),
 				new UpwardsBranchingTrunkPlacer(
 					4,
 					1,
@@ -1734,17 +1732,17 @@ public final class WWTreeConfigured {
 					UniformInt.of(0, 1),
 					blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 				),
-				BlockStateProvider.simple(Blocks.MANGROVE_LEAVES),
+				BlockStateProvider.of(Blocks.MANGROVE_LEAVES),
 				new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(2), 70),
 				Optional.of(
 					new MangroveRootPlacer(
 						UniformInt.of(3, 7),
-						BlockStateProvider.simple(Blocks.MANGROVE_ROOTS),
-						Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.5F)),
+						BlockStateProvider.holderOf(Blocks.MANGROVE_ROOTS),
+						Optional.of(new AboveRootPlacement(BlockStateProvider.holderOf(Blocks.MOSS_CARPET), 0.5F)),
 						new MangroveRootPlacement(
 							blocks.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
 							HolderSet.direct(Block::builtInRegistryHolder, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS),
-							BlockStateProvider.simple(Blocks.MUDDY_MANGROVE_ROOTS),
+							BlockStateProvider.holderOf(Blocks.MUDDY_MANGROVE_ROOTS),
 							8,
 							15,
 							0.2F
@@ -1752,30 +1750,30 @@ public final class WWTreeConfigured {
 					)
 				),
 				new TwoLayersFeatureSize(3, 0, 2),
-				defaultPlaceBelowTreeTrunkProvider
+				belowTrunkProvider
 			).decorators(mangroveDecorators)
 				.ignoreVines()
 				.build()
 		);
 
 		FALLEN_MANGROVE_TREE.makeAndSetHolder(
-			fallenMangrove(defaultPlaceBelowTreeTrunkProvider)
+			fallenMangrove(belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossMossy, shelfMushroom0074.apply(WWWorldgenConfig.MANGROVE_SHELF_MUSHROOM_GENERATION), mushroomsFallenMangrove))
 				.build()
 		);
 
 		//CRIMSON
-		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(fallenCrimson(BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build());
+		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(fallenCrimson(BlockStateProvider.holderOf(Blocks.CRIMSON_NYLIUM)).build());
 
 		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.CRIMSON_STEM, 2, 1, 1, BlockStateProvider.simple(Blocks.CRIMSON_NYLIUM)).build()
+			snappedTrunkBuilder(Blocks.CRIMSON_STEM, 2, 1, 1, BlockStateProvider.holderOf(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
 		//WARPED
-		FALLEN_WARPED_FUNGI.makeAndSetHolder(fallenWarped(BlockStateProvider.simple(Blocks.WARPED_NYLIUM)).build());
+		FALLEN_WARPED_FUNGI.makeAndSetHolder(fallenWarped(BlockStateProvider.holderOf(Blocks.WARPED_NYLIUM)).build());
 
 		SNAPPED_WARPED_FUNGI.makeAndSetHolder(
-			snappedTrunkBuilder(Blocks.WARPED_STEM, 2, 1, 1, BlockStateProvider.simple(Blocks.WARPED_NYLIUM)).build()
+			snappedTrunkBuilder(Blocks.WARPED_STEM, 2, 1, 1, BlockStateProvider.holderOf(Blocks.WARPED_NYLIUM)).build()
 		);
 
 	}
@@ -1791,10 +1789,10 @@ public final class WWTreeConfigured {
 		IntProvider branchCutoffFromTop,
 		IntProvider branchLength,
 		int radius,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new StraightWithBranchesTrunkPlacer(
 				baseHeight,
 				firstRandomHeight,
@@ -1806,7 +1804,7 @@ public final class WWTreeConfigured {
 					.branchLength(branchLength)
 					.build()
 			),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new BlobFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0), 3),
 			new TwoLayersFeatureSize(1, 0, 1),
 			belowTrunkProvider
@@ -1822,10 +1820,10 @@ public final class WWTreeConfigured {
 		IntProvider maxBranches,
 		IntProvider branchCutoffFromTop,
 		IntProvider branchLength,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new StraightWithBranchesTrunkPlacer(
 				baseHeight, firstRandomHeight,
 				secondRandomHeight,
@@ -1836,7 +1834,7 @@ public final class WWTreeConfigured {
 					.branchLength(branchLength)
 					.build()
 			),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
 			belowTrunkProvider
@@ -1852,21 +1850,21 @@ public final class WWTreeConfigured {
 		BranchPlacement branchPlacement,
 		float hollowedProbability,
 		float stumpProbability,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new FallenWithBranchesTrunkPlacer(
 				baseHeight,
 				heightRandA,
 				heightRandB,
 				0.8F,
-				BlockStateProvider.simple(hollowedLog),
+				BlockStateProvider.holderOf(hollowedLog),
 				hollowedProbability,
 				branchPlacement,
 				stumpProbability
 			),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
 			belowTrunkProvider
@@ -1883,7 +1881,7 @@ public final class WWTreeConfigured {
 		IntProvider maxBranchCount,
 		float hollowedProbability,
 		float stumpProbability,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return fallenTrunkBuilder(
 			log,
@@ -1910,7 +1908,7 @@ public final class WWTreeConfigured {
 		int heightRandB,
 		float hollowedProbability,
 		float stumpProbability,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return fallenTrunkBuilder(
 			log,
@@ -1936,16 +1934,17 @@ public final class WWTreeConfigured {
 		IntProvider branchLength,
 		float offsetLastLogChance,
 		float hollowedChance,
-		float stumpPlacementChance
+		float stumpPlacementChance,
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new FallenWithBranchesTrunkPlacer(
 				baseHeight,
 				firstRHeight,
 				secondRHeight,
 				0.8F,
-				BlockStateProvider.simple(hollowedLog),
+				BlockStateProvider.holderOf(hollowedLog),
 				hollowedChance,
 				new BranchPlacement.Builder()
 					.branchChance(branchPlacementChance)
@@ -1955,10 +1954,10 @@ public final class WWTreeConfigured {
 					.build(),
 				stumpPlacementChance
 			),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
-			PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+			belowTrunkProvider
 		);
 	}
 
@@ -1968,12 +1967,12 @@ public final class WWTreeConfigured {
 		int firstRandomHeight,
 		int secondRandomHeight,
 		int radius,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new DarkOakTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
 			belowTrunkProvider
@@ -1990,10 +1989,10 @@ public final class WWTreeConfigured {
 		IntProvider maxBranchCount,
 		IntProvider branchLength,
 		int radius,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new FancyDarkOakTrunkPlacer(
 				baseHeight,
 				firstRandomHeight,
@@ -2006,7 +2005,7 @@ public final class WWTreeConfigured {
 					.offsetLastLogChance(1F)
 					.build()
 			),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
 			belowTrunkProvider
@@ -2022,57 +2021,58 @@ public final class WWTreeConfigured {
 		int minRad,
 		int maxRad,
 		int minFrondLength,
-		int maxFrondLength
+		int maxFrondLength,
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new PalmFoliagePlacer(UniformInt.of(minRad, maxRad), ConstantInt.of(0), BiasedToBottomInt.of(minFrondLength + 1, maxFrondLength + 1)),
 			new TwoLayersFeatureSize(1, 0, 1),
-			PLACE_BELOW_OVERWORLD_TRUNKS_DESERT
+			belowTrunkProvider
 		);
 	}
 
 	public static TreeFeature.Builder windmillPalmBuilder(
-		Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight
+		Block log, Block leaves, int baseHeight, int firstRandomHeight, int secondRandomHeight, Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new PalmTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new WindmillPalmFoliagePlacer(ConstantInt.of(2)),
 			new TwoLayersFeatureSize(1, 0, 1),
-			PLACE_BELOW_OVERWORLD_TRUNKS_DESERT
+			belowTrunkProvider
 		);
 	}
 
 	public static TreeFeature.Builder snappedTrunkBuilder(
-		Block log, int baseHeight, int firstRHeight, int secondRHeight, BlockStateProvider belowTrunkProvider
+		Block log, int baseHeight, int firstRHeight, int secondRHeight, Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new SnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight),
-			BlockStateProvider.simple(Blocks.AIR), NoOpFoliagePlacer.INSTANCE,
+			BlockStateProvider.of(Blocks.AIR), NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
 			belowTrunkProvider
 		);
 	}
 
 	public static TreeFeature.Builder largeSnappedTrunkBuilder(
-		Block log, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight, BlockStateProvider belowTrunkProvider
+		Block log, int baseHeight, int firstRHeight, int secondRHeight, int maxAdditionalHeight, Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new LargeSnappedTrunkPlacer(baseHeight, firstRHeight, secondRHeight, UniformInt.of(0, maxAdditionalHeight)),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
 			belowTrunkProvider
 		);
 	}
 
-	public static TreeFeature.Builder birch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder birch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2088,7 +2088,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder superBirch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder superBirch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2104,7 +2104,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder shortBirch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder shortBirch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2120,7 +2120,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder mediumBirch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder mediumBirch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
@@ -2136,7 +2136,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder deadBirch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder deadBirch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return deadBuilder(
 			Blocks.BIRCH_LOG,
 			7,
@@ -2150,7 +2150,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder deadMediumBirch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder deadMediumBirch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return deadBuilder(
 			Blocks.BIRCH_LOG,
 			6,
@@ -2164,7 +2164,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenBirch(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenBirch(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.BIRCH_LOG,
 			WWBlocks.HOLLOWED_BIRCH_LOG.get(),
@@ -2179,7 +2179,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenCherry(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenCherry(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.CHERRY_LOG,
 			WWBlocks.HOLLOWED_CHERRY_LOG.get(),
@@ -2194,7 +2194,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenMaple(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenMaple(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			WWBlocks.MAPLE_LOG.get(),
 			WWBlocks.HOLLOWED_MAPLE_LOG.get(),
@@ -2209,7 +2209,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenPoplar(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenPoplar(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.POPLAR_LOG,
 			WWBlocks.HOLLOWED_POPLAR_LOG.get(),
@@ -2224,7 +2224,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder oak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder oak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.OAK_LOG,
 			Blocks.OAK_LEAVES,
@@ -2240,7 +2240,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder shortOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder shortOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.OAK_LOG,
 			Blocks.OAK_LEAVES,
@@ -2256,31 +2256,31 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fancyOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fancyOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(Blocks.OAK_LOG),
+			BlockStateProvider.of(Blocks.OAK_LOG),
 			new FancyTrunkPlacer(5, 16, 0),
-			BlockStateProvider.simple(Blocks.OAK_LEAVES),
+			BlockStateProvider.of(Blocks.OAK_LEAVES),
 			new FancyFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3), 4),
 			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)),
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fancyDeadOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fancyDeadOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(Blocks.OAK_LOG),
+			BlockStateProvider.of(Blocks.OAK_LOG),
 			new FancyTrunkPlacer(5, 16, 0),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)),
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fancySemiDeadOak(HolderGetter<Block> blocks, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fancySemiDeadOak(HolderGetter<Block> blocks, Holder<BlockStateProvider> belowTrunkProvider) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(Blocks.OAK_LOG),
+			BlockStateProvider.of(Blocks.OAK_LOG),
 			new UpwardsBranchingTrunkPlacer(
 				10,
 				6,
@@ -2290,27 +2290,27 @@ public final class WWTreeConfigured {
 				UniformInt.of(3, 5),
 				blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 			),
-			BlockStateProvider.simple(Blocks.OAK_LEAVES),
+			BlockStateProvider.of(Blocks.OAK_LEAVES),
 			new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), ConstantInt.of(2), 4),
 			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)),
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder smallFancyDeadOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder smallFancyDeadOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(Blocks.OAK_LOG),
+			BlockStateProvider.of(Blocks.OAK_LOG),
 			new FancyTrunkPlacer(5, 8, 2),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)),
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder smallFancySemiDeadOak(HolderGetter<Block> blocks, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder smallFancySemiDeadOak(HolderGetter<Block> blocks, Holder<BlockStateProvider> belowTrunkProvider) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(Blocks.OAK_LOG),
+			BlockStateProvider.of(Blocks.OAK_LOG),
 			new UpwardsBranchingTrunkPlacer(
 				7,
 				3,
@@ -2320,14 +2320,14 @@ public final class WWTreeConfigured {
 				UniformInt.of(2, 5),
 				blocks.getOrThrow(BlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH)
 			),
-			BlockStateProvider.simple(Blocks.OAK_LEAVES),
+			BlockStateProvider.of(Blocks.OAK_LEAVES),
 			new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), ConstantInt.of(2), 1),
 			new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(5)),
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.OAK_LOG,
 			WWBlocks.HOLLOWED_OAK_LOG.get(),
@@ -2342,7 +2342,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenCypress() {
+	public static TreeFeature.Builder fallenCypress(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			WWBlocks.CYPRESS_LOG.get(),
 			WWBlocks.CYPRESS_LOG.get(),
@@ -2353,16 +2353,16 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 2),
 			0.125F,
 			0.7F,
-			PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder tallDarkOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder tallDarkOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return darkOakBuilder(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_LEAVES, 8, 3, 4, 1, belowTrunkProvider)
 			.ignoreVines();
 	}
 
-	public static TreeFeature.Builder fancyTallDarkOak(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fancyTallDarkOak(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fancyDarkOakBuilder(
 			Blocks.DARK_OAK_LOG,
 			Blocks.DARK_OAK_LEAVES,
@@ -2377,7 +2377,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder cherry(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder cherry(Holder<BlockStateProvider> belowTrunkProvider) {
 		return cherryBuilder(
 			Blocks.CHERRY_LOG,
 			Blocks.CHERRY_LEAVES,
@@ -2391,7 +2391,7 @@ public final class WWTreeConfigured {
 		);
 	}
 
-	public static TreeFeature.Builder tallCherry(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder tallCherry(Holder<BlockStateProvider> belowTrunkProvider) {
 		return cherryBuilder(
 			Blocks.CHERRY_LOG,
 			Blocks.CHERRY_LEAVES,
@@ -2414,12 +2414,12 @@ public final class WWTreeConfigured {
 		IntProvider branchLength,
 		UniformInt branchStartOffsetFromTop,
 		UniformInt branchEndOffsetFromTop,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new CherryTrunkPlacer(baseHeight, heightRandA, heightRandB, UniformInt.of(1, 3), branchLength, branchStartOffsetFromTop, branchEndOffsetFromTop),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new CherryFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(5), 0.25F, 0.5F, 0.16666667F, 0.33333334F),
 			new TwoLayersFeatureSize(1, 0, 2),
 			belowTrunkProvider
@@ -2431,7 +2431,7 @@ public final class WWTreeConfigured {
 		boolean creaking,
 		boolean cobweb,
 		boolean leafLitter,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		final TreeFeature.Builder builder = paleOakBuilder(
 			Blocks.PALE_OAK_LOG,
@@ -2446,7 +2446,7 @@ public final class WWTreeConfigured {
 	}
 
 	public static TreeFeature.Builder tallPaleOak(
-		boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter, BlockStateProvider belowTrunkProvider
+		boolean paleMoss, boolean creaking, boolean cobweb, boolean leafLitter, Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		final TreeFeature.Builder builder = paleOakBuilder(
 			Blocks.PALE_OAK_LOG,
@@ -2465,7 +2465,7 @@ public final class WWTreeConfigured {
 		boolean creaking,
 		boolean cobweb,
 		boolean leafLitter,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		final TreeFeature.Builder builder = fancyPaleOakBuilder(
 			Blocks.PALE_OAK_LOG,
@@ -2494,7 +2494,7 @@ public final class WWTreeConfigured {
 					96,
 					4,
 					2,
-					new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 3)
+					Holder.direct(new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 3))
 				));
 		}
 		if (leafLitter) {
@@ -2503,7 +2503,7 @@ public final class WWTreeConfigured {
 					150,
 					2,
 					2,
-					new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 4)
+					Holder.direct(new LeafLitterStateProvider(WWBlocks.PALE_OAK_LEAF_LITTER.get(), 4))
 				)
 			);
 		}
@@ -2516,12 +2516,12 @@ public final class WWTreeConfigured {
 		int baseHeight,
 		int heightRandA,
 		int heightRandB,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new DarkOakTrunkPlacer(baseHeight, heightRandA, heightRandB),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
 			belowTrunkProvider
@@ -2538,10 +2538,10 @@ public final class WWTreeConfigured {
 		float branchChance,
 		IntProvider maxBranchCount,
 		IntProvider branchLength,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new FancyDarkOakTrunkPlacer(
 				baseHeight,
 				heightRandA,
@@ -2554,7 +2554,7 @@ public final class WWTreeConfigured {
 					.offsetLastLogChance(1F)
 					.build()
 			),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()),
 			belowTrunkProvider
@@ -2562,19 +2562,19 @@ public final class WWTreeConfigured {
 			.ignoreVines();
 	}
 
-	public static TreeFeature.Builder maple(Block leaves, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder maple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 10, 1, 2, UniformInt.of(1, 5), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder tallMaple(Block leaves, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder tallMaple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 14, 1, 1, UniformInt.of(2, 7), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder shortMaple(Block leaves, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder shortMaple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 6, 1, 2, UniformInt.of(0, 3), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder fullMaple(Block leaves, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fullMaple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
 		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 7, 2, 2, BiasedToBottomInt.of(0, 2), belowTrunkProvider);
 	}
 
@@ -2585,10 +2585,10 @@ public final class WWTreeConfigured {
 		int heightRandA,
 		int heightRandB,
 		IntProvider branchStartHeight,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new MapleTrunkPlacer(
 				baseHeight,
 				heightRandA,
@@ -2610,7 +2610,7 @@ public final class WWTreeConfigured {
 					.build(),
 				new StraightTrunkPlacer(baseHeight, heightRandA, heightRandB)
 			),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new MapleFoliagePlacer(
 				ConstantInt.of(1),
 				ConstantInt.of(0),
@@ -2628,11 +2628,11 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder poplar(Block leaves, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder poplar(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
 		return poplarBuilder(Blocks.POPLAR_LOG, leaves, 7, 4, 0, UniformInt.of(5, 6), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder tallPoplar(Block leaves, BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder tallPoplar(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
 		return poplarBuilder(Blocks.POPLAR_LOG, leaves, 9, 3, 2, UniformInt.of(6, 8), belowTrunkProvider);
 	}
 
@@ -2643,12 +2643,12 @@ public final class WWTreeConfigured {
 		int heightRandA,
 		int heightRandB,
 		IntProvider foliageHeight,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new PoplarTrunkPlacer(baseHeight, heightRandA, heightRandB, ConstantInt.of(4), UniformInt.of(1, 4)),
-			BlockStateProvider.simple(leaves),
+			BlockStateProvider.of(leaves),
 			new PoplarFoliagePlacer(
 				new WeightedListInt(
 					WeightedList.<IntProvider>builder()
@@ -2667,7 +2667,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenSpruce(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenSpruce(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.SPRUCE_LOG,
 			WWBlocks.HOLLOWED_SPRUCE_LOG.get(),
@@ -2682,7 +2682,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenPalm() {
+	public static TreeFeature.Builder fallenPalm(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			WWBlocks.PALM_LOG.get(),
 			WWBlocks.HOLLOWED_PALM_LOG.get(),
@@ -2693,11 +2693,11 @@ public final class WWTreeConfigured {
 			UniformInt.of(1, 2),
 			0.045F,
 			0.6F,
-			PLACE_BELOW_OVERWORLD_TRUNKS_DESERT
+			belowTrunkProvider
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenAcacia(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenAcacia(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.ACACIA_LOG,
 			WWBlocks.HOLLOWED_ACACIA_LOG.get(),
@@ -2712,7 +2712,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenJungle(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenJungle(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.JUNGLE_LOG,
 			WWBlocks.HOLLOWED_JUNGLE_LOG.get(),
@@ -2727,7 +2727,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenMangrove(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenMangrove(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.MANGROVE_LOG,
 			WWBlocks.HOLLOWED_MANGROVE_LOG.get(),
@@ -2742,7 +2742,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenCrimson(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenCrimson(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.CRIMSON_STEM,
 			WWBlocks.HOLLOWED_CRIMSON_STEM.get(),
@@ -2755,7 +2755,7 @@ public final class WWTreeConfigured {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenWarped(BlockStateProvider belowTrunkProvider) {
+	public static TreeFeature.Builder fallenWarped(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.WARPED_STEM,
 			WWBlocks.HOLLOWED_WARPED_STEM.get(),
@@ -2773,21 +2773,21 @@ public final class WWTreeConfigured {
 		int baseHeight,
 		int firstRHeight,
 		int secondRHeight,
-		BlockStateProvider belowTrunkProvider
+		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(log),
+			BlockStateProvider.of(log),
 			new FallenLargeTrunkPlacer(baseHeight, firstRHeight, secondRHeight, 0.8F, 0.9F),
-			BlockStateProvider.simple(Blocks.AIR),
+			BlockStateProvider.of(Blocks.AIR),
 			NoOpFoliagePlacer.INSTANCE,
 			new TwoLayersFeatureSize(1, 0, 1),
 			belowTrunkProvider
 		);
 	}
 
-	public static TreeFeature.Builder willow(int height, int randomHeight1, int randomHeight2, HolderGetter<Block> blocks) {
+	public static TreeFeature.Builder willow(int height, int randomHeight1, int randomHeight2, HolderGetter<Block> blocks, Holder<BlockStateProvider> belowTrunkProvider) {
 		return new TreeFeature.Builder(
-			BlockStateProvider.simple(WWBlocks.WILLOW_LOG.get()),
+			BlockStateProvider.of(WWBlocks.WILLOW_LOG.get()),
 			new WillowTrunkPlacer(
 				height,
 				randomHeight1,
@@ -2802,7 +2802,7 @@ public final class WWTreeConfigured {
 					.foliageRadiusOffset(ConstantInt.of(-1))
 					.build()
 			),
-			BlockStateProvider.simple(WWBlocks.WILLOW_LEAVES.get()),
+			BlockStateProvider.of(WWBlocks.WILLOW_LEAVES.get()),
 			new WillowFoliagePlacer(
 				ConstantInt.of(3),
 				ConstantInt.of(1),
@@ -2813,13 +2813,13 @@ public final class WWTreeConfigured {
 			Optional.of(
 				new WillowRootPlacer(
 					UniformInt.of(1, 1),
-					BlockStateProvider.simple(WWBlocks.WILLOW_LOG.get()),
-					Optional.of(new AboveRootPlacement(BlockStateProvider.simple(Blocks.MOSS_CARPET), 0.45F)),
+					BlockStateProvider.holderOf(WWBlocks.WILLOW_LOG.get()),
+					Optional.of(new AboveRootPlacement(BlockStateProvider.holderOf(Blocks.MOSS_CARPET), 0.45F)),
 					new WillowRootPlacement(blocks.getOrThrow(WWBlockTags.WILLOW_ROOTS_CAN_GROW_THROUGH), 3, 5, 0.2F)
 				)
 			),
 			new TwoLayersFeatureSize(2, 0, 2),
-			PLACE_BELOW_OVERWORLD_TRUNKS_WATERLOGGABLE
+			belowTrunkProvider
 		);
 	}
 
@@ -2875,13 +2875,13 @@ public final class WWTreeConfigured {
 	public static TreeDecorator aboveLogsDecorator(float probability, float placementProbability, BlockStateProvider stateProvider) {
 		if (probability <= 0F) throw new IllegalArgumentException("Probability must be greater than zero!");
 
-		final AttachedToLogsDecorator attachedToLogsDecorator = new AttachedToLogsDecorator(placementProbability, stateProvider, List.of(Direction.UP));
+		final AttachedToLogsDecorator attachedToLogsDecorator = new AttachedToLogsDecorator(placementProbability, Holder.direct(stateProvider), List.of(Direction.UP));
 		if (probability >= 1F) return attachedToLogsDecorator;
 		return new ProbabilityDecorator(attachedToLogsDecorator, probability);
 	}
 
 	public static TreeDecorator aboveLogsDecorator(float probability, float placementProbability, Block block) {
-		return aboveLogsDecorator(probability, placementProbability, BlockStateProvider.simple(block));
+		return aboveLogsDecorator(probability, placementProbability, BlockStateProvider.of(block));
 	}
 
 	public static TreeDecorator mossDecorator(float probability, float placementProbability) {
@@ -2907,7 +2907,7 @@ public final class WWTreeConfigured {
 			probability,
 			placementProbability,
 			!singleBlock.get().defaultBlockState().isAir()
-				? BlockStateProvider.simple(singleBlock.get())
+				? BlockStateProvider.of(singleBlock.get())
 				: new WeightedStateProvider(blockStates)
 		);
 	}

@@ -28,8 +28,10 @@
           }
         },
         "state_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:grass_block"
+          "id": "minecraft:grass_block",
+          "properties": {
+            "snowy": "false"
+          }
         }
       }
     ],

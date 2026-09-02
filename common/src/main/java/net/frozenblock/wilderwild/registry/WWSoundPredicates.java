@@ -22,7 +22,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Enderman;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.ItemStack;
 
@@ -69,7 +69,7 @@ public final class WWSoundPredicates {
 			}
 		});
 
-		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<EnderMan>) entity -> {
+		SoundPredicate.register(ENDERMAN_ANGER_SOUND_PREDICATE, () -> (SoundPredicate.LoopPredicate<Enderman>) entity -> {
 			if (entity.isSilent() || entity.isRemoved() || entity.isDeadOrDying()) return false;
 			return entity.isCreepy() || entity.hasBeenStaredAt();
 		});

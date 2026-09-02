@@ -55,6 +55,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.TEMPLATE_POOL)));
 		WWConstants.log("Adding finalized structures to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.STRUCTURE)));
+		WWConstants.log("Adding finalized block state providers to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.BLOCK_STATE_PROVIDER)));
 
 		// FrozenLib Dynamic Registries
 		WWConstants.log("Adding finalized sound type overrides to datagen", true);
@@ -65,8 +67,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.WATER_LIKE_TYPE)));
 		WWConstants.log("Adding finalized structure music to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_MUSIC)));
-		WWConstants.log("Adding finalized rule source additions to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.RULE_SOURCE_ADDITION)));
+		WWConstants.log("Adding finalized material rule additions to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.MATERIAL_RULE_ADDITION)));
 		WWConstants.log("Adding finalized player damage type sounds to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND)));
 		WWConstants.log("Adding finalized structure processor list additions to datagen", true);

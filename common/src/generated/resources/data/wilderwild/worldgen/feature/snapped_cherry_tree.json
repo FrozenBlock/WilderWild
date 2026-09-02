@@ -1,23 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": {
-    "type": "minecraft:rule_based_state_provider",
-    "rules": [
-      {
-        "if_true": {
-          "type": "minecraft:not",
-          "predicate": {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:cannot_replace_below_tree_trunk"
-          }
-        },
-        "then": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:dirt"
-        }
-      }
-    ]
-  },
+  "below_trunk_provider": "minecraft:soil_beneath_tree",
   "decorators": [
     {
       "type": "wilderwild:height_based_vine",
@@ -30,8 +13,7 @@
       "decorator": {
         "type": "minecraft:attached_to_logs",
         "block_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:moss_carpet"
+          "id": "minecraft:moss_carpet"
         },
         "directions": [
           "up"
@@ -61,8 +43,7 @@
       "decorator": {
         "type": "minecraft:attached_to_logs",
         "block_provider": {
-          "type": "minecraft:simple_state_provider",
-          "state": "minecraft:red_mushroom"
+          "id": "minecraft:red_mushroom"
         },
         "directions": [
           "up"
@@ -76,8 +57,7 @@
     "type": "wilderwild:no_op_foliage_placer"
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:air"
+    "id": "minecraft:air"
   },
   "ignore_vines": false,
   "minimum_size": {
@@ -90,7 +70,9 @@
     "height_rand_b": 1
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:cherry_log"
+    "id": "minecraft:cherry_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

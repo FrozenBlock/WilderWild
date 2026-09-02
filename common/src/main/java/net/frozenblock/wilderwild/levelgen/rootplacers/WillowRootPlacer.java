@@ -27,6 +27,7 @@ import java.util.function.BiConsumer;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -47,7 +48,10 @@ public class WillowRootPlacer extends RootPlacer {
 	private final WillowRootPlacement willowRootPlacement;
 
 	public WillowRootPlacer(
-		IntProvider intProvider, BlockStateProvider rootProvider, Optional<AboveRootPlacement> aboveRootPlacement, WillowRootPlacement willowRootPlacement
+		IntProvider intProvider,
+		Holder<BlockStateProvider> rootProvider,
+		Optional<AboveRootPlacement> aboveRootPlacement,
+		WillowRootPlacement willowRootPlacement
 	) {
 		super(intProvider, rootProvider, aboveRootPlacement);
 		this.willowRootPlacement = willowRootPlacement;

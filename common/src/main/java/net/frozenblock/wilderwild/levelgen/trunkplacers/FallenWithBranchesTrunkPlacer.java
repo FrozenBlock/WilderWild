@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -56,7 +57,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			.apply(instance, FallenWithBranchesTrunkPlacer::new));
 
 	public final float successInWaterChance;
-	public final BlockStateProvider hollowedTrunkProvider;
+	public final Holder<BlockStateProvider> hollowedTrunkProvider;
 	public final float hollowedLogChance;
 	public final BranchPlacement branchPlacement;
 	public final float stumpProbability;
@@ -66,7 +67,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		int firstRandomHeight,
 		int secondRandomHeight,
 		float successInWaterChance,
-		BlockStateProvider hollowedTrunkProvider,
+		Holder<BlockStateProvider> hollowedTrunkProvider,
 		float hollowedLogProbability,
 		BranchPlacement branchPlacement,
 		float stumpProbability
@@ -96,8 +97,8 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
-			? this.hollowedTrunkProvider
-			: tree.trunkProvider();
+			? this.hollowedTrunkProvider.value()
+			: tree.trunkProvider().value();
 		final int maxBranches = this.branchPlacement.getMaxBranchCount(random);
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;

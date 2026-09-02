@@ -6,7 +6,9 @@
     "min_inclusive": 2
   },
   "state": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:plankton"
+    "id": "wilderwild:plankton",
+    "properties": {
+      "glowing": "false"
+    }
   }
 }

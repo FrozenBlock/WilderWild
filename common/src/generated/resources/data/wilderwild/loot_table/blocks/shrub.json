@@ -23,7 +23,7 @@
           "name": "wilderwild:shrub"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "condition": {
@@ -45,8 +45,8 @@
       },
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 1.0,
-        "min": 0.0
+        "max": 1,
+        "min": 0
       }
     }
   ]

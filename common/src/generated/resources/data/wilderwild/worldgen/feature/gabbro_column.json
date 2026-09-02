@@ -1,8 +1,7 @@
 {
   "type": "frozenlib:column",
   "block_state": {
-    "type": "minecraft:simple_state_provider",
-    "state": "wilderwild:gabbro"
+    "id": "wilderwild:gabbro"
   },
   "direction": "up",
   "length": {

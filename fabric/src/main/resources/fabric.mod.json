@@ -38,8 +38,7 @@
       "net.frozenblock.wilderwild.WilderWildFabricClient"
     ],
     "frozenlib:events": [
-      "net.frozenblock.wilderwild.registry.WWBlockModifications",
-      "net.frozenblock.wilderwild.registry.WWBlockTransformerMappings"
+      "net.frozenblock.wilderwild.registry.WWBlockModifications"
     ],
     "modmenu": [
       "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"

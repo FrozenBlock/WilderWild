@@ -44,10 +44,9 @@ public final class WWFluidTagsProvider extends FabricTagsProvider.FluidTagsProvi
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		this.builder(WWFluidTags.SUPPORTS_ALGAE)
-			.add(FluidIds.WATER);
-
-		this.builder(WWFluidTags.SUPPORTS_PLANKTON)
-			.add(FluidIds.WATER);
+		this.builder(WWFluidTags.SUPPORTS_ALGAE).add(FluidIds.WATER);
+		this.builder(WWFluidTags.SUPPORTS_PLANKTON).add(FluidIds.WATER);
+		this.builder(WWFluidTags.JELLYFISH_TRIES_TO_FIND).add(FluidIds.WATER);
+		this.builder(WWFluidTags.PENGUIN_TRIES_TO_FIND).add(FluidIds.WATER);
 	}
 }
