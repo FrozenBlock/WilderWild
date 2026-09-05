@@ -32,12 +32,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "minecraft:match_tool",
-                "predicate": {
-                  "items": "minecraft:shears"
-                }
-              },
+              "condition": "minecraft:tool/can_shear",
               "modifier": {
                 "type": "minecraft:set_count",
                 "count": 2
@@ -96,12 +91,7 @@
           "children": [
             {
               "type": "minecraft:item",
-              "condition": {
-                "type": "minecraft:match_tool",
-                "predicate": {
-                  "items": "minecraft:shears"
-                }
-              },
+              "condition": "minecraft:tool/can_shear",
               "modifier": {
                 "type": "minecraft:set_count",
                 "count": 2

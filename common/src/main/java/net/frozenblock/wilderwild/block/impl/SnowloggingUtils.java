@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -102,7 +103,7 @@ public final class SnowloggingUtils {
 		final BlockState snowEquivalent = getSnowEquivalent(state);
 		if (snowEquivalent.canSurvive(level, pos)) return state;
 
-		if (level instanceof LevelAccessor levelAccessor) levelAccessor.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
+		if (level instanceof LevelAccessor levelAccessor) levelAccessor.levelEvent(LevelEvent.PARTICLES_AND_SOUND_DESTROY_BLOCK, pos, Block.getId(snowEquivalent));
 		return state.setValue(SNOW_LAYERS, 0);
 	}
 
@@ -125,10 +126,13 @@ public final class SnowloggingUtils {
 	public static BlockState onRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
 		if (!isSnowlogged(state) || level.getBrightness(LightLayer.BLOCK, pos) <= 11) return state;
 
-		Block.dropResources(getSnowEquivalent(state), level, pos);
-		final BlockState nonSnowState = state.trySetValue(SNOW_LAYERS, 0);
-		level.setBlockAndUpdate(pos, nonSnowState);
-		return nonSnowState;
+		final BlockState snowEquivalent = getSnowEquivalent(state);
+		final BlockState nonSnowEquivalent = state.trySetValue(SNOW_LAYERS, 0);
+		Block.dropResources(snowEquivalent, level, pos);
+		level.setBlockAndUpdate(pos, nonSnowEquivalent);
+		level.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(snowEquivalent));
+
+		return nonSnowEquivalent;
 	}
 
 	public static boolean isOriginalBlockCovered(BlockState state, BlockGetter level, BlockPos pos) {

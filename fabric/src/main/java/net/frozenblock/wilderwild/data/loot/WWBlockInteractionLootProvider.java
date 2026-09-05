@@ -42,8 +42,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 	}
 
 	@Override
-	public void run() {
-	}
+	public void run() {}
 
 	@Override
 	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.List;
 import net.frozenblock.lib.item.api.component.removable.RemovableItemTags;
 import net.frozenblock.lib.item.api.loot.LootTableEvents;
 import net.frozenblock.lib.item.api.loot.LootTableModification;
@@ -33,7 +34,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.packs.VanillaChestLoot;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -54,7 +54,6 @@ import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
-import java.util.List;
 
 public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_MILKWEED = register("shearing/milkweed");
@@ -270,7 +269,7 @@ public final class WWLootTables {
 		// POPLAR SAPLINGS
 		LootTableEvents.MODIFY_DROPS.register((table, context, drops) -> {
 			if (!context.hasParameter(LootContextParams.BLOCK_STATE)) return;
-			final BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
+			final BlockState state = context.getOptional(LootContextParams.BLOCK_STATE);
 			if (state.is(Blocks.YELLOW_POPLAR_LEAVES)) {
 				final List<ItemStack> poplarSaplings = drops.stream().filter(itemStack -> itemStack.is(Items.POPLAR_SAPLING)).toList();
 				drops.removeAll(poplarSaplings);

@@ -30,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ClientLevelMixin { // in common mixins.json
 
 	@ModifyExpressionValue(
-		method = "addBreakingBlockEffect(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/world/phys/HitResult;)V",
+		method = "addBreakingBlockEffects(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Z;Lnet/minecraft/world/phys/HitResult;)V",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/multiplayer/ClientLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public BlockState wilderWild$snowloggedBreakingParticles(BlockState original) {
+	public BlockState wilderWild$snowloggedBreakingBlockEffects(BlockState original) {
 		if (!SnowloggingUtils.isSnowlogged(original)) return original;
 		return SnowloggingUtils.getSnowEquivalent(original);
 	}

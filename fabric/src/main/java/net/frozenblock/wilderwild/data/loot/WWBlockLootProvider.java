@@ -17,28 +17,24 @@
 
 package net.frozenblock.wilderwild.data.loot;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.minecraft.advancements.predicates.DataComponentMatchers;
-import net.minecraft.advancements.predicates.EnchantmentPredicate;
-import net.minecraft.advancements.predicates.ItemPredicate;
-import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.predicates.DataComponentPredicates;
-import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.SegmentableBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -50,9 +46,7 @@ import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
-import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
@@ -60,33 +54,6 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 	public WWBlockLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
 		super(dataOutput, registries);
 	}
-
-	// FIXME: fabric doesnt let us use the normal method :/
-	@Override
-	public Holder<LootItemCondition> hasShears() {
-		return Holder.direct(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.items, Items.SHEARS)).build());
-	}
-
-	// FIXME: fabric doesnt let us use the normal method :/
-	@Override
-	public Holder<LootItemCondition> hasSilkTouch() {
-		return Holder.direct(
-			MatchTool.toolMatches(
-				ItemPredicate.Builder.item()
-					.withComponents(
-						DataComponentMatchers.Builder.components()
-							.partial(
-								DataComponentPredicates.ENCHANTMENTS,
-								EnchantmentsPredicate.enchantments(
-									List.of(new EnchantmentPredicate(this.enchantments.getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)))
-								)
-							)
-							.build()
-					)
-			).build()
-		);
-	}
-
 
 	@Override
 	public void generate() {
@@ -110,7 +77,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.BAOBAB_SIGN.get());
 		this.dropSelf(WWBlocks.BAOBAB_HANGING_SIGN.get());
 		this.dropSelf(WWBlocks.BAOBAB_SHELF.get());
-		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.BAOBAB_LEAVES.get(), registryLookup);
+		this.nonSaplingLeavesLoot(WWBlocks.BAOBAB_LEAVES.get());
 
 		this.dropSelf(WWBlocks.WILLOW_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_WILLOW_LOG.get());
@@ -172,7 +139,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.PALM_SIGN.get());
 		this.dropSelf(WWBlocks.PALM_HANGING_SIGN.get());
 		this.dropSelf(WWBlocks.PALM_SHELF.get());
-		WWBlockLootHelper.makeNonSaplingLeavesLoot(this, WWBlocks.PALM_FRONDS.get(), registryLookup);
+		this.nonSaplingLeavesLoot(WWBlocks.PALM_FRONDS.get());
 
 		this.dropSelf(WWBlocks.MAPLE_LOG.get());
 		this.dropSelf(WWBlocks.STRIPPED_MAPLE_LOG.get());
@@ -279,7 +246,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 		this.add(WWBlocks.PHLOX.get(), this.createSegmentedBlockDrops(WWBlocks.PHLOX.get()));
 		this.add(WWBlocks.LANTANAS.get(), this.createSegmentedBlockDrops(WWBlocks.LANTANAS.get()));
-		WWBlockLootHelper.createShearsOrSilkTouchRequiredSegmentedBlockDrops(this, WWBlocks.CLOVERS.get());
+		this.createShearsOrSilkTouchRequiredSegmentedBlockDrops(WWBlocks.CLOVERS.get());
 
 		this.add(WWBlocks.FROZEN_LARGE_FERN.get(), block -> this.createDoublePlantWithSeedDrops(block, WWBlocks.FROZEN_FERN.get()));
 		this.add(WWBlocks.FROZEN_TALL_GRASS.get(), block -> this.createDoublePlantWithSeedDrops(block, WWBlocks.FROZEN_SHORT_GRASS.get()));
@@ -306,14 +273,10 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 									WWBlocks.TUMBLEWEED_PLANT.get(),
 									LootItem.lootTableItem(Items.STICK).apply(
 										SetItemCountFunction.setCount(ContextIntProviders.between(0, 1))
-											.when(
-												MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2))
-											)
+											.when(MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 2)))
 									).apply(
 										SetItemCountFunction.setCount(ContextIntProviders.between(2, 4))
-											.when(
-												MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
-											)
+											.when(MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3)))
 									).when(BonusLevelTableCondition.bonusLevelFlatChance(registryLookup.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
 								)
 							)
@@ -323,9 +286,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 						.setRolls(ContextIntProviders.exactly(1))
 						.add(
 							LootItem.lootTableItem(WWBlocks.TUMBLEWEED.get()).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
-								.when(
-									MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3))
-								)
+								.when(MatchBlock.blockMatches(this.blocks, WWBlocks.TUMBLEWEED_PLANT.get(), StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_3, 3)))
 						)
 				)
 		);
@@ -509,9 +470,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get());
 
-		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
-		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());
-		WWBlockLootHelper.makeHangingFroglightLoot(this, WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY.get(), WWBlocks.OCHRE_FROGLIGHT_GOOP.get());
+		this.makeHangingFroglightLoot(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
+		this.makeHangingFroglightLoot(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());
+		this.makeHangingFroglightLoot(WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY.get(), WWBlocks.OCHRE_FROGLIGHT_GOOP.get());
 
 		this.dropSelf(WWBlocks.OSTRICH_EGG.get());
 		this.dropSelf(WWBlocks.PENGUIN_EGG.get());
@@ -588,5 +549,51 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE.get());
 		this.dropWhenSilkTouch(WWBlocks.ICICLE.get());
+	}
+
+	public void nonSaplingLeavesLoot(Block block) {
+		this.add(
+			block,
+			this.createSilkTouchOrShearsDispatchTable(
+				block,
+				this.applyExplosionDecay(
+					block,
+					LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
+				).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), NORMAL_LEAVES_STICK_CHANCES))
+			)
+		);
+	}
+
+	public void makeHangingFroglightLoot(Block bodyBlock, Block headBlock) {
+		this.add(bodyBlock, this.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock)));
+		this.add(headBlock, this.createSilkTouchOrShearsDispatchTable(headBlock, LootItem.lootTableItem(headBlock)));
+	}
+
+	public void createShearsOrSilkTouchRequiredSegmentedBlockDrops(Block block) {
+		this.add(
+			block,
+			block instanceof SegmentableBlock segmentableBlock
+				? LootTable.lootTable()
+				.withPool(
+					LootPool.lootPool()
+						.setRolls(ContextIntProviders.exactly(1))
+						.add(
+							LootItem.lootTableItem(block)
+								.apply(
+									IntStream.rangeClosed(1, 4).boxed().toList(),
+									integer -> SetItemCountFunction.setCount(ContextIntProviders.exactly(integer))
+										.when(
+											MatchBlock.blockMatches(
+												this.blocks,
+												block,
+												StatePropertiesPredicate.Builder.properties()
+													.hasProperty(segmentableBlock.getSegmentAmountProperty(), integer)
+											)
+										)
+								)
+						).when(this.hasShearsOrSilkTouch())
+				)
+				: noDrop()
+		);
 	}
 }

@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -31,13 +30,13 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ClientLevelMixin { // in common mixins.json
 
 	@ModifyExpressionValue(
-		method = "addBreakingBlockEffect",
+		method = "addBreakingBlockEffects",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/multiplayer/ClientLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
-	public BlockState wilderWild$snowloggedBreakingParticles(BlockState original) {
+	public BlockState wilderWild$snowloggedBreakingBlockEffects(BlockState original) {
 		if (!SnowloggingUtils.isSnowlogged(original)) return original;
 		return SnowloggingUtils.getSnowEquivalent(original);
 	}

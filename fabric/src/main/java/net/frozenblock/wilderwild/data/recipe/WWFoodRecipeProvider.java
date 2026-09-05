@@ -23,22 +23,22 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.item.api.recipe.RecipeExportNamespaceFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWPotions;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.recipes.BrewingRecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.CookingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 
-public final class WWBrewingRecipeProvider extends FabricRecipeProvider {
+public final class WWFoodRecipeProvider extends FabricRecipeProvider {
 
-	public WWBrewingRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WWFoodRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
 	}
 
@@ -49,24 +49,33 @@ public final class WWBrewingRecipeProvider extends FabricRecipeProvider {
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
 
-				this.buildMix(Potions.AWKWARD, WWItems.CRAB_CLAW.get(), WWPotions.REACH.asHolder());
-				this.buildMix(WWPotions.REACH.asHolder(), Items.REDSTONE, WWPotions.LONG_REACH.asHolder());
-				this.buildMix(WWPotions.REACH.asHolder(), Items.GLOWSTONE_DUST, WWPotions.STRONG_REACH.asHolder());
-				this.buildMix(Potions.AWKWARD, WWItems.FERMENTED_SCORCHED_EYE.get(), WWPotions.SCORCHING.asHolder());
+				// CRAFTING
+				this.shapeless(RecipeCategory.FOOD, WWItems.PEELED_PRICKLY_PEAR, 1)
+					.requires(WWItems.PRICKLY_PEAR)
+					.unlockedBy(getHasName(WWItems.PRICKLY_PEAR), this.has(WWItems.PRICKLY_PEAR))
+					.save(output);
+
+				this.stonecutterResultFromBase(RecipeCategory.MISC, WWItems.SPLIT_COCONUT, WWItems.COCONUT, 2);
+
+				// COOKING
+				SimpleCookingRecipeBuilder.smelting(Ingredient.of(WWItems.CRAB_CLAW), RecipeCategory.FOOD, CookingBookCategory.FOOD, WWItems.COOKED_CRAB_CLAW, 0.35F, 200)
+					.unlockedBy(getHasName(WWItems.CRAB_CLAW), this.has(WWItems.CRAB_CLAW))
+					.save(this.output);
+				this.cookRecipes("smoking", SmokingRecipe::new, 200);
+				this.cookRecipes("campfire_cooking", CampfireCookingRecipe::new, 600);
 
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}
 
-			void buildMix(Holder<Potion> input, Item reagent, Holder<Potion> result) {
-				BrewingRecipeBuilder.brewingMix(Items.POTION, input, reagent, result).save(this.output);
-				BrewingRecipeBuilder.brewingMix(Items.SPLASH_POTION, input, reagent, result).save(this.output);
-				BrewingRecipeBuilder.brewingMix(Items.LINGERING_POTION, input, reagent, result).save(this.output);
+			@Override
+			public <T extends AbstractCookingRecipe> void cookRecipes(String source, AbstractCookingRecipe.Factory<T> factory, int cookingTime) {
+				this.simpleCookingRecipe(source, factory, cookingTime, WWItems.CRAB_CLAW, WWItems.COOKED_CRAB_CLAW, 0.35F);
 			}
 		};
 	}
 
 	@Override
 	public String getName() {
-		return "Wilder Wild Brewing Recipes";
+		return "Wilder Wild Food Recipes";
 	}
 }

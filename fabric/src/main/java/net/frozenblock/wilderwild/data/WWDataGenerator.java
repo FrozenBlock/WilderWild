@@ -30,7 +30,11 @@ import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
 import net.frozenblock.wilderwild.data.numberprovider.WWContextIntProviderProvider;
+import net.frozenblock.wilderwild.data.recipe.WWBrewingRecipeProvider;
+import net.frozenblock.wilderwild.data.recipe.WWColoredRecipeProvider;
+import net.frozenblock.wilderwild.data.recipe.WWFoodRecipeProvider;
 import net.frozenblock.wilderwild.data.recipe.WWRecipeProvider;
+import net.frozenblock.wilderwild.data.recipe.WWWoodSetRecipeProvider;
 import net.frozenblock.wilderwild.data.sound.WWPlayerDamageTypeSounds;
 import net.frozenblock.wilderwild.data.sound.WWSoundTypeOverrides;
 import net.frozenblock.wilderwild.data.tag.WWBiomeTagsProvider;
@@ -99,6 +103,10 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWTimelineTagsProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
+		pack.addProvider(WWColoredRecipeProvider::new);
+		pack.addProvider(WWWoodSetRecipeProvider::new);
+		pack.addProvider(WWFoodRecipeProvider::new);
+		pack.addProvider(WWBrewingRecipeProvider::new);
 		pack.addProvider(WWAdvancementProvider::new);
 		pack.addProvider(WWContextIntProviderProvider::new);
 	}

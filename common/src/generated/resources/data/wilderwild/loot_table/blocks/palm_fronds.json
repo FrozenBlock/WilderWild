@@ -4,96 +4,48 @@
     {
       "entries": [
         {
-          "type": "minecraft:item",
-          "condition": {
-            "type": "minecraft:any_of",
-            "terms": [
-              {
-                "type": "minecraft:match_tool",
-                "predicate": {
-                  "items": "minecraft:shears"
-                }
-              },
-              {
-                "type": "minecraft:match_tool",
-                "predicate": {
-                  "predicates": {
-                    "minecraft:enchantments": [
-                      {
-                        "enchantments": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            ]
-          },
-          "name": "wilderwild:palm_fronds"
-        }
-      ],
-      "rolls": 1
-    },
-    {
-      "condition": {
-        "type": "minecraft:inverted",
-        "term": {
-          "type": "minecraft:any_of",
-          "terms": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "type": "minecraft:match_tool",
-              "predicate": {
-                "items": "minecraft:shears"
-              }
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:any_of",
+                "terms": [
+                  "minecraft:tool/can_shear",
+                  "minecraft:tool/can_silk_touch"
+                ]
+              },
+              "name": "wilderwild:palm_fronds"
             },
             {
-              "type": "minecraft:match_tool",
-              "predicate": {
-                "predicates": {
-                  "minecraft:enchantments": [
-                    {
-                      "enchantments": "minecraft:silk_touch",
-                      "levels": {
-                        "min": 1
-                      }
-                    }
-                  ]
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:table_bonus",
+                "chances": [
+                  0.02,
+                  0.022222223,
+                  0.025,
+                  0.033333335,
+                  0.1
+                ],
+                "enchantment": "minecraft:fortune"
+              },
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 2,
+                    "min": 1
+                  }
+                },
+                {
+                  "type": "minecraft:explosion_decay"
                 }
-              }
+              ],
+              "name": "minecraft:stick"
             }
           ]
-        }
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "condition": {
-            "type": "minecraft:table_bonus",
-            "chances": [
-              0.02,
-              0.022222223,
-              0.025,
-              0.033333335,
-              0.1
-            ],
-            "enchantment": "minecraft:fortune"
-          },
-          "modifier": [
-            {
-              "type": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2,
-                "min": 1
-              }
-            },
-            {
-              "type": "minecraft:explosion_decay"
-            }
-          ],
-          "name": "minecraft:stick"
         }
       ],
       "rolls": 1
