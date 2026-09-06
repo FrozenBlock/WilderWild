@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin.client.wind.cloud;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.framegraph.FrameGraphBuilder;
-import net.frozenblock.lib.renderer.FrozenLibRenderState;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -62,10 +61,10 @@ public class LevelRendererMixin { // in common mixins.json
 		int cloudColor,
 		float cloudHeight,
 		int cloudRange,
-		Matrix4fc matrix4fc,
+		Matrix4fc modelViewMatrix,
 		Operation<Void> original
 	) {
-		final CloudWindPositioner positioner = ((FrozenLibRenderState) this.levelRenderState).frozenLib$getDataOrDefault(
+		final CloudWindPositioner positioner = this.levelRenderState.frozenLib$getDataOrDefault(
 			WWRenderStateDataKeys.CLOUD_WIND_POSITIONER,
 			CloudWindPositioner.PASS
 		);
@@ -79,6 +78,6 @@ public class LevelRendererMixin { // in common mixins.json
 			partialTicks = 0L;
 		}
 
-		original.call(instance, frame, cloudStatus, cameraPosition, gameTime, partialTicks, cloudColor, cloudHeight, cloudRange, matrix4fc);
+		original.call(instance, frame, cloudStatus, cameraPosition, gameTime, partialTicks, cloudColor, cloudHeight, cloudRange, modelViewMatrix);
 	}
 }
