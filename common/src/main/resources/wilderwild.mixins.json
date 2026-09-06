@@ -67,7 +67,6 @@
     "projectile.ThrownLingeringPotionMixin",
     "sculk.CalibratedSculkSensorBlockMixin",
     "sculk.SculkBlockMixin",
-    "sculk.SculkSensorBlockEntityMixin",
     "sculk.SculkSensorBlockMixin",
     "sculk.SculkShriekerBlockMixin",
     "sculk.SculkSpreaderChargeCursorMixin",
