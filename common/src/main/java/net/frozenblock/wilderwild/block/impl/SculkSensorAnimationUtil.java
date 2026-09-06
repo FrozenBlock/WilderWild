@@ -60,7 +60,7 @@ public final class SculkSensorAnimationUtil {
 			partialTicks,
 			TENDRIL_ANIMATION0.getAttachedOrElse(blockEntity, 0),
 			TENDRIL_ANIMATION.getAttachedOrElse(blockEntity, 0)
-		);
+		) * 0.1F;
 	}
 
 	public static boolean active(BlockEntity blockEntity) {
