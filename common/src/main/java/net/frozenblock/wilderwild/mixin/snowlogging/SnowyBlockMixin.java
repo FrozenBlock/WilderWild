@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.SnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,6 +37,6 @@ public class SnowyBlockMixin {
 		)
 	)
 	private static boolean wilderWild$isSnowySetting(BlockState instance, TagKey tagKey, Operation<Boolean> original) {
-		return original.call(instance, tagKey) || SnowloggingUtils.isSnowlogged(instance);
+		return original.call(instance, tagKey) || SnowloggingUtil.isSnowlogged(instance);
 	}
 }

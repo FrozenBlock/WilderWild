@@ -1,6 +1,6 @@
 package net.frozenblock.wilderwild.client.renderer.chunk;
 
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.block.BlockQuadOutput;
 import net.minecraft.client.renderer.block.BlockStateModelSet;
@@ -23,8 +23,8 @@ public class SnowloggedSectionCompiler {
 		boolean cutoutLeaves,
 		BlockStateModelSet blockModelSet
 	) {
-		if (!SnowloggingUtils.isSnowlogged(blockState)) return;
-		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(blockState);
+		if (!SnowloggingUtil.isSnowlogged(blockState)) return;
+		final BlockState snowState = SnowloggingUtil.getSnowEquivalent(blockState);
 
 		blockRenderer.tesselateBlock(
 			ModelBlockRenderer.forceOpaque(cutoutLeaves, snowState) ? opaqueQuadOutput : quadOutput,

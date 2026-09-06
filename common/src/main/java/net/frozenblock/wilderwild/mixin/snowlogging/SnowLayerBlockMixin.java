@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -56,10 +56,10 @@ public abstract class SnowLayerBlockMixin {
 		@Local(name = "state") BlockState state
 	) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (!SnowloggingUtils.supportsSnowlogging(state)) return;
-		final int layers = SnowloggingUtils.getSnowLayers(state);
-		if (layers < SnowloggingUtils.MAX_LAYERS) {
-			final BlockState placementState = state.setValue(SnowloggingUtils.SNOW_LAYERS, layers + 1);
+		if (!SnowloggingUtil.supportsSnowlogging(state)) return;
+		final int layers = SnowloggingUtil.getSnowLayers(state);
+		if (layers < SnowloggingUtil.MAX_LAYERS) {
+			final BlockState placementState = state.setValue(SnowloggingUtil.SNOW_LAYERS, layers + 1);
 			info.setReturnValue(placementState);
 		}
 	}
@@ -67,10 +67,10 @@ public abstract class SnowLayerBlockMixin {
 	@Inject(method = "canBeReplaced", at = @At(value = "HEAD"), cancellable = true)
 	public void wilderWild$canBeReplaced(BlockState state, BlockPlaceContext context, CallbackInfoReturnable<Boolean> info) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (!(context.getItemInHand().getItem() instanceof BlockItem blockItem) || !(SnowloggingUtils.canSnowlog(blockItem.getBlock().defaultBlockState()))) return;
+		if (!(context.getItemInHand().getItem() instanceof BlockItem blockItem) || !(SnowloggingUtil.canSnowlog(blockItem.getBlock().defaultBlockState()))) return;
 
 		final BlockState placementState = blockItem.getBlock().getStateForPlacement(context);
-		if (!SnowloggingUtils.isSnowlogged(placementState)) return;
+		if (!SnowloggingUtil.isSnowlogged(placementState)) return;
 
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
@@ -94,8 +94,8 @@ public abstract class SnowLayerBlockMixin {
 		@Local(name = "belowState") BlockState belowState
 	) {
 		if (!WWBlockConfig.canSnowlog()) return;
-		if (!SnowloggingUtils.isSnowlogged(belowState)) return;
-		final int layers = SnowloggingUtils.getSnowLayers(belowState);
-		if (layers == SnowloggingUtils.MAX_LAYERS) info.setReturnValue(true);
+		if (!SnowloggingUtil.isSnowlogged(belowState)) return;
+		final int layers = SnowloggingUtil.getSnowLayers(belowState);
+		if (layers == SnowloggingUtil.MAX_LAYERS) info.setReturnValue(true);
 	}
 }

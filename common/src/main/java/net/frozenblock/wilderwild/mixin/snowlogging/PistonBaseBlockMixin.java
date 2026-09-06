@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -49,9 +49,9 @@ public class PistonBaseBlockMixin {
 	)
 	private BlockState wilderWild$moveBlocks(Level instance, BlockPos pos, Operation<BlockState> original) {
 		BlockState state = original.call(instance, pos);
-		if (SnowloggingUtils.isSnowlogged(state)) {
-			instance.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(SnowloggingUtils.getSnowEquivalent(state)));
-			state = SnowloggingUtils.getStateWithoutSnow(state);
+		if (SnowloggingUtil.isSnowlogged(state)) {
+			instance.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(SnowloggingUtil.getSnowEquivalent(state)));
+			state = SnowloggingUtil.getStateWithoutSnow(state);
 			instance.setBlock(pos, state, Block.UPDATE_CLIENTS);
 		}
 		return state;

@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.lib.block.api.WaterloggableTallFlowerBlock;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -49,11 +48,10 @@ public class CattailBlock extends WaterloggableTallFlowerBlock {
 
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		BlockState state = super.getStateForPlacement(context);
+		final BlockState state = super.getStateForPlacement(context);
 		if (state == null) return null;
 
-		state = state.setValue(SWAYING, state.getValue(WATERLOGGED));
-		return SnowloggingUtils.getSnowPlacementState(state, context);
+		return state.setValue(SWAYING, state.getValue(WATERLOGGED));
 	}
 
 	@Override

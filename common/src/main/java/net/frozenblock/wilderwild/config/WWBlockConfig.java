@@ -25,7 +25,7 @@ import net.frozenblock.lib.config.v2.entry.EntryType;
 import net.frozenblock.lib.config.v2.entry.property.VisibilityPredicate;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 
 public final class WWBlockConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("block")), ConfigSettings.JSON5);
@@ -71,20 +71,20 @@ public final class WWBlockConfig {
 
 	// SNOWLOGGING
 	public static final ConfigEntry<Boolean> SNOWLOGGING = CONFIG.entryBuilder("snowlogging/snowlogging", EntryType.BOOL, true)
-		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtils.HAS_ANTIQUE_ATLAS))
+		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))
 		.requireRestart()
 		.build();
 	public static final ConfigEntry<Boolean> SNOWLOG_WALLS = CONFIG.entryBuilder("snowlogging/snowlogWalls", EntryType.BOOL, true)
-		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtils.HAS_ANTIQUE_ATLAS))
+		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))
 		.requireRestart()
 		.build();
 	public static final ConfigEntry<Boolean> NATURAL_SNOWLOGGING = CONFIG.entryBuilder("snowlogging/naturalSnowlogging", EntryType.BOOL, true)
-		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtils.HAS_ANTIQUE_ATLAS))
+		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))
 		.requireRestart()
 		.build();
 
 	public static boolean canSnowlog() {
-		return SNOWLOGGING.get() && !SnowloggingUtils.HAS_ANTIQUE_ATLAS && !FrozenBools.IS_DATAGEN;
+		return SNOWLOGGING.get() && !SnowloggingUtil.HAS_ANTIQUE_ATLAS && !FrozenBools.IS_DATAGEN;
 	}
 
 	public static boolean canSnowlogWalls() {

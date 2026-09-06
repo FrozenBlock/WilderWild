@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -45,7 +45,7 @@ public class ServerLevelMixin {
 		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
 		int layers = 0;
-		runSnowlogging.set(SnowloggingUtils.canSnowlog(instance) && (layers = SnowloggingUtils.getSnowLayers(instance)) < 8);
+		runSnowlogging.set(SnowloggingUtil.canSnowlog(instance) && (layers = SnowloggingUtil.getSnowLayers(instance)) < SnowloggingUtil.MAX_LAYERS);
 		snowloggedLayers.set(layers);
 		return runSnowlogging.get() || original.call(instance, block);
 	}
@@ -77,6 +77,6 @@ public class ServerLevelMixin {
 		BlockState instance, Property<?> property, Comparable<?> comparable, Operation<Object> original,
 		@Share("wilderWild$runSnowlogging") LocalBooleanRef runSnowlogging, @Share("wilderWild$snowloggedLayers") LocalIntRef snowloggedLayers
 	) {
-		return original.call(instance, runSnowlogging.get() ? SnowloggingUtils.SNOW_LAYERS : property, comparable);
+		return original.call(instance, runSnowlogging.get() ? SnowloggingUtil.SNOW_LAYERS : property, comparable);
 	}
 }

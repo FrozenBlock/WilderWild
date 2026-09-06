@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BoneMealItem;
@@ -46,6 +46,6 @@ public class BoneMealItemMixin { // in common mixins.json
 		@Local(name = "level") Level level,
 		@Local(name = "pos") BlockPos pos
 	) {
-		if (SnowloggingUtils.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
+		if (SnowloggingUtil.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
 	}
 }

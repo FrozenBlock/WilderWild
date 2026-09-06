@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -94,8 +93,9 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		final BlockState state = SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
+		final BlockState state = super.getStateForPlacement(context);
 		if (state == null) return null;
+
 		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 		return state.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 	}

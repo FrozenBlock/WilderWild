@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
 import net.minecraft.client.Minecraft;
@@ -55,9 +55,9 @@ public final class WilderWildNeoForgeClient {
 					final BlockState blockState = region.getBlockState(pos);
 					if (blockState.isAir()) continue;
 
-					if (!SnowloggingUtils.isSnowlogged(blockState)) continue;
+					if (!SnowloggingUtil.isSnowlogged(blockState)) continue;
 
-					final BlockState snowEquivalent = SnowloggingUtils.getSnowEquivalent(blockState);
+					final BlockState snowEquivalent = SnowloggingUtil.getSnowEquivalent(blockState);
 					if (snowEquivalent.getRenderShape() != RenderShape.MODEL) continue;
 
 					context.getBlockRenderer().tesselateBlock(

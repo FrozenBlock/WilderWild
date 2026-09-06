@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -93,7 +93,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
+		return super.isRandomlyTicking(state) || SnowloggingUtil.isSnowlogged(state);
 	}
 
 	public static AttachFace getFace(Direction direction) {
@@ -161,7 +161,6 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACE, FACING, AGE, STAGE, WATERLOGGED);
-		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 
 	@Override
@@ -191,7 +190,7 @@ public class ShelfFungiBlock extends FaceAttachedHorizontalDirectionalBlock impl
 					.setValue(FACING, direction.getOpposite())
 					.setValue(WATERLOGGED, waterlogged);
 			}
-			if (blockState.canSurvive(level, pos)) return SnowloggingUtils.getSnowPlacementState(blockState, context);
+			if (blockState.canSurvive(level, pos)) return blockState;
 		}
 		return null;
 	}

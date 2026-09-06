@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggedBlockSettings;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -48,7 +49,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockContainer {
+public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockContainer, SnowloggedBlockSettings {
 	private static final VoxelShape SHAPE = Block.box(4D, 0D, 4D, 12D, 8D, 12D);
 	private static final BooleanProperty GLOWING = WWBlockStateProperties.GLOWING;
 	public static final int LIGHT_LEVEL = 4;
@@ -170,5 +171,10 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
 		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.isFull();
+	}
+
+	@Override
+	public boolean wilderWild$snowloggingEnabled() {
+		return false;
 	}
 }

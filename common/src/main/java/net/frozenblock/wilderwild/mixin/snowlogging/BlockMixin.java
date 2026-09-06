@@ -17,34 +17,27 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.world.item.context.BlockPlaceContext;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(VegetationBlock.class)
-public class VegetationBlockMixin extends Block {
+@Mixin(Block.class)
+public class BlockMixin {
 
-	public VegetationBlockMixin(Properties properties) {
-		super(properties);
-	}
-
-	@Unique
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		SnowloggingUtils.appendSnowlogProperties(builder);
-	}
-
-	@Unique
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return SnowloggingUtils.getSnowPlacementState(super.getStateForPlacement(context), context);
+	@WrapOperation(
+		method = "<init>",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/level/block/Block;createBlockStateDefinition(Lnet/minecraft/world/level/block/state/StateDefinition$Builder;)V"
+		)
+	)
+	public void wilderWild$createSnowloggedBlockStateDefinition(Block instance, StateDefinition.Builder<Block, BlockState> builder, Operation<Void> original) {
+		original.call(instance, builder);
+		SnowloggingUtil.appendSnowloggedProperties(instance, builder);
 	}
 }

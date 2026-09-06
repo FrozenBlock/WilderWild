@@ -75,6 +75,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that prevented Penguins from applying a speed boost to Rafts.
 - Fixed an issue that caused a damage sound to play when eating a Prickly Pear in situations where damage was not received from it.
 - Blocks such as Sugar Cane no longer break/update incorrectly when their Snowlogged layers are broken.
+- Aquatic Blocks (such as Seagrass and Sea Anemone) no longer contain BlockState Properties pertaining to Snowlogging.
 - Happy Ghasts will no longer pathfind into Prickly Pears.
 - Echo Glass now emits the `minecraft:block_change` Game Event upon cracking.
 - Likely fixed an issue that caused Jellyfish to be invisible with certain Shader Packs.

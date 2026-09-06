@@ -92,7 +92,7 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
@@ -1466,10 +1466,10 @@ public final class WWBlocks {
 
 	public static void init() {
 		PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> {
-			if (SnowloggingUtils.isSnowlogged(state)) {
-				level.setBlockAndUpdate(pos, state.setValue(SnowloggingUtils.SNOW_LAYERS, 0));
+			if (SnowloggingUtil.isSnowlogged(state)) {
+				level.setBlockAndUpdate(pos, state.setValue(SnowloggingUtil.SNOW_LAYERS, 0));
 
-				final BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
+				final BlockState snowState = SnowloggingUtil.getSnowEquivalent(state);
 				PlayerBlockBreakEvents.onDestroyLoggedBlock(level, player, pos, snowState, blockEntity);
 				return false;
 			}

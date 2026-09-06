@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,7 +37,7 @@ public class LevelExtractorMixin {
 		)
 	)
 	private BlockState wilderWild$extractSnowloggedBreakingTexture(BlockState original) {
-		if (!SnowloggingUtils.isSnowlogged(original)) return original;
-		return SnowloggingUtils.getSnowEquivalent(original);
+		if (!SnowloggingUtil.isSnowlogged(original)) return original;
+		return SnowloggingUtil.getSnowEquivalent(original);
 	}
 }

@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.client.sodium;
 
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
 import net.caffeinemc.mods.sodium.client.render.model.AbstractBlockRenderContext;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -42,8 +42,8 @@ public abstract class BlockRendererMixin extends AbstractBlockRenderContext {
 
 	@Inject(method = "renderModel", at = @At("HEAD"), remap = false, require = 0)
 	public void wilderWild$renderModel(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo info) {
-		if (!SnowloggingUtils.isSnowlogged(state)) return;
-		final BlockState snowState = SnowloggingUtils.getSnowEquivalent(state);
+		if (!SnowloggingUtil.isSnowlogged(state)) return;
+		final BlockState snowState = SnowloggingUtil.getSnowEquivalent(state);
 		final BlockStateModel snowModel = Minecraft.getInstance().getModelManager().getBlockStateModelSet().get(snowState);
 		this.renderModel(snowModel, snowState, pos, origin);
 	}

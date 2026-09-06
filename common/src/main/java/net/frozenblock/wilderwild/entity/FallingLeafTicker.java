@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.entity;
 
 import java.util.Optional;
 import net.frozenblock.lib.entity.api.SilentTicker;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
@@ -151,7 +151,7 @@ public class FallingLeafTicker extends SilentTicker {
 	}
 
 	private static boolean isSafePosToPlaceLitter(Level level, BlockPos pos, BlockState stateToReplace, Block leafLitterBlock) {
-		if (stateToReplace.is(Blocks.SNOW) || SnowloggingUtils.isSnowlogged(stateToReplace)) return false;
+		if (stateToReplace.is(Blocks.SNOW) || SnowloggingUtil.isSnowlogged(stateToReplace)) return false;
 		if ((stateToReplace.isAir() || stateToReplace.canBeReplaced() || stateToReplace.is(leafLitterBlock)) && stateToReplace.getFluidState().isEmpty()) {
 			return leafLitterBlock.defaultBlockState().canSurvive(level, pos);
 		}
