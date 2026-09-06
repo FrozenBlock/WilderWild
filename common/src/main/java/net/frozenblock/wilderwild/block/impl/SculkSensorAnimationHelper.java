@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public final class SculkSensorAnimationUtil {
+public final class SculkSensorAnimationHelper {
 	private static final DataAttachmentType<Integer> AGE_IN_TICKS = WWAttachmentTypes.SCULK_SENSOR_AGE_IN_TICKS;
 	private static final DataAttachmentType<Integer> TENDRIL_ANIMATION0 = WWAttachmentTypes.SCULK_SENSOR_TENDRIL_ANIMATION0;
 	private static final DataAttachmentType<Integer> TENDRIL_ANIMATION = WWAttachmentTypes.SCULK_SENSOR_TENDRIL_ANIMATION;
@@ -71,5 +71,5 @@ public final class SculkSensorAnimationUtil {
 		return FACING.getAttachedOrElse(blockEntity, Direction.NORTH);
 	}
 
-	private SculkSensorAnimationUtil() {}
+	private SculkSensorAnimationHelper() {}
 }

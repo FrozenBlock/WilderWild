@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.wilderwild.block.impl.SculkSensorAnimationUtil;
+import net.frozenblock.wilderwild.block.impl.SculkSensorAnimationHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -43,7 +43,7 @@ public abstract class SculkSensorBlockMixin extends BaseEntityBlock {
 		Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info
 	) {
 		if (!level.isClientSide()) return;
-		info.setReturnValue(createTickerHelper(type, BlockEntityTypes.SCULK_SENSOR, SculkSensorAnimationUtil::tick));
+		info.setReturnValue(createTickerHelper(type, BlockEntityTypes.SCULK_SENSOR, SculkSensorAnimationHelper::tick));
 	}
 
 }

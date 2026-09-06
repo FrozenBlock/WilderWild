@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class SnowyBlockUtils {
+public class SnowyBlockUtil {
 	public static final BiMap<Block, Block> SNOWY_BLOCK_MAP = ImmutableBiMap.<Block, Block>builder()
 		.put(Blocks.SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS.get())
 		.put(Blocks.TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS.get())
@@ -73,5 +73,5 @@ public class SnowyBlockUtils {
 		return nonSnowyEquivalent;
 	}
 
-	private SnowyBlockUtils() {}
+	private SnowyBlockUtil() {}
 }
