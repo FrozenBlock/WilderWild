@@ -41,7 +41,7 @@ public class SpreadingSnowyBlockMixin {
 		),
 		cancellable = true
 	)
-	private static void wilderWild$canBeGrassFirstCheck(
+	private static void wilderWild$canStayAliveWithSnowloggedAbove(
 		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
 		@Local(name = "aboveState") BlockState aboveState
 	) {
