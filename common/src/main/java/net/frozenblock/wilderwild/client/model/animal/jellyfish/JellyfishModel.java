@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.client.model.animal.jellyfish;
 
 import java.util.Arrays;
 import net.frozenblock.lib.renderer.FrozenLibRenderTypes;
+import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -30,6 +31,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 @ClientOnly
@@ -44,7 +48,7 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 	private final ModelPart[] planeTentacles = new ModelPart[JELLYFISH_TENTACLES];
 
 	public JellyfishModel(ModelPart root) {
-		super(root, FrozenLibRenderTypes::entityTranslucentEmissiveFixed);
+		super(root, JellyfishModel::currentRenderType);
 		this.bone = root.getChild("bone");
 		this.body = this.bone.getChild("body");
 		this.tentacleBase = this.bone.getChild("tentacleBase");
@@ -184,5 +188,11 @@ public class JellyfishModel extends EntityModel<JellyfishRenderState> {
 		}
 
 		this.armBase.visible = WWEntityConfig.JELLYFISH_ORAL_ARMS.get();
+	}
+
+	// This should solve issues with Jellyfish being completely invisible with some shaders.
+	private static RenderType currentRenderType(Identifier id) {
+		if (JellyfishRenderer.isUsingIrisShaderPack()) return RenderTypes.entityTranslucent(id);
+		return FrozenLibRenderTypes.entityTranslucentEmissiveFixed(id);
 	}
 }

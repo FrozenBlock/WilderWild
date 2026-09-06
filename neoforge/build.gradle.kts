@@ -26,6 +26,10 @@ val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
 
+val iris_version: String by project
+val run_iris: String by project
+val shouldRunIris = run_iris == "true"
+
 val neoforgeSnapshotMaven = findProperty("neoforge_snapshot_maven") as String?
 
 base {
@@ -126,6 +130,12 @@ dependencies {
         compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
         compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
     }
+
+    // Iris
+    if (shouldRunIris)
+        implementation("maven.modrinth:iris:${iris_version}-neoforge")
+    else
+        compileOnly("maven.modrinth:iris:${iris_version}-neoforge")
 }
 
 java {

@@ -18,12 +18,14 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.mod_compat.WWIrisCompat;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -73,7 +75,8 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 
 	@Override
 	protected int getBlockLightLevel(Jellyfish jellyfish, BlockPos pos) {
-		return 15;
+		if (isUsingIrisShaderPack()) return 15; // Emission has to be "faked" with Iris, as we cannot use our fixed emissive RenderType.
+		return super.getBlockLightLevel(jellyfish, pos);
 	}
 
 	@Override
@@ -101,5 +104,9 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 		renderState.tentXRot = -(jellyfish.xRot6 + partialTicks * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
 		renderState.armXRot = -(jellyfish.xRot9 + partialTicks * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
 		renderState.jellyScale = jellyfish.prevScale + partialTicks * (jellyfish.scale - jellyfish.prevScale);
+	}
+
+	public static boolean isUsingIrisShaderPack() {
+		return FrozenBools.HAS_IRIS && WWIrisCompat.usingShaderPack();
 	}
 }
