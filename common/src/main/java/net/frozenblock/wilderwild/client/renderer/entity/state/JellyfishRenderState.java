@@ -20,12 +20,13 @@ package net.frozenblock.wilderwild.client.renderer.entity.state;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import org.jspecify.annotations.Nullable;
 
 @ClientOnly
 public class JellyfishRenderState extends LivingEntityRenderState {
 	public int tickCount;
 	public boolean isRGB;
-	public JellyfishVariant variant;
+	public @Nullable JellyfishVariant variant;
 	public float levelTime;
 
 	public float jellyXRot;

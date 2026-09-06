@@ -37,10 +37,12 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.jspecify.annotations.Nullable;
 
 @ClientOnly
 public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, NoOpModel<FireflyRenderState>> {
 	private static final Identifier TEXTURE = WWConstants.id("textures/entity/firefly/firefly_base.png");
+	private static final Identifier FALLBACK_ON_TEXTURE = WWConstants.id("textures/entity/firefly/firefly_on.png");
 	private static final RenderType LAYER = RenderTypes.entityTranslucent(TEXTURE);
 
 	private static final float Y_OFFSET = 0.155F;
@@ -54,7 +56,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
 		Quaternionf cameraOrientation,
-		FireflyColor color,
+		@Nullable FireflyColor color,
 		float calcColor,
 		float scale,
 		float xOffset,
@@ -77,7 +79,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderTypes.entityTranslucentEmissive(color.resourceTexture().texturePath()),
+				RenderTypes.entityTranslucentEmissive(getColorTextureOrFallback(color)),
 				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, calcColor)
 			);
 
@@ -106,7 +108,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderTypes.entityTranslucentEmissive(renderState.color.resourceTexture().texturePath()),
+				RenderTypes.entityTranslucentEmissive(getColorTextureOrFallback(renderState.color)),
 				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, renderState.calcColor)
 			);
 
@@ -132,9 +134,14 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		this.submitNameDisplay(renderState, poseStack, collector, camera);
 	}
 
+	private static Identifier getColorTextureOrFallback(@Nullable FireflyColor color) {
+		if (color == null) return FALLBACK_ON_TEXTURE;
+		return color.resourceTexture().texturePath();
+	}
+
 	@Override
 	public Identifier getTextureLocation(FireflyRenderState renderState) {
-		return renderState.color.resourceTexture().texturePath();
+		return getColorTextureOrFallback(renderState.color);
 	}
 
 	@Override
@@ -146,7 +153,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	public void extractRenderState(Firefly firefly, FireflyRenderState renderState, float partialTicks) {
 		super.extractRenderState(firefly, renderState, partialTicks);
 		renderState.animScale = Mth.lerp(partialTicks, firefly.getPrevAnimScale(), firefly.getAnimScale());
-		renderState.color = firefly.getColorForRendering();
+		renderState.color = firefly.getColorForRendering().orElse(null);
 		renderState.calcColor = (((firefly.getFlickerAge() + partialTicks) * Mth.PI) * -4F) / 255F;
 	}
 

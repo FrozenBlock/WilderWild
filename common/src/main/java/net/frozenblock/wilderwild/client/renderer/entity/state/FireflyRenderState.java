@@ -20,10 +20,11 @@ package net.frozenblock.wilderwild.client.renderer.entity.state;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import org.jspecify.annotations.Nullable;
 
 @ClientOnly
 public class FireflyRenderState extends LivingEntityRenderState {
 	public float animScale;
-	public FireflyColor color;
+	public @Nullable FireflyColor color;
 	public float calcColor;
 }

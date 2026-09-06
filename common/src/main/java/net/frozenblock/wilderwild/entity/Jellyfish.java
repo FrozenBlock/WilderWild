@@ -589,8 +589,8 @@ public class Jellyfish extends NoFlopAbstractFish {
 		return this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).get(this.getVariantLocation()).orElseThrow();
 	}
 
-	public JellyfishVariant getVariantForRendering() {
-		return this.jellyfishVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.JELLYFISH_VARIANT).getValue(JellyfishVariants.DEFAULT));
+	public Optional<JellyfishVariant> getVariantForRendering() {
+		return this.jellyfishVariant;
 	}
 
 	public void setVariant(JellyfishVariant variant) {

@@ -37,6 +37,8 @@ import net.minecraft.world.level.Level;
 
 @ClientOnly
 public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
+	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_pearlescent_blue.png");
+	private static final Identifier DEFAULT_TEXTURE_BABY = WWConstants.id("textures/entity/jellyfish/jellyfish_pearlescent_blue_baby.png");
 	private static final Identifier WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
 	private static final Identifier WHITE_TEXTURE_BABY = WWConstants.id("textures/entity/jellyfish/jellyfish_white_baby.png");
 
@@ -82,6 +84,7 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 	@Override
 	public Identifier getTextureLocation(JellyfishRenderState renderState) {
 		if (renderState.isRGB) return renderState.isBaby ? WHITE_TEXTURE_BABY : WHITE_TEXTURE;
+		if (renderState.variant == null) return renderState.isBaby ? DEFAULT_TEXTURE_BABY : DEFAULT_TEXTURE;
 		return (renderState.isBaby ? renderState.variant.babyTexture() : renderState.variant.texture()).texturePath();
 	}
 
@@ -95,7 +98,7 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 		super.extractRenderState(jellyfish, renderState, partialTicks);
 		renderState.tickCount = jellyfish.tickCount;
 		renderState.isRGB = jellyfish.isRGB();
-		renderState.variant = jellyfish.getVariantForRendering();
+		renderState.variant = jellyfish.getVariantForRendering().orElse(null);
 
 		final Level level = jellyfish.level();
 		if (level != null) renderState.levelTime = (level.getGameTime() + partialTicks) * 0.05F;

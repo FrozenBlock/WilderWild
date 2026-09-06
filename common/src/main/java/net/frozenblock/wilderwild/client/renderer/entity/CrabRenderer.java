@@ -35,6 +35,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
+import java.util.Optional;
 
 @ClientOnly
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {
@@ -103,7 +104,10 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.diggingAnimationState.copyFrom(crab.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(crab.emergingAnimationState);
 
-		final CrabVariant variant = crab.getVariantForRendering();
+		final Optional<CrabVariant> optionalVariant = crab.getVariantForRendering();
+		if (optionalVariant.isEmpty()) return;
+
+		final CrabVariant variant = optionalVariant.get();
 		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
 		renderState.mojangTexture = (renderState.isBaby ? variant.babyMojangTexture() : variant.mojangTexture()).texturePath();
 	}
