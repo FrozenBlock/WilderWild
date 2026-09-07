@@ -250,6 +250,11 @@ public class FlowerCow extends AbstractCow implements Shearable {
 	}
 
 	public Optional<MoobloomVariant> getVariantForRendering() {
+		if (this.moobloomVariant.isEmpty() && this.level() != null) {
+			this.level().registryAccess().lookup(WilderWildRegistries.MOOBLOOM_VARIANT)
+				.flatMap(registry -> registry.get(MoobloomVariants.DEFAULT))
+				.ifPresent(variant -> this.moobloomVariant = Optional.of(variant.value()));
+		}
 		return this.moobloomVariant;
 	}
 

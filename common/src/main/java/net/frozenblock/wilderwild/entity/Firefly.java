@@ -348,6 +348,11 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	public Optional<FireflyColor> getColorForRendering() {
+		if (this.fireflyColor.isEmpty() && this.level() != null) {
+			this.level().registryAccess().lookup(WilderWildRegistries.FIREFLY_COLOR)
+				.flatMap(registry -> registry.get(FireflyColors.DEFAULT))
+				.ifPresent(variant -> this.fireflyColor = Optional.of(variant.value()));
+		}
 		return this.fireflyColor;
 	}
 

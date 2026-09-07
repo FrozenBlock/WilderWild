@@ -590,6 +590,11 @@ public class Jellyfish extends NoFlopAbstractFish {
 	}
 
 	public Optional<JellyfishVariant> getVariantForRendering() {
+		if (this.jellyfishVariant.isEmpty() && this.level() != null) {
+			this.level().registryAccess().lookup(WilderWildRegistries.JELLYFISH_VARIANT)
+				.flatMap(registry -> registry.get(JellyfishVariants.DEFAULT))
+				.ifPresent(variant -> this.jellyfishVariant = Optional.of(variant.value()));
+		}
 		return this.jellyfishVariant;
 	}
 
