@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Iterator;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggedBlockSettings;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
@@ -49,7 +50,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
+public class AlgaeBlock extends VegetationBlock implements BonemealableBlock, SnowloggedBlockSettings {
 	public static final double ENTITY_SLOWDOWN = 0.8D;
 	protected static final VoxelShape SHAPE = Block.box(0D, 0D, 0D, 16D, 1D, 16D);
 	protected static final VoxelShape ENTITY_INSIDE_SHAPE = Block.box(0D, -0.5D, 0D, 16D, 0D, 16D);
@@ -155,5 +156,10 @@ public class AlgaeBlock extends VegetationBlock implements BonemealableBlock {
 			if (level.getBlockState(posesToCheck.next()).is(WWBlocks.ALGAE.get())) count = count + 1;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean wilderWild$snowloggingEnabled() {
+		return false;
 	}
 }

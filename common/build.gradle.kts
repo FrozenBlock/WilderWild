@@ -16,6 +16,7 @@ val fabric_loader_version: String by project
 val frozenlib_version: String by project
 val cloth_config_version: String by project
 val biolith_version: String by project
+val iris_version: String by project
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
@@ -53,6 +54,8 @@ dependencies {
     compileOnly("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
 
     compileOnly("com.terraformersmc:biolith-common:${biolith_version}")
+
+    compileOnly("maven.modrinth:iris:${iris_version}-fabric")
 }
 
 configurations {

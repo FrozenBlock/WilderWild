@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
+import java.util.Optional;
 
 @ClientOnly
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {
@@ -49,7 +50,9 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	@Override
 	protected AABB getBoundingBoxForCulling(FlowerCow flowerCow, float partialTicks) {
 		final AABB boundingBox = super.getBoundingBoxForCulling(flowerCow, partialTicks);
-		if (flowerCow.getVariantForRendering().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
+		final Optional<MoobloomVariant> variant = flowerCow.getVariantForRendering();
+		if (variant.isEmpty()) return boundingBox;
+		if (variant.get().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
 		return boundingBox;
 	}
 
@@ -63,7 +66,10 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 		super.extractRenderState(flowerCow, renderState, partialTicks);
 		renderState.flowers = flowerCow.getFlowersLeft();
 
-		final MoobloomVariant variant = flowerCow.getVariantForRendering();
+		final Optional<MoobloomVariant> optionalVariant = flowerCow.getVariantForRendering();
+		if (optionalVariant.isEmpty()) return;
+
+		final MoobloomVariant variant = optionalVariant.get();
 		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
 
 		final BlockState flowerState = variant.flowerBlockState();

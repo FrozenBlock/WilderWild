@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.client.renderer.blockentity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
+import net.frozenblock.wilderwild.block.impl.SculkSensorAnimationHelper;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.SculkSensorRenderState;
@@ -97,14 +97,14 @@ public class SculkSensorRenderer<T extends SculkSensorBlockEntity> implements Bl
 	) {
 		BlockEntityRenderer.super.extractRenderState(sculkSensor, renderState, partialTicks, cameraPos, breakProgress);
 
-		if (!WWConstants.MC_LIVE_TENDRILS || !(sculkSensor instanceof SculkSensorInterface sculkSensorInterface) || !sculkSensorInterface.wilderWild$isActive()) {
+		if (!WWConstants.MC_LIVE_TENDRILS || !SculkSensorAnimationHelper.active(sculkSensor)) {
 			renderState.active = false;
 			return;
 		}
 
-		renderState.ageInTicks = sculkSensorInterface.wilderWild$getAgeInTicks(partialTicks);
+		renderState.ageInTicks = SculkSensorAnimationHelper.ageInTicks(sculkSensor, partialTicks);
 		renderState.active = true;
-		renderState.blockYRot = -sculkSensorInterface.wilderWild$getFacing().toYRot();
-		renderState.tendrilAnimation = sculkSensorInterface.wilderWild$getTendrilAnimation(partialTicks);
+		renderState.blockYRot = -SculkSensorAnimationHelper.facing(sculkSensor).toYRot();
+		renderState.tendrilAnimation = SculkSensorAnimationHelper.tendrilAnimation(sculkSensor, partialTicks);
 	}
 }

@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -198,7 +198,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 
 	@Override
 	protected boolean isRandomlyTicking(BlockState state) {
-		return super.isRandomlyTicking(state) || SnowloggingUtils.isSnowlogged(state);
+		return super.isRandomlyTicking(state) || SnowloggingUtil.isSnowlogged(state);
 	}
 
 	@Override
@@ -212,5 +212,4 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 			.setValue(FACE, Util.getRandom(AttachFace.values(), random))
 			.setValue(FACING, Direction.Plane.HORIZONTAL.getRandomDirection(random));
 	}
-
 }

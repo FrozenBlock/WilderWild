@@ -38,6 +38,10 @@ val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
 
+val iris_version: String by project
+val run_iris: String by project
+val shouldRunIris = run_iris == "true"
+
 base {
     archivesName = archives_base_name
 }
@@ -129,6 +133,12 @@ dependencies {
         implementation("net.caffeinemc:sodium-fabric:${sodium_version}")
     else
         compileOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
+
+    // Iris
+    if (shouldRunIris)
+        implementation("maven.modrinth:iris:${iris_version}-fabric")
+    else
+        compileOnly("maven.modrinth:iris:${iris_version}-fabric")
 }
 
 tasks {

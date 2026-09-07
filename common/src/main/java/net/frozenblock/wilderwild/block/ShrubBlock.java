@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -100,7 +100,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 		if (!belowState.is(state.getBlock()) || belowState.getValue(HALF) != DoubleBlockHalf.LOWER) return;
 
 		BlockState setState = belowState.getFluidState().createLegacyBlock();
-		if (setState.getFluidState().isEmpty() && SnowloggingUtils.isSnowlogged(state)) setState = SnowloggingUtils.getSnowEquivalent(state);
+		if (setState.getFluidState().isEmpty() && SnowloggingUtil.isSnowlogged(state)) setState = SnowloggingUtil.getSnowEquivalent(state);
 
 		level.setBlock(belowPos, setState, 35);
 		level.levelEvent(player, LevelEvent.PARTICLES_DESTROY_BLOCK, belowPos, getId(belowState));

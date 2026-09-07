@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
@@ -34,6 +34,6 @@ public interface SimpleWaterloggedBlockMixin {
 
 	@Inject(method = "canPlaceLiquid", at = @At("HEAD"), cancellable = true)
 	default void wilderWild$canPlaceLiquid(LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, Fluid type, CallbackInfoReturnable<Boolean> info) {
-		if (SnowloggingUtils.isSnowlogged(state)) info.setReturnValue(false);
+		if (SnowloggingUtil.isSnowlogged(state)) info.setReturnValue(false);
 	}
 }

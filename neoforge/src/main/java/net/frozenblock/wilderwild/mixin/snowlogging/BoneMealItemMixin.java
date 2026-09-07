@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BoneMealItem;
@@ -32,7 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BoneMealItem.class)
 public class BoneMealItemMixin { // in common mixins.json
 
-	@Inject(method = "useOn",
+	@Inject(
+		method = "useOn",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/item/BoneMealItem;growWaterPlant(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z",
@@ -46,6 +47,6 @@ public class BoneMealItemMixin { // in common mixins.json
 		@Local(name = "level") Level level,
 		@Local(name = "pos") BlockPos pos
 	) {
-		if (SnowloggingUtils.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
+		if (SnowloggingUtil.isSnowlogged(level.getBlockState(pos))) info.setReturnValue(InteractionResult.PASS);
 	}
 }

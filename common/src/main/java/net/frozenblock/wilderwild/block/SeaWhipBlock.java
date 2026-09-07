@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggedBlockSettings;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +41,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContainer {
+public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContainer, SnowloggedBlockSettings {
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 12D, 14D);
 
 	public SeaWhipBlock(Properties properties) {
@@ -98,5 +99,10 @@ public class SeaWhipBlock extends VegetationBlock implements LiquidBlockContaine
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
 		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.isFull();
+	}
+
+	@Override
+	public boolean wilderWild$snowloggingEnabled() {
+		return false;
 	}
 }

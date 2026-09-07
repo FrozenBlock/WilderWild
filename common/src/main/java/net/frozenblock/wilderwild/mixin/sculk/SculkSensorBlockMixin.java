@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.sculk;
 
-import net.frozenblock.wilderwild.block.entity.impl.SculkSensorInterface;
+import net.frozenblock.wilderwild.block.impl.SculkSensorAnimationHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -34,17 +34,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SculkSensorBlock.class)
 public abstract class SculkSensorBlockMixin extends BaseEntityBlock {
 
-	private SculkSensorBlockMixin(Properties properties) {
+	protected SculkSensorBlockMixin(Properties properties) {
 		super(properties);
 	}
 
-	@Inject(at = @At("HEAD"), method = "getTicker", cancellable = true)
-	public <T extends BlockEntity> void wilderWild$overrideTicker(Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info) {
+	@Inject(method = "getTicker", at = @At("HEAD"), cancellable = true)
+	public <T extends BlockEntity> void wilderWild$overrideTicker(
+		Level level, BlockState blockState, BlockEntityType<T> type, CallbackInfoReturnable<BlockEntityTicker<T>> info
+	) {
 		if (!level.isClientSide()) return;
-		info.setReturnValue(
-			createTickerHelper(type, BlockEntityTypes.SCULK_SENSOR, (levelx, pos, statex, blockEntity) -> {
-				if (blockEntity instanceof SculkSensorInterface sculkSensorInterface) sculkSensorInterface.wilderWild$tickClient(levelx, pos, blockState);
-			})
-		);
+		info.setReturnValue(createTickerHelper(type, BlockEntityTypes.SCULK_SENSOR, SculkSensorAnimationHelper::tick));
 	}
 }

@@ -42,9 +42,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import java.util.Map;
 
 public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock {
 	public static final double HOLLOW_PARTICLE_AXIS_OFFSET = 0.3375D;
@@ -55,42 +57,19 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 	private static final double EDGE_AMOUNT = 0.140625D;
 	private static final double CRAWL_HEIGHT = EDGE_AMOUNT + HOLLOWED_AMOUNT;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-	//TODO: delegate to helper methods instead of manual shapes
-	protected static final VoxelShape X_SHAPE = Shapes.or(
-		Block.box(0D, 0D, 0D, 16D, 16D, 3D),
-		Block.box(0D, 13D, 0D, 16D, 16D, 16D),
-		Block.box(0D, 0D, 13D, 16D, 16D, 16D),
-		Block.box(0D, 0D, 0D, 16D, 3D, 16D)
+	private static final Map<Direction.Axis, VoxelShape> SHAPES = Shapes.rotateAllAxis(
+		Shapes.join(
+			Shapes.block(),
+			Block.cube(10D, 10D, 16D),
+			BooleanOp.ONLY_FIRST
+		)
 	);
-	protected static final VoxelShape Y_SHAPE = Shapes.or(
-		Block.box(0D, 0D, 0D, 16D, 16D, 3D),
-		Block.box(0D, 0D, 0D, 3D, 16D, 16D),
-		Block.box(0D, 0D, 13D, 16D, 16D, 16D),
-		Block.box(13D, 0D, 0D, 16D, 16D, 16D)
-	);
-	protected static final VoxelShape Z_SHAPE = Shapes.or(
-		Block.box(13D, 0D, 0D, 16D, 16D, 16D),
-		Block.box(0D, 0D, 0D, 3D, 16D, 16D),
-		Block.box(0D, 13D, 0D, 16D, 16D, 16D),
-		Block.box(0D, 0D, 0D, 16D, 3D, 16D)
-	);
-	protected static final VoxelShape X_COLLISION_SHAPE = Shapes.or(
-		Block.box(0D, 0, 0, 16, 16D, 2.25D),
-		Block.box(0D, 13.75D, 0, 16D, 16D, 16D),
-		Block.box(0D, 0D, 13D, 16D, 16D, 16D),
-		Block.box(0D, 0D, 0D, 16D, 2.25D, 16D)
-	);
-	protected static final VoxelShape Y_COLLISION_SHAPE = Shapes.or(
-		Block.box(0D, 0D, 0D, 16D, 16D, 2.25D),
-		Block.box(0D, 0D, 0D, 2.25D, 16D, 16),
-		Block.box(0D, 0D, 13.75D, 16D, 16D, 16),
-		Block.box(13.75D, 0D, 0D, 16D, 16D, 16)
-	);
-	protected static final VoxelShape Z_COLLISION_SHAPE = Shapes.or(
-		Block.box(13.75D, 0D, 0D, 16D, 16D, 16D),
-		Block.box(0D, 0D, 0D, 2.25D, 16D, 16),
-		Block.box(0D, 13.75D, 0D, 16D, 16D, 16),
-		Block.box(0D, 0D, 0D, 16D, 2.25D, 16)
+	private static final Map<Direction.Axis, VoxelShape> COLLISION_SHAPES = Shapes.rotateAllAxis(
+		Shapes.join(
+			Shapes.block(),
+			Block.cube(10.5D, 10.5D, 16D),
+			BooleanOp.ONLY_FIRST
+		)
 	);
 	protected static final VoxelShape RAYCAST_SHAPE = Shapes.block();
 
@@ -150,20 +129,12 @@ public class HollowedLogBlock extends RotatedPillarBlock implements SimpleWaterl
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return switch (state.getValue(AXIS)) {
-			case Y -> Y_SHAPE;
-			case Z -> Z_SHAPE;
-			default -> X_SHAPE;
-		};
+		return SHAPES.get(state.getValue(AXIS));
 	}
 
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		return switch (state.getValue(AXIS)) {
-			case Y -> Y_COLLISION_SHAPE;
-			case Z -> Z_COLLISION_SHAPE;
-			default -> X_COLLISION_SHAPE;
-		};
+		return COLLISION_SHAPES.get(state.getValue(AXIS));
 	}
 
 	@Override

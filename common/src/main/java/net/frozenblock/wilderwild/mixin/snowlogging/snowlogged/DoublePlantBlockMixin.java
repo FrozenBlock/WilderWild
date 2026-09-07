@@ -15,50 +15,30 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.snowlogged;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DoublePlantBlock.class)
-public abstract class DoublePlantBlockMixin extends VegetationBlock {
-
-	public DoublePlantBlockMixin(Properties properties) {
-		super(properties);
-	}
-
-	@ModifyExpressionValue(
-		method = "getStateForPlacement",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/VegetationBlock;getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;"
-		)
-	)
-	public BlockState wilderWild$getStateForPlacement(BlockState original, BlockPlaceContext context) {
-		return SnowloggingUtils.getSnowPlacementState(original, context);
-	}
+public class DoublePlantBlockMixin {
 
 	@Inject(method = "setPlacedBy", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity by, ItemStack itemStack, CallbackInfo info) {
-		if (SnowloggingUtils.isItemSnow(itemStack) && WWBlockConfig.canSnowlog()) info.cancel();
+		if (SnowloggingUtil.isItemSnow(itemStack) && WWBlockConfig.canSnowlog()) info.cancel();
 	}
 
 	@WrapOperation(
@@ -72,14 +52,9 @@ public abstract class DoublePlantBlockMixin extends VegetationBlock {
 		Level instance, BlockPos pos, BlockState blockState, int updateFlags, Operation<Boolean> original,
 		@Local(name = "bottomState") BlockState bottomState
 	) {
-		if (SnowloggingUtils.isSnowlogged(bottomState) && blockState.isAir() && blockState.getFluidState().isEmpty()) {
-			blockState = SnowloggingUtils.getSnowEquivalent(bottomState);
+		if (SnowloggingUtil.isSnowlogged(bottomState) && blockState.isAir() && blockState.getFluidState().isEmpty()) {
+			blockState = SnowloggingUtil.getSnowEquivalent(bottomState);
 		}
 		return original.call(instance, pos, blockState, updateFlags);
-	}
-
-	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
-	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 }

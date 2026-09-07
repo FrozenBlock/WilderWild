@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggedBlockSettings;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
@@ -45,7 +46,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContainer {
+public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContainer, SnowloggedBlockSettings {
 	public static final EnumProperty<TubeWormsPart> TUBE_WORMS_PART = WWBlockStateProperties.TUBE_WORMS_PART;
 	private static final VoxelShape SHAPE = Block.box(2D, 0D, 2D, 14D, 16D, 14D);
 
@@ -149,5 +150,10 @@ public class TubeWormsBlock extends VegetationBlock implements LiquidBlockContai
 	private boolean isValidWaterToSurvive(LevelReader level, BlockPos pos) {
 		final FluidState fluidState = level.getFluidState(pos);
 		return fluidState.is(FluidTags.WATER) && fluidState.isFull();
+	}
+
+	@Override
+	public boolean wilderWild$snowloggingEnabled() {
+		return false;
 	}
 }

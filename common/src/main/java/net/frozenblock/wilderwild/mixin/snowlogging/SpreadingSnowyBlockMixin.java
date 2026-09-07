@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.snowlogging;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SpreadingSnowyBlock;
@@ -41,10 +41,10 @@ public class SpreadingSnowyBlockMixin {
 		),
 		cancellable = true
 	)
-	private static void wilderWild$canBeGrassFirstCheck(
+	private static void wilderWild$canStayAliveWithSnowloggedAbove(
 		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
 		@Local(name = "aboveState") BlockState aboveState
 	) {
-		if (SnowloggingUtils.isSnowlogged(aboveState)) info.setReturnValue(true);
+		if (SnowloggingUtil.isSnowlogged(aboveState)) info.setReturnValue(true);
 	}
 }

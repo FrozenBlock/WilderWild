@@ -18,8 +18,9 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Iterator;
+import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
+import net.frozenblock.wilderwild.block.snowlogging.SimpleSnowloggedBlock;
 import net.frozenblock.wilderwild.levelgen.feature.IcicleUtils;
 import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -47,7 +48,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -56,7 +56,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallable, SimpleWaterloggedBlock {
+public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallable, SimpleWaterloggedBlock, SimpleSnowloggedBlock {
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forNonCombat().ignoreInvisibilityTesting().ignoreLineOfSight().range(32D);
 	private static final VoxelShape SHAPE_TIP_MERGE = Block.box(6D, 0D, 6D, 10D, 16D, 10D);
 	private static final VoxelShape SHAPE_TIP_UP = Block.box(6D, 0D, 6D, 10D, 12D, 10D);
@@ -68,12 +68,6 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 
 	public IcicleBlock(BlockState blockToGrowOn, Properties properties) {
 		super(blockToGrowOn, properties);
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		SnowloggingUtils.appendSnowlogProperties(builder);
 	}
 
 	@Override
@@ -184,5 +178,15 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (level.isClientSide() || type != WWBlockEntityTypes.ICICLE) return null;
 		return (levelx, pos, statex, blockEntity) -> ((IcicleBlockEntity)blockEntity).serverTick(levelx, pos, statex);
+	}
+
+	@Override
+	public boolean wilderWild$snowloggingEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean wilderWild$isBlockade() {
+		return false;
 	}
 }

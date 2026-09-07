@@ -15,23 +15,27 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.snowlogging;
+package net.frozenblock.wilderwild.mixin.snowlogging.snowlogged;
 
-import net.frozenblock.wilderwild.block.impl.SnowloggingUtils;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FlowerBedBlock;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(FlowerBedBlock.class)
-public abstract class FlowerBedBlockMixin {
+@Mixin(WallBlock.class)
+public class WallBlockMixin {
 
-	@Inject(method = "createBlockStateDefinition", at = @At("TAIL"))
-	public void wilderWild$createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
-		SnowloggingUtils.appendSnowlogProperties(builder);
+	@Inject(method = {"getShape", "getCollisionShape"}, at = @At("HEAD"))
+	public void wilderWild$getShape(
+		CallbackInfoReturnable<VoxelShape> info,
+		@Local(argsOnly = true) LocalRef<BlockState> state
+	) {
+		state.set(state.get().trySetValue(SnowloggingUtil.SNOW_LAYERS, 0));
 	}
 }

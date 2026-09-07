@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.mixin.client.wind.cloud;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.lib.renderer.FrozenLibRenderState;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -62,7 +61,7 @@ public class LevelRendererMixin { // in common mixins.json
 		float partialTicks,
 		Operation<Void> original
 	) {
-		final CloudWindPositioner positioner = ((FrozenLibRenderState) this.levelRenderState).frozenLib$getDataOrDefault(
+		final CloudWindPositioner positioner = this.levelRenderState.frozenLib$getDataOrDefault(
 			WWRenderStateDataKeys.CLOUD_WIND_POSITIONER,
 			CloudWindPositioner.PASS
 		);

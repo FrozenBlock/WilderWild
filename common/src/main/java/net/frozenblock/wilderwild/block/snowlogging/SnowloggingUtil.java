@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.block.impl;
+package net.frozenblock.wilderwild.block.snowlogging;
 
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -40,25 +40,24 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public final class SnowloggingUtils {
+public final class SnowloggingUtil {
 	public static final boolean HAS_ANTIQUE_ATLAS = ModLoader.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog();
 	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls();
 
-	public static void appendSnowlogProperties(StateDefinition.Builder<Block, BlockState> builder) {
+	public static void appendSnowloggedProperties(Block block, StateDefinition.Builder<Block, BlockState> builder) {
 		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
-		builder.add(SNOW_LAYERS);
-	}
+		if (!(block instanceof SimpleSnowloggedBlock snowloggedBlock) || !snowloggedBlock.wilderWild$snowloggingEnabled()) return;
+		if (snowloggedBlock.wilderWild$isBlockade() && !CONFIG_SNOWLOG_BLOCKADES_ON_BOOT) return;
 
-	public static void appendSnowlogPropertiesToBlockade(StateDefinition.Builder<Block, BlockState> builder) {
-		if (!CONFIG_SNOWLOGGING_ON_BOOT || !CONFIG_SNOWLOG_BLOCKADES_ON_BOOT) return;
 		builder.add(SNOW_LAYERS);
 	}
 
 	public static boolean supportsSnowlogging(@Nullable BlockState state) {
-		if (!WWBlockConfig.canSnowlog()) return false;
+		if (!WWBlockConfig.canSnowlog() || !(state != null && state.getBlock() instanceof SimpleSnowloggedBlock snowloggedBlock)) return false;
+		if (!snowloggedBlock.wilderWild$snowloggingEnabled()) return false;
 		//noinspection ConstantValue
 		return state != null && state.propertyKeys != null && state.getValues() != null && state.hasProperty(SNOW_LAYERS);
 	}
@@ -107,7 +106,8 @@ public final class SnowloggingUtils {
 		return state.setValue(SNOW_LAYERS, 0);
 	}
 
-	public static BlockState getSnowPlacementState(BlockState state, BlockPlaceContext context) {
+	public static BlockState getSnowloggedPlacementState(BlockState state, BlockPlaceContext context) {
+		if (state == null || !canSnowlog(state)) return state;
 		return getSnowloggedState(state, context.getLevel().getBlockState(context.getClickedPos()));
 	}
 
@@ -142,5 +142,5 @@ public final class SnowloggingUtils {
 		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
 
-	private SnowloggingUtils() {}
+	private SnowloggingUtil() {}
 }

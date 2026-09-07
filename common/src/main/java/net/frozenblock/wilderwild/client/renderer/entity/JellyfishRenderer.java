@@ -18,12 +18,14 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.mod_compat.WWIrisCompat;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -35,6 +37,8 @@ import net.minecraft.world.level.Level;
 
 @ClientOnly
 public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRenderState, JellyfishModel> {
+	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_pearlescent_blue.png");
+	private static final Identifier DEFAULT_TEXTURE_BABY = WWConstants.id("textures/entity/jellyfish/jellyfish_pearlescent_blue_baby.png");
 	private static final Identifier WHITE_TEXTURE = WWConstants.id("textures/entity/jellyfish/jellyfish_white.png");
 	private static final Identifier WHITE_TEXTURE_BABY = WWConstants.id("textures/entity/jellyfish/jellyfish_white_baby.png");
 
@@ -73,12 +77,14 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 
 	@Override
 	protected int getBlockLightLevel(Jellyfish jellyfish, BlockPos pos) {
-		return 15;
+		if (isUsingIrisShaderPack()) return 15; // Emission has to be "faked" with Iris, as we cannot use our fixed emissive RenderType.
+		return super.getBlockLightLevel(jellyfish, pos);
 	}
 
 	@Override
 	public Identifier getTextureLocation(JellyfishRenderState renderState) {
 		if (renderState.isRGB) return renderState.isBaby ? WHITE_TEXTURE_BABY : WHITE_TEXTURE;
+		if (renderState.variant == null) return renderState.isBaby ? DEFAULT_TEXTURE_BABY : DEFAULT_TEXTURE;
 		return (renderState.isBaby ? renderState.variant.babyTexture() : renderState.variant.texture()).texturePath();
 	}
 
@@ -92,7 +98,7 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 		super.extractRenderState(jellyfish, renderState, partialTicks);
 		renderState.tickCount = jellyfish.tickCount;
 		renderState.isRGB = jellyfish.isRGB();
-		renderState.variant = jellyfish.getVariantForRendering();
+		renderState.variant = jellyfish.getVariantForRendering().orElse(null);
 
 		final Level level = jellyfish.level();
 		if (level != null) renderState.levelTime = (level.getGameTime() + partialTicks) * 0.05F;
@@ -101,5 +107,9 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 		renderState.tentXRot = -(jellyfish.xRot6 + partialTicks * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
 		renderState.armXRot = -(jellyfish.xRot9 + partialTicks * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
 		renderState.jellyScale = jellyfish.prevScale + partialTicks * (jellyfish.scale - jellyfish.prevScale);
+	}
+
+	public static boolean isUsingIrisShaderPack() {
+		return FrozenLibConstants.HAS_IRIS && WWIrisCompat.usingShaderPack();
 	}
 }
