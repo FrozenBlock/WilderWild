@@ -30,17 +30,16 @@ import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
@@ -153,14 +152,14 @@ public final class MagmaticCaves extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.caveSpawns(spawns);
-		spawns.addSpawn(WWEntityTypes.SCORCHED.get(), MobCategory.MONSTER, 275, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.ZOMBIE, MobCategory.MONSTER, 75, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.ZOMBIE_VILLAGER, MobCategory.MONSTER, 5, UniformInt.of(1, 1));
-		spawns.addSpawn(EntityTypes.SKELETON, MobCategory.MONSTER, 75, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.CREEPER, MobCategory.MONSTER, 100, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.SLIME, MobCategory.MONSTER, 100, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.ENDERMAN, MobCategory.MONSTER, 10, UniformInt.of(1, 4));
-		spawns.addSpawn(EntityTypes.WITCH, MobCategory.MONSTER, 5, UniformInt.of(1, 1));
+		spawns.addSpawn(WWEntityTypes.SCORCHED.get(), 275, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.ZOMBIE, 75, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.ZOMBIE_VILLAGER, 5, UniformInt.of(1, 1));
+		spawns.addSpawn(EntityTypes.SKELETON, 75, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.CREEPER, 100, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.SLIME, 100, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.ENDERMAN, 10, UniformInt.of(1, 4));
+		spawns.addSpawn(EntityTypes.WITCH, 5, UniformInt.of(1, 1));
 	}
 
 	@Override

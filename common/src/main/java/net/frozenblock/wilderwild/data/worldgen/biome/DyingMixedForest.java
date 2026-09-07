@@ -130,7 +130,7 @@ public final class DyingMixedForest extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(EntityTypes.WOLF, MobCategory.CREATURE, 5, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.WOLF, 5, UniformInt.of(4, 4));
 	}
 
 	@Override

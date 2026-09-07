@@ -31,16 +31,15 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.biome.impl.WWGrassColorModifier;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -183,9 +182,9 @@ public final class Tundra extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(EntityTypes.SHEEP, MobCategory.CREATURE, 6, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.COW, MobCategory.CREATURE, 6, UniformInt.of(4, 4));
-		spawns.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 8, UniformInt.of(2, 5));
+		spawns.addSpawn(EntityTypes.SHEEP, 6, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.COW, 6, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.RABBIT, 8, UniformInt.of(2, 5));
 	}
 
 	@Override

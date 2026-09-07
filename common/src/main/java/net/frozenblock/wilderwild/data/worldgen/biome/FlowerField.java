@@ -127,7 +127,7 @@ public final class FlowerField extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.plainsSpawns(spawns);
-		spawns.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 8, UniformInt.of(2, 5));
+		spawns.addSpawn(EntityTypes.RABBIT, 8, UniformInt.of(2, 5));
 	}
 
 	@Override

@@ -123,8 +123,8 @@ public final class BirchTaiga extends FrozenLibBiome {
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
 		BiomeDefaultFeatures.farmAnimals(spawns);
-		spawns.addSpawn(EntityTypes.WOLF, MobCategory.CREATURE, 2, UniformInt.of(4, 4))
-			.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 2, UniformInt.of(2, 3));
+		spawns.addSpawn(EntityTypes.WOLF, 2, UniformInt.of(4, 4))
+			.addSpawn(EntityTypes.RABBIT, 2, UniformInt.of(2, 3));
 	}
 
 	@Override

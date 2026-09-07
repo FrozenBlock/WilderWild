@@ -31,20 +31,19 @@ import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.modifier.FloatModifier;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Biomes;
@@ -161,12 +160,12 @@ public final class CypressWetlands extends FrozenLibBiome {
 	@Override
 	public void addSpawns(MobSpawnSettings.Builder spawns) {
 		BiomeDefaultFeatures.commonSpawns(spawns);
-		spawns.addSpawn(EntityTypes.COD, MobCategory.WATER_AMBIENT, 5, UniformInt.of(2, 6))
-			.addSpawn(EntityTypes.FROG, MobCategory.CREATURE, 14, UniformInt.of(4, 5))
-			.addSpawn(EntityTypes.PIG, MobCategory.CREATURE, 3, UniformInt.of(2, 4))
-			.addSpawn(EntityTypes.CHICKEN, MobCategory.CREATURE, 4, UniformInt.of(2, 4))
-			.addSpawn(EntityTypes.COW, MobCategory.CREATURE, 6, UniformInt.of(4, 4))
-			.addSpawn(EntityTypes.RABBIT, MobCategory.CREATURE, 10, UniformInt.of(4, 4));
+		spawns.addSpawn(EntityTypes.COD, 5, UniformInt.of(2, 6))
+			.addSpawn(EntityTypes.FROG, 14, UniformInt.of(4, 5))
+			.addSpawn(EntityTypes.PIG, 3, UniformInt.of(2, 4))
+			.addSpawn(EntityTypes.CHICKEN, 4, UniformInt.of(2, 4))
+			.addSpawn(EntityTypes.COW, 6, UniformInt.of(4, 4))
+			.addSpawn(EntityTypes.RABBIT, 10, UniformInt.of(4, 4));
 	}
 
 	@Override
