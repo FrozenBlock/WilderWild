@@ -348,6 +348,11 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	public Optional<FireflyColor> getColorForRendering() {
+		if (this.fireflyColor.isEmpty() && this.level() != null) {
+			this.level().registryAccess().lookup(WilderWildRegistries.FIREFLY_COLOR)
+				.flatMap(registry -> registry.get(FireflyColors.DEFAULT))
+				.ifPresent(variant -> this.fireflyColor = Optional.of(variant.value()));
+		}
 		return this.fireflyColor;
 	}
 
@@ -421,12 +426,10 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState state) {
-	}
+	protected void playStepSound(BlockPos pos, BlockState state) {}
 
 	@Override
-	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
-	}
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
@@ -518,13 +521,10 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	protected void doPush(Entity entity) {
-	}
+	protected void doPush(Entity entity) {}
 
 	@Override
-	protected void pushEntities() {
-	}
+	protected void pushEntities() {}
 
-	public record FireflySpawnGroupData(Holder<FireflyColor> color) implements SpawnGroupData {
-	}
+	public record FireflySpawnGroupData(Holder<FireflyColor> color) implements SpawnGroupData { }
 }

@@ -269,8 +269,13 @@ public class Butterfly extends PathfinderMob implements WWBottleable {
 		return this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).get(this.getVariantIdentifier()).orElseThrow();
 	}
 
-	public ButterflyVariant getVariantForRendering() {
-		return this.butterflyVariant.orElse(this.registryAccess().lookupOrThrow(WilderWildRegistries.BUTTERFLY_VARIANT).getValue(ButterflyVariants.DEFAULT));
+	public Optional<ButterflyVariant> getVariantForRendering() {
+		if (this.butterflyVariant.isEmpty() && this.level() != null) {
+			this.level().registryAccess().lookup(WilderWildRegistries.BUTTERFLY_VARIANT)
+				.flatMap(registry -> registry.get(ButterflyVariants.DEFAULT))
+				.ifPresent(variant -> this.butterflyVariant = Optional.of(variant.value()));
+		}
+		return this.butterflyVariant;
 	}
 
 	public void setVariant(ButterflyVariant variant) {

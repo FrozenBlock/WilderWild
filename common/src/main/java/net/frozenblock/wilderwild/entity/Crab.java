@@ -801,7 +801,13 @@ public class Crab extends Animal implements VibrationSystem, Bucketable {
 		return this.registryAccess().lookupOrThrow(WilderWildRegistries.CRAB_VARIANT).get(this.getVariantLocation()).orElseThrow();
 	}
 
+
 	public Optional<CrabVariant> getVariantForRendering() {
+		if (this.crabVariant.isEmpty() && this.level() != null) {
+			this.level().registryAccess().lookup(WilderWildRegistries.CRAB_VARIANT)
+				.flatMap(registry -> registry.get(CrabVariants.DEFAULT))
+				.ifPresent(variant -> this.crabVariant = Optional.of(variant.value()));
+		}
 		return this.crabVariant;
 	}
 
