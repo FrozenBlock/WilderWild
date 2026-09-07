@@ -32,7 +32,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BoneMealItem.class)
 public class BoneMealItemMixin { // in common mixins.json
 
-	@Inject(method = "useOn",
+	@Inject(
+		method = "useOn",
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/world/item/BoneMealItem;growWaterPlant(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z",
