@@ -44,13 +44,11 @@ import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
@@ -969,7 +967,7 @@ public final class WWPlacedFeatures {
 		);
 
 		POPLAR_TREES.makeAndSetHolder(WWConfiguredFeatures.POPLARS,
-			PlacementUtils.countExtra(9, 0.1F, 2),
+			PlacementUtils.countExtra(10, 0.1F, 3),
 			InSquarePlacement.spread(),
 			TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
