@@ -49,12 +49,17 @@ public final class WWBrewingRecipeProvider extends FabricRecipeProvider {
 			public void buildRecipes() {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
 
-				this.buildMix(Potions.AWKWARD, WWItems.CRAB_CLAW.get(), WWPotions.REACH.asHolder());
+				this.buildStartMix(WWItems.CRAB_CLAW.get(), WWPotions.REACH.asHolder());
 				this.buildMix(WWPotions.REACH.asHolder(), Items.REDSTONE, WWPotions.LONG_REACH.asHolder());
 				this.buildMix(WWPotions.REACH.asHolder(), Items.GLOWSTONE_DUST, WWPotions.STRONG_REACH.asHolder());
-				this.buildMix(Potions.AWKWARD, WWItems.FERMENTED_SCORCHED_EYE.get(), WWPotions.SCORCHING.asHolder());
+				this.buildStartMix(WWItems.FERMENTED_SCORCHED_EYE.get(), WWPotions.SCORCHING.asHolder());
 
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
+			}
+
+			void buildStartMix(Item reagent, Holder<Potion> output) {
+				this.buildMix(Potions.WATER, reagent, Potions.MUNDANE);
+				this.buildMix(Potions.AWKWARD, reagent, output);
 			}
 
 			void buildMix(Holder<Potion> input, Item reagent, Holder<Potion> result) {
