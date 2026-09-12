@@ -3,11 +3,7 @@
   "placement": [
     {
       "type": "frozenlib:config_predicate",
-      "config_predicate": {
-        "type": "frozenlib:equal_to",
-        "entry": "wilderwild:worldgen/aquaticGeneration/oceanAuburnMossGeneration",
-        "target": true
-      }
+      "config_predicate": "wilderwild:generate_ocean_auburn_moss"
     },
     {
       "type": "minecraft:rarity_filter",

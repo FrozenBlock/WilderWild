@@ -51,6 +51,7 @@ accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos 
 
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;
+accessible method net/minecraft/data/worldgen/features/AquaticFeatures seagrass (I)Lnet/minecraft/world/level/levelgen/feature/Feature;
 
 # Biome
 transitive-extend-enum net/minecraft/world/level/biome/BiomeSpecialEffects$GrassColorModifier WILDERWILD_TUNDRA

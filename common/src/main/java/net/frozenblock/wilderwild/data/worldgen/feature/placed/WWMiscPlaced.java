@@ -18,12 +18,14 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -159,6 +161,7 @@ public final class WWMiscPlaced {
 		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH, PlacementUtils.isEmpty());
 
@@ -340,9 +343,9 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		final PlacementFilter riverPoolConfigPredicate = WWWorldgenConfig.RIVER_POOL_GENERATION.equalTo(true).asPlacementFilter();
+		final PlacementFilter generateRiverPool = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_RIVER_POOL));
 		RIVER_POOL.makeAndSetHolder(WWMiscConfigured.RIVER_POOL,
-			riverPoolConfigPredicate,
+			generateRiverPool,
 			CountPlacement.of(20),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
@@ -354,7 +357,7 @@ public final class WWMiscPlaced {
 		);
 
 		SMALL_RIVER_POOL.makeAndSetHolder(WWMiscConfigured.SMALL_RIVER_POOL,
-			riverPoolConfigPredicate,
+			generateRiverPool,
 			CountPlacement.of(8),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),

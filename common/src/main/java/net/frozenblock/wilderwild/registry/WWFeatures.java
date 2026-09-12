@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HugePaleMushroomFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
 import net.frozenblock.wilderwild.levelgen.feature.LargeMesogleaFeature;
-import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
@@ -107,7 +106,6 @@ public final class WWFeatures {
 		featureRegister.register("sponge_bud", () -> SpongeBudFeature.CODEC);
 		featureRegister.register("cattail", () -> CattailFeature.CODEC);
 		featureRegister.register("water_cover", () -> WaterCoverFeature.CODEC);
-		featureRegister.register("seagrass", () -> SeagrassFeature.CODEC);
 		featureRegister.register("tube_worms", () -> TubeWormsFeature.CODEC);
 		featureRegister.register("hydrothermal_vent", () -> HydrothermalVentFeature.CODEC);
 		featureRegister.register("large_mesoglea", () -> LargeMesogleaFeature.CODEC);

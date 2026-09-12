@@ -33,7 +33,6 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
-import net.frozenblock.wilderwild.levelgen.feature.SeagrassFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
 import net.frozenblock.wilderwild.levelgen.feature.WaterCoverFeature;
@@ -44,6 +43,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -101,7 +101,7 @@ public final class WWAquaticConfigured {
 
 		PATCH_PLANKTON.makeAndSetHolder(new WaterCoverFeature(BlockStateProvider.holderOf(WWBlocks.PLANKTON.get()), UniformInt.of(2, 4)));
 
-		SEAGRASS_MEADOW.makeAndSetHolder(new SeagrassFeature(0.025F));
+		SEAGRASS_MEADOW.makeAndSetHolder(AquaticFeatures.seagrass(2));
 
 		PATCH_BARNACLES_STRUCTURE.makeAndSetHolder(
 			new MultifaceGrowthFeature(

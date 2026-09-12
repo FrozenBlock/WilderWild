@@ -36,7 +36,7 @@ public final class TubeWormsFeature implements Feature {
 	public static final TubeWormsFeature INSTANCE = new TubeWormsFeature();
 	public static final MapCodec<TubeWormsFeature> CODEC = MapCodec.unit(INSTANCE);
 
-	public TubeWormsFeature() {}
+	private TubeWormsFeature() {}
 
 	@Override
 	public MapCodec<TubeWormsFeature> codec() {

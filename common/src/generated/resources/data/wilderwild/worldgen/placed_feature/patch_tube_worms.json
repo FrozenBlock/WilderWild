@@ -3,11 +3,7 @@
   "placement": [
     {
       "type": "frozenlib:config_predicate",
-      "config_predicate": {
-        "type": "frozenlib:equal_to",
-        "entry": "wilderwild:worldgen/aquaticGeneration/tubeWorm",
-        "target": true
-      }
+      "config_predicate": "wilderwild:generate_tube_worms"
     },
     {
       "type": "minecraft:rarity_filter",

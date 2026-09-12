@@ -50,4 +50,6 @@ public final class IcicleUtils {
 		if (WWBlocks.ICICLE.get().canSpreadTo(state)) return growIcicleOnRandomTick(level, pos);
 		return false;
 	}
+
+	private IcicleUtils() {}
 }

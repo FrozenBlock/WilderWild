@@ -65,6 +65,7 @@ import net.frozenblock.wilderwild.registry.WWBiomeEnvironmentAttributeModificati
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWClipGroups;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.frozenblock.wilderwild.registry.WWVariantSpawnInjections;
@@ -127,6 +128,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.BLOCK_STATE_PROVIDER, WWBlockStateProviders::bootstrap);
 
 		// FrozenLib Registries
+		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER, WWConfigPredicates::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.SOUND_TYPE_OVERRIDE, WWSoundTypeOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);

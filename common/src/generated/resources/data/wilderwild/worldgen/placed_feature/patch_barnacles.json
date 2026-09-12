@@ -3,11 +3,7 @@
   "placement": [
     {
       "type": "frozenlib:config_predicate",
-      "config_predicate": {
-        "type": "frozenlib:equal_to",
-        "entry": "wilderwild:worldgen/aquaticGeneration/barnacle",
-        "target": true
-      }
+      "config_predicate": "wilderwild:generate_barnacles"
     },
     {
       "type": "minecraft:rarity_filter",

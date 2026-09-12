@@ -41,7 +41,7 @@ public final class HydrothermalVentFeature implements Feature {
 	private static final IntProvider HEIGHT_PROVIDER = BiasedToBottomInt.of(0, 3);
 	private static final int MAX_CONNECT_TO_FLOOR_DIST = 8;
 
-	public HydrothermalVentFeature() {}
+	private HydrothermalVentFeature() {}
 
 	@Override
 	public MapCodec<HydrothermalVentFeature> codec() {

@@ -3,11 +3,7 @@
   "placement": [
     {
       "type": "frozenlib:config_predicate",
-      "config_predicate": {
-        "type": "frozenlib:equal_to",
-        "entry": "wilderwild:worldgen/vegetation/flowerGeneration",
-        "target": true
-      }
+      "config_predicate": "wilderwild:generate_flower"
     },
     {
       "type": "minecraft:in_square"
