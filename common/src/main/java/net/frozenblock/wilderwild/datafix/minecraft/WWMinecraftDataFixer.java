@@ -19,6 +19,9 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
+import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
+import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.minecraft.fixes.ChestBubbleToAttachmentFix;
 import net.frozenblock.wilderwild.datafix.minecraft.fixes.CopperHornInstrumentToTheCopperierAgeFix;
@@ -28,9 +31,6 @@ import net.frozenblock.wilderwild.datafix.minecraft.fixes.MobBottleVariantCompon
 import net.frozenblock.wilderwild.datafix.minecraft.fixes.MobBucketVariantComponentizationFix;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
-import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
-import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
-import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 
 public final class WWMinecraftDataFixer {
 	// 1 is 1.20.1 (base version)

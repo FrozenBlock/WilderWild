@@ -23,7 +23,6 @@ import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.frozenblock.lib.entity.api.behavior.BehaviorUtil;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

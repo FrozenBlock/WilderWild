@@ -18,10 +18,11 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.entity.api.variant.CompoundCheck;
 import net.frozenblock.lib.entity.api.variant.VariantSpawnInjection;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -29,6 +30,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.entity.animal.wolf.WolfVariant;
 import net.minecraft.world.entity.animal.wolf.WolfVariants;
 import net.minecraft.world.entity.variant.BiomeCheck;
+import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
 
@@ -37,7 +39,9 @@ public final class WWVariantSpawnInjections {
 	public static void bootstrap(BootstrapContext<VariantSpawnInjection> context) {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<WolfVariant> wolfVariants = context.lookup(Registries.WOLF_VARIANT);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
+		final SpawnCondition spawnWolfVariantCondition = ConfigPredicate.spawnCondition(configPredicates.getOrThrow(WWConfigPredicates.SPAWN_WOLF_VARIANT));
 		VariantSpawnInjection.register(
 			context,
 			WWConstants.id("wolf_ashen"),
@@ -46,7 +50,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
+						spawnWolfVariantCondition,
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_ASHEN))
 					)
 				),
@@ -62,7 +66,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
+						spawnWolfVariantCondition,
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_WOODS))
 					)
 				),
@@ -78,7 +82,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
+						spawnWolfVariantCondition,
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_PALE))
 					)
 				),
@@ -94,7 +98,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
+						spawnWolfVariantCondition,
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_BLACK))
 					)
 				),
@@ -110,7 +114,7 @@ public final class WWVariantSpawnInjections {
 			SpawnPrioritySelectors.single(
 				new CompoundCheck(
 					List.of(
-						WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true).asSpawnCondition(),
+						spawnWolfVariantCondition,
 						new BiomeCheck(biomes.getOrThrow(WWBiomeTags.WOLF_CHESTNUT))
 					)
 				),

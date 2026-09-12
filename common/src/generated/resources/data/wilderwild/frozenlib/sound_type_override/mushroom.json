@@ -1,10 +1,6 @@
 {
   "blocks": "#wilderwild:sound/mushroom",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/mushroomBlockSounds",
-    "target": true
-  },
+  "config_predicate": "wilderwild:sound_override_mushroom",
   "sound_type": {
     "break_sound": "wilderwild:block.mushroom.break",
     "fall_sound": "wilderwild:block.mushroom.fall",

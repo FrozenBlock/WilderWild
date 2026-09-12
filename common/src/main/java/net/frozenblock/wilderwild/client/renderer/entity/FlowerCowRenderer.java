@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
+import java.util.Optional;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.FlowerCowFlowerLayer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
@@ -34,7 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
-import java.util.Optional;
 
 @ClientOnly
 public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRenderState, CowModel> {

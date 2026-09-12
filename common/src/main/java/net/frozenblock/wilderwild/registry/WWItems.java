@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.Optional;
+import java.util.function.Supplier;
 import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.item.api.component.consume_effects.DamageConsumeEffect;
@@ -51,12 +51,12 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import net.minecraft.ChatFormatting;
 
 public final class WWItems {
 	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);

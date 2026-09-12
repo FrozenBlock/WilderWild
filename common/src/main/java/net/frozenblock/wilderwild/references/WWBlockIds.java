@@ -22,8 +22,6 @@ import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockIds;
-import net.minecraft.references.BlockItemId;
-import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 

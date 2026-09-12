@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
@@ -35,7 +36,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import java.util.Optional;
 
 @ClientOnly
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {

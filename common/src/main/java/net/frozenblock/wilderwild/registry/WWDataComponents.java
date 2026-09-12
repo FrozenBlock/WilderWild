@@ -43,8 +43,7 @@ public final class WWDataComponents {
 	);
 	public static final DeferredDataComponentType<CustomData> BOTTLE_ENTITY_DATA = register(
 		"bottle_entity_data",
-		builder -> builder.persistent(CustomData.CODEC)
-			.networkSynchronized(CustomData.STREAM_CODEC)
+		builder -> builder.persistent(CustomData.CODEC).networkSynchronized(CustomData.STREAM_CODEC)
 	);
 
 	public static final DeferredDataComponentType<Holder<FireflyColor>> FIREFLY_COLOR = register(

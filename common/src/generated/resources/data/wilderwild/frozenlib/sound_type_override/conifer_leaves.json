@@ -1,10 +1,6 @@
 {
   "blocks": "#wilderwild:sound/conifer_leaves",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/leafSounds",
-    "target": true
-  },
+  "config_predicate": "wilderwild:sound_override_leaf",
   "sound_type": {
     "break_sound": "wilderwild:block.conifer_leaves.break",
     "fall_sound": "wilderwild:block.conifer_leaves.fall",

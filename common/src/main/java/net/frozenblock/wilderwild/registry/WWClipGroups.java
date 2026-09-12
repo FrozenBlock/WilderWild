@@ -27,13 +27,13 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 public final class WWClipGroups {
-	public static final ResourceKey<ClipGroup> MESOGLEA = bind("mesoglea");
+	public static final ResourceKey<ClipGroup> MESOGLEA = createKey("mesoglea");
 
 	public static void bootstrap(BootstrapContext<ClipGroup> context) {
 		ClipGroups.register(context, MESOGLEA, context.lookup(Registries.BLOCK).getOrThrow(WWBlockItemTags.MESOGLEA.block()));
 	}
 
-	private static ResourceKey<ClipGroup> bind(String name) {
+	private static ResourceKey<ClipGroup> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.CLIP_GROUP, WWConstants.id(name));
 	}
 

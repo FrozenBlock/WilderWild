@@ -1,8 +1,5 @@
 package net.frozenblock.wilderwild.registry;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 import net.frozenblock.lib.entity.api.attribute.DefaultAttributeRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
@@ -24,7 +21,6 @@ import net.frozenblock.wilderwild.entity.ZombieOstrich;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;

@@ -1,10 +1,6 @@
 {
   "blocks": "#wilderwild:sound/auburn_moss",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/mossSounds",
-    "target": true
-  },
+  "config_predicate": "wilderwild:sound_override_moss",
   "sound_type": {
     "break_sound": "wilderwild:block.auburn_moss.break",
     "fall_sound": "wilderwild:block.auburn_moss.fall",

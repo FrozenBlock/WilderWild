@@ -25,8 +25,8 @@ import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStatePr
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
+import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;

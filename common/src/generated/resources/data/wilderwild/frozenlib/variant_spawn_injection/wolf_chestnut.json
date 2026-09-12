@@ -7,11 +7,7 @@
         "conditions": [
           {
             "type": "frozenlib:config",
-            "predicate": {
-              "type": "frozenlib:equal_to",
-              "entry": "wilderwild:entity/wolf/spawnWolfVariants",
-              "target": true
-            }
+            "predicate": "wilderwild:spawn_wolf_variant"
           },
           {
             "type": "minecraft:biome",

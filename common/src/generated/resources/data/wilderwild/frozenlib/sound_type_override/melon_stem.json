@@ -1,10 +1,6 @@
 {
   "blocks": "#wilderwild:sound/melon_stem",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/melonSounds",
-    "target": true
-  },
+  "config_predicate": "wilderwild:sound_override_melon",
   "sound_type": {
     "break_sound": "minecraft:block.crop.break",
     "fall_sound": "minecraft:block.grass.fall",

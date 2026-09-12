@@ -19,9 +19,9 @@ package net.frozenblock.wilderwild.entity;
 
 import java.util.Optional;
 import net.frozenblock.lib.entity.api.SilentTicker;
-import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

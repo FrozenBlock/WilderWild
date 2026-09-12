@@ -1,10 +1,6 @@
 {
   "blocks": "#wilderwild:sound/melon",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/melonSounds",
-    "target": true
-  },
+  "config_predicate": "wilderwild:sound_override_melon",
   "sound_type": {
     "break_sound": "wilderwild:block.melon.break",
     "fall_sound": "wilderwild:block.melon.fall",

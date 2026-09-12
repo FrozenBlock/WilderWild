@@ -1,10 +1,6 @@
 {
   "blocks": "#wilderwild:sound/pale_moss_carpet",
-  "config_predicate": {
-    "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/mossSounds",
-    "target": true
-  },
+  "config_predicate": "wilderwild:sound_override_moss",
   "sound_type": {
     "break_sound": "wilderwild:block.pale_moss_carpet.break",
     "fall_sound": "wilderwild:block.pale_moss_carpet.fall",

@@ -1,20 +1,6 @@
 {
   "blocks": "#wilderwild:sound/pale_oak_leaf_litter",
-  "config_predicate": {
-    "type": "frozenlib:all_of",
-    "predicates": [
-      {
-        "type": "frozenlib:equal_to",
-        "entry": "wilderwild:block/blockSounds/paleOakSounds",
-        "target": true
-      },
-      {
-        "type": "frozenlib:equal_to",
-        "entry": "wilderwild:block/blockSounds/leafSounds",
-        "target": true
-      }
-    ]
-  },
+  "config_predicate": "wilderwild:sound_override_pale_oak_leaves",
   "sound_type": {
     "break_sound": "wilderwild:block.pale_oak_leaf_litter.break",
     "fall_sound": "wilderwild:block.pale_oak_leaf_litter.fall",

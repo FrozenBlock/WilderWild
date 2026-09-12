@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.block;
 
 import java.util.Iterator;
-import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.snowlogging.SimpleSnowloggedBlock;
 import net.frozenblock.wilderwild.levelgen.feature.IcicleUtils;

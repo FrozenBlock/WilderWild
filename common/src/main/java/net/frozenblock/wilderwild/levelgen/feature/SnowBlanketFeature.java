@@ -19,8 +19,8 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.MapCodec;
 import java.util.Optional;
-import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.impl.SnowyBlockUtil;
+import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

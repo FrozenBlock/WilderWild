@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.mixin.block.termite;
 
-import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;

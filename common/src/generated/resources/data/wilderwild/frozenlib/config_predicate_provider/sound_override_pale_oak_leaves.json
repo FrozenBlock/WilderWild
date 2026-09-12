@@ -1,0 +1,7 @@
+{
+  "type": "frozenlib:all_of",
+  "predicates": [
+    "wilderwild:sound_override_pale_oak",
+    "wilderwild:sound_override_leaf"
+  ]
+}
