@@ -136,7 +136,7 @@ public final class WWSoundTypeOverrides {
 		SoundType soundType,
 		ConfigPredicate configPredicate
 	) {
-		SoundTypeOverrides.register(context, key(name), context.lookup(Registries.BLOCK).getOrThrow(tagKey), soundType, configPredicate);
+		SoundTypeOverrides.register(context, key(name), context.lookup(Registries.BLOCK).getOrThrow(tagKey), soundType, configPredicate.asHolder());
 	}
 
 	private static ResourceKey<SoundTypeOverride> key(String name) {

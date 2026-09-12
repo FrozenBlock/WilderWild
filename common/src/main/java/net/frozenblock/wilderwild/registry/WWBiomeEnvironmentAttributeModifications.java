@@ -63,7 +63,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 				EnvironmentAttributes.AMBIENT_PARTICLES,
 				List.of(new AmbientParticle(ParticleTypes.LARGE_SMOKE, 0.00123F))
 			).build(),
-			WWAmbienceAndMiscConfig.MAGMATIC_CAVES_PARTICLES.equalTo(true)
+			WWAmbienceAndMiscConfig.MAGMATIC_CAVES_PARTICLES.equalTo(true).asHolder()
 		);
 
 		// AMBIENCE
@@ -301,7 +301,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 			WWConstants.id("fog/" + biome.identifier().getPath()),
 			biome,
 			EnvironmentAttributeMap.builder().set(EnvironmentAttributes.FOG_COLOR, 0).build(),
-			entry.equalTo(true)
+			entry.equalTo(true).asHolder()
 		);
 	}
 
@@ -325,7 +325,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 					List.of(new AmbientAdditionsSettings(additions.asHolder(), additionsChance))
 				)
 			).build(),
-			entry.equalTo(true)
+			entry.equalTo(true).asHolder()
 		);
 	}
 
@@ -345,7 +345,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 			WWConstants.id("music/" + name),
 			biomes,
 			EnvironmentAttributeMap.builder().set(EnvironmentAttributes.BACKGROUND_MUSIC, backgroundMusic).build(),
-			mergeWhen
+			mergeWhen.asHolder()
 		);
 	}
 
