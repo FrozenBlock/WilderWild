@@ -1,6 +1,5 @@
 package net.frozenblock.wilderwild;
 
-import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.networking.api.platform.NetworkingHelperImpl;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
@@ -49,7 +48,7 @@ public final class WilderWildNeoForge {
 			WWWorldgen.setup();
 			WWStructureModifications.setup();
 
-			if (FrozenBools.HAS_TERRABLENDER) WWTerraBlenderCompat.setup();
+			if (ModLoader.isModLoaded("terrablender")) WWTerraBlenderCompat.setup();
 		});
 	}
 }
