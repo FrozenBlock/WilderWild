@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.mixin;
 import java.util.List;
 import java.util.Set;
 import net.frozenblock.lib.FrozenBools;
-import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
@@ -30,13 +29,11 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 	private WWMixinsConfig mixinsConfig;
 	private boolean disableNonSodium;
-	private boolean hasFallingLeavesMod;
 
 	@Override
 	public void onLoad(String mixinPackage) {
 		this.mixinsConfig = WWMixinsConfig.get();
 		this.disableNonSodium = FrozenBools.HAS_SODIUM;
-		this.hasFallingLeavesMod = ModLoader.isModLoaded("fallingleaves");
 	}
 
 	@Override
@@ -62,10 +59,7 @@ public final class WilderWildMixinPlugin implements IMixinConfigPlugin {
 		}
 		if (mixinClassName.contains("client.shrieker.")) return this.mixinsConfig.client_shrieker;
 		if (mixinClassName.contains("client.warden.")) return this.mixinsConfig.client_warden;
-		if (mixinClassName.contains("client.wind.")) {
-			if (mixinClassName.contains("fallingleaves") && !this.hasFallingLeavesMod) return false;
-			return this.mixinsConfig.client_wind;
-		}
+		if (mixinClassName.contains("client.wind.")) return this.mixinsConfig.client_wind;
 
 		if (mixinClassName.contains("trailiertales.")) return this.mixinsConfig.trailiertales;
 		if (mixinClassName.contains("block.cactus.")) return this.mixinsConfig.block_cactus;
