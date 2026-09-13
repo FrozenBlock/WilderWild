@@ -15,6 +15,7 @@ val fabric_loader_version: String by project
 
 val frozenlib_version: String by project
 val cloth_config_version: String by project
+val terrablender_version_neoforge: String by project
 val biolith_version: String by project
 val iris_version: String by project
 
@@ -51,10 +52,16 @@ dependencies {
     compileOnly("io.github.llamalad7:mixinextras-common:0.5.3")
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.3")
 
+    // Cloth Config
     compileOnly("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
 
+    // TerraBlender
+    compileOnly("maven.modrinth:terrablender:${terrablender_version_neoforge}")
+
+    // Biolith
     compileOnly("com.terraformersmc:biolith-common:${biolith_version}")
 
+    // Iris
     compileOnly("maven.modrinth:iris:${iris_version}-fabric")
 }
 

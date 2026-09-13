@@ -1,10 +1,12 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.networking.api.platform.NetworkingHelperImpl;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
+import net.frozenblock.wilderwild.mod_compat.WWTerraBlenderCompat;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -46,6 +48,8 @@ public final class WilderWildNeoForge {
 			WWCreativeInventorySorting.setup();
 			WWWorldgen.setup();
 			WWStructureModifications.setup();
+
+			if (FrozenBools.HAS_TERRABLENDER) WWTerraBlenderCompat.setup();
 		});
 	}
 }

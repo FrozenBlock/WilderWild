@@ -17,6 +17,7 @@ val archives_base_name: String by project
 
 val frozenlib_version: String by project
 val cloth_config_version: String by project
+val terrablender_version_neoforge: String by project
 val biolith_version: String by project
 
 val neoforge_version: String by project
@@ -120,6 +121,7 @@ dependencies {
     }
 
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
+    compileOnly("maven.modrinth:terrablender:${terrablender_version_neoforge}")
     compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
 
     // Sodium

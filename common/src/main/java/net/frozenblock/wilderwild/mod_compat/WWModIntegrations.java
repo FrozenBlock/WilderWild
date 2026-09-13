@@ -29,10 +29,10 @@ public final class WWModIntegrations {
 		WWConstants.MOD_ID
 	);
 
-	public static final DeferredHolder<ModIntegrationSupplier<?>, ModIntegrationSupplier<BiolithIntegration>> BIOLITH_INTEGRATION = REGISTER.register(
+	public static final DeferredHolder<ModIntegrationSupplier<?>, ModIntegrationSupplier<WWBiolithIntegration>> BIOLITH_INTEGRATION = REGISTER.register(
 		"biolith",
 		() -> new ModIntegrationSupplier(
-			() -> new BiolithIntegration(),
+			() -> new WWBiolithIntegration(),
 			"biolith"
 		)
 	);

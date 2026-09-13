@@ -43,9 +43,9 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 import org.jetbrains.annotations.Contract;
 
-public class BiolithIntegration extends ModIntegration {
+public class WWBiolithIntegration extends ModIntegration {
 
-	public BiolithIntegration() {
+	public WWBiolithIntegration() {
 		super("biolith");
 	}
 

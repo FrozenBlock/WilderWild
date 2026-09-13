@@ -15,10 +15,11 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mod_compat.terrablender;
+package net.frozenblock.wilderwild.mod_compat;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -26,15 +27,24 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
+import terrablender.api.Regions;
 
-public class WWOverworldRegion extends Region {
+public final class WWTerraBlenderCompat {
 
-	public WWOverworldRegion(Identifier name, int weight) {
-		super(name, RegionType.OVERWORLD, weight);
+	public static void setup() {
+		Regions.register(new WWRegion(WWConstants.id("overworld"), 1));
 	}
 
-	@Override
-	public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
-		this.addModifiedVanillaOverworldBiomes(mapper, builder -> {});
+	private static class WWRegion extends Region {
+		WWRegion(Identifier name, int weight) {
+			super(name, RegionType.OVERWORLD, weight);
+		}
+
+		@Override
+		public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+			this.addModifiedVanillaOverworldBiomes(mapper, builder -> {});
+		}
 	}
+
+	private WWTerraBlenderCompat() {}
 }
