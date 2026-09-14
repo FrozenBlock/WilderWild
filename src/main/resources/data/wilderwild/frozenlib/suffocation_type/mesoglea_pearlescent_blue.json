@@ -1,0 +1,16 @@
+{
+	"source_blocks": [
+		"wilderwild:pearlescent_blue_mesoglea"
+	],
+	"mechanics": {
+		"air_behavior": "display_only",
+		"style": "drain",
+		"fill_time": 15,
+		"drain_time": 300
+	},
+	"meter": {
+		"full": "wilderwild:hud/mesoglea_bubble_pearlescent_blue",
+		"popping": "wilderwild:hud/mesoglea_bubble_bursting_pearlescent_blue",
+		"empty": "wilderwild:hud/mesoglea_bubble_empty_pearlescent_blue"
+	}
+}
