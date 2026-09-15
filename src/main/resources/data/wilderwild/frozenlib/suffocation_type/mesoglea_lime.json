@@ -1,0 +1,16 @@
+{
+	"source_blocks": [
+		"wilderwild:lime_mesoglea"
+	],
+	"mechanics": {
+		"air_behavior": "display_only",
+		"style": "drain",
+		"fill_time": 15,
+		"drain_time": 300
+	},
+	"meter": {
+		"full": "wilderwild:hud/mesoglea_bubble_lime",
+		"popping": "wilderwild:hud/mesoglea_bubble_bursting_lime",
+		"empty": "wilderwild:hud/mesoglea_bubble_empty_lime"
+	}
+}
