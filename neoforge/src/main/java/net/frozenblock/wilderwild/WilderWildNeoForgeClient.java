@@ -40,7 +40,7 @@ public final class WilderWildNeoForgeClient {
 		}
 
 		// This seems to work only while Sodium's installed, despite being a native NeoForge event.
-		// Nonetheless, this fixes Snowlogging with Sodium. Mixins on Sodium (like what we do on Fabric) don't seem to work.
+		// Thanks to this, at least, we can avoid implementing BlockRendererMixin on NeoForge for Sodium.
 		NeoForge.EVENT_BUS.addListener(AddSectionGeometryEvent.class, event -> {
 			event.addRenderer(context -> {
 				final BlockAndTintGetter region = context.getRegion();
