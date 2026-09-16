@@ -5,7 +5,7 @@
   "name": "Wilder Wild",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
-    "Lunade",
+    "Lunade/AViewFromTheTop",
     "Ethan Stokes",
     "Soro"
   ],
@@ -44,7 +44,7 @@
       "net.frozenblock.wilderwild.config.gui.WilderWildModMenuIntegration"
     ],
     "terrablender": [
-      "net.frozenblock.wilderwild.mod_compat.terrablender.BlenderInitializer"
+      "net.frozenblock.wilderwild.mod_compat.WWTerraBlenderEntrypoint"
     ],
     "fabric-datagen": [
       "net.frozenblock.wilderwild.data.WWDataGenerator"

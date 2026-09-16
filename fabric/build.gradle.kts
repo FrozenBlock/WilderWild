@@ -28,7 +28,7 @@ val frozenlib_version: String by project
 val modmenu_version: String by project
 val cloth_config_version: String by project
 val copperpipes_version: String by project
-val terrablender_version: String by project
+val terrablender_version_fabric: String by project
 
 val biolith_version: String by project
 val run_biolith: String by project
@@ -120,7 +120,7 @@ dependencies {
     }
 
     // TerraBlender
-    compileOnly("maven.modrinth:terrablender:${terrablender_version}")
+    compileOnly("maven.modrinth:terrablender:${terrablender_version_fabric}")
 
     // Biolith
     if (shouldRunBiolith)

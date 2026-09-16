@@ -15,16 +15,14 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mod_compat.terrablender;
+package net.frozenblock.wilderwild.mod_compat;
 
-import net.frozenblock.wilderwild.WWConstants;
-import terrablender.api.Regions;
 import terrablender.api.TerraBlenderApi;
 
-public final class BlenderInitializer implements TerraBlenderApi {
+public final class WWTerraBlenderEntrypoint implements TerraBlenderApi {
 
 	@Override
 	public void onTerraBlenderInitialized() {
-		Regions.register(new WWOverworldRegion(WWConstants.id("overworld"), 1));
+		WWTerraBlenderCompat.setup();
 	}
 }

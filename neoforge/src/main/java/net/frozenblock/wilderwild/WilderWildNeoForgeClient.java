@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
@@ -31,15 +32,15 @@ public final class WilderWildNeoForgeClient {
 			WWModelLayers.setup();
 		});
 
-		// TODO: see if removing cloth causes a crash
-		ModLoadingContext.get().registerExtensionPoint(
-			IConfigScreenFactory.class,
-			() -> (container, parent) ->
-				WWMainConfigGui.buildScreen(parent)
-		);
+		if (ModLoader.isModLoaded("cloth-config") || ModLoader.isModLoaded("cloth_config")) {
+			ModLoadingContext.get().registerExtensionPoint(
+				IConfigScreenFactory.class,
+				() -> (container, parent) -> WWMainConfigGui.buildScreen(parent)
+			);
+		}
 
 		// This seems to work only while Sodium's installed, despite being a native NeoForge event.
-		// Nonetheless, this fixes Snowlogging with Sodium. Mixins on Sodium (like what we do on Fabric) don't seem to work.
+		// Thanks to this, at least, we can avoid implementing BlockRendererMixin on NeoForge for Sodium.
 		NeoForge.EVENT_BUS.addListener(AddSectionGeometryEvent.class, event -> {
 			event.addRenderer(context -> {
 				final BlockAndTintGetter region = context.getRegion();
