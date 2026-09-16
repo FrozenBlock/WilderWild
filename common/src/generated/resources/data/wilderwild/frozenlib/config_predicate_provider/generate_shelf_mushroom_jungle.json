@@ -1,0 +1,5 @@
+{
+  "type": "frozenlib:equal_to",
+  "entry": "wilderwild:worldgen/treeGeneration/jungleShelfMushroom",
+  "target": true
+}

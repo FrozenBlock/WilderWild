@@ -21,11 +21,7 @@
           "type": "minecraft:shelf_mushroom",
           "probability": 0.25
         },
-        "predicate": {
-          "type": "frozenlib:equal_to",
-          "entry": "wilderwild:worldgen/treeGeneration/jungleShelfMushroom",
-          "target": true
-        }
+        "predicate": "wilderwild:generate_shelf_mushroom_jungle"
       },
       "probability": 0.054
     },
