@@ -47,7 +47,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
-public class FallingLeafUtil {
+public final class FallingLeafUtil {
 	private static final Function<Float, Float> SLIGHTLY_HEAVY_GRAVITY_MODIFIER = gravity -> Math.max(2.5F, gravity * 1.5F);
 
 	public static Optional<FallingLeafData> getFallingLeafDataForLeavesBlock(RegistryAccess registryAccess, Block leavesBlock) {
@@ -245,4 +245,6 @@ public class FallingLeafUtil {
 			level.addParticle(particle, particlePos.x, particlePos.y, particlePos.z, 0D, 0D, 0D);
 		}
 	}
+
+	private FallingLeafUtil() {}
 }

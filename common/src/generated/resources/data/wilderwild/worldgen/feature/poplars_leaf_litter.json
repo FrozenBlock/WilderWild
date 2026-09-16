@@ -1,18 +1,21 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:yellow_poplar_bees_0002_checked",
+  "default": {
+    "feature": "wilderwild:yellow_poplars_leaf_litter",
+    "placement": []
+  },
   "features": [
     {
       "chance": 0.377,
       "feature": {
-        "feature": "wilderwild:red_poplars_bees_sapling",
+        "feature": "wilderwild:red_poplars_leaf_litter",
         "placement": []
       }
     },
     {
       "chance": 0.45,
       "feature": {
-        "feature": "wilderwild:orange_poplars_bees_sapling",
+        "feature": "wilderwild:orange_poplars_leaf_litter",
         "placement": []
       }
     }

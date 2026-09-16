@@ -14,7 +14,7 @@
     "movement_type": "swirl",
     "origin_block": "minecraft:orange_poplar_leaves",
     "particle": "wilderwild:orange_poplar_leaves",
-    "spawn_chance": 0.01125,
+    "spawn_chance": 0.0225,
     "spawn_chance_modifier": "wilderwild:misc/leafParticles/poplarFrequency",
     "texture_size": 5,
     "wind_scale": 10.0

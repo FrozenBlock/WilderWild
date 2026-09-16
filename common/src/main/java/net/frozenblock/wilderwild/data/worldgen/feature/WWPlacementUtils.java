@@ -39,7 +39,9 @@ public final class WWPlacementUtils {
 		return register(name, feature, List.of(modifiers));
 	}
 
-	public static FrozenLibPlacedFeature register(String id) {
-		return new FrozenLibPlacedFeature(WWConstants.id(id));
+	public static FrozenLibPlacedFeature register(String name) {
+		return new FrozenLibPlacedFeature(WWConstants.id(name));
 	}
+
+	private WWPlacementUtils() {}
 }

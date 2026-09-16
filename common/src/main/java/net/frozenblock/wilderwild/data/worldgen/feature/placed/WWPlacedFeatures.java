@@ -117,7 +117,7 @@ public final class WWPlacedFeatures {
 	public static final FrozenLibPlacedFeature SPRUCE_PLACED = register("spruce_placed");
 	public static final FrozenLibPlacedFeature SPRUCE_PLACED_NO_LITTER = register("spruce_placed_no_litter");
 	public static final FrozenLibPlacedFeature SHORT_SPRUCE_PLACED = register("short_spruce_placed");
-	public static final FrozenLibPlacedFeature SHORT_SPRUCE_SPARSE = register("short_spruce_sparse");
+	public static final FrozenLibPlacedFeature SHORT_SPRUCE_SPARSE_LEAF_LITTER = register("short_spruce_sparse_leaf_litter");
 	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_PLACED = register("short_mega_spruce_placed");
 	public static final FrozenLibPlacedFeature SHORT_MEGA_SPRUCE_ON_SNOW_PLACED = register("short_mega_spruce_on_snow_placed");
 	public static final FrozenLibPlacedFeature TREES_OLD_GROWTH_PINE_TAIGA = register("trees_old_growth_pine_taiga");
@@ -730,7 +730,7 @@ public final class WWPlacedFeatures {
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		SHORT_SPRUCE_SPARSE.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA,
+		SHORT_SPRUCE_SPARSE_LEAF_LITTER.makeAndSetHolder(WWConfiguredFeatures.SHORT_TREES_TAIGA_LEAF_LITTER,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(0, 0.2F, 1))
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);

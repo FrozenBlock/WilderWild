@@ -166,6 +166,7 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature TREES_TAIGA_LEAF_LITTER = register("trees_taiga_leaf_litter");
 	public static final FrozenLibFeature TREES_TAIGA = register("trees_taiga");
 	public static final FrozenLibFeature SHORT_TREES_TAIGA = register("short_trees_taiga");
+	public static final FrozenLibFeature SHORT_TREES_TAIGA_LEAF_LITTER = register("short_trees_taiga_leaf_litter");
 	public static final FrozenLibFeature SHORT_MEGA_SPRUCE = register("short_mega_spruce_configured");
 	public static final FrozenLibFeature SHORT_MEGA_SPRUCE_ON_SNOW = register("short_mega_spruce_on_snow_configured");
 	public static final FrozenLibFeature TREES_OLD_GROWTH_PINE_TAIGA_NO_LITTER = register("trees_old_growth_pine_taiga_no_litter");
@@ -245,11 +246,13 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature MAPLES_BEES_SAPLING = register("maples_bees_sapling");
 
 	// POPLAR
-	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS = PoplarCollection.NAMES.map(name -> register(name + "_poplars"));
+	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_NO_LITTER = PoplarCollection.NAMES.map(name -> register(name + "_poplars_no_litter"));
+	public static final FrozenLibFeature POPLARS_NO_LITTER = register("poplars_no_litter");
+	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_LEAF_LITTER = PoplarCollection.NAMES.map(name -> register(name + "_poplars_leaf_litter"));
+	public static final FrozenLibFeature POPLARS_LEAF_LITTER = register("poplars_leaf_litter");
 	public static final FrozenLibFeature POPLARS = register("poplars");
-	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_NO_BEES = PoplarCollection.NAMES.map(name -> register(name + "_poplars_no_bees"));
+	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_NO_BEES_SAPLING = PoplarCollection.NAMES.map(name -> register(name + "_poplars_no_bees_sapling"));
 	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLARS_BEES_SAPLING = PoplarCollection.NAMES.map(name -> register(name + "_poplars_bees_sapling"));
-	public static final FrozenLibFeature POPLARS_BEES_SAPLING = register("poplars_bees_sapling");
 
 	public static final FrozenLibFeature PALE_OAKS = register("pale_oaks");
 	public static final FrozenLibFeature PALE_OAKS_CREAKING = register("pale_oaks_creaking");
@@ -1356,6 +1359,8 @@ public final class WWConfiguredFeatures {
 
 		SHORT_TREES_TAIGA.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.asHolderSet()));
 
+		SHORT_TREES_TAIGA_LEAF_LITTER.makeAndSetHolder(new SimpleRandomSelectorFeature(WWTreePlaced.SPRUCE_SHORT_CHECKED.litterAsHolderSet()));
+
 		SHORT_MEGA_SPRUCE.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
@@ -2103,7 +2108,7 @@ public final class WWConfiguredFeatures {
 		});
 
 		// POPLAR
-		PoplarCollection.zipApply(COLORED_POPLARS, PoplarCollection.DYE_COLORS, (feature, color) -> {
+		PoplarCollection.zipApply(COLORED_POPLARS_NO_LITTER, PoplarCollection.DYE_COLORS, (feature, color) -> {
 			feature.makeAndSetHolder(
 				new RandomSelectorFeature(
 					List.of(
@@ -2118,13 +2123,45 @@ public final class WWConfiguredFeatures {
 			);
 		});
 
-		POPLARS.makeAndSetHolder(
+		POPLARS_NO_LITTER.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					COLORED_POPLARS.red().asWeightedPlacedFeature(0.377F),
-					COLORED_POPLARS.orange().asWeightedPlacedFeature(0.45F)
+					COLORED_POPLARS_NO_LITTER.red().asWeightedPlacedFeature(0.377F),
+					COLORED_POPLARS_NO_LITTER.orange().asWeightedPlacedFeature(0.45F)
 				),
-				COLORED_POPLARS.yellow().asInlinePlaced()
+				COLORED_POPLARS_NO_LITTER.yellow().asInlinePlaced()
+			)
+		);
+
+		PoplarCollection.zipApply(COLORED_POPLARS_LEAF_LITTER, PoplarCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlaced.POPLAR_CHECKED.pick(color).litterAsWeightedPlacedFeature(0.45F),
+						WWTreePlaced.TALL_POPLAR_CHECKED.pick(color).litterAsWeightedPlacedFeature(0.25F),
+						WWTreePlaced.DYING_POPLAR_CHECKED.pick(color).litterAsWeightedPlacedFeature(0.0785F),
+						WWTreePlaced.TALL_POPLAR_BEES_CHECKED.pick(color).litterAsWeightedPlacedFeature(0.37F),
+						WWTreePlaced.TALL_DYING_POPLAR_CHECKED.pick(color).litterAsWeightedPlacedFeature(0.1F)
+					),
+					WWTreePlaced.POPLAR_BEES_CHECKED.pick(color).getLitterVariantHolder()
+				)
+			);
+		});
+
+		POPLARS_LEAF_LITTER.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					COLORED_POPLARS_LEAF_LITTER.red().asWeightedPlacedFeature(0.377F),
+					COLORED_POPLARS_LEAF_LITTER.orange().asWeightedPlacedFeature(0.45F)
+				),
+				COLORED_POPLARS_LEAF_LITTER.yellow().asInlinePlaced()
+			)
+		);
+
+		POPLARS.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(POPLARS_LEAF_LITTER.asWeightedPlacedFeature(0.75F)),
+				POPLARS_NO_LITTER.asInlinePlaced()
 			)
 		);
 
@@ -2143,17 +2180,7 @@ public final class WWConfiguredFeatures {
 			);
 		});
 
-		POPLARS_BEES_SAPLING.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					COLORED_POPLARS_BEES_SAPLING.red().asWeightedPlacedFeature(0.377F),
-					COLORED_POPLARS_BEES_SAPLING.orange().asWeightedPlacedFeature(0.45F)
-				),
-				WWTreePlaced.POPLAR_BEES_CHECKED.yellow().getHolder()
-			)
-		);
-
-		PoplarCollection.zipApply(COLORED_POPLARS_NO_BEES, PoplarCollection.DYE_COLORS, (feature, color) -> {
+		PoplarCollection.zipApply(COLORED_POPLARS_NO_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
 			feature.makeAndSetHolder(
 				new RandomSelectorFeature(
 					List.of(

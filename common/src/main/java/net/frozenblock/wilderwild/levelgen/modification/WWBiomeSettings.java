@@ -28,7 +28,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class WWBiomeSettings {
 
-	static void init() {
+	static void setup() {
 		BiomeModifications.create(WWConstants.id("foliage_color_badlands")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
@@ -45,7 +45,7 @@ public final class WWBiomeSettings {
 				context.getEffects().setGrassColorOverride(ARGB.color(0, 229, 125, 47));
 			});
 
-		WWWaterColors.init();
+		WWWaterColors.setup();
 		WWSpawns.addBugs();
 		WWSpawns.addJellyfish();
 		WWSpawns.addCrabs();

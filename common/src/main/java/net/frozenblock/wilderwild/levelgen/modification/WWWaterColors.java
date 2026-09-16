@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.tag.WWBiomeTags;
 
 public final class WWWaterColors {
 
-	public static void init() {
+	public static void setup() {
 		BiomeModifications.create(WWConstants.id("modify_water")).add(
 			ModificationPhase.REPLACEMENTS,
 			BiomeSelectors.all(),

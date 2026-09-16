@@ -57,7 +57,7 @@ public final class WWWorldgen {
 		WWVegetationGeneration.generateMushroom();
 		WWVegetationGeneration.generatePumpkin();
 
-		WWBiomeSettings.init();
+		WWBiomeSettings.setup();
 
 		generatePollen();
 

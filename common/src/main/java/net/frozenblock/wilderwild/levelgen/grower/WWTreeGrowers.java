@@ -101,7 +101,7 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWConfiguredFeatures.COLORED_POPLARS_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_POPLARS_NO_BEES.pick(color).getKey();
+			return hasFlowers ? WWConfiguredFeatures.COLORED_POPLARS_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_POPLARS_NO_BEES_SAPLING.pick(color).getKey();
 		}
 	});
 

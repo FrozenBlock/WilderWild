@@ -339,8 +339,8 @@ public final class WWTreeGeneration {
 					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_PLACED.getKey());
 				}
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_SPRUCE_SPARSE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_SPARSE.getKey());
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SHORT_SPRUCE_SPARSE_LEAF_LITTER)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SHORT_SPRUCE_SPARSE_LEAF_LITTER.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BIG_COARSE_BUSH)) {

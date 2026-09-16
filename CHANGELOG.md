@@ -93,6 +93,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Maple Forests and Dappled Forests can often be seen near each other, though Dappled Forests favor higher and bumpier terrain a tad further from snowy regions.
 - Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.
 - Updated the Dappled Forest to include new Flowers, more common Pumpkin Patches, denser Tree generation, Clearings, and new Fallen & Snapped Poplar Trees.
+- Gave the Dappled Forest a slightly brighter grass color to make it fit in slightly better with other biomes.
+  - Added a config option to toggle this change.
+  - If you do not notice a difference in the grass color, this could be caused by a Sodium bug due to the way they cache certain visual elements of biomes.
 - Added the Yellow Poplar Sapling and the Red Poplar Sapling.
 - Added the Yellow Poplar Leaf Litter, Orange Poplar Leaf Litter, and Red Poplar Leaf Litter.
 - Added new leaf particles for Poplar Leaves that spawn alongisde Vanilla's.

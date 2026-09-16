@@ -213,7 +213,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_PALMS = bind("feature/has_palms");
 	public static final TagKey<Biome> HAS_WARM_BEACH_PALMS = bind("feature/has_warm_beach_palms");
 	public static final TagKey<Biome> HAS_SHORT_SPRUCE = bind("feature/has_short_spruce");
-	public static final TagKey<Biome> HAS_SHORT_SPRUCE_SPARSE = bind("feature/has_short_spruce_sparse");
+	public static final TagKey<Biome> HAS_SHORT_SPRUCE_SPARSE_LEAF_LITTER = bind("feature/has_short_spruce_sparse_leaf_litter");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE = bind("feature/has_short_mega_spruce");
 	public static final TagKey<Biome> HAS_SHORT_MEGA_SPRUCE_SNOWY = bind("feature/has_short_mega_spruce_snowy");
 	public static final TagKey<Biome> HAS_BIG_COARSE_BUSH = bind("feature/has_big_coarse_bush");

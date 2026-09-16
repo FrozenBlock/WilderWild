@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.networking.api.platform.NetworkingHelperImpl;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;

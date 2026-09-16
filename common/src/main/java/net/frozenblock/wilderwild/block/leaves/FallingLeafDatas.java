@@ -301,7 +301,7 @@ public final class FallingLeafDatas {
 				FallingLeafData.ParticleData.forLeaves(
 					particle,
 					leaves,
-					0.01125F,
+					0.0225F,
 					WWAmbienceAndMiscConfig.POPLAR_LEAF_FREQUENCY,
 					5,
 					1F,
@@ -495,4 +495,6 @@ public final class FallingLeafDatas {
 			);
 		});
 	}
+
+	private FallingLeafDatas() {}
 }

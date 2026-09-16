@@ -1,21 +1,14 @@
 {
   "type": "minecraft:random_selector",
   "default": {
-    "feature": "wilderwild:yellow_poplars",
+    "feature": "wilderwild:poplars_no_litter",
     "placement": []
   },
   "features": [
     {
-      "chance": 0.377,
+      "chance": 0.75,
       "feature": {
-        "feature": "wilderwild:red_poplars",
-        "placement": []
-      }
-    },
-    {
-      "chance": 0.45,
-      "feature": {
-        "feature": "wilderwild:orange_poplars",
+        "feature": "wilderwild:poplars_leaf_litter",
         "placement": []
       }
     }

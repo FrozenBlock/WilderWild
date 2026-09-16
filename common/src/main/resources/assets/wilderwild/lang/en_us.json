@@ -1152,7 +1152,7 @@
     "option.wilderwild.cherry_leaf_particles": "Cherry Leaf Frequency",
     "tooltip.wilderwild.cherry_leaf_particles": "How frequently Cherry Leaf particles should spawn.\nNote that this will only control Wilder Wild's additional leaf particles. Not vanilla's.",
     "option.wilderwild.poplar_leaf_particles": "Poplar Leaf Frequency",
-    "tooltip.wilderwild.poplar_leaf_particles": "How frequently Poplar Leaf particles should spawn.\nNote that this will only control Wilder Wild's additional leaf particles. Not vanilla's.",
+    "tooltip.wilderwild.poplar_leaf_particles": "How frequently Poplar Leaf particles should spawn.",
     "option.wilderwild.azalea_leaf_particles": "Azalea Leaf Frequency",
     "tooltip.wilderwild.azalea_leaf_particles": "How frequently Azalea Leaf particles should spawn.",
     "option.wilderwild.baobab_leaf_particles": "Baobab Leaf Frequency",

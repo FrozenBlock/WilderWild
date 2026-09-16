@@ -1379,7 +1379,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
-		this.builder(WWBiomeTags.HAS_SHORT_SPRUCE_SPARSE)
+		this.builder(WWBiomeTags.HAS_SHORT_SPRUCE_SPARSE_LEAF_LITTER)
 			.add(Biomes.DAPPLED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_BIG_COARSE_BUSH)
