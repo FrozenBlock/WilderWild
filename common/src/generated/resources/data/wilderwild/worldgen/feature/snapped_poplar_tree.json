@@ -9,8 +9,16 @@
       "probability": 0.12
     },
     {
-      "type": "minecraft:shelf_mushroom",
-      "probability": 0.4
+      "type": "frozenlib:config_predicate",
+      "decorator": {
+        "type": "minecraft:shelf_mushroom",
+        "probability": 0.4
+      },
+      "predicate": {
+        "type": "frozenlib:equal_to",
+        "entry": "wilderwild:worldgen/treeGeneration/poplarShelfMushroom",
+        "target": true
+      }
     },
     {
       "type": "frozenlib:probability",

@@ -449,6 +449,7 @@ public final class WWBlocks {
 	public static final DeferredBlock<Block> JUNGLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.JUNGLE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final DeferredBlock<Block> MANGROVE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.MANGROVE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final DeferredBlock<Block> PALE_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.PALE_OAK_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
+	public static final PoplarCollection<DeferredBlock<Block>> POPLAR_LEAF_LITTER = WWBlockItemIds.POPLAR_LEAF_LITTER.map(id -> registerLeafLitter(id, () -> SoundType.LEAF_LITTER));
 	public static final DeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final DeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
 	public static final DeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
@@ -1719,6 +1720,7 @@ public final class WWBlocks {
 		FlammableBlockRegistry.register(JUNGLE_LEAF_LITTER.get(), 60, 100);
 		FlammableBlockRegistry.register(MANGROVE_LEAF_LITTER.get(), 60, 100);
 		FlammableBlockRegistry.register(PALE_OAK_LEAF_LITTER.get(), 60, 100);
+		POPLAR_LEAF_LITTER.forEach(leafLitter -> FlammableBlockRegistry.register(leafLitter.get(), 60, 100));
 		FlammableBlockRegistry.register(PALM_FROND_LITTER.get(), 60, 100);
 		FlammableBlockRegistry.register(SPRUCE_LEAF_LITTER.get(), 60, 100);
 		FlammableBlockRegistry.register(WILLOW_LEAF_LITTER.get(), 60, 100);

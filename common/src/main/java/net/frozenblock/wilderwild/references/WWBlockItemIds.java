@@ -100,13 +100,11 @@ public final class WWBlockItemIds {
 	public static final BlockItemId JUNGLE_LEAF_LITTER = create("jungle_leaf_litter");
 	public static final BlockItemId MANGROVE_LEAF_LITTER = create("mangrove_leaf_litter");
 	public static final BlockItemId PALE_OAK_LEAF_LITTER = create("pale_oak_leaf_litter");
+	public static final PoplarCollection<BlockItemId> POPLAR_LEAF_LITTER = PoplarCollection.NAMES.map(name -> create(name + "_poplar_leaf_litter"));
 	public static final BlockItemId PALM_FROND_LITTER = create("palm_frond_litter");
 	public static final BlockItemId SPRUCE_LEAF_LITTER = create("spruce_leaf_litter");
 	public static final BlockItemId WILLOW_LEAF_LITTER = create("willow_leaf_litter");
 	public static final MapleCollection<BlockItemId> MAPLE_LEAF_LITTER = MapleCollection.NAMES.map(name -> create(name + "_maple_leaf_litter"));
-	public static final BlockItemId YELLOW_MAPLE_LEAF_LITTER = create("yellow_maple_leaf_litter");
-	public static final BlockItemId ORANGE_MAPLE_LEAF_LITTER = create("orange_maple_leaf_litter");
-	public static final BlockItemId RED_MAPLE_LEAF_LITTER = create("red_maple_leaf_litter");
 
 	// SCULK
 	public static final BlockItemId SCULK_STAIRS = create("sculk_stairs");

@@ -35,4 +35,6 @@ public final class WWItemConfig {
 	public static final ConfigEntry<Boolean> EGG_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/eggLandingSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> ENDER_PEARL_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/enderPearlLandingSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> POTION_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/potionLandingSounds", EntryType.BOOL, true);
+
+	private WWItemConfig() {}
 }

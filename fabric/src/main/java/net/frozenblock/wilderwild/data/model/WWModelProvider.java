@@ -148,6 +148,7 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createLeafLitter(WWBlocks.JUNGLE_LEAF_LITTER.get());
 		generator.createLeafLitter(WWBlocks.MANGROVE_LEAF_LITTER.get());
 		generator.createLeafLitter(WWBlocks.PALE_OAK_LEAF_LITTER.get());
+		WWBlocks.POPLAR_LEAF_LITTER.forEach(leafLitter -> WWModelHelper.createUntintedLeafLitter(generator, leafLitter.get()));
 		generator.createLeafLitter(WWBlocks.PALM_FROND_LITTER.get());
 		generator.createLeafLitter(WWBlocks.SPRUCE_LEAF_LITTER.get());
 		generator.createLeafLitter(WWBlocks.WILLOW_LEAF_LITTER.get());

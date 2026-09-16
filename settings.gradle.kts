@@ -49,7 +49,7 @@ rootProject.name = "Wilder Wild"
 
 object Constants {
     const val FABRIC: Boolean = true
-    const val NEOFORGE: Boolean = false
+    const val NEOFORGE: Boolean = true
 }
 
 include("ww-common")
@@ -71,7 +71,7 @@ localRepository("SimpleCopperPipesMC", "maven.modrinth:simple-copper-pipes", ena
 localRepository("FrozenLib",
     "net.frozenblock:frozenlib",
     prefix = "flib",
-    suffixes = listOf("common", "fabric"),
+    suffixes = listOf("common", "fabric", "neoforge"),
     multi = true,
     enabled = true
 )

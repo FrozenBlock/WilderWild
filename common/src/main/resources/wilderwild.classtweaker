@@ -61,6 +61,7 @@ accessible method net/minecraft/client/data/models/BlockModelGenerators createMi
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTrees (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Ljava/util/Collection;)V
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerTentPool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
 accessible method net/minecraft/data/worldgen/AbandonedCampStructurePools registerCampsitePool (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/core/Holder;Lnet/minecraft/data/worldgen/AbandonedCampStructurePools$AbandonedCampStructure;)V
+accessible class net/minecraft/client/data/models/BlockModelGenerators$BlockStateGeneratorSupplier
 
 # Particles
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V

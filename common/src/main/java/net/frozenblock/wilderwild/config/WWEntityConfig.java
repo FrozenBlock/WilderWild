@@ -128,4 +128,6 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> FISHERMAN_DESERT_PALM_BOAT = CONFIG.entryBuilder("villager/fishermanDesertPalmBoat", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_CRAB_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanCrabForEmeralds", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_JELLYFISH_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanJellyfishForEmeralds", EntryType.BOOL, true).requireRestart().build();
+
+	private WWEntityConfig() {}
 }

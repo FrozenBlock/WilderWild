@@ -22,7 +22,7 @@ import net.frozenblock.lib.config.v1.instance.BasicConfig;
 import net.frozenblock.lib.config.v1.instance.json.JsonBasicConfig;
 import net.frozenblock.lib.config.v1.instance.json.JsonType;
 import net.frozenblock.lib.config.v1.registry.BasicConfigRegistry;
-import static net.frozenblock.wilderwild.WWConstants.MOD_ID;
+import static net.frozenblock.wilderwild.WWPreLoadConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
 
 public final class WWMixinsConfig {

@@ -204,6 +204,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.add(WWBlocks.JUNGLE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.JUNGLE_LEAF_LITTER.get()));
 		this.add(WWBlocks.MANGROVE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.MANGROVE_LEAF_LITTER.get()));
 		this.add(WWBlocks.PALE_OAK_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.PALE_OAK_LEAF_LITTER.get()));
+		WWBlocks.POPLAR_LEAF_LITTER.forEach(leafLitter -> this.add(leafLitter.get(), this.createSegmentedBlockDrops(leafLitter.get())));
 		this.add(WWBlocks.PALM_FROND_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.PALM_FROND_LITTER.get()));
 		this.add(WWBlocks.SPRUCE_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.SPRUCE_LEAF_LITTER.get()));
 		this.add(WWBlocks.WILLOW_LEAF_LITTER.get(), this.createSegmentedBlockDrops(WWBlocks.WILLOW_LEAF_LITTER.get()));

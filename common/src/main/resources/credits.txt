@@ -105,6 +105,7 @@ voxelotl:
  - Hollowed Pale Log & Stripped Hollowed Pale Log Textures.
  - Hollowed Poplar Log & Stripped Hollowed Poplar Log Textures.
  - Yellow Poplar Sapling & Red Poplar Sapling Textures.
+ - Poplar Leaf Litter & Leaf Particle Textures.
 
 Willow/pictochats_:
  - Composer:

@@ -3,8 +3,16 @@
   "below_trunk_provider": "minecraft:soil_beneath_tree",
   "decorators": [
     {
-      "type": "minecraft:shelf_mushroom",
-      "probability": 0.4
+      "type": "frozenlib:config_predicate",
+      "decorator": {
+        "type": "minecraft:shelf_mushroom",
+        "probability": 0.4
+      },
+      "predicate": {
+        "type": "frozenlib:equal_to",
+        "entry": "wilderwild:worldgen/treeGeneration/poplarShelfMushroom",
+        "target": true
+      }
     }
   ],
   "foliage_placer": {

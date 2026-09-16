@@ -349,6 +349,7 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.add(WWBlockItemIds.JUNGLE_LEAF_LITTER)
 			.add(WWBlockItemIds.MANGROVE_LEAF_LITTER)
 			.add(WWBlockItemIds.PALE_OAK_LEAF_LITTER)
+			.add(WWBlockItemIds.POPLAR_LEAF_LITTER.yellow(), WWBlockItemIds.POPLAR_LEAF_LITTER.orange(), WWBlockItemIds.POPLAR_LEAF_LITTER.red())
 			.add(WWBlockItemIds.PALM_FROND_LITTER)
 			.add(WWBlockItemIds.SPRUCE_LEAF_LITTER)
 			.add(WWBlockItemIds.WILLOW_LEAF_LITTER)

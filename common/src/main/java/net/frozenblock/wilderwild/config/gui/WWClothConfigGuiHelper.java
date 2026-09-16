@@ -22,6 +22,7 @@ import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
 import net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -30,6 +31,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
+@ClientOnly
 public final class WWClothConfigGuiHelper {
 
 	public static IntegerSliderEntry entitySpawnCapEntry(ConfigEntryBuilder builder, EntityType<?> entityType, ConfigEntry<Integer> configEntry, int min, int max) {
@@ -119,4 +121,6 @@ public final class WWClothConfigGuiHelper {
 			Component.translatable("tooltip.wilderwild.spawn_entity_variants", entityName)
 		);
 	}
+
+	private WWClothConfigGuiHelper() {}
 }

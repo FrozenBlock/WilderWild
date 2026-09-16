@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.frozenblock.lib.FrozenLibConstants;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
@@ -107,6 +107,6 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 	}
 
 	public static boolean isUsingIrisShaderPack() {
-		return FrozenLibConstants.HAS_IRIS && WWIrisCompat.usingShaderPack();
+		return FrozenLibEarlyConstants.HAS_IRIS && WWIrisCompat.usingShaderPack();
 	}
 }

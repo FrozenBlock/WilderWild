@@ -123,6 +123,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> OAK_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/oakShelfMushroom", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> DARK_OAK_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/darkOakShelfMushroom", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALE_OAK_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/paleOakShelfMushroom", EntryType.BOOL, false).requireRestart().build();
+	public static final ConfigEntry<Boolean> POPLAR_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/poplarShelfMushroom", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SPRUCE_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/spruceShelfMushroom", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILLOW_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/willowShelfMushroom", EntryType.BOOL, false).requireRestart().build();
 	public static final ConfigEntry<Boolean> MAPLE_SHELF_MUSHROOM_GENERATION = CONFIG.entryBuilder("treeGeneration/mapleShelfMushroom", EntryType.BOOL, false).requireRestart().build();
@@ -137,6 +138,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/oakLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DARK_OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/darkOakLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALE_OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/paleOakLeafLitter", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> POPLAR_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/poplarLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALM_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/palmFrondLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SPRUCE_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/spruceLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILLOW_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/willowLeafLitter", EntryType.BOOL, true).requireRestart().build();
@@ -204,4 +206,6 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> NEW_ABANDONED_CAMP_GENERATION = CONFIG.entryBuilder("structure/newAbandonedCamps", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DECAYING_TRAIL_RUINS_GENERATION = CONFIG.entryBuilder("structure/decayTrailRuins", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NEW_DESERT_VILLAGE_GENERATION = CONFIG.entryBuilder("structure/newDesertVillages", EntryType.BOOL, true).requireRestart().build();
+
+	private WWWorldgenConfig() {}
 }

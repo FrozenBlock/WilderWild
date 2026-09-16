@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import net.frozenblock.lib.FrozenLibConstants;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.item.api.component.consume_effects.DamageConsumeEffect;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
@@ -141,6 +141,7 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> JUNGLE_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.JUNGLE_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
 	public static final DeferredItem<BlockItem> MANGROVE_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.MANGROVE_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
 	public static final DeferredItem<BlockItem> PALE_OAK_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.PALE_OAK_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
+	public static final PoplarCollection<DeferredItem<BlockItem>> POPLAR_LEAF_LITTER = PoplarCollection.zipMap(WWBlockItemIds.POPLAR_LEAF_LITTER, WWBlocks.POPLAR_LEAF_LITTER, REGISTER::registerLeafLitterItem);
 	public static final DeferredItem<BlockItem> PALM_FROND_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.PALM_FROND_LITTER, WWBlocks.PALM_FROND_LITTER);
 	public static final DeferredItem<BlockItem> SPRUCE_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
 	public static final DeferredItem<BlockItem> WILLOW_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.WILLOW_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
@@ -509,7 +510,7 @@ public final class WWItems {
 	public static void setup() {
 		ItemTooltipAdditionAPI.addTooltip(
 			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
-			stack -> !FrozenLibConstants.HAS_TRAILIER_TALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+			stack -> !FrozenLibEarlyConstants.HAS_TRAILIER_TALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 		);
 
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());

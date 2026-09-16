@@ -26,8 +26,10 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWItemConfig;
 import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
 
+@ClientOnly
 public final class WWMainConfigGui {
 
 	public static Screen buildScreen(Screen parent) {
@@ -50,4 +52,6 @@ public final class WWMainConfigGui {
 
 		return configBuilder.build();
 	}
+
+	private WWMainConfigGui() {}
 }

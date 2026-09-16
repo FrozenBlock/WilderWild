@@ -63,6 +63,7 @@ public final class WWAmbienceAndMiscConfigGui {
 			zeroToFiveHundredEntry(builder, "acacia_leaf_particles", WWAmbienceAndMiscConfig.ACACIA_LEAF_FREQUENCY),
 			zeroToFiveHundredEntry(builder, "dark_oak_leaf_particles", WWAmbienceAndMiscConfig.DARK_OAK_LEAF_FREQUENCY),
 			zeroToFiveHundredEntry(builder, "pale_oak_leaf_particles", WWAmbienceAndMiscConfig.PALE_OAK_LEAF_FREQUENCY),
+			zeroToFiveHundredEntry(builder, "poplar_leaf_particles", WWAmbienceAndMiscConfig.POPLAR_LEAF_FREQUENCY),
 			zeroToFiveHundredEntry(builder, "mangrove_leaf_particles", WWAmbienceAndMiscConfig.MANGROVE_LEAF_FREQUENCY),
 			zeroToFiveHundredEntry(builder, "cherry_leaf_particles", WWAmbienceAndMiscConfig.CHERRY_LEAF_FREQUENCY),
 			zeroToFiveHundredEntry(builder, "azalea_leaf_particles", WWAmbienceAndMiscConfig.AZALEA_LEAF_FREQUENCY),
@@ -126,4 +127,6 @@ public final class WWAmbienceAndMiscConfigGui {
 			booleanEntry(builder, "distorted_dying_forest_music", WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC)
 		);
 	}
+
+	private WWAmbienceAndMiscConfigGui() {}
 }

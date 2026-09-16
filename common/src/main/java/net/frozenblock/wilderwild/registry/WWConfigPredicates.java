@@ -39,6 +39,20 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK = createKey("sound_override_pale_oak");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_FLOWER = createKey("generate_flower");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_ACACIA = createKey("generate_shelf_mushroom_acacia");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_BIRCH = createKey("generate_shelf_mushroom_birch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_CHERRY = createKey("generate_shelf_mushroom_cherry");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_CYPRESS = createKey("generate_shelf_mushroom_cypress");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_JUNGLE = createKey("generate_shelf_mushroom_jungle");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_MANGROVE = createKey("generate_shelf_mushroom_mangrove");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_OAK = createKey("generate_shelf_mushroom_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_DARK_OAK = createKey("generate_shelf_mushroom_dark_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_PALE_OAK = createKey("generate_shelf_mushroom_pale_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_POPLAR = createKey("generate_shelf_mushroom_poplar");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_SPRUCE = createKey("generate_shelf_mushroom_spruce");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_WILLOW = createKey("generate_shelf_mushroom_willow");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_MAPLE = createKey("generate_shelf_mushroom_maple");
+
 	public static final ResourceKey<ConfigPredicate> GENERATE_RIVER_POOL = createKey("generate_river_pool");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CATTAIL = createKey("generate_cattail");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BARNACLES = createKey("generate_barnacles");
@@ -101,6 +115,58 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_FLOWER,
 			WWWorldgenConfig.FLOWER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_ACACIA,
+			WWWorldgenConfig.ACACIA_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_BIRCH,
+			WWWorldgenConfig.BIRCH_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_CHERRY,
+			WWWorldgenConfig.CHERRY_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_CYPRESS,
+			WWWorldgenConfig.CYPRESS_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_JUNGLE,
+			WWWorldgenConfig.JUNGLE_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_MANGROVE,
+			WWWorldgenConfig.MANGROVE_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_OAK,
+			WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_DARK_OAK,
+			WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_PALE_OAK,
+			WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_POPLAR,
+			WWWorldgenConfig.POPLAR_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_SPRUCE,
+			WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_WILLOW,
+			WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHELF_MUSHROOM_MAPLE,
+			WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION.equalTo(true)
 		);
 
 		context.register(

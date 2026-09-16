@@ -28,6 +28,7 @@ import static net.frozenblock.wilderwild.config.gui.WWClothConfigGuiHelper.*;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 
@@ -107,6 +108,7 @@ public final class WWWorldgenConfigGui {
 			shelfMushroomGenerationBooleanEntry(builder, "oak", WWWorldgenConfig.OAK_SHELF_MUSHROOM_GENERATION),
 			shelfMushroomGenerationBooleanEntry(builder, "dark_oak", WWWorldgenConfig.DARK_OAK_SHELF_MUSHROOM_GENERATION),
 			shelfMushroomGenerationBooleanEntry(builder, "pale_oak", WWWorldgenConfig.PALE_OAK_SHELF_MUSHROOM_GENERATION),
+			shelfMushroomGenerationBooleanEntry(builder, "poplar", WWWorldgenConfig.POPLAR_SHELF_MUSHROOM_GENERATION),
 			shelfMushroomGenerationBooleanEntry(builder, "spruce", WWWorldgenConfig.SPRUCE_SHELF_MUSHROOM_GENERATION),
 			shelfMushroomGenerationBooleanEntry(builder, "willow", WWWorldgenConfig.WILLOW_SHELF_MUSHROOM_GENERATION),
 			shelfMushroomGenerationBooleanEntry(builder, "maple", WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION),
@@ -121,6 +123,12 @@ public final class WWWorldgenConfigGui {
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.MANGROVE_LEAF_LITTER.get(), WWWorldgenConfig.MANGROVE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, Blocks.LEAF_LITTER, WWWorldgenConfig.OAK_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALE_OAK_LEAF_LITTER.get(), WWWorldgenConfig.PALE_OAK_LITTER_GENERATION),
+			booleanEntry(
+				builder,
+				Component.translatable("option.wilderwild.poplar_leaf_litter_generation"),
+				WWWorldgenConfig.POPLAR_LITTER_GENERATION,
+				Component.translatable("tooltip.wilderwild.poplar_leaf_litter_generation")
+			),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER.get(), WWWorldgenConfig.PALM_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.SPRUCE_LEAF_LITTER.get(), WWWorldgenConfig.SPRUCE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.WILLOW_LEAF_LITTER.get(), WWWorldgenConfig.WILLOW_LITTER_GENERATION)
@@ -204,4 +212,6 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "new_witch_huts", WWWorldgenConfig.NEW_WITCH_HUT_GENERATION)
 		);
 	}
+
+	private WWWorldgenConfigGui() {}
 }

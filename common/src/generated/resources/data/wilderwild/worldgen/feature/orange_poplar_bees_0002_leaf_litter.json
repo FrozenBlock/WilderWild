@@ -13,28 +13,36 @@
       "probability": 0.1
     },
     {
-      "type": "minecraft:shelf_mushroom",
-      "probability": 0.4
+      "type": "frozenlib:config_predicate",
+      "decorator": {
+        "type": "minecraft:shelf_mushroom",
+        "probability": 0.4
+      },
+      "predicate": {
+        "type": "frozenlib:equal_to",
+        "entry": "wilderwild:worldgen/treeGeneration/poplarShelfMushroom",
+        "target": true
+      }
     },
     {
       "type": "minecraft:place_on_ground",
       "block_state_provider": {
         "type": "frozenlib:leaf_litter_provider",
-        "block": "minecraft:leaf_litter",
+        "block": "wilderwild:orange_poplar_leaf_litter",
         "max_segment": 3
       },
       "height": 2,
       "radius": 4,
-      "tries": 43
+      "tries": 96
     },
     {
       "type": "minecraft:place_on_ground",
       "block_state_provider": {
         "type": "frozenlib:leaf_litter_provider",
-        "block": "minecraft:leaf_litter"
+        "block": "wilderwild:orange_poplar_leaf_litter"
       },
       "height": 2,
-      "tries": 75
+      "tries": 150
     }
   ],
   "foliage_placer": {

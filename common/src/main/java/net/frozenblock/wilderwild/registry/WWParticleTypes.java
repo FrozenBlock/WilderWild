@@ -26,6 +26,7 @@ import net.frozenblock.lib.platform.api.registry.DeferredSimpleParticleType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.entity.Crab;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafClusterSeedParticleOptions;
@@ -154,9 +155,16 @@ public final class WWParticleTypes {
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> MANGROVE_LITTER_LEAVES = createLeafParticle("mangrove_litter_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> CHERRY_LEAVES = createLeafParticle("cherry_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> CHERRY_LITTER_LEAVES = createLeafParticle("cherry_litter_leaves");
+	public static final PoplarCollection<DeferredParticleType<WWFallingLeavesParticleOptions>> POPLAR_LEAVES = PoplarCollection.NAMES.map(
+		name -> createLeafParticle(name + "_poplar_leaves")
+	);
+	public static final PoplarCollection<DeferredParticleType<WWFallingLeavesParticleOptions>> POPLAR_LITTER_LEAVES = PoplarCollection.NAMES.map(
+		name -> createLeafParticle(name + "_poplar_litter_leaves")
+	);
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> AZALEA_LEAVES = createLeafParticle("azalea_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> FLOWERING_AZALEA_LEAVES = createLeafParticle("flowering_azalea_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> AZALEA_LITTER_LEAVES = createLeafParticle("azalea_litter_leaves");
+
 
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> BAOBAB_LEAVES = createLeafParticle("baobab_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> BAOBAB_LITTER_LEAVES = createLeafParticle("baobab_litter_leaves");

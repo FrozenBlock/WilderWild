@@ -93,6 +93,7 @@ public final class WWAmbienceAndMiscConfig {
 	public static final ConfigEntry<Integer> ACACIA_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/acaciaFrequency", EntryType.INT, 50);
 	public static final ConfigEntry<Integer> DARK_OAK_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/darkOakFrequency", EntryType.INT, 50);
 	public static final ConfigEntry<Integer> PALE_OAK_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/paleOakFrequency", EntryType.INT, 50);
+	public static final ConfigEntry<Integer> POPLAR_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/poplarFrequency", EntryType.INT, 50);
 	public static final ConfigEntry<Integer> MANGROVE_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/mangroveFrequency", EntryType.INT, 50);
 	public static final ConfigEntry<Integer> CHERRY_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/cherryFrequency", EntryType.INT, 50);
 	public static final ConfigEntry<Integer> AZALEA_LEAF_FREQUENCY = CONFIG.unsyncableEntry("leafParticles/azaleaFrequency", EntryType.INT, 50);
@@ -130,4 +131,6 @@ public final class WWAmbienceAndMiscConfig {
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("new." + bool))
 		.build();
+
+	private WWAmbienceAndMiscConfig() {}
 }

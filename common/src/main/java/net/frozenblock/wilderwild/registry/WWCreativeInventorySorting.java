@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
-import net.frozenblock.lib.FrozenLibConstants;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.item.api.creative.CreativeModeTabSorter;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
@@ -245,7 +245,10 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAF_LITTER.yellow(), WWItems.MAPLE_LEAF_LITTER.orange());
 		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAF_LITTER.orange(), WWItems.MAPLE_LEAF_LITTER.red());
 		insertAfterInNaturalBlocks(WWItems.MAPLE_LEAF_LITTER.red(), WWItems.PALE_OAK_LEAF_LITTER);
-		insertAfterInNaturalBlocks(WWItems.PALE_OAK_LEAF_LITTER, WWItems.AZALEA_LEAF_LITTER);
+		insertAfterInNaturalBlocks(WWItems.PALE_OAK_LEAF_LITTER, WWItems.POPLAR_LEAF_LITTER.yellow());
+		insertAfterInNaturalBlocks(WWItems.POPLAR_LEAF_LITTER.yellow(), WWItems.POPLAR_LEAF_LITTER.orange());
+		insertAfterInNaturalBlocks(WWItems.POPLAR_LEAF_LITTER.orange(), WWItems.POPLAR_LEAF_LITTER.red());
+		insertAfterInNaturalBlocks(WWItems.POPLAR_LEAF_LITTER.red(), WWItems.AZALEA_LEAF_LITTER);
 
 		// SMALL FLOWERS
 		insertAfterInNaturalBlocks(Items.DANDELION, WWItems.SEEDING_DANDELION);
@@ -411,7 +414,7 @@ public final class WWCreativeInventorySorting {
 		insertAfterInBuildingBlocks(WWItems.GABBRO_STAIRS, WWItems.GABBRO_SLAB);
 		insertAfterInBuildingBlocks(WWItems.GABBRO_SLAB, WWItems.GABBRO_WALL);
 		// BACK TO WW
-		insertAfterInBuildingBlocks(FrozenLibConstants.HAS_TRAILIER_TALES ? WWItems.GABBRO_WALL : WWItems.GABBRO, WWItems.POLISHED_GABBRO);
+		insertAfterInBuildingBlocks(FrozenLibEarlyConstants.HAS_TRAILIER_TALES ? WWItems.GABBRO_WALL : WWItems.GABBRO, WWItems.POLISHED_GABBRO);
 		insertAfterInBuildingBlocks(WWItems.POLISHED_GABBRO, WWItems.POLISHED_GABBRO_STAIRS);
 		insertAfterInBuildingBlocks(WWItems.POLISHED_GABBRO_STAIRS, WWItems.POLISHED_GABBRO_SLAB);
 		insertAfterInBuildingBlocks(WWItems.POLISHED_GABBRO_SLAB, WWItems.POLISHED_GABBRO_WALL);

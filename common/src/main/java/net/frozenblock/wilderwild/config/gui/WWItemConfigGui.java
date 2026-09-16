@@ -41,4 +41,6 @@ public final class WWItemConfigGui {
 			booleanEntry(builder, "potion_landing_sounds", WWItemConfig.POTION_LANDING_SOUNDS)
 		);
 	}
+
+	private WWItemConfigGui() {}
 }

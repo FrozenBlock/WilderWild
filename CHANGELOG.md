@@ -94,6 +94,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.
 - Updated the Dappled Forest to include new Flowers, more common Pumpkin Patches, denser Tree generation, Clearings, and new Fallen & Snapped Poplar Trees.
 - Added the Yellow Poplar Sapling and the Red Poplar Sapling.
+- Added the Yellow Poplar Leaf Litter, Orange Poplar Leaf Litter, and Red Poplar Leaf Litter.
+- Added new leaf particles for Poplar Leaves that spawn alongisde Vanilla's.
 - Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Blocks Tag.
 - Wilder Wild's Material Rules (formerly known as Surface Rules) are now data-driven.
 - Wilder Wild's custom Cactus damage sound now only plays if the Cactus block sounds config option is enabled.
@@ -142,7 +144,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - `foliage_placement_chance` -> `foliage_probability`
 - Removed all Shelf Fungi blocks, as Vanilla's new Shelf Mushroom block offers a sufficient replacement.
   - All overworld trees that used to generate Shelf Fungi can now generate Shelf Mushrooms.
-    - This generation is disabled by default for all tree types other than Jungle trees, and can be toggled via new config options.
+    - This generation is disabled by default for all tree types other than Jungle and Poplar trees, and can be toggled via new config options.
   - All overworld fallen trees that used to generate Shelf Fungi can now generate Mushrooms, similar to Vanilla's fallen trees.
 - Pale Mushroom Blocks now spawn Fog particles more frequently when Improved Transparency is enabled.
 - Fog particles will now appear slightly larger when Improved Transparency is enabled.

@@ -24,10 +24,10 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 public final class WWIrisCompat {
 
 	/**
-	 * I decided to not include a {@link net.frozenblock.lib.FrozenBools#HAS_IRIS FrozenBools#HAS_IRIS} check here, as from experience, loading this class anyway
+	 * I decided to not include a {@link net.frozenblock.lib.FrozenLibEarlyConstants#HAS_IRIS FrozenLibEarlyConstants#HAS_IRIS} check here, as from experience, loading this class anyway
 	 * is bound to cause random issues later when Java randomly decides that it NEEDS to load {@code IrisApi} despite it never being called.
 	 * <p>
-	 * That is to say, ALWAYS check {@link net.frozenblock.lib.FrozenBools#HAS_IRIS FrozenBools#HAS_IRIS} separately before invoking this!
+	 * That is to say, ALWAYS check {@link net.frozenblock.lib.FrozenLibEarlyConstants#HAS_IRIS FrozenLibEarlyConstants#HAS_IRIS} separately before invoking this!
 	 */
 	public static boolean usingShaderPack() {
 		return IrisApi.getInstance().isShaderPackInUse();

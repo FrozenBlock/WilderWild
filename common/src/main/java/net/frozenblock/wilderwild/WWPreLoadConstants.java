@@ -32,4 +32,6 @@ public final class WWPreLoadConstants {
 	public static Path configPath(String name, boolean json5) {
 		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
+
+	private WWPreLoadConstants() {}
 }

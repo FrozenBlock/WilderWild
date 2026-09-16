@@ -50,6 +50,7 @@ public class PlaceOnGroundDecoratorMixin {
 		if (state.is(WWBlocks.MANGROVE_LEAF_LITTER.get())) return WWWorldgenConfig.MANGROVE_LITTER_GENERATION.get();
 		if (state.is(Blocks.LEAF_LITTER)) return WWWorldgenConfig.OAK_LITTER_GENERATION.get();
 		if (state.is(WWBlocks.PALE_OAK_LEAF_LITTER.get())) return WWWorldgenConfig.PALE_OAK_LITTER_GENERATION.get();
+		if (WWBlocks.POPLAR_LEAF_LITTER.asList().stream().anyMatch(litter -> state.is(litter.get()))) return WWWorldgenConfig.POPLAR_LITTER_GENERATION.get();
 		if (state.is(WWBlocks.PALM_FROND_LITTER.get())) return WWWorldgenConfig.PALM_LITTER_GENERATION.get();
 		if (state.is(WWBlocks.SPRUCE_LEAF_LITTER.get())) return WWWorldgenConfig.SPRUCE_LITTER_GENERATION.get();
 		if (state.is(WWBlocks.WILLOW_LEAF_LITTER.get())) return WWWorldgenConfig.WILLOW_LITTER_GENERATION.get();

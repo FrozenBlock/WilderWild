@@ -354,7 +354,6 @@ public final class WWTreePlaced {
 		SNAPPED_MAPLE_CHECKED.makeAndSetHolder(WWTreeConfigured.SNAPPED_MAPLE_TREE.getHolder(), fallenTreePlacement);
 
 		// POPLAR
-		// TODO: poplar saplings
 		final PoplarCollection<BlockPredicateFilter> poplarSaplingPlacement = WWBlocks.POPLAR_SAPLING.map(sapling -> PlacementUtils.filteredByBlockSurvival(sapling.get()));
 		final Consumer<PoplarCollection<FrozenLibPlacedTreeFeature>> registerPoplar = collection -> {
 			PoplarCollection.zipApply(

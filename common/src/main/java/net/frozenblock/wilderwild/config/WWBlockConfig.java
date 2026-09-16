@@ -122,4 +122,6 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> SANDSTONE_SOUNDS = CONFIG.entry("blockSounds/sandstoneSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SUGAR_CANE_SOUNDS = CONFIG.entry("blockSounds/sugarCaneSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> WITHER_ROSE_SOUNDS = CONFIG.entry("blockSounds/witherRoseSounds", EntryType.BOOL, true);
+
+	private WWBlockConfig() {}
 }

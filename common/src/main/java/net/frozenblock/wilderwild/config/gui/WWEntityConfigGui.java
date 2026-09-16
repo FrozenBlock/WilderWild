@@ -168,4 +168,6 @@ public final class WWEntityConfigGui {
 		);
 		 */
 	}
+
+	private WWEntityConfigGui() {}
 }

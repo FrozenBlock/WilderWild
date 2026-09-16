@@ -4,6 +4,7 @@ import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
@@ -284,6 +285,39 @@ public final class FallingLeafDatas {
 				FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
 			)
 		);
+
+		final PoplarCollection<Block> poplarLeaves = new PoplarCollection<>(Blocks.YELLOW_POPLAR_LEAVES, Blocks.ORANGE_POPLAR_LEAVES, Blocks.RED_POPLAR_LEAVES);
+		PoplarCollection.DYE_COLORS.forEach(color -> {
+			final Block leaves = poplarLeaves.pick(color);
+			final Block leafLitter = WWBlocks.POPLAR_LEAF_LITTER.pick(color).get();
+			final Holder<ParticleType<?>> particle = WWParticleTypes.POPLAR_LEAVES.pick(color).asHolder();
+			final Holder<ParticleType<?>> litterParticle = WWParticleTypes.POPLAR_LITTER_LEAVES.pick(color).asHolder();
+
+			register(
+				context,
+				createKey(PoplarCollection.NAMES.pick(color) + "_poplar"),
+				leaves,
+				leafLitter,
+				FallingLeafData.ParticleData.forLeaves(
+					particle,
+					leaves,
+					0.01125F,
+					WWAmbienceAndMiscConfig.POPLAR_LEAF_FREQUENCY,
+					5,
+					1F,
+					10F,
+					FallingLeafData.LeafMovementType.SWIRL
+				),
+				FallingLeafData.ParticleData.forLeafLitter(
+					litterParticle,
+					leafLitter,
+					4,
+					1.4F,
+					8F,
+					FallingLeafData.LeafMovementType.SWIRL.getGroundSupportingEquivalent()
+				)
+			);
+		});
 
 		register(
 			context,

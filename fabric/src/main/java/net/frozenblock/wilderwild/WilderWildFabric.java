@@ -19,9 +19,8 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.FrozenLibConstants;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
@@ -61,6 +60,6 @@ public final class WilderWildFabric extends FrozenModInitializer {
 		);
 
 		// TODO: ml scp
-		if (FrozenLibConstants.HAS_SIMPLE_COPPER_PIPES) SimpleCopperPipesIntegration.setup();
+		if (FrozenLibEarlyConstants.HAS_SIMPLE_COPPER_PIPES) SimpleCopperPipesIntegration.setup();
 	}
 }

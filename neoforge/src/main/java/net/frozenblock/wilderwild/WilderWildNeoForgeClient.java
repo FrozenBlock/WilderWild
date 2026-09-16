@@ -32,7 +32,7 @@ public final class WilderWildNeoForgeClient {
 			WWModelLayers.setup();
 		});
 
-		if (ModLoader.isModLoaded("cloth-config") || ModLoader.isModLoaded("cloth_config")) {
+		if (FrozenLibEarlyConstants.HAS_CLOTH_CONFIG) {
 			ModLoadingContext.get().registerExtensionPoint(
 				IConfigScreenFactory.class,
 				() -> (container, parent) -> WWMainConfigGui.buildScreen(parent)

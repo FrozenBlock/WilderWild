@@ -79,6 +79,7 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -178,12 +179,12 @@ public final class WWTreeConfigured {
 	public static final FrozenLibFeature SNAPPED_MAPLE_TREE = register("snapped_maple_tree");
 
 	// POPLAR
-	public static final PoplarCollection<FrozenLibTreeFeature> POPLAR_TREE = PoplarCollection.NAMES.map(name -> registerPoplar(name + "_poplar"));
-	public static final PoplarCollection<FrozenLibTreeFeature> DYING_POPLAR_TREE = PoplarCollection.NAMES.map(name -> registerPoplar("dying_" + name + "_poplar"));
-	public static final PoplarCollection<FrozenLibTreeFeature> TALL_POPLAR_TREE = PoplarCollection.NAMES.map(name -> registerPoplar("tall_" + name + "_poplar"));
-	public static final PoplarCollection<FrozenLibTreeFeature> TALL_DYING_POPLAR_TREE = PoplarCollection.NAMES.map(name -> registerPoplar("tall_dying_" + name + "_poplar"));
-	public static final PoplarCollection<FrozenLibTreeFeature> POPLAR_BEES_0002 = PoplarCollection.NAMES.map(name -> registerPoplar(name + "_poplar_bees_0002"));
-	public static final PoplarCollection<FrozenLibTreeFeature> TALL_POPLAR_BEES_0002 = PoplarCollection.NAMES.map(name -> registerPoplar("tall_" + name + "_poplar_bees_0002"));
+	public static final PoplarCollection<FrozenLibTreeFeature> POPLAR_TREE = PoplarCollection.DYE_COLORS.map(color -> registerPoplar(color.getName() + "_poplar", color));
+	public static final PoplarCollection<FrozenLibTreeFeature> DYING_POPLAR_TREE = PoplarCollection.DYE_COLORS.map(color -> registerPoplar("dying_" + color.getName() + "_poplar", color));
+	public static final PoplarCollection<FrozenLibTreeFeature> TALL_POPLAR_TREE = PoplarCollection.DYE_COLORS.map(color -> registerPoplar("tall_" + color.getName() + "_poplar", color));
+	public static final PoplarCollection<FrozenLibTreeFeature> TALL_DYING_POPLAR_TREE = PoplarCollection.DYE_COLORS.map(color -> registerPoplar("tall_dying_" + color.getName() + "_poplar", color));
+	public static final PoplarCollection<FrozenLibTreeFeature> POPLAR_BEES_0002 = PoplarCollection.DYE_COLORS.map(color -> registerPoplar(color.getName() + "_poplar_bees_0002", color));
+	public static final PoplarCollection<FrozenLibTreeFeature> TALL_POPLAR_BEES_0002 = PoplarCollection.DYE_COLORS.map(color -> registerPoplar("tall_" + color.getName() + "_poplar_bees_0002", color));
 
 	public static final FrozenLibFeature FALLEN_POPLAR_TREE = register("fallen_poplar_tree");
 	public static final FrozenLibFeature SNAPPED_POPLAR_TREE = register("snapped_poplar_tree");
@@ -347,7 +348,8 @@ public final class WWTreeConfigured {
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfMushroom003 = entry -> shelfMushroom(0.03F, 0.25F, entry);
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfMushroom00975 = entry -> shelfMushroom(0.0975F, 0.25F, entry);
 		final Function<ConfigEntry<Boolean>, TreeDecorator> shelfMushroom00875 = entry -> shelfMushroom(0.0875F, 0.25F, entry);
-		final ShelfMushroomDecorator shelfMushroomPoplar = new ShelfMushroomDecorator(0.4F);
+		final TreeDecorator shelfMushroomPoplar = WWWorldgenConfig.POPLAR_SHELF_MUSHROOM_GENERATION.equalTo(true)
+			.asTreeDecorator(new ShelfMushroomDecorator(0.4F));
 
 		final TreeDecorator mushroomsFallenBirch = mushroomDecorator(0.75F, 0.25F, 2, 1);
 		final TreeDecorator mushroomsFallenMossyBirch = mushroomDecorator(1F, 0.3F, 2, 1);
@@ -2858,9 +2860,8 @@ public final class WWTreeConfigured {
 		return registerTree(name, WWBlocks.MANGROVE_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 
-	public static FrozenLibTreeFeature registerPoplar(String name) {
-		// TODO: Poplar Leaf Litter
-		return registerTree(name, Blocks.LEAF_LITTER, 43, 4, 2, 75, 2, 2);
+	public static FrozenLibTreeFeature registerPoplar(String name, DyeColor color) {
+		return registerTree(name, WWBlocks.POPLAR_LEAF_LITTER.pick(color).get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static TreeDecorator shelfMushroom(float generationProbability, float placementChance, ConfigEntry<Boolean> entry) {

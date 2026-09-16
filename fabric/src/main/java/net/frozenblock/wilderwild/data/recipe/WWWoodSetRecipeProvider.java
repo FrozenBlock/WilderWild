@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.item.api.recipe.RecipeExportNamespaceFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
@@ -185,9 +186,17 @@ public final class WWWoodSetRecipeProvider extends FabricRecipeProvider {
 				this.leafLitterSmelting(Items.JUNGLE_LEAVES, WWItems.JUNGLE_LEAF_LITTER);
 				this.leafLitterSmelting(Items.MANGROVE_LEAVES, WWItems.MANGROVE_LEAF_LITTER);
 				this.leafLitterSmelting(Items.PALE_OAK_LEAVES, WWItems.PALE_OAK_LEAF_LITTER);
+
+				PoplarCollection.zipApply(
+					WWItems.POPLAR_LEAF_LITTER,
+					new PoplarCollection<>(Items.YELLOW_POPLAR_LEAVES, Items.ORANGE_POPLAR_LEAVES, Items.RED_POPLAR_LEAVES),
+					(leafLitter, leaves) -> this.leafLitterSmelting(leaves, leafLitter)
+				);
+
 				this.leafLitterSmelting(WWItems.PALM_FRONDS, WWItems.PALM_FROND_LITTER);
 				this.leafLitterSmelting(Items.SPRUCE_LEAVES, WWItems.SPRUCE_LEAF_LITTER);
 				this.leafLitterSmelting(WWItems.WILLOW_LEAVES, WWItems.WILLOW_LEAF_LITTER);
+
 
 				MapleCollection.zipApply(WWItems.MAPLE_LEAF_LITTER, WWItems.MAPLE_LEAVES,
 					(leafLitter, leaves) -> this.leafLitterSmelting(leaves, leafLitter)
