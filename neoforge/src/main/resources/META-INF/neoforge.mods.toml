@@ -15,7 +15,7 @@ config="wilderwild.neoforge.mixins.json"
     displayName="Wilder Wild"
     displayURL="https://modrinth.com/mod/wilder-wild"
     logoFile="assets/wilderwild/icon.png"
-    authors="Lunade, Ethan Stokes, Soro"
+    authors="Lunade/AViewFromTheTop, Ethan Stokes, Soro"
     description='''
 Overhauls the Wild Update, adding new features and improving existing ones.
     '''
