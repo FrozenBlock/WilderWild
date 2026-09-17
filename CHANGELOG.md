@@ -82,3 +82,87 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - This changes the `RenderType` of Jellyfish to use a Vanilla one. As a result, the visuals of Jellyfish may be different than intended.
 - Fixed crashes that could occur when trying to render a Wilder Wild mob that has variants in a context where dynamic registries aren't available. ([#558](https://github.com/FrozenBlock/WilderWild/issues/558))
 - Migrated the implementation of animated Sculk Sensor Block Entities from a mixin to Fabric's and NeoForge's Data Attachments.
+
+### 26.3+
+- Added a new Abandoned Camp structure for the Maple Forest biome.
+- Added the `Wilder Abandoned Camps` internal Data Pack, updating Swamp Abandoned Camps to include Wilder Wild's new blocks and Willow trees.
+  - This is enabled by default, but can be disabled in the Data Pack menu.
+- Swamp Abandoned Camps will now generate using the Willow wood set instead of Oak.
+  - Added a config option to toggle this behavior.
+- Modified the placement of Dappled Forests to not interfere as much with Maple Forests.
+  - Maple Forests and Dappled Forests can often be seen near each other, though Dappled Forests favor higher and bumpier terrain a tad further from snowy regions.
+- Added the Stripped Poplar Log and Stripped Hollowed Poplar Log blocks.
+- Updated the Dappled Forest to include new Flowers, more common Pumpkin Patches, denser Tree generation, Clearings, and new Fallen & Snapped Poplar Trees.
+- Gave the Dappled Forest a slightly brighter grass color to make it fit in slightly better with other biomes.
+  - Added a config option to toggle this change.
+  - If you do not notice a difference in the grass color, this could be caused by a Sodium bug due to the way they cache certain visual elements of biomes.
+- Added the Yellow Poplar Sapling and the Red Poplar Sapling.
+- Added the Yellow Poplar Leaf Litter, Orange Poplar Leaf Litter, and Red Poplar Leaf Litter.
+- Added new leaf particles for Poplar Leaves that spawn alongisde Vanilla's.
+- Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Block Tag.
+- Wilder Wild's Material Rules (formerly known as Surface Rules) are now data-driven.
+- Wilder Wild's custom Cactus damage sound now only plays if the Cactus block sounds config option is enabled.
+- The air meter now uses Mesoglea Bubble sprites when inside a Mesoglea block.
+- Removed Wilder Wild's Potent Sulfur Geyser Wind Disturbance, as it has been moved into FrozenLib.
+- Wilder Wild's Structure Processor modifications are now data-driven per FrozenLib's changes.
+- Revamped the implementation of Chest bubbling.
+- The Shrub now uses Vanilla's Red Shrub sound type.
+- Red Shrubs can be eaten and turned into Dead Bushes by Termites.
+- Added a config option to toggle Dappled Forest generation.
+- Added the `wilderwild:termite_edible` Structure Processor, with the following format:
+  - `value`: Can be either true or false. Sets the `termite_edible` property to this value for all Blocks with this property.
+- Renamed the following Tree Decorator Types:
+  - `wilderwild:height_based_vine_tree_decorator` -> `wilderwild:height_based_vine`
+  - `wilderwild:height_based_cobweb_tree_decorator` -> `wilderiwld:height_based_cobweb`
+  - `wilderwild:pollen_tree_decorator` -> `wilderwild:pollen`
+  - `wilderwild:above_logs_tree_decorator` -> `wilderwild:above_logs`
+- Removed the `wilderwild:above_logs_tree_decorator` Tree Decorator Type, as `frozenlib:probability` and `minecraft:attached_to_logs` provide the same functionality.
+- Renamed the following fields in the `wilderwild:fallen_large_trunk_placer` Trunk Placer Type:
+  - `stump_placement_chance` -> `stump_probability`
+  - `success_in_water_chance` -> `water_success_probability`
+- Renamed the following fields in the `wilderwild:fallen_with_branches_trunk_placer` Trunk Placer Type:
+  - `stump_placement_chance` -> `stump_probability`
+  - `success_in_water_chance` -> `water_success_probability`
+  - `hollowed_trunk_provider` -> `hollow_state`
+  - `hollowed_log_chance` -> `hollow_probability`
+  - `trunk_branch_placement` -> `branch_placement`
+- Renamed the following fields in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+- Renamed the following fields in the `wilderwild:maple_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+  - `lower_trunk_branch_placement` -> `lower_branch_placement`
+- Renamed the following fields in the `wilderwild:straight_with_branches_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+- Renamed the following fields in the `wilderwild:willow_trunk_placer` Trunk Placer Type:
+  - `trunk_branch_placement` -> `branch_placement`
+  - `branch_split_gap_chance` -> `branch_split_gap_probability`
+- Renamed the following fields in the `wilderwild:baobab_trunk_placer` Trunk Placer Type:
+  - `inner_trunk_provider` -> `inner_state`
+- Renamed the following fields in `branch_placement` (formerly `trunk_branch_placement`):
+  - `branch_placement_chance` -> `probability`
+  - `max_branch_count` -> `max_count`
+  - `branch_cutoff_from_top` -> `cutoff_from_top`
+  - `branch_length` -> `length`
+  - `offset_last_log_chance` -> `offset_last_log_probability`
+  - `minimum_branch_length_for_offset` -> `minimum_length_for_offset`
+  - `foliage_placement_chance` -> `foliage_probability`
+- Removed all Shelf Fungi blocks, as Vanilla's new Shelf Mushroom block offers a sufficient replacement.
+  - All overworld trees that used to generate Shelf Fungi can now generate Shelf Mushrooms.
+    - This generation is disabled by default for all tree types other than Jungle and Poplar trees, and can be toggled via new config options.
+  - All overworld fallen trees that used to generate Shelf Fungi can now generate Mushrooms, similar to Vanilla's fallen trees.
+- Pale Mushroom Blocks now spawn Fog particles more frequently when Improved Transparency is enabled.
+- Fog particles will now appear slightly larger when Improved Transparency is enabled.
+- Fixed inconsistent/incorrect shading for the following:
+  - Hanging Baobab Nut Stems
+  - Hanging Coconut Stems
+  - Lily Pad Roots
+  - Clovers Stems
+  - Potted Big Dripleaves
+  - Potted Small Dripleaves
+  - Potted Clovers Stems
+  - Potted Lantanas Stems
+  - Potted Phlox Stems
+  - Potted Wildflowers Stems
+  - Potted Pink Petals Stems
+- The stems of Potted Big Dripleaves and Potted Small Dripleaves are now properly rotated to match Vanilla's cross model.
+- The column of Sea Anemone are now more visible while the Sea Anemone is glowing.
