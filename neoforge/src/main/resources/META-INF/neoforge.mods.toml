@@ -47,3 +47,6 @@ Overhauls the Wild Update, adding new features and improving existing ones.
     versionRange="*"
     ordering="NONE"
     side="BOTH"
+
+["lithium:options"]
+"mixin.world.raycast" = false
