@@ -67,6 +67,7 @@ import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWClipGroups;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWSuffocationTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
 import net.frozenblock.wilderwild.registry.WWVariantSpawnInjections;
 import net.frozenblock.wilderwild.registry.WWWaterLikeTypes;
@@ -138,6 +139,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, WWStructureProcessorListAdditions::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.VARIANT_SPAWN_INJECTION, WWVariantSpawnInjections::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_ENVIRONMENT_ATTRIBUTE_MODIFICATION, WWBiomeEnvironmentAttributeModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.SUFFOCATION_TYPE, WWSuffocationTypes::bootstrap);
 
 		// Wilder Wild Registries
 		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);

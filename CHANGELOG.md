@@ -99,9 +99,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the Yellow Poplar Sapling and the Red Poplar Sapling.
 - Added the Yellow Poplar Leaf Litter, Orange Poplar Leaf Litter, and Red Poplar Leaf Litter.
 - Added new leaf particles for Poplar Leaves that spawn alongisde Vanilla's.
-- Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Blocks Tag.
+- Wilder Wild's blocks are now properly included in the `#minecraft:replaceable` Block Tag.
 - Wilder Wild's Material Rules (formerly known as Surface Rules) are now data-driven.
 - Wilder Wild's custom Cactus damage sound now only plays if the Cactus block sounds config option is enabled.
+- The air meter now uses Mesoglea Bubble sprites when inside a Mesoglea block.
 - Removed Wilder Wild's Potent Sulfur Geyser Wind Disturbance, as it has been moved into FrozenLib.
 - Wilder Wild's Structure Processor modifications are now data-driven per FrozenLib's changes.
 - Revamped the implementation of Chest bubbling.

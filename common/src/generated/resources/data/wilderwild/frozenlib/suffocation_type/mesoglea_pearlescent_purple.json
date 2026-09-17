@@ -1,0 +1,14 @@
+{
+  "mechanics": {
+    "air_behavior": "display_only",
+    "drain_time": 300,
+    "fill_time": 15,
+    "style": "drain"
+  },
+  "meter": {
+    "empty_texture": "wilderwild:hud/mesoglea_bubble_empty_pearlescent_purple",
+    "full_texture": "wilderwild:hud/mesoglea_bubble_pearlescent_purple",
+    "popping_texture": "wilderwild:hud/mesoglea_bubble_bursting_pearlescent_purple"
+  },
+  "source_blocks": "wilderwild:pearlescent_purple_mesoglea"
+}

@@ -1,0 +1,14 @@
+{
+  "mechanics": {
+    "air_behavior": "display_only",
+    "drain_time": 300,
+    "fill_time": 15,
+    "style": "drain"
+  },
+  "meter": {
+    "empty_texture": "wilderwild:hud/mesoglea_bubble_empty_pink",
+    "full_texture": "wilderwild:hud/mesoglea_bubble_pink",
+    "popping_texture": "wilderwild:hud/mesoglea_bubble_bursting_pink"
+  },
+  "source_blocks": "wilderwild:pink_mesoglea"
+}
