@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -26,6 +27,7 @@ import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
@@ -47,6 +49,7 @@ public final class WilderWild {
 		WWMinecraftDataFixer.applyDataFixes();
 		WWDataFixer.applyDataFixes();
 
+		WWAdvancementModifications.init();
 		WWDataComponents.init();
 		WWMemoryModuleTypes.init();
 		WWSensorTypes.init();
@@ -66,6 +69,7 @@ public final class WilderWild {
 		WWBlockEntityTypes.init();
 		WWParticleTypes.init();
 		WWMobEffects.init();
+		WWPotions.init();
 		WWCriteria.init();
 		WWFeatures.init();
 		WWWorldgen.init();

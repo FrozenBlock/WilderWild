@@ -20,8 +20,6 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import net.frozenblock.lib.FrozenLibEarlyConstants;
-import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.item.api.component.consume_effects.DamageConsumeEffect;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
@@ -38,7 +36,6 @@ import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
-import net.minecraft.network.chat.Component;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
@@ -56,7 +53,6 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
-import net.minecraft.ChatFormatting;
 
 public final class WWItems {
 	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
@@ -508,11 +504,6 @@ public final class WWItems {
 	 * Called separately on Fabric and NeoForge. Registries on NeoForge MUST be populated before running this.
 	 */
 	public static void setup() {
-		ItemTooltipAdditionAPI.addTooltip(
-			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
-			stack -> !FrozenLibEarlyConstants.HAS_TRAILIER_TALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
-		);
-
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());
 
 		DispenserBlock.registerBehavior(BAOBAB_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT.get()));

@@ -39,7 +39,7 @@ public record ButterflyVariant(
 	ClientAsset.ResourceTexture resourceTexture,
 	SpawnPrioritySelectors spawnConditions,
 	String name
-) implements TooltipProvider.Getter<ButterflyVariant>, PriorityProvider<SpawnContext, SpawnCondition> {
+) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
@@ -52,6 +52,9 @@ public record ButterflyVariant(
 	).apply(instance, ButterflyVariant::new));
 	public static final Codec<Holder<ButterflyVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.BUTTERFLY_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<ButterflyVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.BUTTERFLY_VARIANT);
+	public static final TooltipProvider.Getter<Holder<ButterflyVariant>> TOOLTIP = component ->
+		(context, consumer, flag, getter) ->
+			consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + component.value().name).withStyle(CHAT_FORMATTINGS));
 
 	public ButterflyVariant(ClientAsset.ResourceTexture resourceTexture, SpawnPrioritySelectors spawnConditions, String name) {
 		this.resourceTexture = resourceTexture;
@@ -66,11 +69,5 @@ public record ButterflyVariant(
 	@Override
 	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
 		return this.spawnConditions.selectors();
-	}
-
-	@Override
-	public TooltipProvider get(ButterflyVariant component) {
-		return (context, consumer, flag, getter)
-			-> consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + component.name).withStyle(CHAT_FORMATTINGS));
 	}
 }

@@ -19,9 +19,12 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
+import net.frozenblock.lib.item.api.component.TooltipAdditionRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredDataComponentType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
 import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
@@ -30,8 +33,10 @@ import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.ChatFormatting;
 
 public final class WWDataComponents {
 	private static final DeferredRegister.DataComponents REGISTER = DeferredRegister.createDataComponents(WWConstants.MOD_ID);
@@ -71,7 +76,15 @@ public final class WWDataComponents {
 		REGISTER.register();
 	}
 
-	public static void init() {}
+	public static void init() {
+		TooltipAdditionRegistry.addTooltip(
+			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
+			stack -> !FrozenLibEarlyConstants.HAS_TRAILIER_TALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
+		);
+
+		TooltipAdditionRegistry.addComponentTooltipAtHead(WWDataComponents.FIREFLY_COLOR, FireflyColor.TOOLTIP);
+		TooltipAdditionRegistry.addComponentTooltipAtHead(WWDataComponents.BUTTERFLY_VARIANT, ButterflyVariant.TOOLTIP);
+	}
 
 	private static <T> DeferredDataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
 		return REGISTER.registerComponent(name, builder);

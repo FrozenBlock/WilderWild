@@ -43,7 +43,7 @@ public record FireflyColor(
 	SpawnPrioritySelectors spawnConditions,
 	String name,
 	Optional<DyeColor> dyeColor
-) implements TooltipProvider.Getter<FireflyColor>, PriorityProvider<SpawnContext, SpawnCondition> {
+) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
@@ -58,6 +58,11 @@ public record FireflyColor(
 	).apply(instance, FireflyColor::new));
 	public static final Codec<Holder<FireflyColor>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.FIREFLY_COLOR);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<FireflyColor>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_COLOR);
+	public static final TooltipProvider.Getter<Holder<FireflyColor>> TOOLTIP = component ->
+		(context, consumer, flag, getter) -> {
+			if (component.value().name.equals("on")) return;
+			consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + component.value().name).withStyle(CHAT_FORMATTINGS));
+		};
 
 	private FireflyColor(ClientAsset.ResourceTexture resourceTexture, String name, Optional<DyeColor> dyeColor) {
 		this(resourceTexture, SpawnPrioritySelectors.EMPTY, name, dyeColor);
@@ -68,14 +73,6 @@ public record FireflyColor(
 			.stream()
 			.filter(fireflyColor -> fireflyColor.dyeColor().orElse(null) == dyeColor)
 			.findAny();
-	}
-
-	@Override
-	public TooltipProvider get(FireflyColor component) {
-		return (context, consumer, flag, getter) -> {
-			if (this.name.equals("on")) return;
-			consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + component.name).withStyle(CHAT_FORMATTINGS));
-		};
 	}
 
 	@Override

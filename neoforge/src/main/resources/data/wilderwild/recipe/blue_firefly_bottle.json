@@ -5,7 +5,7 @@
     "minecraft:blue_dye",
     {
       "neoforge:ingredient_type": "neoforge:components",
-      "base": "wilderwild:firefly_bottle",
+      "items": "wilderwild:firefly_bottle",
       "components": {
         "wilderwild:firefly/color": "wilderwild:on"
       }

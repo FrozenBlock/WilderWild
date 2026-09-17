@@ -32,6 +32,7 @@ public final class WWStructureProcessorTypes {
 			WWConstants.MOD_ID
 		);
 		register.register("termite_edible", () -> TermiteEdibleBlockProcessor.MAP_CODEC);
+		register.register();
 	}
 
 	private WWStructureProcessorTypes() {}

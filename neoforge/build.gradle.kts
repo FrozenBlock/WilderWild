@@ -80,6 +80,8 @@ tasks {
     }
 
     processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
         val properties = mapOf("mod_version" to getModVersion())
         inputs.properties(properties)
         filesMatching("META-INF/neoforge.mods.toml") {

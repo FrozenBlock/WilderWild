@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "group": "firefly_bottle",
   "ingredients": [
-    "minecraft:blue_dye",
+    "minecraft:cyan_dye",
     {
       "neoforge:ingredient_type": "neoforge:components",
-      "base": "wilderwild:firefly_bottle",
+      "items": "wilderwild:firefly_bottle",
       "components": {
         "wilderwild:firefly/color": "wilderwild:on"
       }
@@ -13,7 +13,7 @@
   ],
   "result": {
     "components": {
-      "wilderwild:firefly/color": "wilderwild:blue"
+      "wilderwild:firefly/color": "wilderwild:cyan"
     },
     "id": "wilderwild:firefly_bottle"
   }

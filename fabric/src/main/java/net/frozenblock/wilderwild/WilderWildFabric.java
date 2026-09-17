@@ -18,21 +18,17 @@
 package net.frozenblock.wilderwild;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.mod_compat.simplecopperpipes.SimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
-import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWSoundTypes;
 
 public final class WilderWildFabric extends FrozenModInitializer {
@@ -47,25 +43,13 @@ public final class WilderWildFabric extends FrozenModInitializer {
 
 		WWItems.setup();
 		WWSoundTypes.setup();
-		WWPotions.init();
 
 		WWBlocks.setupBlockProperties();
 		WWFabricBlocks.registerBlockProperties();
-		WWAdvancementModifications.init();
 		WWWorldgen.setup();
 
 		WWNetworking.setup();
 		WWCreativeInventorySorting.setup();
-
-		// TODO: Multiloader impl
-		ItemComponentTooltipProviderRegistry.addFirst(
-			WWDataComponents.FIREFLY_COLOR.get(),
-			variant -> variant.value().get(variant.value())
-		);
-		ItemComponentTooltipProviderRegistry.addFirst(
-			WWDataComponents.BUTTERFLY_VARIANT.get(),
-			variant -> variant.value().get(variant.value())
-		);
 
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)

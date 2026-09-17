@@ -1,0 +1,123 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "firefly_bottle",
+  "ingredients": [
+    "minecraft:green_dye",
+    {
+      "neoforge:ingredient_type": "neoforge:compound",
+      "ingredients": [
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:white"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:orange"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:magenta"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:light_blue"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:yellow"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:lime"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:pink"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:gray"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:light_gray"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:cyan"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:purple"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:blue"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:brown"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:red"
+          }
+        },
+        {
+          "neoforge:ingredient_type": "neoforge:components",
+          "items": "wilderwild:firefly_bottle",
+          "components": {
+            "wilderwild:firefly/color": "wilderwild:black"
+          }
+        }
+      ]
+    }
+  ],
+  "result": {
+    "components": {
+      "wilderwild:firefly/color": "wilderwild:green"
+    },
+    "id": "wilderwild:firefly_bottle"
+  }
+}

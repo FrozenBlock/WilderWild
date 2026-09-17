@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.warden;
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import com.llamalad7.mixinextras.sugar.Local;
-import java.util.Map;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityFluidInteraction;
@@ -31,17 +30,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(EntityFluidInteraction.class)
 public class EntityFluidInteractionMixin {
 
-	@WrapWithCondition(
+	@WrapOperation(
 		method = "applyCurrentTo(Lnet/minecraft/world/entity/Entity;)V",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/EntityFluidInteraction$Tracker;applyCurrentTo(Lnet/minecraft/world/entity/Entity;D)V"
+			target = "Lnet/minecraft/world/entity/Entity;isPushedByFluid(Lnet/neoforged/neoforge/fluids/FluidType;)Z"
 		)
 	)
-	public boolean wilderWild$stopWaterFromPushingWardens(
-		EntityFluidInteraction.Tracker instance, Entity entity, double scale,
-		@Local(name = "entry") Map.Entry<FluidType, EntityFluidInteraction.Tracker> entry
-	) {
-		return (!(entity instanceof Warden)) || !WWEntityConfig.WARDEN_SWIMS.get() || !entry.getKey().getIsWaterLike();
+	public boolean wilderWild$stopWaterFromPushingWardens(Entity instance, FluidType fluidType, Operation<Boolean> original) {
+		return original.call(instance, fluidType) && (!(instance instanceof Warden) || !WWEntityConfig.WARDEN_SWIMS.get() || !fluidType.getIsWaterLike());
 	}
 }
