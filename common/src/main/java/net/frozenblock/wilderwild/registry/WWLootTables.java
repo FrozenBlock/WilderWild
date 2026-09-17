@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.tag.WWStructureTags;
 import net.minecraft.advancements.predicates.LocationPredicate;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -208,12 +208,11 @@ public final class WWLootTables {
 			table.modifyPools(
 				pool -> pool.hasItem(Items.ABANDONED_CAMP_MAP),
 				pool -> {
-					final HolderLookup.RegistryLookup<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
-					final HolderLookup.RegistryLookup<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
+					final HolderGetter<Structure> structures = registries.lookupOrThrow(Registries.STRUCTURE);
+					final HolderGetter<Biome> biomes = registries.lookupOrThrow(Registries.BIOME);
 
 					final UniformContainerBase.Builder<?> mapleForestAbandonedCampsiteMap = LootItem.lootTableItem(Items.ABANDONED_CAMP_MAP)
 						.setWeight(1)
-						// TODO: new translation key
 						.apply(SetNameFunction.setName(Component.translatable("filled_map.maple_forest_camp_map"), SetNameFunction.Target.ITEM_NAME))
 						.apply(
 							ExplorationMapFunction.makeExplorationMap(structures.getOrThrow(WWStructureTags.ON_ABANDONED_CAMP_MAPLE_FOREST_MAPS))

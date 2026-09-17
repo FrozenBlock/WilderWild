@@ -78,7 +78,7 @@ localRepository("FrozenLib",
 
 localPluginRepository(
     "GradleHelper",
-    enabled = false
+    enabled = true
 )
 
 fun localPluginRepository(repo: String, enabled: Boolean = true) {

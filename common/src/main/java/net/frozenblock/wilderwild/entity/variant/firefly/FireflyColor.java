@@ -21,12 +21,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.codec.RegistryFixedCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -37,8 +35,6 @@ import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.ChatFormatting;
 
@@ -47,7 +43,7 @@ public record FireflyColor(
 	SpawnPrioritySelectors spawnConditions,
 	String name,
 	Optional<DyeColor> dyeColor
-) implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
+) implements TooltipProvider.Getter<FireflyColor>, PriorityProvider<SpawnContext, SpawnCondition> {
 	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 	public static final Codec<FireflyColor> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(FireflyColor::resourceTexture),
@@ -75,9 +71,11 @@ public record FireflyColor(
 	}
 
 	@Override
-	public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter getter) {
-		if (this.name.equals("on")) return;
-		consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + this.name).withStyle(CHAT_FORMATTINGS));
+	public TooltipProvider get(FireflyColor component) {
+		return (context, consumer, flag, getter) -> {
+			if (this.name.equals("on")) return;
+			consumer.accept(Component.translatable("entity.wilderwild.firefly.color." + component.name).withStyle(CHAT_FORMATTINGS));
+		};
 	}
 
 	@Override

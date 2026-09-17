@@ -57,7 +57,6 @@
     "entity.turtle.TurtleMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
-    "item.tooltip.ItemStackMixin",
     "projectile.AbstractArrowMixin",
     "projectile.AbstractThrownPotionMixin",
     "projectile.CreeperMixin",

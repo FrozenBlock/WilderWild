@@ -122,8 +122,6 @@ public final class WWMixinsConfig {
 
 	public boolean item_instrument = true;
 
-	public boolean item_tooltip = true;
-
 	public boolean projectile = true;
 
 	public boolean sculk = true;

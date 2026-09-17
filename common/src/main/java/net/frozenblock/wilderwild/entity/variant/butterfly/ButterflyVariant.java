@@ -20,11 +20,9 @@ package net.frozenblock.wilderwild.entity.variant.butterfly;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
-import java.util.function.Consumer;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.registries.codec.RegistryFixedCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -34,8 +32,6 @@ import net.minecraft.world.entity.variant.PriorityProvider;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
 import net.minecraft.ChatFormatting;
 
@@ -43,7 +39,7 @@ public record ButterflyVariant(
 	ClientAsset.ResourceTexture resourceTexture,
 	SpawnPrioritySelectors spawnConditions,
 	String name
-) implements TooltipProvider, PriorityProvider<SpawnContext, SpawnCondition> {
+) implements TooltipProvider.Getter<ButterflyVariant>, PriorityProvider<SpawnContext, SpawnCondition> {
 	private static final ChatFormatting[] CHAT_FORMATTINGS = new ChatFormatting[]{ChatFormatting.ITALIC, ChatFormatting.GRAY};
 	public static final Codec<ButterflyVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(ButterflyVariant::resourceTexture),
@@ -68,12 +64,13 @@ public record ButterflyVariant(
 	}
 
 	@Override
-	public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter getter) {
-		consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + this.name).withStyle(CHAT_FORMATTINGS));
+	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
+		return this.spawnConditions.selectors();
 	}
 
 	@Override
-	public List<Selector<SpawnContext, SpawnCondition>> selectors() {
-		return this.spawnConditions.selectors();
+	public TooltipProvider get(ButterflyVariant component) {
+		return (context, consumer, flag, getter)
+			-> consumer.accept(Component.translatable("entity.wilderwild.butterfly.variant." + component.name).withStyle(CHAT_FORMATTINGS));
 	}
 }

@@ -1,7 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.frozenblock.lib.platform.ModLoader;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
