@@ -67,13 +67,19 @@ neoForge {
 }
 
 dependencies {
+    // FrozenLib
     api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")?.let {
         accessTransformers(it)
         interfaceInjectionData(it)
     }
 
+    // Cloth COnfig
     implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
+
+    // TerraBlender
     compileOnly("maven.modrinth:terrablender:${terrablender_version_neoforge}")
+
+    // Biolith
     compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
 
     // Sodium
