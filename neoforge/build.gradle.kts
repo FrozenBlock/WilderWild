@@ -70,7 +70,7 @@ dependencies {
         interfaceInjectionData(it)
     }
 
-    // Cloth COnfig
+    // Cloth Config
     implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version")
 
     // TerraBlender

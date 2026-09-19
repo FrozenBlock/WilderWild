@@ -79,7 +79,7 @@ dependencies {
     api("net.frozenblock:frozenlib-fabric:$frozenlib_version")
 
     // Simple Copper Pipes
-    compileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
+    compileOnlyApi("maven.modrinth:simple-copper-pipes:$copperpipes_version")
 
     // Mod Menu
     implementation("com.terraformersmc:modmenu:$modmenu_version")
@@ -101,9 +101,9 @@ dependencies {
 
     // Sodium
     if (shouldRunSodium)
-        implementation("net.caffeinemc:sodium-fabric:${sodium_version}")
+        implementation("net.caffeinemc:sodium-fabric:$sodium_version")
     else
-        compileOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-fabric:$sodium_version")
 
     // Iris
     if (shouldRunIris)
