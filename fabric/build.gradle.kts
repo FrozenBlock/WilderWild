@@ -9,15 +9,13 @@ checkstyle {
     toolVersion = "10.20.2"
 }
 
-val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
-val licenseChecks: Boolean = githubActions
-
-val fabric_loader_version: String by project
-
+val mod_id: String by project
 val mod_version: String by project
+val subproject_prefix: String by project
 val minecraft_version: String by project
 val maven_group: String by project
 val archives_base_name: String by project
+val fabric_loader_version: String by project
 
 val fabric_api_version: String by project
 val frozenlib_version: String by project
@@ -53,10 +51,10 @@ tasks.jar {
 }
 
 fabric {
-    dependOn(project(":ww-common"))
-    accessWidener(project(":ww-common"))
+    dependOn(project("{$subproject_prefix}-common"))
+    accessWidener(project(":{$subproject_prefix}-common"))
     dataGen {
-        owner = project(":ww-common")
+        owner = project(":{$subproject_prefix}-common")
         splitSourceSet("datagen")
     }
 }
@@ -116,6 +114,9 @@ dependencies {
         compileOnly("maven.modrinth:iris:${iris_version}-fabric")
 }
 
+val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
+val licenseChecks: Boolean = githubActions
+
 tasks {
     license {
         if (licenseChecks) {
@@ -126,17 +127,13 @@ tasks {
     }
 }
 
-val applyLicenses: Task by tasks
-val test: Task by tasks
-val runClient: Task by tasks
-
-val sourcesJar: Jar by tasks
-val javadocJar: Jar by tasks
-
 java {
     sourceCompatibility = JavaVersion.VERSION_25
     targetCompatibility = JavaVersion.VERSION_25
 }
+
+val sourcesJar: Jar by tasks
+val javadocJar: Jar by tasks
 
 artifacts {
     archives(sourcesJar)
@@ -161,7 +158,7 @@ val changelogText = run {
 
 upload {
     maven {
-        name.set("wilderwild-fabric")
+        name.set("{$mod_id}-fabric")
     }
 
     forEach {
@@ -174,6 +171,7 @@ upload {
             required("frozenlib")
             optional("modmenu")
             optional("cloth-config")
+            optional("biolith")
             optional("simple-copper-pipes")
             optional("trailier-tales")
             optional("glowtone")
@@ -187,6 +185,7 @@ upload {
             required("frozenlib")
             optional("modmenu")
             optional("cloth-config")
+            optional("biolith")
             optional("simple-copper-pipes")
             optional("trailier-tales")
             optional("glowtone")

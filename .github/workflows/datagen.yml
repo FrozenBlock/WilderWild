@@ -53,6 +53,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Run Datagen
-        run: ./gradlew runDatagen -PreleaseType=stable -PuseThirdPartyMods=false
+        run: ./gradlew runData -PreleaseType=stable -PuseThirdPartyMods=false
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4

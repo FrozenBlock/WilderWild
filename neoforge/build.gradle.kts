@@ -9,7 +9,9 @@ checkstyle {
     toolVersion = "10.20.2"
 }
 
+val mod_id: String by project
 val mod_version: String by project
+val subproject_prefix: String by project
 val minecraft_version: String by project
 val maven_group: String by project
 val archives_base_name: String by project
@@ -56,27 +58,12 @@ repositories {
 }
 
 neoforge {
-    dependOn(project(":ww-common"))
-    accessWidener(project(":ww-common"))
+    dependOn(project(":{$subproject_prefix}-common"))
+    accessWidener(project(":{$subproject_prefix}-common"))
 }
 
 neoForge {
     accessTransformers {} // Required for transitive AW to apply!
-}
-
-val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
-val licenseChecks: Boolean = githubActions
-
-val applyLicenses: Task by tasks
-
-tasks {
-    license {
-        if (licenseChecks) {
-            rule(rootProject.file("codeformat/HEADER"))
-
-            include("**/*.java")
-        }
-    }
 }
 
 dependencies {
@@ -105,9 +92,30 @@ dependencies {
         compileOnly("maven.modrinth:iris:${iris_version}-neoforge")
 }
 
+val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
+val licenseChecks: Boolean = githubActions
+
+tasks {
+    license {
+        if (licenseChecks) {
+            rule(rootProject.file("codeformat/HEADER"))
+
+            include("**/*.java")
+        }
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_25
     targetCompatibility = JavaVersion.VERSION_25
+}
+
+val sourcesJar: Jar by tasks
+val javadocJar: Jar by tasks
+
+artifacts {
+    archives(sourcesJar)
+    archives(javadocJar)
 }
 
 fun getModVersion(): String {
@@ -127,7 +135,7 @@ val changelogText = run {
 
 upload {
     maven {
-        name.set("wilderwild-neoforge")
+        name.set("{$mod_id}-neoforge")
     }
 
     forEach {
@@ -139,6 +147,10 @@ upload {
             required("frozenlib")
             optional("cloth-config")
             optional("biolith")
+            optional("simple-copper-pipes")
+            optional("trailier-tales")
+            optional("glowtone")
+            optional("the-copperier-age")
         }
     }
 
@@ -147,6 +159,10 @@ upload {
             required("frozenlib")
             optional("cloth-config")
             optional("biolith")
+            optional("simple-copper-pipes")
+            optional("trailier-tales")
+            optional("glowtone")
+            optional("the-copperier-age")
         }
     }
 }
