@@ -40,7 +40,6 @@ base {
 
 val release = findProperty("releaseType") == "stable"
 
-version = getModVersion()
 group = maven_group
 
 tasks.jar {
@@ -122,15 +121,6 @@ val javadocJar: Jar by tasks
 artifacts {
     archives(sourcesJar)
     archives(javadocJar)
-}
-
-fun getModVersion(): String {
-    var version = "$mod_version-mc$minecraft_version"
-
-    if (!release)
-        version += "-unstable"
-
-    return version
 }
 
 val changelogText = run {

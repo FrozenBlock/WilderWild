@@ -51,7 +51,7 @@ tasks.jar {
 }
 
 fabric {
-    dependOn(project("$subproject_prefix-common"))
+    dependOn(project(":$subproject_prefix-common"))
     accessWidener(project(":$subproject_prefix-common"))
     dataGen {
         owner = project(":$subproject_prefix-common")
