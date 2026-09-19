@@ -47,8 +47,6 @@ dependencies {
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
 
-val applyLicenses: Task by tasks
-
 tasks {
     license {
         if (licenseChecks) {
