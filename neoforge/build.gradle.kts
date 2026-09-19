@@ -9,7 +9,6 @@ checkstyle {
     toolVersion = "10.20.2"
 }
 
-val mod_id: String by project
 val mod_version: String by project
 val minecraft_version: String by project
 val maven_group: String by project
@@ -76,40 +75,6 @@ tasks {
             rule(rootProject.file("codeformat/HEADER"))
 
             include("**/*.java")
-        }
-    }
-
-    processResources {
-        val properties = mapOf("mod_version" to getModVersion())
-        inputs.properties(properties)
-        filesMatching("META-INF/neoforge.mods.toml") {
-            expand(properties)
-        }
-    }
-
-    withType(JavaCompile::class) {
-        options.encoding = "UTF-8"
-        options.release = 25
-        options.isFork = true
-        options.isIncremental = true
-    }
-}
-
-val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
-val loaderVariants = setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements")
-configurations.all {
-    if (name in loaderVariants) {
-        attributes {
-            attribute(loaderAttribute, "neoforge")
-        }
-    }
-}
-sourceSets.configureEach {
-    listOf(compileClasspathConfigurationName, runtimeClasspathConfigurationName).forEach { variant ->
-        configurations.named(variant) {
-            attributes {
-                attribute(loaderAttribute, "neoforge")
-            }
         }
     }
 }

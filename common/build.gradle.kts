@@ -9,10 +9,6 @@ checkstyle {
     toolVersion = "10.20.2"
 }
 
-val mod_id: String by project
-val minecraft_version: String by project
-val fabric_loader_version: String by project
-
 val frozenlib_version: String by project
 val cloth_config_version: String by project
 val terrablender_version_neoforge: String by project
@@ -30,16 +26,6 @@ common {
 
 neoForge {
     accessTransformers {} // Required for transitive AW to apply!
-}
-
-tasks {
-    license {
-        if (licenseChecks) {
-            rule(rootProject.file("codeformat/HEADER"))
-
-            include("**/*.java")
-        }
-    }
 }
 
 dependencies {
@@ -63,6 +49,16 @@ dependencies {
 
     // Iris
     compileOnly("maven.modrinth:iris:${iris_version}-fabric")
+}
+
+tasks {
+    license {
+        if (licenseChecks) {
+            rule(rootProject.file("codeformat/HEADER"))
+
+            include("**/*.java")
+        }
+    }
 }
 
 configurations {
