@@ -68,13 +68,13 @@ fun mainJarTask(project: Project) =
     else project.tasks.named("jar")
 
 val githubRelease by tasks.registering {
-    val fabricJar = mainJarTask(project(":{$subproject_prefix}-fabric"))
-    val neoforgeJar = mainJarTask(project(":{$subproject_prefix}-neoforge"))
+    val fabricJar = mainJarTask(project(":$subproject_prefix-fabric"))
+    val neoforgeJar = mainJarTask(project(":$subproject_prefix-neoforge"))
     dependsOn(fabricJar, neoforgeJar)
 
     val token = env["GITHUB_TOKEN"]
     val repository = mod.repository.get()
-    val tag = project(":{$subproject_prefix}-fabric").version.toString()
+    val tag = project(":$subproject_prefix-fabric").version.toString()
     val releaseTitle = "$mod_name $tag"
     val isPrerelease = mod.releaseType.get() != "release"
     val commitish = env["GITHUB_SHA"]

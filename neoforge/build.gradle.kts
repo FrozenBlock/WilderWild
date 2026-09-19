@@ -58,8 +58,8 @@ repositories {
 }
 
 neoforge {
-    dependOn(project(":{$subproject_prefix}-common"))
-    accessWidener(project(":{$subproject_prefix}-common"))
+    dependOn(project(":$subproject_prefix-common"))
+    accessWidener(project(":$subproject_prefix-common"))
 }
 
 neoForge {
@@ -68,34 +68,34 @@ neoForge {
 
 dependencies {
     // FrozenLib
-    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")?.let {
+    api("net.frozenblock:frozenlib-neoforge:$frozenlib_version")?.let {
         accessTransformers(it)
         interfaceInjectionData(it)
     }
 
     // Cloth COnfig
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version")
 
     // TerraBlender
-    compileOnly("maven.modrinth:terrablender:${terrablender_version_neoforge}")
+    compileOnly("maven.modrinth:terrablender:$terrablender_version_neoforge")
 
     // Biolith
-    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
+    compileOnly("com.terraformersmc:biolith-neoforge:$biolith_version")
 
     // Sodium
     if (shouldRunSodium) {
-        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
+        implementation("net.caffeinemc:sodium-neoforge-mod:$sodium_version")
+        implementation("net.caffeinemc:sodium-neoforge:$sodium_version")
     } else {
-        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
+        compileOnly("net.caffeinemc:sodium-neoforge-mod:$sodium_version")
+        compileOnly("net.caffeinemc:sodium-neoforge:$sodium_version")
     }
 
     // Iris
     if (shouldRunIris)
-        implementation("maven.modrinth:iris:${iris_version}-neoforge")
+        implementation("maven.modrinth:iris:$iris_version-neoforge")
     else
-        compileOnly("maven.modrinth:iris:${iris_version}-neoforge")
+        compileOnly("maven.modrinth:iris:$iris_version-neoforge")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -141,7 +141,7 @@ val changelogText = run {
 
 upload {
     maven {
-        name.set("{$mod_id}-neoforge")
+        name.set("$mod_id-neoforge")
     }
 
     forEach {

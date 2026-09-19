@@ -51,10 +51,10 @@ tasks.jar {
 }
 
 fabric {
-    dependOn(project("{$subproject_prefix}-common"))
-    accessWidener(project(":{$subproject_prefix}-common"))
+    dependOn(project("$subproject_prefix-common"))
+    accessWidener(project(":$subproject_prefix-common"))
     dataGen {
-        owner = project(":{$subproject_prefix}-common")
+        owner = project(":$subproject_prefix-common")
         splitSourceSet("datagen")
     }
 }
@@ -78,7 +78,7 @@ dependencies {
     implementation("net.fabricmc.fabric-api:fabric-api:$fabric_api_version")
 
     // FrozenLib
-    api("net.frozenblock:frozenlib-fabric:${frozenlib_version}")
+    api("net.frozenblock:frozenlib-fabric:$frozenlib_version")
 
     // Simple Copper Pipes
     compileOnlyApi("maven.modrinth:simple-copper-pipes:${copperpipes_version}")
@@ -93,13 +93,13 @@ dependencies {
     }
 
     // TerraBlender
-    compileOnly("maven.modrinth:terrablender:${terrablender_version_fabric}")
+    compileOnly("maven.modrinth:terrablender:$terrablender_version_fabric")
 
     // Biolith
     if (shouldRunBiolith)
-        implementation("com.terraformersmc:biolith-fabric:${biolith_version}")
+        implementation("com.terraformersmc:biolith-fabric:$biolith_version")
     else
-        compileOnly("com.terraformersmc:biolith-fabric:${biolith_version}")
+        compileOnly("com.terraformersmc:biolith-fabric:$biolith_version")
 
     // Sodium
     if (shouldRunSodium)
@@ -109,9 +109,9 @@ dependencies {
 
     // Iris
     if (shouldRunIris)
-        implementation("maven.modrinth:iris:${iris_version}-fabric")
+        implementation("maven.modrinth:iris:$iris_version-fabric")
     else
-        compileOnly("maven.modrinth:iris:${iris_version}-fabric")
+        compileOnly("maven.modrinth:iris:$iris_version-fabric")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -158,7 +158,7 @@ val changelogText = run {
 
 upload {
     maven {
-        name.set("{$mod_id}-fabric")
+        name.set("$mod_id-fabric")
     }
 
     forEach {

@@ -26,22 +26,22 @@ neoForge {
 
 dependencies {
     // FrozenLib
-    compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")?.let {
+    compileOnly("net.frozenblock:frozenlib-common:$frozenlib_version")?.let {
         accessTransformers(it)
         interfaceInjectionData(it)
     }
 
     // Cloth Config
-    compileOnly("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
+    compileOnly("me.shedaniel.cloth:cloth-config:$cloth_config_version")
 
     // TerraBlender
-    compileOnly("maven.modrinth:terrablender:${terrablender_version_neoforge}")
+    compileOnly("maven.modrinth:terrablender:$terrablender_version_neoforge")
 
     // Biolith
-    compileOnly("com.terraformersmc:biolith-common:${biolith_version}")
+    compileOnly("com.terraformersmc:biolith-common:$biolith_version")
 
     // Iris
-    compileOnly("maven.modrinth:iris:${iris_version}-fabric")
+    compileOnly("maven.modrinth:iris:$iris_version-fabric")
 }
 
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
@@ -69,5 +69,5 @@ configurations {
 }
 
 upload.maven {
-    name.set("{$mod_id}-common")
+    name.set("$mod_id-common")
 }
