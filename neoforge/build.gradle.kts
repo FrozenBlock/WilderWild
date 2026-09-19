@@ -38,8 +38,6 @@ base {
     archivesName.set(archives_base_name)
 }
 
-val release = findProperty("releaseType") == "stable"
-
 group = maven_group
 
 tasks.jar {
