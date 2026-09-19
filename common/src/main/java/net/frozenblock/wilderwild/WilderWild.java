@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -9,12 +10,14 @@ import net.frozenblock.wilderwild.data.worldgen.WWSurfaceRuleData;
 import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
+import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -26,8 +29,10 @@ import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
+import net.frozenblock.wilderwild.registry.WWPotions;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
+import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -35,13 +40,15 @@ import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWild {
 
-	public static void init() { //Alan Wilder Wild
+	public static void init() { //
+		// Alan Wilder Wild
 		WilderWildRegistries.init();
 		WWFeatureFlags.init();
 
 		WWMinecraftDataFixer.applyDataFixes();
 		WWDataFixer.applyDataFixes();
 
+		WWAdvancementModifications.init();
 		WWDataComponents.init();
 		WWMemoryModuleTypes.init();
 		WWSensorTypes.init();
@@ -59,6 +66,7 @@ public final class WilderWild {
 		WWBlockEntityTypes.init();
 		WWParticleTypes.init();
 		WWMobEffects.init();
+		WWPotions.init();
 		WWCriteria.init();
 		WWFeatures.init();
 		WWBiomes.init();
@@ -75,4 +83,15 @@ public final class WilderWild {
 		WWItemConfig.CONFIG.load(true);
 		WWWorldgenConfig.CONFIG.load(true);
 	}
+
+	public static void setup() {
+		WWSoundTypes.setup();
+		WWItems.setup();
+		WWBlocks.setup();
+		WWWorldgen.setup();
+		WWStructureModifications.setup();
+		WWCreativeInventorySorting.setup();
+	}
+
+	private WilderWild() {}
 }

@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
+import net.frozenblock.wilderwild.item.TumbleweedItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
 import net.minecraft.core.component.DataComponents;
@@ -207,12 +208,11 @@ public final class WWItems {
 	);
 	public static final DeferredItem<BlockItem> SHRUB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SHRUB, WWBlocks.SHRUB);
 	public static final DeferredItem<BlockItem> TUMBLEWEED_PLANT = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TUMBLEWEED_PLANT, WWBlocks.TUMBLEWEED_PLANT);
-	public static final DeferredItem<SpawnEggItem> TUMBLEWEED = REGISTER.registerItem(WWBlockItemIds.TUMBLEWEED.item(),
-		SpawnEggItem::new,
+	public static final DeferredItem<TumbleweedItem> TUMBLEWEED = REGISTER.registerItem(WWBlockItemIds.TUMBLEWEED.item(),
+		TumbleweedItem::new,
 		() -> new Item.Properties()
 			.useBlockDescriptionPrefix()
 			.requiredFeatures(WWBlocks.TUMBLEWEED.get().requiredFeatures())
-			.spawnEgg(WWEntityTypes.TUMBLEWEED.get())
 	);
 	public static final DeferredItem<BlockItem> FROZEN_SHORT_GRASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS);
 	public static final DeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS);

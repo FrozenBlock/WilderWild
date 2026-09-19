@@ -7,6 +7,7 @@ import net.frozenblock.lib.tag.api.ConventionalBlockTags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.entity.Firefly;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -62,8 +63,8 @@ public final class WWBlockTicks {
 				if (!level.hasNearbyAlivePlayer(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 24D)) return;
 
 				final Vec3 bushPos = Vec3.atCenterOf(pos);
-				final List<net.frozenblock.wilderwild.entity.Firefly> fireflies = level.getEntitiesOfClass(
-					net.frozenblock.wilderwild.entity.Firefly.class,
+				final List<Firefly> fireflies = level.getEntitiesOfClass(
+					Firefly.class,
 					AABB.ofSize(bushPos, 16D, 16D, 16D),
 					EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(EntitySelector.NO_SPECTATORS)
 				);

@@ -186,7 +186,7 @@ public class IcicleBlock extends SpeleothemBlock implements EntityBlock, Fallabl
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (level.isClientSide() || type != WWBlockEntityTypes.ICICLE) return null;
+		if (level.isClientSide() || type != WWBlockEntityTypes.ICICLE.get()) return null;
 		return (levelx, pos, statex, blockEntity) -> ((IcicleBlockEntity)blockEntity).serverTick(levelx, pos, statex);
 	}
 

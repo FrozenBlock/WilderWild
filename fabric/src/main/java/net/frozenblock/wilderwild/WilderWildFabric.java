@@ -22,18 +22,10 @@ import net.fabricmc.loader.api.ModContainer;
 import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
 import net.frozenblock.lib.platform.ModLoader;
-import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
-import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.simplecopperpipes.SimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.networking.WWNetworking;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
-import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWPotions;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
 
 public final class WilderWildFabric extends FrozenModInitializer {
 
@@ -44,19 +36,9 @@ public final class WilderWildFabric extends FrozenModInitializer {
 	@Override //Alan Wilder Wild
 	public void onInitialize(String modId, ModContainer container) {
 		WilderWild.init();
-
-		WWItems.setup();
-		WWSoundTypes.setup();
-		WWPotions.init();
-
-		WWBlocks.setupBlockProperties();
-		WWFabricBlocks.registerBlockProperties();
-		WWAdvancementModifications.init();
-		WWStructureModifications.setup();
-		WWWorldgen.setup();
-
+		WilderWild.setup();
+		WWFabricBlocks.init();
 		WWNetworking.setup();
-		WWCreativeInventorySorting.setup();
 
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)

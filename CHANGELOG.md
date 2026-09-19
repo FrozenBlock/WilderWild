@@ -76,6 +76,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that caused a damage sound to play when eating a Prickly Pear in situations where damage was not received from it.
 - Blocks such as Sugar Cane no longer break/update incorrectly when their Snowlogged layers are broken.
 - Aquatic Blocks (such as Seagrass and Sea Anemone) no longer contain BlockState Properties pertaining to Snowlogging.
+- Renamed the `Butterfly in a Bottle` item to `Bottle of Butterfly`.
+- Renamed the `Firefly in a Bottle` item to `Bottle of Firefly`.
+- The Bucket of Crab, Bucket of Jellyfish, Bottle of Butterfly, and Bottle of Firefly items can now be used by Dispensers.
+- Fixed an oversight that let players release Butterflies and Fireflies from a Bottle whilst inside a block.
+- Butterflies and Fireflies no longer render at an infinite distance, now being consistent with most other mobs.
+- Fixed an issue that allowed players to place Tumbleweed in Spawner blocks.
 - Happy Ghasts will no longer pathfind into Prickly Pears.
 - Echo Glass now emits the `minecraft:block_change` Game Event upon cracking.
 - Likely fixed an issue that caused Jellyfish to be invisible with certain Shader Packs.

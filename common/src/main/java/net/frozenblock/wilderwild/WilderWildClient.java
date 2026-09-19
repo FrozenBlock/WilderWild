@@ -34,4 +34,8 @@ public final class WilderWildClient {
 
 		SpecialModelRendererRegistry.register(WWConstants.id("stone_chest"), StoneChestSpecialRenderer.Unbaked.MAP_CODEC);
 	}
+
+	public static void setup() {}
+
+	private WilderWildClient() {}
 }

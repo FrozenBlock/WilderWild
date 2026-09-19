@@ -6,7 +6,7 @@ import static net.frozenblock.wilderwild.registry.WWBlocks.STONE_CHEST;
 
 public final class WWFabricBlocks {
 
-	public static void registerBlockProperties() {
+	public static void init() {
 		registerInventories();
 	}
 
