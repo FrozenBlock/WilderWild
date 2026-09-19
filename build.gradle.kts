@@ -140,7 +140,7 @@ subprojects {
 
     dependencies {
         compileOnly("net.frozenblock:candlelight:+")
-        compileOnly("net.frozenblock:frozenlib-common:${frozenlib_version}")
+        compileOnly("net.frozenblock:frozenlib-common:$frozenlib_version")
     }
 
     repositories {
