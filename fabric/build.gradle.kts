@@ -41,8 +41,6 @@ base {
     archivesName = archives_base_name
 }
 
-val release = findProperty("releaseType") == "stable"
-
 version = getModVersion()
 group = maven_group
 
@@ -139,6 +137,8 @@ artifacts {
     archives(sourcesJar)
     archives(javadocJar)
 }
+
+val release = findProperty("releaseType") == "stable"
 
 fun getModVersion(): String {
     var version = "$mod_version-mc$minecraft_version"
