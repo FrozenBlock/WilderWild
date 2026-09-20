@@ -103,6 +103,10 @@ tasks {
             include("**/*.java")
         }
     }
+
+    processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
 }
 
 java {

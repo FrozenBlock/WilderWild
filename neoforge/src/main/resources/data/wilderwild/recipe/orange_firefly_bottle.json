@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "firefly_bottle",
+  "ingredients": [
+    "minecraft:orange_dye",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "wilderwild:firefly_bottle",
+      "components": {
+        "wilderwild:firefly/color": "wilderwild:on"
+      }
+    }
+  ],
+  "result": {
+    "components": {
+      "wilderwild:firefly/color": "wilderwild:orange"
+    },
+    "id": "wilderwild:firefly_bottle"
+  }
+}
