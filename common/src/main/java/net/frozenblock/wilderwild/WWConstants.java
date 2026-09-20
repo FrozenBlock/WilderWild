@@ -72,14 +72,14 @@ public final class WWConstants {
 		return MOD_ID + "_" + path;
 	}
 
-	public static Component text(String key, final Object... args) {
+	public static Component text(String key, Object... args) {
 		return Component.translatable("option." + MOD_ID + "." + key, args);
 	}
 
 	/**
 	 * @return A tooltip component for use in a Config GUI
 	 */
-	public static Component tooltip(String key, final Object... args) {
+	public static Component tooltip(String key, Object... args) {
 		return Component.translatable("tooltip." + MOD_ID + "." + key, args);
 	}
 }

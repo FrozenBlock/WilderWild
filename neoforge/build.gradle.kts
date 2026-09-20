@@ -21,9 +21,6 @@ val cloth_config_version: String by project
 val terrablender_version_neoforge: String by project
 val biolith_version: String by project
 
-val neoforge_version: String by project
-val neoforge_loader_version_range: String by project
-
 val sodium_version: String by project
 val run_sodium: String by project
 val shouldRunSodium = run_sodium == "true"
