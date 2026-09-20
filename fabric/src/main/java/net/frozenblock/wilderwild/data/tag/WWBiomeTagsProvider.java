@@ -1006,6 +1006,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
 
 		this.builder(WWBiomeTags.HAS_HUGE_BROWN_MUSHROOM)
+			.add(Biomes.DAPPLED_FOREST)
 			.addOptional(WWBiomes.RAINFOREST)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
 
