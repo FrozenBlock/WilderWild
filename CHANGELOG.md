@@ -158,6 +158,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - All overworld fallen trees that used to generate Shelf Fungi can now generate Mushrooms, similar to Vanilla's fallen trees.
 - Pale Mushroom Blocks now spawn Fog particles more frequently when Improved Transparency is enabled.
 - Fog particles will now appear slightly larger when Improved Transparency is enabled.
+- Slightly modified the velocity of leaf particles spawned from walking across Leaf Litter and Leaves blocks.
+- The config option to enable leaf particles spawning from walking across Leaf Litter blocks is now enabled by default.
 - Fixed inconsistent/incorrect shading for the following:
   - Hanging Baobab Nut Stems
   - Hanging Coconut Stems

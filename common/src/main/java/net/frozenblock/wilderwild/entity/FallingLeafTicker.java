@@ -94,7 +94,7 @@ public class FallingLeafTicker extends SilentTicker {
 						0.05D
 					);
 
-					final Optional<Holder<SoundEvent>> landSound = FallingLeafUtil.getFallingLeafDataForBlock(level.registryAccess(), this.leafLitter)
+					final Optional<Holder<SoundEvent>> landSound = Optional.ofNullable(this.leafLitter.frozenLib$getAttached(FallingLeafUtil.FALLING_LEAF_DATA_KEY))
 						.flatMap(FallingLeafData::fallingLeafLitterData)
 						.flatMap(FallingLeafData.FallingLeafLitterData::fallSound);
 					landSound.ifPresent(sound -> {

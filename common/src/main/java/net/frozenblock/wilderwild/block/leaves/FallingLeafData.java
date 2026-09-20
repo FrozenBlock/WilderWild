@@ -160,7 +160,7 @@ public record FallingLeafData(
 			return this.spawnChance * this.spawnChanceModifier.map(getter -> ((Integer) getter.get()) * 0.01F).orElse(1F);
 		}
 
-		public void animateTick(Level level, BlockPos pos, RandomSource random) {
+		public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
 			if (!WWAmbienceAndMiscConfig.USE_WILDER_WILD_FALLING_LEAVES.get()) return;
 			if (random.nextFloat() > this.getLeafParticleSpawnChance()) return;
 

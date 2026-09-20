@@ -80,9 +80,9 @@ public final class WWAmbienceAndMiscConfig {
 
 	// LEAF PARTICLES
 	public static final ConfigEntry<Boolean> USE_WILDER_WILD_FALLING_LEAVES = CONFIG.unsyncableEntry("leafParticles/useWilderWildFallingLeaves", EntryType.BOOL, true);
-	public static final ConfigEntry<Boolean> LEAF_WALKING_PARTICLES = CONFIG.entry("leafParticles/leafWalkingParticles", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> LEAF_WALKING_PARTICLES = CONFIG.entry("leafParticles/leafWalkParticles", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> BREAKING_LEAF_PARTICLES = CONFIG.unsyncableEntry("leafParticles/breakingLeafParticles", EntryType.BOOL, false);
-	public static final ConfigEntry<Boolean> LEAF_LITTER_WALKING_PARTICLES = CONFIG.entry("leafParticles/leafLitterWalkingParticles", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> LEAF_LITTER_WALKING_PARTICLES = CONFIG.entry("leafParticles/leafLitterWalkParticles", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> BREAKING_LEAF_LITTER_PARTICLES = CONFIG.unsyncableEntry("leafParticles/windParticles", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> LEAF_EXPLOSION_PARTICLES = CONFIG.unsyncableEntry("leafParticles/leaf_explosion_particles", EntryType.BOOL, false);
 	public static final ConfigEntry<Integer> LEAF_EXPLOSION_VELOCITY = CONFIG.unsyncableEntry("leafParticles/leafExplosionVelocity", EntryType.INT, 75);

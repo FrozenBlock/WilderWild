@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
 import java.util.function.BiConsumer;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
-import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -42,10 +42,12 @@ public abstract class BlockStateBaseMixin {
 	protected abstract BlockState asState();
 
 	@Inject(method = "entityInside", at = @At("HEAD"))
-	public void wilderWild$entityInsideLeafLitter(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise, CallbackInfo info) {
+	public void wilderWild$trySpawnLeafLitterWalkParticles(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier, boolean isPrecise, CallbackInfo info) {
 		final BlockState state = this.asState();
-		if (!state.is(WWBlockItemTags.LEAF_LITTERS.block())) return;
-		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, true);
+		final FallingLeafData fallingLeafData = state.getBlock().frozenLib$getAttached(FallingLeafUtil.FALLING_LEAF_DATA_KEY);
+		if (fallingLeafData == null || !state.is(fallingLeafData.leafLitterBlock())) return;
+
+		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, true, fallingLeafData, true);
 	}
 
 	@Inject(method = "onExplosionHit", at = @At("HEAD"))

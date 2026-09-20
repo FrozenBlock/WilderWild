@@ -21,7 +21,6 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
-import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -52,28 +51,33 @@ public class ClientLevelMixin {
 		)
 	)
 	public void wilderWild$spawnLeafParticlesOnDestroy(BlockPos pos, BlockState blockState, CallbackInfo info) {
-		boolean litter = false;
-		if (blockState.is(WWBlockItemTags.LEAF_LITTERS.block())) {
-			litter = true;
-			if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_LITTER_PARTICLES.get()) return;
-		} else if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_PARTICLES.get()) {
+		final FallingLeafData fallingLeafData = blockState.getBlock().frozenLib$getAttached(FallingLeafUtil.FALLING_LEAF_DATA_KEY);
+		if (fallingLeafData == null) return;
+
+		boolean isLitter = false;
+		if (blockState.is(fallingLeafData.leafLitterBlock())) {
+			isLitter = true;
+			if (!WWAmbienceAndMiscConfig.LEAF_LITTER_WALKING_PARTICLES.get()) return;
+		} else if (!WWAmbienceAndMiscConfig.LEAF_WALKING_PARTICLES.get()) {
 			return;
 		}
 
-		final ClientLevel level = ClientLevel.class.cast(this);
-		final Optional<FallingLeafData.ParticleData> particleData = FallingLeafUtil.getLeafParticleDataForBlock(level.registryAccess(), blockState.getBlock());
+		final Optional<FallingLeafData.ParticleData> particleData = isLitter
+			? fallingLeafData.leafLitterParticleData()
+			: fallingLeafData.leafParticleData();
 		if (particleData.isEmpty()) return;
 
+		final ClientLevel level = ClientLevel.class.cast(this);
 		final RandomSource random = level.getRandom();
-		final int count = !litter ? random.nextInt(2, 4) : blockState.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2);
+		final int count = !isLitter ? random.nextInt(2, 4) : blockState.getValueOrElse(LeafLitterBlock.AMOUNT, 2);
 		for (int i = 0; i < count; i++) {
 			this.minecraft.particleEngine.createParticle(
 				particleData.get().createLeafParticleOptions(),
 				pos.getX() + 0.5D + random.nextDouble() * 0.25D,
-				pos.getY() + (!litter ? 0.5D + random.nextDouble() * 0.25D : 0.1D),
+				pos.getY() + (!isLitter ? 0.5D + random.nextDouble() * 0.25D : 0.1D),
 				pos.getZ() + 0.5D + random.nextDouble() * 0.25D,
 				random.nextGaussian() * 0.05D,
-				!litter ? random.nextGaussian() * 0.025D : (random.nextDouble() * 0.015D + 0.01D),
+				!isLitter ? random.nextGaussian() * 0.025D : (random.nextDouble() * 0.015D + 0.01D),
 				random.nextGaussian() * 0.05D
 			);
 		}

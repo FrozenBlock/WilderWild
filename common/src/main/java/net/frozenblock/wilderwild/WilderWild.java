@@ -1,6 +1,7 @@
 package net.frozenblock.wilderwild;
 
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -70,6 +71,7 @@ public final class WilderWild {
 		WWShearsDispenseItemBehaviors.init();
 		WWBlockEntityTypes.init();
 		WWParticleTypes.init();
+		FallingLeafUtil.init();
 		WWMobEffects.init();
 		WWPotions.init();
 		WWCriteria.init();

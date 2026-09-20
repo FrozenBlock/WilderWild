@@ -17,26 +17,27 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.FallingParticlesLeavesBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(FallingParticlesLeavesBlock.class)
-public class FallingParticlesLeavesBlockMixin {
+@Mixin(Block.class)
+public abstract class BlockMixin {
 
-	@WrapWithCondition(
-		method = "animateTick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/FallingParticlesLeavesBlock;makeFallingLeavesParticles(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V"
-		)
-	)
-	public boolean wilderWild$fallingLeafParticles(FallingParticlesLeavesBlock instance, Level level, BlockPos pos, RandomSource random) {
-		return instance.frozenLib$getAttached(FallingLeafUtil.CANCEL_VANILLA_LEAF_PARTICLES_KEY) == null;
+	@Inject(method = "stepOn", at = @At("HEAD"))
+	public void wilderWild$trySpawnLeavesWalkParticles(Level level, BlockPos pos, BlockState onState, Entity entity, CallbackInfo info) {
+		final Block block = Block.class.cast(this);
+		final FallingLeafData fallingLeafData = block.frozenLib$getAttached(FallingLeafUtil.FALLING_LEAF_DATA_KEY);
+		if (fallingLeafData == null || !onState.is(fallingLeafData.leavesBlock())) return;
+
+		FallingLeafUtil.trySpawnWalkParticles(onState, level, pos, entity, false, fallingLeafData, false);
 	}
 }

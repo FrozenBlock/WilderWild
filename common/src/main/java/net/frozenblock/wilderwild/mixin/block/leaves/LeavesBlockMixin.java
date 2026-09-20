@@ -17,34 +17,36 @@
 
 package net.frozenblock.wilderwild.mixin.block.leaves;
 
+import java.util.Optional;
+import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LeavesBlock.class)
 public abstract class LeavesBlockMixin extends Block {
+	@Shadow
+	@Final
+	public static BooleanProperty PERSISTENT;
 
 	public LeavesBlockMixin(Properties properties) {
 		super(properties);
 	}
 
-	@Inject(method = "animateTick", at = @At("HEAD"))
-	public void wilderWild$fallingLeafParticles(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo info) {
-		FallingLeafUtil.tryAnimateTick(state, level, pos, random);
-	}
+	@Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
+	public void wilderWild$markRandomlyTickingIfHasFallingLeafLitter(BlockState state, CallbackInfoReturnable<Boolean> info) {
+		final FallingLeafData fallingLeafData = state.getBlock().frozenLib$getAttached(FallingLeafUtil.FALLING_LEAF_DATA_KEY);
+		if (fallingLeafData == null) return;
 
-	@Override
-	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-		super.stepOn(level, pos, state, entity);
-		FallingLeafUtil.trySpawnWalkParticles(state, level, pos, entity, false);
+		final Optional<FallingLeafData.FallingLeafLitterData> fallingLeafLitterData = fallingLeafData.fallingLeafLitterData();
+		if (fallingLeafLitterData.isPresent() && fallingLeafLitterData.get().fallChance() > 0F && state.hasProperty(PERSISTENT)) info.setReturnValue(!state.getValue(PERSISTENT));
 	}
 }

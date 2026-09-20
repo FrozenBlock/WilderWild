@@ -6,6 +6,9 @@
     ],
     "frozenlib:data_fixer": [
       "net.frozenblock.wilderwild.datafix.WWDataFixerEntrypoint"
+    ],
+    "frozenlib:events": [
+      "net.frozenblock.wilderwild.registry.WWBlockModifications"
     ]
   }
 }

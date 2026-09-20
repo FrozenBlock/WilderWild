@@ -22,19 +22,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import net.frozenblock.lib.block.api.attachment.BlockAttachmentEvents;
+import net.frozenblock.lib.block.api.attachment.BlockAttachmentKey;
+import net.frozenblock.lib.block.api.tick.BlockTickRegistry;
+import net.frozenblock.lib.block.impl.registry.BlockStateBaseExtension;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.particle.options.LeafClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.WWFallingLeavesParticleOptions;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Unit;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Explosion;
@@ -42,45 +46,50 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerExplosion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeafLitterBlock;
+import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import org.jetbrains.annotations.ApiStatus;
 
 public final class FallingLeafUtil {
 	private static final Function<Float, Float> SLIGHTLY_HEAVY_GRAVITY_MODIFIER = gravity -> Math.max(2.5F, gravity * 1.5F);
+	public static final BlockAttachmentKey<FallingLeafData> FALLING_LEAF_DATA_KEY = BlockAttachmentKey.create(() -> "Falling Leaf Data");
+	public static final BlockAttachmentKey<Unit> CANCEL_VANILLA_LEAF_PARTICLES_KEY = BlockAttachmentKey.create(() -> "Cancel Vanilla Leaf Particles");
 
-	public static Optional<FallingLeafData> getFallingLeafDataForLeavesBlock(RegistryAccess registryAccess, Block leavesBlock) {
-		return registryAccess.lookup(WilderWildRegistries.FALLING_LEAF)
-			.flatMap(registry -> registry.stream()
-				.filter(fallingLeafData -> fallingLeafData.leavesBlock().contains(leavesBlock.builtInRegistryHolder()))
-				.findFirst());
-	}
+	@ApiStatus.Internal
+	public static void init() {
+		BlockAttachmentEvents.REGISTER.register(registries -> {
+			registries.lookup(WilderWildRegistries.FALLING_LEAF).ifPresent(fallingLeafRegistry -> {
+				fallingLeafRegistry.forEach(fallingLeafData -> {
 
-	public static Optional<FallingLeafData> getFallingLeafDataForLeafLitterBlock(RegistryAccess registryAccess, Block leafLitterBlock) {
-		return registryAccess.lookup(WilderWildRegistries.FALLING_LEAF)
-			.flatMap(registry -> registry.stream()
-				.filter(fallingLeafData -> fallingLeafData.leafLitterBlock().contains(leafLitterBlock.builtInRegistryHolder()))
-				.findFirst());
-	}
+					fallingLeafData.leavesBlock().forEach(block -> {
+						block.value().frozenLib$setAttached(FALLING_LEAF_DATA_KEY, fallingLeafData);
 
-	public static Optional<FallingLeafData> getFallingLeafDataForBlock(RegistryAccess registryAccess, Block block) {
-		return block.builtInRegistryHolder().is(WWBlockItemTags.LEAF_LITTERS.block())
-			? getFallingLeafDataForLeafLitterBlock(registryAccess, block)
-			: getFallingLeafDataForLeavesBlock(registryAccess, block);
-	}
+						fallingLeafData.leafParticleData().ifPresent(leafParticleData -> {
+							BlockTickRegistry.addAnimateTick(block.value(), leafParticleData::animateTick);
+							if (leafParticleData.cancelsVanillaParticles()) block.value().frozenLib$setAttached(CANCEL_VANILLA_LEAF_PARTICLES_KEY, Unit.INSTANCE);
+						});
 
-	public static Optional<FallingLeafData.ParticleData> getLeafParticleDataForBlock(RegistryAccess registryAccess, Block block) {
-		return block.builtInRegistryHolder().is(WWBlockItemTags.LEAF_LITTERS.block())
-			? getFallingLeafDataForLeafLitterBlock(registryAccess, block).flatMap(FallingLeafData::leafLitterParticleData)
-			: getFallingLeafDataForLeavesBlock(registryAccess, block).flatMap(FallingLeafData::leafParticleData);
-	}
+						fallingLeafData.fallingLeafLitterData().ifPresent(fallingLeafLitterData -> {
+							BlockTickRegistry.addRandomTick(
+								block.value(),
+								(state, level, pos, random) -> fallingLeafLitterData.randomTick(state, level, pos, random, fallingLeafData)
+							);
+						});
+					});
 
-	public static void tryRandomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		final Optional<FallingLeafData> fallingLeafData = getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());
-		fallingLeafData
-			.flatMap(FallingLeafData::fallingLeafLitterData)
-			.ifPresent(fallingLeafLitterData -> fallingLeafLitterData.randomTick(state, level, pos, random, fallingLeafData.get()));
+					fallingLeafData.leafLitterBlock().forEach(block -> block.value().frozenLib$setAttached(FALLING_LEAF_DATA_KEY, fallingLeafData));
+				});
+			});
+
+			registries.lookup(Registries.BLOCK).ifPresent(blocks -> {
+				blocks.forEach(block -> {
+					if (block instanceof LeavesBlock) block.getStateDefinition().getPossibleStates().forEach(BlockStateBaseExtension::frozenLib$refreshIsRandomlyTicking);
+				});
+			});
+		});
 	}
 
 	public static void sendLeafClusterParticle(ServerLevel level, BlockPos pos, FallingLeafData fallingLeafData) {
@@ -93,59 +102,43 @@ public final class FallingLeafUtil {
 		);
 	}
 
-	public static Optional<FallingLeafData> tryGetFallingLeafData(BlockState state, Level level) {
-		if (!WWAmbienceAndMiscConfig.USE_WILDER_WILD_FALLING_LEAVES.get()) return Optional.empty();
-		return getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());
-	}
+	public static void trySpawnWalkParticles(
+		BlockState state,
+		Level level,
+		BlockPos pos,
+		Entity entity,
+		boolean checkCollision,
+		FallingLeafData fallingLeafData,
+		boolean isLitter
+	) {
+		if (isLitter && !WWAmbienceAndMiscConfig.LEAF_LITTER_WALKING_PARTICLES.get()) return;
+		if (!isLitter && !WWAmbienceAndMiscConfig.LEAF_WALKING_PARTICLES.get()) return;
 
-	public static void tryAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-		final Optional<FallingLeafData> fallingLeafData = tryGetFallingLeafData(state, level);
-		if (fallingLeafData.isEmpty()) return;
-
-		fallingLeafData
-			.flatMap(FallingLeafData::leafParticleData)
-			.ifPresent(particleData -> particleData.animateTick(level, pos, random));
-	}
-
-	public static void trySpawnWalkParticles(BlockState state, Level level, BlockPos pos, Entity entity, boolean checkCollision) {
 		if (checkCollision) {
 			final AABB shape = state.getShape(level, pos, CollisionContext.of(entity)).bounds().move(pos);
 			if (!shape.intersects(entity.getBoundingBox())) return;
 		}
 
 		final boolean franticSpawn = entity.is(WWEntityTypeTags.LEAF_PARTICLES_FRANTIC_SPAWN);
-		final double horizontalScale = franticSpawn ? 0.1D : 0.5D;
+		final double horizontalScale = franticSpawn ? 0.1D : 0.4D;
 		final double additionalY = franticSpawn ? 0.1D : 0D;
-		Vec3 movement = entity.getDeltaMovement();
-		final double horizontalDistance = movement.horizontalDistance();
-		movement = new Vec3(movement.x * horizontalScale, (horizontalDistance * 0.1D) + additionalY, movement.z * horizontalScale);
+		Vec3 stepDelta = entity.position().subtract(entity.oldPosition());
+		final double stepDistance = stepDelta.horizontalDistance();
+		stepDelta = new Vec3(stepDelta.x * horizontalScale, (stepDistance * 0.15D) + additionalY, stepDelta.z * horizontalScale);
 
 		if (!franticSpawn) {
-			if (level.getRandom().nextFloat() > (horizontalDistance * 0.5D)) return;
+			if (level.getRandom().nextFloat() > (stepDistance * 0.45D)) return;
 		} else {
 			if (level.getRandom().nextFloat() > 0.05F) return;
 		}
 
-		spawnWalkingParticles(level, pos, state, movement);
+		spawnWalkParticles(level, pos, stepDelta, fallingLeafData, isLitter);
 	}
 
-	private static void spawnWalkingParticles(Level level, BlockPos pos, BlockState state, Vec3 velocity) {
-		boolean isLitter = false;
-		if (state.is(WWBlockItemTags.LEAF_LITTERS.block())) {
-			isLitter = true;
-			if (!WWAmbienceAndMiscConfig.LEAF_LITTER_WALKING_PARTICLES.get()) return;
-		} else if (!WWAmbienceAndMiscConfig.LEAF_WALKING_PARTICLES.get()) {
-			return;
-		}
-
-		final Optional<FallingLeafData> fallingLeafData = isLitter
-			? getFallingLeafDataForLeafLitterBlock(level.registryAccess(), state.getBlock())
-			: getFallingLeafDataForLeavesBlock(level.registryAccess(), state.getBlock());
-		if (fallingLeafData.isEmpty()) return;
-
+	private static void spawnWalkParticles(Level level, BlockPos pos, Vec3 stepDelta, FallingLeafData fallingLeafData, boolean isLitter) {
 		final Optional<FallingLeafData.ParticleData> particleData = isLitter
-			? fallingLeafData.get().leafLitterParticleData()
-			: fallingLeafData.get().leafParticleData();
+			? fallingLeafData.leafLitterParticleData()
+			: fallingLeafData.leafParticleData();
 		if (particleData.isEmpty()) return;
 
 		final RandomSource random = level.getRandom();
@@ -153,19 +146,20 @@ public final class FallingLeafUtil {
 		final double y = pos.getY() + (!isLitter ? 1.1D : 0.1D);
 		final double z = pos.getZ() + 0.5D + random.nextGaussian() * 0.4D;
 
-		final WWFallingLeavesParticleOptions particle = particleData.get().createLeafParticleOptions(velocity, true, SLIGHTLY_HEAVY_GRAVITY_MODIFIER);
+		final WWFallingLeavesParticleOptions particle = particleData.get().createLeafParticleOptions(stepDelta, true, SLIGHTLY_HEAVY_GRAVITY_MODIFIER);
 		if (level instanceof ServerLevel server) {
 			server.sendParticles(particle, x, y, z, 1, 0D, 0D, 0D, 0D);
-			return;
+		} else {
+			level.addParticle(particle, x, y, z, 0D, 0D, 0D);
 		}
-		level.addParticle(particle, x, y, z, 0D, 0D, 0D);
 	}
 
 	public static void trySendExplosionParticles(BlockState state, Level level, BlockPos pos, Explosion explosion) {
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		if (!(explosion instanceof ServerExplosion serverExplosion)) return;
 
-		if (getFallingLeafDataForBlock(level.registryAccess(), state.getBlock()).isEmpty()) return;
+		final FallingLeafData fallingLeafData = state.getBlock().frozenLib$getAttached(FALLING_LEAF_DATA_KEY);
+		if (fallingLeafData == null) return;
 
 		final float radius = serverExplosion.radius();
 		final Vec3 difference = Vec3.atCenterOf(pos).subtract(serverExplosion.center());
@@ -174,8 +168,8 @@ public final class FallingLeafUtil {
 		final List<Direction> validDirections = new ArrayList<>();
 		Supplier<Integer> count;
 
-		if (state.is(WWBlockItemTags.LEAF_LITTERS.block())) {
-			count = () -> Math.max((int) (leafPower) * state.getOptionalValue(LeafLitterBlock.AMOUNT).orElse(2), 1);
+		if (state.is(fallingLeafData.leafLitterBlock())) {
+			count = () -> Math.max((int) (leafPower) * state.getValueOrElse(LeafLitterBlock.AMOUNT, 2), 1);
 		} else {
 			if (!serverExplosion.getBlockInteraction().shouldAffectBlocklikeEntities()) {
 				final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
@@ -195,7 +189,13 @@ public final class FallingLeafUtil {
 		if (!WWAmbienceAndMiscConfig.LEAF_EXPLOSION_PARTICLES.get()) return;
 
 		final BlockState state = packet.state();
-		final Optional<FallingLeafData.ParticleData> particleData = getLeafParticleDataForBlock(level.registryAccess(), state.getBlock());
+		final FallingLeafData fallingLeafData = state.getBlock().frozenLib$getAttached(FALLING_LEAF_DATA_KEY);
+		if (fallingLeafData == null) return;
+
+		final boolean isLitter = state.is(fallingLeafData.leafLitterBlock());
+		final Optional<FallingLeafData.ParticleData> particleData = isLitter
+			? fallingLeafData.leafLitterParticleData()
+			: fallingLeafData.leafParticleData();
 		if (particleData.isEmpty()) return;
 
 		final BlockPos pos = packet.pos();
@@ -205,7 +205,7 @@ public final class FallingLeafUtil {
 		boolean litter = false;
 		Supplier<Vec3> posSupplier;
 
-		if (state.is(WWBlockItemTags.LEAF_LITTERS.block())) {
+		if (isLitter) {
 			litter = true;
 			posSupplier = () -> new Vec3(
 				pos.getX() + 0.5D + random.nextGaussian() * 0.4D,
