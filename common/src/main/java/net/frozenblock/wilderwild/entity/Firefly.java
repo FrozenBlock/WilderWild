@@ -230,8 +230,12 @@ public class Firefly extends PathfinderMob implements WWBottleable {
 	}
 
 	@Override
-	public boolean shouldRender(double x, double y, double z) {
-		return true;
+	public boolean shouldRenderAtSqrDistance(double distance) {
+		double size = this.getBoundingBox().getSize() * 8D;
+		if (Double.isNaN(size)) size = 1D;
+
+		size *= 64D * getViewScale();
+		return distance < size * size;
 	}
 
 	@Override

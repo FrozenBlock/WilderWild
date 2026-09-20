@@ -16,6 +16,7 @@ import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockTransformers;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -32,6 +33,7 @@ import net.frozenblock.wilderwild.registry.WWResources;
 import net.frozenblock.wilderwild.registry.WWSensorTypes;
 import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
+import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWStructureProcessorTypes;
 import net.frozenblock.wilderwild.registry.WWWindDisturbances;
@@ -42,7 +44,7 @@ public final class WilderWild {
 
 	// TODO: check if block modification works on neo
 
-	public static void init() { //Alan Wilder Wild
+	public static void init() { // Alan Wilder Wild
 		WilderWildRegistries.init();
 		WWFeatureFlags.init();
 
@@ -89,4 +91,14 @@ public final class WilderWild {
 		WWItemConfig.CONFIG.load(true);
 		WWWorldgenConfig.CONFIG.load(true);
 	}
+
+	public static void setup() {
+		WWSoundTypes.setup();
+		WWItems.setup();
+		WWBlocks.setup();
+		WWWorldgen.setup();
+		WWCreativeInventorySorting.setup();
+	}
+
+	private WilderWild() {}
 }

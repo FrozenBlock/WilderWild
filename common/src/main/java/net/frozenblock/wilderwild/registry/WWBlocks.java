@@ -21,7 +21,6 @@ import com.google.common.base.Suppliers;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import net.frozenblock.lib.block.api.blockentity.BlockEntityTypeExtension;
 import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
 import net.frozenblock.lib.block.api.registry.WoodTypeBuilder;
@@ -91,6 +90,7 @@ import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
@@ -100,6 +100,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockIds;
@@ -112,7 +113,9 @@ import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -1483,39 +1486,26 @@ public final class WWBlocks {
 		return REGISTER.registerBlock(id, properties -> new FlowerPotBlock(potted.get(), properties), Blocks::flowerPotProperties);
 	}
 
-	public static void setupBlockProperties() {
+	public static void setup() {
 		registerDispenses();
 
-		var sign = (BlockEntityTypeExtension) BlockEntityTypes.SIGN;
-		sign.frozenLib$addValidBlock(BAOBAB_SIGN.get());
-		sign.frozenLib$addValidBlock(BAOBAB_WALL_SIGN.get());
-		sign.frozenLib$addValidBlock(WILLOW_SIGN.get());
-		sign.frozenLib$addValidBlock(WILLOW_WALL_SIGN.get());
-		sign.frozenLib$addValidBlock(CYPRESS_SIGN.get());
-		sign.frozenLib$addValidBlock(CYPRESS_WALL_SIGN.get());
-		sign.frozenLib$addValidBlock(PALM_SIGN.get());
-		sign.frozenLib$addValidBlock(PALM_WALL_SIGN.get());
-		sign.frozenLib$addValidBlock(MAPLE_SIGN.get());
-		sign.frozenLib$addValidBlock(MAPLE_WALL_SIGN.get());
+		BlockEntityTypes.SIGN.frozenLib$addValidBlock(
+			BAOBAB_SIGN, BAOBAB_WALL_SIGN,
+			WILLOW_SIGN, WILLOW_WALL_SIGN,
+			CYPRESS_SIGN, CYPRESS_WALL_SIGN,
+			PALM_SIGN, PALM_WALL_SIGN,
+			MAPLE_SIGN, MAPLE_WALL_SIGN
+		);
 
-		var hangingSign = (BlockEntityTypeExtension) BlockEntityTypes.HANGING_SIGN;
-		hangingSign.frozenLib$addValidBlock(BAOBAB_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(BAOBAB_WALL_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(WILLOW_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(WILLOW_WALL_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(CYPRESS_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(CYPRESS_WALL_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(PALM_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(PALM_WALL_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(MAPLE_HANGING_SIGN.get());
-		hangingSign.frozenLib$addValidBlock(MAPLE_WALL_HANGING_SIGN.get());
+		BlockEntityTypes.HANGING_SIGN.frozenLib$addValidBlock(
+			BAOBAB_HANGING_SIGN, BAOBAB_WALL_HANGING_SIGN,
+			WILLOW_HANGING_SIGN, WILLOW_WALL_HANGING_SIGN,
+			CYPRESS_HANGING_SIGN, CYPRESS_WALL_HANGING_SIGN,
+			PALM_HANGING_SIGN, PALM_WALL_HANGING_SIGN,
+			MAPLE_HANGING_SIGN, MAPLE_WALL_HANGING_SIGN
+		);
 
-		var shelf = (BlockEntityTypeExtension) BlockEntityTypes.SHELF;
-		shelf.frozenLib$addValidBlock(BAOBAB_SHELF.get());
-		shelf.frozenLib$addValidBlock(WILLOW_SHELF.get());
-		shelf.frozenLib$addValidBlock(CYPRESS_SHELF.get());
-		shelf.frozenLib$addValidBlock(PALM_SHELF.get());
-		shelf.frozenLib$addValidBlock(MAPLE_SHELF.get());
+		BlockEntityTypes.SHELF.frozenLib$addValidBlock(BAOBAB_SHELF, WILLOW_SHELF, CYPRESS_SHELF, PALM_SHELF, MAPLE_SHELF);
 
 		registerFlammability();
 		registerBonemeal();
@@ -1528,7 +1518,7 @@ public final class WWBlocks {
 	}
 
 	private static void registerDispenses() {
-		DispenserBlock.registerBehavior(TUMBLEWEED, new DefaultDispenseItemBehavior() {
+		DispenserBlock.registerBehavior(WWItems.TUMBLEWEED, new DefaultDispenseItemBehavior() {
 			@Override
 			public ItemStack execute(BlockSource source, ItemStack stack) {
 				final Level level = source.level();
@@ -1549,6 +1539,56 @@ public final class WWBlocks {
 				return stack;
 			}
 		});
+
+		// Taken from DispenseItemBehavior.bootStrap
+		final DispenseItemBehavior filledBucketBehavior = new DefaultDispenseItemBehavior() {
+			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+			@Override
+			public ItemStack execute(BlockSource source, ItemStack dispensed) {
+				final DispensibleContainerItem bucket = (DispensibleContainerItem) dispensed.getItem();
+				final BlockPos target = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+				final Level level = source.level();
+
+				if (bucket.emptyContents(null, level, target, null)) {
+					bucket.checkExtraContent(null, level, dispensed, target);
+					return this.consumeWithRemainder(source, dispensed, new ItemStack(Items.BUCKET));
+				}
+
+				return this.defaultDispenseItemBehavior.dispense(source, dispensed);
+			}
+		};
+		DispenserBlock.registerBehavior(WWItems.CRAB_BUCKET, filledBucketBehavior);
+		DispenserBlock.registerBehavior(WWItems.JELLYFISH_BUCKET, filledBucketBehavior);
+
+		final DispenseItemBehavior mobBottleBehavior = new DefaultDispenseItemBehavior() {
+			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+			@Override
+			public ItemStack execute(BlockSource source, ItemStack dispensed) {
+				final MobBottleItem bottle = (MobBottleItem) dispensed.getItem();
+				final ServerLevel level = source.level();
+				final Direction facing = source.state().getValue(DispenserBlock.FACING);
+				final Vec3 spawnPos = source.center().add(facing.getUnitVec3().scale(0.5D + (bottle.mobWidth() / 1.75D)));
+
+				if (bottle.canSpawn(level, spawnPos)) {
+					final RandomSource random = level.getRandom();
+					final double pow = (random.nextDouble() * 0.5D) + 0.2D;
+					final Vec3 spawnVelocity = new Vec3(
+						random.triangle(facing.getStepX() * pow, 0.0172275 * 6),
+						random.triangle(facing.getStepX() * pow, 0.0172275 * 6),
+						random.triangle(facing.getStepZ() * pow, 0.0172275 * 6)
+					);
+
+					bottle.spawn(null, level, dispensed, spawnPos, spawnVelocity);
+					return this.consumeWithRemainder(source, dispensed, new ItemStack(Items.GLASS_BOTTLE));
+				}
+
+				return this.defaultDispenseItemBehavior.dispense(source, dispensed);
+			}
+		};
+		DispenserBlock.registerBehavior(WWItems.BUTTERFLY_BOTTLE, mobBottleBehavior);
+		DispenserBlock.registerBehavior(WWItems.FIREFLY_BOTTLE, mobBottleBehavior);
 	}
 
 	private static void registerFlammability() {

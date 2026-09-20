@@ -24,7 +24,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -40,67 +39,77 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 public class MobBottleItem extends Item {
 	private final EntityType<? extends Mob> type;
-	private final SoundEvent releaseSound;
+	private final SoundEvent emptySound;
 
-	public MobBottleItem(EntityType<? extends Mob> type, SoundEvent releaseSound, Properties properties) {
+	public MobBottleItem(EntityType<? extends Mob> type, SoundEvent emptySound, Properties properties) {
 		super(properties);
 		this.type = type;
-		this.releaseSound = releaseSound;
+		this.emptySound = emptySound;
 	}
 
 	@Override
 	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		if (level instanceof ServerLevel serverLevel && player.getAbilities().mayBuild) {
-			final float pitch = player.getXRot();
-			final float yaw = player.getYRot();
-			final float xMovement = -Mth.sin(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
-			final float yMovement = -Mth.sin((pitch) * Mth.DEG_TO_RAD);
-			final float zMovement = Mth.cos(yaw * Mth.DEG_TO_RAD) * Mth.cos(pitch * Mth.DEG_TO_RAD);
-			final ItemStack stack = player.getItemInHand(hand);
+			final ItemStack itemStack = player.getItemInHand(hand);
 			final Vec3 playerEyePos = player.getEyePosition();
+			if (!this.canSpawn(serverLevel, playerEyePos)) return InteractionResult.FAIL;
 
-			final Mob mob = this.type.create(
-				serverLevel,
-				EntityType.createDefaultStackConfig(serverLevel, stack, null),
-				BlockPos.containing(playerEyePos),
-				EntitySpawnReason.BUCKET,
-				true,
-				false
-			);
+			this.spawn(player, serverLevel, itemStack, playerEyePos, player.getLookAngle().scale(0.7D));
 
-			if (mob instanceof WWBottleable bottleable) {
-				final CustomData customData = stack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY);
-				bottleable.wilderWild$loadFromBottleTag(customData.copyTag());
-				bottleable.wilderWild$setFromBottle(true);
-				bottleable.wilderWild$onBottleRelease();
-			}
-
-			if (mob != null) {
-				mob.setDeltaMovement(xMovement * 0.7D, yMovement * 0.7D, zMovement * 0.7D);
-				mob.snapTo(player.getX(), player.getEyeY(), player.getZ(), player.getXRot(), player.getYRot());
-				serverLevel.addFreshEntityWithPassengers(mob);
-
-				if (!player.getAbilities().instabuild) player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
-				player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-				serverLevel.playSound(
-					null,
-					playerEyePos.x(),
-					playerEyePos.y(),
-					playerEyePos.z(),
-					this.releaseSound,
-					SoundSource.PLAYERS,
-					0.75F,
-					level.getRandom().nextFloat() * 0.2F + 0.9F
-				);
-			}
-
-			serverLevel.gameEvent(player, GameEvent.ENTITY_PLACE, playerEyePos);
+			if (!player.getAbilities().instabuild) player.setItemInHand(hand, ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE)));
+			player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
 		}
+
 		return ItemUtils.startUsingInstantly(level, player, hand);
+	}
+
+	public void spawn(@Nullable LivingEntity user, ServerLevel level, ItemStack itemStack, Vec3 spawnPos, Vec3 spawnVelocity) {
+		final Mob mob = this.type.create(
+			level,
+			EntityType.createDefaultStackConfig(level, itemStack, user),
+			BlockPos.containing(spawnPos),
+			EntitySpawnReason.BUCKET,
+			true,
+			false
+		);
+
+		if (mob instanceof WWBottleable bottleable) {
+			final CustomData entityData = itemStack.getOrDefault(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY);
+			bottleable.wilderWild$loadFromBottleTag(entityData.copyTag());
+			bottleable.wilderWild$setFromBottle(true);
+			bottleable.wilderWild$onBottleRelease();
+		}
+
+		if (mob != null) {
+			final Vec2 rotation = spawnVelocity.rotation();
+			mob.snapTo(spawnPos.x(), spawnPos.y(), spawnPos.z(), rotation.y, rotation.x);
+			mob.setDeltaMovement(spawnVelocity);
+			level.addFreshEntityWithPassengers(mob);
+			mob.playAmbientSound();
+
+			this.playEmptySound(user, level, spawnPos);
+			level.gameEvent(user, GameEvent.ENTITY_PLACE, spawnPos);
+		}
+	}
+
+	public boolean canSpawn(ServerLevel level, Vec3 spawnPos) {
+		final AABB box = this.type.getDimensions().makeBoundingBox(spawnPos);
+		return level.noBlockCollision(null, box);
+	}
+
+	public double mobWidth() {
+		return this.type.getWidth();
+	}
+
+	public void playEmptySound(@Nullable LivingEntity user, Level level, Vec3 pos) {
+		level.playSound(user, pos.x, pos.y, pos.z, this.emptySound, SoundSource.NEUTRAL, 0.75F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 	}
 
 	@Override

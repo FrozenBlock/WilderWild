@@ -11,6 +11,7 @@ checkstyle {
 
 val mod_id: String by project
 val mod_version: String by project
+val subproject_prefix: String by project
 val minecraft_version: String by project
 val maven_group: String by project
 val archives_base_name: String by project
@@ -19,9 +20,6 @@ val frozenlib_version: String by project
 val cloth_config_version: String by project
 val terrablender_version_neoforge: String by project
 val biolith_version: String by project
-
-val neoforge_version: String by project
-val neoforge_loader_version_range: String by project
 
 val sodium_version: String by project
 val run_sodium: String by project
@@ -37,9 +35,6 @@ base {
     archivesName.set(archives_base_name)
 }
 
-val release = findProperty("releaseType") == "stable"
-
-version = getModVersion()
 group = maven_group
 
 tasks.jar {
@@ -57,18 +52,48 @@ repositories {
 }
 
 neoforge {
-    dependOn(project(":ww-common"))
-    accessWidener(project(":ww-common"))
+    dependOn(project(":$subproject_prefix-common"))
+    accessWidener(project(":$subproject_prefix-common"))
 }
 
 neoForge {
     accessTransformers {} // Required for transitive AW to apply!
 }
 
+dependencies {
+    // FrozenLib
+    api("net.frozenblock:frozenlib-neoforge:$frozenlib_version")?.let {
+        accessTransformers(it)
+        interfaceInjectionData(it)
+    }
+
+    // Cloth Config
+    implementation("me.shedaniel.cloth:cloth-config-neoforge:$cloth_config_version")
+
+    // TerraBlender
+    compileOnly("maven.modrinth:terrablender:$terrablender_version_neoforge")
+
+    // Biolith
+    compileOnly("com.terraformersmc:biolith-neoforge:$biolith_version")
+
+    // Sodium
+    if (shouldRunSodium) {
+        implementation("net.caffeinemc:sodium-neoforge-mod:$sodium_version")
+        implementation("net.caffeinemc:sodium-neoforge:$sodium_version")
+    } else {
+        compileOnly("net.caffeinemc:sodium-neoforge-mod:$sodium_version")
+        compileOnly("net.caffeinemc:sodium-neoforge:$sodium_version")
+    }
+
+    // Iris
+    if (shouldRunIris)
+        implementation("maven.modrinth:iris:$iris_version-neoforge")
+    else
+        compileOnly("maven.modrinth:iris:$iris_version-neoforge")
+}
+
 val githubActions: Boolean = System.getenv("GITHUB_ACTIONS") == "true"
 val licenseChecks: Boolean = githubActions
-
-val applyLicenses: Task by tasks
 
 tasks {
     license {
@@ -81,65 +106,7 @@ tasks {
 
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-        val properties = mapOf("mod_version" to getModVersion())
-        inputs.properties(properties)
-        filesMatching("META-INF/neoforge.mods.toml") {
-            expand(properties)
-        }
     }
-
-    withType(JavaCompile::class) {
-        options.encoding = "UTF-8"
-        options.release = 25
-        options.isFork = true
-        options.isIncremental = true
-    }
-}
-
-val loaderAttribute = Attribute.of("io.github.mcgradleconventions.loader", String::class.java)
-val loaderVariants = setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements")
-configurations.all {
-    if (name in loaderVariants) {
-        attributes {
-            attribute(loaderAttribute, "neoforge")
-        }
-    }
-}
-sourceSets.configureEach {
-    listOf(compileClasspathConfigurationName, runtimeClasspathConfigurationName).forEach { variant ->
-        configurations.named(variant) {
-            attributes {
-                attribute(loaderAttribute, "neoforge")
-            }
-        }
-    }
-}
-
-dependencies {
-    api("net.frozenblock:frozenlib-neoforge:${frozenlib_version}")?.let {
-        accessTransformers(it)
-        interfaceInjectionData(it)
-    }
-
-    implementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
-    compileOnly("maven.modrinth:terrablender:${terrablender_version_neoforge}")
-    compileOnly("com.terraformersmc:biolith-neoforge:${biolith_version}")
-
-    // Sodium
-    if (shouldRunSodium) {
-        implementation("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        implementation("net.caffeinemc:sodium-neoforge:${sodium_version}")
-    } else {
-        compileOnly("net.caffeinemc:sodium-neoforge-mod:${sodium_version}")
-        compileOnly("net.caffeinemc:sodium-neoforge:${sodium_version}")
-    }
-
-    // Iris
-    if (shouldRunIris)
-        implementation("maven.modrinth:iris:${iris_version}-neoforge")
-    else
-        compileOnly("maven.modrinth:iris:${iris_version}-neoforge")
 }
 
 java {
@@ -147,13 +114,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_25
 }
 
-fun getModVersion(): String {
-    var version = "$mod_version-mc$minecraft_version"
+val sourcesJar: Jar by tasks
+val javadocJar: Jar by tasks
 
-    if (!release)
-        version += "-unstable"
-
-    return version
+artifacts {
+    archives(sourcesJar)
+    archives(javadocJar)
 }
 
 val changelogText = run {
@@ -164,7 +130,7 @@ val changelogText = run {
 
 upload {
     maven {
-        name.set("wilderwild-neoforge")
+        name.set("$mod_id-neoforge")
     }
 
     forEach {
@@ -176,6 +142,10 @@ upload {
             required("frozenlib")
             optional("cloth-config")
             optional("biolith")
+            optional("simple-copper-pipes")
+            optional("trailier-tales")
+            optional("glowtone")
+            optional("the-copperier-age")
         }
     }
 
@@ -184,6 +154,10 @@ upload {
             required("frozenlib")
             optional("cloth-config")
             optional("biolith")
+            optional("simple-copper-pipes")
+            optional("trailier-tales")
+            optional("glowtone")
+            optional("the-copperier-age")
         }
     }
 }

@@ -3,7 +3,6 @@ package net.frozenblock.wilderwild;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
-import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.config.gui.WWMainConfigGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -29,7 +28,7 @@ public final class WilderWildNeoForgeClient {
 
 		// AFTER register event
 		modBus.addListener(FMLClientSetupEvent.class, event -> {
-			WWModelLayers.setup();
+			WilderWildClient.setup();
 		});
 
 		if (FrozenLibEarlyConstants.HAS_CLOTH_CONFIG) {

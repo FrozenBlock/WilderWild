@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "${mod_id}",
   "version": "${version}",
-  "name": "Wilder Wild",
+  "name": "${mod_name}",
   "description": "Overhauls the Wild Update, adding features and improving existing ones.",
   "authors": [
     "Lunade/AViewFromTheTop",
@@ -23,11 +23,11 @@
     "Enri"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/wilder-wild",
-    "sources": "https://github.com/FrozenBlock/WilderWild",
-    "issues": "https://github.com/FrozenBlock/WilderWild/issues"
+    "homepage": "${mod_url}",
+    "sources": "${source_url}",
+    "issues": "${issues_url}"
   },
-  "license": "FrozenBlock Modding Oasis License v1.0",
+  "license": "${mod_license}",
   "icon": "assets/wilderwild/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -64,6 +64,7 @@
   },
   "suggests": {
     "cloth-config": "*",
+    "modmenu": "*",
     "terrablender": "*",
     "biolith": "*"
   },

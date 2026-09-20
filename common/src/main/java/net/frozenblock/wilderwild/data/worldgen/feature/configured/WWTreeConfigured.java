@@ -1475,8 +1475,7 @@ public final class WWTreeConfigured {
 			.build()
 		);
 
-		// SHRUBS
-
+		// SHRUB
 		LARGE_BUSH.makeAndSetHolder(
 			new TreeFeature.Builder(
 				BlockStateProvider.of(Blocks.OAK_LOG),
@@ -1566,8 +1565,12 @@ public final class WWTreeConfigured {
 			).build()
 		);
 
-		//JUNGLE
-		final TreeDecorator commonJungleShelfMushroom = shelfMushroom(0.5F, 0.25F, configPredicateProviders.getOrThrow(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_JUNGLE));
+		// JUNGLE
+		final TreeDecorator commonJungleShelfMushroom = shelfMushroom(
+			0.5F,
+			0.25F,
+			configPredicateProviders.getOrThrow(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_JUNGLE)
+		);
 
 		JUNGLE_TREE.makeAndSetHolders(
 			new TreeFeature.Builder(
@@ -1637,7 +1640,7 @@ public final class WWTreeConfigured {
 				.build()
 		);
 
-		//ACACIA
+		// ACACIA
 		ACACIA_LEAF_LITTER.makeAndSetHolder(
 			new TreeFeature.Builder(
 				BlockStateProvider.of(Blocks.ACACIA_LOG),
@@ -1678,7 +1681,7 @@ public final class WWTreeConfigured {
 				.build()
 		);
 
-		//MANGROVE
+		// MANGROVE
 		final List<TreeDecorator> mangroveDecorators = List.of(
 			new LeaveVineDecorator(0.125F),
 			new AttachedToLeavesDecorator(
@@ -1770,20 +1773,19 @@ public final class WWTreeConfigured {
 				.build()
 		);
 
-		//CRIMSON
+		// CRIMSON
 		FALLEN_CRIMSON_FUNGI.makeAndSetHolder(fallenCrimson(BlockStateProvider.holderOf(Blocks.CRIMSON_NYLIUM)).build());
 
 		SNAPPED_CRIMSON_FUNGI.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.CRIMSON_STEM, 2, 1, 1, BlockStateProvider.holderOf(Blocks.CRIMSON_NYLIUM)).build()
 		);
 
-		//WARPED
+		// WARPED
 		FALLEN_WARPED_FUNGI.makeAndSetHolder(fallenWarped(BlockStateProvider.holderOf(Blocks.WARPED_NYLIUM)).build());
 
 		SNAPPED_WARPED_FUNGI.makeAndSetHolder(
 			snappedTrunkBuilder(Blocks.WARPED_STEM, 2, 1, 1, BlockStateProvider.holderOf(Blocks.WARPED_NYLIUM)).build()
 		);
-
 	}
 
 	public static TreeFeature.Builder builder(

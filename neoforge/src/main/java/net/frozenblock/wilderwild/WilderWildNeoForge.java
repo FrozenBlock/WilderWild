@@ -4,14 +4,9 @@ import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.networking.api.platform.NetworkingHelperImpl;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.mod_compat.WWTerraBlenderCompat;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.frozenblock.wilderwild.networking.WWNetworking;
-import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWCreativeInventorySorting;
-import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSoundTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -41,11 +36,7 @@ public final class WilderWildNeoForge {
 
 		// AFTER register event
 		modBus.addListener(FMLCommonSetupEvent.class, event -> {
-			WWSoundTypes.setup();
-			WWItems.setup();
-			WWBlocks.setupBlockProperties();
-			WWCreativeInventorySorting.setup();
-			WWWorldgen.setup();
+			WilderWild.setup();
 
 			if (FrozenLibEarlyConstants.HAS_TERRABLENDER) WWTerraBlenderCompat.setup();
 		});
