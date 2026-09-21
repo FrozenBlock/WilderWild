@@ -1,5 +1,6 @@
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -12,6 +13,7 @@ import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.frozenblock.wilderwild.mod_compat.WWSimpleCopperPipesCompat;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -91,6 +93,8 @@ public final class WilderWild {
 		WWWorldgen.setup();
 		WWStructureModifications.setup();
 		WWCreativeInventorySorting.setup();
+
+		if (FrozenBools.HAS_SIMPLE_COPPER_PIPES) WWSimpleCopperPipesCompat.setup();
 	}
 
 	private WilderWild() {}

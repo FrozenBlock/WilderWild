@@ -19,11 +19,8 @@ package net.frozenblock.wilderwild;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.ModContainer;
-import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.entrypoint.api.FrozenModInitializer;
-import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.command.SpreadSculkCommand;
-import net.frozenblock.wilderwild.mod_compat.simplecopperpipes.SimpleCopperPipesIntegration;
 import net.frozenblock.wilderwild.networking.WWNetworking;
 import net.frozenblock.wilderwild.registry.WWFabricBlocks;
 
@@ -43,8 +40,5 @@ public final class WilderWildFabric extends FrozenModInitializer {
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, context, selection) -> SpreadSculkCommand.register(dispatcher)
 		);
-
-		// TODO: ml scp
-		if (ModLoader.isModLoaded(FrozenLibConstants.SIMPLE_COPPER_PIPES_MOD_ID)) SimpleCopperPipesIntegration.setup();
 	}
 }

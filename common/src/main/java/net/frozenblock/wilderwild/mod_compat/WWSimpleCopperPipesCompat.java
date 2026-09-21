@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 FrozenBlock
+ * Copyright 2026 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can modify it under
@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mod_compat.simplecopperpipes;
+package net.frozenblock.wilderwild.mod_compat;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
@@ -29,8 +29,7 @@ import net.minecraft.core.Position;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
-// TODO: ml
-public final class SimpleCopperPipesIntegration {
+public final class WWSimpleCopperPipesCompat {
 
 	public static void setup() {
 		if (SimpleCopperPipes.getCompatID() != 4) {
@@ -42,11 +41,11 @@ public final class SimpleCopperPipesIntegration {
 
 		CopperPipeDispenseBehaviors.register(WWItems.TUMBLEWEED.get(),
 			(level, stack, i, direction, position, state, pos, pipe) -> {
-			final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
-			tumbleweed.setDeltaMovement(getVelocity(level.getRandom(), direction, 5D, i).scale(0.2D));
-			tumbleweed.setPos(getOutputPosition(position, direction));
-			level.addFreshEntity(tumbleweed);
-		});
+				final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
+				tumbleweed.setDeltaMovement(getVelocity(level.getRandom(), direction, 5D, i).scale(0.2D));
+				tumbleweed.setPos(getOutputPosition(position, direction));
+				level.addFreshEntity(tumbleweed);
+			});
 
 		PipeMovementRestrictions.register(WWConstants.id("stone_chest"),
 			((level, pos, blockState, pipe, blockEntity) -> false),
@@ -73,5 +72,5 @@ public final class SimpleCopperPipesIntegration {
 		return new Vec3(velX, velY, velZ);
 	}
 
-	private SimpleCopperPipesIntegration() {}
+	private WWSimpleCopperPipesCompat() {}
 }
