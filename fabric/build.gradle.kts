@@ -79,7 +79,7 @@ dependencies {
     api("net.frozenblock:frozenlib-fabric:$frozenlib_version")
 
     // Simple Copper Pipes
-    compileOnlyApi("maven.modrinth:simple-copper-pipes:$copperpipes_version")
+    compileOnlyApi("net.lunade:simple_copper_pipes-fabric:$copperpipes_version")
 
     // Mod Menu
     implementation("com.terraformersmc:modmenu:$modmenu_version")

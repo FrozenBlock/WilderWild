@@ -12,6 +12,7 @@ checkstyle {
 val mod_id: String by project
 val frozenlib_version: String by project
 val cloth_config_version: String by project
+val copperpipes_version: String by project
 val terrablender_version_neoforge: String by project
 val biolith_version: String by project
 val iris_version: String by project
@@ -30,6 +31,9 @@ dependencies {
         accessTransformers(it)
         interfaceInjectionData(it)
     }
+
+    // Simple Copper Pipes
+    compileOnlyApi("net.lunade:simple_copper_pipes-common:$copperpipes_version")
 
     // Cloth Config
     compileOnly("me.shedaniel.cloth:cloth-config:$cloth_config_version")

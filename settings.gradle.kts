@@ -73,7 +73,7 @@ localRepository("FrozenLib",
     prefix = "flib",
     suffixes = listOf("common", "fabric", "neoforge"),
     multi = true,
-    enabled = true
+    enabled = false
 )
 
 localPluginRepository(

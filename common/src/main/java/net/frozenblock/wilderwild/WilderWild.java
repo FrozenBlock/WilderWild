@@ -1,5 +1,23 @@
+/*
+ * Copyright 2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
 package net.frozenblock.wilderwild;
 
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -12,6 +30,7 @@ import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.frozenblock.wilderwild.mod_compat.WWSimpleCopperPipesCompat;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
@@ -42,8 +61,6 @@ import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWild {
-
-	// TODO: check if block modification works on neo
 
 	public static void init() { // Alan Wilder Wild
 		WilderWildRegistries.init();
@@ -100,6 +117,8 @@ public final class WilderWild {
 		WWBlocks.setup();
 		WWWorldgen.setup();
 		WWCreativeInventorySorting.setup();
+
+		if (FrozenLibEarlyConstants.HAS_SIMPLE_COPPER_PIPES) WWSimpleCopperPipesCompat.setup();
 	}
 
 	private WilderWild() {}
