@@ -21,12 +21,12 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.LevelWriter;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -142,12 +142,12 @@ public class HugeFungusFeatureMixin {
 	 * @param cornerOfHugeStem
 	 * @param isCorner
 	 * @return
-	 * @see #wilderWild$placeStemShouldPreserve(boolean, WorldGenLevel, RandomSource, LocalRef, LocalRef)
+	 * @see #wilderWild$placeStemShouldPreserve(boolean, WorldGenLevel, RandomSource, LocalBooleanRef, LocalBooleanRef)
 	 */
 	@ModifyVariable(method = "placeStem", at = @At(value = "STORE"), name = "cornerOfHugeStem")
 	public boolean wilderWild$placeStemIsCorner(
 		boolean cornerOfHugeStem,
-		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner
+		@Share("wilderWild$isCorner") LocalBooleanRef isCorner
 	) {
 		isCorner.set(cornerOfHugeStem);
 		return cornerOfHugeStem;
@@ -158,8 +158,8 @@ public class HugeFungusFeatureMixin {
 	 * Else, it behaves as normal.
 	 *
 	 * @return if the block position should get preserved
-	 * @see #wilderWild$placeStemIsCorner(boolean, LocalRef)
-	 * @see #wilderWild$placeStemAttemptPlace(HugeFungusFeature, LevelWriter, BlockPos, BlockState, Operation, LocalRef)
+	 * @see #wilderWild$placeStemIsCorner(boolean, LocalBooleanRef)
+	 * @see #wilderWild$placeStemAttemptPlace(WorldGenLevel, BlockPos, BlockState, Operation, LocalBooleanRef)
 	 */
 	@ModifyExpressionValue(
 		method = "placeStem",
@@ -170,8 +170,8 @@ public class HugeFungusFeatureMixin {
 	)
 	public boolean wilderWild$placeStemShouldPreserve(
 		boolean original, WorldGenLevel level, RandomSource random,
-		@Share("wilderWild$isCorner") LocalRef<Boolean> isCorner,
-		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
+		@Share("wilderWild$isCorner") LocalBooleanRef isCorner,
+		@Share("wilderWild$shouldPlace") LocalBooleanRef shouldPlace
 	) {
 		shouldPlace.set(true);
 		if (!WWBlockConfig.THICK_BIG_FUNGUS_GROWTH.get()) return original;
@@ -190,20 +190,20 @@ public class HugeFungusFeatureMixin {
 	/**
 	 * Prevents {@link net.minecraft.world.level.LevelWriter#setBlock(BlockPos, BlockState, int) setBlock} from running if {@code shouldPlace} is false.
 	 *
-	 * @see #wilderWild$placeStemShouldPreserve(boolean, WorldGenLevel, RandomSource, LocalRef, LocalRef)
+	 * @see #wilderWild$placeStemShouldPreserve(boolean, WorldGenLevel, RandomSource, LocalBooleanRef, LocalBooleanRef)
 	 */
 	@WrapOperation(
 		method = "placeStem",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/levelgen/feature/HugeFungusFeature;setBlock(Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V"
+			target = "Lnet/minecraft/world/level/WorldGenLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
 		)
 	)
-	public void wilderWild$placeStemAttemptPlace(
-		HugeFungusFeature instance, LevelWriter levelWriter, BlockPos pos, BlockState state, Operation<Void> original,
-		@Share("wilderWild$shouldPlace") LocalRef<Boolean> shouldPlace
+	public boolean wilderWild$placeStemAttemptPlace(
+		WorldGenLevel instance, BlockPos pos, BlockState blockState, Operation<Boolean> original,
+		@Share("wilderWild$shouldPlace") LocalBooleanRef shouldPlace
 	) {
-		if (!shouldPlace.get()) return;
-		original.call(instance, levelWriter, pos, state);
+		if (!shouldPlace.get()) return false;
+		return original.call(instance, pos, blockState);
 	}
 }
