@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -37,6 +38,8 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK_LEAVES = createKey("sound_override_pale_oak_leaves");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK_LEAVES_DEFAULT = createKey("sound_override_pale_oak_leaves_default");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK = createKey("sound_override_pale_oak");
+
+	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_FLOWER = createKey("generate_flower");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_ACACIA = createKey("generate_shelf_mushroom_acacia");
@@ -167,6 +170,11 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_SHELF_MUSHROOM_MAPLE,
 			WWWorldgenConfig.MAPLE_SHELF_MUSHROOM_GENERATION.equalTo(true)
+		);
+
+		context.register(
+			MUSIC_PITCH_SHIFT_DYING_FORESTS,
+			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
 		);
 
 		context.register(

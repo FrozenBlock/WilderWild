@@ -82,10 +82,10 @@ dependencies {
     compileOnlyApi("net.lunade:simple_copper_pipes-fabric:$copperpipes_version")
 
     // Mod Menu
-    implementation("com.terraformersmc:modmenu:$modmenu_version")
+    compileOnly("com.terraformersmc:modmenu:$modmenu_version")
 
     // Cloth Config
-    implementation("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
+    compileOnly("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
         exclude(group = "net.fabricmc.fabric-api")
         exclude(group = "com.terraformersmc")
     }

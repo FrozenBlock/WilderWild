@@ -46,7 +46,7 @@ import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
-import net.minecraft.world.item.PlaceOnWaterBlockItem;
+import net.minecraft.world.item.PlaceOnFluidBlockItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.component.Consumables;
@@ -267,13 +267,13 @@ public final class WWItems {
 
 	// AQUATIC
 	public static final DeferredItem<DoubleHighBlockItem> CATTAIL = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL);
-	public static final DeferredItem<PlaceOnWaterBlockItem> FLOWERING_LILY_PAD = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD,
+	public static final DeferredItem<PlaceOnFluidBlockItem> FLOWERING_LILY_PAD = REGISTER.registerPlaceOnFluidBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
-	public static final DeferredItem<PlaceOnWaterBlockItem> ALGAE = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE,
+	public static final DeferredItem<PlaceOnFluidBlockItem> ALGAE = REGISTER.registerPlaceOnFluidBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
-	public static final DeferredItem<PlaceOnWaterBlockItem> PLANKTON = REGISTER.registerPlaceOnWaterBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON,
+	public static final DeferredItem<PlaceOnFluidBlockItem> PLANKTON = REGISTER.registerPlaceOnFluidBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> SPONGE_BUD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPONGE_BUD, WWBlocks.SPONGE_BUD);

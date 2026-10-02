@@ -22,9 +22,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.Nullable;
 
 public class SculkStairBlock extends StairBlock implements SculkBuildingBlockBehaviour {
 	private static final IntProvider EXPERIENCE = ConstantInt.of(1);
@@ -34,8 +36,8 @@ public class SculkStairBlock extends StairBlock implements SculkBuildingBlockBeh
 	}
 
 	@Override
-	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
-		super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+	protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience, @Nullable Entity breaker) {
+		super.spawnAfterBreak(state, level, pos, tool, dropExperience, breaker);
 		if (dropExperience) this.tryDropExperience(level, pos, tool, EXPERIENCE);
 	}
 }

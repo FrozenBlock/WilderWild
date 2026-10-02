@@ -21,7 +21,7 @@ import net.frozenblock.lib.menu.api.SplashTextEvents;
 import net.frozenblock.lib.renderer.special.SpecialModelRendererRegistry;
 import net.frozenblock.wilderwild.client.WWBlockColors;
 import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
-import net.frozenblock.wilderwild.client.WWClientMusicImpl;
+import net.frozenblock.wilderwild.client.WWMusicPackDownloader;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
 import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
@@ -42,7 +42,7 @@ public final class WilderWildClient {
 		WWClientResources.init();
 		WWModelLayers.init();
 		WWItemProperties.init();
-		WWClientMusicImpl.init();
+		WWMusicPackDownloader.init();
 		WWRenderStateDataKeys.init();
 		WWParticleEngine.init();
 		AmbientWindParticleSpawner.init();

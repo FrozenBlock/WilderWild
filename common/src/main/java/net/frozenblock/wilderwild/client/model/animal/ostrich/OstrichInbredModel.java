@@ -26,6 +26,7 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.MeshTransformer;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import org.joml.Math;
@@ -295,7 +296,7 @@ public class OstrichInbredModel extends EntityModel<OstrichRenderState> {
 	}
 
 	public static LayerDefinition createLegacyBabyBodyLayer() {
-		return createBodyLayer().apply(OstrichModel.BABY_TRANSFORMER);
+		return createBodyLayer().apply(MeshTransformer.scaling(0.25F));
 	}
 
 	private static void animateLeg(ModelPart leg, ModelPart foot, float limbSwing, float limbSwingAmount, float animOffset) {

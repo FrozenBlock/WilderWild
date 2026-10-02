@@ -1,0 +1,26 @@
+{
+  "type": "frozenlib:config_predicate",
+  "predicate": "wilderwild:music_pitch_shift_dying_forests",
+  "provider": {
+    "type": "frozenlib:biome",
+    "provider": {
+      "type": "frozenlib:add",
+      "operand": {
+        "type": "frozenlib:multiply",
+        "operand": {
+          "type": "frozenlib:constant",
+          "value": 0.015
+        },
+        "provider": {
+          "type": "frozenlib:sine",
+          "wave_length": 2400.0
+        }
+      },
+      "provider": {
+        "type": "frozenlib:constant",
+        "value": 0.98
+      }
+    },
+    "required_biomes": "#wilderwild:music_pitch_shift_dying_forest"
+  }
+}

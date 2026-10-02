@@ -27,6 +27,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
@@ -68,8 +69,8 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	@Override
-	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience) {
-		super.spawnAfterBreak(state, level, pos, tool, dropExperience);
+	protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience, @Nullable Entity breaker) {
+		super.spawnAfterBreak(state, level, pos, tool, dropExperience, breaker);
 		if (dropExperience) this.tryDropExperience(level, pos, tool, EXPERIENCE);
 	}
 

@@ -358,6 +358,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_CLAY_PATH = bind("feature/has_clay_path");
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
+	public static final TagKey<Biome> MUSIC_PITCH_SHIFT_DYING_FOREST = bind("music_pitch_shift_dying_forest");
+
 	public static final TagKey<Biome> HAS_FOREST_MUSIC = bind("music_pool/has_forest_music");
 	public static final TagKey<Biome> HAS_FLOWER_FOREST_MUSIC = bind("music_pool/has_flower_forest_music");
 	public static final TagKey<Biome> HAS_DAPPLED_FOREST_MUSIC = bind("music_pool/has_dappled_forest_music");

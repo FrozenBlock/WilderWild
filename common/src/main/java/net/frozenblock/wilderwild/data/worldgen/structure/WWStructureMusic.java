@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import java.util.List;
 import java.util.Optional;
-import net.frozenblock.lib.music.api.structure.StructureMusic;
+import net.frozenblock.lib.levelgen.music.structure.api.StructureMusic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.data.worldgen.BootstrapContext;

@@ -262,8 +262,8 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	}
 
 	@Override
-	public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean bl) {
-		super.spawnAfterBreak(state, level, pos, stack, bl);
+	protected void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack tool, boolean dropExperience, @Nullable Entity breaker) {
+		super.spawnAfterBreak(state, level, pos, tool, dropExperience, breaker);
 		if (!(level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendril)) return;
 		if (hangingTendril.getStoredXP() > 0) this.popExperience(level, pos, hangingTendril.getStoredXP());
 	}

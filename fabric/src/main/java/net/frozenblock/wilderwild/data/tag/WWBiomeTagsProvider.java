@@ -45,7 +45,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.generateUtilityTags();
 		this.generateFeatureTags();
 		this.generateStructureTags();
-		this.generateMusicPoolTags();
+		this.generateMusicTags();
 	}
 
 	private TagKey<Biome> getTag(String id) {
@@ -183,7 +183,13 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
 	}
 
-	private void generateMusicPoolTags() {
+	private void generateMusicTags() {
+		this.builder(WWBiomeTags.MUSIC_PITCH_SHIFT_DYING_FOREST)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
 		this.builder(WWBiomeTags.HAS_FOREST_MUSIC)
 			.addOptional(Biomes.FOREST)
 			.addOptional(Biomes.BIRCH_FOREST)

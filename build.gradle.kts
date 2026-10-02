@@ -53,7 +53,9 @@ mod {
     additional.add("protocol_version", protocol_version)
     additional.add("fabric_loader_version", ">=$min_fabric_loader_version")
     additional.add("fabric_api_version", ">=$fabric_api_version")
-    additional.add("minecraft_version", "~$minecraft_version-")
+    additional.add("minecraft_version", "~26.4-")
+    if (!minecraftVersion.get().contains("snapshot")) throw GradleException("WERE OUTTA SNAPS NOW")
+    // additional.add("minecraft_version", "~$minecraft_version-")
     additional.add("frozenlib_version", ">=${frozenlib_version.split('-').firstOrNull()}-")
 }
 
