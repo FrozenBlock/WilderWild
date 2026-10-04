@@ -522,6 +522,13 @@ public final class WWMaterialRules {
 		);
 	}
 
+	private static MaterialRule aboveSurface(MaterialRule original) {
+		return MaterialRules.ifTrue(
+			MaterialRules.abovePreliminarySurface(),
+			original
+		);
+	}
+
 	public static void bootstrap(BootstrapContext<MaterialRuleAddition> context) {
 		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
@@ -531,44 +538,46 @@ public final class WWMaterialRules {
 			context,
 			WWConstants.id("beta_beach"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			betaBeaches(biomes, materialConditions)
+			aboveSurface(betaBeaches(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("cypress_wetlands"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			cypressMaterialRules(biomes, materialConditions)
+			aboveSurface(cypressMaterialRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("warm_river"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			warmRiverRules(biomes, materialConditions)
+			aboveSurface(warmRiverRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("warm_beach"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			warmBeachRules(biomes, materialConditions)
+			aboveSurface(warmBeachRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("oasis"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			oasisRules(biomes, materialConditions)
+			aboveSurface(oasisRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("arid_savanna_and_arid_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			MaterialRules.sequence(
-				aridGrass(biomes, materialConditions),
-				aridRules(biomes, materialConditions)
+			aboveSurface(
+				MaterialRules.sequence(
+					aridGrass(biomes, materialConditions),
+					aridRules(biomes, materialConditions)
+				)
 			)
 		);
 
@@ -576,49 +585,49 @@ public final class WWMaterialRules {
 			context,
 			WWConstants.id("old_growth_snowy_pine_taiga"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			oldGrowthSnowyPineTaigaRules(biomes, materialConditions)
+			aboveSurface(oldGrowthSnowyPineTaigaRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("old_growth_dark_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			oldGrowthDarkForestRules(biomes, materialConditions)
+			aboveSurface(oldGrowthDarkForestRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("temperate_rainforest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			temperateRainforestRules(biomes, materialConditions)
+			aboveSurface(temperateRainforestRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("rainforest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			rainforestRules(biomes, materialConditions)
+			aboveSurface(rainforestRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("dying_forest_and_dying_mixed_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			dyingForestRules(biomes, materialConditions)
+			aboveSurface(dyingForestRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("maple_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			mapleForestRules(biomes, materialConditions)
+			aboveSurface(mapleForestRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("tundra"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			tundraRules(biomes, materialConditions)
+			aboveSurface(tundraRules(biomes, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
