@@ -81,7 +81,7 @@ public final class WWBlockConfigGui {
 		// SNOWLOGGING
 		createSubCategory(builder, category, text("snowlogging"), tooltip("snowlogging"),
 			booleanEntry(builder, "allow_snowlogging", WWBlockConfig.SNOWLOGGING),
-			booleanEntry(builder, "snowlog_walls", WWBlockConfig.SNOWLOG_WALLS),
+			booleanEntry(builder, "snowlog_walls", WWBlockConfig.SNOWLOG_BLOCKADES),
 			booleanEntry(builder, "natural_snowlogging", WWBlockConfig.NATURAL_SNOWLOGGING)
 		);
 

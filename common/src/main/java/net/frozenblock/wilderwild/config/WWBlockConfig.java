@@ -74,7 +74,7 @@ public final class WWBlockConfig {
 		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))
 		.requireRestart()
 		.build();
-	public static final ConfigEntry<Boolean> SNOWLOG_WALLS = CONFIG.entryBuilder("snowlogging/snowlogWalls", EntryType.BOOL, true)
+	public static final ConfigEntry<Boolean> SNOWLOG_BLOCKADES = CONFIG.entryBuilder("snowlogging/snowlogBlockades", EntryType.BOOL, false)
 		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))
 		.requireRestart()
 		.build();
@@ -87,8 +87,8 @@ public final class WWBlockConfig {
 		return SNOWLOGGING.get() && !SnowloggingUtil.HAS_ANTIQUE_ATLAS && !FrozenLibEarlyConstants.IS_DATAGEN;
 	}
 
-	public static boolean canSnowlogWalls() {
-		return canSnowlog() && SNOWLOG_WALLS.get();
+	public static boolean canSnowlogBlockades() {
+		return canSnowlog() && SNOWLOG_BLOCKADES.get();
 	}
 
 	public static boolean canSnowlogNaturally() {
