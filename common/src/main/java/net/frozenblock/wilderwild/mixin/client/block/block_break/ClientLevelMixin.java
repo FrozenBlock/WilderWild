@@ -57,8 +57,8 @@ public class ClientLevelMixin {
 		boolean isLitter = false;
 		if (blockState.is(fallingLeafData.leafLitterBlock())) {
 			isLitter = true;
-			if (!WWAmbienceAndMiscConfig.LEAF_LITTER_WALKING_PARTICLES.get()) return;
-		} else if (!WWAmbienceAndMiscConfig.LEAF_WALKING_PARTICLES.get()) {
+			if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_LITTER_PARTICLES.get()) return;
+		} else if (!WWAmbienceAndMiscConfig.BREAKING_LEAF_PARTICLES.get()) {
 			return;
 		}
 

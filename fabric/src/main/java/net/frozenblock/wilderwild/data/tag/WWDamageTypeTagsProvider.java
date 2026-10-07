@@ -35,6 +35,9 @@ public final class WWDamageTypeTagsProvider extends FabricTagsProvider<DamageTyp
 
 	@Override
 	public void addTags(HolderLookup.Provider arg) {
+		this.builder(DamageTypeTags.DAMAGES_HELMET)
+			.add(WWDamageTypes.FALLING_ICICLE);
+
 		this.builder(DamageTypeTags.NO_ANGER)
 			.add(WWDamageTypes.TUMBLEWEED)
 			.add(WWDamageTypes.PRICKLY_PEAR);
@@ -56,6 +59,9 @@ public final class WWDamageTypeTagsProvider extends FabricTagsProvider<DamageTyp
 
 		this.builder(DamageTypeTags.NO_KNOCKBACK)
 			.add(WWDamageTypes.PRICKLY_PEAR);
+
+		this.builder(DamageTypeTags.PANIC_CAUSES)
+			.add(WWDamageTypes.OSTRICH);
 
 		this.builder(DamageTypeTags.SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO)
 			.add(WWDamageTypes.FALLING_ICICLE)

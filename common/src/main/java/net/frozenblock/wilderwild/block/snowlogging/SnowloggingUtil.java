@@ -45,7 +45,7 @@ public final class SnowloggingUtil {
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
 	public static final int MAX_LAYERS = 8;
 	private static final boolean CONFIG_SNOWLOGGING_ON_BOOT = WWBlockConfig.canSnowlog();
-	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogWalls();
+	private static final boolean CONFIG_SNOWLOG_BLOCKADES_ON_BOOT = WWBlockConfig.canSnowlogBlockades();
 
 	public static void appendSnowloggedProperties(Block block, StateDefinition.Builder<Block, BlockState> builder) {
 		if (!CONFIG_SNOWLOGGING_ON_BOOT) return;
