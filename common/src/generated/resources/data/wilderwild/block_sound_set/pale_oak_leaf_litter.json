@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.pale_oak_leaf_litter.break",
+  "fall_sound": "wilderwild:block.pale_oak_leaf_litter.fall",
+  "hit_sound": "wilderwild:block.pale_oak_leaf_litter.hit",
+  "place_sound": "wilderwild:block.pale_oak_leaf_litter.place",
+  "step_sound": "wilderwild:block.pale_oak_leaf_litter.step"
+}

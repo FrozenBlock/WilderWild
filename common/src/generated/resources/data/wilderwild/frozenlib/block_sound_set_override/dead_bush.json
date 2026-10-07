@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/dead_bush",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/deadBushSounds",
+    "target": true
+  },
+  "sound_set": "minecraft:nether_sprouts"
+}

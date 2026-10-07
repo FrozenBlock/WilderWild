@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/hollowed_pale_oak_wood",
+  "config_predicate": "wilderwild:sound_override_pale_oak",
+  "sound_set": "wilderwild:hollowed_pale_oak_log"
+}

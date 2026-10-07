@@ -35,7 +35,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.InteractionHand;
@@ -131,7 +130,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 				final ItemStack emptyResult = ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE));
 
-				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				displayLantern.markForUpdate();
 				level.updateNeighbourForOutputSignal(pos, this);
@@ -153,7 +152,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			final ItemStack filledResult = ItemUtils.createFilledResult(itemStack, player, filledBottle);
 
 			displayLantern.removeFirefly(fireflyInLantern);
-			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
+			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 			displayLantern.markForUpdate();
 			level.updateNeighbourForOutputSignal(pos, this);
 			return InteractionResult.SUCCESS.heldItemTransformedTo(filledResult);
@@ -166,7 +165,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			} else if (itemStack.isEnchanted()) {
 				light = (int) Math.round(itemStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY).size() * 0.5D);
 			}
-			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Mth.clamp(light, 0, LightEngine.MAX_LEVEL)));
+			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(light, 0, LightEngine.MAX_LEVEL)));
 			displayLantern.inventory.set(0, itemStack.split(1));
 			displayLantern.markForUpdate();
 			level.updateNeighbourForOutputSignal(pos, this);

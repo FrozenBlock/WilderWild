@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/wither_rose",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/witherRoseSounds",
+    "target": true
+  },
+  "sound_set": "minecraft:sweet_berry_bush"
+}

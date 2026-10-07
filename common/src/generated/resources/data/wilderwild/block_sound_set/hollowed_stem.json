@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.hollowed_stem.break",
+  "fall_sound": "wilderwild:block.hollowed_stem.fall",
+  "hit_sound": "wilderwild:block.hollowed_stem.hit",
+  "place_sound": "wilderwild:block.hollowed_stem.place",
+  "step_sound": "wilderwild:block.hollowed_stem.step"
+}

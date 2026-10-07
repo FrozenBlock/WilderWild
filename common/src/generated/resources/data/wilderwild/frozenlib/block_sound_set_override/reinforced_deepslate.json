@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/reinforced_deepslate",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/reinforcedDeepslateSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:reinforced_deepslate"
+}

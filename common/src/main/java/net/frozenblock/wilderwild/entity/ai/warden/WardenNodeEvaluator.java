@@ -82,15 +82,15 @@ public class WardenNodeEvaluator extends WalkNodeEvaluator {
 		final PathType abovePathType = this.getCachedPathType(node.x, node.y + 1, node.z);
 		final PathType pathType = this.getCachedPathType(node.x, node.y, node.z);
 		int jumpSize = 0;
-		if (this.mob.getPathfindingMalus(abovePathType) >= 0F && pathType != PathType.STICKY_HONEY) jumpSize = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
+		if (this.mob.getPathfindingMalus(abovePathType) >= 0F && pathType != PathType.STICKY) jumpSize = Mth.floor(Math.max(1F, this.mob.maxUpStep()));
 
 		final double posHeight = this.getFloorLevel(new BlockPos(node.x, node.y, node.z));
 		final Node aboveNode = this.findAcceptedNode(node.x, node.y + 1, node.z, Math.max(0, jumpSize - 1), posHeight, Direction.UP, pathType);
 		final Node belowNode = this.findAcceptedNode(node.x, node.y - 1, node.z, jumpSize, posHeight, Direction.DOWN, pathType);
 
 		if (this.isVerticalNeighborValid(aboveNode, node)) successors[neighbors++] = aboveNode;
-		if (this.isVerticalNeighborValid(belowNode, node) && pathType != PathType.TRAPDOOR) successors[neighbors++] = belowNode;
-		
+		if (this.isVerticalNeighborValid(belowNode, node) && pathType != PathType.DROP_DOWN) successors[neighbors++] = belowNode;
+
 		return neighbors;
 	}
 

@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FrostedIceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,8 +46,10 @@ public class FrostedIceBlockMixin {
 	private void wilderWild$slightlyMelt(BlockState state, Level level, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
 		if (!WWBlockConfig.FROSTED_ICE_CRACKING.get()) return;
 
-		final SoundType soundType = state.getSoundType();
-		level.playSound(null, pos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.075F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		final BlockSoundSet soundSet = state.getSounds(level);
+		soundSet.breakSound().ifPresent(sound -> {
+			level.playSound(null, pos, sound, SoundSource.BLOCKS, 0.075F, (soundSet.pitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		});
 	}
 
 	@Inject(
@@ -70,7 +72,10 @@ public class FrostedIceBlockMixin {
 				0.05D
 			);
 		}
-		final SoundType soundType = state.getSoundType();
-		level.playSound(null, pos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.15F, soundType.getPitch());
+
+		final BlockSoundSet soundSet = state.getSounds(level);
+		soundSet.breakSound().ifPresent(sound -> {
+			level.playSound(null, pos, sound, SoundSource.BLOCKS, 0.15F, soundSet.pitch());
+		});
 	}
 }

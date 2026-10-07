@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/mushroom_block",
+  "config_predicate": "wilderwild:sound_override_mushroom",
+  "sound_set": "wilderwild:mushroom_block"
+}

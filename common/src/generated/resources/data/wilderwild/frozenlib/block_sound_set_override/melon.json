@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/melon",
+  "config_predicate": "wilderwild:sound_override_melon",
+  "sound_set": "wilderwild:melon"
+}

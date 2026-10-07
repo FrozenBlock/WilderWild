@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.maple_wood.break",
+  "fall_sound": "wilderwild:block.maple_wood.fall",
+  "hit_sound": "wilderwild:block.maple_wood.hit",
+  "place_sound": "wilderwild:block.maple_wood.place",
+  "step_sound": "wilderwild:block.maple_wood.step"
+}

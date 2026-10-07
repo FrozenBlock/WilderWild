@@ -22,7 +22,7 @@ import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -44,7 +44,9 @@ public class RotatedPillarBlockMixin {
 	private void addTermiteEdibleState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo info) {
 		if (FrozenLibEarlyConstants.IS_DATAGEN || !WILDERWILD$TERMITE_NATURAL_BLOCKS_ON_BOOT) return;
 		final BlockBehaviour.Properties properties = RotatedPillarBlock.class.cast(this).properties();
-		if (properties.instrument == NoteBlockInstrument.BASS && properties.soundType != SoundType.STEM) builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
+		if (properties.instrument == NoteBlockInstrument.BASS && properties.blockSoundSet.isPresent() && properties.blockSoundSet.get() != BlockSoundSets.STEM) {
+			builder.add(WWBlockStateProperties.TERMITE_EDIBLE);
+		}
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"))

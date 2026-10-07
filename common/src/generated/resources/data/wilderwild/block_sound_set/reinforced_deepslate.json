@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.reinforced_deepslate.break",
+  "fall_sound": "wilderwild:block.reinforced_deepslate.fall",
+  "hit_sound": "wilderwild:block.reinforced_deepslate.hit",
+  "place_sound": "wilderwild:block.reinforced_deepslate.place",
+  "step_sound": "wilderwild:block.reinforced_deepslate.step"
+}

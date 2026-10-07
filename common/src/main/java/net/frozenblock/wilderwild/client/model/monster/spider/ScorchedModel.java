@@ -64,7 +64,7 @@ public class ScorchedModel extends EntityModel<ScorchedRenderState> {
 		float lavaProgToRad = lavaProgress * Mth.DEG_TO_RAD;
 
 		float yPos = 1F;
-		float headProgress = Mth.clamp(((renderState.xRot + 25F) / 45F) * 2F, 0F, 1F);
+		float headProgress = Math.clamp(((renderState.xRot + 25F) / 45F) * 2F, 0F, 1F);
 		this.head.y += yPos * 3F * lavaProgress;
 		this.head.xRot -= (12.5F + (Mth.sin(Mth.PI + ageInTicks * 0.0375F) * 6.25F)) * lavaProgToRad * headProgress;
 		this.head.zRot += (Mth.sin(Mth.PI - ageInTicks * 0.05F) * 7.5F) * lavaProgToRad * headProgress;

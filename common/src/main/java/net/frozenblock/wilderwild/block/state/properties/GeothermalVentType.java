@@ -18,30 +18,29 @@
 package net.frozenblock.wilderwild.block.state.properties;
 
 import com.mojang.serialization.Codec;
-import java.util.function.Supplier;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.StringRepresentable;
 
-@SuppressWarnings({"Convert2MethodRef", "FunctionalExpressionCanBeFolded"})
 public enum GeothermalVentType implements StringRepresentable {
-	NONE("none", () -> SoundEvents.EMPTY),
-	AIR("air", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.get()),
-	WATER("water", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.get()),
-	LAVA("lava", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.get()),
-	HYDROTHERMAL_VENT("hydrothermal_vent", () -> WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.get());
+	NONE("none", SoundEvents.EMPTY),
+	AIR("air", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.asHolder()),
+	WATER("water", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.asHolder()),
+	LAVA("lava", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.asHolder()),
+	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.asHolder());
 	public static final Codec<GeothermalVentType> CODEC = StringRepresentable.fromEnum(GeothermalVentType::values);
 
 	private final String name;
-	private final Supplier<SoundEvent> eruptionSound;
+	private final Holder<SoundEvent> eruptionSound;
 
-	GeothermalVentType(String name, Supplier<SoundEvent> eruptionSound) {
+	GeothermalVentType(String name, Holder<SoundEvent> eruptionSound) {
 		this.name = name;
 		this.eruptionSound = eruptionSound;
 	}
 
-	public Supplier<SoundEvent> getEruptionSound() {
+	public Holder<SoundEvent> getEruptionSound() {
 		return this.eruptionSound;
 	}
 

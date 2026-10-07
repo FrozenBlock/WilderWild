@@ -21,7 +21,6 @@ import net.frozenblock.lib.wind.disturbance.WindDisturbance;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceResult;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -46,7 +45,7 @@ public abstract class AbstractGeothermalVentWindDisturbance implements WindDistu
 		final Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 		final double strength = GeothermalVentBlockEntity.ERUPTION_DISTANCE - Math.min(target.distanceTo(origin), GeothermalVentBlockEntity.ERUPTION_DISTANCE);
 		final double intensity = strength / GeothermalVentBlockEntity.ERUPTION_DISTANCE;
-		final double resultStrength = Mth.clamp(intensity * 2D, 0D, 1D);
+		final double resultStrength = Math.clamp(intensity * 2D, 0D, 1D);
 		final double weight = strength * 2D;
 		if (resultStrength <= 0D || weight <= 0D) return WindDisturbanceResult.PASS;
 

@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/clay",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/claySounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:clay"
+}

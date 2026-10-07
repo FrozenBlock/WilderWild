@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.sugar_cane.break",
+  "fall_sound": "wilderwild:block.sugar_cane.fall",
+  "hit_sound": "wilderwild:block.sugar_cane.hit",
+  "place_sound": "wilderwild:block.sugar_cane.place",
+  "step_sound": "wilderwild:block.sugar_cane.step"
+}

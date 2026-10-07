@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/pale_moss",
+  "config_predicate": "wilderwild:sound_override_moss",
+  "sound_set": "wilderwild:pale_moss"
+}

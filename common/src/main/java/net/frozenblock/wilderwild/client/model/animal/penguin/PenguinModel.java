@@ -115,11 +115,11 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<T> {
 		this.rightFlipper.zRot += (20F - Mth.sin(walk35 - 140F) * 3F) * limbSwingAmount;
 
 		// FEET
-		this.leftFoot.y += Mth.clamp(Mth.sin(walk35 - 80F), -1F, 0F) * walkDelta * 0.75F;
+		this.leftFoot.y += Math.clamp(Mth.sin(walk35 - 80F), -1F, 0F) * walkDelta * 0.75F;
 		this.leftFoot.z -= Mth.sin(walk35 - 160F) * walkDelta;
 		this.leftFoot.xRot -= Math.clamp(Mth.sin(walk35 - 110F) * 5F, 0F, 5F) * Mth.DEG_TO_RAD * walkDelta;
 
-		this.rightFoot.y += Mth.clamp(-Mth.sin(walk35 - 80F), -1F, 0F) * walkDelta * 0.75F;
+		this.rightFoot.y += Math.clamp(-Mth.sin(walk35 - 80F), -1F, 0F) * walkDelta * 0.75F;
 		this.rightFoot.z += Mth.sin(walk35 - 160F) * walkDelta;
 		this.rightFoot.xRot -= Math.clamp(-Mth.sin(walk35 - 110F) * 5F, 0F, 5F) * Mth.DEG_TO_RAD * walkDelta;
 	}
@@ -231,11 +231,11 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<T> {
 		this.head.yRot -= Mth.sin((animProgress * 2F) - 40F) * slideRadSwing;
 		this.head.zRot -= Mth.sin(animProgress - 180F) * slideRadSwing;
 
-		this.leftFlipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
+		this.leftFlipper.xRot += (-13.6109F + Math.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
 		this.leftFlipper.yRot -= (Mth.sin((animProgress * 2F) - 40F) * 20F) * movementDeltaSlideToRad;
 		this.leftFlipper.zRot += (-42.5F - (Mth.sin(animProgress * 2F)) * 20F) * movementDeltaSlideToRad;
 
-		this.rightFlipper.xRot += (-13.6109F + Mth.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
+		this.rightFlipper.xRot += (-13.6109F + Math.clamp(-Mth.sin((animProgress * 2F) - 90F) * 15F, 0F, 15F)) * movementDeltaSlideToRad;
 		this.rightFlipper.yRot += (Mth.sin((animProgress * 2F) - 40F) * 20F) * movementDeltaSlideToRad;
 		this.rightFlipper.zRot += (42.5F + (Mth.sin(animProgress * 2F)) * 20F) * movementDeltaSlideToRad;
 
@@ -247,7 +247,7 @@ public class PenguinModel<T extends PenguinRenderState> extends EntityModel<T> {
 	private void animateSwim(float limbSwing, float limbSwingAmount, float headPitch, float swimAmount, float headYOffset) {
 		final float swimLimbAmount = limbSwingAmount * swimAmount;
 
-		final float flipperZRot = Mth.clamp(Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount), 0F, Mth.PI);
+		final float flipperZRot = Math.clamp(Mth.cos(limbSwing * 0.2F) * swimLimbAmount * swimAmount + (Mth.HALF_PI * 0.35F * swimAmount), 0F, Mth.PI);
 		this.leftFlipper.zRot -= flipperZRot;
 		this.rightFlipper.zRot += flipperZRot;
 

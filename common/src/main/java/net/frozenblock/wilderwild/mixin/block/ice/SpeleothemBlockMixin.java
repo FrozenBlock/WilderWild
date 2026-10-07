@@ -30,17 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 public class SpeleothemBlockMixin {
 
 	@ModifyExpressionValue(
-		method = "growStalactiteOrStalagmiteIfPossible",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/util/RandomSource;nextBoolean()Z"
-		)
-	)
-	public boolean wilderWild$preventIciclesFromGrowingBelow(boolean original) {
-		return SpeleothemBlock.class.cast(this) == WWBlocks.ICICLE.get() || original;
-	}
-
-	@ModifyExpressionValue(
 		method = "spawnFallingStalactite",
 		at = @At(
 			value = "INVOKE",

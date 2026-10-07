@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/leaves",
+  "config_predicate": "wilderwild:sound_override_leaf",
+  "sound_set": "minecraft:azalea_leaves"
+}

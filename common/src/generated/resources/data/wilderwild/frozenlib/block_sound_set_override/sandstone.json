@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/sandstone",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/sandstoneSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:sandstone"
+}

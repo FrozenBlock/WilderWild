@@ -136,7 +136,6 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.ShelfBlock;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
@@ -147,6 +146,8 @@ import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
+import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
@@ -169,7 +170,7 @@ public final class WWBlocks {
 
 	// deferred so that WWSounds isn't init
 	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
-		.soundType(WWSoundTypes.MAPLE_WOOD)
+		.blockSoundSet(WWBlockSoundSets.MAPLE_WOOD)
 		.doorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_CLOSE.get()).doorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_OPEN.get())
 		.trapdoorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE.get()).trapdoorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN.get())
 		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON.get()).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF.get())
@@ -182,9 +183,9 @@ public final class WWBlocks {
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
 	// deferred so that WWSounds isn't init
 	public static final Supplier<WoodType> MAPLE_WOOD_TYPE = Suppliers.memoize(() -> WoodTypeBuilder.copyOf(WoodType.SPRUCE)
-		.soundType(WWSoundTypes.MAPLE_WOOD)
+		.blockSoundSet(WWBlockSoundSets.MAPLE_WOOD)
 		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN.get())
-		.hangingSignSoundType(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
+		.hangingSignSoundSet(WWBlockSoundSets.MAPLE_WOOD_HANGING_SIGN)
 		.register(WWConstants.id("maple"), MAPLE_SET.get()));
 	// WOOD COLORS
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
@@ -223,7 +224,7 @@ public final class WWBlocks {
 			),
 			() -> Properties.of()
 				.strength(1.5F)
-				.sound(WWSoundTypes.SCORCHED_SAND)
+				.sound(WWBlockSoundSets.SCORCHED_SAND)
 				.mapColor(base.defaultMapColor())
 				.randomTicks()
 		);
@@ -232,7 +233,7 @@ public final class WWBlocks {
 	// SAPLINGS
 	public static final DeferredBlock<BaobabNutBlock> BAOBAB_NUT = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_NUT,
 		properties -> new BaobabNutBlock(WWTreeGrowers.BAOBAB, properties),
-		() -> Properties.ofFullCopy(Blocks.BAMBOO).sound(WWSoundTypes.BAOBAB_NUT)
+		() -> Properties.ofFullCopy(Blocks.BAMBOO).sound(WWBlockSoundSets.BAOBAB_NUT)
 	);
 	public static final DeferredBlock<Block> POTTED_BAOBAB_NUT = registerFlowerPot(WWBlockIds.POTTED_BAOBAB_NUT, BAOBAB_NUT);
 
@@ -250,7 +251,7 @@ public final class WWBlocks {
 
 	public static final DeferredBlock<CoconutBlock> COCONUT = REGISTER.registerBlock(WWBlockItemIds.COCONUT,
 		properties -> new CoconutBlock(WWTreeGrowers.PALM, properties),
-		() -> Properties.of().instabreak().randomTicks().sound(SoundType.STONE)
+		() -> Properties.of().instabreak().randomTicks().sound(BlockSoundSets.STONE)
 	);
 	public static final DeferredBlock<Block> POTTED_COCONUT = registerFlowerPot(WWBlockIds.POTTED_COCONUT, COCONUT);
 
@@ -283,24 +284,24 @@ public final class WWBlocks {
 	// LEAVES
 	public static final DeferredBlock<BaobabLeavesBlock> BAOBAB_LEAVES = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_LEAVES,
 		properties -> new BaobabLeavesBlock(0.01F, properties),
-		() -> Blocks.leavesProperties(SoundType.GRASS)
+		() -> Blocks.leavesProperties(BlockSoundSets.GRASS)
 	);
 	public static final DeferredBlock<TintedParticleLeavesBlock> WILLOW_LEAVES = REGISTER.registerBlock(WWBlockItemIds.WILLOW_LEAVES,
 		properties -> new TintedParticleLeavesBlock(0.01F, properties),
-		() -> Blocks.leavesProperties(SoundType.GRASS)
+		() -> Blocks.leavesProperties(BlockSoundSets.GRASS)
 	);
 	public static final DeferredBlock<TintedParticleLeavesBlock> CYPRESS_LEAVES = REGISTER.registerBlock(WWBlockItemIds.CYPRESS_LEAVES,
 		properties -> new TintedParticleLeavesBlock(0.01F, properties),
-		() -> Blocks.leavesProperties(SoundType.GRASS)
+		() -> Blocks.leavesProperties(BlockSoundSets.GRASS)
 	);
 	public static final DeferredBlock<PalmFrondsBlock> PALM_FRONDS = REGISTER.registerBlock(WWBlockItemIds.PALM_FRONDS,
 		properties -> new PalmFrondsBlock(0.005F, properties),
-		() -> Blocks.leavesProperties(SoundType.GRASS)
+		() -> Blocks.leavesProperties(BlockSoundSets.GRASS)
 	);
 	public static final MapleCollection<DeferredBlock<LeavesBlock>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, MapleCollection.MAP_COLORS,
 		(id, mapColor) -> REGISTER.registerBlock(id.block(),
 			properties -> new LeavesBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
-			() -> Blocks.leavesProperties(WWSoundTypes.MAPLE_LEAVES).mapColor(mapColor)
+			() -> Blocks.leavesProperties(WWBlockSoundSets.MAPLE_LEAVES).mapColor(mapColor)
 		)
 	);
 
@@ -327,7 +328,7 @@ public final class WWBlocks {
 		() -> hollowedLogProperties(MapColor.COLOR_RED, MapColor.PODZOL)
 	);
 	public static final DeferredBlock<HollowedLogBlock> HOLLOWED_CHERRY_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_CHERRY_LOG,
-		() -> hollowedLogProperties(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, WWSoundTypes.HOLLOWED_CHERRY_LOG)
+		() -> hollowedLogProperties(MapColor.TERRACOTTA_WHITE, MapColor.TERRACOTTA_GRAY, WWBlockSoundSets.HOLLOWED_CHERRY_LOG)
 	);
 	public static final DeferredBlock<HollowedLogBlock> HOLLOWED_PALE_OAK_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG,
 		() -> hollowedLogProperties(MapColor.QUARTZ, MapColor.STONE)
@@ -354,7 +355,7 @@ public final class WWBlocks {
 		() -> hollowedLogProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR)
 	);
 	public static final DeferredBlock<HollowedLogBlock> HOLLOWED_MAPLE_LOG = registerHollowedLog(WWBlockItemIds.HOLLOWED_MAPLE_LOG,
-		() -> hollowedLogProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, WWSoundTypes.HOLLOWED_MAPLE_LOG)
+		() -> hollowedLogProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, WWBlockSoundSets.HOLLOWED_MAPLE_LOG)
 	);
 
 	// STRIPPED HOLLOWED LOGS
@@ -380,7 +381,7 @@ public final class WWBlocks {
 		() -> strippedHollowedLogProperties(Blocks.STRIPPED_MANGROVE_LOG.defaultMapColor())
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_CHERRY_LOG = registerHollowedLog(WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG,
-		() -> strippedHollowedLogProperties(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), WWSoundTypes.HOLLOWED_CHERRY_LOG)
+		() -> strippedHollowedLogProperties(Blocks.STRIPPED_CHERRY_LOG.defaultMapColor(), WWBlockSoundSets.HOLLOWED_CHERRY_LOG)
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_PALE_OAK_LOG = registerHollowedLog(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG,
 		() -> strippedHollowedLogProperties(Blocks.STRIPPED_PALE_OAK_LOG.defaultMapColor())
@@ -399,17 +400,17 @@ public final class WWBlocks {
 		return REGISTER.registerBlock(id, HollowedLogBlock::new, properties);
 	}
 
-	public static Properties hollowedLogProperties(MapColor topMapColor, MapColor sideMapColor, SoundType soundType) {
+	public static Properties hollowedLogProperties(MapColor topMapColor, MapColor sideMapColor, ResourceKey<BlockSoundSet> soundSet) {
 		return Properties.of()
 			.mapColor(state -> state.getValue(HollowedLogBlock.AXIS) == Direction.Axis.Y ? topMapColor : sideMapColor)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(2F)
-			.sound(soundType)
+			.sound(soundSet)
 			.ignitedByLava();
 	}
 
 	public static Properties hollowedLogProperties(MapColor topMapColor, MapColor sideMapColor) {
-		return hollowedLogProperties(topMapColor, sideMapColor, WWSoundTypes.HOLLOWED_LOG);
+		return hollowedLogProperties(topMapColor, sideMapColor, WWBlockSoundSets.HOLLOWED_LOG);
 	}
 
 	public static Properties hollowedStemProperties(MapColor mapColor) {
@@ -417,20 +418,20 @@ public final class WWBlocks {
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(2F)
-			.sound(WWSoundTypes.HOLLOWED_STEM);
+			.sound(WWBlockSoundSets.HOLLOWED_STEM);
 	}
 
-	public static Properties strippedHollowedLogProperties(MapColor mapColor, SoundType soundType) {
+	public static Properties strippedHollowedLogProperties(MapColor mapColor, ResourceKey<BlockSoundSet> soundSet) {
 		return Properties.of()
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(2F)
-			.sound(soundType)
+			.sound(soundSet)
 			.ignitedByLava();
 	}
 
 	public static Properties strippedHollowedLogProperties(MapColor mapColor) {
-		return strippedHollowedLogProperties(mapColor, WWSoundTypes.HOLLOWED_LOG);
+		return strippedHollowedLogProperties(mapColor, WWBlockSoundSets.HOLLOWED_LOG);
 	}
 
 	public static Properties strippedHollowedStemProperties(MapColor mapColor) {
@@ -438,32 +439,32 @@ public final class WWBlocks {
 			.mapColor(state -> mapColor)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(2F)
-			.sound(WWSoundTypes.HOLLOWED_STEM);
+			.sound(WWBlockSoundSets.HOLLOWED_STEM);
 	}
 
 	// LEAF LITTER
-	public static final DeferredBlock<Block> ACACIA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.ACACIA_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> AZALEA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.AZALEA_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> BAOBAB_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BAOBAB_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> BIRCH_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BIRCH_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> CHERRY_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CHERRY_LEAF_LITTER, () -> WWSoundTypes.CHERRY_LEAF_LITTER);
-	public static final DeferredBlock<Block> CYPRESS_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CYPRESS_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> DARK_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.DARK_OAK_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> JUNGLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.JUNGLE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> MANGROVE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.MANGROVE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> PALE_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.PALE_OAK_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final PoplarCollection<DeferredBlock<Block>> POPLAR_LEAF_LITTER = WWBlockItemIds.POPLAR_LEAF_LITTER.map(id -> registerLeafLitter(id, () -> SoundType.LEAF_LITTER));
-	public static final DeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final DeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, () -> SoundType.LEAF_LITTER);
-	public static final MapleCollection<DeferredBlock<Block>> MAPLE_LEAF_LITTER = WWBlockItemIds.MAPLE_LEAF_LITTER.map(id -> registerLeafLitter(id, () -> WWSoundTypes.MAPLE_LEAF_LITTER));
+	public static final DeferredBlock<Block> ACACIA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.ACACIA_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> AZALEA_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.AZALEA_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> BAOBAB_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BAOBAB_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> BIRCH_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.BIRCH_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> CHERRY_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CHERRY_LEAF_LITTER, WWBlockSoundSets.CHERRY_LEAF_LITTER);
+	public static final DeferredBlock<Block> CYPRESS_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.CYPRESS_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> DARK_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.DARK_OAK_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> JUNGLE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.JUNGLE_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> MANGROVE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.MANGROVE_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> PALE_OAK_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.PALE_OAK_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final PoplarCollection<DeferredBlock<Block>> POPLAR_LEAF_LITTER = WWBlockItemIds.POPLAR_LEAF_LITTER.map(id -> registerLeafLitter(id, BlockSoundSets.LEAF_LITTER));
+	public static final DeferredBlock<Block> PALM_FROND_LITTER = registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> SPRUCE_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final DeferredBlock<Block> WILLOW_LEAF_LITTER = registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, BlockSoundSets.LEAF_LITTER);
+	public static final MapleCollection<DeferredBlock<Block>> MAPLE_LEAF_LITTER = WWBlockItemIds.MAPLE_LEAF_LITTER.map(id -> registerLeafLitter(id, WWBlockSoundSets.MAPLE_LEAF_LITTER));
 
-	private static DeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType) {
-		return registerLeafLitter(id, soundType, null);
+	private static DeferredBlock<Block> registerLeafLitter(BlockItemId id, ResourceKey<BlockSoundSet> soundSet) {
+		return registerLeafLitter(id, soundSet, null);
 	}
 
-	private static DeferredBlock<Block> registerLeafLitter(BlockItemId id, Supplier<SoundType> soundType, Consumer<Block> also) {
-		return REGISTER.registerBlock(id, LeafLitterBlock::new, () -> Properties.ofFullCopy(Blocks.LEAF_LITTER).sound(soundType.get()), also);
+	private static DeferredBlock<Block> registerLeafLitter(BlockItemId id, ResourceKey<BlockSoundSet> soundSet, Consumer<Block> also) {
+		return REGISTER.registerBlock(id, LeafLitterBlock::new, () -> Properties.ofFullCopy(Blocks.LEAF_LITTER).sound(soundSet), also);
 	}
 
 	// SCULK
@@ -478,7 +479,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(MapColor.SAND)
 			.strength(2F)
-			.sound(WWSoundTypes.OSSEOUS_SCULK)
+			.sound(WWBlockSoundSets.OSSEOUS_SCULK)
 	);
 	public static final DeferredBlock<HangingTendrilBlock> HANGING_TENDRIL = REGISTER.registerBlock(WWBlockItemIds.HANGING_TENDRIL,
 		HangingTendrilBlock::new,
@@ -488,7 +489,7 @@ public final class WWBlocks {
 			.noOcclusion()
 			.randomTicks()
 			.lightLevel(state -> 1)
-			.sound(WWSoundTypes.HANGING_TENDRIL)
+			.sound(WWBlockSoundSets.HANGING_TENDRIL)
 			.emissiveRendering(HangingTendrilBlock::shouldHavePogLighting)
 	);
 	public static final DeferredBlock<EchoGlassBlock> ECHO_GLASS = REGISTER.registerBlock(WWBlockItemIds.ECHO_GLASS,
@@ -498,7 +499,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.COLOR_CYAN)
 			.noOcclusion()
 			.randomTicks()
-			.sound(WWSoundTypes.ECHO_GLASS)
+			.sound(WWBlockSoundSets.ECHO_GLASS)
 	);
 
 	// MESOGLEA
@@ -602,7 +603,7 @@ public final class WWBlocks {
 				.strength(0.2F)
 				.friction(0.8F)
 				.lightLevel(state -> 7)
-				.sound(WWSoundTypes.MESOGLEA)
+				.sound(WWBlockSoundSets.MESOGLEA)
 				.isSuffocating(Blocks::never)
 				.dynamicShape()
 				.pushReaction(PushReaction.POPPED)
@@ -626,7 +627,7 @@ public final class WWBlocks {
 				.mapColor(mapColor)
 				.noCollision()
 				.noOcclusion()
-				.sound(WWSoundTypes.NEMATOCYST)
+				.sound(WWBlockSoundSets.NEMATOCYST)
 				.pushReaction(PushReaction.POPPED)
 		);
 	}
@@ -637,7 +638,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(MapColor.COLOR_BROWN)
 			.strength(0.3F)
-			.sound(WWSoundTypes.TERMITE_MOUND)
+			.sound(WWBlockSoundSets.TERMITE_MOUND)
 			.postProcess(Blocks::postProcessSelf)
 			.randomTicks()
 	);
@@ -648,10 +649,10 @@ public final class WWBlocks {
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.strength(2.5F)
 			.requiresCorrectToolForDrops()
-			.sound(SoundType.DEEPSLATE)
+			.sound(BlockSoundSets.DEEPSLATE)
 			.strength(35F, 12F)
 	);
-	public static final DeferredBlock<Block> NULL_BLOCK = REGISTER.registerSimpleBlock(WWBlockItemIds.NULL_BLOCK, () -> Properties.ofFullCopy(Blocks.STONE).sound(WWSoundTypes.NULL_BLOCK));
+	public static final DeferredBlock<Block> NULL_BLOCK = REGISTER.registerSimpleBlock(WWBlockItemIds.NULL_BLOCK, () -> Properties.ofFullCopy(Blocks.STONE).sound(WWBlockSoundSets.NULL_BLOCK));
 	public static final DeferredBlock<DisplayLanternBlock> DISPLAY_LANTERN = REGISTER.registerBlock(WWBlockItemIds.DISPLAY_LANTERN,
 		DisplayLanternBlock::new,
 		() -> Properties.of()
@@ -659,7 +660,7 @@ public final class WWBlocks {
 			.forceSolidOn()
 			.strength(3.5F)
 			.pushReaction(PushReaction.POPPED)
-			.sound(SoundType.LANTERN)
+			.sound(BlockSoundSets.LANTERN)
 			.lightLevel(state -> state.getValue(WWBlockStateProperties.DISPLAY_LIGHT))
 	);
 
@@ -722,7 +723,7 @@ public final class WWBlocks {
 
 	public static final DeferredBlock<FlowerBedBlock> CLOVERS = REGISTER.registerBlock(WWBlockItemIds.CLOVERS.block(),
 		properties -> new FlowerBedBlock(properties, 3),
-		() -> Properties.ofFullCopy(Blocks.PINK_PETALS).sound(SoundType.GRASS).instabreak()
+		() -> Properties.ofFullCopy(Blocks.PINK_PETALS).sound(BlockSoundSets.GRASS).instabreak()
 	);
 	public static final DeferredBlock<Block> POTTED_CLOVERS = registerFlowerPot(WWBlockIds.POTTED_CLOVERS, CLOVERS);
 
@@ -743,7 +744,7 @@ public final class WWBlocks {
 		PollenBlock::new,
 		() -> Properties.ofFullCopy(Blocks.SHORT_GRASS)
 			.mapColor(MapColor.SAND)
-			.sound(WWSoundTypes.POLLEN)
+			.sound(WWBlockSoundSets.POLLEN)
 			.offsetType(BlockBehaviour.OffsetType.NONE)
 	);
 
@@ -759,7 +760,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.PLANT)
 			.noOcclusion()
 			.randomTicks()
-			.sound(SoundType.RED_SHRUB)
+			.sound(BlockSoundSets.RED_SHRUB)
 			.offsetType(BlockBehaviour.OffsetType.XZ)
 	);
 	public static final DeferredBlock<Block> POTTED_SHRUB = registerFlowerPot(WWBlockIds.POTTED_SHRUB, SHRUB);
@@ -768,7 +769,7 @@ public final class WWBlocks {
 		TumbleweedPlantBlock::new,
 		() -> Properties.of()
 			.noOcclusion()
-			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
+			.sound(WWBlockSoundSets.TUMBLEWEED)
 			.randomTicks()
 	);
 	public static final DeferredBlock<Block> POTTED_TUMBLEWEED_PLANT = registerFlowerPot(WWBlockIds.POTTED_TUMBLEWEED_PLANT, TUMBLEWEED_PLANT);
@@ -778,14 +779,14 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.instabreak()
 			.noOcclusion()
-			.sound(WWSoundTypes.TUMBLEWEED_PLANT)
+			.sound(WWBlockSoundSets.TUMBLEWEED)
 			.randomTicks()
 	);
 	public static final DeferredBlock<Block> POTTED_TUMBLEWEED = registerFlowerPot(WWBlockIds.POTTED_TUMBLEWEED, TUMBLEWEED);
 
 	public static final DeferredBlock<MyceliumGrowthBlock> MYCELIUM_GROWTH = REGISTER.registerBlock(WWBlockItemIds.MYCELIUM_GROWTH,
 		MyceliumGrowthBlock::new,
-		() -> Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE).sound(SoundType.NETHER_SPROUTS)
+		() -> Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_PURPLE).sound(BlockSoundSets.NETHER_SPROUTS)
 	);
 	public static final DeferredBlock<Block> POTTED_MYCELIUM_GROWTH = registerFlowerPot(WWBlockIds.POTTED_MYCELIUM_GROWTH, MYCELIUM_GROWTH);
 
@@ -808,7 +809,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.COLOR_GRAY)
 			.instrument(NoteBlockInstrument.BASS)
 			.strength(0.2F)
-			.sound(SoundType.WOOD)
+			.sound(BlockSoundSets.WOOD)
 			.ignitedByLava()
 	);
 	public static final DeferredBlock<PaleMushroomBlock> PALE_MUSHROOM = REGISTER.registerBlock(WWBlockItemIds.PALE_MUSHROOM,
@@ -818,7 +819,7 @@ public final class WWBlocks {
 			.noCollision()
 			.randomTicks()
 			.instabreak()
-			.sound(SoundType.GRASS)
+			.sound(BlockSoundSets.GRASS)
 			.postProcess(Blocks::postProcessSelf)
 			.pushReaction(PushReaction.POPPED)
 	);
@@ -830,7 +831,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.strength(0.1F)
-			.sound(SoundType.MOSS)
+			.sound(BlockSoundSets.MOSS)
 			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<AuburnMossCarpetBlock> AUBURN_MOSS_CARPET = REGISTER.registerBlock(WWBlockItemIds.AUBURN_MOSS_CARPET,
@@ -838,7 +839,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(MapColor.TERRACOTTA_ORANGE)
 			.strength(0.1F)
-			.sound(SoundType.MOSS_CARPET)
+			.sound(BlockSoundSets.MOSS_CARPET)
 			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<AuburnCreepingMossBlock> AUBURN_CREEPING_MOSS = REGISTER.registerBlock(WWBlockItemIds.AUBURN_CREEPING_MOSS,
@@ -848,14 +849,14 @@ public final class WWBlocks {
 			.forceSolidOn()
 			.noCollision()
 			.strength(0.1F)
-			.sound(SoundType.MOSS_CARPET)
+			.sound(BlockSoundSets.MOSS_CARPET)
 			.pushReaction(PushReaction.POPPED)
 	);
 
 	// AQUATIC
 	public static final DeferredBlock<CattailBlock> CATTAIL = REGISTER.registerBlock(WWBlockItemIds.CATTAIL,
 		CattailBlock::new,
-		() -> Properties.ofFullCopy(Blocks.ROSE_BUSH).sound(SoundType.WET_GRASS)
+		() -> Properties.ofFullCopy(Blocks.ROSE_BUSH).sound(BlockSoundSets.WET_GRASS)
 	);
 	public static final DeferredBlock<FloweringWaterlilyBlock> FLOWERING_LILY_PAD = REGISTER.registerBlock(WWBlockItemIds.FLOWERING_LILY_PAD,
 		properties -> new FloweringWaterlilyBlock(Blocks.LILY_PAD, properties),
@@ -863,7 +864,7 @@ public final class WWBlocks {
 	);
 	public static final DeferredBlock<AlgaeBlock> ALGAE = REGISTER.registerBlock(WWBlockItemIds.ALGAE,
 		AlgaeBlock::new,
-		() -> Properties.ofFullCopy(Blocks.FROGSPAWN).mapColor(MapColor.PLANT).sound(WWSoundTypes.ALGAE)
+		() -> Properties.ofFullCopy(Blocks.FROGSPAWN).mapColor(MapColor.PLANT).sound(WWBlockSoundSets.ALGAE)
 	);
 	public static final DeferredBlock<PlanktonBlock> PLANKTON = REGISTER.registerBlock(WWBlockItemIds.PLANKTON,
 		PlanktonBlock::new,
@@ -872,7 +873,7 @@ public final class WWBlocks {
 			.randomTicks()
 			.requiresCorrectToolForDrops()
 			.lightLevel(state -> PlanktonBlock.isGlowing(state) ? PlanktonBlock.LIGHT_LEVEL : 0)
-			.sound(WWSoundTypes.ALGAE)
+			.sound(WWBlockSoundSets.ALGAE)
 	);
 	public static final DeferredBlock<SpongeBudBlock> SPONGE_BUD = REGISTER.registerBlock(WWBlockItemIds.SPONGE_BUD,
 		SpongeBudBlock::new,
@@ -880,7 +881,7 @@ public final class WWBlocks {
 			.strength(0.1F)
 			.noCollision()
 			.noOcclusion()
-			.sound(SoundType.SPONGE)
+			.sound(BlockSoundSets.SPONGE)
 	);
 	public static final DeferredBlock<BarnaclesBlock> BARNACLES = REGISTER.registerBlock(WWBlockItemIds.BARNACLES,
 		BarnaclesBlock::new,
@@ -889,7 +890,7 @@ public final class WWBlocks {
 			.strength(0.5F)
 			.forceSolidOn()
 			.noCollision()
-			.sound(WWSoundTypes.BARNACLES)
+			.sound(WWBlockSoundSets.BARNACLES)
 			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<SeaAnemoneBlock> SEA_ANEMONE = REGISTER.registerBlock(WWBlockItemIds.SEA_ANEMONE,
@@ -900,7 +901,7 @@ public final class WWBlocks {
 			.noCollision()
 			.lightLevel(state -> SeaAnemoneBlock.isGlowing(state) ? SeaAnemoneBlock.LIGHT_LEVEL : 0)
 			.randomTicks()
-			.sound(WWSoundTypes.SEA_ANEMONE)
+			.sound(WWBlockSoundSets.SEA_ANEMONE)
 			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<SeaWhipBlock> SEA_WHIP = REGISTER.registerBlock(WWBlockItemIds.SEA_WHIP,
@@ -909,7 +910,7 @@ public final class WWBlocks {
 			.mapColor(MapColor.WATER)
 			.instabreak()
 			.noCollision()
-			.sound(SoundType.WET_GRASS)
+			.sound(BlockSoundSets.WET_GRASS)
 			.pushReaction(PushReaction.POPPED)
 	);
 	public static final DeferredBlock<TubeWormsBlock> TUBE_WORMS = REGISTER.registerBlock(WWBlockItemIds.TUBE_WORMS,
@@ -919,7 +920,7 @@ public final class WWBlocks {
 			.strength(0.2F)
 			.noCollision()
 			.randomTicks()
-			.sound(WWSoundTypes.TUBE_WORMS)
+			.sound(WWBlockSoundSets.TUBE_WORMS)
 			.pushReaction(PushReaction.POPPED)
 	);
 
@@ -929,7 +930,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
-			.sound(SoundType.METAL)
+			.sound(BlockSoundSets.METAL)
 			.noOcclusion()
 			.randomTicks()
 	);
@@ -938,7 +939,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(MapColor.TERRACOTTA_WHITE)
 			.strength(0.5F)
-			.sound(SoundType.METAL)
+			.sound(BlockSoundSets.METAL)
 			.noOcclusion()
 			.randomTicks()
 	);
@@ -946,7 +947,7 @@ public final class WWBlocks {
 	// GABBRO
 	public static final DeferredBlock<Block> GABBRO = REGISTER.registerSimpleBlock(WWBlockItemIds.GABBRO,
 		() -> Properties.of().mapColor(MapColor.TERRACOTTA_BROWN)
-			.sound(WWSoundTypes.GABBRO)
+			.sound(WWBlockSoundSets.GABBRO)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
 			.strength(4.5F)
@@ -967,7 +968,7 @@ public final class WWBlocks {
 	public static final DeferredBlock<GeothermalVentBlock> GEOTHERMAL_VENT = REGISTER.registerBlock(WWBlockItemIds.GEOTHERMAL_VENT,
 		GeothermalVentBlock::new,
 		() -> Properties.ofFullCopy(WWBlocks.GABBRO.get())
-			.sound(WWSoundTypes.GEOTHERMAL_VENT)
+			.sound(WWBlockSoundSets.GEOTHERMAL_VENT)
 			.strength(8F)
 			.isValidSpawn((state, level, pos, entityType) -> false)
 			.postProcess(Blocks::postProcessSelf)
@@ -978,7 +979,7 @@ public final class WWBlocks {
 	public static final DeferredBlock<SlabBlock> POLISHED_GABBRO_SLAB = REGISTER.registerSlab(WWBlockItemIds.POLISHED_GABBRO_SLAB, POLISHED_GABBRO);
 	public static final DeferredBlock<WallBlock> POLISHED_GABBRO_WALL = REGISTER.registerWall(WWBlockItemIds.POLISHED_GABBRO_WALL, POLISHED_GABBRO);
 
-	public static final DeferredBlock<Block> GABBRO_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.GABBRO_BRICKS, () -> Properties.ofFullCopy(WWBlocks.GABBRO.get()).sound(WWSoundTypes.GABBRO_BRICKS));
+	public static final DeferredBlock<Block> GABBRO_BRICKS = REGISTER.registerSimpleBlock(WWBlockItemIds.GABBRO_BRICKS, () -> Properties.ofFullCopy(WWBlocks.GABBRO.get()).sound(WWBlockSoundSets.GABBRO_BRICKS));
 	public static final DeferredBlock<StairBlock> GABBRO_BRICK_STAIRS = REGISTER.registerStair(WWBlockItemIds.GABBRO_BRICK_STAIRS, WWBlocks.GABBRO_BRICKS);
 	public static final DeferredBlock<SlabBlock> GABBRO_BRICK_SLAB = REGISTER.registerSlab(WWBlockItemIds.GABBRO_BRICK_SLAB, WWBlocks.GABBRO_BRICKS);
 	public static final DeferredBlock<WallBlock> GABBRO_BRICK_WALL = REGISTER.registerWall(WWBlockItemIds.GABBRO_BRICK_WALL, WWBlocks.GABBRO_BRICKS);
@@ -1023,11 +1024,11 @@ public final class WWBlocks {
 	);
 	public static final DeferredBlock<RotatedPillarBlock> BAOBAB_LOG = REGISTER.registerBlock(WWBlockItemIds.BAOBAB_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_BARK_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_BAOBAB_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_BAOBAB_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(BAOBAB_PLANKS_COLOR, BAOBAB_PLANKS_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_BAOBAB_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG,
 		HollowedLogBlock::new,
@@ -1070,7 +1071,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(BAOBAB_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
-			.sound(SoundType.SHELF)
+			.sound(BlockSoundSets.SHELF)
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
@@ -1105,11 +1106,11 @@ public final class WWBlocks {
 	);
 	public static final DeferredBlock<RotatedPillarBlock> WILLOW_LOG = REGISTER.registerBlock(WWBlockItemIds.WILLOW_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(WILLOW_PLANKS_COLOR, WILLOW_BARK_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(WILLOW_PLANKS_COLOR, WILLOW_BARK_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_WILLOW_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_WILLOW_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(WILLOW_PLANKS_COLOR, WILLOW_PLANKS_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(WILLOW_PLANKS_COLOR, WILLOW_PLANKS_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_WILLOW_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG,
 		HollowedLogBlock::new,
@@ -1152,7 +1153,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(WILLOW_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
-			.sound(SoundType.SHELF)
+			.sound(BlockSoundSets.SHELF)
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
@@ -1187,11 +1188,11 @@ public final class WWBlocks {
 	);
 	public static final DeferredBlock<RotatedPillarBlock> CYPRESS_LOG = REGISTER.registerBlock(WWBlockItemIds.CYPRESS_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_BARK_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_CYPRESS_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_CYPRESS_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_PLANKS_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(CYPRESS_PLANKS_COLOR, CYPRESS_PLANKS_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_CYPRESS_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG,
 		HollowedLogBlock::new,
@@ -1234,7 +1235,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(CYPRESS_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
-			.sound(SoundType.SHELF)
+			.sound(BlockSoundSets.SHELF)
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
@@ -1269,11 +1270,11 @@ public final class WWBlocks {
 	);
 	public static final DeferredBlock<RotatedPillarBlock> PALM_LOG = REGISTER.registerBlock(WWBlockItemIds.PALM_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(PALM_PLANKS_COLOR, PALM_BARK_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_PALM_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_PALM_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(PALM_PLANKS_COLOR, PALM_PLANKS_COLOR, SoundType.WOOD)
+		() -> Blocks.logProperties(PALM_PLANKS_COLOR, PALM_PLANKS_COLOR, BlockSoundSets.WOOD)
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_PALM_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG,
 		HollowedLogBlock::new,
@@ -1316,19 +1317,19 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.mapColor(PALM_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
-			.sound(SoundType.SHELF)
+			.sound(BlockSoundSets.SHELF)
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
 
 	// MAPLE
 	public static final DeferredBlock<Block> MAPLE_PLANKS = REGISTER.registerSimpleBlock(WWBlockItemIds.MAPLE_PLANKS,
-		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
+		() -> Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MAPLE_PLANKS_COLOR).sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<StairBlock> MAPLE_STAIRS = REGISTER.registerStair(WWBlockItemIds.MAPLE_STAIRS, MAPLE_PLANKS);
 	public static final DeferredBlock<FenceGateBlock> MAPLE_FENCE_GATE = REGISTER.registerBlock(WWBlockItemIds.MAPLE_FENCE_GATE,
 		properties -> new FenceGateBlock(MAPLE_WOOD_TYPE.get(), properties),
-		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
+		() -> Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MAPLE_PLANKS_COLOR).sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<SlabBlock> MAPLE_SLAB = REGISTER.registerSlab(WWBlockItemIds.MAPLE_SLAB, MAPLE_PLANKS);
 	public static final DeferredBlock<PressurePlateBlock> MAPLE_PRESSURE_PLATE = REGISTER.registerBlock(WWBlockItemIds.MAPLE_PRESSURE_PLATE,
@@ -1349,33 +1350,33 @@ public final class WWBlocks {
 	);
 	public static final DeferredBlock<FenceBlock> MAPLE_FENCE = REGISTER.registerBlock(WWBlockItemIds.MAPLE_FENCE,
 		FenceBlock::new,
-		() -> Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
+		() -> Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MAPLE_PLANKS_COLOR).sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> MAPLE_LOG = REGISTER.registerBlock(WWBlockItemIds.MAPLE_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, WWSoundTypes.MAPLE_WOOD)
+		() -> Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_BARK_COLOR, WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_MAPLE_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_MAPLE_LOG,
 		RotatedPillarBlock::new,
-		() -> Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_PLANKS_COLOR, WWSoundTypes.MAPLE_WOOD)
+		() -> Blocks.logProperties(MAPLE_PLANKS_COLOR, MAPLE_PLANKS_COLOR, WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<HollowedLogBlock> STRIPPED_HOLLOWED_MAPLE_LOG = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG,
 		HollowedLogBlock::new,
-		() -> strippedHollowedLogProperties(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.HOLLOWED_MAPLE_LOG)
+		() -> strippedHollowedLogProperties(MAPLE_PLANKS_COLOR).sound(WWBlockSoundSets.HOLLOWED_MAPLE_LOG)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> MAPLE_WOOD = REGISTER.registerBlock(WWBlockItemIds.MAPLE_WOOD,
 		RotatedPillarBlock::new,
-		() -> Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MAPLE_BARK_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
+		() -> Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MAPLE_BARK_COLOR).sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_MAPLE_WOOD = REGISTER.registerBlock(WWBlockItemIds.STRIPPED_MAPLE_WOOD,
 		RotatedPillarBlock::new,
-		() -> Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MAPLE_PLANKS_COLOR).sound(WWSoundTypes.MAPLE_WOOD)
+		() -> Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MAPLE_PLANKS_COLOR).sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<StandingSignBlock> MAPLE_SIGN = REGISTER.registerBlock(WWBlockItemIds.MAPLE_SIGN,
 		properties -> new StandingSignBlock(MAPLE_WOOD_TYPE.get(), properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_SIGN)
 			.mapColor(MAPLE_LOG.get().defaultMapColor())
-			.sound(WWSoundTypes.MAPLE_WOOD)
+			.sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<WallSignBlock> MAPLE_WALL_SIGN = REGISTER.registerBlock(WWBlockIds.MAPLE_WALL_SIGN,
 		properties -> new WallSignBlock(MAPLE_WOOD_TYPE.get(), properties),
@@ -1383,13 +1384,13 @@ public final class WWBlocks {
 			.mapColor(MAPLE_LOG.get().defaultMapColor())
 			.overrideDescription(MAPLE_SIGN.get().getDescriptionId())
 			.overrideLootTable(MAPLE_SIGN.get().getLootTable())
-			.sound(WWSoundTypes.MAPLE_WOOD)
+			.sound(WWBlockSoundSets.MAPLE_WOOD)
 	);
 	public static final DeferredBlock<CeilingHangingSignBlock> MAPLE_HANGING_SIGN = REGISTER.registerBlock(WWBlockItemIds.MAPLE_HANGING_SIGN,
 		properties -> new CeilingHangingSignBlock(MAPLE_WOOD_TYPE.get(), properties),
 		() -> Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)
 			.mapColor(MAPLE_LOG.get().defaultMapColor())
-			.sound(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
+			.sound(WWBlockSoundSets.MAPLE_WOOD_HANGING_SIGN)
 	);
 	public static final DeferredBlock<WallHangingSignBlock> MAPLE_WALL_HANGING_SIGN = REGISTER.registerBlock(WWBlockIds.MAPLE_WALL_HANGING_SIGN,
 		properties -> new WallHangingSignBlock(MAPLE_WOOD_TYPE.get(), properties),
@@ -1397,14 +1398,14 @@ public final class WWBlocks {
 			.mapColor(MAPLE_LOG.get().defaultMapColor())
 			.overrideDescription(MAPLE_HANGING_SIGN.get().getDescriptionId())
 			.overrideLootTable(MAPLE_HANGING_SIGN.get().getLootTable())
-			.sound(WWSoundTypes.MAPLE_WOOD_HANGING_SIGN)
+			.sound(WWBlockSoundSets.MAPLE_WOOD_HANGING_SIGN)
 	);
 	public static final DeferredBlock<ShelfBlock> MAPLE_SHELF = REGISTER.registerBlock(WWBlockItemIds.MAPLE_SHELF,
 		ShelfBlock::new,
 		() -> Properties.of()
 			.mapColor(MAPLE_PLANKS_COLOR)
 			.instrument(NoteBlockInstrument.BASS)
-			.sound(SoundType.SHELF)
+			.sound(BlockSoundSets.SHELF)
 			.ignitedByLava()
 			.strength(2F, 3F)
 	);
@@ -1421,7 +1422,7 @@ public final class WWBlocks {
 			.friction(0.98F)
 			.randomTicks()
 			.strength(0.2F)
-			.sound(SoundType.GLASS)
+			.sound(BlockSoundSets.GLASS)
 			.noOcclusion()
 			.dynamicShape()
 			.offsetType(BlockBehaviour.OffsetType.XZ)
@@ -1457,7 +1458,7 @@ public final class WWBlocks {
 			.randomTicks()
 			.instabreak()
 			.noCollision()
-			.sound(SoundType.FROGLIGHT)
+			.sound(BlockSoundSets.FROGLIGHT)
 			.lightLevel(state -> 5)
 			.pushReaction(PushReaction.POPPED);
 	}

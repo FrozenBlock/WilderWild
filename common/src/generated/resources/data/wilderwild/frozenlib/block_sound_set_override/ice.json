@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/ice",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/iceSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:ice"
+}

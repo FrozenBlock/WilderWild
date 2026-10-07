@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.tumbleweed_plant.break",
+  "fall_sound": "wilderwild:block.tumbleweed_plant.fall",
+  "hit_sound": "wilderwild:block.tumbleweed_plant.hit",
+  "place_sound": "wilderwild:block.tumbleweed_plant.place",
+  "step_sound": "wilderwild:block.tumbleweed_plant.step"
+}

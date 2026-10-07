@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.barnacles.break",
+  "fall_sound": "minecraft:block.coral_block.fall",
+  "hit_sound": "minecraft:block.coral_block.hit",
+  "place_sound": "wilderwild:block.barnacles.place",
+  "step_sound": "minecraft:block.coral_block.step"
+}

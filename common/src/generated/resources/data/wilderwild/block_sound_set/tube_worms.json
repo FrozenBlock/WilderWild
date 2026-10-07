@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.tube_worms.break",
+  "fall_sound": "minecraft:block.coral_block.fall",
+  "hit_sound": "minecraft:block.coral_block.hit",
+  "place_sound": "wilderwild:block.tube_worms.place",
+  "step_sound": "minecraft:block.coral_block.step"
+}

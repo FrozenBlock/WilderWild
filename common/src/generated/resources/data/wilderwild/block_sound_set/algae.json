@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.algae.break",
+  "fall_sound": "wilderwild:block.algae.fall",
+  "hit_sound": "wilderwild:block.algae.hit",
+  "place_sound": "wilderwild:block.algae.place",
+  "step_sound": "wilderwild:block.algae.step",
+  "volume": 0.8
+}

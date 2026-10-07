@@ -67,7 +67,7 @@ public final class WWSharedWorldgen {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder, true, true);
 		if (commonSprings) {
 			builder.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, MiscOverworldPlacements.SPRING_WATER);
 		} else {

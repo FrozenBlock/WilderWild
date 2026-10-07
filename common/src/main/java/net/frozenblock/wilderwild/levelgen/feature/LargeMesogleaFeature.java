@@ -134,7 +134,7 @@ public record LargeMesogleaFeature(
 		if (columnRange.height() < 4) return false;
 
 		final int maxColumnRadiusBasedOnColumnHeight = (int) ((float) columnRange.height() * this.maxColumnRadiusToCaveHeightRatio);
-		final int maxColumnRadius = Mth.clamp(maxColumnRadiusBasedOnColumnHeight, this.columnRadius.minInclusive(), this.columnRadius.maxInclusive());
+		final int maxColumnRadius = Math.clamp(maxColumnRadiusBasedOnColumnHeight, this.columnRadius.minInclusive(), this.columnRadius.maxInclusive());
 		final int radius = Mth.randomBetweenInclusive(random, this.columnRadius.minInclusive(), maxColumnRadius);
 
 		final LargeMesoglea stalactite = makeMesoglea(origin.atY(columnRange.ceiling() - 1), false, random, radius, this.stalactiteBluntness, this.heightScale);

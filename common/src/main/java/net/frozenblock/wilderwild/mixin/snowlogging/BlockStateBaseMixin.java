@@ -23,6 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,7 +40,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
@@ -280,14 +280,14 @@ public abstract class BlockStateBaseMixin {
 	}
 
 	@WrapOperation(
-		method = "getSoundType",
+		method = "getSounds()Ljava/util/Optional;",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/Block;getSoundType(Lnet/minecraft/world/level/block/state/BlockState;)Lnet/minecraft/world/level/block/SoundType;"
+			target = "Lnet/minecraft/world/level/block/Block;getSounds(Lnet/minecraft/world/level/block/state/BlockState;)Ljava/util/Optional;"
 		)
 	)
-	public SoundType wilderWild$getSoundType(Block instance, BlockState state, Operation<SoundType> original) {
-		if (SnowloggingUtil.isSnowlogged(state)) return SnowloggingUtil.getSnowEquivalent(state).getSoundType();
+	public Optional wilderWild$getSounds(Block instance, BlockState state, Operation<Optional> original) {
+		if (SnowloggingUtil.isSnowlogged(state)) return SnowloggingUtil.getSnowEquivalent(state).getSounds();
 		return original.call(instance, state);
 	}
 }

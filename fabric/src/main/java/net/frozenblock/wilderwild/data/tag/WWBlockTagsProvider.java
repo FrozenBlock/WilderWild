@@ -85,9 +85,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(FrozenLibBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(BlockItemIds.DIRT)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
-
-		this.builder(FrozenLibBlockTags.PATHFINDING_DAMAGING_BLOCKS)
-			.add(WWBlockItemIds.PRICKLY_PEAR);
 	}
 
 	private void generateFeatures(HolderLookup.Provider registries) {
@@ -914,6 +911,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.GABBRO_BRICKS, WWBlockItemIds.CRACKED_GABBRO_BRICKS, WWBlockItemIds.CHISELED_GABBRO_BRICKS, WWBlockItemIds.MOSSY_MUD_BRICKS)
 			.add(WWBlockItemIds.GEOTHERMAL_VENT)
 			.add(WWBlockItemIds.FRAGILE_ICE);
+
+		this.builder(BlockTags.PATHFINDING_DAMAGING)
+			.add(WWBlockItemIds.PRICKLY_PEAR);
 
 		this.builder(BlockTags.WASHED_AWAY_BY_FLUIDS)
 			.add(WWBlockItemIds.HANGING_TENDRIL)

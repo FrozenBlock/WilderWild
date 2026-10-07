@@ -21,6 +21,7 @@ import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -40,8 +41,9 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
+import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -55,6 +57,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import java.util.Optional;
 
 public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock {
 	public static final int MAX_AGE = 2;
@@ -191,9 +194,9 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	}
 
 	@Override
-	public SoundType getSoundType(BlockState state) {
-		if (state.getValue(WATERLOGGED)) return SoundType.WET_SPONGE;
-		return super.getSoundType(state);
+	protected Optional<ResourceKey<BlockSoundSet>> getSounds(BlockState state) {
+		if (state.getValue(WATERLOGGED)) return Optional.of(BlockSoundSets.WET_SPONGE);
+		return super.getSounds(state);
 	}
 
 	@Override

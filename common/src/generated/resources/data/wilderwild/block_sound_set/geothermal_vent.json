@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.geothermal_vent.break",
+  "fall_sound": "wilderwild:block.geothermal_vent.fall",
+  "hit_sound": "wilderwild:block.geothermal_vent.hit",
+  "place_sound": "wilderwild:block.geothermal_vent.place",
+  "step_sound": "wilderwild:block.geothermal_vent.step"
+}

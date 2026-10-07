@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/frozen_grass",
+  "config_predicate": "wilderwild:sound_override_grass",
+  "sound_set": "wilderwild:frozen_grass"
+}

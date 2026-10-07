@@ -75,7 +75,7 @@ import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
@@ -246,8 +246,10 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 		final BlockPos beakBlockPos = BlockPos.containing(this.getBeakPos());
 		final AABB attackBox = this.createAttackBox(1F);
 		if (this.isBeakTouchingCollidingBlock(false)) {
-			SoundType soundType = this.getBeakState().getSoundType();
-			if (!this.isSilent()) this.level().playSound(null, beakBlockPos, soundType.getHitSound(), this.getSoundSource(), soundType.getVolume(), soundType.getPitch());
+			final BlockSoundSet soundSet = this.getBeakState().getSounds(level);
+			if (!this.isSilent() && !soundSet.hitSound().isEmpty()) {
+				this.level().playSound(null, beakBlockPos, soundSet.hitSound().get(), this.getSoundSource(), soundSet.volume(), soundSet.pitch());
+			}
 			this.spawnBlockParticles(false, false);
 			this.cancelAttack(false);
 		}
@@ -781,7 +783,7 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	private void clampHeadRotationToBody(Entity entity, float maxYRot) {
 		final float yHeadRot = entity.getYHeadRot();
 		final float headToBodyDifference = Mth.wrapDegrees(this.yBodyRot - yHeadRot);
-		final float clampedDifference = Mth.clamp(headToBodyDifference, -maxYRot, maxYRot);
+		final float clampedDifference = Math.clamp(headToBodyDifference, -maxYRot, maxYRot);
 		final float finalYHeadRot = yHeadRot + headToBodyDifference - clampedDifference;
 		entity.setYHeadRot(finalYHeadRot);
 	}

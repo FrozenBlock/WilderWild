@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/lily_pad",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/lilyPadSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:lily_pad"
+}

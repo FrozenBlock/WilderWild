@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.coarse_dirt.break",
+  "fall_sound": "wilderwild:block.coarse_dirt.fall",
+  "hit_sound": "wilderwild:block.coarse_dirt.hit",
+  "place_sound": "wilderwild:block.coarse_dirt.place",
+  "step_sound": "wilderwild:block.coarse_dirt.step",
+  "volume": 0.8
+}

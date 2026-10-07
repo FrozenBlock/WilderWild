@@ -113,7 +113,7 @@ public final class MesogleaCaves extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
 		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.MESOGLEA_CAVES_STONE_POOL.getKey());
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(features, true, true);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features, true);

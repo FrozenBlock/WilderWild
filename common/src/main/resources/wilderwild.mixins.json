@@ -61,7 +61,7 @@
     "projectile.AbstractArrowMixin",
     "projectile.AbstractThrownPotionMixin",
     "projectile.CreeperMixin",
-    "projectile.SnowballMixin",
+    "projectile.ThrowableBallProjectileMixin",
     "projectile.ThrownEggMixin",
     "projectile.ThrownEnderpearlMixin",
     "projectile.ThrownExperienceBottleMixin",

@@ -35,7 +35,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -61,8 +61,11 @@ public class FragileIceBlock extends HalfTransparentBlock {
 		}
 
 		level.setBlock(pos, state.setValue(AGE, age + 1), UPDATE_CLIENTS);
-		final SoundType soundType = this.getSoundType(state);
-		level.playSound(null, pos, soundType.getBreakSound(), SoundSource.BLOCKS, 0.1F, (soundType.getPitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		final BlockSoundSet soundSet = state.getSounds(level);
+		soundSet.breakSound().ifPresent(sound -> {
+			level.playSound(null, pos, sound, SoundSource.BLOCKS, 0.1F, (soundSet.pitch() + 0.2F) + level.getRandom().nextFloat() * 0.2F);
+		});
+
 		if (!(level instanceof ServerLevel serverLevel)) return ;
 		serverLevel.sendParticles(
 			new BlockParticleOption(ParticleTypes.BLOCK, state),

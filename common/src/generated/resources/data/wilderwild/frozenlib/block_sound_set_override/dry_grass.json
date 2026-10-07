@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/dry_grass",
+  "config_predicate": "wilderwild:sound_override_grass",
+  "sound_set": "wilderwild:dry_grass"
+}

@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/gravel",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/gravelSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:gravel"
+}

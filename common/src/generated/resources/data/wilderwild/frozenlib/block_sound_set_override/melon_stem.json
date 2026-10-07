@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/melon_stem",
+  "config_predicate": "wilderwild:sound_override_melon",
+  "sound_set": "minecraft:crop"
+}

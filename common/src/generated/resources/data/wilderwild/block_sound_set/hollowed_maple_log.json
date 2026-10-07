@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.hollowed_maple_log.break",
+  "fall_sound": "wilderwild:block.hollowed_maple_log.fall",
+  "hit_sound": "wilderwild:block.hollowed_maple_log.hit",
+  "place_sound": "wilderwild:block.hollowed_maple_log.place",
+  "step_sound": "wilderwild:block.hollowed_maple_log.step"
+}

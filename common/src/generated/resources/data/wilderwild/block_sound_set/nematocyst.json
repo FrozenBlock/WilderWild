@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.nematocyst.break",
+  "fall_sound": "wilderwild:block.nematocyst.fall",
+  "hit_sound": "wilderwild:block.nematocyst.hit",
+  "place_sound": "wilderwild:block.nematocyst.place",
+  "step_sound": "wilderwild:block.nematocyst.step"
+}

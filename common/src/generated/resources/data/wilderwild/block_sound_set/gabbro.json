@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.gabbro.break",
+  "fall_sound": "wilderwild:block.gabbro.fall",
+  "hit_sound": "wilderwild:block.gabbro.hit",
+  "place_sound": "wilderwild:block.gabbro.place",
+  "step_sound": "wilderwild:block.gabbro.step"
+}

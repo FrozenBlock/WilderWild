@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.hanging_tendril.break",
+  "fall_sound": "wilderwild:block.hanging_tendril.fall",
+  "hit_sound": "wilderwild:block.hanging_tendril.hit",
+  "pitch": 1.25,
+  "place_sound": "wilderwild:block.hanging_tendril.place",
+  "step_sound": "wilderwild:block.hanging_tendril.step"
+}

@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.osseous_sculk.break",
+  "fall_sound": "wilderwild:block.osseous_sculk.fall",
+  "hit_sound": "wilderwild:block.osseous_sculk.hit",
+  "place_sound": "wilderwild:block.osseous_sculk.place",
+  "step_sound": "wilderwild:block.osseous_sculk.step"
+}

@@ -58,9 +58,9 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 	@Override
 	protected int getModelTint(JellyfishRenderState renderState) {
 		if (renderState.isRGB) return ARGB.color(
-			(int) (Mth.clamp(Math.abs((renderState.levelTime % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Mth.clamp(Math.abs(((renderState.levelTime - 2) % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Mth.clamp(Math.abs(((renderState.levelTime - 4) % 6) - 3) - 1, 0, 1) * 255)
+			(int) (Math.clamp(Math.abs((renderState.levelTime % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Math.clamp(Math.abs(((renderState.levelTime - 2) % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Math.clamp(Math.abs(((renderState.levelTime - 4) % 6) - 3) - 1, 0, 1) * 255)
 		);
 		return super.getModelTint(renderState);
 	}

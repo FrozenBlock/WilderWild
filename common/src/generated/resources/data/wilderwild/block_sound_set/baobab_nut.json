@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.baobab_nut.break",
+  "fall_sound": "wilderwild:block.baobab_nut.fall",
+  "hit_sound": "wilderwild:block.baobab_nut.hit",
+  "place_sound": "wilderwild:block.baobab_nut.place",
+  "step_sound": "wilderwild:block.baobab_nut.step"
+}

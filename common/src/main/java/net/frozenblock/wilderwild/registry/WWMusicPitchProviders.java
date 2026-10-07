@@ -36,13 +36,21 @@ public final class WWMusicPitchProviders {
 
 		context.register(
 			createKey("dying_forest_distortion"),
-			PitchProvider.whenTrue(
+			PitchProvider.configPredicate(
 				configPredicates.getOrThrow(WWConfigPredicates.MUSIC_PITCH_SHIFT_DYING_FORESTS),
 				PitchProvider.biomes(
 					biomes.getOrThrow(WWBiomeTags.MUSIC_PITCH_SHIFT_DYING_FOREST),
-					PitchProvider.sine(2400F, 0.015F, 0.98F)
+					PitchProvider.add(
+						PitchProvider.exactly(0.98F),
+						PitchProvider.mul(
+							PitchProvider.sin(
+								PitchProvider.exactly(2400F)
+							),
+							PitchProvider.exactly(0.015F)
+						)
+					)
 				)
-			)
+			).value()
 		);
 	}
 

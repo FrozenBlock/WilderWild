@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/cactus",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/cactusSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:cactus"
+}

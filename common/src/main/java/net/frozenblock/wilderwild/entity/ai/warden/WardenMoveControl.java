@@ -66,7 +66,7 @@ public class WardenMoveControl extends MoveControl<Warden> {
 					final double horizontalLengthSquared = Math.sqrt(xDiff * xDiff + zDiff * zDiff);
 					if (Math.abs(yDiff) > 1.0E-5F || Math.abs(horizontalLengthSquared) > 1.0E-5F) {
 						float k = -((float) (Mth.atan2(yDiff, horizontalLengthSquared) * Mth.RAD_TO_DEG));
-						k = Mth.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
+						k = Math.clamp(Mth.wrapDegrees(k), -this.pitchChange, this.pitchChange);
 						this.warden.setXRot(this.rotlerp(this.warden.getXRot(), k, 5F));
 					}
 					this.warden.zza = Mth.cos(this.warden.getXRot() * Mth.DEG_TO_RAD) * movementSpeed;

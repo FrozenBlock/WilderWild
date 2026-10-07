@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.cactus.break",
+  "fall_sound": "wilderwild:block.cactus.fall",
+  "hit_sound": "wilderwild:block.cactus.hit",
+  "place_sound": "wilderwild:block.cactus.place",
+  "step_sound": "wilderwild:block.cactus.step",
+  "volume": 0.8
+}

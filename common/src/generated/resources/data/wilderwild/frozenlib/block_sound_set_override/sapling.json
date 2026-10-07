@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/sapling",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/saplingSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:sapling"
+}

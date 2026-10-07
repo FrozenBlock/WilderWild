@@ -1,26 +1,33 @@
 {
-  "type": "frozenlib:config_predicate",
+  "type": "frozenlib:config_predicate_requirement",
   "predicate": "wilderwild:music_pitch_shift_dying_forests",
   "provider": {
-    "type": "frozenlib:biome",
+    "type": "frozenlib:biome_requirement",
     "provider": {
       "type": "frozenlib:add",
-      "operand": {
-        "type": "frozenlib:multiply",
-        "operand": {
+      "inputs": [
+        {
           "type": "frozenlib:constant",
-          "value": 0.015
+          "value": 0.98
         },
-        "provider": {
-          "type": "frozenlib:sine",
-          "wave_length": 2400.0
+        {
+          "type": "frozenlib:mul",
+          "inputs": [
+            {
+              "type": "frozenlib:sin",
+              "input": {
+                "type": "frozenlib:constant",
+                "value": 2400.0
+              }
+            },
+            {
+              "type": "frozenlib:constant",
+              "value": 0.015
+            }
+          ]
         }
-      },
-      "provider": {
-        "type": "frozenlib:constant",
-        "value": 0.98
-      }
+      ]
     },
-    "required_biomes": "#wilderwild:music_pitch_shift_dying_forest"
+    "requirements": "#wilderwild:music_pitch_shift_dying_forest"
   }
 }

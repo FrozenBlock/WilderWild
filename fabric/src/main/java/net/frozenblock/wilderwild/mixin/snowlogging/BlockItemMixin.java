@@ -21,15 +21,13 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockItem.class)
 public class BlockItemMixin { // in common mixins.json
@@ -52,18 +50,12 @@ public class BlockItemMixin { // in common mixins.json
 		method = "place",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getSoundType()Lnet/minecraft/world/level/block/SoundType;"
+			target = "Lnet/minecraft/world/level/block/state/BlockState;getSounds(Lnet/minecraft/world/level/LevelReader;)Lnet/minecraft/world/level/block/sounds/BlockSoundSet;"
 		)
 	)
-	public SoundType wilderWild$place(BlockState instance, Operation<SoundType> original) {
+	public BlockSoundSet wilderWild$useSnowloggedBlockSoundSet(BlockState instance, LevelReader levelReader, Operation<BlockSoundSet> original) {
 		return SnowloggingUtil.isSnowlogged(instance)
-			? original.call(SnowloggingUtil.getSnowEquivalent(instance))
-			: original.call(instance);
-	}
-
-	@Inject(method = "getPlaceSound", at = @At("HEAD"), cancellable = true)
-	public void wilderWild$getPlaceSound(BlockState blockState, CallbackInfoReturnable<SoundEvent> info) {
-		if (!SnowloggingUtil.isSnowlogged(blockState)) return;
-		info.setReturnValue(SnowloggingUtil.getSnowEquivalent(blockState).getSoundType().getPlaceSound());
+			? original.call(SnowloggingUtil.getSnowEquivalent(instance), levelReader)
+			: original.call(instance, levelReader);
 	}
 }

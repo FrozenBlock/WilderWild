@@ -32,15 +32,11 @@ import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkSpreader;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.spongepowered.asm.mixin.Mixin;
@@ -193,34 +189,11 @@ public class SculkBlockMixin {
 		return original.call(instance, pos, state);
 	}
 
-	@WrapOperation(
-		method = "attemptUseCharge",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"
-		)
-	)
-	private void wilderWild$newSounds(
-		LevelAccessor instance, Entity entity, BlockPos pos, SoundEvent sound, SoundSource source, float volume, float pitch, Operation<Void> original,
-		@Share("wilderWild$placedPos") LocalRef<BlockPos> placedPos,
-		@Share("wilderWild$placedState") LocalRef<BlockState> placedState
-	) {
-		if (placedPos.get() != null && placedState.get()!= null) {
-			final SoundType soundType = placedState.get().getSoundType();
-			pos = placedPos.get();
-			sound = soundType.getPlaceSound();
-			volume = soundType.getVolume();
-			pitch = soundType.getPitch() * 0.8F;
-		}
-		original.call(instance, entity, pos, sound, source, volume, pitch);
-	}
-
 	@Inject(
 		method = "attemptUseCharge",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/LevelAccessor;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V",
-			shift = At.Shift.AFTER
+			target = "Lnet/minecraft/world/level/block/sounds/BlockSoundSet;placeSound()Ljava/util/Optional;"
 		)
 	)
 	private void wilderWild$handlePlacement(

@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.scorched_sand.break",
+  "fall_sound": "wilderwild:block.scorched_sand.fall",
+  "hit_sound": "wilderwild:block.scorched_sand.hit",
+  "place_sound": "wilderwild:block.scorched_sand.place",
+  "step_sound": "wilderwild:block.scorched_sand.step",
+  "volume": 0.8
+}

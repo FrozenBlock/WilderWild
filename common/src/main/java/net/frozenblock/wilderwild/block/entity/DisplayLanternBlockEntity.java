@@ -45,7 +45,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -83,7 +82,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 			this.firstTick = true;
 			if (hasFireflies) {
 				final BlockState state = this.getBlockState();
-				level.setBlockAndUpdate(pos, state.setValue(WWBlockStateProperties.DISPLAY_LIGHT, Mth.clamp(this.fireflies.size() * 3, 0, 15)));
+				level.setBlockAndUpdate(pos, state.setValue(WWBlockStateProperties.DISPLAY_LIGHT, Math.clamp(this.fireflies.size() * 3, 0, 15)));
 			}
 		}
 		if (hasFireflies) {
@@ -227,7 +226,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 
 	public int getComparatorOutput() {
 		if (!this.invEmpty()) return Redstone.SIGNAL_MAX;
-		if (!this.noFireflies()) return Mth.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
+		if (!this.noFireflies()) return Math.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		return 0;
 	}
 

@@ -37,7 +37,7 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SculkBehaviour;
 import net.minecraft.world.level.block.SculkSpreader;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -127,8 +127,10 @@ public class OsseousSculkBlock extends Block implements SculkBehaviour {
 	}
 
 	private static void playPlaceSound(LevelAccessor level, BlockPos pos, BlockState state) {
-		final SoundType soundType = state.getSoundType();
-		level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS, soundType.getVolume(), soundType.getPitch() * 0.8F);
+		final BlockSoundSet soundSet = state.getSounds(level);
+		soundSet.placeSound().ifPresent(sound -> {
+			level.playSound(null, pos, sound, SoundSource.BLOCKS, soundSet.volume(), soundSet.pitch() * 0.8F);
+		});
 	}
 
 	private BlockState getGrowthState(RandomSource random, Direction direction) {

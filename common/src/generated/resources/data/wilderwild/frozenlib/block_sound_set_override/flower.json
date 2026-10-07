@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/flower",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/flowerSounds",
+    "target": true
+  },
+  "sound_set": "minecraft:pink_petals"
+}

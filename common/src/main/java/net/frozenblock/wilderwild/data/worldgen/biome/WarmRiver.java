@@ -108,7 +108,7 @@ public final class WarmRiver extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(features, true, true);
 		BiomeDefaultFeatures.addDefaultSprings(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addDefaultOres(features);

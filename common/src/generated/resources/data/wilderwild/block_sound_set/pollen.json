@@ -1,0 +1,9 @@
+{
+  "break_sound": "wilderwild:block.pollen.break",
+  "fall_sound": "wilderwild:block.pollen.fall",
+  "hit_sound": "wilderwild:block.pollen.hit",
+  "pitch": 1.2,
+  "place_sound": "wilderwild:block.pollen.place",
+  "step_sound": "wilderwild:block.pollen.step",
+  "volume": 0.8
+}

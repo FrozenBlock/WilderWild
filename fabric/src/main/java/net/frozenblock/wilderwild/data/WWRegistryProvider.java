@@ -57,12 +57,14 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.STRUCTURE)));
 		WWConstants.log("Adding finalized block state providers to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.BLOCK_STATE_PROVIDER)));
+		WWConstants.log("Adding finalized block sound sets to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.BLOCK_SOUND_SET)));
 
 		// FrozenLib Dynamic Registries
 		WWConstants.log("Adding finalized config predicate providers to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER)));
-		WWConstants.log("Adding finalized sound type overrides to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.SOUND_TYPE_OVERRIDE)));
+		WWConstants.log("Adding finalized block sound set overrides to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BLOCK_SOUND_SET_OVERRIDE)));
 		WWConstants.log("Adding finalized clip groups to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CLIP_GROUP)));
 		WWConstants.log("Adding finalized water-like types to datagen", true);
