@@ -1,0 +1,45 @@
+{
+  "feature": "wilderwild:decorative_icicle_cluster",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 30,
+        "min_inclusive": 22
+      }
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 3
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:offset",
+      "x": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 3.0,
+        "max_inclusive": 4,
+        "mean": 0.0,
+        "min_inclusive": -4
+      },
+      "y": 0,
+      "z": {
+        "type": "minecraft:clamped_normal",
+        "deviation": 3.0,
+        "max_inclusive": 4,
+        "mean": 0.0,
+        "min_inclusive": -4
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

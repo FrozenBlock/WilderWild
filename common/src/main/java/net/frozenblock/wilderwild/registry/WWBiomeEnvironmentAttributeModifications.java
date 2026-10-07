@@ -51,7 +51,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		registerBlackFog(context, Biomes.DRIPSTONE_CAVES, WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_FOG);
 		registerBlackFog(context, Biomes.LUSH_CAVES, WWAmbienceAndMiscConfig.LUSH_CAVES_FOG);
 		registerBlackFog(context, Biomes.SULFUR_CAVES, WWAmbienceAndMiscConfig.SULFUR_CAVES_FOG);
-		registerBlackFog(context, WWBiomes.FROZEN_CAVES, WWAmbienceAndMiscConfig.FROZEN_CAVES_FOG);
+		registerBlackFog(context, Biomes.ICE_CAVES, WWAmbienceAndMiscConfig.ICE_CAVES_FOG);
 		registerBlackFog(context, WWBiomes.MESOGLEA_CAVES, WWAmbienceAndMiscConfig.MESOGLEA_CAVES_FOG);
 		registerBlackFog(context, WWBiomes.MAGMATIC_CAVES, WWAmbienceAndMiscConfig.MAGMATIC_CAVES_FOG);
 
@@ -102,11 +102,11 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		);
 		registerAmbience(
 			context,
-			WWBiomes.FROZEN_CAVES,
-			WWSounds.AMBIENT_FROZEN_CAVES_LOOP,
-			WWSounds.AMBIENT_FROZEN_CAVES_ADDITIONS,
+			Biomes.ICE_CAVES,
+			WWSounds.AMBIENT_ICE_CAVES_LOOP,
+			WWSounds.AMBIENT_ICE_CAVES_ADDITIONS,
 			0.003D,
-			WWAmbienceAndMiscConfig.FROZEN_CAVES_AMBIENCE
+			WWAmbienceAndMiscConfig.ICE_CAVES_AMBIENCE
 		);
 		registerAmbience(
 			context,
@@ -279,7 +279,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		registerMusic(
 			context,
 			"frozen_caves",
-			WWBiomeTags.HAS_FROZEN_CAVES_MUSIC,
+			WWBiomeTags.HAS_ICE_CAVES_MUSIC,
 			WWSounds.MUSIC_OVERWORLD_FROZEN_CAVES,
 			ConfigPredicate.alwaysTrue()
 		);

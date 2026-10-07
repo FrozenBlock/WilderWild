@@ -71,6 +71,8 @@ public final class WWBlockSoundSetOverrides {
 		register(context, "magma", WWBlockTags.SOUND_MAGMA_BLOCK, WWBlockSoundSets.MAGMA, WWBlockConfig.MAGMA_SOUNDS);
 		register(context, "ice", WWBlockTags.SOUND_ICE, WWBlockSoundSets.ICE, WWBlockConfig.ICE_SOUNDS);
 		register(context, "frosted_ice", WWBlockTags.SOUND_FROSTED_ICE, WWBlockSoundSets.FROSTED_ICE, WWBlockConfig.FROSTED_ICE_SOUNDS);
+		register(context, "icicle", WWBlockTags.SOUND_ICICLE, WWBlockSoundSets.ICE, WWConfigPredicates.SOUND_OVERRIDE_ICICLE);
+		register(context, "ice_crystal", WWBlockTags.SOUND_ICE_CRYSTAL, WWBlockSoundSets.ICE, WWBlockConfig.ICE_CRYSTAL_SOUNDS);
 
 		register(context, "reinforced_deepslate", WWBlockTags.SOUND_REINFORCED_DEEPSLATE, WWBlockSoundSets.REINFORCED_DEEPSLATE, WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS);
 

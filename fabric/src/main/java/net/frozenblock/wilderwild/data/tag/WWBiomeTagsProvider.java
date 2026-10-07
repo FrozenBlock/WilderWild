@@ -54,7 +54,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 	private void generateCompat() {
 		this.builder(getTag("sereneseasons:blacklisted_biomes"))
-			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
 			.addOptional(WWBiomes.MAGMATIC_CAVES)
 			.addOptional(WWBiomes.WARM_RIVER)
@@ -79,7 +78,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.WARM_RIVER)
 			.addOptional(WWBiomes.WARM_BEACH)
-			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
 			.addOptional(WWBiomes.MAGMATIC_CAVES)
 			.addOptional(WWBiomes.ARID_FOREST)
@@ -113,7 +111,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
 
 		this.builder(ConventionalBiomeTags.IS_CAVE)
-			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
 			.addOptional(WWBiomes.MAGMATIC_CAVES);
 
@@ -282,8 +279,8 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.HAS_MAGMATIC_CAVES_MUSIC)
 			.addOptional(WWBiomes.MAGMATIC_CAVES);
 
-		this.builder(WWBiomeTags.HAS_FROZEN_CAVES_MUSIC)
-			.addOptional(WWBiomes.FROZEN_CAVES);
+		this.builder(WWBiomeTags.HAS_ICE_CAVES_MUSIC)
+			.addOptional(Biomes.ICE_CAVES);
 
 		this.builder(WWBiomeTags.HAS_MESOGLEA_CAVES_MUSIC)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
@@ -319,7 +316,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA);
 
@@ -464,11 +460,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(ConventionalBiomeTags.IS_UNDERGROUND)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
-			.addOptional(WWBiomes.MAGMATIC_CAVES)
-			.addOptional(WWBiomes.FROZEN_CAVES);
-
-		this.builder(ConventionalBiomeTags.IS_ICY)
-			.addOptional(WWBiomes.FROZEN_CAVES);
+			.addOptional(WWBiomes.MAGMATIC_CAVES);
 
 		this.builder(WWBiomeTags.LUKEWARM_WATER)
 			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
@@ -584,7 +576,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN)
 			.add(Biomes.FROZEN_OCEAN)
 			.add(Biomes.FROZEN_RIVER)
-			.addOptional(WWBiomes.FROZEN_CAVES);
+			.add(Biomes.ICE_CAVES);
 
 		this.builder(WWBiomeTags.LIME_JELLYFISH)
 			.add(Biomes.WARM_OCEAN)
@@ -595,7 +587,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.FROZEN_OCEAN)
 			.add(Biomes.FROZEN_RIVER)
 			.add(Biomes.LUSH_CAVES)
-			.addOptional(WWBiomes.FROZEN_CAVES)
+			.add(Biomes.ICE_CAVES)
 			.addOptional(WWBiomes.WARM_RIVER);
 
 		this.builder(WWBiomeTags.PINK_JELLYFISH)
@@ -678,7 +670,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
 
 		this.builder(BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
-			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST)
 			.addOptional(WWBiomes.TUNDRA)
@@ -817,9 +808,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.BELOW_SURFACE_SNOW)
 			.add(Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.SNOWY_SLOPES, Biomes.GROVE);
-
-		this.builder(WWBiomeTags.STRAYS_CAN_SPAWN_UNDERGROUND)
-			.addOptional(WWBiomes.FROZEN_CAVES);
 
 		this.builder(BiomeTags.SPAWNS_SNOW_FOXES)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
@@ -1355,6 +1343,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
+		this.builder(WWBiomeTags.HAS_CAVE_FRAGILE_ICE)
+			.add(Biomes.ICE_CAVES);
 
 		this.builder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)
 			.add(Biomes.DESERT)
@@ -2225,7 +2216,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.WARM_RIVER)
 			.addOptional(WWBiomes.WARM_BEACH)
-			.addOptional(WWBiomes.FROZEN_CAVES)
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
 			.addOptional(WWBiomes.ARID_FOREST)
 			.addOptional(WWBiomes.ARID_SAVANNA)

@@ -117,7 +117,6 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> WANDERING_PASQUEFLOWER_TRADE = CONFIG.entryBuilder("villager/wanderingPasqueflowerTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_PRICKLY_PEAR_TRADE = CONFIG.entryBuilder("villager/wanderingPricklyPearTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_TUMBLEWEED_TRADE = CONFIG.entryBuilder("villager/wanderingTumbleweedTrade", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> WANDERING_ICICLE_TRADE = CONFIG.entryBuilder("villager/wanderingIcicleTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_BARNACLES_TRADE = CONFIG.entryBuilder("villager/wanderingBarnaclesTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_SEA_ANEMONE_TRADE = CONFIG.entryBuilder("villager/wanderingSeaAnemoneTrade", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WANDERING_SEA_WHIP_TRADE = CONFIG.entryBuilder("villager/wanderingSeaWhipTrade", EntryType.BOOL, true).requireRestart().build();

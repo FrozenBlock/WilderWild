@@ -53,7 +53,6 @@ import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
-import net.frozenblock.wilderwild.block.IcicleBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
@@ -1414,20 +1413,6 @@ public final class WWBlocks {
 	public static final DeferredBlock<FragileIceBlock> FRAGILE_ICE = REGISTER.registerBlock(WWBlockItemIds.FRAGILE_ICE,
 		FragileIceBlock::new,
 		() -> Properties.ofFullCopy(Blocks.ICE).strength(0.2F).pushReaction(PushReaction.POPPED)
-	);
-	public static final DeferredBlock<IcicleBlock> ICICLE = REGISTER.registerBlock(WWBlockItemIds.ICICLE,
-		properties -> new IcicleBlock(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), properties),
-		() -> Properties.of().mapColor(MapColor.ICE)
-			.forceSolidOn()
-			.friction(0.98F)
-			.randomTicks()
-			.strength(0.2F)
-			.sound(BlockSoundSets.GLASS)
-			.noOcclusion()
-			.dynamicShape()
-			.offsetType(BlockBehaviour.OffsetType.XZ)
-			.pushReaction(PushReaction.POPPED)
-			.isRedstoneConductor(Blocks::never)
 	);
 
 	// FROGLIGHT GOOP

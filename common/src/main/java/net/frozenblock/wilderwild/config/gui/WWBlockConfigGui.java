@@ -78,6 +78,16 @@ public final class WWBlockConfigGui {
 			booleanEntry(builder, "add_stone_chests", WWBlockConfig.ADD_STONE_CHESTS)
 		);
 
+		// ICICLE
+		createSubCategory(builder, category, text("icicle"), tooltip("icicle"),
+			intSliderEntry(builder, "icicle_growth_frequency", WWBlockConfig.ICICLE_GROWTH_FREQUENCY, 0, 100),
+			intSliderEntry(builder, "icicle_max_growth_length", WWBlockConfig.ICICLE_MAX_GROWTH_LENGTH, 2, 7),
+			booleanEntry(builder, "icicle_grows_on_floors", WWBlockConfig.ICICLE_GROWS_ON_FLOORS),
+			booleanEntry(builder, "falling_icicle_drops_item", WWBlockConfig.FALLING_ICICLE_DROPS_ITEM),
+			booleanEntry(builder, "falling_icicle_has_weaker_damage", WWBlockConfig.FALLING_ICICLE_HAS_WEAKER_DAMAGE),
+			booleanEntry(builder, "falling_icicle_damage_type", WWBlockConfig.FALLING_ICICLE_DAMAGE_TYPE)
+		);
+
 		// SNOWLOGGING
 		createSubCategory(builder, category, text("snowlogging"), tooltip("snowlogging"),
 			booleanEntry(builder, "allow_snowlogging", WWBlockConfig.SNOWLOGGING),
@@ -99,6 +109,8 @@ public final class WWBlockConfigGui {
 			booleanEntry(builder, "dead_bush_sounds", WWBlockConfig.DEAD_BUSH_SOUNDS),
 			booleanEntry(builder, "flower_sounds", WWBlockConfig.FLOWER_SOUNDS),
 			booleanEntry(builder, "frosted_ice_sounds", WWBlockConfig.FROSTED_ICE_SOUNDS),
+			booleanEntry(builder, "icicle_sounds", WWBlockConfig.ICICLE_SOUNDS),
+			booleanEntry(builder, "ice_crystal_sounds", WWBlockConfig.ICE_CRYSTAL_SOUNDS),
 			booleanEntry(builder, "grass_sounds", WWBlockConfig.GRASS_SOUNDS),
 			booleanEntry(builder, "gravel_sounds", WWBlockConfig.GRAVEL_SOUNDS),
 			booleanEntry(builder, "ice_sounds", WWBlockConfig.ICE_SOUNDS),

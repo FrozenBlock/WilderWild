@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.levelgen.feature.IcicleUtils;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
@@ -98,10 +97,13 @@ public class FragileIceBlock extends HalfTransparentBlock {
 
 	@Override
 	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		// TODO: if mojang doesn't implement farmable ice crystals, implement it here
+		/*
 		if (random.nextFloat() <= 0.075F) {
 			IcicleUtils.growIcicleOnRandomTick(level, pos);
 			return;
 		}
+		 */
 		this.heal(state, level, pos);
 	}
 

@@ -37,8 +37,8 @@ public final class WWSounds {
 	public static final DeferredSoundEvent AMBIENT_SULFUR_CAVES_LOOP = register("ambient.sulfur_caves.loop");
 	public static final DeferredSoundEvent AMBIENT_MAGMATIC_CAVES_ADDITIONS = register("ambient.magmatic_caves.additions");
 	public static final DeferredSoundEvent AMBIENT_MAGMATIC_CAVES_LOOP = register("ambient.magmatic_caves.loop");
-	public static final DeferredSoundEvent AMBIENT_FROZEN_CAVES_ADDITIONS = register("ambient.frozen_caves.additions");
-	public static final DeferredSoundEvent AMBIENT_FROZEN_CAVES_LOOP = register("ambient.frozen_caves.loop");
+	public static final DeferredSoundEvent AMBIENT_ICE_CAVES_ADDITIONS = register("ambient.ice_caves.additions");
+	public static final DeferredSoundEvent AMBIENT_ICE_CAVES_LOOP = register("ambient.ice_caves.loop");
 
 	//BLOCK
 	public static final DeferredSoundEvent BLOCK_ALGAE_PLACE = register("block.algae.place");

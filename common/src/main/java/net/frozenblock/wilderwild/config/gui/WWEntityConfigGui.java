@@ -141,7 +141,6 @@ public final class WWEntityConfigGui {
 		var pasqueflowerTrade = booleanEntry(builder, "pasqueflower_trade", WWEntityConfig.WANDERING_PASQUEFLOWER_TRADE);
 		var pricklyPearTrade = booleanEntry(builder, "prickly_pear_trade", WWEntityConfig.WANDERING_PRICKLY_PEAR_TRADE);
 		var tumbleweedTrade = booleanEntry(builder, "tumbleweed_trade", WWEntityConfig.WANDERING_TUMBLEWEED_TRADE);
-		var icicleTrade = booleanEntry(builder, "icicle_trade", WWEntityConfig.WANDERING_ICICLE_TRADE);
 		var barnaclesTrade = booleanEntry(builder, "barnacles_trade", WWEntityConfig.WANDERING_BARNACLES_TRADE);
 		var seaAnemoneTrade = booleanEntry(builder, "sea_anemone_trade", WWEntityConfig.WANDERING_SEA_ANEMONE_TRADE);
 		var seaWhipTrade = booleanEntry(builder, "sea_whip_trade", WWEntityConfig.WANDERING_SEA_WHIP_TRADE);
@@ -161,7 +160,6 @@ public final class WWEntityConfigGui {
 			willowTrade, cypressTrade, baobabTrade, palmTrade, mapleTrade,
 			carnationTrade, hibiscusTrade, seedingDandelionTrade, marigoldTrade, pasqueflowerTrade,
 			pricklyPearTrade, tumbleweedTrade,
-			icicleTrade,
 			barnaclesTrade, seaAnemoneTrade, seaWhipTrade, algaeTrade, planktonTrade, auburnMossTrade,
 			geothermalVentTrade,
 			desertPalmBoat, crabForEmeralds, jellyfishForEmeralds

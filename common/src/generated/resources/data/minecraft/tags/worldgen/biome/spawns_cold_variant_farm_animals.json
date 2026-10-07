@@ -1,10 +1,6 @@
 {
   "values": [
     {
-      "id": "wilderwild:frozen_caves",
-      "required": false
-    },
-    {
       "id": "wilderwild:temperate_rainforest",
       "required": false
     },

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
@@ -41,41 +40,32 @@ import net.frozenblock.wilderwild.levelgen.feature.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.WeightedList;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.TrapezoidInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
-import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
-import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.SpeleothemClusterFeature;
-import net.minecraft.world.level.levelgen.feature.SpeleothemFeature;
+import net.minecraft.world.level.levelgen.feature.SpeleothemUtils;
 import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
-import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
-import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
 
@@ -117,27 +107,11 @@ public final class WWCaveConfigured {
 	public static final FrozenLibFeature GEOTHERMAL_VENT_COLUMN = register("geothermal_vent_column");
 	public static final FrozenLibFeature UPSIDE_DOWN_MAGMA = WWFeatureUtils.register("upside_down_magma");
 
-	// FROZEN CAVES
-	public static final FrozenLibFeature ICICLE_CLUSTER = register("icicle_cluster");
-	public static final FrozenLibFeature CAVE_ICICLE = register("cave_icicle");
-	public static final FrozenLibFeature ICICLE = register("icicle");
-	public static final FrozenLibFeature PACKED_ICE_COLUMN = register("packed_ice_column");
-	public static final FrozenLibFeature DOWNWARDS_PACKED_ICE_COLUMN = register("downwards_packed_ice_column");
-	public static final FrozenLibFeature PACKED_ICE_BIG_COLUMN = register("packed_ice_big_column");
-	public static final FrozenLibFeature FRAGILE_ICE_BIG_COLUMN = register("fragile_ice_big_column");
-	public static final FrozenLibFeature FRAGILE_ICE_DISK = register("fragile_ice_disk");
+	// ICE CAVES
+	public static final FrozenLibFeature DECORATIVE_ICICLE_CLUSTER = register("decorative_icicle_cluster");
 	public static final FrozenLibFeature FRAGILE_ICE_COLUMN = register("fragile_ice_column");
-	public static final FrozenLibFeature SMALL_FRAGILE_ICE_COLUMN = register("small_fragile_ice_column");
-	public static final FrozenLibFeature DOWNWARDS_FRAGILE_ICE_COLUMN = register("downwards_fragile_ice_column");
-	public static final FrozenLibFeature FRAGILE_ICE_PILE = register("fragile_ice_pile");
-	public static final FrozenLibFeature HANGING_ICE = WWFeatureUtils.register("hanging_ice");
-	public static final FrozenLibFeature ICE_COLUMNS = WWFeatureUtils.register("ice_columns");
-	public static final FrozenLibFeature HANGING_PACKED_ICE = WWFeatureUtils.register("hanging_packed_ice");
-	public static final FrozenLibFeature ICE_PATCH_CEILING = WWFeatureUtils.register("ice_patch_ceiling");
-	public static final FrozenLibFeature FRAGILE_ICE_COLUMN_PATCH = WWFeatureUtils.register("fragile_ice_column_patch");
+	public static final FrozenLibFeature FRAGILE_ICE_PATCH_CEILING = WWFeatureUtils.register("fragile_ice_patch_ceiling");
 	public static final FrozenLibFeature FRAGILE_ICE_PATCH = WWFeatureUtils.register("fragile_ice_patch");
-	public static final FrozenLibFeature DIORITE_PATCH = WWFeatureUtils.register("diorite_patch");
-	public static final FrozenLibFeature DIORITE_PATCH_CEILING = WWFeatureUtils.register("diorite_patch_ceiling");
 
 	public static void registerCaveConfigured(BootstrapContext<Feature> entries) {
 		WWConstants.logWithModId("Registering WWCaveConfigured for", true);
@@ -556,269 +530,30 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		// FROZEN CAVES
-		ICICLE_CLUSTER.makeAndSetHolder(
+		// ICE CAVES
+		DECORATIVE_ICICLE_CLUSTER.makeAndSetHolder(
 			new SpeleothemClusterFeature(
-				WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
-				WWBlocks.ICICLE.get().defaultBlockState(),
-				blocks.getOrThrow(WWBlockTags.ICICLE_REPLACEABLE),
+				Blocks.PACKED_ICE.defaultBlockState(),
+				Blocks.ICICLE.defaultBlockState(),
+				HolderSet.empty(),
 				12,
-				UniformInt.of(2, 5),
-				UniformInt.of(2, 6),
+				BiasedToBottomInt.of(1, 2),
+				ConstantInt.of(3),
 				1,
-				3,
-				UniformInt.of(2, 5),
-				UniformFloat.of(0.3F, 0.7F),
-				ConstantFloat.of(0F),
+				2,
+				BiasedToBottomInt.of(1, 2),
+				UniformFloat.of(0.1F, 0.25F),
+				ConstantFloat.ZERO,
 				0.1F,
-				3,
-				8
-			)
-		);
-
-		CAVE_ICICLE.makeAndSetHolder(
-			new SimpleRandomSelectorFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new SpeleothemFeature(
-							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
-							WWBlocks.ICICLE.get().defaultBlockState(),
-							blocks.getOrThrow(WWBlockTags.ICICLE_REPLACEABLE),
-							0.2F,
-							0.7F,
-							0.5F,
-							0.5F
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					),
-					PlacementUtils.inlinePlaced(
-						new SpeleothemFeature(
-							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
-							WWBlocks.ICICLE.get().defaultBlockState(),
-							blocks.getOrThrow(WWBlockTags.ICICLE_REPLACEABLE),
-							0.2F,
-							0.7F,
-							0.5F,
-							0.5F
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(-1))
-					)
-				)
-			)
-		);
-
-		ICICLE.makeAndSetHolder(
-			new SimpleRandomSelectorFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new SpeleothemFeature(
-							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
-							WWBlocks.ICICLE.get().defaultBlockState(),
-							HolderSet.empty(),
-							0.3F,
-							0.7F,
-							0.5F,
-							0.3F
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					),
-					PlacementUtils.inlinePlaced(
-						new SpeleothemFeature(
-							WWBlocks.FRAGILE_ICE.get().defaultBlockState(),
-							WWBlocks.ICICLE.get().defaultBlockState(),
-							HolderSet.empty(),
-							0.3F,
-							0.7F,
-							0.5F,
-							0.3F
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(-1))
-					)
-				)
-			)
-		);
-
-		FRAGILE_ICE_DISK.makeAndSetHolder(
-			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
-					.placementChance(0.8F)
-					.fadeStartPercentage(0.675F)
-					.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-					.searchingBlockPredicate(TouchingBlockPredicate.exposed())
-					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
-							.placementChance(0.7F)
-							.outerRingStartPercentage(0.5F)
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.CAVE_ICE_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.build()
-					).build(),
-				Optional.empty(),
-				UniformInt.of(4, 8)
-			)
-		);
-
-		PACKED_ICE_COLUMN.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-							BlockPredicate.replaceable(),
-							UniformInt.of(2, 9),
-							Direction.UP,
-							true
-						),
-						OffsetPlacement.horizontal(TrapezoidInt.triangle(1)),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					),
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-							BlockPredicate.replaceable(),
-							UniformInt.of(0, 4),
-							Direction.UP,
-							true
-						),
-						CountPlacement.of(3),
-						OffsetPlacement.ofTriangle(1, 1),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					)
-				)
-			)
-		);
-
-		DOWNWARDS_PACKED_ICE_COLUMN.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-							BlockPredicate.replaceable(),
-							UniformInt.of(2, 6),
-							Direction.DOWN,
-							true
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(-1))
-					),
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-							BlockPredicate.replaceable(),
-							UniformInt.of(0, 4),
-							Direction.DOWN,
-							true
-						),
-						CountPlacement.of(3),
-						OffsetPlacement.ofTriangle(1, 1),
-						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(-1))
-					)
-				)
-			)
-		);
-
-		PACKED_ICE_BIG_COLUMN.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-							BlockPredicate.replaceable(),
-							UniformInt.of(2, 9),
-							Direction.UP,
-							true
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					),
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-							BlockPredicate.replaceable(),
-							UniformInt.of(0, 4),
-							Direction.UP,
-							true
-						),
-						CountPlacement.of(5),
-						OffsetPlacement.ofTriangle(1, 1),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					)
-				)
-			)
-		);
-
-		FRAGILE_ICE_BIG_COLUMN.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-							BlockPredicate.replaceable(),
-							UniformInt.of(2, 9),
-							Direction.UP,
-							true
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					),
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-							BlockPredicate.replaceable(),
-							UniformInt.of(0, 4),
-							Direction.UP,
-							true
-						),
-						CountPlacement.of(5),
-						OffsetPlacement.ofTriangle(1, 1),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					)
+				2,
+				5,
+				new SpeleothemClusterFeature.PlacementOptions(
+					SpeleothemClusterFeature.PlacementMode.FLOOR_AND_CEILING, SpeleothemUtils.BaseBlockTransformer.SET_ATTACHED, false
 				)
 			)
 		);
 
 		FRAGILE_ICE_COLUMN.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-							BlockPredicate.replaceable(),
-							UniformInt.of(2, 7),
-							Direction.UP,
-							true
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					),
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-							BlockPredicate.replaceable(),
-							UniformInt.of(0, 4),
-							Direction.UP,
-							true
-						),
-						CountPlacement.of(3),
-						OffsetPlacement.ofTriangle(1, 1),
-						EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(1))
-					)
-				)
-			)
-		);
-
-		SMALL_FRAGILE_ICE_COLUMN.makeAndSetHolder(
 			new ColumnFeature(
 				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 				BlockPredicate.replaceable(),
@@ -828,81 +563,10 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		DOWNWARDS_FRAGILE_ICE_COLUMN.makeAndSetHolder(
-			new SequenceFeature(
-				HolderSet.direct(
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-							BlockPredicate.replaceable(),
-							UniformInt.of(2, 6),
-							Direction.DOWN,
-							true
-						),
-						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(-1))
-					),
-					PlacementUtils.inlinePlaced(
-						new ColumnFeature(
-							BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-							BlockPredicate.replaceable(),
-							UniformInt.of(0, 4),
-							Direction.DOWN,
-							true
-						),
-						CountPlacement.of(3),
-						EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-						OffsetPlacement.vertical(ConstantInt.of(-1))
-					)
-				)
-			)
-		);
-
-		FRAGILE_ICE_PILE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get())));
-
-		HANGING_ICE.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(DOWNWARDS_PACKED_ICE_COLUMN.asWeightedPlacedFeature(0.6F)),
-				DOWNWARDS_FRAGILE_ICE_COLUMN.asInlinePlaced()
-			)
-		);
-
-		ICE_COLUMNS.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					PACKED_ICE_COLUMN.asWeightedPlacedFeature(0.3F),
-					PACKED_ICE_BIG_COLUMN.asWeightedPlacedFeature(0.3F),
-					FRAGILE_ICE_BIG_COLUMN.asWeightedPlacedFeature(0.35F)
-				),
-				FRAGILE_ICE_COLUMN.asInlinePlaced()
-			)
-		);
-
-		HANGING_PACKED_ICE.makeAndSetHolder(
+		FRAGILE_ICE_PATCH_CEILING.makeAndSetHolder(
 			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.PACKED_ICE),
-				HANGING_ICE.asInlinePlaced(),
-				CaveSurface.CEILING,
-				UniformInt.of(2, 3),
-				0.4F,
-				4,
-				0.15F,
-				UniformInt.of(3, 6),
-				0.6F
-			)
-		);
-
-		ICE_PATCH_CEILING.makeAndSetHolder(
-			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				Holder.direct(
-					new WeightedStateProvider(WeightedList.<BlockState>builder()
-						.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 8)
-						.add(Blocks.PACKED_ICE.defaultBlockState(), 3)
-						.build()
-					)
-				),
+				blocks.getOrThrow(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 				PlacementUtils.inlinePlaced(
 					new ColumnFeature(
 						BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
@@ -912,85 +576,28 @@ public final class WWCaveConfigured {
 						true
 					)
 				),
-				CaveSurface.FLOOR,
+				CaveSurface.CEILING,
 				UniformInt.of(2, 3),
 				0.4F,
 				4,
 				0.035F,
 				UniformInt.of(4, 10),
-				0.6F
-			)
-		);
-
-		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(
-			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				Holder.direct(
-					new WeightedStateProvider(WeightedList.<BlockState>builder()
-						.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
-						.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
-						.build()
-					)
-				),
-				ICE_COLUMNS.asInlinePlaced(),
-				CaveSurface.FLOOR,
-				UniformInt.of(2, 3),
-				0.4F,
-				4,
-				0.1F,
-				UniformInt.of(3, 6),
 				0.6F
 			)
 		);
 
 		FRAGILE_ICE_PATCH.makeAndSetHolder(
 			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.CAVE_ICE_REPLACEABLE),
-				Holder.direct(
-					new WeightedStateProvider(WeightedList.<BlockState>builder()
-						.add(WWBlocks.FRAGILE_ICE.get().defaultBlockState(), 5)
-						.add(Blocks.PACKED_ICE.defaultBlockState(), 8)
-						.build()
-					)
-				),
-				SMALL_FRAGILE_ICE_COLUMN.asInlinePlaced(),
+				blocks.getOrThrow(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
+				FRAGILE_ICE_COLUMN.asInlinePlaced(),
 				CaveSurface.FLOOR,
-				UniformInt.of(2, 3),
-				0.4F,
+				UniformInt.of(2, 5),
+				0.25F,
 				4,
 				0.035F,
 				UniformInt.of(4, 10),
-				0.6F
-			)
-		);
-
-		DIORITE_PATCH.makeAndSetHolder(
-			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.DIORITE_ICE_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.DIORITE),
-				WWMiscConfigured.EMPTY.asInlinePlaced(),
-				CaveSurface.FLOOR,
-				UniformInt.of(2, 3),
-				0.4F,
-				4,
-				0.05F,
-				UniformInt.of(2, 6),
-				0.65F
-			)
-		);
-
-		DIORITE_PATCH_CEILING.makeAndSetHolder(
-			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.DIORITE_ICE_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.DIORITE),
-				WWMiscConfigured.EMPTY.asInlinePlaced(),
-				CaveSurface.CEILING,
-				UniformInt.of(2, 3),
-				0.4F,
-				4,
-				0.05F,
-				UniformInt.of(2, 6),
-				0.65F
+				0.4F
 			)
 		);
 	}

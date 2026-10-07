@@ -1,7 +1,7 @@
 {
   "values": [
     "minecraft:ladder",
-    "wilderwild:icicle",
+    "minecraft:icicle",
     {
       "id": "#minecraft:leaves",
       "required": false

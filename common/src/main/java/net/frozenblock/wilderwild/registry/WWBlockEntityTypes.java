@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
 import net.frozenblock.wilderwild.block.entity.HangingTendrilBlockEntity;
-import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
@@ -56,10 +55,6 @@ public final class WWBlockEntityTypes {
 	public static final DeferredBlockEntityType<GeothermalVentBlockEntity> GEOTHERMAL_VENT = REGISTER.register(WWBlockEntityTypeIds.GEOTHERMAL_VENT,
 		GeothermalVentBlockEntity::new,
 		WWBlocks.GEOTHERMAL_VENT
-	);
-	public static final DeferredBlockEntityType<IcicleBlockEntity> ICICLE = REGISTER.register(WWBlockEntityTypeIds.ICICLE,
-		IcicleBlockEntity::new,
-		WWBlocks.ICICLE
 	);
 
 	static {

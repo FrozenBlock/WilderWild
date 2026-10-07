@@ -31,7 +31,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.CaveFeatures;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
-import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ClampedNormalInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -91,19 +90,10 @@ public final class WWCavePlaced {
 	public static final FrozenLibPlacedFeature UPSIDE_DOWN_MAGMA = register("upside_down_magma");
 
 	// FROZEN CAVES
-	public static final FrozenLibPlacedFeature ICICLE_CLUSTER = register("icicle_cluster");
-	public static final FrozenLibPlacedFeature CAVE_ICICLES = register("cave_icicles");
-	public static final FrozenLibPlacedFeature ICICLES_SURFACE_WG = register("icicles_surface_wg");
-	public static final FrozenLibPlacedFeature ICICLES_SURFACE = register("icicles_surface");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK = register("fragile_ice_disk");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_PILE = register("fragile_ice_pile");
-	public static final FrozenLibPlacedFeature HANGING_PACKED_ICE = register("hanging_packed_ice");
-	public static final FrozenLibPlacedFeature ICE_PATCH_CEILING = register("ice_patch_ceiling");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_COLUMN_PATCH = register("fragile_ice_column_patch");
+	public static final FrozenLibPlacedFeature DECORATIVE_ICICLE_CLUSTER_SURFACE_WG = register("decorative_icicle_cluster_surface_wg");
+	public static final FrozenLibPlacedFeature DECORATIVE_ICICLE_CLUSTER_SURFACE = register("decorative_icicle_cluster_surface");
+	public static final FrozenLibPlacedFeature FRAGILE_ICE_PATCH_CEILING = register("ice_patch_ceiling");
 	public static final FrozenLibPlacedFeature FRAGILE_ICE_PATCH = register("fragile_ice_patch");
-	public static final FrozenLibPlacedFeature DIORITE_PATCH = register("diorite_patch");
-	public static final FrozenLibPlacedFeature DIORITE_PATCH_CEILING = register("diorite_patch_ceiling");
-	public static final FrozenLibPlacedFeature ORE_DIORITE_EXTRA = register("ore_diorite_extra");
 
 	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
@@ -425,121 +415,40 @@ public final class WWCavePlaced {
 		);
 
 		// FROZEN CAVES
-		ICICLE_CLUSTER.makeAndSetHolder(WWCaveConfigured.ICICLE_CLUSTER,
-			CountPlacement.of(UniformInt.of(24, 48)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			BiomeFilter.biome()
-		);
-
-		CAVE_ICICLES.makeAndSetHolder(WWCaveConfigured.CAVE_ICICLE,
-			CountPlacement.of(UniformInt.of(56, 192)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			CountPlacement.of(UniformInt.of(1, 5)),
-			OffsetPlacement.of(
-				ClampedNormalInt.of(0F, 3F, -10, 10),
-				ClampedNormalInt.of(0F, 0.6F, -2, 2)
-			),
-			BiomeFilter.biome()
-		);
-
-		ICICLES_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.ICICLE,
+		DECORATIVE_ICICLE_CLUSTER_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.DECORATIVE_ICICLE_CLUSTER,
 			CountPlacement.of(UniformInt.of(20, 30)),
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			OffsetPlacement.of(
-				ClampedNormalInt.of(0F, 3F, -10, 10),
-				ClampedNormalInt.of(0F, 0.6F, -2, 2)
-			),
+			OffsetPlacement.horizontal(ClampedNormalInt.of(0F, 3F, -4, 4)),
 			BiomeFilter.biome()
 		);
 
-		ICICLES_SURFACE.makeAndSetHolder(WWCaveConfigured.ICICLE,
+		DECORATIVE_ICICLE_CLUSTER_SURFACE.makeAndSetHolder(WWCaveConfigured.DECORATIVE_ICICLE_CLUSTER,
 			CountPlacement.of(UniformInt.of(22, 30)),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(127)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			OffsetPlacement.of(
-				ClampedNormalInt.of(0F, 3F, -10, 10),
-				ClampedNormalInt.of(0F, 0.6F, -2, 2)
-			),
+			OffsetPlacement.horizontal(ClampedNormalInt.of(0F, 3F, -4, 4)),
 			BiomeFilter.biome()
 		);
 
-		FRAGILE_ICE_DISK.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_DISK,
-			modifiersWithCount(38, PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT)
-		);
-
-		FRAGILE_ICE_PILE.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PILE,
-			CountPlacement.of(UniformInt.of(60, 80)),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			BiomeFilter.biome()
-		);
-
-		HANGING_PACKED_ICE.makeAndSetHolder(WWCaveConfigured.HANGING_PACKED_ICE,
-			CountPlacement.of(16),
+		FRAGILE_ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH_CEILING,
+			CountPlacement.of(32),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.ICE_PATCH_CEILING,
-			CountPlacement.of(24),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		FRAGILE_ICE_COLUMN_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_COLUMN_PATCH,
-			CountPlacement.of(12),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
+			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
 
 		FRAGILE_ICE_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH,
-			CountPlacement.of(48),
+			CountPlacement.of(32),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
 			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
-		);
-
-		DIORITE_PATCH.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH,
-			CountPlacement.of(16),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		DIORITE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.DIORITE_PATCH_CEILING,
-			CountPlacement.of(16),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		ORE_DIORITE_EXTRA.makeAndSetHolder(features.getOrThrow(OreFeatures.ORE_DIORITE),
-			modifiersWithCount(1, HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(256)))
 		);
 	}
 

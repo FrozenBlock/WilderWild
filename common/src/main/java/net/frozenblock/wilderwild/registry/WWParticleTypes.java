@@ -24,7 +24,6 @@ import net.frozenblock.lib.platform.api.registry.DeferredParticleType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredSimpleParticleType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.entity.IcicleBlockEntity;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.entity.Crab;
@@ -183,7 +182,7 @@ public final class WWParticleTypes {
 	}
 
 	public static void init() {
-		VibrationParticleVisibilityApi.registerVisibilityTest((data, user) -> !(user instanceof Crab.VibrationUser) && !(user instanceof IcicleBlockEntity.VibrationUser));
+		VibrationParticleVisibilityApi.registerVisibilityTest((data, user) -> !(user instanceof Crab.VibrationUser));
 	}
 
 	private static DeferredParticleType<WWFallingLeavesParticleOptions> createLeafParticle(String name) {

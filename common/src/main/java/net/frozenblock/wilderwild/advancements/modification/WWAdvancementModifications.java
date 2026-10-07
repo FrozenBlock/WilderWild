@@ -71,7 +71,6 @@ public final class WWAdvancementModifications {
 					if (WWWorldgenConfig.OASIS_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.OASIS, registries);
 					if (WWWorldgenConfig.WARM_RIVER_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.WARM_RIVER, registries);
 					if (WWWorldgenConfig.WARM_BEACH_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.WARM_BEACH, registries);
-					if (WWWorldgenConfig.FROZEN_CAVES_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.FROZEN_CAVES, registries);
 					if (WWWorldgenConfig.MESOGLEA_CAVES_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.MESOGLEA_CAVES, registries);
 					if (WWWorldgenConfig.MAGMATIC_CAVES_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.MAGMATIC_CAVES, registries);
 					if (WWWorldgenConfig.ARID_FOREST_GENERATION.get()) addBiomeRequirement(advancement, WWBiomes.ARID_FOREST, registries);

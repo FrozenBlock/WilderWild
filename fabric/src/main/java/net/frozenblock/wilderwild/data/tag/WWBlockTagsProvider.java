@@ -302,16 +302,13 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
 			.add(BlockItemIds.RED_SAND);
 
-		this.builder(WWBlockTags.CAVE_ICE_REPLACEABLE)
+		this.builder(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)
+			.addOptionalTag(BlockTags.ICE)
 			.add(BlockItemIds.GRAVEL)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
 			.add(BlockItemIds.SNOW_BLOCK)
 			.add(BlockItemIds.SNOW);
-
-		this.builder(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)
-			.addOptionalTag(BlockTags.ICE)
-			.addOptionalTag(WWBlockTags.CAVE_ICE_REPLACEABLE);
 
 		this.builder(WWBlockTags.DIORITE_ICE_REPLACEABLE)
 			.add(BlockItemIds.GRAVEL)
@@ -324,7 +321,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.PACKED_ICE);
 
 		this.builder(WWBlockTags.ICICLE_REPLACEABLE)
-			.addOptionalTag(WWBlockTags.ICICLE_GROWS_WHEN_UNDER)
+			.addOptionalTag(WWBlockTags.ICICLE_CAN_GROW_UNDER)
 			.addOptionalTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE);
 
 		this.builder(WWBlockTags.MESOGLEA_REPLACEABLE)
@@ -410,11 +407,8 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 	}
 
 	private void generateTags(HolderLookup.Provider registries) {
-		this.builder(WWBlockTags.ICICLE_FALLS_FROM)
-			.add(BlockItemIds.ICE, BlockItemIds.PACKED_ICE, BlockItemIds.BLUE_ICE, WWBlockItemIds.FRAGILE_ICE);
-
-		this.builder(WWBlockTags.ICICLE_GROWS_WHEN_UNDER)
-			.add(BlockItemIds.ICE, BlockItemIds.PACKED_ICE, BlockItemIds.BLUE_ICE, WWBlockItemIds.FRAGILE_ICE);
+		this.builder(WWBlockTags.ICICLE_CAN_GROW_UNDER)
+			.add(BlockItemIds.PACKED_ICE, WWBlockItemIds.FRAGILE_ICE);
 
 		this.builder(WWBlockTags.STOPS_TUMBLEWEED)
 			.add(BlockItemIds.SLIME_BLOCK)
@@ -554,7 +548,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
 			.add(BlockItemIds.LADDER)
-			.add(WWBlockItemIds.ICICLE)
+			.add(BlockItemIds.ICICLE)
 			.addOptionalTag(BlockItemTags.LEAVES.block())
 			.addOptionalTag(BlockItemTags.WALLS.block())
 			.addOptionalTag(BlockItemTags.FENCE_GATES.block())
@@ -813,7 +807,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.MOSSY_GABBRO_BRICKS, WWBlockItemIds.MOSSY_GABBRO_BRICK_STAIRS, WWBlockItemIds.MOSSY_GABBRO_BRICK_SLAB, WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL)
 
 			.add(WWBlockItemIds.FRAGILE_ICE)
-			.add(WWBlockItemIds.ICICLE)
 
 			.add(WWBlockItemIds.BARNACLES);
 
@@ -945,9 +938,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(BlockTags.ICE)
 			.add(WWBlockItemIds.FRAGILE_ICE);
-
-		this.builder(BlockTags.SPELEOTHEMS)
-			.add(WWBlockItemIds.ICICLE);
 
 		this.builder(BlockTags.REPLACEABLE_BY_TREES)
 			.add(WWBlockItemIds.MYCELIUM_GROWTH)
@@ -1190,8 +1180,13 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockIds.FROSTED_ICE, WWBlockItemIds.FRAGILE_ICE.block());
 
 		this.builder(WWBlockTags.SOUND_ICE)
-			.add(BlockItemIds.ICE, BlockItemIds.PACKED_ICE, BlockItemIds.BLUE_ICE)
-			.add(WWBlockItemIds.ICICLE);
+			.add(BlockItemIds.ICE, BlockItemIds.PACKED_ICE, BlockItemIds.BLUE_ICE);
+
+		this.builder(WWBlockTags.SOUND_ICICLE)
+			.add(BlockItemIds.ICICLE);
+
+		this.builder(WWBlockTags.SOUND_ICE_CRYSTAL)
+			.add(BlockItemIds.ICE_CRYSTAL);
 
 		this.builder(WWBlockTags.SOUND_COARSE_DIRT)
 			.add(BlockItemIds.COARSE_DIRT)

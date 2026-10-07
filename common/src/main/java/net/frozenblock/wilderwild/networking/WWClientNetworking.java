@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
@@ -54,7 +53,6 @@ public final class WWClientNetworking {
 		receiveLightningStrikePacket();
 		receiveStoneChestLidPacket();
 		receiveScorchingFirePlacePacket();
-		receiveIcicleLandPacket();
 		receiveLeavesExplosionPacket();
 	}
 
@@ -130,23 +128,6 @@ public final class WWClientNetworking {
 				(random.nextFloat() - random.nextFloat()) * 0.2F + 1F,
 				true
 			);
-		});
-	}
-
-	public static void receiveIcicleLandPacket() {
-		ClientNetworkingHelper.registerGlobalClientReceiver(WWIcicleLandPacket.PACKET_TYPE, (packet, minecraft, player) -> {
-			final ClientLevel level = minecraft.level;
-			level.addDestroyBlockEffect(packet.pos(), Block.stateById(packet.blockStateId()));
-			if (!packet.isSilent()) {
-				level.playLocalSound(
-					packet.pos(),
-					WWSounds.BLOCK_ICICLE_LAND.get(),
-					SoundSource.BLOCKS,
-					2F,
-					level.getRandom().nextFloat() * 0.1F + 0.9F,
-					false
-				);
-			}
 		});
 	}
 
@@ -244,4 +225,6 @@ public final class WWClientNetworking {
 			FallingLeafUtil.clientSpawnExplosionParticlesFromPacket(level, packet);
 		});
 	}
+
+	private WWClientNetworking() {}
 }

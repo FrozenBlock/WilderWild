@@ -1,0 +1,23 @@
+{
+  "attributes": {
+    "minecraft:audio/ambient_sounds": {
+      "additions": {
+        "sound": "wilderwild:ambient.ice_caves.additions",
+        "tick_chance": 0.003
+      },
+      "loop": "wilderwild:ambient.ice_caves.loop",
+      "mood": {
+        "block_search_extent": 8,
+        "offset": 2.0,
+        "sound": "minecraft:ambient.cave",
+        "tick_delay": 6000
+      }
+    }
+  },
+  "biomes": "minecraft:ice_caves",
+  "enabled_when": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:misc/biomeAmbience/iceCavesAmbience",
+    "target": true
+  }
+}

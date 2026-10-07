@@ -65,7 +65,6 @@ public final class WWVillagerTradesTagsProvider extends FabricTagsProvider<Villa
 				WWVillagerTrades.WANDERING_TRADER_EMERALD_WHITE_HIBISCUS
 			).add(WWVillagerTrades.WANDERING_TRADER_EMERALD_TUMBLEWEED_PLANT)
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_PRICKLY_PEAR)
-			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_ICICLE)
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_BARNACLES)
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_SEA_ANEMONE)
 			.add(WWVillagerTrades.WANDERING_TRADER_EMERALD_SEA_WHIP)

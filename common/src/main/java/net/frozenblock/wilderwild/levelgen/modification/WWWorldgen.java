@@ -64,7 +64,6 @@ public final class WWWorldgen {
 		final Map<ResourceKey<Biome>, ResourceKey<VillagerType>> villagerTypeMap = VillagerType.BY_BIOME;
 		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
 		villagerTypeMap.put(WWBiomes.OASIS, VillagerType.DESERT);
-		villagerTypeMap.put(WWBiomes.FROZEN_CAVES, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.ARID_FOREST, VillagerType.DESERT);
 		villagerTypeMap.put(WWBiomes.ARID_SAVANNA, VillagerType.SAVANNA);
 		villagerTypeMap.put(WWBiomes.PARCHED_FOREST, VillagerType.SAVANNA);

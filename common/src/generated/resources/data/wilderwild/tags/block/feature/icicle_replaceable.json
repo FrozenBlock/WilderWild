@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#wilderwild:icicle_grows_when_under",
+      "id": "#wilderwild:icicle_can_grow_under",
       "required": false
     },
     {

@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:ice_patch_ceiling",
+  "feature": "wilderwild:fragile_ice_patch_ceiling",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 24
+      "count": 32
     },
     {
       "type": "minecraft:in_square"
@@ -44,7 +44,7 @@
     {
       "type": "minecraft:offset",
       "x": 0,
-      "y": 1,
+      "y": -1,
       "z": 0
     },
     {

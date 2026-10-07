@@ -37,7 +37,6 @@ import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 
 public final class WWRecipeProvider extends FabricRecipeProvider {
@@ -80,7 +79,8 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				this.carpet(WWItems.AUBURN_MOSS_CARPET, WWItems.AUBURN_MOSS_BLOCK);
 
-				this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWItems.ICICLE);
+				// TODO: see if icicles have this recipe in vanilla
+				//this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWItems.ICICLE);
 
 				this.shaped(RecipeCategory.DECORATIONS, WWItems.DISPLAY_LANTERN)
 					.define('X', Ingredient.of(Items.IRON_NUGGET))

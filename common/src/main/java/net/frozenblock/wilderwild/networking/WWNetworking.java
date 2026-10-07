@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.networking;
 
 import net.frozenblock.lib.networking.api.NetworkingHelper;
-import net.frozenblock.wilderwild.networking.packet.WWIcicleLandPacket;
 import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
@@ -32,7 +31,8 @@ public final class WWNetworking {
 		NetworkingHelper.registerS2CPayloadType(WWLightningStrikePacket.PACKET_TYPE, WWLightningStrikePacket.CODEC);
 		NetworkingHelper.registerS2CPayloadType(WWStoneChestLidPacket.PACKET_TYPE, WWStoneChestLidPacket.CODEC);
 		NetworkingHelper.registerS2CPayloadType(WWScorchingFirePlacePacket.PACKET_TYPE, WWScorchingFirePlacePacket.CODEC);
-		NetworkingHelper.registerS2CPayloadType(WWIcicleLandPacket.PACKET_TYPE, WWIcicleLandPacket.CODEC);
 		NetworkingHelper.registerS2CPayloadType(WWLeavesExplosionParticlePacket.PACKET_TYPE, WWLeavesExplosionParticlePacket.CODEC);
 	}
+
+	private WWNetworking() {}
 }

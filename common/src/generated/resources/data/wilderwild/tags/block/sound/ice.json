@@ -2,7 +2,6 @@
   "values": [
     "minecraft:ice",
     "minecraft:packed_ice",
-    "minecraft:blue_ice",
-    "wilderwild:icicle"
+    "minecraft:blue_ice"
   ]
 }

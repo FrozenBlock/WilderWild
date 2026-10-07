@@ -41,7 +41,7 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> CHEST_BUBBLING = CONFIG.entry("chestBubbling", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> THICK_BIG_FUNGUS_GROWTH = CONFIG.entry("thickBigFungusGrowth", EntryType.BOOL, true);
 
-	//SCULK
+	// SCULK
 	public static final ConfigEntry<Boolean> SHRIEKER_GARGLING = CONFIG.unsyncableEntry("sculk/shriekerGargling", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SHRIEKER_OUTLINE = CONFIG.unsyncableEntry("sculk/shriekerOutline", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> BILLBOARD_TENDRILS = CONFIG.unsyncableEntry("sculk/billboardTendrils", EntryType.BOOL, true);
@@ -50,7 +50,7 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> OSSEOUS_SCULK_GENERATION = CONFIG.entry("sculk/osseousSculkGeneration", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SCULK_BUILDING_BLOCKS_GENERATION = CONFIG.entry("sculk/sculkBuildingBlocksGeneration", EntryType.BOOL, true);
 
-	//MESOGLEA
+	// MESOGLEA
 	public static final ConfigEntry<Boolean> MESOGLEA_RENDERS_AS_FLUID = CONFIG.unsyncableEntry("mesoglea/mesogleaFluid", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> MESOGLEA_BUBBLE_COLUMNS = CONFIG.entry("mesoglea/mesogleaBubbleColumns", EntryType.BOOL, true);
 
@@ -68,6 +68,14 @@ public final class WWBlockConfig {
 	// STONE CHEST
 	public static final ConfigEntry<Integer> STONE_CHEST_TIMER = CONFIG.entry("stoneChest/stoneChestTimer", EntryType.INT, 100);
 	public static final ConfigEntry<Boolean> ADD_STONE_CHESTS = CONFIG.entry("stoneChest/addStoneChests", EntryType.BOOL, true);
+
+	// ICICLE
+	public static final ConfigEntry<Integer> ICICLE_GROWTH_FREQUENCY = CONFIG.entry("icicle/icicleGrowthFrequency", EntryType.INT, 0);
+	public static final ConfigEntry<Integer> ICICLE_MAX_GROWTH_LENGTH = CONFIG.entry("icicle/icicleMaxGrowthLength", EntryType.INT, 4);
+	public static final ConfigEntry<Boolean> ICICLE_GROWS_ON_FLOORS = CONFIG.entry("icicle/icicleGrowsOnFloors", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> FALLING_ICICLE_DROPS_ITEM = CONFIG.entry("icicle/fallingIcicleDropsItem", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> FALLING_ICICLE_HAS_WEAKER_DAMAGE = CONFIG.entry("icicle/fallingIcicleHasWeakerDamage", EntryType.BOOL, false);
+	public static final ConfigEntry<Boolean> FALLING_ICICLE_DAMAGE_TYPE = CONFIG.entry("icicle/fallingIcicleDamageType", EntryType.BOOL, true);
 
 	// SNOWLOGGING
 	public static final ConfigEntry<Boolean> SNOWLOGGING = CONFIG.entryBuilder("snowlogging/snowlogging", EntryType.BOOL, true)
@@ -110,6 +118,8 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> SAPLING_SOUNDS = CONFIG.entry("blockSounds/saplingSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> ICE_SOUNDS = CONFIG.entry("blockSounds/iceSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> FROSTED_ICE_SOUNDS = CONFIG.entry("blockSounds/frostedIceSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ICICLE_SOUNDS = CONFIG.entry("blockSounds/icicleSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ICE_CRYSTAL_SOUNDS = CONFIG.entry("blockSounds/iceCrystalSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> GRAVEL_SOUNDS = CONFIG.entry("blockSounds/gravelSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> LEAF_SOUNDS = CONFIG.entry("blockSounds/leafSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> LILY_PAD_SOUNDS = CONFIG.entry("blockSounds/lilyPadSounds", EntryType.BOOL, true);

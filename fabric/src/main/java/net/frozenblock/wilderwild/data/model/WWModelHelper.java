@@ -322,28 +322,6 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 
-	public static void createIcicle(BlockModelGenerators generator) {
-		final PropertyDispatch.C2<MultiVariant, Direction, SpeleothemThickness> dispatch = PropertyDispatch.initial(
-			BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.SPELEOTHEM_THICKNESS
-		);
-
-		for (SpeleothemThickness thickness : SpeleothemThickness.values()) {
-			dispatch.select(Direction.UP, thickness, createIcicleVariant(generator, Direction.UP, thickness));
-		}
-
-		for (SpeleothemThickness thickness : SpeleothemThickness.values()) {
-			dispatch.select(Direction.DOWN, thickness, createIcicleVariant(generator, Direction.DOWN, thickness));
-		}
-
-		generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(WWBlocks.ICICLE.get()).with(dispatch));
-	}
-
-	private static MultiVariant createIcicleVariant(BlockModelGenerators generator, Direction direction, SpeleothemThickness thickness) {
-		String string = "_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
-		TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(WWBlocks.ICICLE.get(), string));
-		return BlockModelGenerators.plainVariant(ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(WWBlocks.ICICLE.get(), string, textureMapping, generator.modelOutput));
-	}
-
 	public static void createFragileIce(BlockModelGenerators generator) {
 		Identifier leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
 

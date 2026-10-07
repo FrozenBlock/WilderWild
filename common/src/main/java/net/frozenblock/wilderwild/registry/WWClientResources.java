@@ -51,6 +51,13 @@ public final class WWClientResources {
 			PackActivationType.DEFAULT_ENABLED
 		);
 
+		FrozenLibResourceLoader.registerBuiltinPack(
+			WWConstants.id("original_icicle"),
+			WWConstants.MOD_ID,
+			Component.translatable("pack.wilderwild.original_icicle"),
+			PackActivationType.NORMAL
+		);
+
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_extra_music"),

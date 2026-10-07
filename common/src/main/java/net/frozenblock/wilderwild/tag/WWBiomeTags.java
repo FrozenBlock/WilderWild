@@ -23,7 +23,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public final class WWBiomeTags {
-	public static final TagKey<Biome> STRAYS_CAN_SPAWN_UNDERGROUND = bind("entity/spawn/underground_stray");
 	public static final TagKey<Biome> HAS_FIREFLY = bind("entity/spawn/firefly");
 	public static final TagKey<Biome> HAS_BUTTERFLY = bind("entity/spawn/butterfly");
 	public static final TagKey<Biome> BUTTERFLY_COMMON_SPAWN = bind("entity/spawn/butterfly_common_spawn");
@@ -104,6 +103,7 @@ public final class WWBiomeTags {
 
 	public static final TagKey<Biome> HAS_SURFACE_ICICLES = bind("feature/has_surface_icicles");
 	public static final TagKey<Biome> HAS_SURFACE_FRAGILE_ICE = bind("feature/has_surface_fragile_ice");
+	public static final TagKey<Biome> HAS_CAVE_FRAGILE_ICE = bind("feature/has_cave_fragile_ice");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_PLANT = bind("feature/has_tumbleweed_plant");
 	public static final TagKey<Biome> HAS_TREES_SNOWY = bind("has_trees_snowy");
 	public static final TagKey<Biome> SWAMP_TREES = bind("feature/swamp_trees");
@@ -378,7 +378,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_OCEAN_MUSIC = bind("music_pool/has_ocean_music");
 	public static final TagKey<Biome> HAS_FROZEN_OCEAN_MUSIC = bind("music_pool/has_frozen_ocean_music");
 	public static final TagKey<Biome> HAS_WARM_OCEAN_MUSIC = bind("music_pool/has_warm_ocean_music");
-	public static final TagKey<Biome> HAS_FROZEN_CAVES_MUSIC = bind("music_pool/has_frozen_caves_music");
+	public static final TagKey<Biome> HAS_ICE_CAVES_MUSIC = bind("music_pool/has_ice_caves_music");
 	public static final TagKey<Biome> HAS_MAGMATIC_CAVES_MUSIC = bind("music_pool/has_magmatic_caves_music");
 	public static final TagKey<Biome> HAS_MESOGLEA_CAVES_MUSIC = bind("music_pool/has_mesoglea_caves_music");
 	public static final TagKey<Biome> HAS_MAPLE_FOREST_MUSIC = bind("music_pool/has_maple_forest_music");

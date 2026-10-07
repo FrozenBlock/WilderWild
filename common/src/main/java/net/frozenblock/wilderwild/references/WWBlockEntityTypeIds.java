@@ -29,7 +29,6 @@ public final class WWBlockEntityTypeIds {
 	public static final ResourceKey<BlockEntityType<?>> STONE_CHEST = create("stone_chest");
 	public static final ResourceKey<BlockEntityType<?>> SCORCHED_BLOCK = create("scorched_block");
 	public static final ResourceKey<BlockEntityType<?>> GEOTHERMAL_VENT = create("geothermal_vent");
-	public static final ResourceKey<BlockEntityType<?>> ICICLE = create("icicle");
 
 	private static ResourceKey<BlockEntityType<?>> create(String name) {
 		return ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, WWConstants.id(name));

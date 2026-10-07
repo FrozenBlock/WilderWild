@@ -7,10 +7,6 @@
     {
       "id": "wilderwild:magmatic_caves",
       "required": false
-    },
-    {
-      "id": "wilderwild:frozen_caves",
-      "required": false
     }
   ]
 }

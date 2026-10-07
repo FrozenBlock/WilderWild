@@ -38,6 +38,7 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK_LEAVES = createKey("sound_override_pale_oak_leaves");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK_LEAVES_DEFAULT = createKey("sound_override_pale_oak_leaves_default");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK = createKey("sound_override_pale_oak");
+	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_ICICLE = createKey("sound_override_icicle");
 
 	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
 
@@ -113,6 +114,10 @@ public final class WWConfigPredicates {
 		context.register(
 			SOUND_OVERRIDE_PALE_OAK,
 			WWBlockConfig.PALE_OAK_SOUNDS.equalTo(true)
+		);
+		context.register(
+			SOUND_OVERRIDE_ICICLE,
+			WWBlockConfig.ICICLE_SOUNDS.equalTo(true)
 		);
 
 		context.register(

@@ -71,7 +71,6 @@ public final class WWVillagerTrades {
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_WHITE_HIBISCUS = resourceKey("wandering_trader/emerald_white_hibiscus");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_TUMBLEWEED_PLANT = resourceKey("wandering_trader/emerald_tumbleweed_plant");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_PRICKLY_PEAR = resourceKey("wandering_trader/emerald_prickly_pear");
-	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_ICICLE = resourceKey("wandering_trader/emerald_icicle");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_BARNACLES = resourceKey("wandering_trader/emerald_barnacles");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_SEA_ANEMONE = resourceKey("wandering_trader/emerald_sea_anemone");
 	public static final ResourceKey<VillagerTrade> WANDERING_TRADER_EMERALD_SEA_WHIP = resourceKey("wandering_trader/emerald_sea_whip");
@@ -222,10 +221,13 @@ public final class WWVillagerTrades {
 			emeraldTrade(1, WWItems.PRICKLY_PEAR, 1, 12, 1)
 		);
 
+		// TODO: see if this is in vanilla
+		/*
 		context.register(
 			WANDERING_TRADER_EMERALD_ICICLE,
 			emeraldTrade(1, WWItems.ICICLE, 2, 5, 1)
 		);
+		 */
 
 		context.register(
 			WANDERING_TRADER_EMERALD_BARNACLES,

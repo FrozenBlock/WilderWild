@@ -11,10 +11,7 @@
     "minecraft:frozen_ocean",
     "minecraft:frozen_river",
     "minecraft:lush_caves",
-    {
-      "id": "wilderwild:frozen_caves",
-      "required": false
-    },
+    "minecraft:ice_caves",
     {
       "id": "wilderwild:warm_river",
       "required": false

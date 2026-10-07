@@ -334,7 +334,6 @@ public final class WWCreativeInventorySorting {
 
 		// ICE
 		insertAfterInNaturalBlocks(Items.ICE, WWItems.FRAGILE_ICE);
-		insertAfterInNaturalBlocks(Items.BLUE_ICE, WWItems.ICICLE);
 
 		// MUD BRICKS
 		insertAfterInBuildingBlocks(Items.MUD_BRICKS, WWItems.CRACKED_MUD_BRICKS);

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
-import com.mojang.datafixers.util.Pair;
 import com.terraformersmc.biolith.api.biome.BiomePlacement;
 import com.terraformersmc.biolith.api.biome.sub.BiomeParameterTargets;
 import com.terraformersmc.biolith.api.biome.sub.Criterion;
@@ -31,7 +30,6 @@ import net.frozenblock.lib.integration.api.ModIntegration;
 import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
 import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.biome.FrozenCaves;
 import net.frozenblock.wilderwild.data.worldgen.biome.MagmaticCaves;
 import net.frozenblock.wilderwild.data.worldgen.biome.MapleForest;
 import net.frozenblock.wilderwild.data.worldgen.biome.MesogleaCaves;
@@ -447,14 +445,6 @@ public class WWBiolithIntegration extends ModIntegration {
 					CriterionBuilder.value(BiomeParameterTargets.HUMIDITY, -0.1F, 0.3F)
 				)
 			);
-		}
-
-		if (WWWorldgenConfig.FROZEN_CAVES_GENERATION.get()) {
-			for (float depth : FrozenCaves.DEPTHS) {
-				Pair<Climate.ParameterPoint, Climate.ParameterPoint> biomeParameters = FrozenCaves.INSTANCE.makeParametersAt(depth);
-				BiomePlacement.addOverworld(WWBiomes.FROZEN_CAVES, biomeParameters.getFirst());
-				BiomePlacement.addOverworld(WWBiomes.FROZEN_CAVES, biomeParameters.getSecond());
-			}
 		}
 
 		if (WWWorldgenConfig.MAGMATIC_CAVES_GENERATION.get()) {

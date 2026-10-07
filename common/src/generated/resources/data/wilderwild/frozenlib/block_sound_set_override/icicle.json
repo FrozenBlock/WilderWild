@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/icicle",
+  "config_predicate": "wilderwild:sound_override_icicle",
+  "sound_set": "wilderwild:ice"
+}

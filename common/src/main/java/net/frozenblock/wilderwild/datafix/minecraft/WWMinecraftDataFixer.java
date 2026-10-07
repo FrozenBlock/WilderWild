@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
+import java.util.Set;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
 import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
@@ -29,7 +30,9 @@ import net.frozenblock.wilderwild.datafix.minecraft.fixes.DisplayLanternComponen
 import net.frozenblock.wilderwild.datafix.minecraft.fixes.DisplayLanternItemComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.fixes.MobBottleVariantComponentizationFix;
 import net.frozenblock.wilderwild.datafix.minecraft.fixes.MobBucketVariantComponentizationFix;
+import net.frozenblock.wilderwild.datafix.minecraft.schemas.WWMinecraftV13;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.datafix.fixes.RemoveBlockEntityTagFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public final class WWMinecraftDataFixer {
@@ -45,8 +48,9 @@ public final class WWMinecraftDataFixer {
 	// 10 is FrozenLib 2.5, for 26.2-snapshot-6+. Added waterlikes, which came with lots of refactoring.
 	// 11 is 26.2-snapshot-2 (i finally decided to start datafixing migrations to data attachments)
 	// 12 is 26.3-snapshot-7 (finally removed shelf fungi since Mojang added the shelf mushroom)
+	// 13 is 26.4-snapshot-3 (mojang introduced ice caves and icicles!! yay!)
 
-	public static final int DATA_VERSION = 12;
+	public static final int DATA_VERSION = 15;
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
@@ -266,6 +270,23 @@ public final class WWMinecraftDataFixer {
 			WWConstants.id("warped_shelf_fungi"),
 			WWConstants.vanillaId("shelf_mushroom"),
 			schemaV12
+		);
+
+		final Schema schemaV13 = builder.addSchema(15, WWMinecraftV13::new);
+		builder.addFixer(new RemoveBlockEntityTagFix(schemaV13, Set.of(WWConstants.string("icicle"))));
+		SimpleFixes.addBlockItemRenameFix(
+			builder,
+			"Rename wilderwild:icicle to minecraft:icicle",
+			WWConstants.id("icicle"),
+			WWConstants.vanillaId("icicle"),
+			schemaV13
+		);
+		SimpleFixes.addBiomeRenameFix(
+			builder,
+			"Rename wilderwild:frozen_caves to minecraft:ice_caves",
+			WWConstants.id("frozen_caves"),
+			WWConstants.vanillaId("ice_caves"),
+			schemaV13
 		);
 
 		FabricDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, "Minecraft", builder);

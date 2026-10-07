@@ -7,9 +7,6 @@
     "minecraft:deep_cold_ocean",
     "minecraft:frozen_ocean",
     "minecraft:frozen_river",
-    {
-      "id": "wilderwild:frozen_caves",
-      "required": false
-    }
+    "minecraft:ice_caves"
   ]
 }

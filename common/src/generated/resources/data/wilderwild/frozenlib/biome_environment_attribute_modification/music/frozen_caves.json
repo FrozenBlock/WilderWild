@@ -8,7 +8,7 @@
       }
     }
   },
-  "biomes": "#wilderwild:music_pool/has_frozen_caves_music",
+  "biomes": "#wilderwild:music_pool/has_ice_caves_music",
   "enabled_when": {
     "type": "frozenlib:true"
   }

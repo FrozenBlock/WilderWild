@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -480,6 +479,7 @@ public final class WWMaterialRules {
 		);
 	}
 
+	/*
 	public static MaterialRule frozenCavesRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		final MaterialRule packedIce = MaterialRules.state(Blocks.PACKED_ICE.defaultBlockState());
 		final MaterialRule blueIce = MaterialRules.state(Blocks.BLUE_ICE.defaultBlockState());
@@ -521,6 +521,7 @@ public final class WWMaterialRules {
 			)
 		);
 	}
+	 */
 
 	private static MaterialRule aboveSurface(MaterialRule original) {
 		return MaterialRules.ifTrue(
@@ -630,12 +631,14 @@ public final class WWMaterialRules {
 			aboveSurface(tundraRules(biomes, materialConditions))
 		);
 
+		/*
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("frozen_caves"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
 			frozenCavesRules(biomes, materialConditions)
 		);
+		 */
 
 		MaterialRuleAdditions.register(
 			context,

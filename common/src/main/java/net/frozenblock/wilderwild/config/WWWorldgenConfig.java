@@ -61,7 +61,6 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> DYING_MIXED_FOREST_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateDyingMixedForest", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SNOWY_DYING_MIXED_FOREST_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateSnowyDyingMixedForest", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MAGMATIC_CAVES_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateMagmaticCaves", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> FROZEN_CAVES_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateFrozenCaves", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MAPLE_FOREST_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateMapleForest", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SPARSE_FOREST_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateSparseForest", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> TUNDRA_GENERATION = CONFIG.entryBuilder("biomeGeneration/generateTundra", EntryType.BOOL, true).requireRestart().build();

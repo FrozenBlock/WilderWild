@@ -28,7 +28,6 @@ import net.frozenblock.wilderwild.data.worldgen.biome.DarkTaiga;
 import net.frozenblock.wilderwild.data.worldgen.biome.DyingForest;
 import net.frozenblock.wilderwild.data.worldgen.biome.DyingMixedForest;
 import net.frozenblock.wilderwild.data.worldgen.biome.FlowerField;
-import net.frozenblock.wilderwild.data.worldgen.biome.FrozenCaves;
 import net.frozenblock.wilderwild.data.worldgen.biome.MagmaticCaves;
 import net.frozenblock.wilderwild.data.worldgen.biome.MapleForest;
 import net.frozenblock.wilderwild.data.worldgen.biome.MesogleaCaves;
@@ -60,7 +59,6 @@ public final class WWBiomes {
 	public static final ResourceKey<Biome> WARM_BEACH = WarmBeach.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MAPLE_FOREST = MapleForest.INSTANCE.getKey();
 	// Cave Biomes
-	public static final ResourceKey<Biome> FROZEN_CAVES = FrozenCaves.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MESOGLEA_CAVES = MesogleaCaves.INSTANCE.getKey();
 	public static final ResourceKey<Biome> MAGMATIC_CAVES = MagmaticCaves.INSTANCE.getKey();
 	// Transition Biomes
@@ -100,7 +98,6 @@ public final class WWBiomes {
 		register(context, WARM_BEACH, WarmBeach.INSTANCE.create(context));
 		register(context, MAPLE_FOREST, MapleForest.INSTANCE.create(context));
 		// CAVE BIOMES
-		register(context, FROZEN_CAVES, FrozenCaves.INSTANCE.create(context));
 		register(context, MESOGLEA_CAVES, MesogleaCaves.INSTANCE.create(context));
 		register(context, MAGMATIC_CAVES, MagmaticCaves.INSTANCE.create(context));
 		// TRANSITION BIOMES

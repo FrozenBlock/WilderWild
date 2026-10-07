@@ -4,9 +4,16 @@
       "id": "#minecraft:ice",
       "required": false
     },
+    "minecraft:gravel",
     {
-      "id": "#wilderwild:feature/cave_ice_replaceable",
+      "id": "#minecraft:substrate_overworld",
       "required": false
-    }
+    },
+    {
+      "id": "#minecraft:base_stone_overworld",
+      "required": false
+    },
+    "minecraft:snow_block",
+    "minecraft:snow"
   ]
 }

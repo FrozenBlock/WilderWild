@@ -51,7 +51,6 @@ public final class WWWorldgenConfigGui {
 			biomeGenerationBooleanEntry(builder, WWBiomes.DYING_FOREST, WWWorldgenConfig.DYING_FOREST_GENERATION),
 			biomeGenerationBooleanEntry(builder, WWBiomes.DYING_MIXED_FOREST, WWWorldgenConfig.DYING_MIXED_FOREST_GENERATION),
 			biomeGenerationBooleanEntry(builder, WWBiomes.FLOWER_FIELD, WWWorldgenConfig.FLOWER_FIELD_GENERATION),
-			biomeGenerationBooleanEntry(builder, WWBiomes.FROZEN_CAVES, WWWorldgenConfig.FROZEN_CAVES_GENERATION),
 			biomeGenerationBooleanEntry(builder, WWBiomes.MAGMATIC_CAVES, WWWorldgenConfig.MAGMATIC_CAVES_GENERATION),
 			biomeGenerationBooleanEntry(builder, WWBiomes.MAPLE_FOREST, WWWorldgenConfig.MAPLE_FOREST_GENERATION),
 			biomeGenerationBooleanEntry(builder, WWBiomes.MESOGLEA_CAVES, WWWorldgenConfig.MESOGLEA_CAVES_GENERATION),
