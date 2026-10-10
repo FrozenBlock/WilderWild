@@ -58,6 +58,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.NoOpFeature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
@@ -109,7 +110,6 @@ public final class WWCaveConfigured {
 
 	// ICE CAVES
 	public static final FrozenLibFeature DECORATIVE_ICICLE_CLUSTER = register("decorative_icicle_cluster");
-	public static final FrozenLibFeature FRAGILE_ICE_COLUMN = register("fragile_ice_column");
 	public static final FrozenLibFeature FRAGILE_ICE_PATCH_CEILING = WWFeatureUtils.register("fragile_ice_patch_ceiling");
 	public static final FrozenLibFeature FRAGILE_ICE_PATCH = WWFeatureUtils.register("fragile_ice_patch");
 
@@ -553,16 +553,6 @@ public final class WWCaveConfigured {
 			)
 		);
 
-		FRAGILE_ICE_COLUMN.makeAndSetHolder(
-			new ColumnFeature(
-				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-				BlockPredicate.replaceable(),
-				UniformInt.of(0, 4),
-				Direction.UP,
-				false
-			)
-		);
-
 		FRAGILE_ICE_PATCH_CEILING.makeAndSetHolder(
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
@@ -590,7 +580,7 @@ public final class WWCaveConfigured {
 			new VegetationPatchFeature(
 				blocks.getOrThrow(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
-				FRAGILE_ICE_COLUMN.asInlinePlaced(),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
 				CaveSurface.FLOOR,
 				UniformInt.of(2, 5),
 				0.25F,

@@ -17,7 +17,9 @@
   "surface": "floor",
   "vegetation_chance": 0.035,
   "vegetation_feature": {
-    "feature": "wilderwild:fragile_ice_column",
+    "feature": {
+      "type": "minecraft:no_op"
+    },
     "placement": []
   },
   "vertical_range": 4,

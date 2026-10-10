@@ -57,6 +57,9 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_WILLOW = createKey("generate_shelf_mushroom_willow");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_MAPLE = createKey("generate_shelf_mushroom_maple");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
+	public static final ResourceKey<ConfigPredicate> GENERATE_FRAGILE_ICE = createKey("generate_fragile_ice");
+
 	public static final ResourceKey<ConfigPredicate> GENERATE_RIVER_POOL = createKey("generate_river_pool");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CATTAIL = createKey("generate_cattail");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BARNACLES = createKey("generate_barnacles");
@@ -180,6 +183,15 @@ public final class WWConfigPredicates {
 		context.register(
 			MUSIC_PITCH_SHIFT_DYING_FORESTS,
 			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
+		);
+
+		context.register(
+			GENERATE_DECORATIVE_ICICLE,
+			WWWorldgenConfig.ICICLE_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_FRAGILE_ICE,
+			WWWorldgenConfig.FRAGILE_ICE_DECORATION.equalTo(true)
 		);
 
 		context.register(

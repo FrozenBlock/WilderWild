@@ -429,4 +429,6 @@ public final class WWAquaticPlaced {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 	}
+
+	private WWAquaticPlaced() {}
 }

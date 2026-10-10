@@ -2,6 +2,10 @@
   "feature": "wilderwild:decorative_icicle_cluster",
   "placement": [
     {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_decorative_icicle"
+    },
+    {
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",

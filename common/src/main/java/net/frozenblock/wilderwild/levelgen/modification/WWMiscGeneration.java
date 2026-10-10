@@ -234,22 +234,20 @@ public final class WWMiscGeneration {
 					}
 				}
 
-				if (WWWorldgenConfig.FRAGILE_ICE_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CAVE_FRAGILE_ICE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.FRAGILE_ICE_PATCH.getKey());
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.FRAGILE_ICE_PATCH_CEILING.getKey());
-					}
+				// FRAGILE ICE
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
 				}
 
-				if (WWWorldgenConfig.ICICLE_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_ICICLES)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.DECORATIVE_ICICLE_CLUSTER_SURFACE_WG.getKey());
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.DECORATIVE_ICICLE_CLUSTER_SURFACE.getKey());
-					}
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CAVE_FRAGILE_ICE)) {
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.FRAGILE_ICE_PATCH.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.FRAGILE_ICE_PATCH_CEILING.getKey());
+				}
+
+				// ICICLE
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_ICICLES)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.DECORATIVE_ICICLE_CLUSTER_SURFACE_WG.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.DECORATIVE_ICICLE_CLUSTER_SURFACE.getKey());
 				}
 
 				if (WWWorldgenConfig.LAKE_DECORATION.get()) {

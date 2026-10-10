@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchFeature;
@@ -26,10 +27,10 @@ import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeat
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
 import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
@@ -37,6 +38,7 @@ import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
 import net.frozenblock.wilderwild.levelgen.feature.WaterCoverFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -64,6 +66,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 
 public final class WWAquaticConfigured {
 	public static final FrozenLibFeature CATTAIL = register("cattail");
@@ -90,6 +93,7 @@ public final class WWAquaticConfigured {
 	public static void registerAquaticConfigured(BootstrapContext<Feature> entries) {
 		WWConstants.logWithModId("Registering WWAquaticConfigured for", true);
 		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
+		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		CATTAIL.makeAndSetHolder(CattailFeature.INSTANCE);
 
@@ -143,6 +147,7 @@ public final class WWAquaticConfigured {
 
 		TUBE_WORMS.makeAndSetHolder(TubeWormsFeature.INSTANCE);
 
+		final PlacementFilter generateTubeWorms = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_TUBE_WORMS));
 		HYDROTHERMAL_VENT.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
@@ -162,7 +167,7 @@ public final class WWAquaticConfigured {
 					),
 					PlacementUtils.inlinePlaced(
 						TubeWormsFeature.INSTANCE,
-						WWWorldgenConfig.TUBE_WORMS_GENERATION.equalTo(true).asPlacementFilter(),
+						generateTubeWorms,
 						CountPlacement.of(33),
 						OffsetPlacement.ofTriangle(5, 4)
 					)
@@ -276,4 +281,6 @@ public final class WWAquaticConfigured {
 			)
 		);
 	}
+
+	private WWAquaticConfigured() {}
 }

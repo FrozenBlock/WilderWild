@@ -18,12 +18,15 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -47,6 +50,7 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import org.jetbrains.annotations.Unmodifiable;
@@ -99,6 +103,7 @@ public final class WWCavePlaced {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
+		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		// MESOGLEA CAVES
 		ORE_CALCITE.makeAndSetHolder(WWCaveConfigured.ORE_CALCITE,
@@ -415,7 +420,9 @@ public final class WWCavePlaced {
 		);
 
 		// FROZEN CAVES
+		final PlacementFilter generateIcicle = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_DECORATIVE_ICICLE));
 		DECORATIVE_ICICLE_CLUSTER_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.DECORATIVE_ICICLE_CLUSTER,
+			generateIcicle,
 			CountPlacement.of(UniformInt.of(20, 30)),
 			RarityFilter.onAverageOnceEvery(2),
 			InSquarePlacement.spread(),
@@ -425,6 +432,7 @@ public final class WWCavePlaced {
 		);
 
 		DECORATIVE_ICICLE_CLUSTER_SURFACE.makeAndSetHolder(WWCaveConfigured.DECORATIVE_ICICLE_CLUSTER,
+			generateIcicle,
 			CountPlacement.of(UniformInt.of(22, 30)),
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
@@ -433,7 +441,9 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
+		final PlacementFilter generateFragileIce = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FRAGILE_ICE));
 		FRAGILE_ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH_CEILING,
+			generateFragileIce,
 			CountPlacement.of(32),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
@@ -443,6 +453,7 @@ public final class WWCavePlaced {
 		);
 
 		FRAGILE_ICE_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH,
+			generateFragileIce,
 			CountPlacement.of(32),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
