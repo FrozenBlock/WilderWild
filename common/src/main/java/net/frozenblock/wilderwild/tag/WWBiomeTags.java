@@ -174,8 +174,8 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_PINK_TULIP_UNCOMMON = bind("feature/has_pink_tulip_uncommon");
 	public static final TagKey<Biome> HAS_ALLIUM_UNCOMMON = bind("feature/has_allium_uncommon");
 	public static final TagKey<Biome> HAS_CATTAIL = bind("feature/has_cattail");
-	public static final TagKey<Biome> HAS_CATTAIL_UNCOMMON = bind("feature/has_cattail_uncommon");
 	public static final TagKey<Biome> HAS_CATTAIL_COMMON = bind("feature/has_cattail_common");
+	public static final TagKey<Biome> HAS_CATTAIL_UNCOMMON = bind("feature/has_cattail_uncommon");
 	public static final TagKey<Biome> HAS_BARNACLES_COMMON = bind("feature/has_barnacles_common");
 	public static final TagKey<Biome> HAS_BARNACLES_STRUCTURE = bind("feature/has_barnacles_structure");
 	public static final TagKey<Biome> HAS_BARNACLES = bind("feature/has_barnacles");

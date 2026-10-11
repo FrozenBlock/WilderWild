@@ -1,0 +1,251 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.data.worldgen.features;
+
+import java.util.List;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchWithEdgeDecorationFeature;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
+import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
+import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
+import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
+import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
+import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
+import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.AquaticFeatures;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.random.WeightedList;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
+import net.minecraft.world.level.levelgen.feature.SequenceFeature;
+import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
+
+public final class WWAquaticFeatures {
+	public static final FrozenLibFeature CATTAIL = register("cattail");
+	public static final FrozenLibFeature FLOWERING_WATERLILY = register("flowering_waterlily");
+	public static final FrozenLibFeature ALGAE = register("algae");
+	public static final FrozenLibFeature PLANKTON = register("plankton");
+	public static final FrozenLibFeature SEAGRASS_VERY_SHORT = register("seagrass_very_short");
+	public static final FrozenLibFeature BARNACLES = register("barnacles");
+	public static final FrozenLibFeature BARNACLES_STRUCTURE = register("barnacles_structure");
+	public static final FrozenLibFeature SPONGE_BUD = register("sponge_bud");
+	public static final FrozenLibFeature SEA_ANEMONE = register("sea_anemone");
+	public static final FrozenLibFeature SEA_WHIP = register("sea_whip");
+	public static final FrozenLibFeature TUBE_WORMS = register("tube_worms");
+	public static final FrozenLibFeature HYDROTHERMAL_VENT = register("hydrothermal_vent");
+	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
+	public static final FrozenLibFeature AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
+	public static final FrozenLibFeature AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER = register("auburn_moss_patch_bonemeal_underwater");
+
+	public static void bootstrap(BootstrapContext<Feature> context) {
+		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
+
+		CATTAIL.makeAndSetHolder(CattailFeature.INSTANCE);
+
+		FLOWERING_WATERLILY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FLOWERING_LILY_PAD.get())));
+
+		ALGAE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.ALGAE.get())));
+
+		PLANKTON.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.PLANKTON.get())));
+
+		SEAGRASS_VERY_SHORT.makeAndSetHolder(AquaticFeatures.seagrass(2));
+
+		BARNACLES.makeAndSetHolder(
+			new MultifaceGrowthFeature(
+				WWBlocks.BARNACLES.get(),
+				10,
+				true,
+				false,
+				true,
+				0.7F,
+				blocks.getOrThrow(WWFeatureBlockTags.BARNACLES_PLACEABLE)
+			)
+		);
+
+		BARNACLES_STRUCTURE.makeAndSetHolder(
+			new MultifaceGrowthFeature(
+				WWBlocks.BARNACLES.get(),
+				6,
+				true,
+				true,
+				true,
+				0.7F,
+				blocks.getOrThrow(WWFeatureBlockTags.BARNACLES_PLACEABLE_UNNATURAL)
+			)
+		);
+
+		SPONGE_BUD.makeAndSetHolder(
+			new SpongeBudFeature(
+				20,
+				true,
+				true,
+				true,
+				blocks.getOrThrow(WWFeatureBlockTags.SPONGE_BUD_PLACEABLE)
+			)
+		);
+
+		SEA_ANEMONE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.SEA_ANEMONE.get())));
+
+		SEA_WHIP.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.SEA_WHIP.get())));
+
+		TUBE_WORMS.makeAndSetHolder(TubeWormsFeature.INSTANCE);
+
+		final PlacementFilter generateTubeWorms = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_TUBE_WORMS));
+		HYDROTHERMAL_VENT.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						new UnderwaterVegetationPatchFeature(
+							blocks.getOrThrow(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
+							BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
+							PlacementUtils.inlinePlaced(HydrothermalVentFeature.INSTANCE),
+							CaveSurface.FLOOR,
+							ConstantInt.of(2),
+							0.375F,
+							6,
+							0.25F,
+							UniformInt.of(1, 2),
+							0.5F
+						)
+					),
+					TUBE_WORMS.asInlinePlaced(
+						generateTubeWorms,
+						CountPlacement.of(33),
+						OffsetPlacement.ofTriangle(5, 4)
+					)
+				)
+			)
+		);
+
+		AUBURN_MOSS_VEGETATION_UNDERWATER.makeAndSetHolder(
+			new SimpleBlockFeature(
+				new WeightedStateProvider(
+					WeightedList.<BlockState>builder()
+						.add(
+							WWBlocks.AUBURN_CREEPING_MOSS.get().defaultBlockState()
+								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
+								.setValue(AuburnCreepingMossBlock.WATERLOGGED, true),
+							3
+						)
+						.add(WWBlocks.AUBURN_MOSS_CARPET.get().defaultBlockState().setValue(AuburnMossCarpetBlock.WATERLOGGED, true), 1)
+						.add(WWBlocks.SEA_WHIP.get().defaultBlockState(), 1)
+				)
+			)
+		);
+
+		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(
+			new UnderwaterVegetationPatchWithEdgeDecorationFeature(
+				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.55F
+			)
+		);
+
+		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
+						0.5F,
+						CountPlacement.of(4),
+						OffsetPlacement.ofTriangle(6, 3)
+					),
+					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
+						0.35F,
+						CountPlacement.of(5),
+						OffsetPlacement.ofTriangle(6, 4)
+					),
+					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
+						0.5F,
+						CountPlacement.of(3),
+						OffsetPlacement.ofTriangle(3, 2)
+					)
+				),
+				AUBURN_MOSS_PATCH_UNDERWATER.asInlinePlaced()
+			)
+		);
+
+		AUBURN_CREEPING_MOSS_PATCH_UNDERWATER.makeAndSetHolder(
+			new MultifaceGrowthFeature(
+				WWBlocks.AUBURN_CREEPING_MOSS.get(),
+				10,
+				true,
+				true,
+				true,
+				0.7F,
+				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_CREEPING_MOSS_PLACEABLE)
+			)
+		);
+
+		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(
+			new UnderwaterVegetationPatchWithEdgeDecorationFeature(
+				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.75F
+			)
+		);
+	}
+
+	private static FrozenLibFeature register(String id) {
+		return new FrozenLibFeature(WWConstants.id("aquatic/" + id));
+	}
+
+	private WWAquaticFeatures() {}
+}

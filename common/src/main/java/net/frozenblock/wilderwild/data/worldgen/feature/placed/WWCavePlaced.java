@@ -27,7 +27,7 @@ import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -239,7 +239,7 @@ public final class WWCavePlaced {
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
-				BlockPredicate.matchesTag(WWBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE),
+				BlockPredicate.matchesTag(WWFeatureBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE),
 				BlockPredicate.replaceable(),
 				12
 			),
@@ -253,7 +253,7 @@ public final class WWCavePlaced {
 			EnvironmentScanPlacement.scanningFor(
 				Direction.DOWN,
 				BlockPredicate.allOf(
-					BlockPredicate.matchesTag(WWBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE),
+					BlockPredicate.matchesTag(WWFeatureBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE),
 					SearchInDirectionBlockPredicate.hasLavaAbove(3)
 				),
 				BlockPredicate.replaceable(),

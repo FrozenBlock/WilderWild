@@ -7,7 +7,7 @@
       "placement_chance": 0.895,
       "replacement_block_predicate": {
         "type": "minecraft:matching_block_tag",
-        "tag": "wilderwild:feature/red_scorched_sand_feature_replaceable"
+        "tag": "wilderwild:feature/red_scorched_sand_replaceable"
       },
       "searching_block_predicate": {
         "type": "frozenlib:touching",
@@ -26,7 +26,7 @@
     "placement_chance": 0.95,
     "replacement_block_predicate": {
       "type": "minecraft:matching_block_tag",
-      "tag": "wilderwild:feature/red_scorched_sand_feature_inner_replaceable"
+      "tag": "wilderwild:feature/red_scorched_sand_inner_replaceable"
     },
     "searching_block_predicate": {
       "type": "frozenlib:touching",

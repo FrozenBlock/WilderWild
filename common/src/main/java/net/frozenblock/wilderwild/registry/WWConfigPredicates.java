@@ -64,6 +64,8 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_CATTAIL = createKey("generate_cattail");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BARNACLES = createKey("generate_barnacles");
 	public static final ResourceKey<ConfigPredicate> GENERATE_ALGAE = createKey("generate_algae");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PLANKTON = createKey("generate_plankton");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SEAGRASS = createKey("generate_seagrass");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SPONGE_BUD = createKey("generate_sponge_bud");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SEA_ANEMONE = createKey("generate_sea_anemone");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SEA_WHIP = createKey("generate_sea_whip");
@@ -209,6 +211,14 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_ALGAE,
 			WWWorldgenConfig.ALGAE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PLANKTON,
+			WWWorldgenConfig.PLANKTON_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SEAGRASS,
+			WWWorldgenConfig.SEAGRASS_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_SPONGE_BUD,

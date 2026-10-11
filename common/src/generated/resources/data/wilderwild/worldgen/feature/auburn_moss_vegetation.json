@@ -4,7 +4,7 @@
     "feature": {
       "type": "minecraft:multiface_growth",
       "block": "wilderwild:auburn_creeping_moss",
-      "can_be_placed_on": "#wilderwild:feature/auburn_creeping_moss_feature_placeable",
+      "can_be_placed_on": "#wilderwild:feature/auburn_creeping_moss_placeable",
       "can_place_on_floor": true,
       "can_place_on_wall": true,
       "search_range": 1

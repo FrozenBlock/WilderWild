@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -231,7 +231,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.MUD_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MUD_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -301,7 +301,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.STONE_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.STONE_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -310,7 +310,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -319,7 +319,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SAND_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
 			BiomeFilter.biome()
 		);
@@ -329,7 +329,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			SurfaceRelativeThresholdFilter.of(Heightmap.Types.OCEAN_FLOOR_WG, 48, 66),
 			BiomeFilter.biome()
 		);
@@ -339,7 +339,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -416,7 +416,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.SAND_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -454,7 +454,7 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 

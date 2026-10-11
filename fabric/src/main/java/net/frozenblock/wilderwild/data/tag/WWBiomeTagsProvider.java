@@ -1139,10 +1139,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
-		this.builder(WWBiomeTags.HAS_CATTAIL_UNCOMMON)
-			.add(Biomes.OCEAN, Biomes.DEEP_OCEAN)
-			.add(Biomes.BEACH);
-
 		this.builder(WWBiomeTags.HAS_CATTAIL_COMMON)
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
 			.add(Biomes.WARM_OCEAN)
@@ -1154,6 +1150,10 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.DARK_TAIGA)
 			.addOptional(WWBiomes.WARM_BEACH);
+
+		this.builder(WWBiomeTags.HAS_CATTAIL_UNCOMMON)
+			.add(Biomes.OCEAN, Biomes.DEEP_OCEAN)
+			.add(Biomes.BEACH);
 
 		this.builder(WWBiomeTags.HAS_BARNACLES_COMMON)
 			.add(Biomes.STONY_SHORE);

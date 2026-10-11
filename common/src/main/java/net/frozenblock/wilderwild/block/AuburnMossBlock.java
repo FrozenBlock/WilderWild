@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -54,7 +54,8 @@ public class AuburnMossBlock extends Block implements BonemealableBlock {
 	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
 		final BlockPos abovePos = pos.above();
 		final ResourceKey<Feature> featureKey = level.getBlockState(abovePos).is(Blocks.WATER)
-			? WWAquaticConfigured.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey() : WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
+			? WWAquaticFeatures.AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.getKey()
+			: WWMiscConfigured.AUBURN_MOSS_PATCH_BONEMEAL.getKey();
 
 		level.registryAccess()
 			.lookup(Registries.FEATURE)

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#wilderwild:feature/barnacles_placeable_natural",
+      "required": false
+    },
+    {
+      "id": "#wilderwild:feature/barnacles_placeable_unnatural",
+      "required": false
+    }
+  ]
+}

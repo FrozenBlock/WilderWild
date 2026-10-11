@@ -38,7 +38,7 @@ import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
 import net.frozenblock.wilderwild.levelgen.feature.LargeMesogleaFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -201,12 +201,12 @@ public final class WWCaveConfigured {
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MESOGLEA_REPLACEABLE))
 							.within(0.5125D, 0.5875D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MESOGLEA_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MESOGLEA_REPLACEABLE))
 							.within(-0.5875D, -0.5125D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build()
@@ -217,7 +217,7 @@ public final class WWCaveConfigured {
 
 		MESOGLEA_CLUSTER_PURPLE.makeAndSetHolder(
 			new LargeMesogleaFeature(
-				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 10),
 				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()),
@@ -233,7 +233,7 @@ public final class WWCaveConfigured {
 
 		MESOGLEA_CLUSTER_BLUE.makeAndSetHolder(
 			new LargeMesogleaFeature(
-				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 10),
 				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()),
@@ -286,7 +286,7 @@ public final class WWCaveConfigured {
 				true,
 				true,
 				0.98F,
-				blocks.getOrThrow(WWBlockTags.PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE)
+				blocks.getOrThrow(WWFeatureBlockTags.PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE)
 			)
 		);
 
@@ -298,13 +298,13 @@ public final class WWCaveConfigured {
 				true,
 				true,
 				0.98F,
-				blocks.getOrThrow(WWBlockTags.PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
+				blocks.getOrThrow(WWFeatureBlockTags.PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
 			)
 		);
 
 		LARGE_MESOGLEA_PURPLE.makeAndSetHolder(
 			new LargeMesogleaFeature(
-				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 19),
 				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get().defaultBlockState()),
@@ -320,7 +320,7 @@ public final class WWCaveConfigured {
 
 		LARGE_MESOGLEA_BLUE.makeAndSetHolder(
 			new LargeMesogleaFeature(
-				blocks.getOrThrow(WWBlockTags.MESOGLEA_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.MESOGLEA_REPLACEABLE),
 				30,
 				UniformInt.of(3, 19),
 				BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get().defaultBlockState()),
@@ -337,7 +337,7 @@ public final class WWCaveConfigured {
 		// MAGMATIC CAVES
 		GABBRO_LAVA_POOL.makeAndSetHolder(
 			new CircularLavaVegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.MAGMA_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 				LAVA_POOL_MAGMA_COLUMN.asInlinePlaced(),
 				CaveSurface.FLOOR,
@@ -368,7 +368,7 @@ public final class WWCaveConfigured {
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.26D, -0.16D)
 							.searchingPredicate(
 								BlockPredicate.allOf(
@@ -384,7 +384,7 @@ public final class WWCaveConfigured {
 							.scheduleTickOnPlacement()
 							.build(),
 						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
-							.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MAGMA_REPLACEABLE))
 							.within(-0.46D, -0.005D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
 							.build()
@@ -469,12 +469,12 @@ public final class WWCaveConfigured {
 							new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 								.placementChance(0.9F)
 								.fadeStartPercentage(0.675F)
-								.replacementBlockPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+								.replacementBlockPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MAGMA_REPLACEABLE))
 								.outerRingBlockPlacement(
 									new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.GABBRO.get()))
 										.placementChance(0.75F)
 										.outerRingStartPercentage(0.75F)
-										.replacementPredicate(BlockPredicate.matchesTag(WWBlockTags.MAGMA_REPLACEABLE))
+										.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MAGMA_REPLACEABLE))
 										.build()
 								).build(),
 							Optional.empty(),
@@ -517,7 +517,7 @@ public final class WWCaveConfigured {
 
 		UPSIDE_DOWN_MAGMA.makeAndSetHolder(
 			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.MAGMA_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.MAGMA_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK.defaultBlockState()),
 				DOWNWARDS_MAGMA_COLUMN.asInlinePlaced(),
 				CaveSurface.CEILING,
@@ -555,7 +555,7 @@ public final class WWCaveConfigured {
 
 		FRAGILE_ICE_PATCH_CEILING.makeAndSetHolder(
 			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 				PlacementUtils.inlinePlaced(
 					new ColumnFeature(
@@ -578,7 +578,7 @@ public final class WWCaveConfigured {
 
 		FRAGILE_ICE_PATCH.makeAndSetHolder(
 			new VegetationPatchFeature(
-				blocks.getOrThrow(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
 				PlacementUtils.inlinePlaced(new NoOpFeature()),
 				CaveSurface.FLOOR,

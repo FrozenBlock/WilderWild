@@ -30,7 +30,7 @@ import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -269,7 +269,11 @@ public final class WWTreePlaced {
 		WWConstants.logWithModId("Registering WWTreePlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWBlockTags.FALLEN_TREE_PLACEABLE));
+
+		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(
+			BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(),
+				WWFeatureBlockTags.FALLEN_TREE_PLACEABLE)
+		);
 		final List<PlacementModifier> snowTreePlacementFilters = List.of(
 			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
 			BlockPredicateFilter.forPredicate(

@@ -25,7 +25,7 @@ import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
@@ -489,7 +489,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(60),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.FALLEN_TREE_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.FALLEN_TREE_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -497,7 +497,7 @@ public final class WWPlacedFeatures {
 			RarityFilter.onAverageOnceEvery(135),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.FALLEN_TREE_PLACEABLE)),
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.FALLEN_TREE_PLACEABLE)),
 			BiomeFilter.biome()
 		);
 
@@ -1343,7 +1343,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1360,7 +1360,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1377,7 +1377,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1394,7 +1394,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);
@@ -1410,7 +1410,7 @@ public final class WWPlacedFeatures {
 				BlockPredicate.allOf(
 					BlockPredicate.replaceable(),
 					BlockPredicate.noFluid(),
-					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 				)
 			)
 		);

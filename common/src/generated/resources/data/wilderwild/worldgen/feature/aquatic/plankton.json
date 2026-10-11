@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "id": "wilderwild:plankton",
+    "properties": {
+      "glowing": "false"
+    }
+  }
+}

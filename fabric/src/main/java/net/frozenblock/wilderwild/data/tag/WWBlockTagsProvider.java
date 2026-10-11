@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -52,11 +53,11 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		new WWBlockItemTagsProvider(tagId -> BlockItemTagsProvider.wrapForBlocks(this.tag(tagId.block()))).run();
 		this.generateSounds(registries);
 		this.generateCompat(registries);
-		this.generateFeatures(registries);
 		this.generateDeepDark(registries);
 		this.generateWoodAndTermites(registries);
 		this.generateTags(registries);
 		this.generateMinecraft(registries);
+		this.generateFeature(registries);
 	}
 
 	private TagKey<Block> getTag(String id) {
@@ -85,325 +86,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(FrozenLibBlockTags.DRIPSTONE_CAN_DRIP_ON)
 			.add(BlockItemIds.DIRT)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
-	}
-
-	private void generateFeatures(HolderLookup.Provider registries) {
-		this.builder(WWBlockTags.STONE_TRANSITION_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.STONE_TRANSITION_PLACEABLE)
-			.add(BlockItemIds.STONE);
-
-		this.builder(WWBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD);
-
-		this.builder(WWBlockTags.GRAVEL_TRANSITION_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
-			.add(BlockItemIds.SAND)
-			.add(BlockItemIds.STONE);
-
-		this.builder(WWBlockTags.GRAVEL_TRANSITION_PLACEABLE)
-			.add(BlockItemIds.GRAVEL);
-
-		this.builder(WWBlockTags.SAND_TRANSITION_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.STONE);
-
-		this.builder(WWBlockTags.SAND_TRANSITION_PLACEABLE)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.RED_SAND_TRANSITION_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.MUD)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.SAND)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.RED_SAND_TRANSITION_PLACEABLE)
-			.add(BlockItemIds.RED_SAND)
-			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
-
-		this.builder(WWBlockTags.MUD_TRANSITION_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.MUD_TRANSITION_PLACEABLE)
-			.add(BlockItemIds.MUD, BlockItemIds.MUDDY_MANGROVE_ROOTS);
-
-		this.builder(WWBlockTags.MUD_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.COARSE_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.PODZOL);
-
-		this.builder(WWBlockTags.COARSE_CLEARING_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.PODZOL)
-			.add(BlockItemIds.GRAVEL);
-
-		this.builder(WWBlockTags.ROOTED_DIRT_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.COARSE_DIRT);
-
-		this.builder(WWBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.GRAVEL);
-
-		this.builder(WWBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.STONE);
-
-		this.builder(WWBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.STONE);
-
-		this.builder(WWBlockTags.BEACH_CLAY_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.SAND_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.GRAVEL_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.GRAVEL_CLEARING_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE)
-			.add(BlockItemIds.DIRT)
-			.add(BlockItemIds.GRASS_BLOCK)
-			.add(BlockItemIds.COARSE_DIRT)
-			.add(BlockItemIds.PALE_MOSS_BLOCK)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.STONE_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.addOptionalTag(BlockItemTags.SAND.block());
-
-		this.builder(WWBlockTags.PACKED_MUD_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT);
-
-		this.builder(WWBlockTags.MOSS_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK)
-			.add(BlockItemIds.PODZOL);
-
-		this.builder(WWBlockTags.OCEAN_MOSS_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockItemTags.SAND.block());
-
-		this.builder(WWBlockTags.SANDSTONE_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE)
-			.add(BlockItemIds.RED_SAND);
-
-		this.builder(WWBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE)
-			.add(BlockItemIds.RED_SAND, BlockItemIds.RED_SANDSTONE)
-			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
-
-		this.builder(WWBlockTags.POLLEN_FEATURE_PLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK)
-			.addOptionalTag(BlockItemTags.LEAVES.block())
-			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
-
-		this.builder(WWBlockTags.AUBURN_CREEPING_MOSS_FEATURE_PLACEABLE)
-			.add(BlockItemIds.PRISMARINE)
-			.add(BlockItemIds.PRISMARINE_BRICKS)
-			.add(BlockItemIds.DARK_PRISMARINE)
-			.add(BlockItemIds.SEA_LANTERN)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
-			.addOptionalTag(BlockItemTags.LOGS.block())
-			.addOptionalTag(BlockItemTags.PLANKS.block())
-			.addOptionalTag(BlockItemTags.SLABS.block())
-			.addOptionalTag(BlockItemTags.STAIRS.block())
-			.addOptionalTag(BlockItemTags.DOORS.block())
-			.addOptionalTag(BlockItemTags.TRAPDOORS.block())
-			.addOptionalTag(BlockItemTags.LEAVES.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
-
-		this.builder(WWBlockTags.BARNACLES_FEATURE_PLACEABLE)
-			.add(BlockItemIds.PRISMARINE)
-			.add(BlockItemIds.PRISMARINE_BRICKS)
-			.add(BlockItemIds.DARK_PRISMARINE)
-			.add(BlockItemIds.SEA_LANTERN)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
-			.addOptionalTag(BlockItemTags.LOGS.block())
-			.addOptionalTag(BlockItemTags.PLANKS.block())
-			.addOptionalTag(BlockItemTags.SLABS.block())
-			.addOptionalTag(BlockItemTags.STAIRS.block())
-			.addOptionalTag(BlockItemTags.DOORS.block())
-			.addOptionalTag(BlockItemTags.TRAPDOORS.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.BARNACLES_FEATURE_PLACEABLE_STRUCTURE)
-			.add(BlockItemIds.PRISMARINE)
-			.add(BlockItemIds.PRISMARINE_BRICKS)
-			.add(BlockItemIds.DARK_PRISMARINE)
-			.add(BlockItemIds.SEA_LANTERN)
-			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
-			.addOptionalTag(BlockItemTags.LOGS.block())
-			.addOptionalTag(BlockItemTags.PLANKS.block())
-			.addOptionalTag(BlockItemTags.SLABS.block())
-			.addOptionalTag(BlockItemTags.STAIRS.block())
-			.addOptionalTag(BlockItemTags.DOORS.block())
-			.addOptionalTag(BlockItemTags.TRAPDOORS.block());
-
-		this.builder(WWBlockTags.SEA_ANEMONE_FEATURE_CANNOT_PLACE)
-			.add(BlockItemIds.MOSS_BLOCK);
-
-		this.builder(WWBlockTags.TERMITE_DISK_REPLACEABLE)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.DRIPSTONE_BLOCK)
-			.add(BlockItemIds.CALCITE)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.DRIPSTONE_BLOCK)
-			.add(BlockItemIds.CALCITE)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
-			.add(BlockItemIds.SAND, WWBlockItemIds.SCORCHED_SAND);
-
-		this.builder(WWBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
-			.add(BlockItemIds.RED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
-
-		this.builder(WWBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
-			.add(BlockItemIds.RED_SAND);
-
-		this.builder(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)
-			.addOptionalTag(BlockTags.ICE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.add(BlockItemIds.SNOW_BLOCK)
-			.add(BlockItemIds.SNOW);
-
-		this.builder(WWBlockTags.DIORITE_ICE_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.add(BlockItemIds.SNOW_BLOCK)
-			.add(BlockItemIds.SNOW)
-			.add(BlockItemIds.ICE)
-			.add(BlockItemIds.BLUE_ICE)
-			.add(BlockItemIds.PACKED_ICE);
-
-		this.builder(WWBlockTags.ICICLE_REPLACEABLE)
-			.addOptionalTag(WWBlockTags.ICICLE_CAN_GROW_UNDER)
-			.addOptionalTag(WWBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE);
-
-		this.builder(WWBlockTags.MESOGLEA_REPLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.DRIPSTONE_BLOCK)
-			.add(BlockItemIds.CALCITE)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.MAGMA_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE)
-			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
-
-		this.builder(WWBlockTags.OASIS_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND)
-			.add(BlockItemIds.SANDSTONE);
-
-		this.builder(WWBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.PODZOL);
-
-		this.builder(WWBlockTags.RIVER_POOL_REPLACEABLE)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.CLAY);
-
-		this.builder(WWBlockTags.FALLEN_TREE_PLACEABLE)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.MOSS_BLOCK)
-			.add(BlockItemIds.PACKED_MUD)
-			.add(BlockItemIds.SNOW)
-			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
-
-		this.builder(WWBlockTags.PACKED_MUD_REPLACEABLE)
-			.add(BlockItemIds.STONE)
-			.add(BlockItemIds.DIRT)
-			.add(BlockItemIds.SANDSTONE);
-
-		this.builder(WWBlockTags.SMALL_SPONGE_GROWS_ON)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.SPONGE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.MOSS_BLOCK)
-			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
-			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
-
-		this.builder(WWBlockTags.BASIN_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.COARSE_DIRT)
-			.add(BlockItemIds.PODZOL)
-			.add(BlockItemIds.MOSS_BLOCK)
-			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
-
-		this.builder(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWBlockTags.CATTAIL_FEATURE_PLACEABLE)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.add(BlockItemIds.CLAY);
-
-		this.builder(WWBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
-			.addOptionalTag(BlockTags.TERRACOTTA)
-			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION);
-
-		this.builder(WWBlockTags.SAND_POOL_REPLACEABLE)
-			.add(BlockItemIds.SAND);
 	}
 
 	private void generateTags(HolderLookup.Provider registries) {
@@ -487,12 +169,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.SHORT_GRASS)
 			.add(BlockItemIds.FERN);
 
-		this.builder(WWBlockTags.AUBURN_MOSS_REPLACEABLE)
-			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL);
-
 		this.builder(WWBlockTags.SUPPORTS_ALGAE);
 		this.builder(WWBlockTags.SUPPORTS_PLANKTON);
 
@@ -501,7 +177,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(WWBlockTags.SUPPORTS_CATTAIL)
 			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
-			.addOptionalTag(WWBlockTags.CATTAIL_FEATURE_PLACEABLE);
+			.addOptionalTag(WWFeatureBlockTags.CATTAIL_PLACEABLE);
 
 		this.builder(WWBlockTags.SUPPORTS_COCONUT)
 			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION)
@@ -1060,6 +736,325 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(BlockTags.TRIGGERS_AMBIENT_DESERT_DRY_VEGETATION_BLOCK_SOUNDS)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
+	}
+
+	private void generateFeature(HolderLookup.Provider registries) {
+		// AQUATIC
+		this.builder(WWFeatureBlockTags.BARNACLES_PLACEABLE_NATURAL)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.BARNACLES_PLACEABLE_UNNATURAL)
+			.add(BlockItemIds.PRISMARINE)
+			.add(BlockItemIds.PRISMARINE_BRICKS)
+			.add(BlockItemIds.DARK_PRISMARINE)
+			.add(BlockItemIds.SEA_LANTERN)
+			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
+			.addOptionalTag(BlockItemTags.LOGS.block())
+			.addOptionalTag(BlockItemTags.PLANKS.block())
+			.addOptionalTag(BlockItemTags.SLABS.block())
+			.addOptionalTag(BlockItemTags.STAIRS.block())
+			.addOptionalTag(BlockItemTags.DOORS.block())
+			.addOptionalTag(BlockItemTags.TRAPDOORS.block());
+
+		this.builder(WWFeatureBlockTags.BARNACLES_PLACEABLE)
+			.addOptionalTag(WWFeatureBlockTags.BARNACLES_PLACEABLE_NATURAL)
+			.addOptionalTag(WWFeatureBlockTags.BARNACLES_PLACEABLE_UNNATURAL);
+
+		this.builder(WWFeatureBlockTags.SEA_ANEMONE_CANNOT_PLACE)
+			.add(BlockItemIds.MOSS_BLOCK);
+
+		this.builder(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE)
+			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL);
+
+		this.builder(WWFeatureBlockTags.STONE_TRANSITION_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.STONE_TRANSITION_PLACEABLE)
+			.add(BlockItemIds.STONE);
+
+		this.builder(WWFeatureBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD);
+
+		this.builder(WWFeatureBlockTags.GRAVEL_TRANSITION_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
+			.add(BlockItemIds.SAND)
+			.add(BlockItemIds.STONE);
+
+		this.builder(WWFeatureBlockTags.GRAVEL_TRANSITION_PLACEABLE)
+			.add(BlockItemIds.GRAVEL);
+
+		this.builder(WWFeatureBlockTags.SAND_TRANSITION_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.STONE);
+
+		this.builder(WWFeatureBlockTags.SAND_TRANSITION_PLACEABLE)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.RED_SAND_TRANSITION_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.MUD)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.SAND)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.RED_SAND_TRANSITION_PLACEABLE)
+			.add(BlockItemIds.RED_SAND)
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
+
+		this.builder(WWFeatureBlockTags.MUD_TRANSITION_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.MUD_TRANSITION_PLACEABLE)
+			.add(BlockItemIds.MUD, BlockItemIds.MUDDY_MANGROVE_ROOTS);
+
+		this.builder(WWFeatureBlockTags.MUD_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.COARSE_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.PODZOL);
+
+		this.builder(WWFeatureBlockTags.COARSE_CLEARING_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.PODZOL)
+			.add(BlockItemIds.GRAVEL);
+
+		this.builder(WWFeatureBlockTags.ROOTED_DIRT_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.COARSE_DIRT);
+
+		this.builder(WWFeatureBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.GRAVEL);
+
+		this.builder(WWFeatureBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.STONE);
+
+		this.builder(WWFeatureBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.STONE);
+
+		this.builder(WWFeatureBlockTags.BEACH_CLAY_PATH_REPLACEABLE)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.SAND_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.GRAVEL_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.GRAVEL_CLEARING_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE)
+			.add(BlockItemIds.DIRT)
+			.add(BlockItemIds.GRASS_BLOCK)
+			.add(BlockItemIds.COARSE_DIRT)
+			.add(BlockItemIds.PALE_MOSS_BLOCK)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.STONE_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.addOptionalTag(BlockItemTags.SAND.block());
+
+		this.builder(WWFeatureBlockTags.PACKED_MUD_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT);
+
+		this.builder(WWFeatureBlockTags.MOSS_PATH_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK)
+			.add(BlockItemIds.PODZOL);
+
+		this.builder(WWFeatureBlockTags.OCEAN_MOSS_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockItemTags.SAND.block());
+
+		this.builder(WWFeatureBlockTags.SANDSTONE_PATH_REPLACEABLE)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE)
+			.add(BlockItemIds.RED_SAND);
+
+		this.builder(WWFeatureBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE)
+			.add(BlockItemIds.RED_SAND, BlockItemIds.RED_SANDSTONE)
+			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
+
+		this.builder(WWFeatureBlockTags.POLLEN_PLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK)
+			.addOptionalTag(BlockItemTags.LEAVES.block())
+			.addOptionalTag(BlockTags.OVERWORLD_NATURAL_LOGS);
+
+		this.builder(WWFeatureBlockTags.AUBURN_CREEPING_MOSS_PLACEABLE)
+			.add(BlockItemIds.PRISMARINE)
+			.add(BlockItemIds.PRISMARINE_BRICKS)
+			.add(BlockItemIds.DARK_PRISMARINE)
+			.add(BlockItemIds.SEA_LANTERN)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.STONE_BRICKS.block())
+			.addOptionalTag(BlockItemTags.LOGS.block())
+			.addOptionalTag(BlockItemTags.PLANKS.block())
+			.addOptionalTag(BlockItemTags.SLABS.block())
+			.addOptionalTag(BlockItemTags.STAIRS.block())
+			.addOptionalTag(BlockItemTags.DOORS.block())
+			.addOptionalTag(BlockItemTags.TRAPDOORS.block())
+			.addOptionalTag(BlockItemTags.LEAVES.block())
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
+
+		this.builder(WWFeatureBlockTags.TERMITE_DISK_REPLACEABLE)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.DRIPSTONE_BLOCK)
+			.add(BlockItemIds.CALCITE)
+			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.DRIPSTONE_BLOCK)
+			.add(BlockItemIds.CALCITE)
+			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
+			.add(BlockItemIds.SAND, WWBlockItemIds.SCORCHED_SAND);
+
+		this.builder(WWFeatureBlockTags.SCORCHED_SAND_FEATURE_REPLACEABLE)
+			.add(BlockItemIds.SAND);
+
+		this.builder(WWFeatureBlockTags.RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
+			.add(BlockItemIds.RED_SAND, WWBlockItemIds.SCORCHED_RED_SAND);
+
+		this.builder(WWFeatureBlockTags.RED_SCORCHED_SAND_FEATURE_REPLACEABLE)
+			.add(BlockItemIds.RED_SAND);
+
+		this.builder(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE)
+			.addOptionalTag(BlockTags.ICE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.add(BlockItemIds.SNOW_BLOCK)
+			.add(BlockItemIds.SNOW);
+
+		this.builder(WWFeatureBlockTags.DIORITE_ICE_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.add(BlockItemIds.SNOW_BLOCK)
+			.add(BlockItemIds.SNOW)
+			.add(BlockItemIds.ICE)
+			.add(BlockItemIds.BLUE_ICE)
+			.add(BlockItemIds.PACKED_ICE);
+
+		this.builder(WWFeatureBlockTags.ICICLE_REPLACEABLE)
+			.addOptionalTag(WWBlockTags.ICICLE_CAN_GROW_UNDER)
+			.addOptionalTag(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE);
+
+		this.builder(WWFeatureBlockTags.MESOGLEA_REPLACEABLE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.DRIPSTONE_BLOCK)
+			.add(BlockItemIds.CALCITE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.MAGMA_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
+
+		this.builder(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE)
+			.add(BlockItemIds.SAND)
+			.add(BlockItemIds.SANDSTONE);
+
+		this.builder(WWFeatureBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.PODZOL);
+
+		this.builder(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.CLAY);
+
+		this.builder(WWFeatureBlockTags.FALLEN_TREE_PLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.MOSS_BLOCK)
+			.add(BlockItemIds.PACKED_MUD)
+			.add(BlockItemIds.SNOW)
+			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
+
+		this.builder(WWFeatureBlockTags.PACKED_MUD_REPLACEABLE)
+			.add(BlockItemIds.STONE)
+			.add(BlockItemIds.DIRT)
+			.add(BlockItemIds.SANDSTONE);
+
+		this.builder(WWFeatureBlockTags.SPONGE_BUD_PLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.SPONGE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.MOSS_BLOCK)
+			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
+
+		this.builder(WWFeatureBlockTags.BASIN_REPLACEABLE)
+			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.COARSE_DIRT)
+			.add(BlockItemIds.PODZOL)
+			.add(BlockItemIds.MOSS_BLOCK)
+			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
+
+		this.builder(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.CATTAIL_PLACEABLE)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.add(BlockItemIds.CLAY);
+
+		this.builder(WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
+			.addOptionalTag(BlockTags.TERRACOTTA)
+			.addOptionalTag(BlockTags.SUPPORTS_VEGETATION);
+
+		this.builder(WWFeatureBlockTags.SAND_POOL_REPLACEABLE)
+			.add(BlockItemIds.SAND);
 	}
 
 	private void generateSounds(HolderLookup.Provider registries) {

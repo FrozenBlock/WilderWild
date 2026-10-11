@@ -30,7 +30,7 @@ import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.re
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -3226,7 +3226,7 @@ public final class WWConfiguredFeatures {
 				true,
 				true,
 				0.5F,
-				blocks.getOrThrow(WWBlockTags.POLLEN_FEATURE_PLACEABLE)
+				blocks.getOrThrow(WWFeatureBlockTags.POLLEN_PLACEABLE)
 			)
 		);
 
@@ -3236,7 +3236,7 @@ public final class WWConfiguredFeatures {
 				UniformInt.of(4, 9),
 				UniformInt.of(3, 7),
 				0.75F,
-				blocks.getOrThrow(WWBlockTags.TERMITE_DISK_REPLACEABLE),
+				blocks.getOrThrow(WWFeatureBlockTags.TERMITE_DISK_REPLACEABLE),
 				Holder.direct(
 					new WeightedStateProvider(
 						WeightedList.<BlockState>builder()

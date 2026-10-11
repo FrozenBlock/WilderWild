@@ -26,3 +26,13 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Whether Icicles will drop an Item upon landing (enabled by default.)
   - Whether the amount of damage inflicted by falling Icicles is weaker than other Speleothems (disabled by default.)
   - Whether damaged inflicted by falling Icicles uses a new Damage Source (enabled by default.)
+
+### Worldgen
+- Completely reorganized and cleaned up Wilder Wild's worldgen.
+  - Many features and tags have been removed, renamed, or revamped, and will not be listed in the changelog for sanity's sake.
+- Removed the `wilderwild:water_cover` Feature Type, as the following together are able to replicate its functionality:
+  - `minecraft:simple_random_selector` Feature Type.
+  - `minecraft:count` Placement Modifier Type.
+  - `minecraft:offset` Placement Modifier Type.
+  - `minecraft:environment_scan` Placement Modifier Type.
+- Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.

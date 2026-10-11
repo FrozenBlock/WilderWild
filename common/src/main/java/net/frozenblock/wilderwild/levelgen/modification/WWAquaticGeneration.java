@@ -22,7 +22,7 @@ import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationCon
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWAquaticPlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -50,11 +50,11 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE_SMALL)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_ALGAE_SMALL.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_ALGAE_SMALL.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ALGAE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_ALGAE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_ALGAE.getKey());
 				}
 			});
 	}
@@ -65,7 +65,7 @@ public final class WWAquaticGeneration {
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
 				if (!biomeSelectionContext.hasTag(WWBiomeTags.HAS_PLANKTON)) return;
-				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_PLANKTON.getKey());
+				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_PLANKTON.getKey());
 			});
 	}
 
@@ -75,7 +75,7 @@ public final class WWAquaticGeneration {
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
 				if (!biomeSelectionContext.hasTag(WWBiomeTags.HAS_MEADOW_SEAGRASS)) return;
-				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SEAGRASS_MEADOW.getKey());
+				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.SEAGRASS_MEADOW.getKey());
 			});
 	}
 
@@ -87,10 +87,11 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.SPONGE_BUDS.getKey());
 				}
+
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SPONGE_BUD_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.SPONGE_BUDS_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.SPONGE_BUDS_RARE.getKey());
 				}
 			});
 	}
@@ -102,24 +103,24 @@ public final class WWAquaticGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_COMMON)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_COMMON.getKey());
-				}
-
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_STRUCTURE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_STRUCTURE.getKey());
-				}
-
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_BARNACLES.getKey());
+				}
+
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_COMMON)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_BARNACLES_COMMON.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_SPARSE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_BARNACLES_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_BARNACLES_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_BARNACLES_RARE.getKey());
+				}
+
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_BARNACLES_STRUCTURE)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_BARNACLES_STRUCTURE.getKey());
 				}
 			});
 	}
@@ -132,15 +133,15 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL.getKey());
-				}
-
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_UNCOMMON)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_UNCOMMON.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_CATTAIL.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_COMMON)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_CATTAIL_COMMON.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_CATTAIL_COMMON.getKey());
+				}
+
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CATTAIL_UNCOMMON)) {
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_CATTAIL_UNCOMMON.getKey());
 				}
 			});
 	}
@@ -153,15 +154,15 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_SEA_ANEMONE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_SPARSE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_SEA_ANEMONE_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_ANEMONE_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_ANEMONE_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_SEA_ANEMONE_RARE.getKey());
 				}
 			});
 	}
@@ -174,15 +175,15 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_WHIP)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_WHIP.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_SEA_WHIP.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_WHIP_SPARSE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_WHIP_SPARSE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_SEA_WHIP_SPARSE.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SEA_WHIP_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_SEA_WHIP_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_SEA_WHIP_RARE.getKey());
 				}
 			});
 	}
@@ -195,11 +196,11 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUBE_WORMS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_TUBE_WORMS.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_TUBE_WORMS.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TUBE_WORMS_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.PATCH_TUBE_WORMS_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.PATCH_TUBE_WORMS_RARE.getKey());
 				}
 			});
 	}
@@ -212,11 +213,11 @@ public final class WWAquaticGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HYDROTHERMAL_VENT)) {
-					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWAquaticPlaced.HYDROTHERMAL_VENT.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWAquaticPlacements.HYDROTHERMAL_VENT.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_HYDROTHERMAL_VENT_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWAquaticPlaced.HYDROTHERMAL_VENT_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWAquaticPlacements.HYDROTHERMAL_VENT_RARE.getKey());
 				}
 			});
 	}
@@ -228,20 +229,16 @@ public final class WWAquaticGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_OCEAN_MOSS)) {
-					generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWAquaticPlaced.OCEAN_MOSS.getKey());
-				}
-
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS_UNDERWATER)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.AUBURN_CREEPING_MOSS_UNDERWATER.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.AUBURN_CREEPING_MOSS_UNDERWATER.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUBURN_MOSS_UNDERWATER)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.AUBURN_MOSS_UNDERWATER.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.AUBURN_MOSS_UNDERWATER.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUBURN_MOSS_UNDERWATER_RARE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlaced.AUBURN_MOSS_UNDERWATER_RARE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.AUBURN_MOSS_UNDERWATER_RARE.getKey());
 				}
 			});
 	}

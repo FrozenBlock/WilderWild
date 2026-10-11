@@ -25,12 +25,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public final class WWNoise {
-	public static final ResourceKey<NormalNoise> SAND_BEACH_KEY = createKey("sand_beach");
-	public static final ResourceKey<NormalNoise> GRAVEL_BEACH_KEY = createKey("gravel_beach");
-	public static final ResourceKey<NormalNoise> TUNDRA_NOISE_KEY = createKey("tundra_noise");
+	public static final ResourceKey<NormalNoise> SAND_BEACH = createKey("sand_beach");
+	public static final ResourceKey<NormalNoise> GRAVEL_BEACH = createKey("gravel_beach");
+	public static final ResourceKey<NormalNoise> OCEAN_MOSS = createKey("ocean_moss");
 
 	public static void bootstrap(BootstrapContext<NormalNoise> entries) {
-		register(entries, SAND_BEACH_KEY, -9,
+		register(entries, SAND_BEACH, -9,
 			1.0,
 			1.0,
 			1.0,
@@ -61,7 +61,7 @@ public final class WWNoise {
 			10.0,
 			10.0
 		);
-		register(entries, GRAVEL_BEACH_KEY, -9,
+		register(entries, GRAVEL_BEACH, -9,
 			1.0,
 			1.0,
 			1.0,
@@ -92,11 +92,7 @@ public final class WWNoise {
 			10.0,
 			10.0
 		);
-		register(entries, TUNDRA_NOISE_KEY, -1,
-			1.0,
-			1.0,
-			1.0
-		);
+		register(entries, OCEAN_MOSS, -4, 0D, 2D, 2D, 1D);
 	}
 
 	private static ResourceKey<NormalNoise> createKey(String name) {

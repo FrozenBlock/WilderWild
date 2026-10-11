@@ -6,7 +6,7 @@
   "ground_state": {
     "id": "wilderwild:auburn_moss_block"
   },
-  "replaceable": "#wilderwild:auburn_moss_replaceable",
+  "replaceable": "#wilderwild:feature/auburn_moss_replaceable",
   "surface": "floor",
   "vegetation_chance": 0.475,
   "vegetation_feature": {

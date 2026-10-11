@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -112,7 +112,7 @@ public final class HydrothermalVentFeature implements Feature {
 	protected static boolean isValidBlockToReplaceAt(LevelAccessor level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
-		return state.is(WWBlockTags.HYDROTHERMAL_VENT_REPLACEABLE) || isReplaceableOrWater(state, fluidState);
+		return state.is(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE) || isReplaceableOrWater(state, fluidState);
 	}
 
 	protected static boolean isReplaceableOrWater(BlockState state, FluidState fluidState) {

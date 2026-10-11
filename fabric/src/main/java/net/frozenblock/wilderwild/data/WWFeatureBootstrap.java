@@ -18,39 +18,43 @@
 package net.frozenblock.wilderwild.data;
 
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWAquaticConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWAquaticPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
+import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public final class WWFeatureBootstrap {
 
-	public static void bootstrapConfigured(BootstrapContext<Feature> entries) {
-		FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+	public static void bootstrapConfigured(BootstrapContext<Feature> context) {
+		FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT = (BootstrapContext) context;
 
-		WWTreeConfigured.registerTreeConfigured(entries);
-		WWMiscConfigured.registerMiscConfigured(entries);
-		WWCaveConfigured.registerCaveConfigured(entries);
-		WWAquaticConfigured.registerAquaticConfigured(entries);
-		WWConfiguredFeatures.registerConfiguredFeatures(entries);
+		WWAquaticFeatures.bootstrap(context);
+
+		WWTreeConfigured.registerTreeConfigured(context);
+		WWMiscConfigured.registerMiscConfigured(context);
+		WWCaveConfigured.registerCaveConfigured(context);
+		WWConfiguredFeatures.registerConfiguredFeatures(context);
 	}
 
-	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> entries) {
-		FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT = (BootstrapContext) entries;
+	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> context) {
+		FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT = (BootstrapContext) context;
 
-		WWTreePlaced.registerTreePlaced(entries);
-		WWMiscPlaced.registerMiscPlaced(entries);
-		WWCavePlaced.registerCavePlaced(entries);
-		WWAquaticPlaced.registerAquaticPlaced(entries);
-		WWPlacedFeatures.registerPlacedFeatures(entries);
+		WWAquaticPlacements.bootstrap(context);
+
+		WWTreePlaced.registerTreePlaced(context);
+		WWMiscPlaced.registerMiscPlaced(context);
+		WWCavePlaced.registerCavePlaced(context);
+		WWPlacedFeatures.registerPlacedFeatures(context);
 	}
+
+	private WWFeatureBootstrap() {}
 }
