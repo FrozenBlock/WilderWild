@@ -1,0 +1,105 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": {
+          "id": "wilderwild:geothermal_vent",
+          "properties": {
+            "facing": "north",
+            "natural": "true",
+            "powered": "false",
+            "vent_state": "dormant",
+            "vent_type": "none"
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:environment_scan",
+          "direction_of_search": "down",
+          "max_steps": 12,
+          "target_condition": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:solid"
+              },
+              {
+                "type": "minecraft:replaceable",
+                "offset": [
+                  0,
+                  0,
+                  -1
+                ]
+              },
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": [
+                  "wilderwild:gabbro",
+                  "minecraft:magma_block"
+                ],
+                "offset": [
+                  0,
+                  0,
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": {
+          "id": "wilderwild:geothermal_vent",
+          "properties": {
+            "facing": "south",
+            "natural": "true",
+            "powered": "false",
+            "vent_state": "dormant",
+            "vent_type": "none"
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:environment_scan",
+          "direction_of_search": "down",
+          "max_steps": 12,
+          "target_condition": {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:solid"
+              },
+              {
+                "type": "minecraft:replaceable",
+                "offset": [
+                  0,
+                  0,
+                  1
+                ]
+              },
+              {
+                "type": "minecraft:matching_blocks",
+                "blocks": [
+                  "wilderwild:gabbro",
+                  "minecraft:magma_block"
+                ],
+                "offset": [
+                  0,
+                  0,
+                  -1
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

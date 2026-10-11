@@ -27,6 +27,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 public final class WWNoise {
 	public static final ResourceKey<NormalNoise> SAND_BEACH = createKey("sand_beach");
 	public static final ResourceKey<NormalNoise> GRAVEL_BEACH = createKey("gravel_beach");
+	public static final ResourceKey<NormalNoise> MAGMATIC_CAVE_GRADIENT = createKey("magmatic_cave_gradient");
 	public static final ResourceKey<NormalNoise> OCEAN_MOSS = createKey("ocean_moss");
 
 	public static void bootstrap(BootstrapContext<NormalNoise> entries) {
@@ -92,6 +93,7 @@ public final class WWNoise {
 			10.0,
 			10.0
 		);
+		register(entries, MAGMATIC_CAVE_GRADIENT, -6, 0D, 3D, 5D, 2D);
 		register(entries, OCEAN_MOSS, -4, 0D, 2D, 2D, 1D);
 	}
 

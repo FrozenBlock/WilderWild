@@ -26,6 +26,7 @@
     "block.leaves.BlockStateBaseMixin",
     "block.leaves.FallingParticlesLeavesBlockMixin",
     "block.leaves.LeavesBlockMixin",
+    "block.mesoglea.SpeleothemUtilsMixin",
     "block.moss.BonemealableFeaturePlacerBlockMixin",
     "block.mycelium.SpreadingSnowyBlockMixin",
     "block.ocean.BoneMealItemMixin",

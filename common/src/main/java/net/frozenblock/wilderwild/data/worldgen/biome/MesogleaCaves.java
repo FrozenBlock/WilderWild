@@ -25,7 +25,7 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -112,7 +112,7 @@ public final class MesogleaCaves extends FrozenLibBiome {
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlaced.MESOGLEA_CAVES_STONE_POOL.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlacements.POOL_STONE_MESOGLEA_CAVES.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features, true, true);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
@@ -122,18 +122,13 @@ public final class MesogleaCaves extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, false);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlaced.ORE_CALCITE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARD_BLUE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.DOWNWARD_PURPLE_MESOGLEA.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.LARGE_MESOGLEA_PURPLE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.LARGE_MESOGLEA_BLUE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.MESOGLEA_CLUSTER_PURPLE.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.MESOGLEA_CLUSTER_BLUE.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.BLUE_MESOGLEA_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.PURPLE_MESOGLEA_COLUMN.getKey());
-		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlaced.MESOGLEA_PATHS.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.NEMATOCYST_BLUE.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlaced.NEMATOCYST_PURPLE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWCavePlacements.ORE_CALCITE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_MESOGLEA_CEILING.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlacements.MEDIUM_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlacements.LARGE_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWCavePlacements.PATHS_MESOGLEA.getKey());
+		features.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWCavePlacements.NEMATOCYST.getKey());
 	}
 
 	@Override

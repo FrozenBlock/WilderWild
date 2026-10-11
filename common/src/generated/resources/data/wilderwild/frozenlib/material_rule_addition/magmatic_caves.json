@@ -1,0 +1,91 @@
+{
+  "dimensions": "#frozenlib:overworld",
+  "rule": {
+    "type": "minecraft:condition",
+    "if_true": {
+      "type": "minecraft:biome",
+      "biome_is": "wilderwild:magmatic_caves"
+    },
+    "then_run": {
+      "type": "minecraft:sequence",
+      "sequence": [
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "is_3d": true,
+            "max_threshold": -0.22499999403953552,
+            "min_threshold": -0.44999998807907104,
+            "noise": "wilderwild:magmatic_cave_gradient"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": "wilderwild:gabbro"
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "is_3d": true,
+            "max_threshold": -0.07000000029802322,
+            "min_threshold": -0.22499999403953552,
+            "noise": "wilderwild:magmatic_cave_gradient"
+          },
+          "then_run": {
+            "type": "minecraft:sequence",
+            "sequence": [
+              {
+                "type": "minecraft:condition",
+                "if_true": "minecraft:on_floor",
+                "then_run": {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:not",
+                    "invert": "minecraft:not_underwater"
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": "wilderwild:gabbro"
+                  }
+                }
+              },
+              {
+                "type": "minecraft:block",
+                "result_state": "minecraft:magma_block"
+              }
+            ]
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "is_3d": true,
+            "max_threshold": 0.30000001192092896,
+            "min_threshold": -0.07000000029802322,
+            "noise": "wilderwild:magmatic_cave_gradient"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": "wilderwild:gabbro"
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "is_3d": true,
+            "max_threshold": 1.0,
+            "min_threshold": 0.655,
+            "noise": "wilderwild:magmatic_cave_gradient"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": "wilderwild:gabbro"
+          }
+        }
+      ]
+    }
+  }
+}

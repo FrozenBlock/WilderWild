@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -405,6 +406,31 @@ public final class WWMaterialRules {
 		);
 	}
 
+	public static MaterialRule magmaticCavesRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
+		final MaterialRule gabbro = FrozenLibMaterialRules.makeStateRule(WWBlocks.GABBRO.get());
+		final MaterialRule magmaOrGabbroUnderWater = MaterialRules.sequence(
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.not(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER)),
+					FrozenLibMaterialRules.makeStateRule(WWBlocks.GABBRO.get())
+				)
+			),
+			FrozenLibMaterialRules.makeStateRule(Blocks.MAGMA_BLOCK)
+		);
+
+		return MaterialRules.ifTrue(
+			MaterialRules.isBiome(biomes, WWBiomes.MAGMATIC_CAVES),
+			MaterialRules.sequence(
+				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.45F, -0.225F), gabbro),
+				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.225F, -0.07F), magmaOrGabbroUnderWater),
+				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.07F, 0.3F), gabbro),
+
+				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, 0.655, 1F), gabbro)
+			)
+		);
+	}
+
 	public static MaterialRule gravelBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_GRAVEL),
@@ -605,6 +631,13 @@ public final class WWMaterialRules {
 			WWConstants.id("tundra"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
 			aboveSurface(tundraRules(biomes, materialConditions))
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("magmatic_caves"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			magmaticCavesRules(biomes, materialConditions)
 		);
 
 		MaterialRuleAdditions.register(

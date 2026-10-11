@@ -124,25 +124,25 @@
   "features": [
     [],
     [
-      "wilderwild:gabbro_lava_pool",
-      "wilderwild:lava_lake_extra",
+      "wilderwild:cave/pool_lava_gabbro",
+      "wilderwild:cave/lake_lava_extra",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
     [
       "minecraft:amethyst_geode",
-      "wilderwild:gabbro_magma_path",
-      "wilderwild:geothermal_vent_lava",
-      "wilderwild:geothermal_vent_up",
-      "wilderwild:geothermal_vent_down",
-      "wilderwild:downwards_geothermal_vent_column"
+      "wilderwild:cave/geothermal_vent_lava",
+      "wilderwild:cave/geothermal_vent_up",
+      "wilderwild:cave/geothermal_vent_down",
+      "wilderwild:cave/geothermal_vent_stack",
+      "wilderwild:cave/geothermal_vent_stack_ceiling"
     ],
     [
       "minecraft:fossil_upper",
       "minecraft:fossil_lower",
       "minecraft:monster_room",
       "minecraft:monster_room_deep",
-      "wilderwild:fossil_lava"
+      "wilderwild:cave/fossil_diamonds_magmatic_caves"
     ],
     [],
     [],
@@ -172,23 +172,19 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "wilderwild:ore_gabbro",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel"
     ],
     [
-      "wilderwild:upside_down_magma",
-      "wilderwild:gabbro_disk",
-      "wilderwild:gabbro_pile",
-      "wilderwild:downwards_gabbro_column",
-      "wilderwild:geothermal_vent_north",
-      "wilderwild:geothermal_vent_east",
-      "wilderwild:geothermal_vent_south",
-      "wilderwild:geothermal_vent_west"
+      "wilderwild:cave/patch_magma_ceiling",
+      "wilderwild:cave/patch_gabbro",
+      "wilderwild:cave/patch_gabbro_ceiling",
+      "wilderwild:cave/geothermal_vent_north_south",
+      "wilderwild:cave/geothermal_vent_east_west"
     ],
     [
-      "wilderwild:lava_spring_extra"
+      "wilderwild:cave/spring_lava_overworld_extra"
     ],
     [
       "minecraft:glow_lichen",

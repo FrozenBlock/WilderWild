@@ -92,17 +92,13 @@
   "features": [
     [],
     [
-      "wilderwild:mesoglea_caves_stone_pool",
+      "wilderwild:cave/pool_stone_mesoglea_caves",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
     [
       "minecraft:amethyst_geode",
-      "wilderwild:large_mesoglea_purple",
-      "wilderwild:large_mesoglea_blue",
-      "wilderwild:mesoglea_cluster_purple",
-      "wilderwild:mesoglea_cluster_blue",
-      "wilderwild:mesoglea_paths"
+      "wilderwild:cave/nematocyst"
     ],
     [
       "minecraft:monster_room",
@@ -139,13 +135,11 @@
       "minecraft:disk_sand",
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "wilderwild:ore_calcite"
+      "wilderwild:cave/ore_calcite"
     ],
     [
-      "wilderwild:upside_down_blue_mesoglea",
-      "wilderwild:upside_down_purple_mesoglea",
-      "wilderwild:blue_mesoglea_column",
-      "wilderwild:purple_mesoglea_column"
+      "wilderwild:cave/patch_mesoglea",
+      "wilderwild:cave/patch_mesoglea_ceiling"
     ],
     [],
     [
@@ -157,8 +151,9 @@
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_pumpkin",
-      "wilderwild:nematocyst_blue",
-      "wilderwild:nematocyst_purple"
+      "wilderwild:cave/medium_mesoglea",
+      "wilderwild:cave/large_mesoglea",
+      "wilderwild:cave/paths_mesoglea"
     ],
     [
       "minecraft:freeze_top_layer"

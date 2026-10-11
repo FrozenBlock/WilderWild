@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
-import net.frozenblock.wilderwild.levelgen.feature.HydrothermalVentFeature;
+import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
@@ -44,6 +44,7 @@ import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -142,7 +143,16 @@ public final class WWAquaticFeatures {
 						new UnderwaterVegetationPatchFeature(
 							blocks.getOrThrow(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
 							BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
-							PlacementUtils.inlinePlaced(HydrothermalVentFeature.INSTANCE),
+							PlacementUtils.inlinePlaced(
+								new VentStackFeature(
+									BlockStateProvider.holderOf(WWBlocks.GEOTHERMAL_VENT.get()),
+									BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
+									BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
+									CaveSurface.FLOOR,
+									UniformInt.of(0, 3),
+									blocks.getOrThrow(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
+								)
+							),
 							CaveSurface.FLOOR,
 							ConstantInt.of(2),
 							0.375F,

@@ -15,7 +15,30 @@
         "vegetation_chance": 0.25,
         "vegetation_feature": {
           "feature": {
-            "type": "wilderwild:hydrothermal_vent"
+            "type": "wilderwild:vent_stack",
+            "base_block": {
+              "id": "wilderwild:gabbro"
+            },
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 3,
+              "min_inclusive": 0
+            },
+            "inner_block": {
+              "id": "minecraft:magma_block"
+            },
+            "replaceable": "#wilderwild:feature/hydrothermal_vent_replaceable",
+            "surface": "floor",
+            "vent_block": {
+              "id": "wilderwild:geothermal_vent",
+              "properties": {
+                "facing": "up",
+                "natural": "true",
+                "powered": "false",
+                "vent_state": "dormant",
+                "vent_type": "none"
+              }
+            }
           },
           "placement": []
         },

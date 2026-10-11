@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:geothermal_vent_column",
+  "feature": "wilderwild:cave/geothermal_vent_stack",
   "placement": [
     {
       "type": "minecraft:count",

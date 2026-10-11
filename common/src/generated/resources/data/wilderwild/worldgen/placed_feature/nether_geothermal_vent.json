@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:geothermal_vent_up",
+  "feature": "wilderwild:cave/geothermal_vent_up",
   "placement": [
     {
       "type": "minecraft:count",

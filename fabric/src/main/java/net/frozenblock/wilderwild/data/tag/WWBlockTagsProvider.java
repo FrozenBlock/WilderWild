@@ -740,6 +740,11 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 	private void generateFeature(HolderLookup.Provider registries) {
 		// AQUATIC
+		this.builder(WWFeatureBlockTags.CATTAIL_PLACEABLE)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.add(BlockItemIds.CLAY);
+
 		this.builder(WWFeatureBlockTags.BARNACLES_PLACEABLE_NATURAL)
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL)
@@ -766,11 +771,65 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWFeatureBlockTags.SEA_ANEMONE_CANNOT_PLACE)
 			.add(BlockItemIds.MOSS_BLOCK);
 
+		this.builder(WWFeatureBlockTags.SPONGE_BUD_PLACEABLE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.SPONGE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.MOSS_BLOCK)
+			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
+			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
+
+		this.builder(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockItemTags.SAND.block())
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.OCEAN_MOSS_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockItemTags.SAND.block());
+
 		this.builder(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE)
 			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
 			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.CLAY)
 			.add(BlockItemIds.GRAVEL);
+
+		// CAVE
+		// MESOGLEA CAVES
+		this.builder(WWFeatureBlockTags.STONE_POOL_REPLACEABLE)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.CALCITE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
+			.addOptionalTag(BlockTags.DIRT);
+
+		this.builder(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS)
+			.add(BlockItemIds.CLAY)
+			.add(BlockItemIds.CALCITE)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_BLUE)
+			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
+			.addOptionalTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS);
+
+		this.builder(WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_PURPLE)
+			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
+			.addOptionalTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS);
+
+		// MAGMATIC CAVES
+		this.builder(WWFeatureBlockTags.MAGMA_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+
+		this.builder(WWFeatureBlockTags.GEOTHERMAL_VENT_STACK_REPLACEABLE)
+			.add(BlockItemIds.GRAVEL)
+			.addOptionalTag(BlockTags.DIRT)
+			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWFeatureBlockTags.STONE_TRANSITION_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.MUD)
@@ -884,10 +943,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.GRASS_BLOCK)
 			.add(BlockItemIds.PODZOL);
 
-		this.builder(WWFeatureBlockTags.OCEAN_MOSS_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockItemTags.SAND.block());
-
 		this.builder(WWFeatureBlockTags.SANDSTONE_PATH_REPLACEABLE)
 			.add(BlockItemIds.SAND);
 
@@ -927,20 +982,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWFeatureBlockTags.PEARLESCENT_BLUE_NEMATOCYST_FEATURE_PLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.DRIPSTONE_BLOCK)
-			.add(BlockItemIds.CALCITE)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWFeatureBlockTags.PEARLESCENT_PURPLE_NEMATOCYST_FEATURE_PLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.DRIPSTONE_BLOCK)
-			.add(BlockItemIds.CALCITE)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
 		this.builder(WWFeatureBlockTags.SCORCHED_SAND_FEATURE_INNER_REPLACEABLE)
 			.add(BlockItemIds.SAND, WWBlockItemIds.SCORCHED_SAND);
 
@@ -974,17 +1015,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWFeatureBlockTags.ICICLE_REPLACEABLE)
 			.addOptionalTag(WWBlockTags.ICICLE_CAN_GROW_UNDER)
 			.addOptionalTag(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE);
-
-		this.builder(WWFeatureBlockTags.MESOGLEA_REPLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.DRIPSTONE_BLOCK)
-			.add(BlockItemIds.CALCITE)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWFeatureBlockTags.MAGMA_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWFeatureBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
@@ -1021,33 +1051,11 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.DIRT)
 			.add(BlockItemIds.SANDSTONE);
 
-		this.builder(WWFeatureBlockTags.SPONGE_BUD_PLACEABLE)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.add(BlockItemIds.GRAVEL)
-			.add(BlockItemIds.SPONGE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.MOSS_BLOCK)
-			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
-			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());
-
 		this.builder(WWFeatureBlockTags.BASIN_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.COARSE_DIRT)
 			.add(BlockItemIds.PODZOL)
 			.add(BlockItemIds.MOSS_BLOCK)
 			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
-
-		this.builder(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWFeatureBlockTags.CATTAIL_PLACEABLE)
-			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
-			.addOptionalTag(BlockItemTags.SAND.block())
-			.add(BlockItemIds.CLAY);
 
 		this.builder(WWFeatureBlockTags.SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND)
 			.addOptionalTag(BlockTags.TERRACOTTA)

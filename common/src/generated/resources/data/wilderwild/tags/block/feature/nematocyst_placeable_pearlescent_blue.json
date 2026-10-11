@@ -1,0 +1,9 @@
+{
+  "values": [
+    "wilderwild:pearlescent_blue_mesoglea",
+    {
+      "id": "#wilderwild:feature/mesoglea_and_nematocyst_base_blocks",
+      "required": false
+    }
+  ]
+}

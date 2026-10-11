@@ -1,0 +1,87 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:large_speleothem",
+        "base_block": "wilderwild:pearlescent_blue_mesoglea",
+        "column_radius": {
+          "type": "minecraft:clamped",
+          "max_inclusive": 7,
+          "min_inclusive": 3,
+          "source": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 10,
+            "min_inclusive": 3
+          }
+        },
+        "height_scale": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.75,
+          "min_inclusive": 0.2
+        },
+        "max_column_radius_to_cave_height_ratio": 0.15,
+        "min_bluntness_for_wind": 0.2,
+        "min_radius_for_wind": 5,
+        "replaceable_blocks": "#wilderwild:feature/mesoglea_and_nematocyst_base_blocks",
+        "stalactite_bluntness": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.25,
+          "min_inclusive": 0.1
+        },
+        "stalagmite_bluntness": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.4,
+          "min_inclusive": 0.16
+        },
+        "wind_speed": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.25,
+          "min_inclusive": 0.0
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "minecraft:large_speleothem",
+        "base_block": "wilderwild:pearlescent_purple_mesoglea",
+        "column_radius": {
+          "type": "minecraft:clamped",
+          "max_inclusive": 7,
+          "min_inclusive": 3,
+          "source": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 10,
+            "min_inclusive": 3
+          }
+        },
+        "height_scale": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.75,
+          "min_inclusive": 0.2
+        },
+        "max_column_radius_to_cave_height_ratio": 0.15,
+        "min_bluntness_for_wind": 0.2,
+        "min_radius_for_wind": 5,
+        "replaceable_blocks": "#wilderwild:feature/mesoglea_and_nematocyst_base_blocks",
+        "stalactite_bluntness": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.25,
+          "min_inclusive": 0.1
+        },
+        "stalagmite_bluntness": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.4,
+          "min_inclusive": 0.16
+        },
+        "wind_speed": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.25,
+          "min_inclusive": 0.0
+        }
+      },
+      "placement": []
+    }
+  ]
+}

@@ -35,4 +35,18 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - `minecraft:count` Placement Modifier Type.
   - `minecraft:offset` Placement Modifier Type.
   - `minecraft:environment_scan` Placement Modifier Type.
+- Removed the `wilderwild:large_mesoglea` Feature Type, as the `minecraft:large_speleothem` Feature Type provides the same functionality.
+  - A mixin has been implemented in `SpeleothemUtils` to no longer consider Lava a valid block to place features in if the feature's base Block is Mesoglea.
+- Random pillars of Mesoglea no longer generate, and have been replaced with more natural-looking patches on ceilings and floors containing small clusters of pillars.
+- The `wilderwild:geothermal_vent` Feature Type has been removed, and superseded by the `wilderwild:vent_stack` Feature Type with the following format:
+  - `vent_block`: A Block State Provider, determining the top-most Block of the stack.
+  - `base_block`: A Block State Provider, determining what Block to encase the stack in.
+  - `inner_block`: A Block State Provider, determining what Block to place down the center of the stack.
+  - `surface`: Which surface to place the feature on (`ceiling` or `floor`.)
+  - `height`: An Integer Provider, determining how tall a stack can be.
+  - `replaceable`: A Block's ID, a list of Block IDs, or a Block Tag determining which Blocks this feature can replace.
+- Random pillars, splotchy disks, and piles of Gabbro and Magma no longer generate in Magmatic Caves, and have been replaced with:
+  - Patches on ceilings and floors containing small clusters of pillars.
+  - Geothermal Vent Stacks on ceilings and floors.
+- Gabbro and Magma path generation in the Magmatic Caves biome is now generated via a Material Rule instead of a Feature.
 - Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.

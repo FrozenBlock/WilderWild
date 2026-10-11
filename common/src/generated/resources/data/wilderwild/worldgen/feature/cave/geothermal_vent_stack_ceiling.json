@@ -1,0 +1,47 @@
+{
+  "type": "minecraft:vegetation_patch",
+  "depth": 2,
+  "extra_bottom_block_chance": 0.375,
+  "extra_edge_column_chance": 0.45,
+  "ground_state": {
+    "id": "wilderwild:gabbro"
+  },
+  "replaceable": "#wilderwild:feature/geothermal_vent_stack_replaceable",
+  "surface": "ceiling",
+  "vegetation_chance": 0.25,
+  "vegetation_feature": {
+    "feature": {
+      "type": "wilderwild:vent_stack",
+      "base_block": {
+        "id": "wilderwild:gabbro"
+      },
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 4,
+        "min_inclusive": 1
+      },
+      "inner_block": {
+        "id": "minecraft:magma_block"
+      },
+      "replaceable": "#wilderwild:feature/geothermal_vent_stack_replaceable",
+      "surface": "ceiling",
+      "vent_block": {
+        "id": "wilderwild:geothermal_vent",
+        "properties": {
+          "facing": "down",
+          "natural": "true",
+          "powered": "false",
+          "vent_state": "dormant",
+          "vent_type": "none"
+        }
+      }
+    },
+    "placement": []
+  },
+  "vertical_range": 4,
+  "xz_radius": {
+    "type": "minecraft:uniform",
+    "max_inclusive": 4,
+    "min_inclusive": 2
+  }
+}
