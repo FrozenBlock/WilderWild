@@ -17,13 +17,11 @@
 
 package net.frozenblock.wilderwild.wind.client;
 
-import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import net.frozenblock.lib.event.api.events.client.ClientTickEvents;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
-import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.lib.wind.disturbance.WindDisturbances;
+import net.frozenblock.lib.wind.disturbance.WindDisturbancesHolder;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.WindClusterSeedParticleOptions;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -120,7 +118,7 @@ public final class AmbientWindParticleSpawner {
 		final int z = posZ + random.nextIntBetweenInclusive(-range, range);
 		blockPos.set(x, y, z);
 
-		final List<Pair<DataAttachmentTarget, WindDisturbances>> windDisturbances = WindManager.getOrCreate(level).getWindDisturbances();
+		final List<WindDisturbancesHolder> windDisturbances = WindManager.getOrCreate(level).getWindDisturbancesHolders();
 		if (windDisturbances.isEmpty()) return;
 
 		final BlockState state = level.getBlockState(blockPos);

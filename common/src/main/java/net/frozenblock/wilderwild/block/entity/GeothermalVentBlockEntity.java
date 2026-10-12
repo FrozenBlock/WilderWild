@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.BlowingHelper;
-import net.frozenblock.lib.wind.disturbance.WindDisturbances;
+import net.frozenblock.lib.wind.disturbance.WindDisturbanceTypesHolder;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.impl.client.GeothermalVentParticleSpawner;
@@ -31,10 +31,10 @@ import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.registry.WWWindDisturbances;
+import net.frozenblock.wilderwild.registry.WWWindDisturbanceTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
-import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
-import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbanceType;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbanceType;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -218,8 +218,8 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
 
 		if (!vent) {
-			WindDisturbances.addIf(level, this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbance.INSTANCE);
-			WindDisturbances.addIf(level, this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbance.INSTANCE);
+			WindDisturbanceTypesHolder.addIf(level, this, this::doesNotHaveEffectiveWindDisturbance, () -> GeothermalVentEffectiveWindDisturbanceType.INSTANCE);
+			WindDisturbanceTypesHolder.addIf(level, this, this::doesNotHaveBaseWindDisturbance, () -> GeothermalVentBaseWindDisturbanceType.INSTANCE);
 		}
 
 		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;
@@ -301,11 +301,11 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 	}
 
 	private boolean doesNotHaveEffectiveWindDisturbance(DataAttachmentTarget source) {
-		return WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEOTHERMAL_VENT_EFFECTIVE.get()));
+		return WindDisturbanceTypesHolder.noneMatch(source, WindDisturbanceTypesHolder.type(WWWindDisturbanceTypes.GEOTHERMAL_VENT_EFFECTIVE.get()));
 	}
 
 	private boolean doesNotHaveBaseWindDisturbance(DataAttachmentTarget source) {
-		return WindDisturbances.noneMatch(source, WindDisturbances.type(WWWindDisturbances.GEOTHERMAL_VENT_BASE.get()));
+		return WindDisturbanceTypesHolder.noneMatch(source, WindDisturbanceTypesHolder.type(WWWindDisturbanceTypes.GEOTHERMAL_VENT_BASE.get()));
 	}
 
 	private AABB getPossibleEruptionBoundingBox(BlockPos pos, BlockPos maxEndPos) {

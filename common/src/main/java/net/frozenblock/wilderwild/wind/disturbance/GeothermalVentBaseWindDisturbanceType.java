@@ -20,21 +20,20 @@ package net.frozenblock.wilderwild.wind.disturbance;
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
-import net.frozenblock.wilderwild.registry.WWWindDisturbances;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class GeothermalVentBaseWindDisturbance extends AbstractGeothermalVentWindDisturbance {
+public class GeothermalVentBaseWindDisturbanceType extends AbstractGeothermalVentWindDisturbance {
 	public static final double INTENSITY_SCALE = 0.5D;
-	public static final GeothermalVentBaseWindDisturbance INSTANCE = new GeothermalVentBaseWindDisturbance();
-	public static final MapCodec<GeothermalVentBaseWindDisturbance> CODEC = MapCodec.unit(INSTANCE);
-	public static final StreamCodec<RegistryFriendlyByteBuf, GeothermalVentBaseWindDisturbance> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+	public static final GeothermalVentBaseWindDisturbanceType INSTANCE = new GeothermalVentBaseWindDisturbanceType();
+	public static final MapCodec<GeothermalVentBaseWindDisturbanceType> CODEC = MapCodec.unit(INSTANCE);
+	public static final StreamCodec<RegistryFriendlyByteBuf, GeothermalVentBaseWindDisturbanceType> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public AABB area(GeothermalVentBlockEntity source, Level level, Vec3 origin, Vec3 target, double scale) {
+	public AABB area(GeothermalVentBlockEntity source, Level level, Vec3 origin, double scale) {
 		return source.computeBaseEruptionArea(level);
 	}
 
@@ -44,7 +43,12 @@ public class GeothermalVentBaseWindDisturbance extends AbstractGeothermalVentWin
 	}
 
 	@Override
-	public WindDisturbanceType<?> type() {
-		return WWWindDisturbances.GEOTHERMAL_VENT_BASE.get();
+	public MapCodec<? extends WindDisturbanceType<GeothermalVentBlockEntity>> codec() {
+		return CODEC;
+	}
+
+	@Override
+	public StreamCodec<RegistryFriendlyByteBuf, ? extends WindDisturbanceType<GeothermalVentBlockEntity>> streamCodec() {
+		return STREAM_CODEC;
 	}
 }

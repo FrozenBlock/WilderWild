@@ -55,7 +55,7 @@ import net.frozenblock.wilderwild.registry.WWShearsDispenseItemBehaviors;
 import net.frozenblock.wilderwild.registry.WWSoundPredicates;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WWStructureProcessorTypes;
-import net.frozenblock.wilderwild.registry.WWWindDisturbances;
+import net.frozenblock.wilderwild.registry.WWWindDisturbanceTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
@@ -97,7 +97,7 @@ public final class WilderWild {
 		WWStructureModifications.init();
 		WWBlockTransformers.init();
 
-		WWWindDisturbances.init();
+		WWWindDisturbanceTypes.init();
 		WWWindManagerExtension.init();
 		WWSoundPredicates.init();
 
