@@ -17,10 +17,9 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -79,8 +78,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
+		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
 		this.xd += wind.x * 0.001D;
 		this.yd += wind.y * 0.00005D;
 		this.zd += wind.z * 0.001D;

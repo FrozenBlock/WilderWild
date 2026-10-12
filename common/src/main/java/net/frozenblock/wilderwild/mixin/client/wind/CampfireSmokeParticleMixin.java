@@ -17,8 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.client.wind;
 
-import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CampfireSmokeParticle;
@@ -40,8 +39,7 @@ public abstract class CampfireSmokeParticleMixin extends SingleQuadParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1.5D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
+		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
 		this.xd += wind.x * 0.0005D;
 		this.yd += wind.y * 0.000002D;
 		this.zd += wind.z * 0.0005D;

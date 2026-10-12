@@ -26,6 +26,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Whether Icicles will drop an Item upon landing (enabled by default.)
   - Whether the amount of damage inflicted by falling Icicles is weaker than other Speleothems (disabled by default.)
   - Whether damaged inflicted by falling Icicles uses a new Damage Source (enabled by default.)
+- Particles are now much more visibly affected by Wind Disturbances (Breezes, Wind Charges, Geysers, Geothermal Vents, etc.)
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

@@ -20,9 +20,8 @@ package net.frozenblock.wilderwild.particle;
 import java.util.Optional;
 import java.util.function.Supplier;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -107,8 +106,7 @@ public class PollenParticle extends SingleQuadParticle {
 		if (!rain) {
 			final double horizontalWindScale = (this.onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
 			final double verticalWindScale = (this.onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
-			final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-				.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
+			final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
 			this.xd += wind.x() * horizontalWindScale;
 			this.yd += (wind.y() + 0.1D) * verticalWindScale;
 			this.zd += wind.z() * horizontalWindScale;

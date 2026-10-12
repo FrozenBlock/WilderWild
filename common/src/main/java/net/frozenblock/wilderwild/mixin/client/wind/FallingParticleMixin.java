@@ -22,8 +22,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.WWFallingLeavesParticle;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -78,9 +76,8 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	) {
 		wind.set(Vec3.ZERO);
 		if (!WWWindManagerExtension.shouldUseWind(this.level)) return;
-		final Vec3 currentWind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 2.5D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
-		wind.set(currentWind);
+
+		wind.set(WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z, 2.5D, 10D));
 	}
 
 	@ModifyExpressionValue(

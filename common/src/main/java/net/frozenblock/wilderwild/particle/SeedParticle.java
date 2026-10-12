@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.particle;
 
 import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -57,7 +57,9 @@ public class SeedParticle extends SingleQuadParticle {
 	@Override
 	public void tick() {
 		super.tick();
+
 		if (this.x == this.xo && this.y == this.yo && this.z == this.zo) this.age += 5;
+
 		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
 		final FluidState fluidState = this.level.getBlockState(pos).getFluidState();
 		if (!fluidState.isEmpty() && (fluidState.getHeight(this.level, pos) + (float) pos.getY()) >= this.y) {
@@ -69,10 +71,10 @@ public class SeedParticle extends SingleQuadParticle {
 			this.age += 2;
 			return;
 		}
+
 		final double horizontalWindScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
 		final double verticalWindScale = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-		final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
+		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
 		this.xd += wind.x() * horizontalWindScale;
 		this.yd += Math.max(((wind.y() * 0.4D) + 0.1D), 0.1D) * verticalWindScale;
 		this.zd += wind.z() * horizontalWindScale;
@@ -106,5 +108,4 @@ public class SeedParticle extends SingleQuadParticle {
 			return seedParticle;
 		}
 	}
-
 }

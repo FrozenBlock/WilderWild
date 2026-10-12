@@ -30,6 +30,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public final class WWWindManagerExtension implements WindManagerExtension {
 	public static final MapCodec<WWWindManagerExtension> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -92,6 +93,20 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 
 	public static boolean shouldUseWind(Level level) {
 		return WWAmbienceAndMiscConfig.CLOUD_MOVEMENT.get() && WindManager.getOrCreate(level).usable();
+	}
+
+	public static Vec3 getParticleWindMovement(Level level, double x, double y, double z, double scale, double windDisturbanceScale) {
+		return WindManager.getOrCreate(level)
+			.getWindMovement(new Vec3(x, y, z), scale, 25D, windDisturbanceScale)
+			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
+	}
+
+	public static Vec3 getParticleWindMovement(Level level, double x, double y, double z, double windDisturbanceScale) {
+		return getParticleWindMovement(level, x, y, z, 1D, windDisturbanceScale);
+	}
+
+	public static Vec3 getParticleWindMovement(Level level, double x, double y, double z) {
+		return getParticleWindMovement(level, x, y, z, 25D);
 	}
 
 	@Override

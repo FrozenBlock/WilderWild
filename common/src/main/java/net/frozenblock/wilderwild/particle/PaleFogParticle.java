@@ -18,8 +18,7 @@
 package net.frozenblock.wilderwild.particle;
 
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.lib.wind.WindManager;
-import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -81,8 +80,7 @@ public class PaleFogParticle extends SingleQuadParticle {
 		}
 
 		final double windScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-		final Vec3 wind = WindManager.getOrCreate(this.level).getWindMovement(new Vec3(this.x, this.y, this.z), 1D, 7D, 5D)
-			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D * windScale);
+		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z, windScale, 10D);
 		this.xd += wind.x();
 		this.zd += wind.z();
 
