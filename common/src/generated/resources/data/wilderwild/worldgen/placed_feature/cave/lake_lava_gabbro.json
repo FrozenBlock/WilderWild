@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:cave/pool_lava_gabbro",
+  "feature": "wilderwild:cave/lake_lava_gabbro",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 4
+      "count": 96
     },
     {
       "type": "minecraft:in_square"
@@ -13,10 +13,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "above_bottom": 60
+          "absolute": 256
         },
         "min_inclusive": {
-          "above_bottom": 5
+          "above_bottom": 0
         }
       }
     },
@@ -29,13 +29,21 @@
       "direction_of_search": "down",
       "max_steps": 12,
       "target_condition": {
-        "type": "minecraft:solid"
+        "type": "minecraft:matching_blocks",
+        "blocks": [
+          "minecraft:magma_block",
+          "wilderwild:gabbro"
+        ]
       }
     },
     {
       "type": "minecraft:offset",
       "x": 0,
-      "y": 1,
+      "y": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 1,
+        "min_inclusive": -2
+      },
       "z": 0
     },
     {

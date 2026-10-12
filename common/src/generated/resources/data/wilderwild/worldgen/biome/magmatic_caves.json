@@ -124,8 +124,8 @@
   "features": [
     [],
     [
-      "wilderwild:cave/pool_lava_gabbro",
-      "wilderwild:cave/lake_lava_extra",
+      "wilderwild:cave/puddle_lava_gabbro",
+      "wilderwild:cave/lake_lava_gabbro",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
@@ -186,7 +186,7 @@
       "wilderwild:cave/geothermal_vent_east_west"
     ],
     [
-      "wilderwild:cave/spring_lava_overworld_extra"
+      "wilderwild:cave/spring_lava_magma_or_gabbro"
     ],
     [
       "minecraft:glow_lichen",

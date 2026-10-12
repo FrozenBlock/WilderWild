@@ -23,15 +23,14 @@ import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.VegetationPatchWithEdgeDecorationFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.BallFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
@@ -575,7 +574,7 @@ public final class WWMiscConfigured {
 		);
 
 		RIVER_POOL.makeAndSetHolder(
-			new CircularWaterloggedVegetationPatchLessBordersFeature(
+			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -583,14 +582,15 @@ public final class WWMiscConfigured {
 				ConstantInt.of(1),
 				0.8F,
 				1,
-				0.000F,
+				0F,
 				UniformInt.of(4, 8),
-				0.7F
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
 			)
 		);
 
 		SMALL_RIVER_POOL.makeAndSetHolder(
-			new CircularWaterloggedVegetationPatchLessBordersFeature(
+			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -598,9 +598,10 @@ public final class WWMiscConfigured {
 				ConstantInt.of(1),
 				0.8F,
 				1,
-				0.000F,
+				0F,
 				UniformInt.of(1, 2),
-				0.7F
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
 			)
 		);
 
@@ -932,7 +933,7 @@ public final class WWMiscConfigured {
 		MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK)));
 
 		BASIN_PODZOL.makeAndSetHolder(
-			new CircularWaterloggedVegetationPatchFeature(
+			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.PODZOL),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -942,12 +943,13 @@ public final class WWMiscConfigured {
 				1,
 				0.000F,
 				UniformInt.of(1, 3),
-				0.7F
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR
 			)
 		);
 
 		BASIN_MOSS.makeAndSetHolder(
-			new CircularWaterloggedVegetationPatchFeature(
+			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.MOSS_BLOCK),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -957,7 +959,8 @@ public final class WWMiscConfigured {
 				1,
 				0.000F,
 				UniformInt.of(1, 3),
-				0.7F
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR
 			)
 		);
 
@@ -974,7 +977,7 @@ public final class WWMiscConfigured {
 		MUD_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.MUD)));
 
 		BASIN_MUD.makeAndSetHolder(
-			new CircularWaterloggedVegetationPatchFeature(
+			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.BASIN_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.MUD),
 				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
@@ -984,7 +987,8 @@ public final class WWMiscConfigured {
 				1,
 				0.000F,
 				UniformInt.of(1, 3),
-				0.7F
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR
 			)
 		);
 
@@ -1116,7 +1120,7 @@ public final class WWMiscConfigured {
 		);
 
 		AUBURN_MOSS_PATCH.makeAndSetHolder(
-			new VegetationPatchWithEdgeDecorationFeature(
+			new FlexibleVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
@@ -1126,7 +1130,8 @@ public final class WWMiscConfigured {
 				5,
 				0.475F,
 				UniformInt.of(1, 2),
-				0.45F
+				0.45F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.PLACE_ON_EDGES
 			)
 		);
 
@@ -1175,7 +1180,7 @@ public final class WWMiscConfigured {
 		);
 
 		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(
-			new VegetationPatchWithEdgeDecorationFeature(
+			new FlexibleVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
@@ -1185,7 +1190,8 @@ public final class WWMiscConfigured {
 				5,
 				0.475F,
 				UniformInt.of(1, 2),
-				0.75F
+				0.75F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.PLACE_ON_EDGES
 			)
 		);
 

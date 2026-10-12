@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:spring_feature",
+  "requires_block_below": false,
+  "state": {
+    "id": "minecraft:lava",
+    "properties": {
+      "falling": "true"
+    }
+  },
+  "valid_blocks": [
+    "minecraft:magma_block",
+    "wilderwild:gabbro"
+  ]
+}

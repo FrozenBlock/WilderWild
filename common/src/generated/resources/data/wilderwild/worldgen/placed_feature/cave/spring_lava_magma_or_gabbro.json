@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:spring_lava_overworld",
+  "feature": "wilderwild:cave/spring_lava_magmatic_caves",
   "placement": [
     {
       "type": "minecraft:count",

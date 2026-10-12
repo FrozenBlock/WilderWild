@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:gravel",
+    "minecraft:magma_block",
     {
       "id": "#minecraft:substrate_overworld",
       "required": false

@@ -823,6 +823,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		// MAGMATIC CAVES
 		this.builder(WWFeatureBlockTags.MAGMA_REPLACEABLE)
 			.add(BlockItemIds.GRAVEL)
+			.add(BlockItemIds.MAGMA_BLOCK)
 			.addOptionalTag(BlockTags.SUBSTRATE_OVERWORLD)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 

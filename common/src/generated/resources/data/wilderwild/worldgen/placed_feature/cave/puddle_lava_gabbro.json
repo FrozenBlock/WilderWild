@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:fragile_ice_patch",
+  "feature": "wilderwild:cave/puddle_lava_gabbro",
   "placement": [
     {
-      "type": "frozenlib:config_predicate",
-      "config_predicate": "wilderwild:generate_fragile_ice"
-    },
-    {
       "type": "minecraft:count",
-      "count": 32
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      }
     },
     {
       "type": "minecraft:in_square"
@@ -17,27 +17,18 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 256
+          "above_bottom": 60
         },
         "min_inclusive": {
-          "above_bottom": 0
+          "above_bottom": 16
         }
       }
     },
     {
       "type": "minecraft:environment_scan",
       "allowed_search_condition": {
-        "type": "minecraft:any_of",
-        "predicates": [
-          {
-            "type": "minecraft:matching_block_tag",
-            "tag": "minecraft:air"
-          },
-          {
-            "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:water"
-          }
-        ]
+        "type": "minecraft:matching_block_tag",
+        "tag": "minecraft:air"
       },
       "direction_of_search": "down",
       "max_steps": 12,

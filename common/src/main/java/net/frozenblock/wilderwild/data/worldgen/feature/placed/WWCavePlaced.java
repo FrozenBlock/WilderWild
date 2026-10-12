@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
-import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
@@ -34,7 +33,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ClampedNormalInt;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -45,9 +43,7 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWCavePlaced {
 	// MAGMATIC CAVES
@@ -57,8 +53,6 @@ public final class WWCavePlaced {
 	// FROZEN CAVES
 	public static final FrozenLibPlacedFeature DECORATIVE_ICICLE_CLUSTER_SURFACE_WG = register("decorative_icicle_cluster_surface_wg");
 	public static final FrozenLibPlacedFeature DECORATIVE_ICICLE_CLUSTER_SURFACE = register("decorative_icicle_cluster_surface");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_PATCH_CEILING = register("ice_patch_ceiling");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_PATCH = register("fragile_ice_patch");
 
 	public static void registerCavePlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
@@ -117,36 +111,5 @@ public final class WWCavePlaced {
 			OffsetPlacement.horizontal(ClampedNormalInt.of(0F, 3F, -4, 4)),
 			BiomeFilter.biome()
 		);
-
-		final PlacementFilter generateFragileIce = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FRAGILE_ICE));
-		FRAGILE_ICE_PATCH_CEILING.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH_CEILING,
-			generateFragileIce,
-			CountPlacement.of(32),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BiomeFilter.biome()
-		);
-
-		FRAGILE_ICE_PATCH.makeAndSetHolder(WWCaveConfigured.FRAGILE_ICE_PATCH,
-			generateFragileIce,
-			CountPlacement.of(32),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-	}
-
-	@Unmodifiable
-	private static  List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier modifier) {
-		return List.of(countModifier, InSquarePlacement.spread(), modifier, BiomeFilter.biome());
-	}
-
-	@Unmodifiable
-	private static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier modifier) {
-		return modifiers(CountPlacement.of(count), modifier);
 	}
 }

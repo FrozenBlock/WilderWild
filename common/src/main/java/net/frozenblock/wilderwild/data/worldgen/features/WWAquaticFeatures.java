@@ -18,18 +18,18 @@
 package net.frozenblock.wilderwild.data.worldgen.features;
 
 import java.util.List;
+import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.UnderwaterVegetationPatchWithEdgeDecorationFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
-import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
+import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
@@ -47,6 +47,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
@@ -140,7 +141,7 @@ public final class WWAquaticFeatures {
 			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						new UnderwaterVegetationPatchFeature(
+						new FlexibleVegetationPatchFeature(
 							blocks.getOrThrow(WWFeatureBlockTags.HYDROTHERMAL_VENT_REPLACEABLE),
 							BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 							PlacementUtils.inlinePlaced(
@@ -159,7 +160,13 @@ public final class WWAquaticFeatures {
 							6,
 							0.25F,
 							UniformInt.of(1, 2),
-							0.5F
+							0.5F,
+							new FlexibleVegetationPatchFeature.FlexibleComponents(
+								Optional.of(BlockPredicate.matchesBlocks(Blocks.WATER)),
+								false,
+								false,
+								true
+							)
 						)
 					),
 					TUBE_WORMS.asInlinePlaced(
@@ -188,7 +195,7 @@ public final class WWAquaticFeatures {
 		);
 
 		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(
-			new UnderwaterVegetationPatchWithEdgeDecorationFeature(
+			new FlexibleVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
@@ -198,7 +205,13 @@ public final class WWAquaticFeatures {
 				5,
 				0.475F,
 				UniformInt.of(1, 2),
-				0.55F
+				0.55F,
+				new FlexibleVegetationPatchFeature.FlexibleComponents(
+					Optional.of(BlockPredicate.matchesBlocks(Blocks.WATER)),
+					true,
+					false,
+					true
+				)
 			)
 		);
 
@@ -238,7 +251,7 @@ public final class WWAquaticFeatures {
 		);
 
 		AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER.makeAndSetHolder(
-			new UnderwaterVegetationPatchWithEdgeDecorationFeature(
+			new FlexibleVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
 				AUBURN_MOSS_VEGETATION_UNDERWATER.asInlinePlaced(),
@@ -248,7 +261,13 @@ public final class WWAquaticFeatures {
 				5,
 				0.475F,
 				UniformInt.of(1, 2),
-				0.75F
+				0.75F,
+				new FlexibleVegetationPatchFeature.FlexibleComponents(
+					Optional.of(BlockPredicate.matchesBlocks(Blocks.WATER)),
+					true,
+					false,
+					true
+				)
 			)
 		);
 	}

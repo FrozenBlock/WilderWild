@@ -3,10 +3,16 @@
   "features": [
     {
       "feature": {
-        "type": "frozenlib:underwater_vegetation_patch",
+        "type": "frozenlib:flexible_vegetation_patch_feature",
         "depth": 2,
         "extra_bottom_block_chance": 0.375,
         "extra_edge_column_chance": 0.5,
+        "flexible_components": {
+          "is_open": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
+          }
+        },
         "ground_state": {
           "id": "wilderwild:gabbro"
         },

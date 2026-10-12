@@ -55,6 +55,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
+import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.*;
 
 public final class WWAquaticPlacements {
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("patch_cattail");
@@ -122,13 +123,16 @@ public final class WWAquaticPlacements {
 		registerBarnacles(context, PATCH_BARNACLES_STRUCTURE, WWAquaticFeatures.BARNACLES_STRUCTURE, 42, 8, 8);
 
 		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticFeatures.FLOWERING_WATERLILY,
-			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FLOWER)),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome(),
-			CountPlacement.of(19),
-			OffsetPlacement.ofTriangle(7, 3),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+			postModifiers(
+				modifiersWithFilter(
+					configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FLOWER),
+					CountPlacement.of(1),
+					PlacementUtils.HEIGHTMAP_WORLD_SURFACE
+				),
+				CountPlacement.of(19),
+				OffsetPlacement.ofTriangle(7, 3),
+				BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+			)
 		);
 
 		registerWaterCover(
@@ -158,12 +162,12 @@ public final class WWAquaticPlacements {
 		);
 
 		SEAGRASS_MEADOW.makeAndSetHolder(WWAquaticFeatures.SEAGRASS_VERY_SHORT,
-			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SEAGRASS)),
-			CountPlacement.of(98),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
-			BiomeFilter.biome()
+			modifiersWithFilter(
+				configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SEAGRASS),
+				CountPlacement.of(98),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
+			)
 		);
 
 		registerSpongeBud(context, SPONGE_BUDS, CountPlacement.of(UniformInt.of(0, 3)));
@@ -187,14 +191,16 @@ public final class WWAquaticPlacements {
 		registerAuburnMoss(context, AUBURN_MOSS_UNDERWATER_RARE, 52);
 
 		AUBURN_CREEPING_MOSS_UNDERWATER.makeAndSetHolder(WWAquaticFeatures.AUBURN_CREEPING_MOSS_PATCH_UNDERWATER,
-			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OCEAN_AUBURN_MOSS)),
-			RarityFilter.onAverageOnceEvery(14),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome(),
-			CountPlacement.of(38),
-			OffsetPlacement.ofTriangle(6, 4),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+			postModifiers(
+				modifiersWithFilter(
+					configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OCEAN_AUBURN_MOSS),
+					RarityFilter.onAverageOnceEvery(14),
+					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
+				),
+				CountPlacement.of(38),
+				OffsetPlacement.ofTriangle(6, 4),
+				BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+			)
 		);
 	}
 
@@ -206,15 +212,17 @@ public final class WWAquaticPlacements {
 		int horizontalRange
 	) {
 		placement.makeAndSetHolder(WWAquaticFeatures.CATTAIL,
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BiomeFilter.biome(),
-			CountPlacement.of(UniformInt.of(minCount, maxCount)),
-			OffsetPlacement.horizontal(TrapezoidInt.triangle(horizontalRange)),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.CATTAIL_PLACEABLE))
+			postModifiers(
+				modifiersWithFilter(
+					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL),
+					RarityFilter.onAverageOnceEvery(rarity),
+					PlacementUtils.HEIGHTMAP_TOP_SOLID
+				),
+				CountPlacement.of(UniformInt.of(minCount, maxCount)),
+				OffsetPlacement.horizontal(TrapezoidInt.triangle(horizontalRange)),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.CATTAIL_PLACEABLE))
+			)
 		);
 	}
 
@@ -263,16 +271,12 @@ public final class WWAquaticPlacements {
 		});
 
 		placement.makeAndSetHolder(
-			Holder.direct(
-				new SimpleRandomSelectorFeature(
-					HolderSet.direct(placements)
-				)
-			),
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configPredicate)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
+			Holder.direct(new SimpleRandomSelectorFeature(HolderSet.direct(placements))),
+			modifiersWithFilter(
+				context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configPredicate),
+				RarityFilter.onAverageOnceEvery(rarity),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE
+			)
 		);
 	}
 
@@ -296,19 +300,21 @@ public final class WWAquaticPlacements {
 		int rarity
 	) {
 		placement.makeAndSetHolder(WWAquaticFeatures.SEA_ANEMONE,
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SEA_ANEMONE)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome(),
-			CountPlacement.of(12),
-			OffsetPlacement.ofTriangle(12, 3),
-			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
-			BlockPredicateFilter.forPredicate(
-				BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.get()),
-					BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWFeatureBlockTags.SEA_ANEMONE_CANNOT_PLACE))
+			postModifiers(
+				modifiersWithFilter(
+					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SEA_ANEMONE),
+					RarityFilter.onAverageOnceEvery(rarity),
+					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
+				),
+				CountPlacement.of(12),
+				OffsetPlacement.ofTriangle(12, 3),
+				HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.matchesBlocks(Blocks.WATER),
+						BlockPredicate.wouldSurvive(WWBlocks.SEA_ANEMONE.get()),
+						BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWFeatureBlockTags.SEA_ANEMONE_CANNOT_PLACE))
+					)
 				)
 			)
 		);
@@ -322,18 +328,20 @@ public final class WWAquaticPlacements {
 		int xzRange, int yRange
 	) {
 		placement.makeAndSetHolder(WWAquaticFeatures.SEA_WHIP,
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SEA_WHIP)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome(),
-			CountPlacement.of(count),
-			OffsetPlacement.ofTriangle(xzRange, yRange),
-			HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
-			BlockPredicateFilter.forPredicate(
-				BlockPredicate.allOf(
-					BlockPredicate.matchesBlocks(Blocks.WATER),
-					BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.get())
+			postModifiers(
+				modifiersWithFilter(
+					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SEA_WHIP),
+					RarityFilter.onAverageOnceEvery(rarity),
+					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
+				),
+				CountPlacement.of(count),
+				OffsetPlacement.ofTriangle(xzRange, yRange),
+				HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR),
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.matchesBlocks(Blocks.WATER),
+						BlockPredicate.wouldSurvive(WWBlocks.SEA_WHIP.get())
+					)
 				)
 			)
 		);
@@ -345,13 +353,15 @@ public final class WWAquaticPlacements {
 		int rarity
 	) {
 		placement.makeAndSetHolder(WWAquaticFeatures.TUBE_WORMS,
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_TUBE_WORMS)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome(),
-			CountPlacement.of(12),
-			OffsetPlacement.ofTriangle(3, 4)
+			postModifiers(
+				modifiersWithFilter(
+					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_TUBE_WORMS),
+					RarityFilter.onAverageOnceEvery(rarity),
+					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
+				),
+				CountPlacement.of(12),
+				OffsetPlacement.ofTriangle(3, 4)
+			)
 		);
 	}
 
@@ -361,13 +371,13 @@ public final class WWAquaticPlacements {
 		int rarity
 	) {
 		placement.makeAndSetHolder(WWAquaticFeatures.HYDROTHERMAL_VENT,
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_HYDROTHERMAL_VENT)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
-			SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, -256, -9),
-			BiomeFilter.biome()
+			modifiersWithFilter(
+				context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_HYDROTHERMAL_VENT),
+				RarityFilter.onAverageOnceEvery(rarity),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
+				SurfaceRelativeThresholdFilter.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, -256, -9)
+			)
 		);
 	}
 
@@ -377,11 +387,11 @@ public final class WWAquaticPlacements {
 		int rarity
 	) {
 		placement.makeAndSetHolder(WWAquaticFeatures.AUBURN_MOSS_UNDERWATER,
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_OCEAN_AUBURN_MOSS)),
-			RarityFilter.onAverageOnceEvery(rarity),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
+			modifiersWithFilter(
+				context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_OCEAN_AUBURN_MOSS),
+				RarityFilter.onAverageOnceEvery(rarity),
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
+			)
 		);
 	}
 

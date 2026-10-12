@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:fragile_ice_patch_ceiling",
+  "feature": "wilderwild:cave/patch_fragile_ice_ceiling",
   "placement": [
     {
       "type": "frozenlib:config_predicate",

@@ -1,0 +1,96 @@
+{
+  "type": "minecraft:sequence",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:lake",
+        "barrier": {
+          "id": "wilderwild:gabbro"
+        },
+        "can_place_feature": {
+          "type": "minecraft:true"
+        },
+        "can_replace_with_air_or_fluid": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:features_cannot_replace"
+          }
+        },
+        "can_replace_with_barrier": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:lava_pool_stone_cannot_replace"
+          }
+        },
+        "fluid": {
+          "id": "minecraft:lava",
+          "properties": {
+            "level": "0"
+          }
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "minecraft:weighted_random_selector",
+        "features": [
+          {
+            "data": {
+              "feature": "wilderwild:cave/geothermal_vent_stack_lava_lake",
+              "placement": [
+                {
+                  "type": "minecraft:offset",
+                  "x": 0,
+                  "y": -1,
+                  "z": 0
+                },
+                {
+                  "type": "minecraft:environment_scan",
+                  "allowed_search_condition": {
+                    "type": "minecraft:any_of",
+                    "predicates": [
+                      {
+                        "type": "minecraft:matching_block_tag",
+                        "tag": "minecraft:air"
+                      },
+                      {
+                        "type": "minecraft:matching_blocks",
+                        "blocks": "minecraft:lava"
+                      }
+                    ]
+                  },
+                  "direction_of_search": "down",
+                  "max_steps": 6,
+                  "target_condition": {
+                    "type": "minecraft:matching_blocks",
+                    "blocks": "wilderwild:gabbro"
+                  }
+                },
+                {
+                  "type": "minecraft:offset",
+                  "x": 0,
+                  "y": 1,
+                  "z": 0
+                }
+              ]
+            },
+            "weight": 2
+          },
+          {
+            "data": {
+              "feature": {
+                "type": "minecraft:no_op"
+              },
+              "placement": []
+            },
+            "weight": 1
+          }
+        ]
+      },
+      "placement": []
+    }
+  ]
+}

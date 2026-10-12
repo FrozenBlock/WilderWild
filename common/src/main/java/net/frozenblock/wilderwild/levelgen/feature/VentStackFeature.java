@@ -27,7 +27,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
@@ -74,7 +73,7 @@ public record VentStackFeature(
 		final int height = this.height.sample(random);
 		mutable.move(oppositeDirection, height);
 
-		if (isAirOrWaterAndReplaceable(level.getBlockState(mutable))) {
+		if (isAirOrFluidAndReplaceable(level.getBlockState(mutable))) {
 			final BlockState ventState = this.ventBlock.value().getOptionalState(level, random, mutable);
 			if (ventState == null) return false;
 			this.setBlock(level, mutable, ventState);
@@ -126,7 +125,7 @@ public record VentStackFeature(
 					if (innerState != null) state = innerState;
 				}
 
-				if (!isAirOrWaterAndReplaceable(level.getBlockState(mutable))) cancelConnectionIteration = true;
+				if (!isAirOrFluidAndReplaceable(level.getBlockState(mutable))) cancelConnectionIteration = true;
 
 				if (state != null) this.safeSetBlock(level, mutable, state, validBlockToReplace);
 			}
@@ -136,11 +135,11 @@ public record VentStackFeature(
 	}
 
 	private boolean isValidBlockToReplace(BlockState blockState) {
-		return blockState.is(this.replaceable) || isAirOrWaterAndReplaceable(blockState);
+		return blockState.is(this.replaceable) || isAirOrFluidAndReplaceable(blockState);
 	}
 
-	private static boolean isAirOrWaterAndReplaceable(BlockState state) {
+	private static boolean isAirOrFluidAndReplaceable(BlockState state) {
 		final FluidState fluidState = state.getFluidState();
-		return state.isAir() || (fluidState.is(FluidTags.WATER) && fluidState.isFull() && state.canBeReplaced());
+		return state.isAir() || (fluidState.isFull() && state.canBeReplaced());
 	}
 }

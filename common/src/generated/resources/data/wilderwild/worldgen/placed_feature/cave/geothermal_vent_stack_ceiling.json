@@ -31,7 +31,10 @@
           },
           {
             "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:water"
+            "blocks": [
+              "minecraft:water",
+              "minecraft:lava"
+            ]
           }
         ]
       },

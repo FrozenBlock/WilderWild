@@ -18,16 +18,18 @@
 package net.frozenblock.wilderwild.data.worldgen.features;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.CircularLavaVegetationPatchFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.CircularWaterloggedVegetationPatchLessBordersFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleLavaVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
@@ -46,6 +48,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -58,16 +61,21 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.blockpredicates.ReplaceablePredicate;
 import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.LargeSpeleothemFeature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.NoOpFeature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
+import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
+import net.minecraft.world.level.levelgen.feature.SpringFeature;
 import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedRandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
@@ -84,19 +92,24 @@ public final class WWCaveFeatures {
 	public static final FrozenLibFeature NEMATOCYST = WWFeatureUtils.register("nematocyst");
 
 	// MAGMATIC CAVES
-	public static final FrozenLibFeature POOL_LAVA_GABBRO = register("pool_lava_gabbro");
+	public static final FrozenLibFeature PUDDLE_LAVA_GABBRO = register("puddle_lava_gabbro");
+	public static final FrozenLibFeature SPRING_LAVA_MAGMA_OR_GABBRO = register("spring_lava_magmatic_caves");
+	public static final FrozenLibFeature LAKE_LAVA_GABBRO = register("lake_lava_gabbro");
 	public static final FrozenLibFeature PATCH_MAGMA = WWFeatureUtils.register("patch_magma");
 	public static final FrozenLibFeature PATCH_MAGMA_CEILING = WWFeatureUtils.register("patch_magma_ceiling");
-
 	public static final FrozenLibFeature PATCH_GABBRO = register("patch_gabbro");
 	public static final FrozenLibFeature PATCH_GABBRO_CEILING = register("patch_gabbro_ceiling");
-
 	public static final FrozenLibFeature GEOTHERMAL_VENT_UP = register("geothermal_vent_up");
 	public static final FrozenLibFeature GEOTHERMAL_VENT_DOWN = register("geothermal_vent_down");
 	public static final FrozenLibFeature GEOTHERMAL_VENT_NORTH_SOUTH = register("geothermal_vent_north_south");
 	public static final FrozenLibFeature GEOTHERMAL_VENT_EAST_WEST = register("geothermal_vent_east_west");
 	public static final FrozenLibFeature GEOTHERMAL_VENT_STACK = register("geothermal_vent_stack");
 	public static final FrozenLibFeature GEOTHERMAL_VENT_STACK_CEILING = register("geothermal_vent_stack_ceiling");
+	public static final FrozenLibFeature GEOTHERMAL_VENT_STACK_LAVA_LAKE = register("geothermal_vent_stack_lava_lake");
+
+	// ICE CAVES
+	public static final FrozenLibFeature PATCH_FRAGILE_ICE = register("patch_fragile_ice");
+	public static final FrozenLibFeature PATCH_FRAGILE_ICE_CEILING = register("patch_fragile_ice_ceiling");
 
 	public static void bootstrap(BootstrapContext<Feature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
@@ -114,7 +127,7 @@ public final class WWCaveFeatures {
 		);
 
 		POOL_STONE.makeAndSetHolder(
-			new CircularWaterloggedVegetationPatchLessBordersFeature(
+			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.STONE),
 				WWMiscConfigured.EMPTY.asInlinePlaced(),
@@ -124,7 +137,8 @@ public final class WWCaveFeatures {
 				2,
 				0.000F,
 				UniformInt.of(12, 15),
-				0.7F
+				0.7F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR
 			)
 		);
 
@@ -164,8 +178,8 @@ public final class WWCaveFeatures {
 		);
 
 		// MAGMATIC CAVES
-		POOL_LAVA_GABBRO.makeAndSetHolder(
-			new CircularLavaVegetationPatchFeature(
+		PUDDLE_LAVA_GABBRO.makeAndSetHolder(
+			new FlexibleLavaVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.MAGMA_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 				PlacementUtils.inlinePlaced(
@@ -186,8 +200,62 @@ public final class WWCaveFeatures {
 				0.8F,
 				2,
 				0.08F,
-				UniformInt.of(3, 10),
-				0.7F
+				UniformInt.of(3, 6),
+				0.7F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR
+			)
+		);
+
+		SPRING_LAVA_MAGMA_OR_GABBRO.makeAndSetHolder(
+			new SpringFeature(
+				Fluids.LAVA.defaultFluidState(),
+				false,
+				4,
+				1,
+				HolderSet.direct(
+					Block::builtInRegistryHolder,
+					Blocks.MAGMA_BLOCK,
+					WWBlocks.GABBRO.get()
+				)
+			)
+		);
+
+		LAKE_LAVA_GABBRO.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						new LakeFeature(
+							BlockStateProvider.holderOf(Blocks.LAVA),
+							BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
+							BlockPredicate.alwaysTrue(),
+							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						new WeightedRandomSelectorFeature(
+							WeightedList.<Holder<PlacedFeature>>builder()
+								.add(
+									GEOTHERMAL_VENT_STACK_LAVA_LAKE.asInlinePlaced(
+										OffsetPlacement.vertical(ConstantInt.of(-1)),
+										EnvironmentScanPlacement.scanningFor(
+											Direction.DOWN,
+											BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get()),
+											BlockPredicate.anyOf(
+												BlockPredicate.ONLY_IN_AIR_PREDICATE,
+												BlockPredicate.matchesBlocks(Blocks.LAVA)
+											),
+											6
+										),
+										OffsetPlacement.vertical(ConstantInt.of(1))
+									),
+									2
+								)
+								.add(PlacementUtils.inlinePlaced(new NoOpFeature()))
+								.build()
+						)
+					)
+				)
 			)
 		);
 
@@ -205,8 +273,13 @@ public final class WWCaveFeatures {
 		registerHorizontalGeothermalVent(context, GEOTHERMAL_VENT_NORTH_SOUTH, Direction.Axis.Z);
 		registerHorizontalGeothermalVent(context, GEOTHERMAL_VENT_EAST_WEST, Direction.Axis.X);
 
-		registerGeothermalVentStack(context, GEOTHERMAL_VENT_STACK, false);
-		registerGeothermalVentStack(context, GEOTHERMAL_VENT_STACK_CEILING, true);
+		registerGeothermalVentStack(context, GEOTHERMAL_VENT_STACK, 0, 2, false);
+		registerGeothermalVentStack(context, GEOTHERMAL_VENT_STACK_CEILING, 1, 3, true);
+		registerGeothermalVentStack(context, GEOTHERMAL_VENT_STACK_LAVA_LAKE, 0, 1, false);
+
+		// ICE CAVES
+		registerFragileIcePatch(context, PATCH_FRAGILE_ICE, false);
+		registerFragileIcePatch(context, PATCH_FRAGILE_ICE_CEILING, true);
 	}
 
 	private static void registerMesogleaPatch(
@@ -319,10 +392,7 @@ public final class WWCaveFeatures {
 					? PlacementUtils.inlinePlaced(
 						new BlockColumnFeature(
 							List.of(
-								BlockColumnFeature.layer(
-									BiasedToBottomInt.of(1, 2),
-									BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK)
-								)
+								BlockColumnFeature.layer(BiasedToBottomInt.of(1, 2), BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK))
 							),
 							Direction.DOWN,
 							BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
@@ -395,10 +465,11 @@ public final class WWCaveFeatures {
 	private static void registerGeothermalVentStack(
 		BootstrapContext<Feature> context,
 		FrozenLibFeature feature,
+		int minHeight, int maxHeight,
 		boolean ceiling
 	) {
 		feature.makeAndSetHolder(
-			new VegetationPatchFeature(
+			new FlexibleVegetationPatchFeature(
 				context.lookup(Registries.BLOCK).getOrThrow(WWFeatureBlockTags.GEOTHERMAL_VENT_STACK_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 				PlacementUtils.inlinePlaced(
@@ -409,7 +480,7 @@ public final class WWCaveFeatures {
 						BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 						BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
 						ceiling ? CaveSurface.CEILING : CaveSurface.FLOOR,
-						ceiling ? UniformInt.of(1, 3) : UniformInt.of(0, 2),
+						UniformInt.of(minHeight, maxHeight),
 						context.lookup(Registries.BLOCK).getOrThrow(WWFeatureBlockTags.GEOTHERMAL_VENT_STACK_REPLACEABLE)
 					)
 				),
@@ -419,7 +490,48 @@ public final class WWCaveFeatures {
 				4,
 				0.2F,
 				ceiling ? UniformInt.of(2, 4) : UniformInt.of(2, 3),
-				0.45F
+				0.45F,
+				new FlexibleVegetationPatchFeature.FlexibleComponents(
+					Optional.of(
+						BlockPredicate.anyOf(
+							BlockPredicate.ONLY_IN_AIR_PREDICATE,
+							BlockPredicate.matchesBlocks(Blocks.LAVA)
+						)
+					),
+					false,
+					false,
+					true
+				)
+			)
+		);
+	}
+
+	private static void registerFragileIcePatch(
+		BootstrapContext<Feature> context,
+		FrozenLibFeature feature,
+		boolean ceiling
+	) {
+		feature.makeAndSetHolder(
+			new VegetationPatchFeature(
+				context.lookup(Registries.BLOCK).getOrThrow(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
+				PlacementUtils.inlinePlaced(ceiling
+					? new BlockColumnFeature(
+						List.of(
+							BlockColumnFeature.layer(BiasedToBottomInt.of(0, 4), BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
+						),
+					Direction.DOWN,
+					BlockPredicate.ONLY_IN_AIR_PREDICATE,
+					false
+					) : new NoOpFeature()
+				),
+				ceiling ? CaveSurface.CEILING : CaveSurface.FLOOR,
+				ceiling ? UniformInt.of(2, 3) : UniformInt.of(2, 5),
+				ceiling ? 0.4F : 0.25F,
+				4,
+				0.035F,
+				UniformInt.of(4, 10),
+				ceiling ? 0.6F : 0.4F
 			)
 		);
 	}

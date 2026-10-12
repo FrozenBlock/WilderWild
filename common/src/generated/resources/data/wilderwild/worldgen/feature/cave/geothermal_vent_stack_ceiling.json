@@ -1,8 +1,23 @@
 {
-  "type": "minecraft:vegetation_patch",
+  "type": "frozenlib:flexible_vegetation_patch_feature",
   "depth": 2,
   "extra_bottom_block_chance": 0.375,
   "extra_edge_column_chance": 0.45,
+  "flexible_components": {
+    "is_open": {
+      "type": "minecraft:any_of",
+      "predicates": [
+        {
+          "type": "minecraft:matching_block_tag",
+          "tag": "minecraft:air"
+        },
+        {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:lava"
+        }
+      ]
+    }
+  },
   "ground_state": {
     "id": "wilderwild:gabbro"
   },

@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -240,8 +241,8 @@ public final class WWMiscGeneration {
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CAVE_FRAGILE_ICE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.FRAGILE_ICE_PATCH.getKey());
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlaced.FRAGILE_ICE_PATCH_CEILING.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlacements.PATCH_FRAGILE_ICE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlacements.PATCH_FRAGILE_ICE_CEILING.getKey());
 				}
 
 				// ICICLE

@@ -1,8 +1,11 @@
 {
-  "type": "frozenlib:circular_waterlogged_vegetation_patch_less_borders",
+  "type": "frozenlib:flexible_waterlogged_vegetation_patch_feature",
   "depth": 4,
   "extra_bottom_block_chance": 0.8,
   "extra_edge_column_chance": 0.7,
+  "flexible_components": {
+    "circular": true
+  },
   "ground_state": {
     "id": "minecraft:stone"
   },

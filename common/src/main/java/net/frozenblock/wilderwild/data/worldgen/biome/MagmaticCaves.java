@@ -121,9 +121,9 @@ public final class MagmaticCaves extends FrozenLibBiome {
 		BiomeDefaultFeatures.addFossilDecoration(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlacements.POOL_LAVA_GABBRO.getKey());
-		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlacements.LAKE_LAVA_EXTRA.getKey());
-		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWCavePlacements.SPRING_LAVA_OVERWORLD_EXTRA.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlacements.PUDDLE_LAVA_GABBRO.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WWCavePlacements.LAKE_LAVA_GABBRO.getKey());
+		features.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWCavePlacements.SPRING_LAVA_MAGMA_OR_GABBRO.getKey());
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(features, true, true);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addDefaultOres(features, false);
