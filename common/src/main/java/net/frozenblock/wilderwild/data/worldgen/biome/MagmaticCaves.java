@@ -133,6 +133,8 @@ public final class MagmaticCaves extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, false);
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, WWCavePlacements.FOSSIL_DIAMONDS_MAGMATIC_CAVES.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_MAGMA_ON_GABBRO.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_MAGMA_ON_MAGMA.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_MAGMA_CEILING.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_GABBRO.getKey());
 		features.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlacements.PATCH_GABBRO_CEILING.getKey());

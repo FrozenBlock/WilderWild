@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 56
+      "count": 24
     },
     {
       "type": "minecraft:in_square"
@@ -29,7 +29,8 @@
       "direction_of_search": "up",
       "max_steps": 4,
       "target_condition": {
-        "type": "minecraft:solid"
+        "type": "minecraft:matching_blocks",
+        "blocks": "wilderwild:gabbro"
       }
     },
     {

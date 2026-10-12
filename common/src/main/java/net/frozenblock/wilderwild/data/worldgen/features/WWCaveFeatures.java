@@ -46,6 +46,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ClampedInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
@@ -59,6 +60,7 @@ import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LargeSpeleothemFeature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.NoOpFeature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
@@ -83,6 +85,7 @@ public final class WWCaveFeatures {
 
 	// MAGMATIC CAVES
 	public static final FrozenLibFeature POOL_LAVA_GABBRO = register("pool_lava_gabbro");
+	public static final FrozenLibFeature PATCH_MAGMA = WWFeatureUtils.register("patch_magma");
 	public static final FrozenLibFeature PATCH_MAGMA_CEILING = WWFeatureUtils.register("patch_magma_ceiling");
 
 	public static final FrozenLibFeature PATCH_GABBRO = register("patch_gabbro");
@@ -169,7 +172,7 @@ public final class WWCaveFeatures {
 					new BlockColumnFeature(
 						List.of(
 							BlockColumnFeature.layer(
-								UniformInt.of(1, 8),
+								UniformInt.of(1, 4),
 								BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK)
 							)
 						),
@@ -188,32 +191,8 @@ public final class WWCaveFeatures {
 			)
 		);
 
-		PATCH_MAGMA_CEILING.makeAndSetHolder(
-			new VegetationPatchFeature(
-				blocks.getOrThrow(WWFeatureBlockTags.MAGMA_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
-				PlacementUtils.inlinePlaced(
-					new BlockColumnFeature(
-						List.of(
-							BlockColumnFeature.layer(
-								UniformInt.of(1, 3),
-								BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK)
-							)
-						),
-						Direction.DOWN,
-						BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
-						false
-					)
-				),
-				CaveSurface.CEILING,
-				ConstantInt.of(3),
-				0.8F,
-				2,
-				0.08F,
-				UniformInt.of(2, 6),
-				0.7F
-			)
-		);
+		registerMagmaPatch(context, PATCH_MAGMA, false);
+		registerMagmaPatch(context, PATCH_MAGMA_CEILING, true);
 
 		registerGabbroPatch(context, PATCH_GABBRO, false);
 		registerGabbroPatch(context, PATCH_GABBRO_CEILING, true);
@@ -327,6 +306,41 @@ public final class WWCaveFeatures {
 		);
 	}
 
+	private static void registerMagmaPatch(
+		BootstrapContext<Feature> context,
+		FrozenLibFeature feature,
+		boolean ceiling
+	) {
+		feature.makeAndSetHolder(
+			new VegetationPatchFeature(
+				context.lookup(Registries.BLOCK).getOrThrow(WWFeatureBlockTags.MAGMA_REPLACEABLE),
+				BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
+				ceiling
+					? PlacementUtils.inlinePlaced(
+						new BlockColumnFeature(
+							List.of(
+								BlockColumnFeature.layer(
+									BiasedToBottomInt.of(1, 2),
+									BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK)
+								)
+							),
+							Direction.DOWN,
+							BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+							false
+						)
+					)
+					: PlacementUtils.inlinePlaced(new NoOpFeature()),
+				ceiling ? CaveSurface.CEILING : CaveSurface.FLOOR,
+				ConstantInt.of(3),
+				0.4F,
+				2,
+				ceiling ? 0.08F : 0F,
+				BiasedToBottomInt.of(2, 3),
+				0.65F
+			)
+		);
+	}
+
 	private static void registerGabbroPatch(
 		BootstrapContext<Feature> context,
 		FrozenLibFeature feature,
@@ -336,19 +350,7 @@ public final class WWCaveFeatures {
 			new VegetationPatchFeature(
 				context.lookup(Registries.BLOCK).getOrThrow(BlockTags.BASE_STONE_OVERWORLD),
 				BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
-				PlacementUtils.inlinePlaced(
-					new BlockColumnFeature(
-						List.of(
-							BlockColumnFeature.layer(
-								ceiling ? UniformInt.of(1, 3) : UniformInt.of(1, 2),
-								BlockStateProvider.holderOf(WWBlocks.GABBRO.get())
-							)
-						),
-						ceiling ? Direction.DOWN : Direction.UP,
-						BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
-						false
-					)
-				),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
 				ceiling ? CaveSurface.CEILING : CaveSurface.FLOOR,
 				ConstantInt.of(2),
 				0.5F,
@@ -407,7 +409,7 @@ public final class WWCaveFeatures {
 						BlockStateProvider.holderOf(WWBlocks.GABBRO.get()),
 						BlockStateProvider.holderOf(Blocks.MAGMA_BLOCK),
 						ceiling ? CaveSurface.CEILING : CaveSurface.FLOOR,
-						ceiling ? UniformInt.of(1, 4) : UniformInt.of(0, 3),
+						ceiling ? UniformInt.of(1, 3) : UniformInt.of(0, 2),
 						context.lookup(Registries.BLOCK).getOrThrow(WWFeatureBlockTags.GEOTHERMAL_VENT_STACK_REPLACEABLE)
 					)
 				),
@@ -415,7 +417,7 @@ public final class WWCaveFeatures {
 				ConstantInt.of(2),
 				0.375F,
 				4,
-				0.25F,
+				0.2F,
 				ceiling ? UniformInt.of(2, 4) : UniformInt.of(2, 3),
 				0.45F
 			)

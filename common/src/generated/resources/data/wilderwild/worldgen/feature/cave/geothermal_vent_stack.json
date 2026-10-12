@@ -8,7 +8,7 @@
   },
   "replaceable": "#wilderwild:feature/geothermal_vent_stack_replaceable",
   "surface": "floor",
-  "vegetation_chance": 0.25,
+  "vegetation_chance": 0.2,
   "vegetation_feature": {
     "feature": {
       "type": "wilderwild:vent_stack",
@@ -17,7 +17,7 @@
       },
       "height": {
         "type": "minecraft:uniform",
-        "max_inclusive": 3,
+        "max_inclusive": 2,
         "min_inclusive": 0
       },
       "inner_block": {

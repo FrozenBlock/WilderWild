@@ -64,6 +64,8 @@ public final class WWCavePlacements {
 
 	// MAGMATIC CAVES
 	public static final FrozenLibPlacedFeature POOL_LAVA_GABBRO = register("pool_lava_gabbro");
+	public static final FrozenLibPlacedFeature PATCH_MAGMA_ON_GABBRO = register("patch_magma_on_gabbro");
+	public static final FrozenLibPlacedFeature PATCH_MAGMA_ON_MAGMA = register("patch_magma_on_magma");
 	public static final FrozenLibPlacedFeature PATCH_MAGMA_CEILING = register("patch_magma_ceiling");
 	public static final FrozenLibPlacedFeature SPRING_LAVA_OVERWORLD_EXTRA = register("spring_lava_overworld_extra");
 	public static final FrozenLibPlacedFeature LAKE_LAVA_EXTRA = register("lake_lava_extra");
@@ -107,23 +109,8 @@ public final class WWCavePlacements {
 			BiomeFilter.biome()
 		);
 
-		PATCH_MESOGLEA.makeAndSetHolder(WWCaveFeatures.PATCH_MESOGLEA,
-			CountPlacement.of(10),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.matchesBlocks(Blocks.WATER), 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		PATCH_MESOGLEA_CEILING.makeAndSetHolder(WWCaveFeatures.PATCH_MESOGLEA_CEILING,
-			CountPlacement.of(18),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 4),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
+		registerVegetationPatch(context, PATCH_MESOGLEA, WWCaveFeatures.PATCH_MESOGLEA, 10, 12, false);
+		registerVegetationPatch(context, PATCH_MESOGLEA_CEILING, WWCaveFeatures.PATCH_MESOGLEA_CEILING, 18, 4, true);
 
 		MEDIUM_MESOGLEA.makeAndSetHolder(WWCaveFeatures.MEDIUM_MESOGLEA,
 			CountPlacement.of(UniformInt.of(12, 26)),
@@ -157,11 +144,29 @@ public final class WWCavePlacements {
 			BiomeFilter.biome()
 		);
 
-		PATCH_MAGMA_CEILING.makeAndSetHolder(WWCaveFeatures.PATCH_MAGMA_CEILING,
-			CountPlacement.of(56),
+		PATCH_MAGMA_ON_GABBRO.makeAndSetHolder(WWCaveFeatures.PATCH_MAGMA,
+			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 4),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get()), BlockPredicate.ONLY_IN_AIR_PREDICATE, 4),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		PATCH_MAGMA_ON_MAGMA.makeAndSetHolder(WWCaveFeatures.PATCH_MAGMA,
+			CountPlacement.of(28),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.matchesBlocks(Blocks.MAGMA_BLOCK), BlockPredicate.ONLY_IN_AIR_PREDICATE, 4),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		PATCH_MAGMA_CEILING.makeAndSetHolder(WWCaveFeatures.PATCH_MAGMA_CEILING,
+			CountPlacement.of(24),
+			InSquarePlacement.spread(),
+			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.matchesBlocks(WWBlocks.GABBRO.get()), BlockPredicate.ONLY_IN_AIR_PREDICATE, 4),
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BiomeFilter.biome()
 		);
@@ -187,23 +192,8 @@ public final class WWCavePlacements {
 			BiomeFilter.biome()
 		);
 
-		PATCH_GABBRO.makeAndSetHolder(WWCaveFeatures.PATCH_GABBRO,
-			CountPlacement.of(32),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		PATCH_GABBRO_CEILING.makeAndSetHolder(WWCaveFeatures.PATCH_GABBRO_CEILING,
-			CountPlacement.of(32),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 6),
-			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BiomeFilter.biome()
-		);
+		registerVegetationPatch(context, PATCH_GABBRO, WWCaveFeatures.PATCH_GABBRO, 32, 12, false);
+		registerVegetationPatch(context, PATCH_GABBRO_CEILING, WWCaveFeatures.PATCH_GABBRO_CEILING, 32, 6, true);
 
 		GEOTHERMAL_VENT_LAVA.makeAndSetHolder(WWCaveFeatures.GEOTHERMAL_VENT_UP,
 			CountPlacement.of(UniformInt.of(64, 72)),
@@ -222,7 +212,7 @@ public final class WWCavePlacements {
 		);
 
 		GEOTHERMAL_VENT_UP.makeAndSetHolder(WWCaveFeatures.GEOTHERMAL_VENT_UP,
-			CountPlacement.of(UniformInt.of(64, 72)),
+			CountPlacement.of(UniformInt.of(42, 64)),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 			EnvironmentScanPlacement.scanningFor(
@@ -256,21 +246,30 @@ public final class WWCavePlacements {
 		registerGeothermalVentHorizontal(context, GEOTHERMAL_VENT_NORTH_SOUTH, WWCaveFeatures.GEOTHERMAL_VENT_NORTH_SOUTH, 128, 196);
 		registerGeothermalVentHorizontal(context, GEOTHERMAL_VENT_EAST_WEST, WWCaveFeatures.GEOTHERMAL_VENT_EAST_WEST, 128, 196);
 
-		GEOTHERMAL_VENT_STACK.makeAndSetHolder(WWCaveFeatures.GEOTHERMAL_VENT_STACK,
-			CountPlacement.of(24),
-			InSquarePlacement.spread(),
-			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
+		registerVegetationPatch(context, GEOTHERMAL_VENT_STACK, WWCaveFeatures.GEOTHERMAL_VENT_STACK, 18, 12, false);
+		registerVegetationPatch(context, GEOTHERMAL_VENT_STACK_CEILING, WWCaveFeatures.GEOTHERMAL_VENT_STACK_CEILING, 18, 6, true);
+	}
 
-		GEOTHERMAL_VENT_STACK_CEILING.makeAndSetHolder(WWCaveFeatures.GEOTHERMAL_VENT_STACK_CEILING,
-			CountPlacement.of(24),
+	private static void registerVegetationPatch(
+		BootstrapContext<PlacedFeature> context,
+		FrozenLibPlacedFeature placement,
+		FrozenLibFeature feature,
+		int count,
+		int searchSteps,
+		boolean ceiling
+	) {
+		placement.makeAndSetHolder(
+			feature,
+			CountPlacement.of(count),
 			InSquarePlacement.spread(),
 			PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 6),
-			OffsetPlacement.vertical(ConstantInt.of(-1)),
+			EnvironmentScanPlacement.scanningFor(
+				ceiling ? Direction.UP : Direction.DOWN,
+				BlockPredicate.solid(),
+				BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+				searchSteps
+			),
+			OffsetPlacement.vertical(ConstantInt.of(ceiling ? -1 : 1)),
 			BiomeFilter.biome()
 		);
 	}

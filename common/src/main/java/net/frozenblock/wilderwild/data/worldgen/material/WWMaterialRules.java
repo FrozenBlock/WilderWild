@@ -410,23 +410,29 @@ public final class WWMaterialRules {
 		final MaterialRule gabbro = FrozenLibMaterialRules.makeStateRule(WWBlocks.GABBRO.get());
 		final MaterialRule magmaOrGabbroUnderWater = MaterialRules.sequence(
 			MaterialRules.ifTrue(
-				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.noiseCondition3d(Noises.PATCH, 0.05F),
 				MaterialRules.ifTrue(
-					MaterialRules.not(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER)),
-					FrozenLibMaterialRules.makeStateRule(WWBlocks.GABBRO.get())
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+						FrozenLibMaterialRules.makeStateRule(Blocks.MAGMA_BLOCK)
+					)
 				)
 			),
-			FrozenLibMaterialRules.makeStateRule(Blocks.MAGMA_BLOCK)
+			gabbro
 		);
 
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.MAGMATIC_CAVES),
-			MaterialRules.sequence(
-				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.45F, -0.225F), gabbro),
-				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.225F, -0.07F), magmaOrGabbroUnderWater),
-				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.07F, 0.3F), gabbro),
+			FrozenLibMaterialRules.avoidBedrockFloorAndRoof(
+				materialConditions,
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.45F, -0.245F), gabbro),
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.245F, -0.07F), magmaOrGabbroUnderWater),
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.07F, 0.3F), gabbro),
 
-				MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, 0.655, 1F), gabbro)
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, 0.655, 1F), gabbro)
+				)
 			)
 		);
 	}

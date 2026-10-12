@@ -177,6 +177,8 @@
       "minecraft:disk_gravel"
     ],
     [
+      "wilderwild:cave/patch_magma_on_gabbro",
+      "wilderwild:cave/patch_magma_on_magma",
       "wilderwild:cave/patch_magma_ceiling",
       "wilderwild:cave/patch_gabbro",
       "wilderwild:cave/patch_gabbro_ceiling",

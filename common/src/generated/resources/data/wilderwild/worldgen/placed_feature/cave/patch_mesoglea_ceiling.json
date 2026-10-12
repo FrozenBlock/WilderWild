@@ -44,7 +44,7 @@
     {
       "type": "minecraft:offset",
       "x": 0,
-      "y": 1,
+      "y": -1,
       "z": 0
     },
     {
