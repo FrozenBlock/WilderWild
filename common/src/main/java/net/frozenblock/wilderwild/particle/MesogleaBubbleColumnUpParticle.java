@@ -31,8 +31,8 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
 public class MesogleaBubbleColumnUpParticle extends RisingParticle {
@@ -51,7 +51,7 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 
 	@Override
 	public int getLightCoords(float tint) {
-		return 240;
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	@Override
@@ -65,10 +65,12 @@ public class MesogleaBubbleColumnUpParticle extends RisingParticle {
 
 		if (this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) return;
 
-		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
-		this.xd += wind.x * 0.001D;
-		this.yd += wind.y * 0.00005D;
-		this.zd += wind.z * 0.001D;
+		WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z).apply(
+			d -> this.xd += d,
+			d -> this.yd += d,
+			d -> this.zd += d,
+			0.001D, 0.00005D, 0.01D
+		);
 		this.age += 1;
 	}
 

@@ -124,7 +124,7 @@ public final class AmbientWindParticleSpawner {
 		final BlockState state = level.getBlockState(blockPos);
 		if (state.isCollisionShapeFullBlock(level, blockPos)) return;
 
-		final Vec3 wind = WindManager.getOrCreate(level).getRawDisturbanceMovement(Vec3.atCenterOf(blockPos));
+		final Vec3 wind = WindManager.getOrCreate(level).getRawDisturbanceMovement(Vec3.atCenterOf(blockPos), false);
 		final double windLength = wind.length();
 		if (random.nextDouble() >= ((wind.length() - 0.001D) * WWAmbienceAndMiscConfig.WIND_DISTURBANCE_PARTICLE_FREQUENCY.get() * 0.01D)) return;
 

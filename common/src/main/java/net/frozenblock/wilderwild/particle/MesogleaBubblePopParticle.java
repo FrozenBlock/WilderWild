@@ -24,6 +24,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
@@ -40,7 +41,7 @@ public class MesogleaBubblePopParticle extends BubblePopParticle {
 
 	@Override
 	public int getLightCoords(float tint) {
-		return 240;
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {

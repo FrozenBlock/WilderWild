@@ -33,6 +33,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
@@ -52,18 +53,18 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 		this.quadSize = 0.5F;
 	}
 
-	public void setBothXRotMultipliers(float f) {
-		this.prevXRotMultiplier = f;
-		this.xRotMultiplier = f;
+	public void setBothXRotMultipliers(float rotMultiplier) {
+		this.prevXRotMultiplier = rotMultiplier;
+		this.xRotMultiplier = rotMultiplier;
 	}
 
-	public void lerpsToX(boolean b) {
-		this.shouldTickUpXRotMultiplier = b;
+	public void setShouldTickRotMultiplier(boolean shouldTickRotMultiplier) {
+		this.shouldTickUpXRotMultiplier = shouldTickRotMultiplier;
 	}
 
 	@Override
-	public int getLightCoords(float f) {
-		return 240;
+	public int getLightCoords(float tint) {
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	@Override
@@ -84,6 +85,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 		this.xd *= 0.98F;
 		this.yd *= 0.98F;
 		this.zd *= 0.98F;
+
 		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
 		final FluidState fluidState = this.level.getFluidState(pos);
 		if (fluidState.is(Fluids.WATER) && this.y < (double) ((float) pos.getY() + fluidState.getHeight(this.level, pos))) this.remove();
@@ -107,8 +109,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 		if (this.lifetime-- <= 0) this.remove();
 	}
 
-	protected void postMoveUpdate() {
-	}
+	protected void postMoveUpdate() {}
 
 	@Override
 	protected Layer getLayer() {
@@ -120,7 +121,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 			super(level, x, y, z, sprite);
 			this.lifetime = (int) (16.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2));
 			this.scale(0.7F);
-			this.lerpsToX(true);
+			this.setShouldTickRotMultiplier(true);
 			this.setBothXRotMultipliers(1F);
 		}
 	}
@@ -129,7 +130,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 		FallingParticle(ClientLevel level, double x, double y, double z, TextureAtlasSprite sprite) {
 			this(level, x, y, z, (int) (64.0 / (AdvancedMath.random().nextDouble() * 0.8 + 0.2)), sprite);
 			this.scale(0.7F);
-			this.lerpsToX(true);
+			this.setShouldTickRotMultiplier(true);
 		}
 
 		FallingParticle(ClientLevel level, double x, double y, double z, int lifetime, TextureAtlasSprite sprite) {

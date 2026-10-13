@@ -49,5 +49,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Random pillars, splotchy disks, and piles of Gabbro and Magma no longer generate in Magmatic Caves, and have been replaced with:
   - Patches on ceilings and floors containing small clusters of pillars.
   - Geothermal Vent Stacks on ceilings and floors.
+  - Lakes of Lava.
 - Gabbro and Magma path generation in the Magmatic Caves biome is now generated via a Material Rule instead of a Feature.
 - Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.

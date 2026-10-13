@@ -30,6 +30,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 
@@ -59,7 +60,7 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 
 	@Override
 	public int getLightCoords(float tint) {
-		return 240;
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	@Override
@@ -67,10 +68,12 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 		this.xo = this.x;
 		this.yo = this.y;
 		this.zo = this.z;
+
 		if (this.age++ >= this.lifetime) {
 			this.remove();
 			return;
 		}
+
 		this.xd = this.xd + (0.6D * Mth.cos(this.angle));
 		this.zd = this.zd + (0.6D * Mth.sin(this.angle));
 		this.xd *= 0.07;

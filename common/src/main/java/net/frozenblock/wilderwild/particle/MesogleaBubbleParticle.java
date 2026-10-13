@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.particle;
 
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -30,6 +31,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
@@ -57,13 +59,22 @@ public class MesogleaBubbleParticle extends SingleQuadParticle {
 
 	@Override
 	public int getLightCoords(float tint) {
-		return 240;
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if (!this.removed && !this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) this.age += 1;
+
+		if (this.removed || this.level.getFluidState(BlockPos.containing(this.x, this.y, this.z)).is(FluidTags.WATER)) return;
+
+		WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z).apply(
+			d -> this.xd += d,
+			d -> this.yd += d,
+			d -> this.zd += d,
+			0.001D, 0.00005D, 0.01D
+		);
+		this.age += 1;
 	}
 
 	@Override

@@ -72,12 +72,15 @@ public class SeedParticle extends SingleQuadParticle {
 			return;
 		}
 
-		final double horizontalWindScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-		final double verticalWindScale = (this.onGround ? 0.00025D : 0.00175D) * this.windIntensity;
-		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
-		this.xd += wind.x() * horizontalWindScale;
-		this.yd += Math.max(((wind.y() * 0.4D) + 0.1D), 0.1D) * verticalWindScale;
-		this.zd += wind.z() * horizontalWindScale;
+		WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z).apply(
+			d -> this.xd += d,
+			d -> this.yd += d,
+			d -> this.zd += d,
+			(this.onGround ? 0.00025D : 0.0035D) * this.windIntensity,
+			(this.onGround ? 0.00175D : 0.03D) * this.windIntensity,
+			(this.onGround ? 0.00025D : 0.00175D) * this.windIntensity,
+			(this.onGround ? 0.00175D : 0.01D) * this.windIntensity
+		);
 	}
 
 	@Override

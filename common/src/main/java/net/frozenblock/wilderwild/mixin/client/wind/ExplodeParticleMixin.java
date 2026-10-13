@@ -23,7 +23,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ExplodeParticle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,9 +38,11 @@ public abstract class ExplodeParticleMixin extends SingleQuadParticle {
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$tick(CallbackInfo info) {
-		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z, 10D);
-		this.xd += wind.x * 0.001D;
-		this.yd += wind.y * 0.00005D;
-		this.zd += wind.z * 0.001D;
+		WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z).apply(
+			d -> this.xd += d,
+			d -> this.yd += d,
+			d -> this.zd += d,
+			0.001D, 0.00005D, 0.01D
+		);
 	}
 }

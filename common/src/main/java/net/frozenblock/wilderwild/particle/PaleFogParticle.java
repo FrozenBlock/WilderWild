@@ -32,7 +32,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
 public class PaleFogParticle extends SingleQuadParticle {
@@ -79,10 +78,14 @@ public class PaleFogParticle extends SingleQuadParticle {
 			return;
 		}
 
-		final double windScale = (this.onGround ? 0.00025D : 0.0035D) * this.windIntensity;
-		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z, windScale, 10D);
-		this.xd += wind.x();
-		this.zd += wind.z();
+		WWWindManagerExtension.getParticleWindMovement(
+			this.level, this.x, this.y, this.z, (this.onGround ? 0.35D : 1D) * this.windIntensity, 1D
+		).apply(
+			d -> this.xd += d,
+			d -> this.yd += d,
+			d -> this.zd += d,
+			0.0045D, 0.003D, 0D, 0.0004D
+		);
 
 		final float ageProgress = (float) this.age / this.lifetime;
 		final float alphaScale = ageProgress * 0.0095F;

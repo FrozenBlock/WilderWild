@@ -119,7 +119,6 @@ public final class FallingLeafUtil {
 			if (!shape.intersects(entity.getBoundingBox())) return;
 		}
 
-		// TODO: fix frantic
 		final boolean franticSpawn = entity.is(WWEntityTypeTags.LEAF_PARTICLES_FRANTIC_SPAWN);
 		final double horizontalScale = franticSpawn ? 0.1D : 0.4D;
 		final double additionalY = franticSpawn ? 0.1D : 0D;

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.wind;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import java.util.function.Consumer;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.lib.wind.extension.WindManagerExtension;
 import net.frozenblock.lib.wind.extension.WindManagerExtensionType;
@@ -95,18 +96,31 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		return WWAmbienceAndMiscConfig.CLOUD_MOVEMENT.get() && WindManager.getOrCreate(level).usable();
 	}
 
-	public static Vec3 getParticleWindMovement(Level level, double x, double y, double z, double scale, double windDisturbanceScale) {
-		return WindManager.getOrCreate(level)
-			.getWindMovement(new Vec3(x, y, z), scale, 25D, windDisturbanceScale)
-			.scale(WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D);
+	public static ParticleWindResult getParticleWindMovement(Level level, double x, double y, double z, double windScale, double disturbanceScale) {
+		if (!shouldUseWind(level)) return ParticleWindResult.EMPTY;
+
+		final double configScale = WWAmbienceAndMiscConfig.PARTICLE_WIND_MOVEMENT.get() * 0.01D;
+		if (configScale <= 0D) return ParticleWindResult.EMPTY;
+
+		final Vec3 pos = new Vec3(x, y, z);
+		final WindManager windManager = WindManager.getOrCreate(level);
+
+		return new ParticleWindResult(
+			windManager
+				.getWindMovement(pos, windScale, 4D, 0D)
+				.scale(configScale),
+			windManager
+				.getRawDisturbanceMovement(pos, true)
+				.scale(disturbanceScale * configScale)
+		);
 	}
 
-	public static Vec3 getParticleWindMovement(Level level, double x, double y, double z, double windDisturbanceScale) {
+	public static ParticleWindResult getParticleWindMovement(Level level, double x, double y, double z, double windDisturbanceScale) {
 		return getParticleWindMovement(level, x, y, z, 1D, windDisturbanceScale);
 	}
 
-	public static Vec3 getParticleWindMovement(Level level, double x, double y, double z) {
-		return getParticleWindMovement(level, x, y, z, 25D);
+	public static ParticleWindResult getParticleWindMovement(Level level, double x, double y, double z) {
+		return getParticleWindMovement(level, x, y, z, 1D);
 	}
 
 	@Override
@@ -147,5 +161,49 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		}
 
 		return needsReset;
+	}
+
+	public static final record ParticleWindResult(Vec3 wind, Vec3 disturbance) {
+		public static final ParticleWindResult EMPTY = new ParticleWindResult(Vec3.ZERO, Vec3.ZERO);
+
+		public void applyX(Consumer<Double> xModifier, double windScale, double disturbanceScale) {
+			xModifier.accept(this.wind.x * windScale);
+			xModifier.accept(this.disturbance.x * disturbanceScale);
+		}
+
+		public void applyY(Consumer<Double> yModifier, double windScale, double disturbanceScale) {
+			yModifier.accept(this.wind.y * windScale);
+			yModifier.accept(this.disturbance.y * disturbanceScale);
+		}
+
+		public void applyZ(Consumer<Double> zModifier, double windScale, double disturbanceScale) {
+			zModifier.accept(this.wind.z * windScale);
+			zModifier.accept(this.disturbance.z * disturbanceScale);
+		}
+
+		public void apply(
+			Consumer<Double> xModifier,
+			Consumer<Double> yModifier,
+			Consumer<Double> zModifier,
+			double horizontalWindScale,
+			double horizontalDisturbanceScale,
+			double verticalWindScale,
+			double verticalDisturbanceScale
+		) {
+			this.applyX(xModifier, horizontalWindScale, horizontalDisturbanceScale);
+			this.applyY(yModifier, verticalWindScale, verticalDisturbanceScale);
+			this.applyZ(zModifier, horizontalWindScale, horizontalDisturbanceScale);
+		}
+
+		public void apply(
+			Consumer<Double> xModifier,
+			Consumer<Double> yModifier,
+			Consumer<Double> zModifier,
+			double horizontalWindScale,
+			double verticalWindScale,
+			double disturbanceScale
+		) {
+			this.apply(xModifier, yModifier, zModifier, horizontalWindScale, disturbanceScale, verticalWindScale, disturbanceScale);
+		}
 	}
 }

@@ -34,7 +34,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
 public class PollenParticle extends SingleQuadParticle {
@@ -104,12 +103,15 @@ public class PollenParticle extends SingleQuadParticle {
 		}
 
 		if (!rain) {
-			final double horizontalWindScale = (this.onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY;
-			final double verticalWindScale = (this.onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY;
-			final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
-			this.xd += wind.x() * horizontalWindScale;
-			this.yd += (wind.y() + 0.1D) * verticalWindScale;
-			this.zd += wind.z() * horizontalWindScale;
+			WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z).apply(
+				d -> this.xd += d,
+				d -> this.yd += d,
+				d -> this.zd += d,
+				(this.onGround ? 0.00025D : 0.0035D) * WIND_INTENSITY,
+				(this.onGround ? 0.00175D : 0.0225D) * WIND_INTENSITY,
+				(this.onGround ? 0.00025D : 0.00175D) * WIND_INTENSITY,
+				(this.onGround ? 0.00175D : 0.01D) * WIND_INTENSITY
+			);
 		}
 	}
 

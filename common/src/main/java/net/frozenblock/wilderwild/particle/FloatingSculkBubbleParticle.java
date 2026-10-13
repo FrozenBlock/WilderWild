@@ -78,10 +78,14 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 	@Override
 	public void tick() {
 		super.tick();
-		final Vec3 wind = WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z);
-		this.xd += wind.x * 0.001D;
-		this.yd += wind.y * 0.00005D;
-		this.zd += wind.z * 0.001D;
+
+		WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z).apply(
+			d -> this.xd += d,
+			d -> this.yd += d,
+			d -> this.zd += d,
+			0.001D, 0.00005D, 0.01D
+		);
+
 		final int inflationAge = this.age - (this.stayInflatedTime) + 4;
 		switch (this.age) {
 			case 1 -> {

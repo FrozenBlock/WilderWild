@@ -30,7 +30,6 @@ import net.minecraft.client.particle.FallingParticle;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -72,12 +71,12 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	@Inject(method = "tick", at = @At("HEAD"))
 	public void wilderWild$captureWind(
 		CallbackInfo info,
-		@Share("wilderWild$wind") LocalRef<Vec3> wind
+		@Share("wilderWild$wind") LocalRef<WWWindManagerExtension.ParticleWindResult> wind
 	) {
-		wind.set(Vec3.ZERO);
+		wind.set(WWWindManagerExtension.ParticleWindResult.EMPTY);
 		if (!WWWindManagerExtension.shouldUseWind(this.level)) return;
 
-		wind.set(WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z, 2.5D, 10D));
+		wind.set(WWWindManagerExtension.getParticleWindMovement(this.level, this.x, this.y, this.z, 2.5D, 20D));
 	}
 
 	@ModifyExpressionValue(
@@ -90,9 +89,11 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	)
 	public double wilderWild$changeFlowA(
 		double original,
-		@Share("wilderWild$wind") LocalRef<Vec3> wind
+		@Share("wilderWild$wind") LocalRef<WWWindManagerExtension.ParticleWindResult> wind
 	) {
-		if (WWWindManagerExtension.shouldUseWind(this.level)) return original * wind.get().x;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) {
+			return original * (wind.get().wind().x + wind.get().disturbance().x);
+		}
 		return original;
 	}
 
@@ -106,9 +107,11 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	)
 	public double wilderWild$changeFlowB(
 		double original,
-		@Share("wilderWild$wind") LocalRef<Vec3> wind
+		@Share("wilderWild$wind") LocalRef<WWWindManagerExtension.ParticleWindResult> wind
 	) {
-		if (WWWindManagerExtension.shouldUseWind(this.level)) return original * wind.get().z;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) {
+			return original * (wind.get().wind().z + wind.get().disturbance().z);
+		}
 		return original;
 	}
 
@@ -121,9 +124,11 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	)
 	public double wilderWild$changeSwirlA(
 		double original,
-		@Share("wilderWild$wind") LocalRef<Vec3> wind
+		@Share("wilderWild$wind") LocalRef<WWWindManagerExtension.ParticleWindResult> wind
 	) {
-		if (WWWindManagerExtension.shouldUseWind(this.level)) return original + (wind.get().x * 0.2D);
+		if (WWWindManagerExtension.shouldUseWind(this.level)) {
+			return original + (wind.get().wind().x * 0.2D) + (wind.get().disturbance().x * 0.2D);
+		}
 		return original;
 	}
 
@@ -136,9 +141,11 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	)
 	public double wilderWild$changeSwirlB(
 		double original,
-		@Share("wilderWild$wind") LocalRef<Vec3> wind
+		@Share("wilderWild$wind") LocalRef<WWWindManagerExtension.ParticleWindResult> wind
 	) {
-		if (WWWindManagerExtension.shouldUseWind(this.level)) return original + (wind.get().z * 0.2D);
+		if (WWWindManagerExtension.shouldUseWind(this.level)) {
+			return original + (wind.get().wind().z * 0.2D) + (wind.get().disturbance().z * 0.2D);
+		}
 		return original;
 	}
 
@@ -151,9 +158,13 @@ public abstract class FallingParticleMixin extends SingleQuadParticle {
 	)
 	public void wilderWild$fixMoveGravity(
 		FallingParticle instance, double x, double y, double z, Operation<Void> original,
-		@Share("wilderWild$wind") LocalRef<Vec3> wind
+		@Share("wilderWild$wind") LocalRef<WWWindManagerExtension.ParticleWindResult> wind
 	) {
-		if (WWWindManagerExtension.shouldUseWind(this.level)) y = (this.yd - this.gravity) + wind.get().y * 0.00001D;
+		if (WWWindManagerExtension.shouldUseWind(this.level)) {
+			this.yd += (wind.get().wind().y * 0.00001D) + (wind.get().disturbance().y * 0.0001D);
+			y = this.yd;
+		}
+
 		original.call(instance, x, y, z);
 	}
 

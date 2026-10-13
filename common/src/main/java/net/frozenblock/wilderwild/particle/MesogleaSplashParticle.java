@@ -25,6 +25,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.WaterDropParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
@@ -47,7 +48,7 @@ public class MesogleaSplashParticle extends WaterDropParticle {
 
 	@Override
 	public int getLightCoords(float tint) {
-		return 240;
+		return LightCoordsUtil.MAX_SMOOTH_LIGHT_LEVEL;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
