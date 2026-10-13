@@ -144,7 +144,6 @@ import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntityTypes;
-import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.sounds.BlockSoundSets;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -299,7 +298,7 @@ public final class WWBlocks {
 	);
 	public static final MapleCollection<DeferredBlock<LeavesBlock>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, MapleCollection.MAP_COLORS,
 		(id, mapColor) -> REGISTER.registerBlock(id.block(),
-			properties -> new LeavesBlock(AmbientLeavesBlockSoundPlayer.noAmbientSound(), properties),
+			properties -> new LeavesBlock(Optional.empty(), properties),
 			() -> Blocks.leavesProperties(WWBlockSoundSets.MAPLE_LEAVES).mapColor(mapColor)
 		)
 	);
@@ -768,7 +767,7 @@ public final class WWBlocks {
 		TumbleweedPlantBlock::new,
 		() -> Properties.of()
 			.noOcclusion()
-			.sound(WWBlockSoundSets.TUMBLEWEED)
+			.sound(WWBlockSoundSets.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
 	public static final DeferredBlock<Block> POTTED_TUMBLEWEED_PLANT = registerFlowerPot(WWBlockIds.POTTED_TUMBLEWEED_PLANT, TUMBLEWEED_PLANT);
@@ -778,7 +777,7 @@ public final class WWBlocks {
 		() -> Properties.of()
 			.instabreak()
 			.noOcclusion()
-			.sound(WWBlockSoundSets.TUMBLEWEED)
+			.sound(WWBlockSoundSets.TUMBLEWEED_PLANT)
 			.randomTicks()
 	);
 	public static final DeferredBlock<Block> POTTED_TUMBLEWEED = registerFlowerPot(WWBlockIds.POTTED_TUMBLEWEED, TUMBLEWEED);

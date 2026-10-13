@@ -90,7 +90,7 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 		if (state == null) return null;
 
 		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		return state.setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+		return state.setValue(WATERLOGGED, fluidState.isSourceOfType(Fluids.WATER));
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class TumbleweedBlock extends DryVegetationBlock implements SimpleWaterlo
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 
 	@Override

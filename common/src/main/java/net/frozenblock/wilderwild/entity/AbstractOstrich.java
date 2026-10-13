@@ -57,7 +57,6 @@ import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.entity.ai.Brain;
@@ -71,7 +70,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
@@ -795,8 +793,8 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	}
 
 	@Override
-	protected Holder<SoundEvent> getEquipSound(EquipmentSlot slot, ItemStack stack, Equippable equippable) {
-		return slot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_OSTRICH_SADDLE.asHolder() : super.getEquipSound(slot, stack, equippable);
+	public Holder<SoundEvent> getSaddleEquipSound() {
+		return WWSounds.ENTITY_OSTRICH_SADDLE.asHolder();
 	}
 
 	@Nullable

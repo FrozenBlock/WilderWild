@@ -53,7 +53,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	private int lastVibrationFrequency;
 	public int ticksToStopTwitching;
 	private int storedXP;
-	public int ringOutTicksLeft;
+	public int wringOutTicksLeft;
 	private int activeTicks;
 
 	public HangingTendrilBlockEntity(BlockPos pos, BlockState state) {
@@ -66,8 +66,8 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		if (this.ticksToStopTwitching <= 0) level.setBlockAndUpdate(pos, state.setValue(HangingTendrilBlock.TWITCHING, false));
 
 		--this.ticksToStopTwitching;
-		if (this.ringOutTicksLeft >= 0) {
-			--this.ringOutTicksLeft;
+		if (this.wringOutTicksLeft >= 0) {
+			--this.wringOutTicksLeft;
 		} else if (state.getValue(HangingTendrilBlock.WRINGING_OUT)) {
 			state = state.setValue(HangingTendrilBlock.WRINGING_OUT, false);
 			level.setBlockAndUpdate(pos, state);
@@ -124,7 +124,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		this.lastVibrationFrequency = input.getIntOr("last_vibration_frequency", 0);
 		this.ticksToStopTwitching = input.getIntOr("ticksToStopTwitching", 0);
 		this.storedXP = input.getIntOr("storedXP", 0);
-		this.ringOutTicksLeft = input.getIntOr("ringOutTicksLeft", 0);
+		this.wringOutTicksLeft = input.getIntOr("ringOutTicksLeft", 0);
 		this.activeTicks = input.getIntOr("activeTicks", 0);
 
 		this.vibrationData = input.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
@@ -143,7 +143,7 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 
 	public void saveClientUsableNbt(ValueOutput output) {
 		if (this.ticksToStopTwitching > 0) output.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
-		if (this.ringOutTicksLeft > 0) output.putInt("ringOutTicksLeft", this.ringOutTicksLeft);
+		if (this.wringOutTicksLeft > 0) output.putInt("ringOutTicksLeft", this.wringOutTicksLeft);
 	}
 
 	public VibrationSystem.User createVibrationUser() {

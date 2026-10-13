@@ -25,7 +25,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -34,14 +33,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -146,7 +143,7 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 	}
 
 	@Override
-	public boolean canPlaceLiquid(@Nullable LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, Fluid type) {
+	public boolean canPlaceLiquid(@Nullable LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, FluidState fluidState) {
 		return false;
 	}
 
@@ -157,13 +154,13 @@ public class SeaAnemoneBlock extends VegetationBlock implements LiquidBlockConta
 
 	@Override
 	protected FluidState getFluidState(BlockState state) {
-		return Fluids.WATER.getSource(false);
+		return Fluids.WATER.getSource();
 	}
 
 	private boolean isValidWaterToReplace(LevelReader level, BlockPos pos) {
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
-		return (state.is(Blocks.WATER) || (state.canBeReplaced() && fluidState.is(FluidTags.WATER))) && fluidState.isFull();
+		return state.canBeReplaced() && fluidState.is(Fluids.WATER) && fluidState.isFull();
 	}
 
 	@Override

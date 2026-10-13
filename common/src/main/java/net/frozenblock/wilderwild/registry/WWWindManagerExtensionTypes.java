@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 FrozenBlock
+ * Copyright 2026 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can modify it under
@@ -19,17 +19,26 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
+import net.frozenblock.lib.wind.extension.WindManagerExtensionType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
-public final class WWGameEvents {
-	private static final DeferredRegister<GameEvent> REGISTER = DeferredRegister.create(
-		Registries.GAME_EVENT,
+public final class WWWindManagerExtensionTypes {
+	private static final DeferredRegister<WindManagerExtensionType<?>> REGISTER = DeferredRegister.create(
+		FrozenLibRegistries.WIND_MANAGER_EXTENSION_TYPE,
 		WWConstants.MOD_ID
 	);
 
-	public static final DeferredHolder<GameEvent, GameEvent> BIG_FALL = register("big_fall");
+	public static final DeferredHolder<WindManagerExtensionType<?>, WindManagerExtensionType<WWWindManagerExtension>> WILDER_WILD_EXTENSION = REGISTER.register(
+		"wilderwild_extension",
+		() -> WindManagerExtensionType.create(
+			1000,
+			WWWindManagerExtension::new,
+			WWWindManagerExtension.CODEC,
+			WWWindManagerExtension.STREAM_CODEC
+		)
+	);
 
 	static {
 		REGISTER.register();
@@ -37,13 +46,5 @@ public final class WWGameEvents {
 
 	public static void init() {}
 
-	private static DeferredHolder<GameEvent, GameEvent> register(String name) {
-		return register(name, 16);
-	}
-
-	private static DeferredHolder<GameEvent, GameEvent> register(String name, int notificationRadius) {
-		return REGISTER.register(name, () -> new GameEvent(notificationRadius));
-	}
-
-	private WWGameEvents() {}
+	private WWWindManagerExtensionTypes() {}
 }

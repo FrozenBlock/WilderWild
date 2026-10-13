@@ -24,8 +24,8 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.lib.wind.extension.WindManagerExtension;
 import net.frozenblock.lib.wind.extension.WindManagerExtensionType;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.registry.WWWindManagerExtensionTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -44,13 +44,6 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudX,
 		ByteBufCodecs.DOUBLE, extension -> extension.cloudZ,
 		WWWindManagerExtension::createFromStreamCodec
-	);
-	public static final WindManagerExtensionType<WWWindManagerExtension> TYPE = WindManagerExtensionType.register(
-		WWConstants.id("clouds"),
-		1000,
-		WWWindManagerExtension::new,
-		CODEC,
-		STREAM_CODEC
 	);
 
 	public double cloudX;
@@ -79,7 +72,8 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 	public static void init() {}
 
 	public static WWWindManagerExtension get(Level level) {
-		return WindManager.getExtension(level, TYPE).orElseThrow(() -> new IllegalStateException("WWWindManagerExtension was not registered for level " + level));
+		return WindManager.getExtension(level, WWWindManagerExtensionTypes.WILDER_WILD_EXTENSION.get())
+			.orElseThrow(() -> new IllegalStateException("WWWindManagerExtension was not registered for level " + level));
 	}
 
 	public static double getCloudX(Level level, float partialTick) {
@@ -125,7 +119,7 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 
 	@Override
 	public WindManagerExtensionType<?> type() {
-		return TYPE;
+		return WWWindManagerExtensionTypes.WILDER_WILD_EXTENSION.get();
 	}
 
 	@Override

@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
 import net.frozenblock.lib.particle.api.ParticleTypeHelper;
-import net.frozenblock.lib.particle.api.VibrationParticleVisibilityApi;
+import net.frozenblock.lib.particle.api.VibrationSignalParticleEvents;
 import net.frozenblock.lib.platform.api.registry.DeferredParticleType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredSimpleParticleType;
@@ -182,7 +182,7 @@ public final class WWParticleTypes {
 	}
 
 	public static void init() {
-		VibrationParticleVisibilityApi.registerVisibilityTest((data, user) -> !(user instanceof Crab.VibrationUser));
+		VibrationSignalParticleEvents.EVALUATE_VISIBILITY.register(((data, user) -> !(user instanceof Crab.VibrationUser)));
 	}
 
 	private static DeferredParticleType<WWFallingLeavesParticleOptions> createLeafParticle(String name) {

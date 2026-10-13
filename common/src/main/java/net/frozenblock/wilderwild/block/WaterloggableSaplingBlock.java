@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.block;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -62,7 +61,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final BlockPos.MutableBlockPos mutable = pos.mutable();
 		for (int i = 0; i < WATER_SEARCH_RANGE + 1; i++) {
-			if (level.getBlockState(mutable.move(Direction.UP)).getFluidState().is(FluidTags.WATER)) {
+			if (level.getBlockState(mutable.move(Direction.UP)).getFluidState().is(Fluids.WATER)) {
 				if (i == WATER_SEARCH_RANGE) return false;
 			} else {
 				break;
@@ -74,7 +73,7 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
-		return super.getStateForPlacement(context).setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
+		return super.getStateForPlacement(context).setValue(WATERLOGGED, fluidState.isSourceOfType(Fluids.WATER));
 	}
 
 	@Override
@@ -94,6 +93,6 @@ public class WaterloggableSaplingBlock extends SaplingBlock implements SimpleWat
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 }

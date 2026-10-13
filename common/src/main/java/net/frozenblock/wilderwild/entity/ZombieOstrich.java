@@ -47,7 +47,6 @@ import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -151,8 +150,8 @@ public class ZombieOstrich extends AbstractOstrich {
 	}
 
 	@Override
-	protected Holder<SoundEvent> getEquipSound(EquipmentSlot slot, ItemStack stack, Equippable equippable) {
-		return slot == EquipmentSlot.SADDLE ? WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE.asHolder() : super.getEquipSound(slot, stack, equippable);
+	public Holder<SoundEvent> getSaddleEquipSound() {
+		return WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE.asHolder();
 	}
 
 	@Override

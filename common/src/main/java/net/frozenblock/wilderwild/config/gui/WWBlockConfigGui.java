@@ -36,7 +36,6 @@ public final class WWBlockConfigGui {
 		category.addEntry(booleanEntry(builder, "azalea_from_moss", WWBlockConfig.AZALEA_FROM_MOSS));
 		category.addEntry(booleanEntry(builder, "froglight_goop_growth", WWBlockConfig.FROGLIGHT_GOOP_GROWTH));
 		category.addEntry(booleanEntry(builder, "new_reinforced_deepslate", WWBlockConfig.NEW_REINFORCED_DEEPSLATE));
-		category.addEntry(booleanEntry(builder, "frosted_ice_cracking", WWBlockConfig.FROSTED_ICE_CRACKING));
 		category.addEntry(booleanEntry(builder, "chest_bubbling", WWBlockConfig.CHEST_BUBBLING));
 		category.addEntry(booleanEntry(builder, "thick_big_fungus_growth", WWBlockConfig.THICK_BIG_FUNGUS_GROWTH));
 

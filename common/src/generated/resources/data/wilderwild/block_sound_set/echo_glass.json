@@ -1,7 +1,7 @@
 {
   "break_sound": "wilderwild:block.echo_glass.break",
   "fall_sound": "wilderwild:block.echo_glass.fall",
-  "hit_sound": "wilderwild:block.echo_glass.crack",
+  "hit_sound": "wilderwild:block.echo_glass.hit",
   "pitch": 1.25,
   "place_sound": "wilderwild:block.echo_glass.place",
   "step_sound": "wilderwild:block.echo_glass.step",

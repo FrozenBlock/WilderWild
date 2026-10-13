@@ -19,12 +19,12 @@ package net.frozenblock.wilderwild.levelgen.trunkplacers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.material.Fluids;
 
 public final class TrunkPlacerHelper {
 
@@ -36,11 +36,11 @@ public final class TrunkPlacerHelper {
 		RandomSource random
 	) {
 		BlockState state = stateProvider.getState(level, random, branchPos).trySetValue(BlockStateProperties.AXIS, direction.getAxis());
-		if (state.hasProperty(BlockStateProperties.WATERLOGGED)) state = state.setValue(BlockStateProperties.WATERLOGGED, isWaterAt(level, branchPos));
+		if (state.hasProperty(BlockStateProperties.WATERLOGGED)) state = state.setValue(BlockStateProperties.WATERLOGGED, isWaterSourceAt(level, branchPos));
 		return state;
 	}
 
-	public static boolean isWaterAt(WorldGenLevel level, BlockPos pos) {
-		return level.isFluidAtPosition(pos, fluidState -> fluidState.is(FluidTags.WATER));
+	public static boolean isWaterSourceAt(WorldGenLevel level, BlockPos pos) {
+		return level.isFluidAtPosition(pos, fluidState -> fluidState.isSourceOfType(Fluids.WATER));
 	}
 }

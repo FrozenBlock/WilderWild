@@ -870,7 +870,7 @@ public final class WWMiscConfigured {
 							.searchingPredicate(
 								BlockPredicate.not(
 									SearchInDirectionBlockPredicate.anyAboveMatch(
-										BlockPredicate.matchesFluids(Fluids.WATER, Fluids.FLOWING_WATER, Fluids.LAVA, Fluids.FLOWING_LAVA),
+										BlockPredicate.matchesFluids(Fluids.WATER, Fluids.LAVA),
 										1
 									)
 								)

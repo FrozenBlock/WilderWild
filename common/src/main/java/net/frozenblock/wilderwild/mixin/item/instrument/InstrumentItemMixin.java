@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.mixin.item.instrument;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.frozenblock.lib.sound.api.predicate.SoundPredicateTypes;
 import net.frozenblock.lib.sound.impl.networking.FrozenLibSoundPackets;
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.registry.WWSoundPredicates;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -49,18 +49,20 @@ public final class InstrumentItemMixin {
 	) {
 		if (WWItemConfig.RESTRICT_INSTRUMENT_SOUNDS.get()) {
 			if (level.isClientSide()) return;
+
 			FrozenLibSoundPackets.createAndSendMovingRestrictionSound(
 				level,
 				except,
-				BuiltInRegistries.SOUND_EVENT.get(sound.location()).orElseThrow(),
+				Holder.direct(sound),
 				source,
 				volume,
 				pitch,
-				WWSoundPredicates.INSTRUMENT_SOUND_PREDICATE,
+				SoundPredicateTypes.USING_INSTRUMENT.asHolder(),
 				true
 			);
 			return;
 		}
+
 		original.call(level, except, sourceEntity, sound, source, volume, pitch);
 	}
 

@@ -44,7 +44,7 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> MESOGLEA = createKey("mesoglea");
 	public static final ResourceKey<BlockSoundSet> POLLEN = createKey("pollen");
 	public static final ResourceKey<BlockSoundSet> TERMITE_MOUND = createKey("termite_mound");
-	public static final ResourceKey<BlockSoundSet> TUMBLEWEED = createKey("tumbleweed");
+	public static final ResourceKey<BlockSoundSet> TUMBLEWEED_PLANT = createKey("tumbleweed_plant");
 	public static final ResourceKey<BlockSoundSet> AUBURN_MOSS = createKey("auburn_moss");
 	public static final ResourceKey<BlockSoundSet> AUBURN_MOSS_CARPET = createKey("auburn_moss_carpet");
 	public static final ResourceKey<BlockSoundSet> MAPLE_LEAVES = createKey("maple_leaves");
@@ -84,601 +84,63 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> TUBE_WORMS = createKey("tube_worms");
 
 	public static void bootstrap(BootstrapContext<BlockSoundSet> context) {
-		context.register(
-			ALGAE,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_ALGAE_BREAK.asHolder(),
-				WWSounds.BLOCK_ALGAE_STEP.asHolder(),
-				WWSounds.BLOCK_ALGAE_PLACE.asHolder(),
-				WWSounds.BLOCK_ALGAE_HIT.asHolder(),
-				WWSounds.BLOCK_ALGAE_FALL.asHolder()
-			)
-		);
-		context.register(
-			BAOBAB_NUT,
-			new BlockSoundSet(
-				WWSounds.BLOCK_BAOBAB_NUT_BREAK.asHolder(),
-				WWSounds.BLOCK_BAOBAB_NUT_STEP.asHolder(),
-				WWSounds.BLOCK_BAOBAB_NUT_PLACE.asHolder(),
-				WWSounds.BLOCK_BAOBAB_NUT_HIT.asHolder(),
-				WWSounds.BLOCK_BAOBAB_NUT_FALL.asHolder()
-			)
-		);
-		context.register(
-			COCONUT,
-			new BlockSoundSet(
-				WWSounds.BLOCK_COCONUT_BREAK.asHolder(),
-				WWSounds.BLOCK_COCONUT_STEP.asHolder(),
-				WWSounds.BLOCK_COCONUT_PLACE.asHolder(),
-				WWSounds.BLOCK_COCONUT_HIT.asHolder(),
-				WWSounds.BLOCK_COCONUT_FALL.asHolder()
-			)
-		);
-		context.register(
-			OSSEOUS_SCULK,
-			new BlockSoundSet(
-				WWSounds.BLOCK_OSSEOUS_SCULK_BREAK.asHolder(),
-				WWSounds.BLOCK_OSSEOUS_SCULK_STEP.asHolder(),
-				WWSounds.BLOCK_OSSEOUS_SCULK_PLACE.asHolder(),
-				WWSounds.BLOCK_OSSEOUS_SCULK_HIT.asHolder(),
-				WWSounds.BLOCK_OSSEOUS_SCULK_FALL.asHolder()
-			)
-		);
-		context.register(
-			NEMATOCYST,
-			new BlockSoundSet(
-				WWSounds.BLOCK_NEMATOCYST_BREAK.asHolder(),
-				WWSounds.BLOCK_NEMATOCYST_STEP.asHolder(),
-				WWSounds.BLOCK_NEMATOCYST_PLACE.asHolder(),
-				WWSounds.BLOCK_NEMATOCYST_HIT.asHolder(),
-				WWSounds.BLOCK_NEMATOCYST_FALL.asHolder()
-			)
-		);
-		context.register(
-			NULL_BLOCK,
-			new BlockSoundSet(
-				WWSounds.BLOCK_NULL_BLOCK_BREAK.asHolder(),
-				WWSounds.BLOCK_NULL_BLOCK_STEP.asHolder(),
-				WWSounds.BLOCK_NULL_BLOCK_PLACE.asHolder(),
-				WWSounds.BLOCK_NULL_BLOCK_HIT.asHolder(),
-				WWSounds.BLOCK_NULL_BLOCK_FALL.asHolder()
-			)
-		);
-		context.register(
-			HANGING_TENDRIL,
-			new BlockSoundSet(
-				1F,
-				1.25F,
-				WWSounds.BLOCK_HANGING_TENDRIL_BREAK.asHolder(),
-				WWSounds.BLOCK_HANGING_TENDRIL_STEP.asHolder(),
-				WWSounds.BLOCK_HANGING_TENDRIL_PLACE.asHolder(),
-				WWSounds.BLOCK_HANGING_TENDRIL_HIT.asHolder(),
-				WWSounds.BLOCK_HANGING_TENDRIL_FALL.asHolder()
-			)
-		);
-		context.register(
-			HOLLOWED_LOG,
-			new BlockSoundSet(
-				WWSounds.BLOCK_HOLLOWED_LOG_BREAK.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_LOG_STEP.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_LOG_PLACE.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_LOG_HIT.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_LOG_FALL.asHolder()
-			)
-		);
-		context.register(
-			HOLLOWED_CHERRY_LOG,
-			new BlockSoundSet(
-				WWSounds.BLOCK_HOLLOWED_CHERRY_LOG_BREAK.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_CHERRY_LOG_STEP.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_CHERRY_LOG_PLACE.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_CHERRY_LOG_HIT.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_CHERRY_LOG_FALL.asHolder()
-			)
-		);
-		context.register(
-			HOLLOWED_MAPLE_LOG,
-			new BlockSoundSet(
-				WWSounds.BLOCK_HOLLOWED_MAPLE_LOG_BREAK.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_MAPLE_LOG_STEP.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_MAPLE_LOG_PLACE.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_MAPLE_LOG_HIT.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_MAPLE_LOG_FALL.asHolder()
-			)
-		);
-		context.register(
-			HOLLOWED_PALE_OAK_LOG,
-			new BlockSoundSet(
-				WWSounds.BLOCK_HOLLOWED_PALE_OAK_LOG_BREAK.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_PALE_OAK_LOG_STEP.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_PALE_OAK_LOG_PLACE.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_PALE_OAK_LOG_HIT.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_PALE_OAK_LOG_FALL.asHolder()
-			)
-		);
-		context.register(
-			HOLLOWED_STEM,
-			new BlockSoundSet(
-				WWSounds.BLOCK_HOLLOWED_STEM_BREAK.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_STEM_STEP.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_STEM_PLACE.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_STEM_HIT.asHolder(),
-				WWSounds.BLOCK_HOLLOWED_STEM_FALL.asHolder()
-			)
-		);
-		context.register(
-			ECHO_GLASS,
-			new BlockSoundSet(
-				0.8F,
-				1.25F,
-				WWSounds.BLOCK_ECHO_GLASS_BREAK.asHolder(),
-				WWSounds.BLOCK_ECHO_GLASS_STEP.asHolder(),
-				WWSounds.BLOCK_ECHO_GLASS_PLACE.asHolder(),
-				WWSounds.BLOCK_ECHO_GLASS_CRACK.asHolder(),
-				WWSounds.BLOCK_ECHO_GLASS_FALL.asHolder()
-			)
-		);
-		context.register(
-			GABBRO,
-			new BlockSoundSet(
-				WWSounds.BLOCK_GABBRO_BREAK.asHolder(),
-				WWSounds.BLOCK_GABBRO_STEP.asHolder(),
-				WWSounds.BLOCK_GABBRO_PLACE.asHolder(),
-				WWSounds.BLOCK_GABBRO_HIT.asHolder(),
-				WWSounds.BLOCK_GABBRO_FALL.asHolder()
-			)
-		);
-		context.register(
-			GABBRO_BRICKS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_GABBRO_BRICKS_BREAK.asHolder(),
-				WWSounds.BLOCK_GABBRO_BRICKS_STEP.asHolder(),
-				WWSounds.BLOCK_GABBRO_BRICKS_PLACE.asHolder(),
-				WWSounds.BLOCK_GABBRO_BRICKS_HIT.asHolder(),
-				WWSounds.BLOCK_GABBRO_BRICKS_FALL.asHolder()
-			)
-		);
-		context.register(
-			GEOTHERMAL_VENT,
-			new BlockSoundSet(
-				WWSounds.BLOCK_GEOTHERMAL_VENT_BREAK.asHolder(),
-				WWSounds.BLOCK_GEOTHERMAL_VENT_STEP.asHolder(),
-				WWSounds.BLOCK_GEOTHERMAL_VENT_PLACE.asHolder(),
-				WWSounds.BLOCK_GEOTHERMAL_VENT_HIT.asHolder(),
-				WWSounds.BLOCK_GEOTHERMAL_VENT_FALL.asHolder()
-			)
-		);
-		context.register(
-			MESOGLEA,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_MESOGLEA_BREAK.asHolder(),
-				WWSounds.BLOCK_MESOGLEA_STEP.asHolder(),
-				WWSounds.BLOCK_MESOGLEA_PLACE.asHolder(),
-				WWSounds.BLOCK_MESOGLEA_HIT.asHolder(),
-				WWSounds.BLOCK_MESOGLEA_FALL.asHolder()
-			)
-		);
-		context.register(
-			POLLEN, new BlockSoundSet(
-				0.8F,
-				1.2F,
-				WWSounds.BLOCK_POLLEN_BREAK.asHolder(),
-				WWSounds.BLOCK_POLLEN_STEP.asHolder(),
-				WWSounds.BLOCK_POLLEN_PLACE.asHolder(),
-				WWSounds.BLOCK_POLLEN_HIT.asHolder(),
-				WWSounds.BLOCK_POLLEN_FALL.asHolder()
-			)
-		);
-		context.register(
-			TERMITE_MOUND,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_TERMITE_MOUND_BREAK.asHolder(),
-				WWSounds.BLOCK_TERMITE_MOUND_STEP.asHolder(),
-				WWSounds.BLOCK_TERMITE_MOUND_PLACE.asHolder(),
-				WWSounds.BLOCK_TERMITE_MOUND_HIT.asHolder(),
-				WWSounds.BLOCK_TERMITE_MOUND_FALL.asHolder()
-			)
-		);
-		context.register(
-			TUMBLEWEED,
-			new BlockSoundSet(
-				WWSounds.BLOCK_TUMBLEWEED_PLANT_BREAK.asHolder(),
-				WWSounds.BLOCK_TUMBLEWEED_PLANT_STEP.asHolder(),
-				WWSounds.BLOCK_TUMBLEWEED_PLANT_PLACE.asHolder(),
-				WWSounds.BLOCK_TUMBLEWEED_PLANT_HIT.asHolder(),
-				WWSounds.BLOCK_TUMBLEWEED_PLANT_FALL.asHolder()
-			)
-		);
-		context.register(
-			AUBURN_MOSS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_AUBURN_MOSS_BREAK.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_STEP.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_PLACE.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_HIT.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_FALL.asHolder()
-			)
-		);
-		context.register(
-			AUBURN_MOSS_CARPET,
-			new BlockSoundSet(
-				WWSounds.BLOCK_AUBURN_MOSS_CARPET_BREAK.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_CARPET_STEP.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_CARPET_PLACE.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_CARPET_HIT.asHolder(),
-				WWSounds.BLOCK_AUBURN_MOSS_CARPET_FALL.asHolder()
-			)
-		);
-		context.register(
-			MAPLE_LEAVES,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MAPLE_LEAVES_BREAK.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAVES_STEP.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAVES_PLACE.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAVES_HIT.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAVES_FALL.asHolder()
-			)
-		);
-		context.register(
-			MAPLE_LEAF_LITTER,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MAPLE_LEAF_LITTER_BREAK.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAF_LITTER_STEP.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAF_LITTER_PLACE.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAF_LITTER_HIT.asHolder(),
-				WWSounds.BLOCK_MAPLE_LEAF_LITTER_FALL.asHolder()
-			)
-		);
-		context.register(
-			MAPLE_WOOD,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MAPLE_WOOD_BREAK.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_STEP.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_PLACE.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_HIT.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_FALL.asHolder()
-			)
-		);
-		context.register(
-			MAPLE_WOOD_HANGING_SIGN,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MAPLE_WOOD_HANGING_SIGN_BREAK.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_HANGING_SIGN_STEP.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_HANGING_SIGN_PLACE.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_HANGING_SIGN_HIT.asHolder(),
-				WWSounds.BLOCK_MAPLE_WOOD_HANGING_SIGN_FALL.asHolder()
-			)
-		);
-		context.register(
-			CHERRY_LEAF_LITTER,
-			new BlockSoundSet(
-				WWSounds.BLOCK_CHERRY_LEAF_LITTER_BREAK.asHolder(),
-				WWSounds.BLOCK_CHERRY_LEAF_LITTER_STEP.asHolder(),
-				WWSounds.BLOCK_CHERRY_LEAF_LITTER_PLACE.asHolder(),
-				WWSounds.BLOCK_CHERRY_LEAF_LITTER_HIT.asHolder(),
-				WWSounds.BLOCK_CHERRY_LEAF_LITTER_FALL.asHolder()
-			)
-		);
-		context.register(
-			PALE_OAK_LEAF_LITTER,
-			new BlockSoundSet(
-				WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_BREAK.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_STEP.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_PLACE.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_HIT.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAF_LITTER_FALL.asHolder()
-			)
-		);
-		context.register(
-			CONIFER_LEAF_LITTER,
-			new BlockSoundSet(
-				WWSounds.BLOCK_CONIFER_LEAF_LITTER_BREAK.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAF_LITTER_STEP.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAF_LITTER_PLACE.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAF_LITTER_HIT.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAF_LITTER_FALL.asHolder()
-			)
-		);
-		context.register(
-			CLAY,
-			new BlockSoundSet(
-				0.9F,
-				1F,
-				WWSounds.BLOCK_CLAY_BREAK.asHolder(),
-				WWSounds.BLOCK_CLAY_STEP.asHolder(),
-				WWSounds.BLOCK_CLAY_PLACE.asHolder(),
-				WWSounds.BLOCK_CLAY_HIT.asHolder(),
-				WWSounds.BLOCK_CLAY_FALL.asHolder()
-			)
-		);
-		context.register(
-			CACTUS,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_CACTUS_BREAK.asHolder(),
-				WWSounds.BLOCK_CACTUS_STEP.asHolder(),
-				WWSounds.BLOCK_CACTUS_PLACE.asHolder(),
-				WWSounds.BLOCK_CACTUS_HIT.asHolder(),
-				WWSounds.BLOCK_CACTUS_FALL.asHolder()
-			)
-		);
-		context.register(
-			GRAVEL,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_GRAVEL_BREAK.asHolder(),
-				WWSounds.BLOCK_GRAVEL_STEP.asHolder(),
-				WWSounds.BLOCK_GRAVEL_PLACE.asHolder(),
-				WWSounds.BLOCK_GRAVEL_HIT.asHolder(),
-				WWSounds.BLOCK_GRAVEL_FALL.asHolder()
-			)
-		);
-		context.register(
-			MUSHROOM,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MUSHROOM_BREAK.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_STEP.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_PLACE.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_HIT.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_FALL.asHolder()
-			)
-		);
-		context.register(
-			MUSHROOM_BLOCK,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MUSHROOM_BLOCK_BREAK.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_BLOCK_STEP.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_BLOCK_PLACE.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_BLOCK_HIT.asHolder(),
-				WWSounds.BLOCK_MUSHROOM_BLOCK_FALL.asHolder()
-			)
-		);
-		context.register(
-			ICE,
-			new BlockSoundSet(
-				WWSounds.BLOCK_ICE_BREAK.asHolder(),
-				WWSounds.BLOCK_ICE_STEP.asHolder(),
-				WWSounds.BLOCK_ICE_PLACE.asHolder(),
-				WWSounds.BLOCK_ICE_HIT.asHolder(),
-				WWSounds.BLOCK_ICE_FALL.asHolder()
-			)
-		);
-		context.register(
-			FROSTED_ICE,
-			new BlockSoundSet(
-				WWSounds.BLOCK_FROSTED_ICE_BREAK.asHolder(),
-				WWSounds.BLOCK_FROSTED_ICE_STEP.asHolder(),
-				WWSounds.BLOCK_FROSTED_ICE_PLACE.asHolder(),
-				WWSounds.BLOCK_FROSTED_ICE_HIT.asHolder(),
-				WWSounds.BLOCK_FROSTED_ICE_FALL.asHolder()
-			)
-		);
-		context.register(
-			CONIFER_LEAVES,
-			new BlockSoundSet(
-				WWSounds.BLOCK_CONIFER_LEAVES_BREAK.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAVES_STEP.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAVES_PLACE.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAVES_HIT.asHolder(),
-				WWSounds.BLOCK_CONIFER_LEAVES_FALL.asHolder()
-			)
-		);
-		context.register(
-			PALE_OAK_LEAVES,
-			new BlockSoundSet(
-				WWSounds.BLOCK_PALE_OAK_LEAVES_BREAK.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAVES_STEP.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAVES_PLACE.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAVES_HIT.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_LEAVES_FALL.asHolder()
-			)
-		);
-		context.register(
-			PALE_MOSS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_PALE_MOSS_BREAK.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_STEP.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_PLACE.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_HIT.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_FALL.asHolder()
-			)
-		);
-		context.register(
-			PALE_MOSS_CARPET,
-			new BlockSoundSet(
-				WWSounds.BLOCK_PALE_MOSS_CARPET_BREAK.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_CARPET_STEP.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_CARPET_PLACE.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_CARPET_HIT.asHolder(),
-				WWSounds.BLOCK_PALE_MOSS_CARPET_FALL.asHolder()
-			)
-		);
-		context.register(
-			PALE_OAK_WOOD,
-			new BlockSoundSet(
-				WWSounds.BLOCK_PALE_OAK_WOOD_BREAK.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_STEP.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_PLACE.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_HIT.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_FALL.asHolder()
-			)
-		);
-		context.register(
-			PALE_OAK_WOOD_HANGING_SIGN,
-			new BlockSoundSet(
-				WWSounds.BLOCK_PALE_OAK_WOOD_HANGING_SIGN_BREAK.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_HANGING_SIGN_STEP.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_HANGING_SIGN_PLACE.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_HANGING_SIGN_HIT.asHolder(),
-				WWSounds.BLOCK_PALE_OAK_WOOD_HANGING_SIGN_FALL.asHolder()
-			)
-		);
-		context.register(
-			LILY_PAD,
-			new BlockSoundSet(
-				SoundEvents.BIG_DRIPLEAF_BREAK,
-				SoundEvents.BIG_DRIPLEAF_STEP,
-				SoundEvents.LILY_PAD_PLACE,
-				SoundEvents.BIG_DRIPLEAF_HIT,
-				SoundEvents.BIG_DRIPLEAF_FALL
-			)
-		);
-		context.register(
-			SAPLING,
-			new BlockSoundSet(
-				WWSounds.BLOCK_SAPLING_BREAK.asHolder(),
-				WWSounds.BLOCK_SAPLING_STEP.asHolder(),
-				WWSounds.BLOCK_SAPLING_PLACE.asHolder(),
-				WWSounds.BLOCK_SAPLING_HIT.asHolder(),
-				WWSounds.BLOCK_SAPLING_FALL.asHolder()
-			)
-		);
-		context.register(
-			SUGAR_CANE,
-			new BlockSoundSet(
-				WWSounds.BLOCK_SUGAR_CANE_BREAK.asHolder(),
-				WWSounds.BLOCK_SUGAR_CANE_STEP.asHolder(),
-				WWSounds.BLOCK_SUGAR_CANE_PLACE.asHolder(),
-				WWSounds.BLOCK_SUGAR_CANE_HIT.asHolder(),
-				WWSounds.BLOCK_SUGAR_CANE_FALL.asHolder()
-			)
-		);
-		context.register(
-			COARSE_DIRT,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_COARSE_DIRT_BREAK.asHolder(),
-				WWSounds.BLOCK_COARSE_DIRT_STEP.asHolder(),
-				WWSounds.BLOCK_COARSE_DIRT_PLACE.asHolder(),
-				WWSounds.BLOCK_COARSE_DIRT_HIT.asHolder(),
-				WWSounds.BLOCK_COARSE_DIRT_FALL.asHolder()
-			)
-		);
-		context.register(
-			SANDSTONE,
-			new BlockSoundSet(
-				0.7F,
-				1.1F,
-				WWSounds.BLOCK_SANDSTONE_BREAK.asHolder(),
-				WWSounds.BLOCK_SANDSTONE_STEP.asHolder(),
-				WWSounds.BLOCK_SANDSTONE_PLACE.asHolder(),
-				WWSounds.BLOCK_SANDSTONE_HIT.asHolder(),
-				WWSounds.BLOCK_SANDSTONE_FALL.asHolder()
-			)
-		);
-		context.register(
-			SCORCHED_SAND,
-			new BlockSoundSet(
-				0.8F,
-				1F,
-				WWSounds.BLOCK_SCORCHED_SAND_BREAK.asHolder(),
-				WWSounds.BLOCK_SCORCHED_SAND_STEP.asHolder(),
-				WWSounds.BLOCK_SCORCHED_SAND_PLACE.asHolder(),
-				WWSounds.BLOCK_SCORCHED_SAND_HIT.asHolder(),
-				WWSounds.BLOCK_SCORCHED_SAND_FALL.asHolder()
-			)
-		);
-		context.register(
-			REINFORCED_DEEPSLATE,
-			new BlockSoundSet(
-				WWSounds.BLOCK_REINFORCED_DEEPSLATE_BREAK.asHolder(),
-				WWSounds.BLOCK_REINFORCED_DEEPSLATE_STEP.asHolder(),
-				WWSounds.BLOCK_REINFORCED_DEEPSLATE_PLACE.asHolder(),
-				WWSounds.BLOCK_REINFORCED_DEEPSLATE_HIT.asHolder(),
-				WWSounds.BLOCK_REINFORCED_DEEPSLATE_FALL.asHolder()
-			)
-		);
-		context.register(
-			MAGMA,
-			new BlockSoundSet(
-				1F,
-				0.9F,
-				WWSounds.BLOCK_MAGMA_BREAK.asHolder(),
-				WWSounds.BLOCK_MAGMA_STEP.asHolder(),
-				WWSounds.BLOCK_MAGMA_PLACE.asHolder(),
-				WWSounds.BLOCK_MAGMA_HIT.asHolder(),
-				WWSounds.BLOCK_MAGMA_FALL.asHolder()
-			)
-		);
-		context.register(
-			MELON,
-			new BlockSoundSet(
-				WWSounds.BLOCK_MELON_BREAK.asHolder(),
-				WWSounds.BLOCK_MELON_STEP.asHolder(),
-				WWSounds.BLOCK_MELON_PLACE.asHolder(),
-				WWSounds.BLOCK_MELON_HIT.asHolder(),
-				WWSounds.BLOCK_MELON_FALL.asHolder()
-			)
-		);
-		context.register(
-			SHORT_GRASS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_SHORT_GRASS_BREAK.asHolder(),
-				SoundEvents.GRASS_STEP,
-				WWSounds.BLOCK_SHORT_GRASS_PLACE.asHolder(),
-				SoundEvents.GRASS_HIT,
-				SoundEvents.GRASS_FALL
-			)
-		);
-		context.register(
-			FROZEN_GRASS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_FROZEN_GRASS_BREAK.asHolder(),
-				SoundEvents.GRASS_STEP,
-				WWSounds.BLOCK_FROZEN_GRASS_PLACE.asHolder(),
-				SoundEvents.GRASS_HIT,
-				SoundEvents.GRASS_FALL
-			)
-		);
-		context.register(
-			DRY_GRASS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_DRY_GRASS_BREAK.asHolder(),
-				SoundEvents.GRASS_STEP,
-				WWSounds.BLOCK_DRY_GRASS_PLACE.asHolder(),
-				SoundEvents.GRASS_HIT,
-				SoundEvents.GRASS_FALL
-			)
-		);
-		context.register(
-			BARNACLES,
-			new BlockSoundSet(
-				WWSounds.BLOCK_BARNACLES_BREAK.asHolder(),
-				SoundEvents.CORAL_BLOCK_STEP,
-				WWSounds.BLOCK_BARNACLES_PLACE.asHolder(),
-				SoundEvents.CORAL_BLOCK_HIT,
-				SoundEvents.CORAL_BLOCK_FALL
-			)
-		);
-		context.register(
-			SEA_ANEMONE,
-			new BlockSoundSet(
-				WWSounds.BLOCK_SEA_ANEMONE_BREAK.asHolder(),
-				WWSounds.BLOCK_ALGAE_STEP.asHolder(),
-				WWSounds.BLOCK_SEA_ANEMONE_PLACE.asHolder(),
-				WWSounds.BLOCK_ALGAE_HIT.asHolder(),
-				WWSounds.BLOCK_ALGAE_FALL.asHolder()
-			)
-		);
-		context.register(
-			TUBE_WORMS,
-			new BlockSoundSet(
-				WWSounds.BLOCK_TUBE_WORM_BREAK.asHolder(),
-				SoundEvents.CORAL_BLOCK_STEP,
-				WWSounds.BLOCK_TUBE_WORMS_PLACE.asHolder(),
-				SoundEvents.CORAL_BLOCK_HIT,
-				SoundEvents.CORAL_BLOCK_FALL
-			)
-		);
+		context.register(ALGAE, new BlockSoundSet(0.8F, 1F, WWSounds.ALGAE));
+		context.register(BAOBAB_NUT, new BlockSoundSet(WWSounds.BAOBAB_NUT));
+		context.register(COCONUT, new BlockSoundSet(WWSounds.COCONUT));
+		context.register(OSSEOUS_SCULK, new BlockSoundSet(WWSounds.OSSEOUS_SCULK));
+		context.register(NEMATOCYST, new BlockSoundSet(WWSounds.NEMATOCYST));
+		context.register(NULL_BLOCK, new BlockSoundSet(WWSounds.NULL_BLOCK));
+		context.register(HANGING_TENDRIL, new BlockSoundSet(1F, 1.25F, WWSounds.HANGING_TENDRIL));
+		context.register(HOLLOWED_LOG, new BlockSoundSet(WWSounds.HOLLOWED_LOG));
+		context.register(HOLLOWED_CHERRY_LOG, new BlockSoundSet(WWSounds.HOLLOWED_CHERRY_LOG));
+		context.register(HOLLOWED_MAPLE_LOG, new BlockSoundSet(WWSounds.HOLLOWED_MAPLE_LOG));
+		context.register(HOLLOWED_PALE_OAK_LOG, new BlockSoundSet(WWSounds.HOLLOWED_PALE_OAK_LOG));
+		context.register(HOLLOWED_STEM, new BlockSoundSet(WWSounds.HOLLOWED_STEM));
+		context.register(ECHO_GLASS, new BlockSoundSet(0.8F, 1.25F, WWSounds.ECHO_GLASS));
+		context.register(GABBRO, new BlockSoundSet(WWSounds.GABBRO));
+		context.register(GABBRO_BRICKS, new BlockSoundSet(WWSounds.GABBRO_BRICKS));
+		context.register(GEOTHERMAL_VENT, new BlockSoundSet(WWSounds.GEOTHERMAL_VENT));
+		context.register(MESOGLEA, new BlockSoundSet(0.8F, 1F, WWSounds.MESOGLEA));
+		context.register(POLLEN, new BlockSoundSet(0.8F, 1.2F, WWSounds.POLLEN));
+		context.register(TERMITE_MOUND, new BlockSoundSet(0.8F, 1F, WWSounds.TERMITE_MOUND));
+		context.register(TUMBLEWEED_PLANT, new BlockSoundSet(WWSounds.TUMBLEWEED_PLANT));
+		context.register(AUBURN_MOSS, new BlockSoundSet(WWSounds.AUBURN_MOSS));
+		context.register(AUBURN_MOSS_CARPET, new BlockSoundSet(WWSounds.AUBURN_MOSS_CARPET));
+		context.register(MAPLE_LEAVES, new BlockSoundSet(WWSounds.MAPLE_LEAVES));
+		context.register(MAPLE_LEAF_LITTER, new BlockSoundSet(WWSounds.MAPLE_LEAF_LITTER));
+		context.register(MAPLE_WOOD, new BlockSoundSet(WWSounds.MAPLE_WOOD));
+		context.register(MAPLE_WOOD_HANGING_SIGN, new BlockSoundSet(WWSounds.MAPLE_WOOD_HANGING_SIGN));
+		context.register(CHERRY_LEAF_LITTER, new BlockSoundSet(WWSounds.CHERRY_LEAF_LITTER));
+		context.register(PALE_OAK_LEAF_LITTER, new BlockSoundSet(WWSounds.PALE_OAK_LEAF_LITTER));
+		context.register(CONIFER_LEAF_LITTER, new BlockSoundSet(WWSounds.CONIFER_LEAF_LITTER));
+		context.register(CLAY, new BlockSoundSet(0.9F, 1F, WWSounds.CLAY));
+		context.register(CACTUS, new BlockSoundSet(0.8F, 1F, WWSounds.CACTUS));
+		context.register(GRAVEL, new BlockSoundSet(0.8F, 1F, WWSounds.GRAVEL));
+		context.register(MUSHROOM, new BlockSoundSet(WWSounds.MUSHROOM));
+		context.register(MUSHROOM_BLOCK, new BlockSoundSet(WWSounds.MUSHROOM_BLOCK));
+		context.register(ICE, new BlockSoundSet(WWSounds.ICE));
+		context.register(FROSTED_ICE, new BlockSoundSet(WWSounds.FROSTED_ICE));
+		context.register(CONIFER_LEAVES, new BlockSoundSet(WWSounds.CONIFER_LEAVES));
+		context.register(PALE_OAK_LEAVES, new BlockSoundSet(WWSounds.PALE_OAK_LEAVES));
+		context.register(PALE_MOSS, new BlockSoundSet(WWSounds.PALE_MOSS));
+		context.register(PALE_MOSS_CARPET, new BlockSoundSet(WWSounds.PALE_MOSS_CARPET));
+		context.register(PALE_OAK_WOOD, new BlockSoundSet(WWSounds.PALE_OAK_WOOD));
+		context.register(PALE_OAK_WOOD_HANGING_SIGN, new BlockSoundSet(WWSounds.PALE_OAK_WOOD_HANGING_SIGN));
+		context.register(LILY_PAD, new BlockSoundSet(SoundEvents.BIG_DRIPLEAF));
+		context.register(SAPLING, new BlockSoundSet(WWSounds.SAPLING));
+		context.register(SUGAR_CANE, new BlockSoundSet(WWSounds.SUGAR_CANE));
+		context.register(COARSE_DIRT, new BlockSoundSet(0.8F, 1F, WWSounds.COARSE_DIRT));
+		context.register(SANDSTONE, new BlockSoundSet(0.7F, 1.1F, WWSounds.SANDSTONE));
+		context.register(SCORCHED_SAND, new BlockSoundSet(0.8F, 1F, WWSounds.SCORCHED_SAND));
+		context.register(REINFORCED_DEEPSLATE, new BlockSoundSet(WWSounds.REINFORCED_DEEPSLATE));
+		context.register(MAGMA, new BlockSoundSet(1F, 0.9F, WWSounds.MAGMA));
+		context.register(MELON, new BlockSoundSet(WWSounds.MELON));
+		context.register(SHORT_GRASS, new BlockSoundSet(WWSounds.SHORT_GRASS));
+		context.register(FROZEN_GRASS, new BlockSoundSet(WWSounds.FROZEN_GRASS));
+		context.register(DRY_GRASS, new BlockSoundSet(WWSounds.DRY_GRASS));
+		context.register(BARNACLES, new BlockSoundSet(WWSounds.BARNACLES));
+		context.register(SEA_ANEMONE, new BlockSoundSet(WWSounds.SEA_ANEMONE));
+		context.register(TUBE_WORMS, new BlockSoundSet(WWSounds.TUBE_WORMS));
 	}
 
 	private static ResourceKey<BlockSoundSet> createKey(String name) {

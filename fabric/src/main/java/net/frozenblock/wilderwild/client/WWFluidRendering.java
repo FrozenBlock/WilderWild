@@ -59,6 +59,6 @@ public final class WWFluidRendering {
 			}
 		};
 
-		FluidRenderingRegistry.register(Fluids.WATER, Fluids.FLOWING_WATER, FluidStateModelSet.WATER_MODEL, mesogleaHandler);
+		FluidRenderingRegistry.register(Fluids.WATER, FluidStateModelSet.WATER_MODEL, mesogleaHandler);
 	}
 }

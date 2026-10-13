@@ -20,11 +20,13 @@ package net.frozenblock.wilderwild;
 import net.frozenblock.lib.menu.api.SplashTextEvents;
 import net.frozenblock.lib.renderer.special.SpecialModelRendererRegistry;
 import net.frozenblock.wilderwild.client.WWBlockColors;
+import net.frozenblock.wilderwild.client.WWBlockEntityRenderers;
 import net.frozenblock.wilderwild.client.WWBuiltInBlockModels;
-import net.frozenblock.wilderwild.client.WWMusicPackDownloader;
 import net.frozenblock.wilderwild.client.WWEasterEggs;
+import net.frozenblock.wilderwild.client.WWEntityRenderers;
 import net.frozenblock.wilderwild.client.WWItemProperties;
 import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.WWMusicPackDownloader;
 import net.frozenblock.wilderwild.client.WWParticleEngine;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
@@ -41,6 +43,8 @@ public final class WilderWildClient {
 
 		WWClientResources.init();
 		WWModelLayers.init();
+		WWEntityRenderers.init();
+		WWBlockEntityRenderers.init();
 		WWItemProperties.init();
 		WWMusicPackDownloader.init();
 		WWRenderStateDataKeys.init();

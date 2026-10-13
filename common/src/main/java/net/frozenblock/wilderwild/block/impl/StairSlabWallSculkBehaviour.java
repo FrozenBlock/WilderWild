@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
 public class StairSlabWallSculkBehaviour implements SculkBehaviour {
@@ -48,7 +48,7 @@ public class StairSlabWallSculkBehaviour implements SculkBehaviour {
 			if (stateReplace.is(Blocks.SCULK_VEIN)) {
 				stateReplace = stateReplace.setValue(MultifaceBlock.getFaceProperty(oppositeDirection), false);
 				if (MultifaceBlock.availableFaces(stateReplace).isEmpty()) {
-					stateReplace = stateReplace.getValue(BlockStateProperties.WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+					stateReplace = stateReplace.getFluidState().isSourceOfType(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
 				}
 				level.setBlockAndUpdate(mutable, stateReplace);
 			}

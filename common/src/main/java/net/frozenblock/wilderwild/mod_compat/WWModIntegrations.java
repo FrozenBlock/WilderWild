@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWModIntegrations {
 	private static final DeferredRegister<ModIntegrationSupplier<?>> REGISTER = DeferredRegister.create(
-		FrozenLibRegistries.MOD_INTEGRATION_REGISTRY,
+		FrozenLibRegistries.MOD_INTEGRATION,
 		WWConstants.MOD_ID
 	);
 

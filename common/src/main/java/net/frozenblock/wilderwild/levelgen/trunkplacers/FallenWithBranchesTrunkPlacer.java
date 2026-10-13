@@ -103,7 +103,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		int generatedBranches = 0;
 
-		if (TrunkPlacerHelper.isWaterAt(level, origin) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
+		if (TrunkPlacerHelper.isWaterSourceAt(level, origin) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
 
 		final BlockPos endPos = origin.relative(trunkDirection, treeHeight);
 		final BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());

@@ -134,7 +134,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	}
 
 	public static void spawnFromShears(Level level, BlockPos pos) {
-		level.playSound(null, pos, WWSounds.BLOCK_TUMBLEWEED_SHEAR.get(), SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, pos, WWSounds.BLOCK_TUMBLEWEED_PLANT_SHEAR.get(), SoundSource.BLOCKS, 1F, 1F);
 		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
 		level.addFreshEntity(tumbleweed);
 		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));

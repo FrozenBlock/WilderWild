@@ -139,7 +139,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 		final BlockState insideState = level.getBlockState(pos);
 		if (insideState.is(this)) return insideState.setValue(AGE, Math.min(MAX_AGE, insideState.getValue(AGE) + 1));
 
-		final boolean waterlogged = insideState.getFluidState().is(Fluids.WATER);
+		final boolean waterlogged = insideState.getFluidState().isSourceOfType(Fluids.WATER);
 		for (Direction direction : context.getNearestLookingDirections()) {
 			BlockState state;
 			if (direction.getAxis() == Direction.Axis.Y) {
@@ -176,7 +176,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 
 	@Override

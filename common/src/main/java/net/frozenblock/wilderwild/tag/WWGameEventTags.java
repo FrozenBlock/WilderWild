@@ -25,7 +25,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 public final class WWGameEventTags {
 	public static final TagKey<GameEvent> CRAB_CAN_DETECT = bind("crab_can_detect");
 	public static final TagKey<GameEvent> CRAB_CAN_ALWAYS_DETECT = bind("crab_can_always_detect");
-	public static final TagKey<GameEvent> MAKES_ICICLE_FALL = bind("makes_icicle_fall");
 
 	private static TagKey<GameEvent> bind(String name) {
 		return TagKey.create(Registries.GAME_EVENT, WWConstants.id(name));

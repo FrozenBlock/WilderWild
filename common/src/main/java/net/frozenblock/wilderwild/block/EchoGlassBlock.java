@@ -143,7 +143,8 @@ public class EchoGlassBlock extends TransparentBlock {
 			return;
 		}
 		super.playerDestroy(level, player, pos, state, blockEntity, destroyedWith);
-		level.playSound(null, pos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 0.9F, level.getRandom().nextFloat() * 0.1F + 0.8F);
+		SoundEvents.GLASS.breakSound()
+			.ifPresent(sound -> level.playSound(null, pos, sound, SoundSource.BLOCKS, 0.9F, level.getRandom().nextFloat() * 0.1F + 0.8F));
 	}
 
 	@Override

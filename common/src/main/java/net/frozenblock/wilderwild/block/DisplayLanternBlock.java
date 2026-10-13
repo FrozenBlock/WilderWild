@@ -182,7 +182,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction.getAxis() != Direction.Axis.Y) continue;
 			final BlockState state = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
-			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state.setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
+			if (state.canSurvive(context.getLevel(), context.getClickedPos())) return state.setValue(WATERLOGGED, fluidState.isSourceOfType(Fluids.WATER));
 		}
 		return null;
 	}
@@ -234,7 +234,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 
 	@Override

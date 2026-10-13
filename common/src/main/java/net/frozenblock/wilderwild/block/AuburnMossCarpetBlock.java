@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelReader;
@@ -61,7 +60,7 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final boolean canSurvive = super.canSurvive(state, level, pos);
-		if (state.getValue(WATERLOGGED)) return canSurvive && !level.getFluidState(pos.below()).is(FluidTags.WATER);
+		if (state.getValue(WATERLOGGED)) return canSurvive && !level.getFluidState(pos.below()).is(Fluids.WATER);
 		return canSurvive;
 	}
 
@@ -69,13 +68,13 @@ public class AuburnMossCarpetBlock extends CarpetBlock implements SimpleWaterlog
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockState state = super.getStateForPlacement(context);
-		if (state != null) return state.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER));
+		if (state != null) return state.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).isSourceOfType(Fluids.WATER));
 		return state;
 	}
 
 	@Override
 	protected FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 
 	@Override

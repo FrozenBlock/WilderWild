@@ -69,7 +69,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public static final int TWITCH_MIN_TICKS = 5;
 	public static final int TWITCH_MAX_TICKS = 12;
 	public static final int MAX_STORED_XP = 900;
-	public static final int RING_OUT_TICKS = 5;
+	public static final int WRING_OUT_TICKS = 5;
 	public static final EnumProperty<SculkSensorPhase> PHASE = BlockStateProperties.SCULK_SENSOR_PHASE;
 	public static final IntegerProperty POWER = BlockStateProperties.POWER;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -115,7 +115,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		final BlockPos pos = context.getClickedPos();
 		final FluidState fluidState = context.getLevel().getFluidState(pos);
-		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.is(Fluids.WATER));
+		return this.defaultBlockState().setValue(WATERLOGGED, fluidState.isSourceOfType(Fluids.WATER));
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource() : super.getFluidState(state);
 	}
 
 	@Override
@@ -277,7 +277,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 
 		level.setBlockAndUpdate(pos, state.setValue(WRINGING_OUT, true));
 		level.playSound(null, pos, WWSounds.BLOCK_HANGING_TENDRIL_WRING.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
-		hangingTendril.ringOutTicksLeft = RING_OUT_TICKS;
+		hangingTendril.wringOutTicksLeft = WRING_OUT_TICKS;
 		return InteractionResult.SUCCESS;
 	}
 

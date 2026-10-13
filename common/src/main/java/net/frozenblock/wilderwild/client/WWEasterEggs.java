@@ -18,37 +18,79 @@
 package net.frozenblock.wilderwild.client;
 
 import net.frozenblock.lib.entity.client.api.renderer.entity.EntityTextureOverride;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.registry.client.FrozenLibClientRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.renderer.entity.AxolotlRenderer;
-import net.minecraft.client.renderer.entity.DolphinRenderer;
-import net.minecraft.client.renderer.entity.FrogRenderer;
-import net.minecraft.client.renderer.entity.GoatRenderer;
-import net.minecraft.client.renderer.entity.PigRenderer;
-import net.minecraft.client.renderer.entity.WardenRenderer;
 
 @ClientOnly
 public final class WWEasterEggs {
 
+	// TODO: FIXME!!
 	public static void hatchEasterEggs() {
-		EntityTextureOverride.register(WWConstants.id("stella_warden"), WardenRenderer.class, WWConstants.id("textures/entity/warden/stella_warden.png"),
-			(entity -> entity instanceof WilderWarden wilderWarden && wilderWarden.wilderWild$isStella())
+		final DeferredRegister<EntityTextureOverride<?, ?>> register = DeferredRegister.create(
+			FrozenLibClientRegistries.ENTITY_TEXTURE_OVERRIDE,
+			WWConstants.MOD_ID
 		);
-		EntityTextureOverride.register(WWConstants.id("treetrain1_goat"), GoatRenderer.class, WWConstants.id("textures/entity/goat/treetrain1_goat.png"),
-			"Treetrain1", "Treetrain", "EthanStokes", "Ethan Stokes", "Ethan Strokes"
+
+		/*
+		register.register(
+			"stella_warden",
+			() -> new EntityTextureOverride<Warden, WardenRenderState>(
+				EntityTypes.WARDEN,
+				WWConstants.id("textures/entity/warden/stella_warden.png"),
+				state -> state instanceof WilderWarden wilderState && wilderState.wilderWild$isStella()
+			)
 		);
-		EntityTextureOverride.register(WWConstants.id("xfrtrex_frog"), FrogRenderer.class, WWConstants.id("textures/entity/frog/sus_frog.png"),
-			"Xfrtrex", "BluePhoenixLOL"
+
+		register.register(
+			"treetrain1_goat",
+			() -> EntityTextureOverride.create(
+				EntityTypes.GOAT,
+				WWConstants.id("textures/entity/goat/treetrain1_goat.png"),
+				"Treetrain1", "Treetrain", "EthanStokes", "Ethan Stokes", "Ethan Strokes"
+			)
 		);
-		EntityTextureOverride.register(WWConstants.id("saisho_axolotl"), AxolotlRenderer.class, WWConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
-			"Saisho", "SaishoVibes"
+
+		register.register(
+			"xfrtrex_frog",
+			() -> EntityTextureOverride.create(
+				EntityTypes.FROG,
+				WWConstants.id("textures/entity/frog/sus_frog.png"),
+				"Xfrtrex", "BluePhoenixLOL"
+			)
 		);
-		EntityTextureOverride.register(WWConstants.id("alex_dolphin"), DolphinRenderer.class, WWConstants.id("textures/entity/dolphin/alex_dolphin.png"),
-			"AlexTheDolphin0"
+
+		register.register(
+			"saisho_axolotl",
+			() -> EntityTextureOverride.create(
+				EntityTypes.AXOLOTL,
+				WWConstants.id("textures/entity/axolotl/saisho_axolotl.png"),
+				"Saisho", "SaishoVibes"
+			)
 		);
-		EntityTextureOverride.register(WWConstants.id("avftt_pig"), PigRenderer.class, WWConstants.id("textures/entity/pig/uppy_balloo.png"),
-			"AViewFromTheTop", "A View From The Top", "AViewFromTheEnd", "Lunade", "Lunade_"
+
+		register.register(
+			"alex_dolphin",
+			() -> EntityTextureOverride.create(
+				EntityTypes.DOLPHIN,
+				WWConstants.id("textures/entity/dolphin/alex_dolphin.png"),
+				"AlexTheDolphin0"
+			)
 		);
+
+		register.register(
+			"avftt_pig",
+			() -> EntityTextureOverride.create(
+				EntityTypes.DOLPHIN,
+				WWConstants.id("textures/entity/pig/uppy_balloo.png"),
+				"AViewFromTheTop", "A View From The Top", "AViewFromTheEnd", "Lunade", "Lunade_"
+			)
+		);
+		 */
+
+		register.register();
 	}
+
+	private WWEasterEggs() {}
 }

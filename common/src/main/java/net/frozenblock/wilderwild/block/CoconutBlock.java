@@ -213,7 +213,8 @@ public class CoconutBlock extends FallingBlock implements BonemealableBlock {
 	@Override
 	public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
 		level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, new ItemStack(this.asItem(), 3)));
-		level.playSound(null, pos, WWSounds.BLOCK_COCONUT_BREAK.get(), SoundSource.BLOCKS, 1F, 1F);
+		WWSounds.COCONUT.breakSound()
+			.ifPresent(sound -> level.playSound(null, pos, sound, SoundSource.BLOCKS, 1F, 1F));
 	}
 
 	@Override

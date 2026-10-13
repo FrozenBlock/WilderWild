@@ -71,7 +71,8 @@ public class TumbleweedItem extends Item {
 
 			entity.snapTo(entity.getX(), entity.getY(), entity.getZ(), 0F, 0F);
 			serverLevel.addFreshEntityWithPassengers(entity);
-			level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), WWSounds.BLOCK_TUMBLEWEED_PLANT_PLACE.get(), SoundSource.BLOCKS, 1F, 0.8F);
+			WWSounds.TUMBLEWEED_PLANT.placeSound()
+				.ifPresent(sound -> level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), sound, SoundSource.BLOCKS, 1F, 0.8F));
 			entity.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
 		}
 

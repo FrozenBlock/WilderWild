@@ -564,8 +564,6 @@
     "tooltip.wilderwild.new_reinforced_deepslate": "Whether Reinforced Deepslate can be rotated.\nThis can cause desync if enabled on Vanilla servers.",
     "option.wilderwild.froglight_goop_growth": "Froglight Goop Growth",
     "tooltip.wilderwild.froglight_goop_growth": "Whether Froglight Goop can generate under Froglights.\nThis will occur randomly while a Froglight is below water.",
-    "option.wilderwild.frosted_ice_cracking": "New Frosted Ice Cracking",
-    "tooltip.wilderwild.frosted_ice_cracking": "Whether Frosted Ice will spawn break particles and play a quiet break sound upon cracking.",
     "option.wilderwild.chest_bubbling": "Chest Bubbling",
     "tooltip.wilderwild.chest_bubbling": "Whether Chests can bubble and use unique sounds when opened or destroyed underwater.",
     "option.wilderwild.thick_big_fungus_growth": "Thick Big Fungus Growth",
