@@ -1,26 +1,26 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:spruce_leaf_litter_checked",
+  "default": "wilderwild:tree/spruce_leaf_litter",
   "features": [
     {
       "chance": 0.025641026,
-      "feature": "wilderwild:mega_fungus_spruce_leaf_litter_checked"
+      "feature": "wilderwild:tree/mega_fungus_spruce_leaf_litter"
     },
     {
       "chance": 0.028,
-      "feature": "wilderwild:dying_mega_fungus_pine_leaf_litter_checked"
+      "feature": "wilderwild:tree/dying_mega_fungus_pine_leaf_litter"
     },
     {
       "chance": 0.30769232,
-      "feature": "wilderwild:mega_fungus_pine_leaf_litter_checked"
+      "feature": "wilderwild:tree/mega_fungus_pine_leaf_litter"
     },
     {
       "chance": 0.045,
-      "feature": "wilderwild:dying_fungus_pine_leaf_litter_checked"
+      "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
     },
     {
       "chance": 0.33333334,
-      "feature": "wilderwild:fungus_pine_leaf_litter_checked"
+      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:tree/large_snapped_pale_oak",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:pale_oak_sapling"
+      }
+    }
+  ]
+}

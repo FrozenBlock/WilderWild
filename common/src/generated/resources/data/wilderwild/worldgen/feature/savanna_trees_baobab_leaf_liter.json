@@ -1,18 +1,18 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:oak_no_fungi_leaf_litter_checked",
+  "default": "wilderwild:tree/oak_no_fungi_leaf_litter",
   "features": [
     {
       "chance": 0.8,
-      "feature": "wilderwild:acacia_checked_leaf_litter"
+      "feature": "wilderwild:tree/acacia_leaf_litter"
     },
     {
       "chance": 0.062,
-      "feature": "wilderwild:baobab_leaf_litter_checked"
+      "feature": "wilderwild:tree/baobab_leaf_litter"
     },
     {
       "chance": 0.035,
-      "feature": "wilderwild:baobab_tall_leaf_litter_checked"
+      "feature": "wilderwild:tree/tall_baobab_leaf_litter"
     }
   ]
 }

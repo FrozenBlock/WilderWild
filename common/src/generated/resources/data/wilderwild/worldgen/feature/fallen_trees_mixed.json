@@ -1,14 +1,14 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:fallen_oak_checked",
+  "default": "wilderwild:tree/fallen_oak",
   "features": [
     {
       "chance": 0.4,
-      "feature": "wilderwild:fallen_spruce_checked"
+      "feature": "wilderwild:tree/fallen_spruce"
     },
     {
       "chance": 0.3,
-      "feature": "wilderwild:fallen_birch_checked"
+      "feature": "wilderwild:tree/fallen_birch"
     }
   ]
 }

@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.worldgen.tree;
 
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.levelgen.grower.impl.TreeGrowerInterface;
 import net.minecraft.core.BlockPos;
@@ -70,51 +70,51 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 
 		if (treeGrower == TreeGrower.OAK) {
 			if (random.nextInt(10) == 0) {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.FANCY_OAK_BEES_0004.getKey() : WWTreeConfigured.FANCY_OAK.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.FANCY_OAK_BEES_0004.getKey() : WWTreeFeatures.FANCY_OAK.getKey());
 			} else {
 				if (random.nextFloat() < 0.075F) {
-					info.setReturnValue(random.nextBoolean() ? WWTreeConfigured.BIG_BUSH.getKey() : WWTreeConfigured.LARGE_BUSH.getKey());
+					info.setReturnValue(random.nextBoolean() ? WWTreeFeatures.BIG_BUSH.getKey() : WWTreeFeatures.LARGE_BUSH.getKey());
 					return;
 				}
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.OAK_BEES_0004.getKey() : WWTreeConfigured.OAK.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.OAK_BEES_0004.getKey() : WWTreeFeatures.OAK.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.SPRUCE) {
-			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeConfigured.SPRUCE_SHORT.getKey() : WWTreeConfigured.SPRUCE.getKey());
+			info.setReturnValue(random.nextFloat() < 0.1F ? WWTreeFeatures.SHORT_SPRUCE.getKey() : WWTreeFeatures.SPRUCE.getKey());
 		}
 
 		if (treeGrower == TreeGrower.BIRCH) {
 			if (random.nextFloat() < 0.15F) {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.SHORT_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SHORT_BIRCH.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.SHORT_BIRCH_BEES_0004.getKey() : WWTreeFeatures.SHORT_BIRCH.getKey());
 			} else if (random.nextFloat() < 0.65F) {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.MEDIUM_BIRCH_BEES_025.getKey() : WWTreeConfigured.MEDIUM_BIRCH.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.MEDIUM_BIRCH_BEES_025.getKey() : WWTreeFeatures.MEDIUM_BIRCH.getKey());
 			} else if (random.nextFloat() < 0.85F) {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.BIRCH_BEES_025.getKey() : WWTreeConfigured.BIRCH_TREE.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.BIRCH_BEES_025.getKey() : WWTreeFeatures.BIRCH.getKey());
 			} else {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.SUPER_BIRCH_BEES_0004.getKey() : WWTreeConfigured.SUPER_BIRCH.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.SUPER_BIRCH_BEES_0004.getKey() : WWTreeFeatures.SUPER_BIRCH.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.CHERRY) {
 			if (random.nextFloat() < 0.15F) {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.TALL_CHERRY_BEES_025.getKey() : WWTreeConfigured.TALL_CHERRY_TREE.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.TALL_CHERRY_BEES_025.getKey() : WWTreeFeatures.TALL_CHERRY.getKey());
 			} else {
-				info.setReturnValue(hasFlowers ? WWTreeConfigured.CHERRY_BEES_025.getKey() : WWTreeConfigured.CHERRY_TREE.getKey());
+				info.setReturnValue(hasFlowers ? WWTreeFeatures.CHERRY_BEES_025.getKey() : WWTreeFeatures.CHERRY.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.JUNGLE) {
 			if (random.nextFloat() < 0.75F) {
-				info.setReturnValue(WWTreeConfigured.JUNGLE_TREE_NO_VINE.getKey());
+				info.setReturnValue(WWTreeFeatures.JUNGLE_NO_VINE.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.MANGROVE) {
 			if (random.nextFloat() < 0.85F) {
-				info.setReturnValue(WWTreeConfigured.TALL_MANGROVE.getKey());
+				info.setReturnValue(WWTreeFeatures.TALL_MANGROVE.getKey());
 			} else {
-				info.setReturnValue(WWTreeConfigured.MANGROVE.getKey());
+				info.setReturnValue(WWTreeFeatures.MANGROVE.getKey());
 			}
 		}
 	}
@@ -126,29 +126,29 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 
 		if (treeGrower == TreeGrower.SPRUCE) {
 			if (random.nextFloat() < 0.25F) {
-				info.setReturnValue(WWTreeConfigured.SHORT_MEGA_SPRUCE.getKey());
+				info.setReturnValue(WWTreeFeatures.SHORT_MEGA_SPRUCE.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.DARK_OAK) {
 			if (random.nextFloat() < 0.2F) {
-				info.setReturnValue(WWTreeConfigured.TALL_DARK_OAK.getKey());
+				info.setReturnValue(WWTreeFeatures.TALL_DARK_OAK.getKey());
 			} else if (random.nextFloat() < 0.2F) {
-				info.setReturnValue(WWTreeConfigured.FANCY_TALL_DARK_OAK.getKey());
+				info.setReturnValue(WWTreeFeatures.FANCY_TALL_DARK_OAK.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.JUNGLE) {
 			if (random.nextFloat() < 0.60F) {
-				info.setReturnValue(WWTreeConfigured.MEGA_JUNGLE_TREE.getKey());
+				info.setReturnValue(WWTreeFeatures.MEGA_JUNGLE.getKey());
 			}
 		}
 
 		if (treeGrower == TreeGrower.PALE_OAK) {
 			if (random.nextFloat() < 0.175F) {
-				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeConfigured.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeConfigured.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
+				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeFeatures.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeFeatures.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
 			} else {
-				info.setReturnValue(WWTreeConfigured.PALE_OAK_BONEMEAL.getKey());
+				info.setReturnValue(WWTreeFeatures.PALE_OAK_BONEMEAL.getKey());
 			}
 		}
 	}

@@ -21,15 +21,15 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
 import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWCaveFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -41,8 +41,8 @@ public final class WWFeatureBootstrap {
 
 		WWAquaticFeatures.bootstrap(context);
 		WWCaveFeatures.bootstrap(context);
+		WWTreeFeatures.bootstrap(context);
 
-		WWTreeConfigured.registerTreeConfigured(context);
 		WWMiscConfigured.registerMiscConfigured(context);
 		WWCaveConfigured.registerCaveConfigured(context);
 		WWConfiguredFeatures.registerConfiguredFeatures(context);
@@ -53,8 +53,8 @@ public final class WWFeatureBootstrap {
 
 		WWAquaticPlacements.bootstrap(context);
 		WWCavePlacements.bootstrap(context);
+		WWTreePlacements.bootstrap(context);
 
-		WWTreePlaced.registerTreePlaced(context);
 		WWMiscPlaced.registerMiscPlaced(context);
 		WWCavePlaced.registerCavePlaced(context);
 		WWPlacedFeatures.registerPlacedFeatures(context);

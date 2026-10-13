@@ -57,7 +57,7 @@
   "features": [
     {
       "chance": 0.05,
-      "feature": "wilderwild:fancy_oak_checked"
+      "feature": "wilderwild:tree/fancy_oak"
     },
     {
       "chance": 0.15,
@@ -65,7 +65,7 @@
     },
     {
       "chance": 0.7,
-      "feature": "wilderwild:mega_jungle_tree_checked"
+      "feature": "wilderwild:tree/mega_jungle"
     }
   ]
 }

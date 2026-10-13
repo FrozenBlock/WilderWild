@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWTreeConfigured;
+import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
@@ -485,7 +485,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		FALLEN_PALM_PLACED.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM,
+		FALLEN_PALM_PLACED.makeAndSetHolder(WWTreeFeatures.FALLEN_PALM,
 			RarityFilter.onAverageOnceEvery(60),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -493,7 +493,7 @@ public final class WWPlacedFeatures {
 			BiomeFilter.biome()
 		);
 
-		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WWTreeConfigured.FALLEN_PALM,
+		FALLEN_PALM_PLACED_RARE.makeAndSetHolder(WWTreeFeatures.FALLEN_PALM,
 			RarityFilter.onAverageOnceEvery(135),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -758,7 +758,7 @@ public final class WWPlacedFeatures {
 				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
 		);
 
-		TREES_SNOWY.makeAndSetHolder(WWTreeConfigured.SPRUCE_SHORT.getHolder(),
+		TREES_SNOWY.makeAndSetHolder(WWTreeFeatures.SHORT_SPRUCE.getHolder(),
 			treePlacement(PlacementUtils.countExtra(0, 0.1F, 1), Blocks.SPRUCE_SAPLING)
 		);
 
@@ -1158,7 +1158,7 @@ public final class WWPlacedFeatures {
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
 
-		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWTreeConfigured.HUGE_PALE_MUSHROOM,
+		HUGE_PALE_MUSHROOM.makeAndSetHolder(WWTreeFeatures.HUGE_PALE_MUSHROOM,
 			RarityFilter.onAverageOnceEvery(3),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

@@ -1,18 +1,18 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:fungus_cypress",
+  "default": "wilderwild:tree/fungus_cypress",
   "features": [
     {
       "chance": 0.4,
-      "feature": "wilderwild:cypress"
+      "feature": "wilderwild:tree/cypress"
     },
     {
       "chance": 0.15,
-      "feature": "wilderwild:short_cypress"
+      "feature": "wilderwild:tree/short_cypress"
     },
     {
       "chance": 0.81,
-      "feature": "wilderwild:swamp_cypress"
+      "feature": "wilderwild:tree/swamp_cypress"
     }
   ]
 }

@@ -4,43 +4,43 @@
     {
       "feature": {
         "type": "minecraft:random_selector",
-        "default": "wilderwild:orange_maple_bees_checked",
+        "default": "wilderwild:tree/orange_maple_bees_0004",
         "features": [
           {
             "chance": 0.025,
-            "feature": "wilderwild:orange_maple_checked"
+            "feature": "wilderwild:tree/orange_maple"
           },
           {
             "chance": 0.15,
-            "feature": "wilderwild:full_orange_maple_checked"
+            "feature": "wilderwild:tree/full_orange_maple"
           },
           {
             "chance": 0.25,
-            "feature": "wilderwild:tall_orange_maple_checked"
+            "feature": "wilderwild:tree/tall_orange_maple"
           },
           {
             "chance": 0.0785,
-            "feature": "wilderwild:dying_orange_maple_checked"
+            "feature": "wilderwild:tree/dying_orange_maple"
           },
           {
             "chance": 0.37,
-            "feature": "wilderwild:tall_orange_maple_bees_checked"
+            "feature": "wilderwild:tree/tall_orange_maple_bees_0004"
           },
           {
             "chance": 0.0785,
-            "feature": "wilderwild:tall_dying_orange_maple_checked"
+            "feature": "wilderwild:tree/tall_dying_orange_maple"
           },
           {
             "chance": 0.37,
-            "feature": "wilderwild:orange_maple_bees_checked"
+            "feature": "wilderwild:tree/orange_maple_bees_0004"
           },
           {
             "chance": 0.2,
-            "feature": "wilderwild:short_orange_maple_checked"
+            "feature": "wilderwild:tree/short_orange_maple"
           },
           {
             "chance": 0.4,
-            "feature": "wilderwild:big_bush_orange_maple_checked"
+            "feature": "wilderwild:tree/big_bush_orange_maple"
           }
         ]
       },

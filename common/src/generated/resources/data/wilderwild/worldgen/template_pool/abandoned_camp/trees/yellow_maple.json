@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:feature_pool_element",
-        "feature": "wilderwild:yellow_maple_checked",
+        "feature": "wilderwild:tree/yellow_maple",
         "projection": "rigid"
       },
       "weight": 1

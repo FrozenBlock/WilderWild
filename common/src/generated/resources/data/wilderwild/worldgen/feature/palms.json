@@ -1,14 +1,14 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:palm_checked",
+  "default": "wilderwild:tree/palm",
   "features": [
     {
       "chance": 0.1,
-      "feature": "wilderwild:tall_windmill_palm_checked"
+      "feature": "wilderwild:tree/tall_windmill_palm"
     },
     {
       "chance": 0.4,
-      "feature": "wilderwild:tall_palm_checked"
+      "feature": "wilderwild:tree/tall_palm"
     }
   ]
 }

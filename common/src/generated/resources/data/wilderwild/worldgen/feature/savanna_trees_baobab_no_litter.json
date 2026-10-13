@@ -1,6 +1,6 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:oak_no_fungi_checked",
+  "default": "wilderwild:tree/oak_no_fungi",
   "features": [
     {
       "chance": 0.8,
@@ -8,11 +8,11 @@
     },
     {
       "chance": 0.062,
-      "feature": "wilderwild:baobab_checked"
+      "feature": "wilderwild:tree/baobab"
     },
     {
       "chance": 0.035,
-      "feature": "wilderwild:baobab_tall_checked"
+      "feature": "wilderwild:tree/tall_baobab"
     }
   ]
 }

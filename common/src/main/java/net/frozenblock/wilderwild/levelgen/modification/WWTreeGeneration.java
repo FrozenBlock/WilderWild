@@ -24,7 +24,7 @@ import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.level.biome.Biomes;
@@ -137,11 +137,11 @@ public final class WWTreeGeneration {
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_CRIMSON_FUNGI)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlaced.SNAPPED_CRIMSON_FUNGI.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlacements.SNAPPED_CRIMSON.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SNAPPED_WARPED_FUNGI)) {
-					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlaced.SNAPPED_WARPED_FUNGI.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreePlacements.SNAPPED_WARPED.getKey());
 				}
 			});
 
@@ -287,11 +287,11 @@ public final class WWTreeGeneration {
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_CRIMSON_FUNGI)) {
-					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlaced.FALLEN_CRIMSON_FUNGI.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlacements.FALLEN_CRIMSON.getKey());
 				}
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_FALLEN_WARPED_FUNGI)) {
-					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlaced.FALLEN_WARPED_FUNGI.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlacements.FALLEN_WARPED.getKey());
 				}
 			});
 

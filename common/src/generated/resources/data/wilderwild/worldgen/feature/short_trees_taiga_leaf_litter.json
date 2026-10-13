@@ -1,4 +1,4 @@
 {
   "type": "minecraft:simple_random_selector",
-  "features": "wilderwild:spruce_short_leaf_litter_checked"
+  "features": "wilderwild:tree/short_spruce_leaf_litter"
 }

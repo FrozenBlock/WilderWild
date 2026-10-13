@@ -1,18 +1,18 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:spruce_checked",
+  "default": "wilderwild:tree/spruce",
   "features": [
     {
       "chance": 0.33333334,
-      "feature": "wilderwild:mega_fungus_spruce_checked"
+      "feature": "wilderwild:tree/mega_fungus_spruce"
     },
     {
       "chance": 0.075,
-      "feature": "wilderwild:dying_fungus_pine_checked"
+      "feature": "wilderwild:tree/dying_fungus_pine"
     },
     {
       "chance": 0.33333334,
-      "feature": "wilderwild:fungus_pine_checked"
+      "feature": "wilderwild:tree/fungus_pine"
     }
   ]
 }

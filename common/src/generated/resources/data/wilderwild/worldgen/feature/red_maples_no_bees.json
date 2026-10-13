@@ -1,34 +1,34 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:red_maple_checked",
+  "default": "wilderwild:tree/red_maple",
   "features": [
     {
       "chance": 0.025,
-      "feature": "wilderwild:red_maple_checked"
+      "feature": "wilderwild:tree/red_maple"
     },
     {
       "chance": 0.15,
-      "feature": "wilderwild:full_red_maple_checked"
+      "feature": "wilderwild:tree/full_red_maple"
     },
     {
       "chance": 0.25,
-      "feature": "wilderwild:tall_red_maple_checked"
+      "feature": "wilderwild:tree/tall_red_maple"
     },
     {
       "chance": 0.0785,
-      "feature": "wilderwild:dying_red_maple_checked"
+      "feature": "wilderwild:tree/dying_red_maple"
     },
     {
       "chance": 0.0785,
-      "feature": "wilderwild:tall_dying_red_maple_checked"
+      "feature": "wilderwild:tree/tall_dying_red_maple"
     },
     {
       "chance": 0.2,
-      "feature": "wilderwild:short_red_maple_checked"
+      "feature": "wilderwild:tree/short_red_maple"
     },
     {
       "chance": 0.4,
-      "feature": "wilderwild:big_bush_red_maple_checked"
+      "feature": "wilderwild:tree/big_bush_red_maple"
     }
   ]
 }

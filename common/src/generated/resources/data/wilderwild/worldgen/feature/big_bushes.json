@@ -1,14 +1,14 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:large_bush_checked",
+  "default": "wilderwild:tree/large_bush",
   "features": [
     {
       "chance": 0.3,
-      "feature": "wilderwild:big_bush_checked"
+      "feature": "wilderwild:tree/big_bush"
     },
     {
       "chance": 0.6,
-      "feature": "wilderwild:large_bush_checked"
+      "feature": "wilderwild:tree/large_bush"
     }
   ]
 }

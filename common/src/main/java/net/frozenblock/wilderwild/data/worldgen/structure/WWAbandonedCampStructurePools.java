@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWTreePlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -48,9 +48,9 @@ public final class WWAbandonedCampStructurePools {
 			context,
 			empty,
 			ImmutableList.of(
-				Pair.of(WWConstants.string("yellow_maple"), WWTreePlaced.MAPLE_CHECKED.yellow().getKey()),
-				Pair.of(WWConstants.string("orange_maple"), WWTreePlaced.MAPLE_CHECKED.orange().getKey()),
-				Pair.of(WWConstants.string("red_maple"), WWTreePlaced.MAPLE_CHECKED.red().getKey())
+				Pair.of(WWConstants.string("yellow_maple"), WWTreePlacements.MAPLE.yellow().getKey()),
+				Pair.of(WWConstants.string("orange_maple"), WWTreePlacements.MAPLE.orange().getKey()),
+				Pair.of(WWConstants.string("red_maple"), WWTreePlacements.MAPLE.red().getKey())
 			)
 		);
 	}

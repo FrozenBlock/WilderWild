@@ -1,6 +1,6 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:yellow_maple_bees_checked",
+  "default": "wilderwild:tree/yellow_maple_bees_0004",
   "features": [
     {
       "chance": 0.4,

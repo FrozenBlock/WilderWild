@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:tree/large_snapped_spruce",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:spruce_sapling"
+      }
+    }
+  ]
+}

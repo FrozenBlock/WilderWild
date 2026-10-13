@@ -1,50 +1,50 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:birch_tree_checked",
+  "default": "wilderwild:tree/birch",
   "features": [
     {
       "chance": 0.39,
-      "feature": "wilderwild:spruce_checked"
+      "feature": "wilderwild:tree/spruce"
     },
     {
       "chance": 0.086,
-      "feature": "wilderwild:fungus_pine_checked"
+      "feature": "wilderwild:tree/fungus_pine"
     },
     {
       "chance": 0.02,
-      "feature": "wilderwild:dying_fungus_pine_checked"
+      "feature": "wilderwild:tree/dying_fungus_pine"
     },
     {
       "chance": 0.155,
-      "feature": "wilderwild:spruce_short_checked"
+      "feature": "wilderwild:tree/short_spruce"
     },
     {
       "chance": 0.37,
-      "feature": "wilderwild:dying_super_birch_checked"
+      "feature": "wilderwild:tree/dying_super_birch"
     },
     {
       "chance": 0.01,
-      "feature": "wilderwild:dying_birch_checked"
+      "feature": "wilderwild:tree/dying_birch"
     },
     {
       "chance": 0.01,
-      "feature": "wilderwild:dying_medium_birch_checked"
+      "feature": "wilderwild:tree/dying_medium_birch"
     },
     {
       "chance": 0.01,
-      "feature": "wilderwild:dying_short_birch_checked"
+      "feature": "wilderwild:tree/dying_short_birch"
     },
     {
       "chance": 0.355,
-      "feature": "wilderwild:birch_tree_checked"
+      "feature": "wilderwild:tree/birch"
     },
     {
       "chance": 0.1,
-      "feature": "wilderwild:medium_birch_checked"
+      "feature": "wilderwild:tree/medium_birch"
     },
     {
       "chance": 0.1,
-      "feature": "wilderwild:short_birch_checked"
+      "feature": "wilderwild:tree/short_birch"
     }
   ]
 }

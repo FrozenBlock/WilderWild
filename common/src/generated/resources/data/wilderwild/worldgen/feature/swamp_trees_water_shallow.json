@@ -1,10 +1,10 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:willow_checked",
+  "default": "wilderwild:tree/short_willow",
   "features": [
     {
       "chance": 0.75,
-      "feature": "wilderwild:willow_tall_checked"
+      "feature": "wilderwild:tree/willow"
     }
   ]
 }

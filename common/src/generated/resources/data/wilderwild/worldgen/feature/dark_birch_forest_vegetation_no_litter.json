@@ -1,6 +1,6 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:oak_checked",
+  "default": "wilderwild:tree/oak",
   "features": [
     {
       "chance": 0.025,
@@ -18,55 +18,55 @@
     },
     {
       "chance": 0.235,
-      "feature": "wilderwild:dark_oak_checked"
+      "feature": "wilderwild:tree/dark_oak"
     },
     {
       "chance": 0.075,
-      "feature": "wilderwild:dying_dark_oak_checked"
+      "feature": "wilderwild:tree/dying_dark_oak"
     },
     {
       "chance": 0.35,
-      "feature": "wilderwild:short_birch_checked"
+      "feature": "wilderwild:tree/short_birch"
     },
     {
       "chance": 0.015,
-      "feature": "wilderwild:dying_short_birch_checked"
+      "feature": "wilderwild:tree/dying_short_birch"
     },
     {
       "chance": 0.4,
-      "feature": "wilderwild:medium_birch_checked"
+      "feature": "wilderwild:tree/medium_birch"
     },
     {
       "chance": 0.015,
-      "feature": "wilderwild:dying_medium_birch_checked"
+      "feature": "wilderwild:tree/dying_medium_birch"
     },
     {
       "chance": 0.15,
-      "feature": "wilderwild:tall_dark_oak_checked"
+      "feature": "wilderwild:tree/tall_dark_oak"
     },
     {
       "chance": 0.095,
-      "feature": "wilderwild:fancy_tall_dark_oak_checked"
+      "feature": "wilderwild:tree/fancy_tall_dark_oak"
     },
     {
       "chance": 0.045,
-      "feature": "wilderwild:dying_tall_dark_oak_checked"
+      "feature": "wilderwild:tree/dying_tall_dark_oak"
     },
     {
       "chance": 0.027,
-      "feature": "wilderwild:fancy_dying_tall_dark_oak_checked"
+      "feature": "wilderwild:tree/fancy_dying_tall_dark_oak"
     },
     {
       "chance": 0.02,
-      "feature": "wilderwild:fancy_dying_oak_checked"
+      "feature": "wilderwild:tree/fancy_dying_oak"
     },
     {
       "chance": 0.012,
-      "feature": "wilderwild:dying_oak_checked"
+      "feature": "wilderwild:tree/dying_oak"
     },
     {
       "chance": 0.15,
-      "feature": "wilderwild:fancy_oak_checked"
+      "feature": "wilderwild:tree/fancy_oak"
     }
   ]
 }

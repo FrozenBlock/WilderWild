@@ -1,22 +1,22 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:orange_poplar_checked",
+  "default": "wilderwild:tree/orange_poplar",
   "features": [
     {
       "chance": 0.45,
-      "feature": "wilderwild:orange_poplar_checked"
+      "feature": "wilderwild:tree/orange_poplar"
     },
     {
       "chance": 0.25,
-      "feature": "wilderwild:tall_orange_poplar_checked"
+      "feature": "wilderwild:tree/tall_orange_poplar"
     },
     {
       "chance": 0.0785,
-      "feature": "wilderwild:dying_orange_poplar_checked"
+      "feature": "wilderwild:tree/dying_orange_poplar"
     },
     {
       "chance": 0.1,
-      "feature": "wilderwild:tall_dying_orange_poplar_checked"
+      "feature": "wilderwild:tree/tall_dying_orange_poplar"
     }
   ]
 }

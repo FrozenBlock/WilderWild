@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:tree/old_fancy_dying_oak_bees_0004_leaf_litter",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:oak_sapling"
+      }
+    }
+  ]
+}

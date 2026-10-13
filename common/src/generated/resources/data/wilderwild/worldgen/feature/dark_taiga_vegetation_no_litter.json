@@ -1,70 +1,70 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:dark_oak_checked",
+  "default": "wilderwild:tree/dark_oak",
   "features": [
     {
       "chance": 0.155,
-      "feature": "wilderwild:spruce_checked"
+      "feature": "wilderwild:tree/spruce"
     },
     {
       "chance": 0.086,
-      "feature": "wilderwild:fungus_pine_checked"
+      "feature": "wilderwild:tree/fungus_pine"
     },
     {
       "chance": 0.045,
-      "feature": "wilderwild:dying_fungus_pine_checked"
+      "feature": "wilderwild:tree/dying_fungus_pine"
     },
     {
       "chance": 0.19,
-      "feature": "wilderwild:spruce_short_checked"
+      "feature": "wilderwild:tree/short_spruce"
     },
     {
       "chance": 0.235,
-      "feature": "wilderwild:dark_oak_checked"
+      "feature": "wilderwild:tree/dark_oak"
     },
     {
       "chance": 0.075,
-      "feature": "wilderwild:dying_dark_oak_checked"
+      "feature": "wilderwild:tree/dying_dark_oak"
     },
     {
       "chance": 0.12,
-      "feature": "wilderwild:short_birch_checked"
+      "feature": "wilderwild:tree/short_birch"
     },
     {
       "chance": 0.004,
-      "feature": "wilderwild:dying_short_birch_checked"
+      "feature": "wilderwild:tree/dying_short_birch"
     },
     {
       "chance": 0.1,
-      "feature": "wilderwild:birch_tree_checked"
+      "feature": "wilderwild:tree/birch"
     },
     {
       "chance": 0.005,
-      "feature": "wilderwild:dying_birch_checked"
+      "feature": "wilderwild:tree/dying_birch"
     },
     {
       "chance": 0.2,
-      "feature": "wilderwild:tall_dark_oak_checked"
+      "feature": "wilderwild:tree/tall_dark_oak"
     },
     {
       "chance": 0.08,
-      "feature": "wilderwild:fancy_tall_dark_oak_checked"
+      "feature": "wilderwild:tree/fancy_tall_dark_oak"
     },
     {
       "chance": 0.024,
-      "feature": "wilderwild:dying_tall_dark_oak_checked"
+      "feature": "wilderwild:tree/dying_tall_dark_oak"
     },
     {
       "chance": 0.01,
-      "feature": "wilderwild:fancy_dying_tall_dark_oak_checked"
+      "feature": "wilderwild:tree/fancy_dying_tall_dark_oak"
     },
     {
       "chance": 0.031,
-      "feature": "wilderwild:dying_oak_checked"
+      "feature": "wilderwild:tree/dying_oak"
     },
     {
       "chance": 0.015,
-      "feature": "wilderwild:fancy_oak_checked"
+      "feature": "wilderwild:tree/fancy_oak"
     }
   ]
 }

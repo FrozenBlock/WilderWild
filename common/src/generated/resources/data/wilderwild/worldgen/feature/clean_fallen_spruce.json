@@ -1,4 +1,4 @@
 {
   "type": "minecraft:simple_random_selector",
-  "features": "wilderwild:clean_fallen_spruce_checked"
+  "features": "wilderwild:tree/clean_fallen_spruce"
 }

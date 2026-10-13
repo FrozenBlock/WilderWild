@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:tree/fancy_semi_dead_oak_leaf_litter",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:oak_sapling"
+      }
+    }
+  ]
+}

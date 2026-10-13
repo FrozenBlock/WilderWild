@@ -8,11 +8,11 @@
     },
     {
       "chance": 0.08,
-      "feature": "wilderwild:oak_no_fungi_checked"
+      "feature": "wilderwild:tree/oak_no_fungi"
     },
     {
       "chance": 0.052,
-      "feature": "wilderwild:small_windmill_palm_checked"
+      "feature": "wilderwild:tree/short_windmill_palm"
     }
   ]
 }

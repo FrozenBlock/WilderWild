@@ -1,14 +1,14 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:swamp_oak_checked",
+  "default": "wilderwild:tree/swamp_oak",
   "features": [
     {
       "chance": 0.75,
-      "feature": "wilderwild:willow_checked"
+      "feature": "wilderwild:tree/short_willow"
     },
     {
       "chance": 0.2,
-      "feature": "wilderwild:willow_tall_checked"
+      "feature": "wilderwild:tree/willow"
     }
   ]
 }

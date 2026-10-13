@@ -1,14 +1,14 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:mossy_fallen_oak_checked",
+  "default": "wilderwild:tree/mossy_fallen_oak",
   "features": [
     {
       "chance": 0.15,
-      "feature": "wilderwild:mossy_fallen_oak_checked"
+      "feature": "wilderwild:tree/mossy_fallen_oak"
     },
     {
       "chance": 0.15,
-      "feature": "wilderwild:mossy_fallen_birch_checked"
+      "feature": "wilderwild:tree/mossy_fallen_birch"
     }
   ]
 }

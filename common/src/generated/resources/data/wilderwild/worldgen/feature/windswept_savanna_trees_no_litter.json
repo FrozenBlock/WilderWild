@@ -1,6 +1,6 @@
 {
   "type": "minecraft:random_selector",
-  "default": "wilderwild:oak_no_fungi_checked",
+  "default": "wilderwild:tree/oak_no_fungi",
   "features": [
     {
       "chance": 0.8,

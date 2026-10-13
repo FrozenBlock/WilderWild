@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:tree/oak_bees_0004",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:oak_sapling"
+      }
+    }
+  ]
+}

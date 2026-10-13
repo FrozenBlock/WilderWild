@@ -4,43 +4,43 @@
     {
       "feature": {
         "type": "minecraft:random_selector",
-        "default": "wilderwild:yellow_maple_bees_checked",
+        "default": "wilderwild:tree/yellow_maple_bees_0004",
         "features": [
           {
             "chance": 0.025,
-            "feature": "wilderwild:yellow_maple_checked"
+            "feature": "wilderwild:tree/yellow_maple"
           },
           {
             "chance": 0.15,
-            "feature": "wilderwild:full_yellow_maple_checked"
+            "feature": "wilderwild:tree/full_yellow_maple"
           },
           {
             "chance": 0.25,
-            "feature": "wilderwild:tall_yellow_maple_checked"
+            "feature": "wilderwild:tree/tall_yellow_maple"
           },
           {
             "chance": 0.0785,
-            "feature": "wilderwild:dying_yellow_maple_checked"
+            "feature": "wilderwild:tree/dying_yellow_maple"
           },
           {
             "chance": 0.37,
-            "feature": "wilderwild:tall_yellow_maple_bees_checked"
+            "feature": "wilderwild:tree/tall_yellow_maple_bees_0004"
           },
           {
             "chance": 0.0785,
-            "feature": "wilderwild:tall_dying_yellow_maple_checked"
+            "feature": "wilderwild:tree/tall_dying_yellow_maple"
           },
           {
             "chance": 0.37,
-            "feature": "wilderwild:yellow_maple_bees_checked"
+            "feature": "wilderwild:tree/yellow_maple_bees_0004"
           },
           {
             "chance": 0.2,
-            "feature": "wilderwild:short_yellow_maple_checked"
+            "feature": "wilderwild:tree/short_yellow_maple"
           },
           {
             "chance": 0.4,
-            "feature": "wilderwild:big_bush_yellow_maple_checked"
+            "feature": "wilderwild:tree/big_bush_yellow_maple"
           }
         ]
       },

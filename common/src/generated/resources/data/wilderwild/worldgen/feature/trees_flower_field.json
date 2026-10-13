@@ -1,37 +1,34 @@
 {
   "type": "minecraft:random_selector",
-  "default": {
-    "feature": "wilderwild:oak_bees_0004",
-    "placement": []
-  },
+  "default": "wilderwild:tree/oak_bees_0004",
   "features": [
     {
       "chance": 0.2,
-      "feature": "wilderwild:fancy_oak_bees_025_checked"
+      "feature": "wilderwild:tree/fancy_oak_bees_025"
     },
     {
       "chance": 0.09,
-      "feature": "wilderwild:fancy_dying_oak_bees_025_checked"
+      "feature": "wilderwild:tree/fancy_dying_oak_bees_025"
     },
     {
       "chance": 0.1,
-      "feature": "wilderwild:birch_bees_0025_checked"
+      "feature": "wilderwild:tree/birch_bees_0025"
     },
     {
       "chance": 0.1,
-      "feature": "wilderwild:medium_birch_bees_025_checked"
+      "feature": "wilderwild:tree/medium_birch_bees_025"
     },
     {
       "chance": 0.5,
-      "feature": "wilderwild:large_bush_checked"
+      "feature": "wilderwild:tree/large_bush"
     },
     {
       "chance": 0.3,
-      "feature": "wilderwild:big_bush_checked"
+      "feature": "wilderwild:tree/big_bush"
     },
     {
       "chance": 0.169,
-      "feature": "wilderwild:short_oak_checked"
+      "feature": "wilderwild:tree/short_oak"
     }
   ]
 }
