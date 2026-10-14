@@ -66,6 +66,7 @@ Zhen:
  - Recolored Spruce Leaf Litter in 4.2.
  - Retextured Echo Glass in 4.2.
  - Final Zombie Otrich texture
+ - Updated Fragile Ice Textures (Now Used For Brittle Ice)
  - Composer:
     - Frozen Blocks
     - Pressure
@@ -106,6 +107,7 @@ voxelotl:
  - Hollowed Poplar Log & Stripped Hollowed Poplar Log Textures.
  - Yellow Poplar Sapling & Red Poplar Sapling Textures.
  - Poplar Leaf Litter & Leaf Particle Textures.
+ - Original Fragile Ice Textures
 
 Willow/pictochats_:
  - Composer:
