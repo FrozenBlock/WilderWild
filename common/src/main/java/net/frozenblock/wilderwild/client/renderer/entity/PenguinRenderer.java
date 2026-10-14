@@ -28,7 +28,6 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.resources.Identifier;
-import org.joml.Math;
 
 @ClientOnly
 public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<T, PenguinRenderState, PenguinModel<PenguinRenderState>> {

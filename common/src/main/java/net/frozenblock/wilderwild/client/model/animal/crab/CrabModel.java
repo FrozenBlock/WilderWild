@@ -24,7 +24,6 @@ import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
-import org.joml.Math;
 
 @ClientOnly
 public class CrabModel extends EntityModel<CrabRenderState> {

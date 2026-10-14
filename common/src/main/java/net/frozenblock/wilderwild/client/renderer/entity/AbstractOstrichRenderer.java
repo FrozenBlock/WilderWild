@@ -24,7 +24,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.world.entity.EquipmentSlot;
-import org.joml.Math;
 
 @ClientOnly
 public abstract class AbstractOstrichRenderer<T extends AbstractOstrich, S extends AbstractOstrichRenderState, M extends EntityModel<? super S>> extends AgeableMobRenderer<T, S, M> {
