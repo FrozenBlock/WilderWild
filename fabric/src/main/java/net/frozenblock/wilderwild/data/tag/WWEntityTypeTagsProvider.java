@@ -179,6 +179,11 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 		this.builder(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)
 			.add(WWEntityTypeIds.SCORCHED);
 
+		this.builder(EntityTypeTags.DOES_NOT_BREAK_BRITTLE_ICE)
+			.add(WWEntityTypeIds.BUTTERFLY)
+			.add(WWEntityTypeIds.FIREFLY)
+			.add(WWEntityTypeIds.PENGUIN);
+
 		this.builder(EntityTypeTags.BOAT)
 			.add(
 				WWEntityTypeIds.BAOBAB_BOAT,
