@@ -150,9 +150,6 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 			.add(WWBlockItemIds.NULL_BLOCK)
 			.addOptionalTag(WWBlockItemTags.HOLLOWED_LOGS.item());
 
-		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
-			.add(WWBlockItemIds.FRAGILE_ICE);
-
 		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
 			.add(WWBlockItemIds.PALE_MUSHROOM_BLOCK);
 	}

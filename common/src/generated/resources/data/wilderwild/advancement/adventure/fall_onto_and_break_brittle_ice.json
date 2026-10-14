@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:adventure/walk_on_powder_snow_with_leather_boots",
+  "criteria": {
+    "fall_onto_and_break_brittle_ice": {
+      "trigger": "wilderwild:brittle_ice_fall_onto_and_break"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.fall_onto_and_break_brittle_ice.description"
+    },
+    "icon": {
+      "id": "minecraft:brittle_ice"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.fall_onto_and_break_brittle_ice.title"
+    }
+  },
+  "requirements": [
+    [
+      "fall_onto_and_break_brittle_ice"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

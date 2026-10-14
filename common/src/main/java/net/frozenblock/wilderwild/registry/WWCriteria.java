@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.advancements.trigger.FragileIceFallOntoAndBreakTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.BrittleIceFallOntoAndBreakTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
@@ -36,7 +36,7 @@ public final class WWCriteria {
 
 	public static final DeferredHolder<CriterionTrigger<?>, MobBottleTrigger> MOB_BOTTLE = register("mob_bottle", MobBottleTrigger::new);
 	public static final DeferredHolder<CriterionTrigger<?>, TermiteEatTrigger> TERMITE_EAT = register("termite_eat", TermiteEatTrigger::new);
-	public static final DeferredHolder<CriterionTrigger<?>, FragileIceFallOntoAndBreakTrigger> FRAGILE_ICE_FAL_ONTO_AND_BREAK = register("fragile_ice_fall_onto_and_break", FragileIceFallOntoAndBreakTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, BrittleIceFallOntoAndBreakTrigger> BRITTLE_ICE_FALL_ONTO_AND_BREAK = register("brittle_ice_fall_onto_and_break", BrittleIceFallOntoAndBreakTrigger::new);
 	public static final DeferredHolder<CriterionTrigger<?>, GeothermalVentPushMobTrigger> GEOTHERMAL_VENT_PUSH_MOB_TRIGGER = register("geothermal_vent_push_mob", GeothermalVentPushMobTrigger::new);
 
 	static {

@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.advancements.trigger.FragileIceFallOntoAndBreakTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.BrittleIceFallOntoAndBreakTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
@@ -218,16 +218,16 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 		Advancement.Builder.advancement()
 			.parent(Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/walk_on_powder_snow_with_leather_boots")))
 			.display(
-				WWItems.FRAGILE_ICE.get(),
-				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.title"),
-				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_fragile_ice.description"),
+				Items.BRITTLE_ICE,
+				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_brittle_ice.title"),
+				Component.translatable("wilderwild.advancements.adventure.fall_onto_and_break_brittle_ice.description"),
 				AdvancementType.TASK,
 				true,
 				true,
 				false
 			)
-			.addCriterion("fall_onto_and_break_fragile_ice", FragileIceFallOntoAndBreakTrigger.TriggerInstance.fragileIceBreak())
-			.save(writer, WWConstants.id("adventure/fall_onto_and_break_fragile_ice"));
+			.addCriterion("fall_onto_and_break_brittle_ice", BrittleIceFallOntoAndBreakTrigger.TriggerInstance.brittleIceBreak())
+			.save(writer, WWConstants.id("adventure/fall_onto_and_break_brittle_ice"));
 
 		Advancement.Builder.advancement()
 			.parent(adventure)

@@ -322,32 +322,6 @@ public final class WWModelHelper {
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(pottedBlock, pot));
 	}
 
-	public static void createFragileIce(BlockModelGenerators generator) {
-		Identifier leastCrackedModelId = generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube);
-
-		generator.blockStateOutput
-			.accept(
-				MultiVariantGenerator.dispatch(WWBlocks.FRAGILE_ICE.get())
-					.with(
-						PropertyDispatch.initial(BlockStateProperties.AGE_2)
-							.select(
-								0,
-								BlockModelGenerators.plainVariant(leastCrackedModelId)
-							)
-							.select(
-								1,
-								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube))
-							)
-							.select(
-								2,
-								BlockModelGenerators.plainVariant(generator.createSuffixedVariant(WWBlocks.FRAGILE_ICE.get(), "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube))
-							)
-					)
-			);
-
-		generator.itemModelOutput.accept(WWBlocks.FRAGILE_ICE.get().asItem(), ItemModelUtils.plainModel(leastCrackedModelId));
-	}
-
 	public static void createShrub(BlockModelGenerators generator) {
 		generator.registerSimpleFlatItemModel(WWBlocks.SHRUB.get().asItem());
 

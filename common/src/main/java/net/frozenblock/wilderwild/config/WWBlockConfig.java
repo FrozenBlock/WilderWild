@@ -76,6 +76,13 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> FALLING_ICICLE_HAS_WEAKER_DAMAGE = CONFIG.entry("icicle/fallingIcicleHasWeakerDamage", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> FALLING_ICICLE_DAMAGE_TYPE = CONFIG.entry("icicle/fallingIcicleDamageType", EntryType.BOOL, true);
 
+	// BRITTLE ICE
+	public static final ConfigEntry<Integer> BRITTLE_ICE_CRACK_DELAY = CONFIG.entry("brittleIce/brittleIceCrackDelay", EntryType.INT, 15);
+	public static final ConfigEntry<Boolean> BRITTLE_ICE_SHATTERING_SPREADS = CONFIG.entry("brittleIce/brittleIceShatteringSpreads", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BRITTLE_ICE_SHATTERS_ON_FALL = CONFIG.entry("brittleIce/brittleIceShattersOnFall", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BRITTLE_ICE_SHATTERS_FROM_PROJECTILE = CONFIG.entry("brittleIce/brittleIceShattersFromProjectile", EntryType.BOOL, true);
+
+
 	// SNOWLOGGING
 	public static final ConfigEntry<Boolean> SNOWLOGGING = CONFIG.entryBuilder("snowlogging/snowlogging", EntryType.BOOL, true)
 		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))
@@ -117,6 +124,7 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> SAPLING_SOUNDS = CONFIG.entry("blockSounds/saplingSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> ICE_SOUNDS = CONFIG.entry("blockSounds/iceSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> FROSTED_ICE_SOUNDS = CONFIG.entry("blockSounds/frostedIceSounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BRITTLE_ICE_SOUNDS = CONFIG.entry("blockSounds/brittleIceSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> ICICLE_SOUNDS = CONFIG.entry("blockSounds/icicleSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> ICE_CRYSTAL_SOUNDS = CONFIG.entry("blockSounds/iceCrystalSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> GRAVEL_SOUNDS = CONFIG.entry("blockSounds/gravelSounds", EntryType.BOOL, true);

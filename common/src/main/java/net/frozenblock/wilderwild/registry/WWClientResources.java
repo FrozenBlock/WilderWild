@@ -58,6 +58,13 @@ public final class WWClientResources {
 			PackActivationType.NORMAL
 		);
 
+		FrozenLibResourceLoader.registerBuiltinPack(
+			WWConstants.id("fragile_ice"),
+			WWConstants.MOD_ID,
+			Component.translatable("pack.wilderwild.fragile_ice"),
+			PackActivationType.DEFAULT_ENABLED
+		);
+
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
 				WWConstants.id("wilder_extra_music"),

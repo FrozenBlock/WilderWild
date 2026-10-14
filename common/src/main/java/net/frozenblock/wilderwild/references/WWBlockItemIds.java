@@ -315,10 +315,6 @@ public final class WWBlockItemIds {
 	public static final BlockItemId MAPLE_HANGING_SIGN = create("maple_hanging_sign");
 	public static final BlockItemId MAPLE_SHELF = create("maple_shelf");
 
-	// ICE
-	public static final BlockItemId FRAGILE_ICE = create("fragile_ice");
-	public static final BlockItemId ICICLE = create("icicle");
-
 	// FROGLIGHT GOOP
 	public static final BlockItemId OCHRE_FROGLIGHT_GOOP = create("ochre_froglight_goop");
 	public static final BlockItemId VERDANT_FROGLIGHT_GOOP = create("verdant_froglight_goop");

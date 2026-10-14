@@ -155,7 +155,7 @@ public final class WWMiscPlaced {
 	// SNOW
 	public static final FrozenLibPlacedFeature SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
-	public static final FrozenLibPlacedFeature FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
+	public static final FrozenLibPlacedFeature BRITTLE_ICE_DISK_SURFACE = register("brittle_ice_disk_surface");
 
 	public static void registerMiscPlaced(BootstrapContext<PlacedFeature> entries) {
 		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
@@ -655,8 +655,9 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(WWMiscConfigured.FRAGILE_ICE_DISK_SURFACE,
-			RarityFilter.onAverageOnceEvery(4),
+		BRITTLE_ICE_DISK_SURFACE.makeAndSetHolder(WWMiscConfigured.BRITTLE_ICE_DISK_SURFACE,
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BRITTLE_ICE)),
+			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP,
 			BiomeFilter.biome()

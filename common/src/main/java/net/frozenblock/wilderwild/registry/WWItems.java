@@ -405,9 +405,6 @@ public final class WWItems {
 	public static final DeferredItem<HangingSignItem> MAPLE_HANGING_SIGN = REGISTER.registerCookableHangingSignItem(WWBlockItemIds.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
 	public static final DeferredItem<BlockItem> MAPLE_SHELF = REGISTER.registerCookableShelfItem(WWBlockItemIds.MAPLE_SHELF, WWBlocks.MAPLE_SHELF);
 
-	// ICE
-	public static final DeferredItem<BlockItem> FRAGILE_ICE = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FRAGILE_ICE, WWBlocks.FRAGILE_ICE);
-
 	// FROGLIGHT GOOP
 	public static final DeferredItem<BlockItem> OCHRE_FROGLIGHT_GOOP = REGISTER.registerSimpleBlockItem(WWBlockItemIds.OCHRE_FROGLIGHT_GOOP, WWBlocks.OCHRE_FROGLIGHT_GOOP);
 	public static final DeferredItem<BlockItem> VERDANT_FROGLIGHT_GOOP = REGISTER.registerSimpleBlockItem(WWBlockItemIds.VERDANT_FROGLIGHT_GOOP, WWBlocks.VERDANT_FROGLIGHT_GOOP);

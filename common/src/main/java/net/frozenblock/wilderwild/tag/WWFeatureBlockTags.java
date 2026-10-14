@@ -91,9 +91,6 @@ public final class WWFeatureBlockTags {
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_REPLACEABLE = bind("scorched_sand_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("red_scorched_sand_inner_replaceable");
 	public static final TagKey<Block> RED_SCORCHED_SAND_FEATURE_REPLACEABLE = bind("red_scorched_sand_replaceable");
-	public static final TagKey<Block> DIORITE_ICE_REPLACEABLE = bind("diorite_ice_replaceable");
-	public static final TagKey<Block> CAVE_FRAGILE_ICE_REPLACEABLE = bind("cave_fragile_ice_replaceable");
-	public static final TagKey<Block> ICICLE_REPLACEABLE = bind("icicle_replaceable");
 	public static final TagKey<Block> NETHER_GEOTHERMAL_VENT_REPLACEABLE = bind("nether_geothermal_vent_replaceable");
 	public static final TagKey<Block> OASIS_PATH_REPLACEABLE = bind("oasis_path_replaceable");
 	public static final TagKey<Block> COARSE_DIRT_DISK_REPLACEABLE = bind("coarse_dirt_disk_replaceable");

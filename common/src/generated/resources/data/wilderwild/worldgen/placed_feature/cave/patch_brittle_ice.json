@@ -1,13 +1,13 @@
 {
-  "feature": "wilderwild:cave/patch_fragile_ice",
+  "feature": "wilderwild:cave/patch_brittle_ice",
   "placement": [
     {
       "type": "frozenlib:config_predicate",
-      "config_predicate": "wilderwild:generate_fragile_ice"
+      "config_predicate": "wilderwild:generate_brittle_ice"
     },
     {
       "type": "minecraft:count",
-      "count": 32
+      "count": 22
     },
     {
       "type": "minecraft:in_square"

@@ -27,7 +27,7 @@
         ]
       },
       "state_provider": {
-        "id": "wilderwild:fragile_ice",
+        "id": "minecraft:brittle_ice",
         "properties": {
           "age": "0"
         }
@@ -56,7 +56,7 @@
       ]
     },
     "state_provider": {
-      "id": "wilderwild:fragile_ice",
+      "id": "minecraft:brittle_ice",
       "properties": {
         "age": "0"
       }
@@ -65,7 +65,7 @@
   "heightmap": "MOTION_BLOCKING_NO_LEAVES",
   "placement_radius": {
     "type": "minecraft:uniform",
-    "max_inclusive": 5,
-    "min_inclusive": 4
+    "max_inclusive": 4,
+    "min_inclusive": 3
   }
 }

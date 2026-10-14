@@ -27,7 +27,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public class FragileIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<FragileIceFallOntoAndBreakTrigger.TriggerInstance> {
+public class BrittleIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<BrittleIceFallOntoAndBreakTrigger.TriggerInstance> {
 
 	@Override
 	public Codec<TriggerInstance> codec() {
@@ -45,8 +45,8 @@ public class FragileIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<Fr
 			).apply(instance, TriggerInstance::new)
 		);
 
-		public static Criterion<TriggerInstance> fragileIceBreak() {
-			return WWCriteria.FRAGILE_ICE_FAL_ONTO_AND_BREAK.get().createCriterion(new TriggerInstance(Optional.empty()));
+		public static Criterion<TriggerInstance> brittleIceBreak() {
+			return WWCriteria.BRITTLE_ICE_FALL_ONTO_AND_BREAK.get().createCriterion(new TriggerInstance(Optional.empty()));
 		}
 
 		public boolean matches() {

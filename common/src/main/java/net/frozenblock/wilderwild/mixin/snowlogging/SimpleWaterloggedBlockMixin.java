@@ -23,7 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface SimpleWaterloggedBlockMixin {
 
 	@Inject(method = "canPlaceLiquid", at = @At("HEAD"), cancellable = true)
-	default void wilderWild$canPlaceLiquid(LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, Fluid type, CallbackInfoReturnable<Boolean> info) {
+	default void wilderWild$canPlaceLiquid(LivingEntity user, BlockGetter level, BlockPos pos, BlockState state, FluidState fluidState, CallbackInfoReturnable<Boolean> info) {
 		if (SnowloggingUtil.isSnowlogged(state)) info.setReturnValue(false);
 	}
 }

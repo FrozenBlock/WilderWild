@@ -78,8 +78,8 @@ public final class WWCavePlacements {
 	public static final FrozenLibPlacedFeature GEOTHERMAL_VENT_STACK_CEILING = register("geothermal_vent_stack_ceiling");
 
 	// ICE CAVES
-	public static final FrozenLibPlacedFeature PATCH_FRAGILE_ICE = register("patch_fragile_ice");
-	public static final FrozenLibPlacedFeature PATCH_FRAGILE_ICE_CEILING = register("patch_fragile_ice_ceiling");
+	public static final FrozenLibPlacedFeature PATCH_BRITTLE_ICE = register("patch_brittle_ice");
+	public static final FrozenLibPlacedFeature PATCH_BRITTLE_ICE_CEILING = register("patch_brittle_ice_ceiling");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
@@ -231,8 +231,8 @@ public final class WWCavePlacements {
 		registerVegetationPatch(context, GEOTHERMAL_VENT_STACK_CEILING, WWCaveFeatures.GEOTHERMAL_VENT_STACK_CEILING, 18, geothermalVentStackSearch, 6, true);
 
 		// ICE CAVES
-		registerFragileIcePatch(context, PATCH_FRAGILE_ICE, WWCaveFeatures.PATCH_FRAGILE_ICE, false);
-		registerFragileIcePatch(context, PATCH_FRAGILE_ICE_CEILING, WWCaveFeatures.PATCH_FRAGILE_ICE_CEILING, true);
+		registerBrittleIcePatch(context, PATCH_BRITTLE_ICE, WWCaveFeatures.PATCH_BRITTLE_ICE, false);
+		registerBrittleIcePatch(context, PATCH_BRITTLE_ICE_CEILING, WWCaveFeatures.PATCH_BRITTLE_ICE_CEILING, true);
 	}
 
 	private static void registerVegetationPatch(
@@ -299,7 +299,7 @@ public final class WWCavePlacements {
 		);
 	}
 
-	private static void registerFragileIcePatch(
+	private static void registerBrittleIcePatch(
 		BootstrapContext<PlacedFeature> context,
 		FrozenLibPlacedFeature placement,
 		FrozenLibFeature feature,
@@ -308,8 +308,8 @@ public final class WWCavePlacements {
 		placement.makeAndSetHolder(
 			feature,
 			modifiersWithFilter(
-				context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_FRAGILE_ICE),
-				CountPlacement.of(32),
+				context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_BRITTLE_ICE),
+				CountPlacement.of(22),
 				PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
 				EnvironmentScanPlacement.scanningFor(ceiling ? Direction.UP : Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 12),
 				OffsetPlacement.vertical(ConstantInt.of(ceiling ? -1 : 1))

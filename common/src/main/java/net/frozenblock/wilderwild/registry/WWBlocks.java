@@ -43,7 +43,6 @@ import net.frozenblock.wilderwild.block.CoconutBlock;
 import net.frozenblock.wilderwild.block.DisplayLanternBlock;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
-import net.frozenblock.wilderwild.block.FragileIceBlock;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
 import net.frozenblock.wilderwild.block.FroglightGoopBodyBlock;
 import net.frozenblock.wilderwild.block.FrozenBushBlock;
@@ -1406,12 +1405,6 @@ public final class WWBlocks {
 			.sound(BlockSoundSets.SHELF)
 			.ignitedByLava()
 			.strength(2F, 3F)
-	);
-
-	// ICE
-	public static final DeferredBlock<FragileIceBlock> FRAGILE_ICE = REGISTER.registerBlock(WWBlockItemIds.FRAGILE_ICE,
-		FragileIceBlock::new,
-		() -> Properties.ofFullCopy(Blocks.ICE).strength(0.2F).pushReaction(PushReaction.POPPED)
 	);
 
 	// FROGLIGHT GOOP

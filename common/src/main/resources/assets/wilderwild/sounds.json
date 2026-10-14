@@ -1823,51 +1823,51 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
-  "block.frosted_ice.break": {
+  "block.weak_ice.break": {
     "sounds": [
       {
-        "name": "wilderwild:block/frosted_ice/break1",
+        "name": "wilderwild:block/weak_ice/break1",
         "volume": 0.75
       },
       {
-        "name": "wilderwild:block/frosted_ice/break2",
+        "name": "wilderwild:block/weak_ice/break2",
         "volume": 0.75
       },
       {
-        "name": "wilderwild:block/frosted_ice/break3",
+        "name": "wilderwild:block/weak_ice/break3",
         "volume": 0.75
       },
       {
-        "name": "wilderwild:block/frosted_ice/break4",
+        "name": "wilderwild:block/weak_ice/break4",
         "volume": 0.75
       },
       {
-        "name": "wilderwild:block/frosted_ice/break5",
+        "name": "wilderwild:block/weak_ice/break5",
         "volume": 0.75
       }
     ],
     "subtitle": "subtitles.block.generic.break"
   },
-  "block.frosted_ice.fall": {
+  "block.weak_ice.fall": {
     "sounds": [
-      "wilderwild:block/frosted_ice/step1",
-      "wilderwild:block/frosted_ice/step2",
-      "wilderwild:block/frosted_ice/step3",
-      "wilderwild:block/frosted_ice/step4",
-      "wilderwild:block/frosted_ice/step5"
+      "wilderwild:block/weak_ice/step1",
+      "wilderwild:block/weak_ice/step2",
+      "wilderwild:block/weak_ice/step3",
+      "wilderwild:block/weak_ice/step4",
+      "wilderwild:block/weak_ice/step5"
     ]
   },
-  "block.frosted_ice.hit": {
+  "block.weak_ice.hit": {
     "sounds": [
-      "wilderwild:block/frosted_ice/step1",
-      "wilderwild:block/frosted_ice/step2",
-      "wilderwild:block/frosted_ice/step3",
-      "wilderwild:block/frosted_ice/step4",
-      "wilderwild:block/frosted_ice/step5"
+      "wilderwild:block/weak_ice/step1",
+      "wilderwild:block/weak_ice/step2",
+      "wilderwild:block/weak_ice/step3",
+      "wilderwild:block/weak_ice/step4",
+      "wilderwild:block/weak_ice/step5"
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
-  "block.frosted_ice.place": {
+  "block.weak_ice.place": {
     "sounds": [
       "wilderwild:block/ice/place1",
       "wilderwild:block/ice/place2",
@@ -1877,13 +1877,13 @@
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "block.frosted_ice.step": {
+  "block.weak_ice.step": {
     "sounds": [
-      "wilderwild:block/frosted_ice/step1",
-      "wilderwild:block/frosted_ice/step2",
-      "wilderwild:block/frosted_ice/step3",
-      "wilderwild:block/frosted_ice/step4",
-      "wilderwild:block/frosted_ice/step5"
+      "wilderwild:block/weak_ice/step1",
+      "wilderwild:block/weak_ice/step2",
+      "wilderwild:block/weak_ice/step3",
+      "wilderwild:block/weak_ice/step4",
+      "wilderwild:block/weak_ice/step5"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },

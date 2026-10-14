@@ -90,7 +90,7 @@ public final class WWCavePlaced {
 			BiomeFilter.biome()
 		);
 
-		// FROZEN CAVES
+		// ICE CAVES
 		final PlacementFilter generateIcicle = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_DECORATIVE_ICICLE));
 		DECORATIVE_ICICLE_CLUSTER_SURFACE_WG.makeAndSetHolder(WWCaveConfigured.DECORATIVE_ICICLE_CLUSTER,
 			generateIcicle,

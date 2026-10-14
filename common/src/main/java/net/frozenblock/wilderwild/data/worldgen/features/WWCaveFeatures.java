@@ -108,8 +108,8 @@ public final class WWCaveFeatures {
 	public static final FrozenLibFeature GEOTHERMAL_VENT_STACK_LAVA_LAKE = register("geothermal_vent_stack_lava_lake");
 
 	// ICE CAVES
-	public static final FrozenLibFeature PATCH_FRAGILE_ICE = register("patch_fragile_ice");
-	public static final FrozenLibFeature PATCH_FRAGILE_ICE_CEILING = register("patch_fragile_ice_ceiling");
+	public static final FrozenLibFeature PATCH_BRITTLE_ICE = register("patch_brittle_ice");
+	public static final FrozenLibFeature PATCH_BRITTLE_ICE_CEILING = register("patch_brittle_ice_ceiling");
 
 	public static void bootstrap(BootstrapContext<Feature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
@@ -278,8 +278,8 @@ public final class WWCaveFeatures {
 		registerGeothermalVentStack(context, GEOTHERMAL_VENT_STACK_LAVA_LAKE, 0, 1, false);
 
 		// ICE CAVES
-		registerFragileIcePatch(context, PATCH_FRAGILE_ICE, false);
-		registerFragileIcePatch(context, PATCH_FRAGILE_ICE_CEILING, true);
+		registerBrittleIcePatch(context, PATCH_BRITTLE_ICE, false);
+		registerBrittleIcePatch(context, PATCH_BRITTLE_ICE_CEILING, true);
 	}
 
 	private static void registerMesogleaPatch(
@@ -506,19 +506,19 @@ public final class WWCaveFeatures {
 		);
 	}
 
-	private static void registerFragileIcePatch(
+	private static void registerBrittleIcePatch(
 		BootstrapContext<Feature> context,
 		FrozenLibFeature feature,
 		boolean ceiling
 	) {
 		feature.makeAndSetHolder(
 			new VegetationPatchFeature(
-				context.lookup(Registries.BLOCK).getOrThrow(WWFeatureBlockTags.CAVE_FRAGILE_ICE_REPLACEABLE),
-				BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()),
+				context.lookup(Registries.BLOCK).getOrThrow(BlockTags.ICE_CREVASSE_REPLACEABLES),
+				BlockStateProvider.holderOf(Blocks.BRITTLE_ICE),
 				PlacementUtils.inlinePlaced(ceiling
 					? new BlockColumnFeature(
 						List.of(
-							BlockColumnFeature.layer(BiasedToBottomInt.of(0, 4), BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
+							BlockColumnFeature.layer(BiasedToBottomInt.of(0, 4), BlockStateProvider.holderOf(Blocks.BRITTLE_ICE))
 						),
 					Direction.DOWN,
 					BlockPredicate.ONLY_IN_AIR_PREDICATE,
@@ -530,7 +530,7 @@ public final class WWCaveFeatures {
 				ceiling ? 0.4F : 0.25F,
 				4,
 				0.035F,
-				UniformInt.of(4, 10),
+				UniformInt.of(2, 4),
 				ceiling ? 0.6F : 0.4F
 			)
 		);

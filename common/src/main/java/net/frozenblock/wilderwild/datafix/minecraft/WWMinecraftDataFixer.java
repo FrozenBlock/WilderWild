@@ -49,8 +49,9 @@ public final class WWMinecraftDataFixer {
 	// 11 is 26.2-snapshot-2 (i finally decided to start datafixing migrations to data attachments)
 	// 12 is 26.3-snapshot-7 (finally removed shelf fungi since Mojang added the shelf mushroom)
 	// 13 is 26.4-snapshot-3 (mojang introduced ice caves and icicles!! yay!)
+	// 14 is 26.4-snapshot-4 (fragile ice made it to vanilla in the form of brittle ice)
 
-	public static final int DATA_VERSION = 15;
+	public static final int DATA_VERSION = 14;
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying Minecraft-Version-Based DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
@@ -272,7 +273,7 @@ public final class WWMinecraftDataFixer {
 			schemaV12
 		);
 
-		final Schema schemaV13 = builder.addSchema(15, WWMinecraftV13::new);
+		final Schema schemaV13 = builder.addSchema(13, WWMinecraftV13::new);
 		builder.addFixer(new RemoveBlockEntityTagFix(schemaV13, Set.of(WWConstants.string("icicle"))));
 		SimpleFixes.addBlockItemRenameFix(
 			builder,
@@ -287,6 +288,15 @@ public final class WWMinecraftDataFixer {
 			WWConstants.id("frozen_caves"),
 			WWConstants.vanillaId("ice_caves"),
 			schemaV13
+		);
+
+		final Schema schemaV14 = builder.addSchema(14, WWMinecraftV13::new);
+		SimpleFixes.addBlockItemRenameFix(
+			builder,
+			"Rename wilderwild:fragile_ice to minecraft:brittle_ice",
+			WWConstants.id("fragile_ice"),
+			WWConstants.vanillaId("brittle_ice"),
+			schemaV14
 		);
 
 		FabricDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, "Minecraft", builder);

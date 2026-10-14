@@ -332,9 +332,6 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalAndFunctionalBlocks(WWItems.OCHRE_FROGLIGHT_GOOP, WWItems.VERDANT_FROGLIGHT_GOOP);
 		insertAfterInNaturalAndFunctionalBlocks(WWItems.VERDANT_FROGLIGHT_GOOP, WWItems.PEARLESCENT_FROGLIGHT_GOOP);
 
-		// ICE
-		insertAfterInNaturalBlocks(Items.ICE, WWItems.FRAGILE_ICE);
-
 		// MUD BRICKS
 		insertAfterInBuildingBlocks(Items.MUD_BRICKS, WWItems.CRACKED_MUD_BRICKS);
 		insertAfterInBuildingBlocks(Items.MUD_BRICK_WALL, WWItems.CHISELED_MUD_BRICKS);

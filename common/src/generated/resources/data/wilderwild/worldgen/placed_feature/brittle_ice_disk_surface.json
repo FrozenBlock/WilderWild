@@ -1,9 +1,13 @@
 {
-  "feature": "wilderwild:fragile_ice_disk_surface",
+  "feature": "wilderwild:brittle_ice_disk_surface",
   "placement": [
     {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_brittle_ice"
+    },
+    {
       "type": "minecraft:rarity_filter",
-      "chance": 4
+      "chance": 5
     },
     {
       "type": "minecraft:in_square"

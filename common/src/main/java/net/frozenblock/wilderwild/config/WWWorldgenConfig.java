@@ -170,7 +170,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> CLAY_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clayDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> CLEARING_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clearingDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SNOW_PILE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/snowPiles", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> FRAGILE_ICE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/fragileIceDecoration", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> BRITTLE_ICE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/brittleIceDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> ICICLE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/icicleDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> TAIGA_BOULDER_DECORATION = CONFIG.entryBuilder("surfaceDecoration/taigaBoulders", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> LAKE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/lakes", EntryType.BOOL, true).requireRestart().build();

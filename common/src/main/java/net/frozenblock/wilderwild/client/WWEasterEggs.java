@@ -26,7 +26,7 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 @ClientOnly
 public final class WWEasterEggs {
 
-	// TODO: FIXME!!
+	// TODO: wait for Fabric API to add support for client registries
 	public static void hatchEasterEggs() {
 		final DeferredRegister<EntityTextureOverride<?, ?>> register = DeferredRegister.create(
 			FrozenLibClientRegistries.ENTITY_TEXTURE_OVERRIDE,

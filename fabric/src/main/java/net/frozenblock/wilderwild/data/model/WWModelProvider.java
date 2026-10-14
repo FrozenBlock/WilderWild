@@ -174,8 +174,6 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createFroglightGoop(generator, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());
 		WWModelHelper.createFroglightGoop(generator, WWBlocks.OCHRE_FROGLIGHT_GOOP_BODY.get(), WWBlocks.OCHRE_FROGLIGHT_GOOP.get());
 
-		WWModelHelper.createFragileIce(generator);
-
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_OAK_LOG.get(), WWBlocks.HOLLOWED_OAK_LOG.get(), Blocks.STRIPPED_OAK_LOG, Blocks.OAK_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_SPRUCE_LOG.get(), WWBlocks.HOLLOWED_SPRUCE_LOG.get(), Blocks.STRIPPED_SPRUCE_LOG, Blocks.SPRUCE_LOG);
 		WWModelHelper.createHollowedLog(generator, WWBlocks.HOLLOWED_BIRCH_LOG.get(), WWBlocks.HOLLOWED_BIRCH_LOG.get(), Blocks.STRIPPED_BIRCH_LOG, Blocks.BIRCH_LOG);

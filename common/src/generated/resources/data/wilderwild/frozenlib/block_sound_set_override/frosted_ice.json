@@ -5,5 +5,5 @@
     "entry": "wilderwild:block/blockSounds/frostedIceSounds",
     "target": true
   },
-  "sound_set": "wilderwild:frosted_ice"
+  "sound_set": "wilderwild:weak_ice"
 }

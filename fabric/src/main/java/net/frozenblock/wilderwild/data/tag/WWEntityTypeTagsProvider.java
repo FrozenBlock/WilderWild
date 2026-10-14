@@ -20,11 +20,16 @@ package net.frozenblock.wilderwild.data.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.tag.api.FrozenLibEntityTypeTags;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypeIds;
 
 public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTypeTagsProvider {
@@ -122,43 +127,32 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 			.add(EntityTypeIds.EYE_OF_ENDER)
 			.addOptionalTag(FrozenLibEntityTypeTags.GHOST_LIKE);
 
-		this.builder(WWEntityTypeTags.FRAGILE_ICE_UNWALKABLE_MOBS)
-			.add(EntityTypeIds.PLAYER)
-			.add(EntityTypeIds.IRON_GOLEM)
-			.add(EntityTypeIds.RAVAGER)
-			.add(EntityTypeIds.SNIFFER)
-			.add(EntityTypeIds.MAGMA_CUBE)
-			.add(EntityTypeIds.GIANT)
-			.addOptionalTag(FrozenLibEntityTypeTags.BLAZES)
-			.addOptionalTag(FrozenLibEntityTypeTags.HOGLINS);
-
-		this.builder(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_ON_FALL)
+		this.builder(WWEntityTypeTags.FRAGILE_ICE_DOES_NOT_CRACK_ON_FALL)
+			.add(EntityTypeIds.GHAST, EntityTypeIds.HAPPY_GHAST)
 			.add(EntityTypeIds.PHANTOM)
 			.add(EntityTypeIds.BREEZE)
 			.add(EntityTypeIds.CHICKEN)
-			.add(EntityTypeIds.CAT)
-			.add(EntityTypeIds.OCELOT)
+			.add(EntityTypeIds.CAT, EntityTypeIds.OCELOT)
 			.add(EntityTypeIds.RABBIT)
-			.add(EntityTypeIds.ITEM)
 			.add(EntityTypeIds.PARROT)
 			.add(EntityTypeIds.BEE)
 			.add(EntityTypeIds.BAT)
 			.add(EntityTypeIds.ALLAY)
+			.add(EntityTypeIds.ITEM)
 			.add(EntityTypeIds.EXPERIENCE_ORB)
 			.add(WWEntityTypeIds.FIREFLY)
 			.add(WWEntityTypeIds.BUTTERFLY)
-			.add(WWEntityTypeIds.TUMBLEWEED);
+			.add(WWEntityTypeIds.TUMBLEWEED)
+			.addOptional(createKey(FrozenLibEarlyConstants.NETHERIER_NETHER_MOD_ID, "baby_ghast"))
+			.addOptionalTag(EntityTypeTags.DOES_NOT_BREAK_BRITTLE_ICE)
+			.addOptionalTag(FrozenLibEntityTypeTags.GHOST_LIKE);
 
-		this.builder(WWEntityTypeTags.FRAGILE_ICE_DOESNT_CRACK_PROJECTILE)
+		this.builder(WWEntityTypeTags.BRITTLE_ICE_DOES_NOT_CRACK_PROJECTILES)
 			.add(EntityTypeIds.EGG)
-			.add(EntityTypeIds.SPLASH_POTION)
-			.add(EntityTypeIds.LINGERING_POTION)
 			.add(EntityTypeIds.SNOWBALL)
-			.add(EntityTypeIds.EXPERIENCE_BOTTLE)
 			.add(EntityTypeIds.WIND_CHARGE)
 			.add(EntityTypeIds.BREEZE_WIND_CHARGE)
 			.add(EntityTypeIds.LLAMA_SPIT)
-			.add(EntityTypeIds.ENDER_PEARL)
 			.add(EntityTypeIds.FIREWORK_ROCKET);
 
 		this.builder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
@@ -215,5 +209,9 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 
 		this.builder(EntityTypeTags.BURN_IN_DAYLIGHT)
 			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
+	}
+
+	private static ResourceKey<EntityType<?>> createKey(String namespace, String path) {
+		return ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(namespace, path));
 	}
 }

@@ -1335,7 +1335,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.HAS_SURFACE_ICICLES)
 			.add(Biomes.ICE_SPIKES);
 
-		this.builder(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)
+		this.builder(WWBiomeTags.HAS_SURFACE_BRITTLE_ICE)
 			.add(Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES, Biomes.SNOWY_TAIGA)
 			.add(Biomes.SNOWY_BEACH)
 			.add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
@@ -1344,7 +1344,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
-		this.builder(WWBiomeTags.HAS_CAVE_FRAGILE_ICE)
+		this.builder(WWBiomeTags.HAS_CAVE_BRITTLE_ICE_PATCH)
 			.add(Biomes.ICE_CAVES);
 
 		this.builder(WWBiomeTags.HAS_TUMBLEWEED_PLANT)

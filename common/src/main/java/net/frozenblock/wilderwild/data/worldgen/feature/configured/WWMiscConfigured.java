@@ -184,7 +184,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature SNOW_AND_ICE_TRANSITION_DISK = register("snow_and_freeze_transition_disk");
 
 	// ICE
-	public static final FrozenLibFeature FRAGILE_ICE_DISK_SURFACE = register("fragile_ice_disk_surface");
+	public static final FrozenLibFeature BRITTLE_ICE_DISK_SURFACE = register("brittle_ice_disk_surface");
 
 	// MOSS
 	public static final FrozenLibFeature MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
@@ -1206,9 +1206,9 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		FRAGILE_ICE_DISK_SURFACE.makeAndSetHolder(
+		BRITTLE_ICE_DISK_SURFACE.makeAndSetHolder(
 			new BallFeature(
-				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
+				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.BRITTLE_ICE))
 					.placementChance(0.85F)
 					.fadeStartPercentage(0.75F)
 					.replacementBlockPredicate(
@@ -1219,7 +1219,7 @@ public final class WWMiscConfigured {
 					)
 					.searchingBlockPredicate(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER))
 					.outerRingBlockPlacement(
-						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.FRAGILE_ICE.get()))
+						new BallOuterRingBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.BRITTLE_ICE))
 							.placementChance(0.75F)
 							.outerRingStartPercentage(0.675F)
 							.replacementPredicate(
@@ -1232,7 +1232,7 @@ public final class WWMiscConfigured {
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
-				UniformInt.of(4, 5)
+				UniformInt.of(3, 4)
 			)
 		);
 

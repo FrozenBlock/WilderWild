@@ -1,0 +1,9 @@
+{
+  "blocks": "#wilderwild:sound/brittle_ice",
+  "config_predicate": {
+    "type": "frozenlib:equal_to",
+    "entry": "wilderwild:block/blockSounds/brittleIceSounds",
+    "target": true
+  },
+  "sound_set": "wilderwild:weak_ice"
+}

@@ -33,9 +33,6 @@ public final class WWBlockStateProperties {
 	// Echo Glass
 	public static final IntegerProperty DAMAGE = IntegerProperty.create("damage", 0, 3);
 
-	// Shelf Fungus
-	public static final IntegerProperty FUNGUS_STAGE = IntegerProperty.create("shelf_fungus_stage", 1, 4);
-
 	// Cattail
 	public static final BooleanProperty SWAYING = BooleanProperty.create("swaying");
 

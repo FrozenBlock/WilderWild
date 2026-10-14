@@ -22,7 +22,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -49,17 +48,6 @@ public class SpeleothemBlockMixin {
 	private static float wilderWild$fallingIciclesDontDropItems(float original) {
 		final float growthFrequencyEntry = Math.clamp(WWBlockConfig.ICICLE_GROWTH_FREQUENCY.get() / 100F, 0F, 1F);
 		return Mth.lerp(growthFrequencyEntry, original, WILDERWILD$MAX_ICICLE_GROWTH_FREQUENCY);
-	}
-
-	@WrapOperation(
-		method = "canGrow",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"
-		)
-	)
-	private static boolean wilderWild$allowGrowthOnOtherBlocks(BlockState instance, Object o, Operation<Boolean> original) {
-		return original.call(instance, o) || instance.is(WWBlockTags.ICICLE_CAN_GROW_UNDER);
 	}
 
 	@ModifyExpressionValue(

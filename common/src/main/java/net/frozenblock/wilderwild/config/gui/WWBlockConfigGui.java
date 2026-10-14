@@ -23,7 +23,9 @@ import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelp
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.world.level.block.Blocks;
 
 @ClientOnly
 public final class WWBlockConfigGui {
@@ -72,19 +74,27 @@ public final class WWBlockConfigGui {
 		);
 
 		// STONE CHEST
-		createSubCategory(builder, category, text("stone_chest"), tooltip("stone_chest"),
+		createSubCategory(builder, category, WWBlocks.STONE_CHEST.get().getName(), tooltip("stone_chest"),
 			intSliderEntry(builder, "stone_chest_timer", WWBlockConfig.STONE_CHEST_TIMER, 50, 200),
 			booleanEntry(builder, "add_stone_chests", WWBlockConfig.ADD_STONE_CHESTS)
 		);
 
 		// ICICLE
-		createSubCategory(builder, category, text("icicle"), tooltip("icicle"),
+		createSubCategory(builder, category, Blocks.ICICLE.getName(), tooltip("icicle"),
 			intSliderEntry(builder, "icicle_growth_frequency", WWBlockConfig.ICICLE_GROWTH_FREQUENCY, 0, 100),
 			intSliderEntry(builder, "icicle_max_growth_length", WWBlockConfig.ICICLE_MAX_GROWTH_LENGTH, 2, 7),
 			booleanEntry(builder, "icicle_grows_on_floors", WWBlockConfig.ICICLE_GROWS_ON_FLOORS),
 			booleanEntry(builder, "falling_icicle_drops_item", WWBlockConfig.FALLING_ICICLE_DROPS_ITEM),
 			booleanEntry(builder, "falling_icicle_has_weaker_damage", WWBlockConfig.FALLING_ICICLE_HAS_WEAKER_DAMAGE),
 			booleanEntry(builder, "falling_icicle_damage_type", WWBlockConfig.FALLING_ICICLE_DAMAGE_TYPE)
+		);
+
+		// BRITTLE ICE
+		createSubCategory(builder, category, Blocks.BRITTLE_ICE.getName(), tooltip("brittle_ice"),
+			intSliderEntry(builder, "brittle_ice_crack_delay", WWBlockConfig.BRITTLE_ICE_CRACK_DELAY, 5, 40),
+			booleanEntry(builder, "brittle_ice_shattering_spreads", WWBlockConfig.BRITTLE_ICE_SHATTERING_SPREADS),
+			booleanEntry(builder, "brittle_ice_shatters_on_fall", WWBlockConfig.BRITTLE_ICE_SHATTERS_ON_FALL),
+			booleanEntry(builder, "brittle_ice_shatters_from_projectile", WWBlockConfig.BRITTLE_ICE_SHATTERS_FROM_PROJECTILE)
 		);
 
 		// SNOWLOGGING
@@ -108,6 +118,7 @@ public final class WWBlockConfigGui {
 			booleanEntry(builder, "dead_bush_sounds", WWBlockConfig.DEAD_BUSH_SOUNDS),
 			booleanEntry(builder, "flower_sounds", WWBlockConfig.FLOWER_SOUNDS),
 			booleanEntry(builder, "frosted_ice_sounds", WWBlockConfig.FROSTED_ICE_SOUNDS),
+			booleanEntry(builder, "brittle_ice_sounds", WWBlockConfig.BRITTLE_ICE_SOUNDS),
 			booleanEntry(builder, "icicle_sounds", WWBlockConfig.ICICLE_SOUNDS),
 			booleanEntry(builder, "ice_crystal_sounds", WWBlockConfig.ICE_CRYSTAL_SOUNDS),
 			booleanEntry(builder, "grass_sounds", WWBlockConfig.GRASS_SOUNDS),

@@ -70,7 +70,8 @@ public final class WWBlockSoundSetOverrides {
 		register(context, "sandstone", WWBlockTags.SOUND_SANDSTONE, WWBlockSoundSets.SANDSTONE, WWBlockConfig.SANDSTONE_SOUNDS);
 		register(context, "magma", WWBlockTags.SOUND_MAGMA_BLOCK, WWBlockSoundSets.MAGMA, WWBlockConfig.MAGMA_SOUNDS);
 		register(context, "ice", WWBlockTags.SOUND_ICE, WWBlockSoundSets.ICE, WWBlockConfig.ICE_SOUNDS);
-		register(context, "frosted_ice", WWBlockTags.SOUND_FROSTED_ICE, WWBlockSoundSets.FROSTED_ICE, WWBlockConfig.FROSTED_ICE_SOUNDS);
+		register(context, "frosted_ice", WWBlockTags.SOUND_FROSTED_ICE, WWBlockSoundSets.WEAK_ICE, WWBlockConfig.FROSTED_ICE_SOUNDS);
+		register(context, "brittle_ice", WWBlockTags.SOUND_BRITTLE_ICE, WWBlockSoundSets.WEAK_ICE, WWBlockConfig.BRITTLE_ICE_SOUNDS);
 		register(context, "icicle", WWBlockTags.SOUND_ICICLE, WWBlockSoundSets.ICE, WWConfigPredicates.SOUND_OVERRIDE_ICICLE);
 		register(context, "ice_crystal", WWBlockTags.SOUND_ICE_CRYSTAL, WWBlockSoundSets.ICE, WWBlockConfig.ICE_CRYSTAL_SOUNDS);
 

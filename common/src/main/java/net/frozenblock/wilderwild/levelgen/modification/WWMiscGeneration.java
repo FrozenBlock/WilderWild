@@ -235,14 +235,14 @@ public final class WWMiscGeneration {
 					}
 				}
 
-				// FRAGILE ICE
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_FRAGILE_ICE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FRAGILE_ICE_DISK_SURFACE.getKey());
+				// BRITTLE ICE
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SURFACE_BRITTLE_ICE)) {
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.BRITTLE_ICE_DISK_SURFACE.getKey());
 				}
 
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CAVE_FRAGILE_ICE)) {
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlacements.PATCH_FRAGILE_ICE.getKey());
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlacements.PATCH_FRAGILE_ICE_CEILING.getKey());
+				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CAVE_BRITTLE_ICE_PATCH)) {
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlacements.PATCH_BRITTLE_ICE.getKey());
+					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWCavePlacements.PATCH_BRITTLE_ICE_CEILING.getKey());
 				}
 
 				// ICICLE

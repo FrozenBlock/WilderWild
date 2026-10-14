@@ -164,7 +164,7 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "clay_decoration", WWWorldgenConfig.CLAY_DECORATION),
 			booleanEntry(builder, "clearing_decoration", WWWorldgenConfig.CLEARING_DECORATION),
 			booleanEntry(builder, "snow_piles", WWWorldgenConfig.SNOW_PILE_DECORATION),
-			booleanEntry(builder, "fragile_ice_decoration", WWWorldgenConfig.FRAGILE_ICE_DECORATION),
+			booleanEntry(builder, "brittle_ice_decoration", WWWorldgenConfig.BRITTLE_ICE_DECORATION),
 			booleanEntry(builder, "icicle_decoration", WWWorldgenConfig.ICICLE_DECORATION),
 			booleanEntry(builder, "taiga_boulders", WWWorldgenConfig.TAIGA_BOULDER_DECORATION),
 			booleanEntry(builder, "lake_generation", WWWorldgenConfig.LAKE_DECORATION),

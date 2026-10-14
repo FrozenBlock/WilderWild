@@ -547,8 +547,6 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.MOSSY_MUD_BRICK_WALL.get());
 
 		this.add(WWBlocks.MYCELIUM_GROWTH.get(), this::createShearsOrSilkTouchOnlyDrop);
-
-		this.dropWhenSilkTouch(WWBlocks.FRAGILE_ICE.get());
 	}
 
 	public void nonSaplingLeavesLoot(Block block) {

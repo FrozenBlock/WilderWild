@@ -1,0 +1,33 @@
+{
+  "values": [
+    "minecraft:ghast",
+    "minecraft:happy_ghast",
+    "minecraft:phantom",
+    "minecraft:breeze",
+    "minecraft:chicken",
+    "minecraft:cat",
+    "minecraft:ocelot",
+    "minecraft:rabbit",
+    "minecraft:parrot",
+    "minecraft:bee",
+    "minecraft:bat",
+    "minecraft:allay",
+    "minecraft:item",
+    "minecraft:experience_orb",
+    "wilderwild:firefly",
+    "wilderwild:butterfly",
+    "wilderwild:tumbleweed",
+    {
+      "id": "netheriernether:baby_ghast",
+      "required": false
+    },
+    {
+      "id": "#minecraft:does_not_break_brittle_ice",
+      "required": false
+    },
+    {
+      "id": "#frozenlib:ghost_like",
+      "required": false
+    }
+  ]
+}

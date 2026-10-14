@@ -35,6 +35,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_COARSE_DIRT = bind("sound/coarse_dirt");
 	public static final TagKey<Block> SOUND_ICE = bind("sound/ice");
 	public static final TagKey<Block> SOUND_FROSTED_ICE = bind("sound/frosted_ice");
+	public static final TagKey<Block> SOUND_BRITTLE_ICE = bind("sound/brittle_ice");
 	public static final TagKey<Block> SOUND_ICICLE = bind("sound/icicle");
 	public static final TagKey<Block> SOUND_ICE_CRYSTAL = bind("sound/ice_crystal");
 	public static final TagKey<Block> SOUND_MUSHROOM = bind("sound/mushroom");
@@ -70,8 +71,6 @@ public final class WWBlockTags {
 	public static final TagKey<Block> KILLS_TERMITE = bind("kills_termite");
 	public static final TagKey<Block> BLOCKS_TERMITE = bind("blocks_termite");
 	public static final TagKey<Block> CANNOT_SUPPORT_UPWARDS_TERMITE_MOVEMENT = bind("cannot_support_upwards_termite_movement");
-
-	public static final TagKey<Block> ICICLE_CAN_GROW_UNDER = bind("icicle_can_grow_under");
 
 	public static final TagKey<Block> ANCIENT_CITY_BLOCKS = bind("ancient_city_blocks");
 	public static final TagKey<Block> SCULK_STAIR_REPLACEABLE_WORLDGEN = bind("sculk_stair_replaceable_worldgen");

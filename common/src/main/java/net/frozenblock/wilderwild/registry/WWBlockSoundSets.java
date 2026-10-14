@@ -60,7 +60,7 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> MUSHROOM = createKey("mushroom");
 	public static final ResourceKey<BlockSoundSet> MUSHROOM_BLOCK = createKey("mushroom_block");
 	public static final ResourceKey<BlockSoundSet> ICE = createKey("ice");
-	public static final ResourceKey<BlockSoundSet> FROSTED_ICE = createKey("frosted_ice");
+	public static final ResourceKey<BlockSoundSet> WEAK_ICE = createKey("weak_ice");
 	public static final ResourceKey<BlockSoundSet> CONIFER_LEAVES = createKey("conifer_leaves");
 	public static final ResourceKey<BlockSoundSet> PALE_OAK_LEAVES = createKey("pale_oak_leaves");
 	public static final ResourceKey<BlockSoundSet> PALE_MOSS = createKey("pale_moss");
@@ -119,7 +119,7 @@ public final class WWBlockSoundSets {
 		context.register(MUSHROOM, new BlockSoundSet(WWSounds.MUSHROOM));
 		context.register(MUSHROOM_BLOCK, new BlockSoundSet(WWSounds.MUSHROOM_BLOCK));
 		context.register(ICE, new BlockSoundSet(WWSounds.ICE));
-		context.register(FROSTED_ICE, new BlockSoundSet(WWSounds.FROSTED_ICE));
+		context.register(WEAK_ICE, new BlockSoundSet(WWSounds.WEAK_ICE));
 		context.register(CONIFER_LEAVES, new BlockSoundSet(WWSounds.CONIFER_LEAVES));
 		context.register(PALE_OAK_LEAVES, new BlockSoundSet(WWSounds.PALE_OAK_LEAVES));
 		context.register(PALE_MOSS, new BlockSoundSet(WWSounds.PALE_MOSS));
