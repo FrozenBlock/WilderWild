@@ -22,7 +22,7 @@ import java.util.Optional;
 import net.frozenblock.lib.FrozenBools;
 import net.frozenblock.lib.item.api.component.ItemTooltipAdditionAPI;
 import net.frozenblock.lib.item.api.component.consume_effects.DamageConsumeEffect;
-import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
@@ -39,7 +39,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
@@ -473,8 +472,12 @@ public final class WWItems {
 		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT.get()));
 	}
 
-	private static <T extends AbstractBoat> DeferredItem<BoatItem> registerBoatItem(ResourceKey<Item> id, DeferredHolder<EntityType<?>, EntityType<T>> boat) {
-		return REGISTER.registerItem(id, properties -> new BoatItem(boat.get(), properties), () -> new Item.Properties().stacksTo(1));
+	private static <T extends AbstractBoat> DeferredItem<BoatItem> registerBoatItem(ResourceKey<Item> key, DeferredEntityType<T> entityType) {
+		return REGISTER.registerItem(
+			key,
+			properties -> new BoatItem(entityType.get(), properties),
+			() -> new Item.Properties().stacksTo(1)
+		);
 	}
 
 	static {
