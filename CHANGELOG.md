@@ -6,3 +6,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The `Snowlog Blockades` config option has been set back to false by default, after accidentally being changed to true.
 - Added the `wilderwild:falling_icicle` Damage Type to the `#minecraft:damages_helmet` Damage Type Tag.
 - Added the `wilderwild:ostrich` Damage Type to the `#minecraft:panic_causes` Damage Type Tag.
+- Added the `wilderwild:flower_dappled_forest` Feature to the `#minecraft:can_spawn_from_bone_meal` Feature Tag.
+- Added the `#wilderwild:ostriches` Entity Type Tag.

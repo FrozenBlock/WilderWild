@@ -41,6 +41,9 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 		this.builder(FrozenLibEntityTypeTags.WARDEN_CANNOT_TARGET)
 			.add(WWEntityTypeIds.TUMBLEWEED);
 
+		this.builder(WWEntityTypeTags.OSTRICHES)
+			.add(WWEntityTypeIds.OSTRICH, WWEntityTypeIds.ZOMBIE_OSTRICH);
+
 		this.builder(WWEntityTypeTags.CAN_SWIM_IN_ALGAE)
 			.add(EntityTypeIds.SLIME)
 			.add(EntityTypeIds.WARDEN)
