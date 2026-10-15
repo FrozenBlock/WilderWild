@@ -1,6 +1,9 @@
 Please clear changelog after each release.
 Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
+- Fixed a bug that caused Wilder Wild's Boats to be unbreakable outside Creative Mode.
+
+### 26.3+
 - Fixed an oversight that caused Wilder Wild's Material Rules to incorrectly apply in caves.
 - Fixed a bug that caused Leaf & Leaf Litter particles to spawn upon their respective blocks breaking when only their walking particles config option is enabled.
 - The `Snowlog Blockades` config option has been set back to false by default, after accidentally being changed to true.
