@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.wind.disturbance;
 
+import net.frozenblock.lib.wind.disturbance.WindDisturbance;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceResult;
-import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
 import net.frozenblock.wilderwild.block.entity.GeothermalVentBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class AbstractGeothermalVentWindDisturbance implements WindDisturbanceType<GeothermalVentBlockEntity> {
+public abstract class AbstractGeothermalVentWindDisturbance extends WindDisturbance<GeothermalVentBlockEntity> {
 
 	@Override
 	public Vec3 origin(GeothermalVentBlockEntity source, Level level) {
@@ -59,7 +59,12 @@ public abstract class AbstractGeothermalVentWindDisturbance implements WindDistu
 	abstract double windIntensity();
 
 	@Override
-	public boolean expired(GeothermalVentBlockEntity source, Level level) {
+	public final boolean expired(GeothermalVentBlockEntity source, Level level) {
 		return source.isRemoved() || !source.isErupting();
+	}
+
+	@Override
+	protected final boolean isValidSource(Object source) {
+		return source instanceof GeothermalVentBlockEntity;
 	}
 }

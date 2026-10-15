@@ -21,9 +21,10 @@ import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.lib.wind.disturbance.WindDisturbanceType;
+import net.frozenblock.lib.wind.disturbance.holder.WindDisturbanceSourceType;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbanceType;
-import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbanceType;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
 
 public final class WWWindDisturbanceTypes {
 	private static final DeferredRegister<WindDisturbanceType<?>> REGISTER = DeferredRegister.create(
@@ -31,13 +32,13 @@ public final class WWWindDisturbanceTypes {
 		WWConstants.MOD_ID
 	);
 
-	public static final DeferredHolder<WindDisturbanceType<?>, GeothermalVentEffectiveWindDisturbanceType> GEOTHERMAL_VENT_EFFECTIVE = REGISTER.register(
+	public static final DeferredHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentEffectiveWindDisturbance>> GEOTHERMAL_VENT_EFFECTIVE = REGISTER.register(
 		"geothermal_vent_effective",
-		() -> GeothermalVentEffectiveWindDisturbanceType.INSTANCE
+		WindDisturbanceType.createSupplier(GeothermalVentEffectiveWindDisturbance.CODEC, GeothermalVentEffectiveWindDisturbance.STREAM_CODEC, WindDisturbanceSourceType.BLOCK_ENTITY)
 	);
-	public static final DeferredHolder<WindDisturbanceType<?>, GeothermalVentBaseWindDisturbanceType> GEOTHERMAL_VENT_BASE = REGISTER.register(
+	public static final DeferredHolder<WindDisturbanceType<?>, WindDisturbanceType<GeothermalVentBaseWindDisturbance>> GEOTHERMAL_VENT_BASE = REGISTER.register(
 		"geothermal_vent_base",
-		() -> GeothermalVentBaseWindDisturbanceType.INSTANCE
+		WindDisturbanceType.createSupplier(GeothermalVentBaseWindDisturbance.CODEC, GeothermalVentBaseWindDisturbance.STREAM_CODEC, WindDisturbanceSourceType.BLOCK_ENTITY)
 	);
 
 	static {

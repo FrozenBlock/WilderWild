@@ -69,8 +69,6 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		return extension;
 	}
 
-	public static void init() {}
-
 	public static WWWindManagerExtension get(Level level) {
 		return WindManager.getExtension(level, WWWindManagerExtensionTypes.WILDER_WILD_EXTENSION.get())
 			.orElseThrow(() -> new IllegalStateException("WWWindManagerExtension was not registered for level " + level));

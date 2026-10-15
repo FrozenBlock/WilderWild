@@ -40,7 +40,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
 
-public class WWBiolithIntegration extends ModIntegration {
+public final class WWBiolithIntegration extends ModIntegration {
 
 	public WWBiolithIntegration() {
 		super("biolith");

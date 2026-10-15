@@ -25,23 +25,29 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.StringRepresentable;
 
 public enum GeothermalVentType implements StringRepresentable {
-	NONE("none", Optional.empty()),
-	AIR("air", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.asHolder()),
-	WATER("water", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.asHolder()),
-	LAVA("lava", WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.asHolder()),
-	HYDROTHERMAL_VENT("hydrothermal_vent", WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.asHolder());
+	NONE("none", false, Optional.empty()),
+	AIR("air", true, WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.asHolder()),
+	WATER("water", true, WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.asHolder()),
+	LAVA("lava", true, WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.asHolder()),
+	HYDROTHERMAL_VENT("hydrothermal_vent", false, WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.asHolder());
 	public static final Codec<GeothermalVentType> CODEC = StringRepresentable.fromEnum(GeothermalVentType::values);
 
 	private final String name;
+	private final boolean hasEruption;
 	private final Optional<Holder<SoundEvent>> eruptionSound;
 
-	GeothermalVentType(String name, Optional<Holder<SoundEvent>> eruptionSound) {
+	GeothermalVentType(String name, boolean hasEruption, Optional<Holder<SoundEvent>> eruptionSound) {
 		this.name = name;
+		this.hasEruption = hasEruption;
 		this.eruptionSound = eruptionSound;
 	}
 
-	GeothermalVentType(String name, Holder<SoundEvent> eruptionSound) {
-		this(name, Optional.of(eruptionSound));
+	GeothermalVentType(String name, boolean hasEruption, Holder<SoundEvent> eruptionSound) {
+		this(name, hasEruption, Optional.of(eruptionSound));
+	}
+
+	public boolean hasEruption() {
+		return this.hasEruption;
 	}
 
 	public Optional<Holder<SoundEvent>> eruptionSound() {

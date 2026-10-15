@@ -56,7 +56,6 @@ import net.frozenblock.wilderwild.registry.WWStructureProcessorTypes;
 import net.frozenblock.wilderwild.registry.WWWindDisturbanceTypes;
 import net.frozenblock.wilderwild.registry.WWWindManagerExtensionTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
-import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 
 public final class WilderWild {
 
@@ -97,7 +96,6 @@ public final class WilderWild {
 
 		WWWindManagerExtensionTypes.init();
 		WWWindDisturbanceTypes.init();
-		WWWindManagerExtension.init();
 
 		WWResources.init();
 

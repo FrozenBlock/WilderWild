@@ -21,9 +21,8 @@ import com.google.common.base.Function;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.lib.wind.BlowingHelper;
-import net.frozenblock.lib.wind.disturbance.WindDisturbanceTypesHolder;
+import net.frozenblock.lib.wind.disturbance.holder.WindDisturbanceHolder;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.impl.client.GeothermalVentParticleSpawner;
@@ -31,10 +30,9 @@ import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.registry.WWWindDisturbanceTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
-import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbanceType;
-import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbanceType;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
+import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -53,6 +51,7 @@ import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.ValueInput;
@@ -184,9 +183,8 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 
 	public boolean isErupting() {
 		final BlockState state = this.getBlockState();
-		if (!state.hasProperty(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE) || !state.hasProperty(GeothermalVentBlock.GEOTHERMAL_VENT_STAGE)) return false;
-		if (state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE) == GeothermalVentType.HYDROTHERMAL_VENT) return false;
-		return state.getValue(GeothermalVentBlock.GEOTHERMAL_VENT_STAGE) == GeothermalVentStage.ERUPTING;
+		return state.getValueOrElse(GeothermalVentBlock.GEOTHERMAL_VENT_TYPE, GeothermalVentType.NONE).hasEruption()
+			&& state.getValueOrElse(GeothermalVentBlock.GEOTHERMAL_VENT_STAGE, GeothermalVentStage.DORMANT) == GeothermalVentStage.ERUPTING;
 	}
 
 	private AABB computeEruptionArea(Level level, Function<EruptionAreas, AABB> areaGetter) {
@@ -208,7 +206,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 	}
 
 	private void tickEruption(Level level, BlockPos pos, GeothermalVentType geothermalVentType, Direction direction, boolean natural) {
-		final boolean vent = geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT;
+		final boolean hasEruption = geothermalVentType.hasEruption();
 		final EruptionAreas areas = this.computeEruptionAreas(level, pos, geothermalVentType, direction);
 		final AABB eruption = areas.baseArea();
 		final AABB effectiveEruption = areas.effectiveArea();
@@ -218,12 +216,12 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 		final List<Entity> entities = level.getEntities(EntityTypeTest.forClass(Entity.class), maxPossibleEruptionBox, EFFECT_PREDICATE);
 		final Vec3 ventStartPos = Vec3.atCenterOf(pos);
 
-		if (!vent) {
-			WindDisturbanceTypesHolder.addIf(level, this, this::doesNotHaveEffectiveWindDisturbance, GeothermalVentEffectiveWindDisturbanceType.INSTANCE);
-			WindDisturbanceTypesHolder.addIf(level, this, this::doesNotHaveBaseWindDisturbance, GeothermalVentBaseWindDisturbanceType.INSTANCE);
+		if (hasEruption) {
+			WindDisturbanceHolder.tryAdd(level, this, GeothermalVentEffectiveWindDisturbance.INSTANCE);
+			WindDisturbanceHolder.tryAdd(level, this, GeothermalVentBaseWindDisturbance.INSTANCE);
 		}
 
-		final double eruptionDistance = vent ? VENT_DISTANCE : ERUPTION_DISTANCE;
+		final double eruptionDistance = !hasEruption ? VENT_DISTANCE : ERUPTION_DISTANCE;
 		final Vec3 movement = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 		for (Entity entity : entities) {
 			final AABB boundingBox = entity.getBoundingBox();
@@ -251,7 +249,8 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 
 			if (applyMovement) {
 				final double intensity = (eruptionDistance - Math.min(entity.position().distanceTo(ventStartPos), eruptionDistance)) / eruptionDistance;
-				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && !vent ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY) * (entity.is(WWEntityTypeTags.GEOTHERMAL_VENT_PUSHES_FURTHER) ? 1.5D : 1D);
+				final double pushIntensity = (effectiveEruption.intersects(boundingBox) && hasEruption ? EFFECTIVE_PUSH_INTENSITY : INEFFECTIVE_PUSH_INTENSITY)
+					* (entity.is(WWEntityTypeTags.GEOTHERMAL_VENT_PUSHES_FURTHER) ? 1.5D : 1D);
 				final double overallIntensity = intensity * pushIntensity;
 				entity.addDeltaMovement(movement.scale(overallIntensity));
 				entity.needsSync = true;
@@ -272,41 +271,34 @@ public class GeothermalVentBlockEntity extends BlockEntity {
 			}
 		}
 
-		for (BlockPos searchPos : BlockPos.betweenClosed(pos, areas.endPos())) {
-			if (level.isClientSide() || !maxPossibleEruptionBox.contains(Vec3.atCenterOf(searchPos)) || !level.hasChunkAt(searchPos)) continue;
+		blockInteractions: {
+			if (level.isClientSide() || geothermalVentType == GeothermalVentType.HYDROTHERMAL_VENT) break blockInteractions;
 
-			final BlockState state = level.getBlockState(searchPos);
-			if (geothermalVentType == GeothermalVentType.LAVA) {
-				if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
-					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, true));
-				}
+			final boolean lavaEruption = geothermalVentType == GeothermalVentType.LAVA;
+			for (BlockPos searchPos : BlockPos.betweenClosed(pos, areas.endPos())) {
+				if (!maxPossibleEruptionBox.contains(Vec3.atCenterOf(searchPos)) || !level.hasChunkAt(searchPos)) continue;
 
-				if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
-					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, true));
-				}
-			} else {
-				if (state.is(BlockTags.FIRE)) {
+				final BlockState state = level.getBlockState(searchPos);
+				if (!state.getFluidState().isEmpty()) continue;
+
+				if (!lavaEruption && state.is(BlockTags.FIRE)) {
 					level.levelEvent(null, LevelEvent.SOUND_EXTINGUISH_FIRE, pos, 0);
 					level.removeBlock(searchPos, false);
+					continue;
 				}
 
-				if (state.is(BlockTags.CAMPFIRES) && state.hasProperty(BlockStateProperties.LIT)) {
-					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, false));
-				}
-
-				if ((state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) && state.hasProperty(BlockStateProperties.LIT)) {
-					level.setBlockAndUpdate(searchPos, state.setValue(BlockStateProperties.LIT, false));
+				if (state.is(BlockTags.CAMPFIRES) ||state.is(BlockTags.CANDLES) || state.is(BlockTags.CANDLE_CAKES)) {
+					trySetProperty(level, searchPos, state, BlockStateProperties.LIT, lavaEruption);
 				}
 			}
 		}
 	}
 
-	private boolean doesNotHaveEffectiveWindDisturbance(DataAttachmentTarget source) {
-		return WindDisturbanceTypesHolder.noneMatch(source, WindDisturbanceTypesHolder.type(WWWindDisturbanceTypes.GEOTHERMAL_VENT_EFFECTIVE.get()));
-	}
+	private static <T extends Comparable<T>> void trySetProperty(Level level, BlockPos pos, BlockState blockState, Property<T> property, T value) {
+		if (!blockState.hasProperty(property)) return;
 
-	private boolean doesNotHaveBaseWindDisturbance(DataAttachmentTarget source) {
-		return WindDisturbanceTypesHolder.noneMatch(source, WindDisturbanceTypesHolder.type(WWWindDisturbanceTypes.GEOTHERMAL_VENT_BASE.get()));
+		final T oldValue = blockState.getValue(property);
+		if (oldValue != value) level.setBlockAndUpdate(pos, blockState.setValue(property, value));
 	}
 
 	private AABB getPossibleEruptionBoundingBox(BlockPos pos, BlockPos maxEndPos) {
