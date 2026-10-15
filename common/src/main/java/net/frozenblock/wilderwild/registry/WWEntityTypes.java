@@ -17,9 +17,9 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.function.Supplier;
 import net.frozenblock.lib.entity.api.attribute.DefaultAttributeRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
-import net.frozenblock.lib.platform.api.registry.DeferredItem;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
@@ -46,6 +46,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public final class WWEntityTypes {
@@ -252,20 +253,20 @@ public final class WWEntityTypes {
 	);
 
 	// BOATS
-	public static final DeferredEntityType<Boat> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, WWItems.BAOBAB_BOAT);
-	public static final DeferredEntityType<ChestBoat> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, WWItems.BAOBAB_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> BAOBAB_BOAT = registerBoat(WWEntityTypeIds.BAOBAB_BOAT, () -> WWItems.BAOBAB_BOAT.get());
+	public static final DeferredEntityType<ChestBoat> BAOBAB_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.BAOBAB_CHEST_BOAT, () -> WWItems.BAOBAB_CHEST_BOAT.get());
 
-	public static final DeferredEntityType<Boat> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, WWItems.WILLOW_BOAT);
-	public static final DeferredEntityType<ChestBoat> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, WWItems.WILLOW_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> WILLOW_BOAT = registerBoat(WWEntityTypeIds.WILLOW_BOAT, () -> WWItems.WILLOW_BOAT.get());
+	public static final DeferredEntityType<ChestBoat> WILLOW_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.WILLOW_CHEST_BOAT, () -> WWItems.WILLOW_CHEST_BOAT.get());
 
-	public static final DeferredEntityType<Boat> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, WWItems.CYPRESS_BOAT);
-	public static final DeferredEntityType<ChestBoat> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, WWItems.CYPRESS_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> CYPRESS_BOAT = registerBoat(WWEntityTypeIds.CYPRESS_BOAT, () -> WWItems.CYPRESS_BOAT.get());
+	public static final DeferredEntityType<ChestBoat> CYPRESS_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.CYPRESS_CHEST_BOAT, () -> WWItems.CYPRESS_CHEST_BOAT.get());
 
-	public static final DeferredEntityType<Boat> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, WWItems.PALM_BOAT);
-	public static final DeferredEntityType<ChestBoat> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, WWItems.PALM_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> PALM_BOAT = registerBoat(WWEntityTypeIds.PALM_BOAT, () -> WWItems.PALM_BOAT.get());
+	public static final DeferredEntityType<ChestBoat> PALM_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.PALM_CHEST_BOAT, () -> WWItems.PALM_CHEST_BOAT.get());
 
-	public static final DeferredEntityType<Boat> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, WWItems.MAPLE_BOAT);
-	public static final DeferredEntityType<ChestBoat> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, WWItems.MAPLE_CHEST_BOAT);
+	public static final DeferredEntityType<Boat> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, () -> WWItems.MAPLE_BOAT.get());
+	public static final DeferredEntityType<ChestBoat> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, () -> WWItems.MAPLE_CHEST_BOAT.get());
 
 	public static void init() {}
 
@@ -273,25 +274,27 @@ public final class WWEntityTypes {
 		REGISTER.register();
 	}
 
-	private static <E extends AbstractBoat> DeferredEntityType<E> registerAbstractBoat(ResourceKey<EntityType<?>> id, EntityType.EntityFactory<E> factory) {
+	private static <E extends AbstractBoat> DeferredEntityType<E> registerAbstractBoat(ResourceKey<EntityType<?>> key, EntityType.EntityFactory<E> factory) {
 		return REGISTER.register(
-			id,
+			key,
 			factory,
 			MobCategory.MISC,
 			builder -> builder
 				.noLootTable()
 				.sized(1.375F, 0.5625F)
 				.eyeHeight(0.5625F)
-				.clientTrackingRange(10)
+				.clientTrackingRange(10),
+			entityType -> {}
 		);
 	}
 
-	private static DeferredEntityType<Boat> registerBoat(ResourceKey<EntityType<?>> id, DeferredItem<?> item) {
-		return registerAbstractBoat(id, EntityTypes.boatFactory(() -> item.get()));
+
+	private static DeferredEntityType<Boat> registerBoat(ResourceKey<EntityType<?>> key, Supplier<Item> item) {
+		return registerAbstractBoat(key, EntityTypes.boatFactory(() -> item.get()));
 	}
 
-	private static DeferredEntityType<ChestBoat> registerChestBoat(ResourceKey<EntityType<?>> id, DeferredItem<?> item) {
-		return registerAbstractBoat(id, EntityTypes.chestBoatFactory(() -> item.get()));
+	private static DeferredEntityType<ChestBoat> registerChestBoat(ResourceKey<EntityType<?>> key, Supplier<Item> item) {
+		return registerAbstractBoat(key, EntityTypes.chestBoatFactory(() -> item.get()));
 	}
 
 	private WWEntityTypes() {}

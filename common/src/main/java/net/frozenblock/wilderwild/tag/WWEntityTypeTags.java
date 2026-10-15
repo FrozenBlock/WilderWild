@@ -23,6 +23,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
 public final class WWEntityTypeTags {
+	public static final TagKey<EntityType<?>> OSTRICHES = bind("ostriches");
 	public static final TagKey<EntityType<?>> CAN_SWIM_IN_ALGAE = bind("can_swim_in_algae");
 	public static final TagKey<EntityType<?>> STAYS_IN_MESOGLEA = bind("stays_in_mesoglea");
 	public static final TagKey<EntityType<?>> JELLYFISH_CANT_STING = bind("jellyfish_cant_sting");
