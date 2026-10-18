@@ -1,0 +1,206 @@
+{
+  "type": "minecraft:overlay",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:simple_random_selector",
+        "features": [
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_red"
+            },
+            "placement": []
+          },
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_red_tall"
+            },
+            "placement": []
+          }
+        ]
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": -0.75
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_random_selector",
+        "features": [
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_pink"
+            },
+            "placement": []
+          },
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_pink_tall_1"
+            },
+            "placement": []
+          },
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_pink_tall_2"
+            },
+            "placement": []
+          }
+        ]
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": -0.5
+        },
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 1,
+          "below_noise": 0,
+          "noise_level": -0.75
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_random_selector",
+        "features": [
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_orange"
+            },
+            "placement": []
+          },
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_orange_tall"
+            },
+            "placement": []
+          }
+        ]
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": -0.25
+        },
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 1,
+          "below_noise": 0,
+          "noise_level": -0.5
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": "wilderwild:flower_flower_field_yellow"
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": 0.0
+        },
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 1,
+          "below_noise": 0,
+          "noise_level": -0.25
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": "wilderwild:flower_flower_field_white"
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": 0.25
+        },
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 1,
+          "below_noise": 0,
+          "noise_level": 0.0
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "to_place": "wilderwild:flower_flower_field_blue"
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": 0.5
+        },
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 1,
+          "below_noise": 0,
+          "noise_level": 0.25
+        }
+      ]
+    },
+    {
+      "feature": {
+        "type": "minecraft:simple_random_selector",
+        "features": [
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_purple"
+            },
+            "placement": []
+          },
+          {
+            "feature": {
+              "type": "minecraft:simple_block",
+              "to_place": "wilderwild:flower_flower_field_purple_tall"
+            },
+            "placement": []
+          }
+        ]
+      },
+      "placement": [
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 0,
+          "below_noise": 1,
+          "noise_level": 0.75
+        },
+        {
+          "type": "minecraft:noise_threshold_count",
+          "above_noise": 1,
+          "below_noise": 0,
+          "noise_level": 0.5
+        }
+      ]
+    }
+  ]
+}

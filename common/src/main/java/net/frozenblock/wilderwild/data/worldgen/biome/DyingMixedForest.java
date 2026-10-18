@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -115,9 +116,10 @@ public final class DyingMixedForest extends FrozenLibBiome {
 	@Override
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
-		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		//BiomeDefaultFeatures.addDefaultFlowers(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.FLOWER_DEFAULT_WITH_SEEDING_DANDELION.getKey());
 		BiomeDefaultFeatures.addForestGrass(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);

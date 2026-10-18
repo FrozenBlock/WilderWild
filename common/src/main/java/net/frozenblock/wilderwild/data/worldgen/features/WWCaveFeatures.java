@@ -83,7 +83,7 @@ import net.minecraft.world.level.material.Fluids;
 public final class WWCaveFeatures {
 	// MESOGLEA CAVES
 	public static final FrozenLibFeature ORE_CALCITE = register("ore_calcite");
-	public static final FrozenLibFeature POOL_STONE = register("pool_stone");
+	public static final FrozenLibFeature POOL_MESOGLEA_CAVES = register("pool_mesoglea_caves");
 	public static final FrozenLibFeature PATHS_MESOGLEA = register("path_mesoglea");
 	public static final FrozenLibFeature PATCH_MESOGLEA = register("patch_mesoglea");
 	public static final FrozenLibFeature PATCH_MESOGLEA_CEILING = register("patch_mesoglea_ceiling");
@@ -126,7 +126,7 @@ public final class WWCaveFeatures {
 			)
 		);
 
-		POOL_STONE.makeAndSetHolder(
+		POOL_MESOGLEA_CAVES.makeAndSetHolder(
 			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.STONE),
@@ -138,7 +138,7 @@ public final class WWCaveFeatures {
 				0.000F,
 				UniformInt.of(12, 15),
 				0.7F,
-				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
 			)
 		);
 

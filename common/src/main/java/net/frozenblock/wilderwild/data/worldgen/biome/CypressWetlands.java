@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -130,15 +131,17 @@ public final class CypressWetlands extends FrozenLibBiome {
 
 	@Override
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
+		WWSharedWorldgen.addBasicFeatures(features, true);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SEAGRASS_CYPRESS.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_FLOWERS_SPARSE.getKey());
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DENSE_FLOWER_PLACED.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_TREES.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.CYPRESS_WETLANDS_TREES_WATER.getKey());
 		this.addCypressPaths(features);
-		WWSharedWorldgen.addBasicFeatures(features, true);
-		BiomeDefaultFeatures.addForestGrass(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.FLOWER_RAINFOREST.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.PATCH_FLOWER_RAINFOREST.getKey());
 		BiomeDefaultFeatures.addDefaultOres(features);
+		BiomeDefaultFeatures.addWarmFlowers(features);
+		BiomeDefaultFeatures.addBushes(features);
+		BiomeDefaultFeatures.addForestGrass(features);
 		this.addCypressVegetation(features);
 	}
 

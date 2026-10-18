@@ -1,0 +1,25 @@
+{
+  "feature": "wilderwild:flower/patch_flower_sunflower_plains",
+  "placement": [
+    {
+      "type": "minecraft:noise_threshold_count",
+      "above_noise": 1,
+      "below_noise": 3,
+      "noise_level": -0.3
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 8
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

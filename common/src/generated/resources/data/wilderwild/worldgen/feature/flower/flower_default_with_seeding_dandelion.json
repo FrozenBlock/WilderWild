@@ -1,0 +1,15 @@
+{
+  "type": "frozenlib:config_selector",
+  "config_predicate": "wilderwild:generate_flower",
+  "feature_if_false": {
+    "feature": "minecraft:flower_default",
+    "placement": []
+  },
+  "feature_if_true": {
+    "feature": {
+      "type": "minecraft:simple_block",
+      "to_place": "wilderwild:flower_default_with_seeding_dandelion"
+    },
+    "placement": []
+  }
+}

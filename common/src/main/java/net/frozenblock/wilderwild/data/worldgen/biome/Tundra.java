@@ -169,11 +169,11 @@ public final class Tundra extends FrozenLibBiome {
 	@Override
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, false);
-		BiomeDefaultFeatures.addForestFlowers(features);
 		BiomeDefaultFeatures.addPlainGrass(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN);
+		BiomeDefaultFeatures.addDefaultFlowers(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);

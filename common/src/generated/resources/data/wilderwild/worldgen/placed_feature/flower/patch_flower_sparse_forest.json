@@ -1,0 +1,32 @@
+{
+  "feature": "wilderwild:flower/patch_flower_sparse_forest",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 9
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:clamped",
+        "max_inclusive": 1,
+        "min_inclusive": 0,
+        "source": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 4,
+          "min_inclusive": 0
+        }
+      }
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

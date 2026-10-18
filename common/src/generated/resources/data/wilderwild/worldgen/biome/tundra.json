@@ -168,9 +168,9 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:forest_flowers",
       "minecraft:patch_tall_grass_2",
       "minecraft:patch_grass_plain",
+      "minecraft:flower_default",
       "minecraft:patch_dead_bush",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",

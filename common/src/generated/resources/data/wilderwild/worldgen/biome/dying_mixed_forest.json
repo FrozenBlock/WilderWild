@@ -199,7 +199,7 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:forest_flowers",
+      "wilderwild:flower/flower_default_with_seeding_dandelion",
       "minecraft:patch_grass_forest",
       "minecraft:patch_dead_bush",
       "minecraft:brown_mushroom_normal",

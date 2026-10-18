@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:milkweed",
+      "weight": 3
+    },
+    {
+      "data": "minecraft:orange_tulip",
+      "weight": 2
+    },
+    {
+      "data": "wilderwild:marigold",
+      "weight": 8
+    },
+    {
+      "data": "wilderwild:seeding_dandelion",
+      "weight": 1
+    }
+  ]
+}

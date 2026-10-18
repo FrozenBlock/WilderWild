@@ -92,7 +92,7 @@
   "features": [
     [],
     [
-      "wilderwild:cave/pool_stone_mesoglea_caves",
+      "wilderwild:cave/pool_mesoglea_caves",
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],

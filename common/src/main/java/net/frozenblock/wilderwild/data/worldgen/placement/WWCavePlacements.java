@@ -51,7 +51,7 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 public final class WWCavePlacements {
 	// MESOGLEA CAVES
 	public static final FrozenLibPlacedFeature ORE_CALCITE = register("ore_calcite");
-	public static final FrozenLibPlacedFeature POOL_STONE_MESOGLEA_CAVES = register("pool_stone_mesoglea_caves");
+	public static final FrozenLibPlacedFeature POOL_MESOGLEA_CAVES = register("pool_mesoglea_caves");
 	public static final FrozenLibPlacedFeature PATHS_MESOGLEA = register("paths_mesoglea");
 	public static final FrozenLibPlacedFeature PATCH_MESOGLEA = register("patch_mesoglea");
 	public static final FrozenLibPlacedFeature PATCH_MESOGLEA_CEILING = register("patch_mesoglea_ceiling");
@@ -92,7 +92,7 @@ public final class WWCavePlacements {
 			modifiersWithCount(2, HeightRangePlacement.uniform(VerticalAnchor.absolute(-54), VerticalAnchor.absolute(64)))
 		);
 
-		POOL_STONE_MESOGLEA_CAVES.makeAndSetHolder(WWCaveFeatures.POOL_STONE,
+		POOL_MESOGLEA_CAVES.makeAndSetHolder(WWCaveFeatures.POOL_MESOGLEA_CAVES,
 			modifiersWithCount(
 				60,
 				HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.top()),

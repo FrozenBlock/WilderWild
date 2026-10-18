@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:noise",
+  "noise": {
+    "base_amplitude": 0.955388882960065,
+    "base_octave": 0
+  },
+  "scale": 0.054833334,
+  "seed": 1234,
+  "states": [
+    "minecraft:lily_of_the_valley",
+    "minecraft:dandelion",
+    "minecraft:poppy",
+    "wilderwild:carnation",
+    "minecraft:blue_orchid"
+  ]
+}

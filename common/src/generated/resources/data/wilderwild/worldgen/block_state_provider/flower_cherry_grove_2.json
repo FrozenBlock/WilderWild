@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:seeding_dandelion",
+      "weight": 3
+    },
+    {
+      "data": "minecraft:azure_bluet",
+      "weight": 1
+    }
+  ]
+}

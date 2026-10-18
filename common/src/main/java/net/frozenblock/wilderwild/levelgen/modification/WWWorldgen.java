@@ -97,30 +97,6 @@ public final class WWWorldgen {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 				generationSettings.removeFeature(WWPlacedFeatures.FALLEN_TREES_MIXED_PLACED.getKey());
 			});
-
-		BiomeModifications.create(WWConstants.id("flowers_rainforest")).add(
-			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWBiomes.RAINFOREST),
-			context -> {
-				if (!WWWorldgenConfig.FLOWER_GENERATION.get()) return;
-				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				generationSettings.removeFeature(WWPlacedFeatures.FLOWER_RAINFOREST_VANILLA.getKey());
-				generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_RAINFOREST_VANILLA.getKey());
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_RAINFOREST.getKey());
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_FLOWER_RAINFOREST.getKey());
-			});
-
-		BiomeModifications.create(WWConstants.id("flowers_temperate_rainforest")).add(
-			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.includeByKey(WWBiomes.TEMPERATE_RAINFOREST),
-			context -> {
-				if (!WWWorldgenConfig.FLOWER_GENERATION.get()) return;
-				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				generationSettings.removeFeature(WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
-				generationSettings.removeFeature(WWPlacedFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey());
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
-				generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST.getKey());
-			});
 	}
 
 	private static void replaceFeatures() {
@@ -394,7 +370,8 @@ public final class WWWorldgen {
 
 		BiomeModifications.create(WWConstants.id("replace_meadow_trees")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWBiomeTags.MEADOW),
+			// TODO: meadow trees tag
+			BiomeSelectors.includeByKey(Biomes.MEADOW),
 			context -> {
 				if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();

@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:noise_threshold",
+  "default_state": "minecraft:dandelion",
+  "high_chance": 0.33333334,
+  "high_states": [
+    "minecraft:poppy",
+    "minecraft:poppy",
+    "minecraft:poppy",
+    "minecraft:poppy",
+    "minecraft:azure_bluet",
+    "minecraft:azure_bluet",
+    "minecraft:azure_bluet",
+    "minecraft:azure_bluet",
+    "minecraft:oxeye_daisy",
+    "minecraft:oxeye_daisy",
+    "minecraft:oxeye_daisy",
+    "minecraft:oxeye_daisy",
+    "minecraft:cornflower",
+    "minecraft:cornflower",
+    "minecraft:cornflower",
+    "minecraft:cornflower",
+    "wilderwild:seeding_dandelion"
+  ],
+  "low_states": [
+    "minecraft:orange_tulip",
+    "minecraft:orange_tulip",
+    "minecraft:red_tulip",
+    "minecraft:red_tulip",
+    "minecraft:pink_tulip",
+    "minecraft:pink_tulip",
+    "minecraft:white_tulip",
+    "minecraft:white_tulip",
+    "minecraft:poppy",
+    "minecraft:azure_bluet",
+    "minecraft:oxeye_daisy",
+    "minecraft:cornflower",
+    "wilderwild:seeding_dandelion"
+  ],
+  "noise": {
+    "base_amplitude": 0.955388882960065,
+    "base_octave": 0
+  },
+  "scale": 0.005,
+  "seed": 2345,
+  "threshold": -0.6
+}

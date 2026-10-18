@@ -26,9 +26,11 @@ import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWCaveFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWFlowerFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -41,6 +43,7 @@ public final class WWFeatureBootstrap {
 
 		WWAquaticFeatures.bootstrap(context);
 		WWCaveFeatures.bootstrap(context);
+		WWFlowerFeatures.bootstrap(context);
 		WWTreeFeatures.bootstrap(context);
 
 		WWMiscConfigured.registerMiscConfigured(context);
@@ -53,6 +56,7 @@ public final class WWFeatureBootstrap {
 
 		WWAquaticPlacements.bootstrap(context);
 		WWCavePlacements.bootstrap(context);
+		WWFlowerPlacements.bootstrap(context);
 		WWTreePlacements.bootstrap(context);
 
 		WWMiscPlaced.registerMiscPlaced(context);

@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -121,6 +122,8 @@ public final class SnowyDyingMixedForest extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
 		BiomeDefaultFeatures.addSnowyTrees(features);
+		//BiomeDefaultFeatures.addDefaultFlowers(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.FLOWER_DEFAULT_WITH_SEEDING_DANDELION.getKey());
 		BiomeDefaultFeatures.addDefaultGrass(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH_2);

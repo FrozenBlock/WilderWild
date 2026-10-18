@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "minecraft:rose_bush",
+      "weight": 3
+    },
+    {
+      "data": "minecraft:red_tulip",
+      "weight": 2
+    },
+    {
+      "data": "minecraft:poppy",
+      "weight": 8
+    },
+    {
+      "data": "wilderwild:seeding_dandelion",
+      "weight": 1
+    }
+  ]
+}

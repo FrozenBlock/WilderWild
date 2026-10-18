@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:pasqueflower",
+      "weight": 8
+    },
+    {
+      "data": "minecraft:poppy",
+      "weight": 3
+    }
+  ]
+}

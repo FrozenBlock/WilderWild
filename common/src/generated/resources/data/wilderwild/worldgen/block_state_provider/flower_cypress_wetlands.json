@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:rule_based",
+  "fallback": {
+    "type": "minecraft:noise",
+    "noise": {
+      "base_amplitude": 0.955388882960065,
+      "base_octave": 0
+    },
+    "scale": 0.043333333,
+    "seed": 2345,
+    "states": [
+      "minecraft:lily_of_the_valley",
+      "minecraft:dandelion",
+      "minecraft:poppy",
+      "minecraft:blue_orchid"
+    ]
+  },
+  "rules": [
+    {
+      "if_true": {
+        "type": "frozenlib:config_predicate",
+        "config_predicate": {
+          "type": "frozenlib:equal_to",
+          "entry": "wilderwild:worldgen/vegetation/flowerGeneration",
+          "target": true
+        }
+      },
+      "then": {
+        "type": "minecraft:noise",
+        "noise": {
+          "base_amplitude": 0.955388882960065,
+          "base_octave": 0
+        },
+        "scale": 0.043333333,
+        "seed": 2345,
+        "states": [
+          "minecraft:lily_of_the_valley",
+          "minecraft:dandelion",
+          "minecraft:poppy",
+          "wilderwild:carnation",
+          "minecraft:blue_orchid"
+        ]
+      }
+    }
+  ]
+}

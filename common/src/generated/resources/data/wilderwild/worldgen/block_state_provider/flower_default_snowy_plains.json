@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:seeding_dandelion",
+      "weight": 4
+    },
+    {
+      "data": "minecraft:poppy",
+      "weight": 3
+    }
+  ]
+}

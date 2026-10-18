@@ -17,10 +17,6 @@
 
 package net.frozenblock.wilderwild.client;
 
-import net.frozenblock.lib.entity.client.api.renderer.entity.EntityTextureOverride;
-import net.frozenblock.lib.platform.api.registry.DeferredRegister;
-import net.frozenblock.lib.registry.client.FrozenLibClientRegistries;
-import net.frozenblock.wilderwild.WWConstants;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
 @ClientOnly
@@ -28,10 +24,12 @@ public final class WWEasterEggs {
 
 	// TODO: wait for Fabric API to add support for client registries
 	public static void hatchEasterEggs() {
+		/*
 		final DeferredRegister<EntityTextureOverride<?, ?>> register = DeferredRegister.create(
 			FrozenLibClientRegistries.ENTITY_TEXTURE_OVERRIDE,
 			WWConstants.MOD_ID
 		);
+		 */
 
 		/*
 		register.register(
@@ -89,7 +87,7 @@ public final class WWEasterEggs {
 		);
 		 */
 
-		register.register();
+		//register.register();
 	}
 
 	private WWEasterEggs() {}

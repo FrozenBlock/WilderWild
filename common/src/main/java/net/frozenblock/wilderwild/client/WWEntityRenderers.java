@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.client;
 
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.entity.ButterflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
@@ -43,7 +44,7 @@ import net.minecraft.world.entity.EntityType;
 public final class WWEntityRenderers {
 
 	public static void init() {
-		final DeferredRegister<EntityRendererProvider<?>> register = DeferredRegister.create(
+		final DeferredRegister<EntityRendererProvider<?>> register = ClientRegistryHelper.createDeferredRegister(
 			ClientRegistries.ENTITY_RENDERER,
 			WWConstants.MOD_ID
 		);

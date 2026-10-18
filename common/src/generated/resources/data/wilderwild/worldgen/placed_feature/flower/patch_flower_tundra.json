@@ -1,0 +1,38 @@
+{
+  "feature": "wilderwild:flower/patch_flower_tundra",
+  "placement": [
+    {
+      "type": "minecraft:noise_threshold_count",
+      "above_noise": 1,
+      "below_noise": 2,
+      "noise_level": -0.7
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 6
+    },
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:clamped",
+        "max_inclusive": 1,
+        "min_inclusive": 0,
+        "source": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 4,
+          "min_inclusive": 0
+        }
+      }
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

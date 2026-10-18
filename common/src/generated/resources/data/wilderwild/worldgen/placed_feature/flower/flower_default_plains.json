@@ -1,0 +1,57 @@
+{
+  "feature": "wilderwild:flower/flower_default_plains",
+  "placement": [
+    {
+      "type": "minecraft:noise_threshold_count",
+      "above_noise": 4,
+      "below_noise": 1,
+      "noise_level": -0.8
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 32
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 16
+    },
+    {
+      "type": "minecraft:offset",
+      "x": {
+        "type": "minecraft:trapezoid",
+        "max": 4,
+        "min": -4,
+        "plateau": 0
+      },
+      "y": {
+        "type": "minecraft:trapezoid",
+        "max": 2,
+        "min": -2,
+        "plateau": 0
+      },
+      "z": {
+        "type": "minecraft:trapezoid",
+        "max": 4,
+        "min": -4,
+        "plateau": 0
+      }
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "minecraft:air"
+      }
+    }
+  ]
+}

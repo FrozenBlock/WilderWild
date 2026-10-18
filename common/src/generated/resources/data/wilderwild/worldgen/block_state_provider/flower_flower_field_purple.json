@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:carnation",
+      "weight": 6
+    },
+    {
+      "data": "minecraft:allium",
+      "weight": 3
+    },
+    {
+      "data": "wilderwild:seeding_dandelion",
+      "weight": 1
+    }
+  ]
+}

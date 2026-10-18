@@ -1,9 +1,0 @@
-{
-  "values": [
-    "minecraft:swamp",
-    {
-      "id": "wilderwild:dying_forest",
-      "required": false
-    }
-  ]
-}

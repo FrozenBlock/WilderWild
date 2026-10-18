@@ -326,7 +326,6 @@ public final class WWConfiguredFeatures {
 	public static final FrozenLibFeature FLOWER_JUNGLE = register("flower_jungle");
 	public static final FrozenLibFeature TALL_FLOWER_JUNGLE = register("tall_flower_jungle");
 	public static final FrozenLibFeature TALL_FLOWER_FLOWER_FIELD = register("tall_flower_flower_field");
-	public static final FrozenLibFeature FLOWER_CHERRY = register("flower_cherry");
 	public static final FrozenLibFeature FLOWER_SUNFLOWER_PLAINS = register("flower_sunflower_plains");
 	public static final FrozenLibFeature FLOWER_FOREST_CLEARING = register("flower_forest_clearing");
 
@@ -2638,7 +2637,7 @@ public final class WWConfiguredFeatures {
 			)
 		);
 
-		FLOWER_CYPRESS_WETLANDS.makeAndSetHolder(
+			FLOWER_CYPRESS_WETLANDS.makeAndSetHolder(
 			new SimpleBlockFeature(
 				new NoiseProvider(
 					5050L,
@@ -2946,17 +2945,6 @@ public final class WWConfiguredFeatures {
 						OffsetPlacement.ofTriangle(7, 3),
 						BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 					)
-				)
-			)
-		);
-
-		FLOWER_CHERRY.makeAndSetHolder(
-			new SimpleBlockFeature(
-				new WeightedStateProvider(
-					WeightedList.<BlockState>builder()
-						.add(Blocks.POPPY.defaultBlockState(), 9)
-						.add(Blocks.PINK_TULIP.defaultBlockState(), 5)
-						.build()
 				)
 			)
 		);
