@@ -2,6 +2,22 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
+      "data": "wilderwild:flower/patch_flower_default_64_large",
+      "weight": 1
+    },
+    {
+      "data": "wilderwild:flower/patch_blue_orchid_48",
+      "weight": 1
+    },
+    {
+      "data": "wilderwild:flower/patch_lily_of_the_valley_48",
+      "weight": 2
+    },
+    {
+      "data": "wilderwild:flower/patch_rose_bush_48_large",
+      "weight": 2
+    },
+    {
       "data": {
         "feature": "wilderwild:flower/flower_jungle",
         "placement": [
@@ -42,270 +58,11 @@
       "weight": 3
     },
     {
-      "data": {
-        "feature": {
-          "type": "minecraft:simple_block",
-          "to_place": {
-            "id": "minecraft:lily_of_the_valley"
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 48
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 2
-    },
-    {
-      "data": {
-        "feature": {
-          "type": "minecraft:simple_block",
-          "to_place": {
-            "id": "minecraft:rose_bush",
-            "properties": {
-              "half": "lower"
-            }
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 48
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 7,
-              "min": -7,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 3,
-              "min": -3,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 7,
-              "min": -7,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 2
-    },
-    {
-      "data": {
-        "feature": {
-          "type": "minecraft:simple_block",
-          "to_place": {
-            "id": "wilderwild:milkweed",
-            "properties": {
-              "age": "0",
-              "half": "lower"
-            }
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 64
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
+      "data": "wilderwild:flower/patch_milkweed_64",
       "weight": 4
     },
     {
-      "data": {
-        "feature": {
-          "type": "minecraft:simple_block",
-          "to_place": {
-            "id": "minecraft:blue_orchid"
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 48
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 1
-    },
-    {
-      "data": {
-        "feature": "minecraft:flower_default",
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 64
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 7,
-              "min": -7,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 3,
-              "min": -3,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 7,
-              "min": -7,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 1
-    },
-    {
-      "data": {
-        "feature": "wilderwild:flower/hibiscus",
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 72
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
+      "data": "wilderwild:flower/patch_hibiscus_72",
       "weight": 6
     }
   ]

@@ -8,7 +8,7 @@
   "feature_if_true": {
     "feature": {
       "type": "minecraft:simple_block",
-      "to_place": "wilderwild:flower_default_with_seeding_dandelion"
+      "to_place": "wilderwild:flower/default_with_seeding_dandelion"
     },
     "placement": []
   }

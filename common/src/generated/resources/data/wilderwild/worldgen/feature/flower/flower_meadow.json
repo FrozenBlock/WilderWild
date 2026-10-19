@@ -1,4 +1,4 @@
 {
   "type": "minecraft:simple_block",
-  "to_place": "wilderwild:flower_meadow"
+  "to_place": "wilderwild:flower/flower_meadow"
 }

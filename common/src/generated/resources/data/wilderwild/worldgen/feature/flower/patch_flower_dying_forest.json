@@ -2,94 +2,12 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "data": {
-        "feature": {
-          "type": "minecraft:simple_block",
-          "to_place": {
-            "id": "wilderwild:marigold"
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 46
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 5
+      "data": "wilderwild:flower/patch_seeding_dandelion_38",
+      "weight": 3
     },
     {
-      "data": {
-        "feature": {
-          "type": "minecraft:simple_block",
-          "to_place": {
-            "id": "wilderwild:seeding_dandelion"
-          }
-        },
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 38
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 3
+      "data": "wilderwild:flower/patch_marigold_46",
+      "weight": 5
     }
   ]
 }

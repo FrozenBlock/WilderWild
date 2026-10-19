@@ -42,54 +42,53 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import java.util.List;
 
 public final class WWBlockStateProviders {
-	public static final ResourceKey<BlockStateProvider> HIBISCUS = bind("hibiscus");
+	public static final ResourceKey<BlockStateProvider> FLOWER_HIBISCUS = bind("flower/hibiscus");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_WITH_SEEDING_DANDELION = bind("flower_default_with_seeding_dandelion");
-	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_PLAINS = bind("flower_default_plains");
-	public static final ResourceKey<BlockStateProvider> FLOWER_PLAINS = bind("flower_plains");
-	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_SNOWY_PLAINS = bind("flower_default_snowy_plains");
-	public static final ResourceKey<BlockStateProvider> SEEDING_DANDELION_AND_DANDELION_SUNFLOWER_PLAINS = bind("seeding_dandelion_and_dandelion_sunflower_plains");
-	public static final ResourceKey<BlockStateProvider> FLOWER_SUNFLOWER_PLAINS = bind("flower_sunflower_plains");
-	public static final ResourceKey<BlockStateProvider> FLOWER_SUNFLOWER_PLAINS_PINK = bind("flower_sunflower_plains_pink");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_RED = bind("flower_flower_field_red");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_RED_TALL = bind("flower_flower_field_red_tall");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PINK = bind("flower_flower_field_pink");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PINK_TALL_1 = bind("flower_flower_field_pink_tall_1");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PINK_TALL_2 = bind("flower_flower_field_pink_tall_2");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_ORANGE = bind("flower_flower_field_orange");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_ORANGE_TALL = bind("flower_flower_field_orange_tall");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_YELLOW = bind("flower_flower_field_yellow");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_WHITE = bind("flower_flower_field_white");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_BLUE = bind("flower_flower_field_blue");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PURPLE = bind("flower_flower_field_purple");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PURPLE_TALL = bind("flower_flower_field_purple_tall");
+	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_WITH_SEEDING_DANDELION = bind("flower/default_with_seeding_dandelion");
+	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_PLAINS = bind("flower/default_plains");
+	public static final ResourceKey<BlockStateProvider> FLOWER_PLAINS = bind("flower/plains");
+	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_SNOWY_PLAINS = bind("flower/default_snowy_plains");
+	public static final ResourceKey<BlockStateProvider> SEEDING_DANDELION_AND_DANDELION_SUNFLOWER_PLAINS = bind("flower/seeding_dandelion_and_dandelion_sunflower_plains");
+	public static final ResourceKey<BlockStateProvider> FLOWER_SUNFLOWER_PLAINS = bind("flower/sunflower_plains");
+	public static final ResourceKey<BlockStateProvider> FLOWER_SUNFLOWER_PLAINS_PINK = bind("flower/sunflower_plains_pink");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_RED = bind("flower/flower_field_red");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_RED_TALL = bind("flower/flower_field_red_tall");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PINK = bind("flower/flower_field_pink");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PINK_TALL_1 = bind("flower/flower_field_pink_tall_1");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PINK_TALL_2 = bind("flower/flower_field_pink_tall_2");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_ORANGE = bind("flower/flower_field_orange");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_ORANGE_TALL = bind("flower/flower_field_orange_tall");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_YELLOW = bind("flower/flower_field_yellow");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_WHITE = bind("flower/flower_field_white");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_BLUE = bind("flower/flower_field_blue");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PURPLE = bind("flower/flower_field_purple");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PURPLE_TALL = bind("flower/flower_field_purple_tall");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_FOREST = bind("flower_forest");
-	public static final ResourceKey<BlockStateProvider> FLOWER_RAINFOREST = bind("flower_rainforest");
-	public static final ResourceKey<BlockStateProvider> FLOWER_TEMPERATE_RAINFOREST = bind("flower_temperate_rainforest");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FOREST_1 = bind("flower_flower_forest_1");
-	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FOREST_2 = bind("flower_flower_forest_2");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FOREST = bind("flower/forest");
+	public static final ResourceKey<BlockStateProvider> FLOWER_RAINFOREST = bind("flower/rainforest");
+	public static final ResourceKey<BlockStateProvider> FLOWER_TEMPERATE_RAINFOREST = bind("flower/temperate_rainforest");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FOREST_1 = bind("flower/flower_forest_1");
+	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FOREST_2 = bind("flower/flower_forest_2");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_DARK_FOREST = bind("flower_dark_forest");
-	public static final ResourceKey<BlockStateProvider> FLOWER_DARK_TAIGA = bind("flower_dark_taiga");
+	public static final ResourceKey<BlockStateProvider> FLOWER_DARK_FOREST = bind("flower/dark_forest");
+	public static final ResourceKey<BlockStateProvider> FLOWER_DARK_TAIGA = bind("flower/dark_taiga");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_JUNGLE = bind("flower_jungle");
+	public static final ResourceKey<BlockStateProvider> FLOWER_JUNGLE = bind("flower/jungle");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_CYPRESS_WETLANDS = bind("flower_cypress_wetlands");
+	public static final ResourceKey<BlockStateProvider> FLOWER_CYPRESS_WETLANDS = bind("flower/cypress_wetlands");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_CHERRY_GROVE_1 = bind("flower_cherry_grove_1");
-	public static final ResourceKey<BlockStateProvider> FLOWER_CHERRY_GROVE_2 = bind("flower_cherry_grove_2");
+	public static final ResourceKey<BlockStateProvider> FLOWER_CHERRY_GROVE_1 = bind("flower/cherry_grove_1");
+	public static final ResourceKey<BlockStateProvider> FLOWER_CHERRY_GROVE_2 = bind("flower/cherry_grove_2");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_MAPLE_FOREST = bind("flower_maple_forest");
-	public static final ResourceKey<BlockStateProvider> POPPY_AND_PASQUEFLOWER = bind("poppy_and_pasqueflower");
-	public static final ResourceKey<BlockStateProvider> MARIGOLD_AND_PASQUEFLOWER = bind("marigold_and_pasqueflower");
-	public static final ResourceKey<BlockStateProvider> MARIGOLD_AND_SEEDING_DANDELION = bind("marigold_and_seeding_dandelion");
-	public static final ResourceKey<BlockStateProvider> PASQUEFLOWER_AND_POPPY = bind("pasqueflower_and_poppy");
-	public static final ResourceKey<BlockStateProvider> AZURE_BLUET_AND_SEEDING_DANDELION = bind("azure_bluet_and_seeding_dandelion");
-	public static final ResourceKey<BlockStateProvider> POPPY_AND_MARIGOLD = bind("poppy_and_marigold");
+	public static final ResourceKey<BlockStateProvider> FLOWER_MAPLE_FOREST = bind("flower/maple_forest");
+	public static final ResourceKey<BlockStateProvider> FLOWER_POPPY_AND_PASQUEFLOWER = bind("flower/poppy_and_pasqueflower");
+	public static final ResourceKey<BlockStateProvider> FLOWER_MARIGOLD_AND_PASQUEFLOWER = bind("flower/marigold_and_pasqueflower");
+	public static final ResourceKey<BlockStateProvider> FLOWER_MARIGOLD_AND_SEEDING_DANDELION = bind("flower/marigold_and_seeding_dandelion");
+	public static final ResourceKey<BlockStateProvider> FLOWER_PASQUEFLOWER_AND_POPPY = bind("flower/pasqueflower_and_poppy");
+	public static final ResourceKey<BlockStateProvider> FLOWER_AZURE_BLUET_AND_SEEDING_DANDELION = bind("flower/azure_bluet_and_seeding_dandelion");
+	public static final ResourceKey<BlockStateProvider> FLOWER_POPPY_AND_MARIGOLD = bind("flower/poppy_and_marigold");
 
-	public static final ResourceKey<BlockStateProvider> FLOWER_MEADOW = bind("flower_meadow");
-
+	public static final ResourceKey<BlockStateProvider> FLOWER_MEADOW = bind("flower/flower_meadow");
 
 	public static final ResourceKey<BlockStateProvider> BAOBAB_NUT = bind("baobab_nut");
 	public static final ResourceKey<BlockStateProvider> COCONUT = bind("coconut");
@@ -98,7 +97,7 @@ public final class WWBlockStateProviders {
 
 	public static void bootstrap(BootstrapContext<BlockStateProvider> context) {
 		context.register(
-			HIBISCUS,
+			FLOWER_HIBISCUS,
 			new NoiseProvider(
 				1234L,
 				NormalNoise.createParity(0, 1D),
@@ -589,7 +588,7 @@ public final class WWBlockStateProviders {
 		);
 
 		context.register(
-			POPPY_AND_PASQUEFLOWER,
+			FLOWER_POPPY_AND_PASQUEFLOWER,
 			new WeightedStateProvider(
 				WeightedList.<BlockState>builder()
 					.add(Blocks.POPPY.defaultBlockState(), 8)
@@ -598,7 +597,7 @@ public final class WWBlockStateProviders {
 		);
 
 		context.register(
-			MARIGOLD_AND_PASQUEFLOWER,
+			FLOWER_MARIGOLD_AND_PASQUEFLOWER,
 			new WeightedStateProvider(
 				WeightedList.<BlockState>builder()
 					.add(WWBlocks.MARIGOLD.get().defaultBlockState(), 8)
@@ -607,7 +606,7 @@ public final class WWBlockStateProviders {
 		);
 
 		context.register(
-			MARIGOLD_AND_SEEDING_DANDELION,
+			FLOWER_MARIGOLD_AND_SEEDING_DANDELION,
 			new WeightedStateProvider(
 				WeightedList.<BlockState>builder()
 					.add(WWBlocks.MARIGOLD.get().defaultBlockState(), 8)
@@ -616,7 +615,7 @@ public final class WWBlockStateProviders {
 		);
 
 		context.register(
-			PASQUEFLOWER_AND_POPPY,
+			FLOWER_PASQUEFLOWER_AND_POPPY,
 			new WeightedStateProvider(
 				WeightedList.<BlockState>builder()
 					.add(WWBlocks.PASQUEFLOWER.get().defaultBlockState(), 8)
@@ -625,7 +624,7 @@ public final class WWBlockStateProviders {
 		);
 
 		context.register(
-			AZURE_BLUET_AND_SEEDING_DANDELION,
+			FLOWER_AZURE_BLUET_AND_SEEDING_DANDELION,
 			new WeightedStateProvider(
 				WeightedList.<BlockState>builder()
 					.add(Blocks.AZURE_BLUET.defaultBlockState(), 2)
@@ -634,7 +633,7 @@ public final class WWBlockStateProviders {
 		);
 
 		context.register(
-			POPPY_AND_MARIGOLD,
+			FLOWER_POPPY_AND_MARIGOLD,
 			new WeightedStateProvider(
 				WeightedList.<BlockState>builder()
 					.add(Blocks.POPPY.defaultBlockState(), 7)

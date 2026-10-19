@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWFlowerFeatures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FeatureTags;
@@ -36,46 +37,63 @@ public final class WWFeatureTagsProvider extends FabricTagsProvider<Feature> {
 	public void addTags(HolderLookup.Provider arg) {
 		this.builder(FeatureTags.CAN_SPAWN_FROM_BONE_MEAL)
 			.add(WWConfiguredFeatures.CLOVER.getKey())
-			.add(WWConfiguredFeatures.PHLOX.getKey())
-			.add(WWConfiguredFeatures.LANTANAS.getKey())
-			.add(WWConfiguredFeatures.WILDFLOWERS.getKey())
-			.add(WWConfiguredFeatures.WILDFLOWERS_AND_PHLOX.getKey())
-			.add(WWConfiguredFeatures.WILDFLOWERS_AND_LANTANAS.getKey())
-			.add(WWConfiguredFeatures.LANTANAS_AND_PHLOX.getKey())
-			.add(WWConfiguredFeatures.SEEDING_DANDELION.getKey())
-			.add(WWConfiguredFeatures.CARNATION.getKey())
-			.add(WWConfiguredFeatures.MARIGOLD.getKey())
-			.add(WWConfiguredFeatures.PINK_TULIP.getKey())
-			.add(WWConfiguredFeatures.ALLIUM.getKey())
-			.add(WWConfiguredFeatures.DATURA.getKey())
-			.add(WWConfiguredFeatures.ROSE_BUSH.getKey())
-			.add(WWConfiguredFeatures.PEONY.getKey())
-			.add(WWConfiguredFeatures.LILAC.getKey())
-			.add(WWConfiguredFeatures.FLOWER_GENERIC.getKey())
-			.add(WWConfiguredFeatures.FLOWER_GENERIC_NO_CARNATION.getKey())
-			.add(WWConfiguredFeatures.FLOWER_PLAINS.getKey())
-			.add(WWConfiguredFeatures.FLOWER_SNOWY_PLAINS.getKey())
-			.add(WWConfiguredFeatures.FLOWER_TUNDRA.getKey())
-			.add(WWConfiguredFeatures.FLOWER_DAPPLED_FOREST.getKey())
-			.add(WWConfiguredFeatures.FLOWER_BIRCH.getKey())
-			.add(WWConfiguredFeatures.FLOWER_MEADOW.getKey())
-			.add(WWConfiguredFeatures.MILKWEED.getKey())
-			.add(WWConfiguredFeatures.HIBISCUS.getKey())
-			.add(WWConfiguredFeatures.FLOWER_FLOWER_FIELD.getKey())
-			.add(WWConfiguredFeatures.FLOWER_CYPRESS_WETLANDS.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_CYPRESS_WETLANDS.getKey())
-			.add(WWConfiguredFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST.getKey())
-			.add(WWConfiguredFeatures.FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_TEMPERATE_RAINFOREST_VANILLA.getKey())
-			.add(WWConfiguredFeatures.FLOWER_RAINFOREST.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_RAINFOREST.getKey())
-			.add(WWConfiguredFeatures.FLOWER_RAINFOREST_VANILLA.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_RAINFOREST_VANILLA.getKey())
-			.add(WWConfiguredFeatures.FLOWER_JUNGLE.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_JUNGLE.getKey())
-			.add(WWConfiguredFeatures.TALL_FLOWER_FLOWER_FIELD.getKey())
-			.add(WWConfiguredFeatures.FLOWER_SUNFLOWER_PLAINS.getKey())
-			.add(WWConfiguredFeatures.FLOWER_FOREST_CLEARING.getKey());
+			.add(WWFlowerFeatures.ALLIUM.getKey())
+			.add(WWFlowerFeatures.AZURE_BLUET.getKey())
+			.add(WWFlowerFeatures.BLUE_ORCHID.getKey())
+			.add(WWFlowerFeatures.CARNATION.getKey())
+			.add(WWFlowerFeatures.DANDELION.getKey())
+			.add(WWFlowerFeatures.EYEBLOSSOM.getKey())
+			.add(WWFlowerFeatures.LILY_OF_THE_VALLEY.getKey())
+			.add(WWFlowerFeatures.MARIGOLD.getKey())
+			.add(WWFlowerFeatures.POPPY.getKey())
+			.add(WWFlowerFeatures.SEEDING_DANDELION.getKey())
+
+			.add(WWFlowerFeatures.HIBISCUS.getKey())
+			.add(WWFlowerFeatures.POPPY_AND_PASQUEFLOWER.getKey())
+			.add(WWFlowerFeatures.MARIGOLD_AND_PASQUEFLOWER.getKey())
+			.add(WWFlowerFeatures.MARIGOLD_AND_SEEDING_DANDELION.getKey())
+			.add(WWFlowerFeatures.PASQUEFLOWER_AND_POPPY.getKey())
+			.add(WWFlowerFeatures.AZURE_BLUET_AND_SEEDING_DANDELION.getKey())
+			.add(WWFlowerFeatures.POPPY_AND_MARIGOLD.getKey())
+
+			.add(WWFlowerFeatures.LANTANAS.getKey())
+			.add(WWFlowerFeatures.PHLOX.getKey())
+			.add(WWFlowerFeatures.WILDFLOWERS.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_DEFAULT_WITH_SEEDING_DANDELION.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_DEFAULT_PLAINS.getKey())
+			.add(WWFlowerFeatures.FLOWER_PLAINS.getKey())
+			.add(WWFlowerFeatures.FLOWER_DEFAULT_SNOWY_PLAINS.getKey())
+
+			.add(WWFlowerFeatures.SEEDING_DANDELION_AND_DANDELION_SUNFLOWER_PLAINS.getKey())
+			.add(WWFlowerFeatures.FLOWER_SUNFLOWER_PLAINS.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_RED.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_PINK.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_ORANGE.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_YELLOW.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_WHITE.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_BLUE.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FIELD_PURPLE.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_FOREST.getKey())
+			.add(WWFlowerFeatures.FLOWER_RAINFOREST.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FOREST_1.getKey())
+			.add(WWFlowerFeatures.FLOWER_FLOWER_FOREST_2.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_DARK_FOREST.getKey())
+			.add(WWFlowerFeatures.FLOWER_DARK_TAIGA.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_JUNGLE.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_CHERRY_GROVE_1.getKey())
+			.add(WWFlowerFeatures.FLOWER_CHERRY_GROVE_2.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_MAPLE_FOREST.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_MEADOW.getKey())
+
+			.add(WWFlowerFeatures.FLOWER_TEMPERATE_RAINFOREST.getKey());
 	}
 }

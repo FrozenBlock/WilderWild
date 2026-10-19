@@ -1,4 +1,4 @@
 {
   "type": "minecraft:simple_block",
-  "to_place": "wilderwild:hibiscus"
+  "to_place": "wilderwild:flower/hibiscus"
 }

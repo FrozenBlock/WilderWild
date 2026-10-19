@@ -1,4 +1,4 @@
 {
   "type": "minecraft:simple_block",
-  "to_place": "wilderwild:flower_dark_forest"
+  "to_place": "wilderwild:flower/dark_forest"
 }

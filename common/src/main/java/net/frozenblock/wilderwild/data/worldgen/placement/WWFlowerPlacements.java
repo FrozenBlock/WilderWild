@@ -28,9 +28,11 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.features.WWFlowerFeatures;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
@@ -53,6 +55,82 @@ import org.jetbrains.annotations.Nullable;
 public final class WWFlowerPlacements {
 
 	public static final FrozenLibPlacedFeature FLOWER_DEFAULT_WITH_SEEDING_DANDELION = register("flower_default_with_seeding_dandelion");
+
+	// PATCH
+	public static final FrozenLibPlacedFeature PATCH_FLOWER_DEFAULT_64_LARGE = register("patch_flower_default_64_large");
+
+	public static final FrozenLibPlacedFeature PATCH_ALLIUM_42 = register("patch_allium_42");
+
+	public static final FrozenLibPlacedFeature PATCH_AZURE_BLUET_52_LARGE = register("patch_azure_bluet_52_large");
+
+	public static final FrozenLibPlacedFeature PATCH_BLUE_ORCHID_36 = register("patch_blue_orchid_36");
+	public static final FrozenLibPlacedFeature PATCH_BLUE_ORCHID_48 = register("patch_blue_orchid_48");
+
+	public static final FrozenLibPlacedFeature PATCH_CARNATION_38 = register("patch_carnation_38");
+	public static final FrozenLibPlacedFeature PATCH_CARNATION_42 = register("patch_carnation_42");
+	public static final FrozenLibPlacedFeature PATCH_CARNATION_52 = register("patch_carnation_52");
+
+	public static final FrozenLibPlacedFeature PATCH_DANDELION_72_LARGE = register("patch_dandelion_72_large");
+
+	public static final FrozenLibPlacedFeature PATCH_LILY_OF_THE_VALLEY_38 = register("patch_lily_of_the_valley_38");
+	public static final FrozenLibPlacedFeature PATCH_LILY_OF_THE_VALLEY_42 = register("patch_lily_of_the_valley_42");
+	public static final FrozenLibPlacedFeature PATCH_LILY_OF_THE_VALLEY_48 = register("patch_lily_of_the_valley_48");
+
+	public static final FrozenLibPlacedFeature PATCH_POPPY_32_LARGE = register("patch_poppy_32_large");
+	public static final FrozenLibPlacedFeature PATCH_POPPY_38_LARGE = register("patch_poppy_38_large");
+	public static final FrozenLibPlacedFeature PATCH_POPPY_48_LARGE = register("patch_poppy_48_large");
+
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_32 = register("patch_marigold_32");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_42 = register("patch_marigold_42");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_46 = register("patch_marigold_46");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_52 = register("patch_marigold_52");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_32_LARGE = register("patch_marigold_32_large");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_38_LARGE = register("patch_marigold_38_large");
+
+	public static final FrozenLibPlacedFeature PATCH_SEEDING_DANDELION_32 = register("patch_seeding_dandelion_32");
+	public static final FrozenLibPlacedFeature PATCH_SEEDING_DANDELION_38 = register("patch_seeding_dandelion_38");
+	public static final FrozenLibPlacedFeature PATCH_SEEDING_DANDELION_42 = register("patch_seeding_dandelion_42");
+	public static final FrozenLibPlacedFeature PATCH_SEEDING_DANDELION_48 = register("patch_seeding_dandelion_48");
+	public static final FrozenLibPlacedFeature PATCH_SEEDING_DANDELION_52 = register("patch_seeding_dandelion_52");
+	public static final FrozenLibPlacedFeature PATCH_SEEDING_DANDELION_72_LARGE = register("patch_seeding_dandelion_72_large");
+
+	public static final FrozenLibPlacedFeature PATCH_HIBISCUS_32 = register("patch_hibiscus_32");
+	public static final FrozenLibPlacedFeature PATCH_HIBISCUS_72 = register("patch_hibiscus_72");
+
+	public static final FrozenLibPlacedFeature PATCH_POPPY_AND_PASQUEFLOWER_36 = register("patch_poppy_and_pasqueflower_36");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_AND_PASQUEFLOWER_36 = register("patch_marigold_and_pasqueflower_36");
+	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_AND_SEEDING_DANDELION_36 = register("patch_marigold_and_seeding_dandelion_36");
+	public static final FrozenLibPlacedFeature PATCH_PASQUEFLOWER_AND_POPPY_36 = register("patch_pasqueflower_and_poppy_36");
+	public static final FrozenLibPlacedFeature PATCH_AZURE_BLUET_AND_SEEDING_DANDELION_64_LARGE = register("patch_azure_bluet_and_seeding_dandelion_64_large");
+	public static final FrozenLibPlacedFeature PATCH_POPPY_AND_MARIGOLD_64_LARGE = register("patch_poppy_and_marigold_64_large");
+
+	public static final FrozenLibPlacedFeature PATCH_DATURA_32 = register("patch_datura_32");
+	public static final FrozenLibPlacedFeature PATCH_DATURA_38 = register("patch_datura_38");
+	public static final FrozenLibPlacedFeature PATCH_DATURA_42 = register("patch_datura_42");
+
+	public static final FrozenLibPlacedFeature PATCH_LILAC_38 = register("patch_lilac_38");
+	public static final FrozenLibPlacedFeature PATCH_LILAC_38_LARGE = register("patch_lilac_38_large");
+	public static final FrozenLibPlacedFeature PATCH_LILAC_48_LARGE = register("patch_lilac_48_large");
+	public static final FrozenLibPlacedFeature PATCH_LILAC_52_LARGE = register("patch_lilac_52_large");
+	public static final FrozenLibPlacedFeature PATCH_LILAC_64_LARGE = register("patch_lilac_64_large");
+
+	public static final FrozenLibPlacedFeature PATCH_MILKWEED_42 = register("patch_milkweed_42");
+	public static final FrozenLibPlacedFeature PATCH_MILKWEED_64 = register("patch_milkweed_64");
+	public static final FrozenLibPlacedFeature PATCH_MILKWEED_48_LARGE = register("patch_milkweed_48_large");
+	public static final FrozenLibPlacedFeature PATCH_MILKWEED_52_LARGE = register("patch_milkweed_52_large");
+
+	public static final FrozenLibPlacedFeature PATCH_PEONY_38 = register("patch_peony_38");
+	public static final FrozenLibPlacedFeature PATCH_PEONY_42_LARGE = register("patch_peony_42_large");
+	public static final FrozenLibPlacedFeature PATCH_PEONY_48_LARGE = register("patch_peony_48_large");
+	public static final FrozenLibPlacedFeature PATCH_PEONY_52_LARGE = register("patch_peony_52_large");
+
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_38 = register("patch_rose_bush_38");
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_42 = register("patch_rose_bush_42");
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_64 = register("patch_rose_bush_64");
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_42_LARGE = register("patch_rose_bush_42_large");
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_48_LARGE = register("patch_rose_bush_48_large");
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_52_LARGE = register("patch_rose_bush_52_large");
+	public static final FrozenLibPlacedFeature PATCH_ROSE_BUSH_64_LARGE = register("patch_rose_bush_64_large");
 
 	// PLAINS
 	public static final FrozenLibPlacedFeature FLOWER_DEFAULT_PLAINS = register("flower_default_plains");
@@ -147,6 +225,83 @@ public final class WWFlowerPlacements {
 			OffsetPlacement.ofTriangle(7, 3),
 			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
 		);
+
+		// PATCH
+		registerFlowerPatchForFeature(PATCH_FLOWER_DEFAULT_64_LARGE, features.getOrThrow(VegetationFeatures.FLOWER_DEFAULT), 64, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_ALLIUM_42, WWFlowerFeatures.ALLIUM.getHolder(), 42, 6, 2);
+
+		registerFlowerPatchForFeature(PATCH_AZURE_BLUET_52_LARGE, WWFlowerFeatures.AZURE_BLUET.getHolder(), 52, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_BLUE_ORCHID_36, WWFlowerFeatures.BLUE_ORCHID.getHolder(), 36, 6, 2);
+		registerFlowerPatchForFeature(PATCH_BLUE_ORCHID_48, WWFlowerFeatures.BLUE_ORCHID.getHolder(), 48, 6, 2);
+
+		registerFlowerPatchForFeature(PATCH_CARNATION_38, WWFlowerFeatures.CARNATION.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_CARNATION_42, WWFlowerFeatures.CARNATION.getHolder(), 42, 6, 2);
+		registerFlowerPatchForFeature(PATCH_CARNATION_52, WWFlowerFeatures.CARNATION.getHolder(), 52, 6, 2);
+
+		registerFlowerPatchForFeature(PATCH_DANDELION_72_LARGE, WWFlowerFeatures.DANDELION.getHolder(), 72, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_LILY_OF_THE_VALLEY_38, WWFlowerFeatures.LILY_OF_THE_VALLEY.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_LILY_OF_THE_VALLEY_42, WWFlowerFeatures.LILY_OF_THE_VALLEY.getHolder(), 42, 6, 2);
+		registerFlowerPatchForFeature(PATCH_LILY_OF_THE_VALLEY_48, WWFlowerFeatures.LILY_OF_THE_VALLEY.getHolder(), 48, 6, 2);
+
+		registerFlowerPatchForFeature(PATCH_POPPY_32_LARGE, WWFlowerFeatures.DANDELION.getHolder(), 32, 7, 3);
+		registerFlowerPatchForFeature(PATCH_POPPY_38_LARGE, WWFlowerFeatures.DANDELION.getHolder(), 38, 7, 3);
+		registerFlowerPatchForFeature(PATCH_POPPY_48_LARGE, WWFlowerFeatures.DANDELION.getHolder(), 48, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_32, WWFlowerFeatures.MARIGOLD.getHolder(), 32, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_42, WWFlowerFeatures.MARIGOLD.getHolder(), 42, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_46, WWFlowerFeatures.MARIGOLD.getHolder(), 46, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_52, WWFlowerFeatures.MARIGOLD.getHolder(), 52, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_32_LARGE, WWFlowerFeatures.MARIGOLD.getHolder(), 32, 7, 3);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_38_LARGE, WWFlowerFeatures.MARIGOLD.getHolder(), 38, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_SEEDING_DANDELION_32, WWFlowerFeatures.SEEDING_DANDELION.getHolder(), 32, 6, 2);
+		registerFlowerPatchForFeature(PATCH_SEEDING_DANDELION_38, WWFlowerFeatures.SEEDING_DANDELION.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_SEEDING_DANDELION_42, WWFlowerFeatures.SEEDING_DANDELION.getHolder(), 42, 6, 2);
+		registerFlowerPatchForFeature(PATCH_SEEDING_DANDELION_48, WWFlowerFeatures.SEEDING_DANDELION.getHolder(), 48, 6, 2);
+		registerFlowerPatchForFeature(PATCH_SEEDING_DANDELION_52, WWFlowerFeatures.SEEDING_DANDELION.getHolder(), 52, 6, 2);
+		registerFlowerPatchForFeature(PATCH_SEEDING_DANDELION_72_LARGE, WWFlowerFeatures.SEEDING_DANDELION.getHolder(), 72, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_HIBISCUS_32, WWFlowerFeatures.HIBISCUS.getHolder(), 32, 6, 2);
+		registerFlowerPatchForFeature(PATCH_HIBISCUS_72, WWFlowerFeatures.HIBISCUS.getHolder(), 72, 6, 2);
+
+		registerFlowerPatchForFeature(PATCH_POPPY_AND_PASQUEFLOWER_36, WWFlowerFeatures.POPPY_AND_PASQUEFLOWER.getHolder(), 36, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_AND_PASQUEFLOWER_36, WWFlowerFeatures.MARIGOLD_AND_PASQUEFLOWER.getHolder(), 36, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MARIGOLD_AND_SEEDING_DANDELION_36, WWFlowerFeatures.MARIGOLD_AND_SEEDING_DANDELION.getHolder(), 36, 6, 2);
+		registerFlowerPatchForFeature(PATCH_PASQUEFLOWER_AND_POPPY_36, WWFlowerFeatures.PASQUEFLOWER_AND_POPPY.getHolder(), 36, 6, 2);
+		registerFlowerPatchForFeature(PATCH_AZURE_BLUET_AND_SEEDING_DANDELION_64_LARGE, WWFlowerFeatures.AZURE_BLUET_AND_SEEDING_DANDELION.getHolder(), 64, 7, 3);
+		registerFlowerPatchForFeature(PATCH_POPPY_AND_MARIGOLD_64_LARGE, WWFlowerFeatures.POPPY_AND_MARIGOLD.getHolder(), 64, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_DATURA_32, WWFlowerFeatures.DATURA.getHolder(), 32, 6, 2);
+		registerFlowerPatchForFeature(PATCH_DATURA_38, WWFlowerFeatures.DATURA.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_DATURA_42, WWFlowerFeatures.DATURA.getHolder(), 42, 6, 2);
+
+		registerFlowerPatchForFeature(PATCH_LILAC_38, WWFlowerFeatures.LILAC.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_LILAC_38_LARGE, WWFlowerFeatures.LILAC.getHolder(), 38, 7, 3);
+		registerFlowerPatchForFeature(PATCH_LILAC_48_LARGE, WWFlowerFeatures.LILAC.getHolder(), 48, 7, 3);
+		registerFlowerPatchForFeature(PATCH_LILAC_52_LARGE, WWFlowerFeatures.LILAC.getHolder(), 52, 7, 3);
+		registerFlowerPatchForFeature(PATCH_LILAC_64_LARGE, WWFlowerFeatures.LILAC.getHolder(), 64, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_MILKWEED_42, WWFlowerFeatures.MILKWEED.getHolder(), 42, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MILKWEED_64, WWFlowerFeatures.MILKWEED.getHolder(), 64, 6, 2);
+		registerFlowerPatchForFeature(PATCH_MILKWEED_48_LARGE, WWFlowerFeatures.MILKWEED.getHolder(), 48, 7, 3);
+		registerFlowerPatchForFeature(PATCH_MILKWEED_52_LARGE, WWFlowerFeatures.MILKWEED.getHolder(), 52, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_PEONY_38, WWFlowerFeatures.PEONY.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_PEONY_42_LARGE, WWFlowerFeatures.PEONY.getHolder(), 42, 7, 3);
+		registerFlowerPatchForFeature(PATCH_PEONY_48_LARGE, WWFlowerFeatures.PEONY.getHolder(), 48, 7, 3);
+		registerFlowerPatchForFeature(PATCH_PEONY_52_LARGE, WWFlowerFeatures.PEONY.getHolder(), 52, 7, 3);
+
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_38, WWFlowerFeatures.ROSE_BUSH.getHolder(), 38, 6, 2);
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_42, WWFlowerFeatures.ROSE_BUSH.getHolder(), 42, 6, 2);
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_64, WWFlowerFeatures.ROSE_BUSH.getHolder(), 64, 6, 2);
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_42_LARGE, WWFlowerFeatures.ROSE_BUSH.getHolder(), 42, 7, 3);
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_48_LARGE, WWFlowerFeatures.ROSE_BUSH.getHolder(), 48, 7, 3);
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_52_LARGE, WWFlowerFeatures.ROSE_BUSH.getHolder(), 52, 7, 3);
+		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_64_LARGE, WWFlowerFeatures.ROSE_BUSH.getHolder(), 64, 7, 3);
+
 
 		// PLAINS
 		FLOWER_DEFAULT_PLAINS.makeAndSetHolder(
@@ -654,6 +809,20 @@ public final class WWFlowerPlacements {
 		}
 
 		return baseModifiers;
+	}
+
+	private static void registerFlowerPatchForFeature(
+		FrozenLibPlacedFeature placement,
+		Holder<Feature> feature,
+		int patchCount,
+		int xzRange, int yRange
+	) {
+		placement.makeAndSetHolder(
+			feature,
+			CountPlacement.of(patchCount),
+			OffsetPlacement.ofTriangle(xzRange, yRange),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+		);
 	}
 
 	public static FrozenLibPlacedFeature register(String name) {
