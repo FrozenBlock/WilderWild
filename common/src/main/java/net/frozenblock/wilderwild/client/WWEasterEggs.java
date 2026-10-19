@@ -17,21 +17,26 @@
 
 package net.frozenblock.wilderwild.client;
 
+import net.frozenblock.lib.entity.client.api.renderer.entity.EntityTextureOverride;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.platform.client.ClientRegistryHelper;
+import net.frozenblock.lib.registry.client.FrozenLibClientRegistries;
+import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.renderer.entity.state.WardenRenderState;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.monster.warden.Warden;
 
 @ClientOnly
 public final class WWEasterEggs {
 
-	// TODO: wait for Fabric API to add support for client registries
 	public static void hatchEasterEggs() {
-		/*
-		final DeferredRegister<EntityTextureOverride<?, ?>> register = DeferredRegister.create(
+		final DeferredRegister<EntityTextureOverride<?, ?>> register = ClientRegistryHelper.createDeferredRegister(
 			FrozenLibClientRegistries.ENTITY_TEXTURE_OVERRIDE,
 			WWConstants.MOD_ID
 		);
-		 */
 
-		/*
 		register.register(
 			"stella_warden",
 			() -> new EntityTextureOverride<Warden, WardenRenderState>(
@@ -80,14 +85,13 @@ public final class WWEasterEggs {
 		register.register(
 			"avftt_pig",
 			() -> EntityTextureOverride.create(
-				EntityTypes.DOLPHIN,
+				EntityTypes.PIG,
 				WWConstants.id("textures/entity/pig/uppy_balloo.png"),
 				"AViewFromTheTop", "A View From The Top", "AViewFromTheEnd", "Lunade", "Lunade_"
 			)
 		);
-		 */
 
-		//register.register();
+		register.register();
 	}
 
 	private WWEasterEggs() {}

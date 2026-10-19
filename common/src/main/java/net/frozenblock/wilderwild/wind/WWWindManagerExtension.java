@@ -155,7 +155,7 @@ public final class WWWindManagerExtension implements WindManagerExtension {
 		return needsReset;
 	}
 
-	public static final record ParticleWindResult(Vec3 wind, Vec3 disturbance) {
+	public record ParticleWindResult(Vec3 wind, Vec3 disturbance) {
 		public static final ParticleWindResult EMPTY = new ParticleWindResult(Vec3.ZERO, Vec3.ZERO);
 
 		public void applyX(Consumer<Double> xModifier, double windScale, double disturbanceScale) {

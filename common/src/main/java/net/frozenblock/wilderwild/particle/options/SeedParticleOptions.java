@@ -27,7 +27,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Contract;
 
 public record SeedParticleOptions(boolean isMilkweed, boolean controlled, Vec3 velocity) implements ParticleOptions {
 	public static final MapCodec<SeedParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -42,12 +41,10 @@ public record SeedParticleOptions(boolean isMilkweed, boolean controlled, Vec3 v
 		SeedParticleOptions::new
 	);
 
-	@Contract(value = "_, _, _, _ -> new", pure = true)
 	public static SeedParticleOptions controlled(boolean isMilkweed, double xSpeed, double ySpeed, double zSpeed) {
 		return new SeedParticleOptions(isMilkweed, true, xSpeed, ySpeed, zSpeed);
 	}
 
-	@Contract(value = "_ -> new", pure = true)
 	public static SeedParticleOptions unControlled(boolean isMilkweed) {
 		return new SeedParticleOptions(isMilkweed, false, 0F, 0F, 0F);
 	}

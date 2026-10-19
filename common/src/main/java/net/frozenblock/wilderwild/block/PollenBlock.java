@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class PollenBlock extends MultifaceSpreadeableBlock {
 	public static final ParticleSpawner PARTICLE_SPAWNER = new ParticleSpawner(1F, 5, 10, -10, 7) {
 		@Override
-		public boolean canSpawnAtPos(Level level, BlockPos pos) {
+		public boolean canSpawnAtPos(Level level, BlockPos pos, BlockState state) {
 			return !level.isRainingAt(pos);
 		}
 

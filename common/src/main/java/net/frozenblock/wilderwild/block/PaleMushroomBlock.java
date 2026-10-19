@@ -38,7 +38,7 @@ public class PaleMushroomBlock extends MushroomBlock {
 		3
 	) {
 		@Override
-		public boolean canSpawnAtPos(Level level, BlockPos pos) {
+		public boolean canSpawnAtPos(Level level, BlockPos pos, BlockState state) {
 			return !level.isRainingAt(pos);
 		}
 

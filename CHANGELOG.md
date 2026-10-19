@@ -22,6 +22,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Whether falling onto Brittle Ice causes it to shatter instead of cracking (enabled by default.)
   - Whether projectiles can cause Brittle Ice to shatter (enabled by default.)
 - Particles are now much more visibly affected by Wind Disturbances (Breezes, Wind Charges, Geysers, Geothermal Vents, etc.)
+- Seeding Dandelions now spawn Seed particles around themselves, based on the current Wind intensity.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

@@ -17,11 +17,14 @@
 
 package net.frozenblock.wilderwild.block;
 
+import net.frozenblock.lib.particle.api.ParticleSpawner;
+import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,6 +41,7 @@ import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.LevelEvent;
@@ -57,6 +61,28 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	public static final int MAX_SEEDS = 2;
 	public static final int MIN_SEEDS_DESTROY = 3;
 	public static final int MAX_SEEDS_DESTROY = 7;
+	public static final int AMBIENT_SEED_MIN_SKY_LIGHT_LEVEL = 13;
+	private static final ParticleSpawner PARTICLE_SPAWNER = new ParticleSpawner(0.04F, 3, 5, -1, 5) {
+		@Override
+		public boolean canSpawnAtPos(Level level, BlockPos pos, BlockState state) {
+			if (!state.isAir()
+				|| level.isRainingAt(pos)
+				|| level.getBrightness(LightLayer.SKY, pos) < AMBIENT_SEED_MIN_SKY_LIGHT_LEVEL
+			) return false;
+
+			final Vec3 center = Vec3.atCenterOf(pos);
+			final WindManager windManager = WindManager.getOrCreate(level);
+			final Vec3 wind = windManager.getWindMovement(center, 1D, 2D, 5D);
+
+			final RandomSource random = level.getRandom();
+			return wind.horizontalDistance() >= random.nextFloat() - (random.nextFloat() * 0.25F);
+		}
+
+		@Override
+		public ParticleOptions selectParticleOptions(Level level, BlockPos pos, RandomSource random) {
+			return SeedParticleOptions.unControlled(false);
+		}
+	};
 
 	private final Block nonSeedingFlower;
 
@@ -110,13 +136,15 @@ public class SeedingFlowerBlock extends FlowerBlock {
 	) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (level.isClientSide()) return;
-		onShear(level, pos, state, user);
+
+		this.onShear(level, pos, state, user);
 		stack.hurtAndBreak(1, user, hand);
 	}
 
 	public void onShear(Level level, BlockPos pos, BlockState state, @Nullable Entity user) {
 		level.setBlockAndUpdate(pos, this.getNonSeedingFlower().defaultBlockState());
 		if (level.isClientSide()) return;
+
 		level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
 		this.spawnSeedsFrom(level, pos, state, MIN_SEEDS_DESTROY, MAX_SEEDS_DESTROY, null);
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
@@ -155,7 +183,9 @@ public class SeedingFlowerBlock extends FlowerBlock {
 
 	@Override
 	public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+		super.animateTick(state, level, pos, random);
 		if (random.nextFloat() <= SEED_SPAWN_CHANCE) this.spawnSeedsFrom(level, pos, state, MIN_SEEDS, MAX_SEEDS, null);
+		PARTICLE_SPAWNER.tick(level, pos, random);
 	}
 
 	@Override

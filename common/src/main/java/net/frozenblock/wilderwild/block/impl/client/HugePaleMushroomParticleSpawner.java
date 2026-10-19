@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 @ClientOnly
 public final class HugePaleMushroomParticleSpawner extends ParticleSpawner {
@@ -41,7 +42,7 @@ public final class HugePaleMushroomParticleSpawner extends ParticleSpawner {
 	}
 
 	@Override
-	public boolean canSpawnAtPos(Level level, BlockPos pos) {
+	public boolean canSpawnAtPos(Level level, BlockPos pos, BlockState state) {
 		return true;
 	}
 
