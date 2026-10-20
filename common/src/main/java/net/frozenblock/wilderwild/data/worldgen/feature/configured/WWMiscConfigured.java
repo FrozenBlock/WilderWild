@@ -114,8 +114,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
 	public static final FrozenLibFeature BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
 	public static final FrozenLibFeature SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
-	public static final FrozenLibFeature RIVER_POOL = register("river_pool");
-	public static final FrozenLibFeature SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
 	public static final FrozenLibFeature PACKED_MUD_PATH = register("packed_mud_path");
@@ -570,38 +568,6 @@ public final class WWMiscConfigured {
 					).build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
 				UniformInt.of(4, 5)
-			)
-		);
-
-		RIVER_POOL.makeAndSetHolder(
-			new FlexibleWaterloggedVegetationPatchFeature(
-				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
-				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(1),
-				0.8F,
-				1,
-				0F,
-				UniformInt.of(4, 8),
-				0.35F,
-				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
-			)
-		);
-
-		SMALL_RIVER_POOL.makeAndSetHolder(
-			new FlexibleWaterloggedVegetationPatchFeature(
-				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
-				PlacementUtils.inlinePlaced(EMPTY.getHolder()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(1),
-				0.8F,
-				1,
-				0F,
-				UniformInt.of(1, 2),
-				0.35F,
-				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
 			)
 		);
 

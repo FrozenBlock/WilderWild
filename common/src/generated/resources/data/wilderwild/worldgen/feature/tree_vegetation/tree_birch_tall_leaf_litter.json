@@ -7,16 +7,16 @@
       "feature": "wilderwild:tree/dying_birch_leaf_litter"
     },
     {
-      "chance": 0.075,
-      "feature": "wilderwild:tree/dying_super_birch_leaf_litter"
+      "chance": 0.001,
+      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
     },
     {
       "chance": 0.002,
       "feature": "wilderwild:tree/short_birch_bees_0004_leaf_litter"
     },
     {
-      "chance": 0.001,
-      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
+      "chance": 0.075,
+      "feature": "wilderwild:tree/dying_super_birch_leaf_litter"
     },
     {
       "chance": 0.02,

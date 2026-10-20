@@ -16,7 +16,9 @@
   "surface": "floor",
   "vegetation_chance": 0.0,
   "vegetation_feature": {
-    "feature": "wilderwild:empty",
+    "feature": {
+      "type": "minecraft:no_op"
+    },
     "placement": []
   },
   "vertical_range": 1,

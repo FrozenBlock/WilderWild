@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:small_river_pool",
+  "feature": "wilderwild:aquatic/river_pool",
   "placement": [
     {
       "type": "frozenlib:config_predicate",
@@ -7,7 +7,7 @@
     },
     {
       "type": "minecraft:count",
-      "count": 8
+      "count": 20
     },
     {
       "type": "minecraft:rarity_filter",
@@ -25,10 +25,10 @@
       "height": {
         "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 72
+          "absolute": 64
         },
         "min_inclusive": {
-          "absolute": 65
+          "absolute": 62
         }
       }
     },

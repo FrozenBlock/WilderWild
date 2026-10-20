@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
-import net.frozenblock.wilderwild.tag.WWTreeBiomeTags;
+import net.frozenblock.wilderwild.tag.WWTreeFeatureBiomeTags;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -49,23 +49,23 @@ public final class WWTreeGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.PALM)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.PALM)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.PALM);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.PALM_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.PALM_JUNGLE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.PALM_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.PALM_RARE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.PALM_RARE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.PALM_RARE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.PALM_WARM_BEACH)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.PALM_WARM_BEACH)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.PALMS_WARM_BEACH);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.PALM_OASIS)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.PALM_OASIS)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.PALMS_OASIS);
 				}
 			});
@@ -74,7 +74,7 @@ public final class WWTreeGeneration {
 	public static void setupSavannaTrees() {
 		BiomeModifications.create(WWConstants.id("replace_savanna_trees")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWTreeBiomeTags.TREE_SAVANNA),
+			BiomeSelectors.tag(WWTreeFeatureBiomeTags.TREE_SAVANNA),
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
@@ -93,7 +93,7 @@ public final class WWTreeGeneration {
 
 		BiomeModifications.create(WWConstants.id("replace_windswept_savanna_trees")).add(
 			ModificationPhase.REPLACEMENTS,
-			BiomeSelectors.tag(WWTreeBiomeTags.TREE_WINDSWEPT_SAVANNA),
+			BiomeSelectors.tag(WWTreeFeatureBiomeTags.TREE_WINDSWEPT_SAVANNA),
 			context -> {
 				if (!WWWorldgenConfig.TREE_GENERATION.get()) return;
 
@@ -113,87 +113,87 @@ public final class WWTreeGeneration {
 
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_PLAINS)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_PLAINS)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_PLAINS);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_PLAINS);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_SNOWY)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_SNOWY)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_SNOWY);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_SNOWY);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.BIRCH_AND_OAK, WWTreeVegetationPlacements.BIRCH_AND_OAK_ORIGINAL);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_FLOWER_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_FLOWER_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER, VegetationPlacements.TREES_FLOWER_FOREST);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_FLOWER_FOREST);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_BIRCH_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_BIRCH_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_BIRCH);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_BIRCH);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_OLD_GROWTH_BIRCH_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_OLD_GROWTH_BIRCH_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.BIRCH_TALL);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_BIRCH_TALL);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_TAIGA)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_TAIGA)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_TAIGA);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_TAIGA);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_TAIGA_SNOWY)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_TAIGA_SNOWY)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_TAIGA);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_TAIGA_NO_LITTER);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_TALL_PINE_TAIGA)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_TALL_PINE_TAIGA)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_OLD_GROWTH_PINE_TAIGA);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_OLD_GROWTH_PINE_TAIGA);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_TALL_SPRUCE_TAIGA)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_TALL_SPRUCE_TAIGA)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_OLD_GROWTH_SPRUCE_TAIGA);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_OLD_GROWTH_SPRUCE_TAIGA);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_JUNGLE)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_JUNGLE);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_SPARSE_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_SPARSE_JUNGLE)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_SPARSE_JUNGLE);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_SPARSE_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_BAMBOO_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_BAMBOO_JUNGLE)) {
 					removeFeatures(generationSettings, VegetationPlacements.BAMBOO_VEGETATION);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_BAMBOO_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_DARK_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_DARK_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.DARK_FOREST_VEGETATION);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.DARK_FOREST_VEGETATION);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_PALE_GARDEN)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_PALE_GARDEN)) {
 					removeFeatures(generationSettings, VegetationPlacements.PALE_GARDEN_VEGETATION);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_PALE_GARDEN);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_WOODED_BADLANDS)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_WOODED_BADLANDS)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_BADLANDS);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_WOODED_BADLANDS);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_SWAMP)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_SWAMP)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_SWAMP);
 
 					if (WWWorldgenConfig.WILLOW_TREE_GENERATION.get()) {
@@ -208,42 +208,42 @@ public final class WWTreeGeneration {
 					}
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_MANGROVE_SWAMP)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_MANGROVE_SWAMP)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_MANGROVE);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.MANGROVE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_CHERRY_GROVE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_CHERRY_GROVE)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_CHERRY);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.CHERRY);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_DAPPLED_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_DAPPLED_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_DAPPLED_FOREST);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.POPLAR);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_MEADOW)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_MEADOW)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_MEADOW);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_MEADOW);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_GROVE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_GROVE)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_GROVE);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_GROVE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_WINDSWEPT_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_WINDSWEPT_FOREST)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_WINDSWEPT_FOREST);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_WINDSWEPT_FOREST);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_WINDSWEPT_HILLS)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_WINDSWEPT_HILLS)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_WINDSWEPT_HILLS);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.TREE_WINDSWEPT_HILLS);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.TREE_WATER)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.TREE_WATER)) {
 					removeFeatures(generationSettings, VegetationPlacements.TREES_WATER);
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.BIG_BUSH_WATER);
 				}
@@ -254,35 +254,35 @@ public final class WWTreeGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SHORT_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SHORT_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SHORT_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SHORT_SPRUCE_SPARSE_LEAF_LITTER)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SHORT_SPRUCE_SPARSE_LEAF_LITTER)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SHORT_SPRUCE_SPARSE_LEAF_LITTER);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SHORT_MEGA_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SHORT_MEGA_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SHORT_MEGA_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SHORT_MEGA_SPRUCE_ON_SNOW)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SHORT_MEGA_SPRUCE_ON_SNOW)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SHORT_MEGA_SPRUCE_ON_SNOW);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.BIG_BUSH_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.BIG_BUSH_FOREST)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.BIG_BUSH_FOREST);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.BIG_BUSH_FOREST_COMMON)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.BIG_BUSH_FOREST_COMMON)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.BIG_BUSH_FOREST_COMMON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.BIG_BUSH)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.BIG_BUSH)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.BIG_BUSH);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.BIG_BUSH_ON_SAND)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.BIG_BUSH_ON_SAND)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.BIG_BUSH_ON_SAND);
 				}
 			});
@@ -297,131 +297,131 @@ public final class WWTreeGeneration {
 
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.MOSSY_FALLEN_OAK_AND_BIRCH);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_OAK_AND_BIRCH_DARK_FOREST)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_DARK_FOREST)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_OAK_AND_BIRCH_DARK_FOREST);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_BIRCH)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_BIRCH)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_BIRCH);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_BIRCH_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_BIRCH_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_BIRCH_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_BIRCH_AND_OAK_SPARSE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_BIRCH_AND_OAK_SPARSE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_BIRCH_AND_OAK_SPARSE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_BIRCH_AND_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_BIRCH_AND_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_BIRCH_AND_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_OAK_AND_BIRCH_AND_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_AND_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_OAK_AND_BIRCH_AND_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_SPRUCE_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_SPRUCE_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_SPRUCE_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.CLEAN_FALLEN_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.CLEAN_FALLEN_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.CLEAN_FALLEN_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.LARGE_FALLEN_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.LARGE_FALLEN_SPRUCE_COMMON)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE_COMMON)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_SPRUCE_COMMON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.CLEAN_LARGE_FALLEN_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE_COMMON)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE_COMMON)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.CLEAN_LARGE_FALLEN_SPRUCE_COMMON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_DARK_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_DARK_OAK)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.FALLEN_DARK_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_DARK_OAK_COMMON)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_DARK_OAK_COMMON)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.FALLEN_DARK_OAK_COMMON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_PALE_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALE_OAK)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.FALLEN_PALE_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.LARGE_FALLEN_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_JUNGLE)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.LARGE_FALLEN_JUNGLE_COMMON)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_JUNGLE_COMMON)) {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_JUNGLE_COMMON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_ACACIA_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_ACACIA_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_ACACIA_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_SWAMP)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_SWAMP)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_WILLOW_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_MANGROVE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_MANGROVE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_MANGROVE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_CYPRESS_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_CYPRESS_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_CYPRESS_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_PALM)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALM)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_PALM);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_PALM_RARE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALM_RARE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_PALM_RARE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_PALM_AND_JUNGLE_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALM_AND_JUNGLE_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_PALM_AND_JUNGLE_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_CHERRY)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_CHERRY)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_CHERRY);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_MAPLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_MAPLE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_MAPLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_POPLAR)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_POPLAR)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_POPLAR);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_CRIMSON_FUNGI)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_CRIMSON_FUNGI)) {
 					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlacements.FALLEN_CRIMSON.getKey());
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.FALLEN_WARPED_FUNGI)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_WARPED_FUNGI)) {
 					generationSettings.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, WWTreePlacements.FALLEN_WARPED.getKey());
 				}
 			});
@@ -434,23 +434,23 @@ public final class WWTreeGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_OAK, WWTreeVegetationPlacements.SNAPPED_OAK_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_BIRCH)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_BIRCH)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_BIRCH, WWTreeVegetationPlacements.SNAPPED_BIRCH_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_BIRCH_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_BIRCH_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_BIRCH_AND_OAK, WWTreeVegetationPlacements.SNAPPED_BIRCH_AND_OAK_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_BIRCH_AND_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_BIRCH_AND_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_BIRCH_AND_SPRUCE, WWTreeVegetationPlacements.SNAPPED_BIRCH_AND_SPRUCE_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE)) {
 					addVegetalDecoration(
 						generationSettings,
 						WWTreeVegetationPlacements.SNAPPED_BIRCH_AND_OAK_AND_SPRUCE,
@@ -458,27 +458,27 @@ public final class WWTreeGeneration {
 					);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_BIRCH_AND_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_BIRCH_AND_JUNGLE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_BIRCH_AND_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_SPRUCE, WWTreeVegetationPlacements.SNAPPED_SPRUCE_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_SPRUCE_ON_SNOW)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_SPRUCE_ON_SNOW)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_SPRUCE_ON_SNOW, WWTreeVegetationPlacements.SNAPPED_SPRUCE_ON_SNOW_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_LARGE_SPRUCE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_LARGE_SPRUCE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_LARGE_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_LARGE_SPRUCE_COMMON)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_LARGE_SPRUCE_COMMON)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_LARGE_SPRUCE_COMMON, WWTreeVegetationPlacements.SNAPPED_LARGE_SPRUCE_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_LARGE_SPRUCE_ON_SNOW)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_LARGE_SPRUCE_ON_SNOW)) {
 					addVegetalDecoration(
 						generationSettings,
 						WWTreeVegetationPlacements.SNAPPED_LARGE_SPRUCE_ON_SNOW,
@@ -486,51 +486,51 @@ public final class WWTreeGeneration {
 					);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_DARK_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_DARK_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_DARK_OAK, WWTreeVegetationPlacements.SNAPPED_DARK_OAK_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_PALE_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_PALE_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_PALE_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_JUNGLE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_LARGE_JUNGLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_LARGE_JUNGLE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_LARGE_JUNGLE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_ACACIA)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_ACACIA)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_ACACIA);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_ACACIA_AND_OAK)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_ACACIA_AND_OAK)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_ACACIA_AND_OAK);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_CYPRESS)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_CYPRESS)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_CYPRESS);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_CHERRY)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_CHERRY)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_CHERRY);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_MAPLE)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_MAPLE)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_MAPLE, WWTreeVegetationPlacements.SNAPPED_MAPLE_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_POPLAR)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_POPLAR)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.SNAPPED_POPLAR, WWTreeVegetationPlacements.SNAPPED_POPLAR_CLEARING);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_CRIMSON_FUNGI)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_CRIMSON_FUNGI)) {
 					addVegetalDecoration(generationSettings, WWTreePlacements.SNAPPED_CRIMSON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeBiomeTags.SNAPPED_WARPED_FUNGI)) {
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.SNAPPED_WARPED_FUNGI)) {
 					addVegetalDecoration(generationSettings, WWTreePlacements.SNAPPED_WARPED);
 				}
 			});

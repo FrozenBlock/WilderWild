@@ -42,6 +42,7 @@ public final class WWWorldgen {
 	}
 
 	public static void setup() {
+		WWAquaticGeneration.setup();
 		WWFlowerGeneration.setup();
 		WWTreeGeneration.setup();
 
@@ -49,7 +50,6 @@ public final class WWWorldgen {
 		WWVegetationGeneration.generateFlower();
 		WWVegetationGeneration.generateShrub();
 		WWVegetationGeneration.generateCacti();
-		WWAquaticGeneration.generateAquaticFeatures();
 		WWVegetationGeneration.generateGrass();
 		WWMiscGeneration.generateMisc();
 

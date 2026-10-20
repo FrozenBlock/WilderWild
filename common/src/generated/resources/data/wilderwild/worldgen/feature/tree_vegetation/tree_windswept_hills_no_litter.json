@@ -3,16 +3,16 @@
   "default": "wilderwild:tree/oak",
   "features": [
     {
-      "chance": 0.01,
-      "feature": "wilderwild:tree/fancy_dying_oak"
+      "chance": 0.1,
+      "feature": "wilderwild:tree/fancy_oak"
     },
     {
       "chance": 0.666,
       "feature": "wilderwild:tree/spruce"
     },
     {
-      "chance": 0.1,
-      "feature": "wilderwild:tree/fancy_oak"
+      "chance": 0.01,
+      "feature": "wilderwild:tree/fancy_dying_oak"
     },
     {
       "chance": 0.02,

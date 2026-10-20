@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.tag.WWAquaticFeatureBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -223,7 +224,7 @@ public final class WWMaterialRules {
 		return MaterialRules.ifTrue(
 			WWWorldgenConfig.OCEAN_MOSS_GENERATION.equalTo(true).asMaterialCondition(),
 			MaterialRules.ifTrue(
-				FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.HAS_OCEAN_MOSS),
+				FrozenLibMaterialRules.isBiomeTag(biomes, WWAquaticFeatureBiomeTags.OCEAN_MOSS),
 				MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					MaterialRules.ifTrue(
 						MaterialRules.not(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER)),

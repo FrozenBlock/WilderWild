@@ -3,20 +3,16 @@
   "default": "wilderwild:tree/short_birch_leaf_litter",
   "features": [
     {
-      "chance": 0.086,
-      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
-    },
-    {
-      "chance": 0.01,
-      "feature": "wilderwild:tree/dying_medium_birch_leaf_litter"
-    },
-    {
-      "chance": 0.37,
-      "feature": "wilderwild:tree/medium_birch_leaf_litter"
+      "chance": 0.39,
+      "feature": "wilderwild:tree/spruce_leaf_litter"
     },
     {
       "chance": 0.01,
       "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
+    },
+    {
+      "chance": 0.01,
+      "feature": "wilderwild:tree/dying_medium_birch_leaf_litter"
     },
     {
       "chance": 0.155,
@@ -27,8 +23,12 @@
       "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
     },
     {
-      "chance": 0.39,
-      "feature": "wilderwild:tree/spruce_leaf_litter"
+      "chance": 0.086,
+      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
+    },
+    {
+      "chance": 0.37,
+      "feature": "wilderwild:tree/medium_birch_leaf_litter"
     }
   ]
 }

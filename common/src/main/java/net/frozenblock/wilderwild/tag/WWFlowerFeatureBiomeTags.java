@@ -22,7 +22,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
-public final class WWFlowerBiomeTags {
+public final class WWFlowerFeatureBiomeTags {
 	// PLAINS
 	public static final TagKey<Biome> PLAINS_FLOWERS = bind("plains_flowers");
 	public static final TagKey<Biome> SNOWY_PLAINS_FLOWERS = bind("snowy_plains_flowers");
@@ -84,5 +84,5 @@ public final class WWFlowerBiomeTags {
 		return TagKey.create(Registries.BIOME, WWConstants.id("feature/flower/" + name));
 	}
 
-	private WWFlowerBiomeTags() {}
+	private WWFlowerFeatureBiomeTags() {}
 }

@@ -7,16 +7,16 @@
       "feature": "wilderwild:tree/dying_birch"
     },
     {
-      "chance": 0.075,
-      "feature": "wilderwild:tree/dying_super_birch"
+      "chance": 0.001,
+      "feature": "wilderwild:tree/dying_short_birch"
     },
     {
       "chance": 0.002,
       "feature": "wilderwild:tree/short_birch_bees_0004"
     },
     {
-      "chance": 0.001,
-      "feature": "wilderwild:tree/dying_short_birch"
+      "chance": 0.075,
+      "feature": "wilderwild:tree/dying_super_birch"
     },
     {
       "chance": 0.02,

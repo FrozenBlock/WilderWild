@@ -48,7 +48,6 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
@@ -88,8 +87,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature BETA_BEACH_SAND_TRANSITION = register("beta_beach_sand_transition");
 	public static final FrozenLibPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = register("beta_beach_gravel_transition");
 	public static final FrozenLibPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
-	public static final FrozenLibPlacedFeature RIVER_POOL = register("river_pool");
-	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
 
 	// SAVANNA
 	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
@@ -340,31 +337,6 @@ public final class WWMiscPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
-			BiomeFilter.biome()
-		);
-
-		final PlacementFilter generateRiverPool = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_RIVER_POOL));
-		RIVER_POOL.makeAndSetHolder(WWMiscConfigured.RIVER_POOL,
-			generateRiverPool,
-			CountPlacement.of(20),
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
-			BiomeFilter.biome()
-		);
-
-		SMALL_RIVER_POOL.makeAndSetHolder(WWMiscConfigured.SMALL_RIVER_POOL,
-			generateRiverPool,
-			CountPlacement.of(8),
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
-			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BiomeFilter.biome()
 		);
 

@@ -22,6 +22,8 @@ import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.modifiersWithFilter;
+import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.postModifiers;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
@@ -36,11 +38,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.TrapezoidInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
@@ -48,16 +52,20 @@ import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
-import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.*;
 
 public final class WWAquaticPlacements {
+	public static final FrozenLibPlacedFeature RIVER_POOL = register("river_pool");
+	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
+
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("patch_cattail");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("patch_cattail_common");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("patch_cattail_uncommon");
@@ -68,7 +76,7 @@ public final class WWAquaticPlacements {
 	public static final FrozenLibPlacedFeature PATCH_BARNACLES_RARE = register("patch_barnacles_rare");
 	public static final FrozenLibPlacedFeature PATCH_BARNACLES_STRUCTURE = register("patch_barnacles_structure");
 
-	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATERLILY = register("patch_flowering_waterlily");
+	public static final FrozenLibPlacedFeature PATCH_FLOWERING_WATER_LILY = register("patch_flowering_water_lily");
 
 	public static final FrozenLibPlacedFeature PATCH_ALGAE = register("patch_algae");
 	public static final FrozenLibPlacedFeature PATCH_ALGAE_SMALL = register("patch_algae_small");
@@ -103,6 +111,31 @@ public final class WWAquaticPlacements {
 		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
+		final PlacementFilter generateRiverPool = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_RIVER_POOL));
+		RIVER_POOL.makeAndSetHolder(WWAquaticFeatures.RIVER_POOL,
+			generateRiverPool,
+			CountPlacement.of(20),
+			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(62), VerticalAnchor.absolute(64)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
+		SMALL_RIVER_POOL.makeAndSetHolder(WWAquaticFeatures.SMALL_RIVER_POOL,
+			generateRiverPool,
+			CountPlacement.of(8),
+			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			HeightRangePlacement.uniform(VerticalAnchor.absolute(65), VerticalAnchor.absolute(72)),
+			EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
+			BiomeFilter.biome()
+		);
+
 		registerCattail(context, PATCH_CATTAIL, 4, 24, 32, 6);
 		registerCattail(context, PATCH_CATTAIL_COMMON, 2, 10, 20, 4);
 		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 3, 10, 20, 4);
@@ -122,7 +155,7 @@ public final class WWAquaticPlacements {
 		);
 		registerBarnacles(context, PATCH_BARNACLES_STRUCTURE, WWAquaticFeatures.BARNACLES_STRUCTURE, 42, 8, 8);
 
-		PATCH_FLOWERING_WATERLILY.makeAndSetHolder(WWAquaticFeatures.FLOWERING_WATERLILY,
+		PATCH_FLOWERING_WATER_LILY.makeAndSetHolder(WWAquaticFeatures.FLOWERING_WATER_LILY,
 			postModifiers(
 				modifiersWithFilter(
 					configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FLOWER),

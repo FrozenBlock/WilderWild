@@ -22,6 +22,7 @@ import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
@@ -50,6 +51,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.NoOpFeature;
 import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
@@ -62,8 +64,10 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 
 public final class WWAquaticFeatures {
+	public static final FrozenLibFeature RIVER_POOL = register("river_pool");
+	public static final FrozenLibFeature SMALL_RIVER_POOL = register("small_river_pool");
 	public static final FrozenLibFeature CATTAIL = register("cattail");
-	public static final FrozenLibFeature FLOWERING_WATERLILY = register("flowering_waterlily");
+	public static final FrozenLibFeature FLOWERING_WATER_LILY = register("flowering_water_lily");
 	public static final FrozenLibFeature ALGAE = register("algae");
 	public static final FrozenLibFeature PLANKTON = register("plankton");
 	public static final FrozenLibFeature SEAGRASS_VERY_SHORT = register("seagrass_very_short");
@@ -86,9 +90,41 @@ public final class WWAquaticFeatures {
 		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
+		RIVER_POOL.makeAndSetHolder(
+			new FlexibleWaterloggedVegetationPatchFeature(
+				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
+				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0F,
+				UniformInt.of(4, 8),
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
+			)
+		);
+
+		SMALL_RIVER_POOL.makeAndSetHolder(
+			new FlexibleWaterloggedVegetationPatchFeature(
+				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
+				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0F,
+				UniformInt.of(1, 2),
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
+			)
+		);
+
 		CATTAIL.makeAndSetHolder(CattailFeature.INSTANCE);
 
-		FLOWERING_WATERLILY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FLOWERING_LILY_PAD.get())));
+		FLOWERING_WATER_LILY.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FLOWERING_LILY_PAD.get())));
 
 		ALGAE.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.ALGAE.get())));
 

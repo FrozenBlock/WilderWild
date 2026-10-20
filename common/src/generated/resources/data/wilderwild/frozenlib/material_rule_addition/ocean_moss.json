@@ -19,7 +19,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": "#wilderwild:feature/has_ocean_moss"
+          "biome_is": "#wilderwild:feature/aquatic/ocean_moss"
         },
         "then_run": {
           "type": "minecraft:condition",
