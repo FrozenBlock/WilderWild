@@ -1,0 +1,31 @@
+{
+  "feature": "wilderwild:tree/fallen_spruce",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 6
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "offset": [
+          0,
+          -1,
+          0
+        ],
+        "tag": "wilderwild:feature/fallen_tree_placeable"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

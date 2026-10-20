@@ -175,7 +175,7 @@
       "minecraft:patch_pumpkin",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_firefly_bush_near_water",
-      "wilderwild:dark_birch_forest_vegetation"
+      "wilderwild:tree_vegetation/dark_birch_forest_vegetation"
     ],
     [
       "minecraft:freeze_top_layer"

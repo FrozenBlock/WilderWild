@@ -24,7 +24,7 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -109,7 +109,8 @@ public final class MixedForest extends FrozenLibBiome {
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MIXED_TREES.getKey());
+		// TODO: vanilla version
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_MIXED_FOREST.getKey());
 		BiomeDefaultFeatures.addBushes(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addForestGrass(features);

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:tree_vegetation/poplar_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.75,
+      "feature": {
+        "feature": "wilderwild:tree_vegetation/poplar_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

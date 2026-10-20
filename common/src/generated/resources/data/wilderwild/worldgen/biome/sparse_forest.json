@@ -183,7 +183,7 @@
       "minecraft:patch_pumpkin",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_firefly_bush_near_water",
-      "wilderwild:trees_sparse_forest"
+      "wilderwild:tree_vegetation/tree_sparse_forest"
     ],
     [
       "minecraft:freeze_top_layer"

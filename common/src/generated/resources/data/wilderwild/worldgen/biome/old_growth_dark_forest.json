@@ -174,7 +174,7 @@
       "minecraft:patch_pumpkin",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_firefly_bush_near_water",
-      "wilderwild:old_growth_dark_forest_vegetation"
+      "wilderwild:tree_vegetation/old_growth_dark_forest_vegetation"
     ],
     [
       "minecraft:freeze_top_layer"

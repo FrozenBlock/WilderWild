@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/large_bush",
+  "features": [
+    {
+      "chance": 0.3,
+      "feature": "wilderwild:tree/big_bush"
+    }
+  ]
+}

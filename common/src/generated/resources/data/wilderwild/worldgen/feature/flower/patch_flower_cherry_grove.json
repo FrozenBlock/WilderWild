@@ -2,7 +2,7 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "data": "wilderwild:flower/patch_peony_38",
+      "data": "wilderwild:flower/patch_lilac_38",
       "weight": 2
     },
     {
@@ -10,7 +10,7 @@
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_lilac_38",
+      "data": "wilderwild:flower/patch_peony_38",
       "weight": 2
     },
     {

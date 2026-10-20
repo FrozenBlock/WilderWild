@@ -10,19 +10,19 @@
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_milkweed_42",
-      "weight": 4
-    },
-    {
       "data": "wilderwild:flower/patch_seeding_dandelion_52",
       "weight": 4
     },
     {
-      "data": "wilderwild:flower/patch_carnation_52",
-      "weight": 5
+      "data": "wilderwild:flower/patch_milkweed_42",
+      "weight": 4
     },
     {
       "data": "wilderwild:flower/patch_marigold_52",
+      "weight": 5
+    },
+    {
+      "data": "wilderwild:flower/patch_carnation_52",
       "weight": 5
     }
   ]

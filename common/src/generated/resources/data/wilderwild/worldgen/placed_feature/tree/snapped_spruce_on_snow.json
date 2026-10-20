@@ -9,7 +9,10 @@
         "type": "minecraft:not",
         "predicate": {
           "type": "minecraft:matching_blocks",
-          "blocks": "minecraft:powder_snow"
+          "blocks": [
+            "minecraft:snow_block",
+            "minecraft:powder_snow"
+          ]
         }
       }
     },

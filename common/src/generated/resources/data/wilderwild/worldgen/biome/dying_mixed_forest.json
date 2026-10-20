@@ -208,7 +208,7 @@
       "minecraft:patch_pumpkin",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_firefly_bush_near_water",
-      "wilderwild:trees_dying_mixed_forest"
+      "wilderwild:tree_vegetation/tree_dying_mixed_forest"
     ],
     [
       "minecraft:freeze_top_layer"

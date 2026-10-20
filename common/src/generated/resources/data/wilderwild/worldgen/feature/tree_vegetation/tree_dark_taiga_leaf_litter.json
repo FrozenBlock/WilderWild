@@ -1,0 +1,70 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/dark_oak_leaf_litter",
+  "features": [
+    {
+      "chance": 0.155,
+      "feature": "wilderwild:tree/spruce_leaf_litter"
+    },
+    {
+      "chance": 0.086,
+      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
+    },
+    {
+      "chance": 0.045,
+      "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
+    },
+    {
+      "chance": 0.19,
+      "feature": "wilderwild:tree/short_spruce_leaf_litter"
+    },
+    {
+      "chance": 0.235,
+      "feature": "wilderwild:tree/dark_oak_leaf_litter"
+    },
+    {
+      "chance": 0.075,
+      "feature": "wilderwild:tree/dying_dark_oak_leaf_litter"
+    },
+    {
+      "chance": 0.12,
+      "feature": "wilderwild:tree/short_birch_leaf_litter"
+    },
+    {
+      "chance": 0.004,
+      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
+    },
+    {
+      "chance": 0.1,
+      "feature": "wilderwild:tree/birch_leaf_litter"
+    },
+    {
+      "chance": 0.005,
+      "feature": "wilderwild:tree/dying_birch_leaf_litter"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:tree/tall_dark_oak_leaf_litter"
+    },
+    {
+      "chance": 0.08,
+      "feature": "wilderwild:tree/fancy_tall_dark_oak_leaf_litter"
+    },
+    {
+      "chance": 0.024,
+      "feature": "wilderwild:tree/dying_tall_dark_oak_leaf_litter"
+    },
+    {
+      "chance": 0.01,
+      "feature": "wilderwild:tree/fancy_dying_tall_dark_oak_leaf_litter"
+    },
+    {
+      "chance": 0.031,
+      "feature": "wilderwild:tree/dying_oak_leaf_litter"
+    },
+    {
+      "chance": 0.015,
+      "feature": "wilderwild:tree/fancy_oak_leaf_litter"
+    }
+  ]
+}

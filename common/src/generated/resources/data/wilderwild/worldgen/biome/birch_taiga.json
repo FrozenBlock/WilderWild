@@ -182,7 +182,7 @@
       "minecraft:spring_lava"
     ],
     [
-      "wilderwild:birch_taiga_trees",
+      "wilderwild:tree_vegetation/tree_birch_taiga",
       "minecraft:glow_lichen",
       "minecraft:patch_large_fern",
       "minecraft:trees_taiga",

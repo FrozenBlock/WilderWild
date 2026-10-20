@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/swamp_oak",
+  "features": [
+    {
+      "chance": 0.1,
+      "feature": "wilderwild:tree/swamp_oak_leaf_litter"
+    }
+  ]
+}

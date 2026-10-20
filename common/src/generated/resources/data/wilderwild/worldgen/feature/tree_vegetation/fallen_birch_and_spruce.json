@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/fallen_spruce",
+  "features": [
+    {
+      "chance": 0.24,
+      "feature": "wilderwild:tree/fallen_birch"
+    }
+  ]
+}

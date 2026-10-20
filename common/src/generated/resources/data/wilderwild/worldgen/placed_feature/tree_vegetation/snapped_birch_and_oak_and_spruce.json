@@ -1,0 +1,27 @@
+{
+  "feature": "wilderwild:tree_vegetation/snapped_birch_and_oak_and_spruce",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_snapped_tree"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 52
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

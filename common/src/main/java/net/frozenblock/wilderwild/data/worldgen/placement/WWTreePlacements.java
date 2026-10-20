@@ -121,9 +121,6 @@ public final class WWTreePlacements {
 
 	public static final FrozenLibPlacedFeature FALLEN_SPRUCE = register("fallen_spruce");
 	public static final FrozenLibPlacedFeature MOSSY_FALLEN_SPRUCE = register("mossy_fallen_spruce");
-	public static final FrozenLibPlacedFeature CLEAN_FALLEN_SPRUCE = register("clean_fallen_spruce");
-	public static final FrozenLibPlacedFeature DECORATED_LARGE_FALLEN_SPRUCE = register("decorated_large_fallen_spruce");
-	public static final FrozenLibPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE = register("clean_large_fallen_spruce");
 	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE = register("snapped_spruce");
 	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruce_on_snow");
 	public static final FrozenLibPlacedFeature LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce");
@@ -134,7 +131,6 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature MEGA_JUNGLE = WWTreeFeatures.MEGA_JUNGLE.toPlacedFeature();
 
 	public static final FrozenLibPlacedFeature FALLEN_JUNGLE = register("fallen_jungle");
-	public static final FrozenLibPlacedFeature LARGE_FALLEN_JUNGLE = register("large_fallen_jungle");
 	public static final FrozenLibPlacedFeature SNAPPED_JUNGLE = register("snapped_jungle");
 	public static final FrozenLibPlacedFeature LARGE_SNAPPED_JUNGLE = register("large_snapped_jungle");
 
@@ -158,13 +154,11 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature COBWEB_TALL_DARK_OAK = WWTreeFeatures.COBWEB_TALL_DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature COBWEB_FANCY_TALL_DARK_OAK = WWTreeFeatures.COBWEB_FANCY_TALL_DARK_OAK.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak");
 	public static final FrozenLibPlacedFeature LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak");
 
 	// WILLOW & SWAMP
 	public static final FrozenLibPlacedTreeFeature SHORT_WILLOW = WWTreeFeatures.SHORT_WILLOW.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature WILLOW = WWTreeFeatures.WILLOW.toPlacedFeature();
-	public static final FrozenLibPlacedTreeFeature TALL_WILLOW = WWTreeFeatures.TALL_WILLOW.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SWAMP_OAK = WWTreeFeatures.SWAMP_OAK.toPlacedFeature();
 
 	public static final FrozenLibPlacedFeature MOSSY_FALLEN_WILLOW = register("mossy_fallen_willow");
@@ -184,8 +178,6 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature MANGROVE = WWTreeFeatures.MANGROVE.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature TALL_MANGROVE = WWTreeFeatures.TALL_MANGROVE.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature FALLEN_MANGROVE = register("fallen_mangrove");
-
 	// PALM
 	public static final FrozenLibPlacedFeature PALM = register("palm");
 	public static final FrozenLibPlacedFeature TALL_PALM = register("tall_palm");
@@ -198,8 +190,8 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedFeature TALL_PALM_DIRT_LEAF_LITTER = register("tall_palm_dirt_leaf_litter");
 	public static final FrozenLibPlacedFeature SHORT_WINDMILL_PALM_DIRT = register("short_windmill_palm_dirt");
 	public static final FrozenLibPlacedFeature SHORT_WINDMILL_PALM_DIRT_LEAF_LITTER = register("short_windmill_palm_dirt_leaf_litter");
-	public static final FrozenLibPlacedFeature TALL_WINDMILL_PALM_DIRT = register("tall_wine_palm_dirt");
-	public static final FrozenLibPlacedFeature TALL_WINDMILL_PALM_DIRT_LEAF_LITTER = register("tall_wine_palm_dirt_leaf_litter");
+	public static final FrozenLibPlacedFeature TALL_WINDMILL_PALM_DIRT = register("tall_windmill_palm_dirt");
+	public static final FrozenLibPlacedFeature TALL_WINDMILL_PALM_DIRT_LEAF_LITTER = register("tall_windmill_palm_dirt_leaf_litter");
 
 	public static final FrozenLibPlacedFeature FALLEN_PALM = register("fallen_palm");
 
@@ -226,7 +218,6 @@ public final class WWTreePlacements {
 	public static final MapleCollection<FrozenLibPlacedFeature> FULL_MAPLE = MapleCollection.NAMES.map(name -> register("full_" + name + "_maple"));
 	public static final MapleCollection<FrozenLibPlacedFeature> BIG_BUSH_MAPLE = MapleCollection.NAMES.map(name -> register("big_bush_" + name + "_maple"));
 
-	public static final FrozenLibPlacedFeature FALLEN_MAPLE = register("fallen_maple");
 	public static final FrozenLibPlacedFeature SNAPPED_MAPLE = register("snapped_maple");
 
 	// PALE OAK
@@ -241,7 +232,6 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK = register("cobweb_fancy_tall_pale_oak");
 	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK_CREAKING = register("cobweb_fancy_tall_pale_oak_creaking");
 
-	public static final FrozenLibPlacedFeature LARGE_FALLEN_PALE_OAK = register("large_fallen_pale_oak");
 	public static final FrozenLibPlacedFeature LARGE_SNAPPED_PALE_OAK = register("large_snapped_pale_oak");
 
 	// POPLAR
@@ -252,12 +242,10 @@ public final class WWTreePlacements {
 	public static final PoplarCollection<FrozenLibPlacedTreeFeature> POPLAR_BEES_0002 = WWTreeFeatures.POPLAR_BEES_0002.map(FrozenLibTreeFeature::toPlacedFeature);
 	public static final PoplarCollection<FrozenLibPlacedTreeFeature> TALL_POPLAR_BEES_0002 = WWTreeFeatures.TALL_POPLAR_BEES_0002.map(FrozenLibTreeFeature::toPlacedFeature);
 
-	public static final FrozenLibPlacedFeature FALLEN_POPLAR = register("fallen_poplar");
 	public static final FrozenLibPlacedFeature SNAPPED_POPLAR = register("snapped_poplar");
 
 	// BUSH
 	public static final FrozenLibPlacedFeature LARGE_BUSH = register("large_bush");
-	public static final FrozenLibPlacedFeature LARGE_BUSH_ON_SAND = register("large_bush_on_sand");
 	public static final FrozenLibPlacedFeature BIG_BUSH = register("big_bush");
 
 	// CRIMSON
@@ -274,28 +262,15 @@ public final class WWTreePlacements {
 		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
-		final BlockPredicateFilter fallenTreePlacement = BlockPredicateFilter.forPredicate(
-			BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWFeatureBlockTags.FALLEN_TREE_PLACEABLE)
-		);
+		final BlockPredicateFilter fallenTreePlacement = fallenTreePlacementFilter();
 		final List<PlacementModifier> snowTreePlacement = List.of(
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.POWDER_SNOW)), 8),
+			EnvironmentScanPlacement.scanningFor(
+				Direction.UP,
+				BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)),
+				8
+			),
 			BlockPredicateFilter.forPredicate(
-				BlockPredicate.matchesBlocks(
-					Direction.DOWN,
-					Blocks.SNOW_BLOCK,
-					Blocks.POWDER_SNOW
-				)
-			)
-		);
-		final List<PlacementModifier> sandTreePlacement = List.of(
-			EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.not(BlockPredicate.matchesBlocks(Blocks.SANDSTONE)), 8),
-			BlockPredicateFilter.forPredicate(
-				BlockPredicate.matchesBlocks(
-					Direction.DOWN,
-					Blocks.RED_SAND,
-					Blocks.SAND,
-					Blocks.GRASS_BLOCK
-				)
+				BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)
 			)
 		);
 
@@ -372,9 +347,6 @@ public final class WWTreePlacements {
 
 		FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.FALLEN_SPRUCE, fallenTreePlacement);
 		MOSSY_FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.MOSSY_FALLEN_SPRUCE, fallenTreePlacement);
-		CLEAN_FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.CLEAN_FALLEN_SPRUCE, fallenTreePlacement);
-		DECORATED_LARGE_FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.DECORATED_LARGE_FALLEN_SPRUCE, fallenTreePlacement);
-		CLEAN_LARGE_FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.CLEAN_LARGE_FALLEN_SPRUCE, fallenTreePlacement);
 		SNAPPED_SPRUCE.makeAndSetHolder(WWTreeFeatures.SNAPPED_SPRUCE, spruceSaplingPlacement);
 		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeFeatures.SNAPPED_SPRUCE, snowTreePlacement);
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_SPRUCE, spruceSaplingPlacement);
@@ -386,7 +358,6 @@ public final class WWTreePlacements {
 		MEGA_JUNGLE.makeAndSetHolders(jungleSaplingPlacement);
 
 		FALLEN_JUNGLE.makeAndSetHolder(WWTreeFeatures.FALLEN_JUNGLE, fallenTreePlacement);
-		LARGE_FALLEN_JUNGLE.makeAndSetHolder(WWTreeFeatures.LARGE_FALLEN_JUNGLE, fallenTreePlacement);
 		SNAPPED_JUNGLE.makeAndSetHolder(WWTreeFeatures.SNAPPED_JUNGLE, jungleSaplingPlacement);
 		LARGE_SNAPPED_JUNGLE.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_JUNGLE, jungleSaplingPlacement);
 
@@ -411,14 +382,12 @@ public final class WWTreePlacements {
 		COBWEB_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 
-		LARGE_FALLEN_DARK_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_FALLEN_DARK_OAK, fallenTreePlacement);
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_DARK_OAK, darkOakSaplingPlacement);
 
 		// WILLOW & SWAMP
 		final BlockPredicateFilter willowSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.WILLOW_SAPLING.get());
 		SHORT_WILLOW.makeAndSetHolders(willowSaplingPlacement);
 		WILLOW.makeAndSetHolders(willowSaplingPlacement);
-		TALL_WILLOW.makeAndSetHolders(willowSaplingPlacement);
 		SWAMP_OAK.makeAndSetHolders(willowSaplingPlacement);
 
 		MOSSY_FALLEN_WILLOW.makeAndSetHolder(WWTreeFeatures.MOSSY_FALLEN_WILLOW, fallenTreePlacement);
@@ -438,8 +407,6 @@ public final class WWTreePlacements {
 		// MANGROVE
 		MANGROVE.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE));
 		TALL_MANGROVE.makeAndSetHolders(PlacementUtils.filteredByBlockSurvival(Blocks.MANGROVE_PROPAGULE));
-
-		FALLEN_MANGROVE.makeAndSetHolder(WWTreeFeatures.FALLEN_MANGROVE, fallenTreePlacement);
 
 		// PALM
 		final BlockPredicateFilter coconutPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.COCONUT.get());
@@ -492,7 +459,6 @@ public final class WWTreePlacements {
 		registerMaple.accept(FULL_MAPLE, WWTreeFeatures.FULL_MAPLE);
 		registerMaple.accept(BIG_BUSH_MAPLE, WWTreeFeatures.BIG_BUSH_MAPLE);
 
-		FALLEN_MAPLE.makeAndSetHolder(WWTreeFeatures.FALLEN_MAPLE.getHolder(), fallenTreePlacement);
 		SNAPPED_MAPLE.makeAndSetHolder(WWTreeFeatures.SNAPPED_MAPLE.getHolder(), fallenTreePlacement);
 
 		// PALE OAK
@@ -508,7 +474,6 @@ public final class WWTreePlacements {
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(WWTreeFeatures.COBWEB_FANCY_PALE_OAK, paleOakSaplingPlacement);
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.COBWEB_FANCY_PALE_OAK_CREAKING, paleOakSaplingPlacement);
 
-		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_FALLEN_PALE_OAK, paleOakSaplingPlacement);
 		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_PALE_OAK, paleOakSaplingPlacement);
 
 		// POPLAR
@@ -528,12 +493,10 @@ public final class WWTreePlacements {
 		registerPoplar.accept(POPLAR_BEES_0002);
 		registerPoplar.accept(TALL_POPLAR_BEES_0002);
 
-		FALLEN_POPLAR.makeAndSetHolder(WWTreeFeatures.FALLEN_POPLAR.getHolder(), fallenTreePlacement);
 		SNAPPED_POPLAR.makeAndSetHolder(WWTreeFeatures.SNAPPED_POPLAR.getHolder(), fallenTreePlacement);
 
 		// BUSH
 		LARGE_BUSH.makeAndSetHolder(WWTreeFeatures.LARGE_BUSH, oakSaplingPlacement);
-		LARGE_BUSH_ON_SAND.makeAndSetHolder(WWTreeFeatures.LARGE_BUSH, sandTreePlacement);
 		BIG_BUSH.makeAndSetHolder(WWTreeFeatures.BIG_BUSH, oakSaplingPlacement);
 
 		// CRIMSON
@@ -587,7 +550,11 @@ public final class WWTreePlacements {
 		);
 	}
 
-
+	public static BlockPredicateFilter fallenTreePlacementFilter() {
+		return BlockPredicateFilter.forPredicate(
+			BlockPredicate.matchesTag(Direction.DOWN.getUnitVec3i(), WWFeatureBlockTags.FALLEN_TREE_PLACEABLE)
+		);
+	}
 
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id("tree/" + name));

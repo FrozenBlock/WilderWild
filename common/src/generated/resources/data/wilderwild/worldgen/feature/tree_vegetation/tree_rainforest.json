@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "default": {
+    "feature": "wilderwild:tree_vegetation/tree_rainforest_no_litter",
+    "placement": []
+  },
+  "features": [
+    {
+      "chance": 0.15,
+      "feature": {
+        "feature": "wilderwild:tree_vegetation/tree_rainforest_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

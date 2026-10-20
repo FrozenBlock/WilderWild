@@ -166,7 +166,7 @@
       "minecraft:spring_lava"
     ],
     [
-      "wilderwild:arid_savanna_trees",
+      "wilderwild:tree_vegetation/tree_arid_savanna",
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass",
       "minecraft:flower_warm",

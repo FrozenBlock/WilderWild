@@ -1,0 +1,23 @@
+{
+  "feature": "wilderwild:tree_vegetation/btree_birch_jungle",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 29
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

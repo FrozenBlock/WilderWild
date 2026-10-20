@@ -196,7 +196,7 @@ public final class WWTreeFeatures {
 	public static final FrozenLibFeature FALLEN_SPRUCE = register("fallen_spruce");
 	public static final FrozenLibFeature MOSSY_FALLEN_SPRUCE = register("mossy_fallen_spruce");
 	public static final FrozenLibFeature CLEAN_FALLEN_SPRUCE = register("clean_fallen_spruce");
-	public static final FrozenLibFeature DECORATED_LARGE_FALLEN_SPRUCE = register("decorated_large_fallen_spruce");
+	public static final FrozenLibFeature LARGE_FALLEN_SPRUCE = register("large_fallen_spruce");
 	public static final FrozenLibFeature CLEAN_LARGE_FALLEN_SPRUCE = register("clean_large_snapped_spruce");
 	public static final FrozenLibFeature SNAPPED_SPRUCE = register("snapped_spruce");
 	public static final FrozenLibFeature LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce");
@@ -913,7 +913,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		DECORATED_LARGE_FALLEN_SPRUCE.makeAndSetHolder(
+		LARGE_FALLEN_SPRUCE.makeAndSetHolder(
 			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mossSprucePalm, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_SPRUCE), mushroomsFallenSpruce))
 				.build()

@@ -1,0 +1,57 @@
+{
+  "feature": {
+    "type": "frozenlib:config_selector",
+    "config_predicate": "wilderwild:generate_willow",
+    "feature_if_false": {
+      "feature": "wilderwild:tree/mossy_fallen_oak",
+      "placement": [
+        {
+          "type": "minecraft:rarity_filter",
+          "chance": 4
+        },
+        {
+          "type": "minecraft:in_square"
+        },
+        {
+          "type": "minecraft:heightmap",
+          "heightmap": "OCEAN_FLOOR"
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "offset": [
+              0,
+              -1,
+              0
+            ],
+            "tag": "wilderwild:feature/fallen_tree_placeable"
+          }
+        },
+        {
+          "type": "minecraft:biome"
+        }
+      ]
+    },
+    "feature_if_true": {
+      "feature": "wilderwild:tree_vegetation/fallen_willow_and_oak",
+      "placement": [
+        {
+          "type": "minecraft:rarity_filter",
+          "chance": 4
+        },
+        {
+          "type": "minecraft:in_square"
+        },
+        {
+          "type": "minecraft:heightmap",
+          "heightmap": "OCEAN_FLOOR"
+        },
+        {
+          "type": "minecraft:biome"
+        }
+      ]
+    }
+  },
+  "placement": []
+}

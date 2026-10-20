@@ -197,7 +197,7 @@
     ],
     [
       "minecraft:glow_lichen",
-      "wilderwild:mixed_trees",
+      "wilderwild:tree_vegetation/tree_mixed_forest",
       "minecraft:patch_bush",
       "minecraft:flower_default",
       "minecraft:patch_grass_forest"

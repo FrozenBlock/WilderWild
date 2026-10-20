@@ -198,7 +198,7 @@
     ],
     [
       "minecraft:glow_lichen",
-      "wilderwild:rainforest_trees",
+      "wilderwild:tree_vegetation/tree_rainforest",
       "wilderwild:flower/flower_rainforest",
       "wilderwild:flower/patch_flower_rainforest",
       "minecraft:flower_warm",

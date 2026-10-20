@@ -1,0 +1,34 @@
+{
+  "feature": {
+    "type": "frozenlib:config_selector",
+    "config_predicate": "wilderwild:generate_palm",
+    "feature_if_false": {
+      "feature": "wilderwild:tree_vegetation/tree_arid_savanna",
+      "placement": []
+    },
+    "feature_if_true": {
+      "feature": "wilderwild:tree_vegetation/tree_arid_savanna_palm",
+      "placement": []
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 12
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

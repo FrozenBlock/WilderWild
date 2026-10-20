@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.WWConstants;
 
 public final class WWPlacementUtils {
 	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.625D, 1D, 0.2D, false, false, false);
-	public static final NoisePlacementFilter SHRUB_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.69D, 1D, 0.2D, false, false, false);
+	public static final NoisePlacementFilter BIG_BUSH_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.69D, 1D, 0.2D, false, false, false);
 	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.675D, 1D, 0.175D, false, false, true);
 
 	public static FrozenLibPlacedFeature register(String name) {

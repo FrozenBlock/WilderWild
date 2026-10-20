@@ -20,8 +20,8 @@ package net.frozenblock.wilderwild.levelgen.grower;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWTreeVegetationFeatures;
 import net.frozenblock.wilderwild.levelgen.grower.impl.TreeGrowerInterface;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -61,7 +61,7 @@ public final class WWTreeGrowers {
 				if (level.getBlockState(pos.below()).is(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)) return WWTreeFeatures.JUNIPER.getKey();
 			}
 			if (random.nextFloat() <= 0.6F) return random.nextFloat() <= 0.3F ? WWTreeFeatures.CYPRESS.getKey() : WWTreeFeatures.FUNGUS_CYPRESS.getKey();
-			return WWConfiguredFeatures.CYPRESS_WETLANDS_TREES_SAPLING.getKey();
+			return WWTreeVegetationFeatures.TREE_CYPRESS_SAPLING.getKey();
 		}
 	};
 
@@ -88,7 +88,7 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWConfiguredFeatures.COLORED_MAPLES_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_MAPLES_NO_BEES.pick(color).getKey();
+			return hasFlowers ? WWTreeVegetationFeatures.COLORED_MAPLE_BEES_SAPLING.pick(color).getKey() : WWTreeVegetationFeatures.COLORED_MAPLE_NO_BEES.pick(color).getKey();
 		}
 	});
 
@@ -101,7 +101,7 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWConfiguredFeatures.COLORED_POPLARS_BEES_SAPLING.pick(color).getKey() : WWConfiguredFeatures.COLORED_POPLARS_NO_BEES_SAPLING.pick(color).getKey();
+			return hasFlowers ? WWTreeVegetationFeatures.COLORED_POPLAR_BEES_SAPLING.pick(color).getKey() : WWTreeVegetationFeatures.COLORED_POPLAR_NO_BEES_SAPLING.pick(color).getKey();
 		}
 	});
 

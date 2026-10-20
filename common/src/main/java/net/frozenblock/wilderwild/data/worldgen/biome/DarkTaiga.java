@@ -25,7 +25,7 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -120,7 +120,7 @@ public final class DarkTaiga extends FrozenLibBiome {
 		BiomeDefaultFeatures.addTaigaGrass(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		BiomeDefaultFeatures.addCommonBerryBushes(features);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.DARK_TAIGA_VEGETATION.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_DARK_TAIGA.getKey());
 	}
 
 	@Override

@@ -18,15 +18,15 @@
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_carnation_42",
-      "weight": 3
-    },
-    {
       "data": "wilderwild:flower/patch_lily_of_the_valley_48",
       "weight": 3
     },
     {
       "data": "wilderwild:flower/patch_milkweed_42",
+      "weight": 3
+    },
+    {
+      "data": "wilderwild:flower/patch_carnation_42",
       "weight": 3
     },
     {

@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/short_birch",
+  "features": [
+    {
+      "chance": 0.086,
+      "feature": "wilderwild:tree/fungus_pine"
+    },
+    {
+      "chance": 0.01,
+      "feature": "wilderwild:tree/dying_medium_birch"
+    },
+    {
+      "chance": 0.37,
+      "feature": "wilderwild:tree/medium_birch"
+    },
+    {
+      "chance": 0.01,
+      "feature": "wilderwild:tree/dying_short_birch"
+    },
+    {
+      "chance": 0.155,
+      "feature": "wilderwild:tree/short_spruce"
+    },
+    {
+      "chance": 0.02,
+      "feature": "wilderwild:tree/dying_fungus_pine"
+    },
+    {
+      "chance": 0.39,
+      "feature": "wilderwild:tree/spruce"
+    }
+  ]
+}

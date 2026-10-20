@@ -183,7 +183,7 @@
       "minecraft:patch_pumpkin",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_firefly_bush_near_water",
-      "wilderwild:trees_semi_birch_and_oak"
+      "wilderwild:tree_vegetation/tree_semi_birch_and_oak"
     ],
     [
       "minecraft:freeze_top_layer"

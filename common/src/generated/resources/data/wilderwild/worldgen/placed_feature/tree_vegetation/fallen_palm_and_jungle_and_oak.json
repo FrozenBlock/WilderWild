@@ -1,0 +1,30 @@
+{
+  "feature": {
+    "type": "frozenlib:config_selector",
+    "config_predicate": "wilderwild:generate_palm",
+    "feature_if_false": {
+      "feature": "wilderwild:tree_vegetation/fallen_jungle_and_oak",
+      "placement": []
+    },
+    "feature_if_true": {
+      "feature": "wilderwild:tree_vegetation/fallen_palm_and_jungle_and_oak",
+      "placement": []
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 25
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

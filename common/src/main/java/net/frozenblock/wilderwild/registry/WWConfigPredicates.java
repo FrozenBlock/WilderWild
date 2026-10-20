@@ -43,6 +43,10 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_FLOWER = createKey("generate_flower");
+	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SNAPPED_TREE = createKey("generate_snapped_tree");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PALM = createKey("generate_palm");
+	public static final ResourceKey<ConfigPredicate> GENERATE_WILLOW = createKey("generate_willow");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_ACACIA = createKey("generate_shelf_mushroom_acacia");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_BIRCH = createKey("generate_shelf_mushroom_birch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_CHERRY = createKey("generate_shelf_mushroom_cherry");
@@ -128,6 +132,22 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_FLOWER,
 			WWWorldgenConfig.FLOWER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_TREE,
+			WWWorldgenConfig.TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SNAPPED_TREE,
+			WWWorldgenConfig.SNAPPED_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PALM,
+			WWWorldgenConfig.PALM_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_WILLOW,
+			WWWorldgenConfig.WILLOW_TREE_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_SHELF_MUSHROOM_ACACIA,
