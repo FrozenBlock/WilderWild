@@ -2,15 +2,7 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "data": "wilderwild:flower/patch_rose_bush_38",
-      "weight": 3
-    },
-    {
       "data": "wilderwild:flower/patch_lilac_38",
-      "weight": 2
-    },
-    {
-      "data": "wilderwild:flower/patch_peony_38",
       "weight": 2
     },
     {
@@ -54,8 +46,12 @@
       "weight": 4
     },
     {
-      "data": "wilderwild:flower/patch_datura_38",
+      "data": "wilderwild:flower/patch_peony_38",
       "weight": 2
+    },
+    {
+      "data": "wilderwild:flower/patch_rose_bush_38",
+      "weight": 3
     },
     {
       "data": {
@@ -96,6 +92,10 @@
         ]
       },
       "weight": 4
+    },
+    {
+      "data": "wilderwild:flower/patch_datura_38",
+      "weight": 2
     }
   ]
 }

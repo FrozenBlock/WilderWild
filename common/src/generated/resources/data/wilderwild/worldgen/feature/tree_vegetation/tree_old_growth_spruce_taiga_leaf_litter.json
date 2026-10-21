@@ -3,12 +3,12 @@
   "default": "wilderwild:tree/spruce_leaf_litter",
   "features": [
     {
-      "chance": 0.33333334,
-      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
-    },
-    {
       "chance": 0.075,
       "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
+    },
+    {
+      "chance": 0.33333334,
+      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
     },
     {
       "chance": 0.33333334,

@@ -2,12 +2,12 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "data": "wilderwild:flower/patch_seeding_dandelion_48",
-      "weight": 4
-    },
-    {
       "data": "wilderwild:flower/patch_milkweed_52_large",
       "weight": 1
+    },
+    {
+      "data": "wilderwild:flower/patch_seeding_dandelion_48",
+      "weight": 4
     }
   ]
 }

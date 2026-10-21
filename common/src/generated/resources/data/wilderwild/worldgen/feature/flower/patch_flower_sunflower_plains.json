@@ -43,46 +43,6 @@
     },
     {
       "data": {
-        "feature": "wilderwild:flower/seeding_dandelion_and_dandelion_sunflower_plains",
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 32
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            },
-            "y": {
-              "type": "minecraft:trapezoid",
-              "max": 2,
-              "min": -2,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          },
-          {
-            "type": "minecraft:block_predicate_filter",
-            "predicate": {
-              "type": "minecraft:matching_block_tag",
-              "tag": "minecraft:air"
-            }
-          }
-        ]
-      },
-      "weight": 12
-    },
-    {
-      "data": {
         "feature": "wilderwild:flower/flower_sunflower_plains_pink",
         "placement": [
           {
@@ -120,6 +80,46 @@
         ]
       },
       "weight": 2
+    },
+    {
+      "data": {
+        "feature": "wilderwild:flower/seeding_dandelion_and_dandelion_sunflower_plains",
+        "placement": [
+          {
+            "type": "minecraft:count",
+            "count": 32
+          },
+          {
+            "type": "minecraft:offset",
+            "x": {
+              "type": "minecraft:trapezoid",
+              "max": 6,
+              "min": -6,
+              "plateau": 0
+            },
+            "y": {
+              "type": "minecraft:trapezoid",
+              "max": 2,
+              "min": -2,
+              "plateau": 0
+            },
+            "z": {
+              "type": "minecraft:trapezoid",
+              "max": 6,
+              "min": -6,
+              "plateau": 0
+            }
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:matching_block_tag",
+              "tag": "minecraft:air"
+            }
+          }
+        ]
+      },
+      "weight": 12
     }
   ]
 }

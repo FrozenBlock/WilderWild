@@ -3,10 +3,6 @@
   "default": "wilderwild:tree/spruce",
   "features": [
     {
-      "chance": 0.025641026,
-      "feature": "wilderwild:tree/mega_fungus_spruce"
-    },
-    {
       "chance": 0.028,
       "feature": "wilderwild:tree/dying_mega_fungus_pine"
     },
@@ -15,12 +11,16 @@
       "feature": "wilderwild:tree/dying_fungus_pine"
     },
     {
-      "chance": 0.33333334,
-      "feature": "wilderwild:tree/fungus_pine"
+      "chance": 0.025641026,
+      "feature": "wilderwild:tree/mega_fungus_spruce"
     },
     {
       "chance": 0.30769232,
       "feature": "wilderwild:tree/mega_fungus_pine"
+    },
+    {
+      "chance": 0.33333334,
+      "feature": "wilderwild:tree/fungus_pine"
     }
   ]
 }
