@@ -2,6 +2,38 @@
   "feature": "wilderwild:aquatic/cattail",
   "placement": [
     {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING_NO_LEAVES"
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "allowed_search_condition": {
+        "type": "minecraft:any_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:air"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
+          }
+        ]
+      },
+      "direction_of_search": "down",
+      "max_steps": 8,
+      "target_condition": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "wilderwild:feature/cattail_placeable"
+      }
+    },
+    {
+      "type": "minecraft:offset",
+      "x": 0,
+      "y": 1,
+      "z": 0
+    },
+    {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:all_of",
@@ -14,15 +46,6 @@
               0
             ],
             "tag": "minecraft:air"
-          },
-          {
-            "type": "minecraft:matching_block_tag",
-            "offset": [
-              0,
-              -1,
-              0
-            ],
-            "tag": "wilderwild:feature/cattail_placeable"
           },
           {
             "type": "minecraft:would_survive",

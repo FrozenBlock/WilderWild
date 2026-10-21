@@ -6,10 +6,6 @@
       "weight": 1
     },
     {
-      "data": "wilderwild:flower/patch_poppy_32_large",
-      "weight": 1
-    },
-    {
       "data": "wilderwild:flower/patch_azure_bluet_52_large",
       "weight": 1
     },
@@ -18,15 +14,19 @@
       "weight": 1
     },
     {
+      "data": "wilderwild:flower/patch_poppy_32_large",
+      "weight": 1
+    },
+    {
       "data": "wilderwild:flower/patch_azure_bluet_and_seeding_dandelion_64_large",
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_rose_bush_42",
+      "data": "wilderwild:flower/patch_poppy_and_marigold_64_large",
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_poppy_and_marigold_64_large",
+      "data": "wilderwild:flower/patch_rose_bush_42",
       "weight": 3
     },
     {

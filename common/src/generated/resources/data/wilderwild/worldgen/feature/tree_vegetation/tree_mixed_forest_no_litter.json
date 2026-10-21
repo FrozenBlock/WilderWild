@@ -3,18 +3,6 @@
   "default": "wilderwild:tree/oak",
   "features": [
     {
-      "chance": 0.23,
-      "feature": "wilderwild:tree/short_oak"
-    },
-    {
-      "chance": 0.01,
-      "feature": "wilderwild:tree/dying_short_birch"
-    },
-    {
-      "chance": 0.12,
-      "feature": "wilderwild:tree/fancy_oak_bees_0004"
-    },
-    {
       "chance": 0.086,
       "feature": "wilderwild:tree/fungus_pine"
     },
@@ -23,8 +11,16 @@
       "feature": "wilderwild:tree/dying_fungus_pine"
     },
     {
-      "chance": 0.025,
-      "feature": "wilderwild:tree/fancy_dying_oak_bees_0004"
+      "chance": 0.01,
+      "feature": "wilderwild:tree/dying_oak"
+    },
+    {
+      "chance": 0.01,
+      "feature": "wilderwild:tree/dying_short_birch"
+    },
+    {
+      "chance": 0.23,
+      "feature": "wilderwild:tree/short_oak"
     },
     {
       "chance": 0.325,
@@ -39,8 +35,12 @@
       "feature": "wilderwild:tree/spruce"
     },
     {
-      "chance": 0.01,
-      "feature": "wilderwild:tree/dying_oak"
+      "chance": 0.025,
+      "feature": "wilderwild:tree/fancy_dying_oak_bees_0004"
+    },
+    {
+      "chance": 0.12,
+      "feature": "wilderwild:tree/fancy_oak_bees_0004"
     }
   ]
 }

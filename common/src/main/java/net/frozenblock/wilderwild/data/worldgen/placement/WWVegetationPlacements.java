@@ -629,7 +629,7 @@ public final class WWVegetationPlacements {
 		PATCH_SHRUB_JUNGLE.makeAndSetHolder(WWVegetationFeatures.SHRUB_JUNGLE,
 			FrozenLibPlacementUtil.postModifiersWithPreFilter(
 				shrubConfigFilter,
-				FrozenLibPlacementUtil.modifiers(CountPlacement.of(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, shrubSurvivalFilter),
+				FrozenLibPlacementUtil.modifiers(CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, shrubSurvivalFilter),
 				CountPlacement.of(22),
 				OffsetPlacement.ofTriangle(6, 2),
 				shrubPlacementFilter

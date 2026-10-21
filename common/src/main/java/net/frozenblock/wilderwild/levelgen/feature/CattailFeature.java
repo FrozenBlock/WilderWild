@@ -24,11 +24,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.material.Fluids;
 
 public record CattailFeature() implements Feature {
 	public static final CattailFeature INSTANCE = new CattailFeature();
@@ -42,9 +42,8 @@ public record CattailFeature() implements Feature {
 	@Override
 	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		final BlockPos aboveOrigin = origin.above();
-		final BlockState bottomState = level.getBlockState(origin);
-		final boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
 
+		final boolean bottomStateIsWater = level.getFluidState(origin).isSourceOfType(Fluids.WATER);
 		final BlockState bottomPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
 			.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
 			.setValue(CattailBlock.SWAYING, bottomStateIsWater);
@@ -53,10 +52,11 @@ public record CattailFeature() implements Feature {
 
 		final BlockState topPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
 			.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)
+			.setValue(CattailBlock.WATERLOGGED, level.getFluidState(aboveOrigin).isSourceOfType(Fluids.WATER))
 			.setValue(CattailBlock.SWAYING, bottomStateIsWater);
 
 		level.setBlock(origin, bottomPlaceState, Block.UPDATE_CLIENTS);
-		if (topPlaceState.canSurvive(level, aboveOrigin)) level.setBlock(aboveOrigin, topPlaceState, Block.UPDATE_CLIENTS);
+		level.setBlock(aboveOrigin, topPlaceState, Block.UPDATE_CLIENTS);
 
 		return true;
 	}

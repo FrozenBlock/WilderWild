@@ -14,15 +14,15 @@
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_flower_default_64_large",
-      "weight": 3
-    },
-    {
       "data": "wilderwild:flower/patch_hibiscus_72",
       "weight": 3
     },
     {
       "data": "wilderwild:flower/patch_milkweed_42",
+      "weight": 3
+    },
+    {
+      "data": "wilderwild:flower/patch_flower_default_64_large",
       "weight": 3
     }
   ]

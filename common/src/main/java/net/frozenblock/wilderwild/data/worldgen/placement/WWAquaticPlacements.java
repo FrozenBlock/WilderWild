@@ -71,7 +71,7 @@ public final class WWAquaticPlacements {
 	public static final FrozenLibPlacedFeature RIVER_POOL = register("river_pool");
 	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
 
-	public static final FrozenLibPlacedFeature CATTAIL_CHECKED = register("cattail_checked");
+	public static final FrozenLibPlacedFeature CATTAIL_CHECKED_AND_SEARCH = register("cattail_checked_and_search");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("patch_cattail");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("patch_cattail_common");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("patch_cattail_uncommon");
@@ -143,11 +143,18 @@ public final class WWAquaticPlacements {
 			BiomeFilter.biome()
 		);
 
-		CATTAIL_CHECKED.makeAndSetHolder(WWAquaticFeatures.CATTAIL,
+		CATTAIL_CHECKED_AND_SEARCH.makeAndSetHolder(WWAquaticFeatures.CATTAIL,
+			PlacementUtils.HEIGHTMAP_NO_LEAVES,
+			EnvironmentScanPlacement.scanningFor(
+				Direction.DOWN,
+				BlockPredicate.matchesTag(WWFeatureBlockTags.CATTAIL_PLACEABLE),
+				BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE,
+				8
+			),
+			OffsetPlacement.vertical(ConstantInt.of(1)),
 			BlockPredicateFilter.forPredicate(
 				BlockPredicate.allOf(
 					BlockPredicate.matchesTag(Direction.UP, BlockTags.AIR),
-					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.CATTAIL_PLACEABLE),
 					BlockPredicate.wouldSurvive(WWBlocks.CATTAIL.get()),
 					BlockPredicate.anyOf(
 						BlockPredicate.matchesBlocks(Blocks.WATER),
@@ -280,17 +287,23 @@ public final class WWAquaticPlacements {
 		int horizontalRange
 	) {
 		placement.makeAndSetHolder(
-			new SequenceFeature(CATTAIL_CHECKED.asHolderSet()),
+			new SequenceFeature(CATTAIL_CHECKED_AND_SEARCH.asHolderSet()),
 			postModifiers(
 				modifiersWithFilter(
 					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL),
 					RarityFilter.onAverageOnceEvery(rarity),
-					PlacementUtils.HEIGHTMAP_TOP_SOLID,
+					PlacementUtils.HEIGHTMAP_NO_LEAVES,
+					EnvironmentScanPlacement.scanningFor(
+						Direction.DOWN,
+						BlockPredicate.matchesTag(WWFeatureBlockTags.CATTAIL_PLACEABLE),
+						BlockPredicate.not(BlockPredicate.solid()),
+						8
+					),
+					OffsetPlacement.vertical(ConstantInt.of(1)),
 					BlockPredicateFilter.forPredicate(BlockPredicate.noFluid())
 				),
 				CountPlacement.of(UniformInt.of(minCount, maxCount)),
-				OffsetPlacement.horizontal(TrapezoidInt.triangle(horizontalRange)),
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
+				OffsetPlacement.horizontal(TrapezoidInt.triangle(horizontalRange))
 			)
 		);
 	}

@@ -2,7 +2,7 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "data": "wilderwild:flower/patch_marigold_38_large",
+      "data": "wilderwild:flower/patch_poppy_38_large",
       "weight": 1
     },
     {
@@ -10,12 +10,8 @@
       "weight": 1
     },
     {
-      "data": "wilderwild:flower/patch_poppy_38_large",
+      "data": "wilderwild:flower/patch_marigold_38_large",
       "weight": 1
-    },
-    {
-      "data": "wilderwild:flower/patch_poppy_and_pasqueflower_36",
-      "weight": 2
     },
     {
       "data": "wilderwild:flower/patch_marigold_and_seeding_dandelion_36",
@@ -26,11 +22,15 @@
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_pasqueflower_and_poppy_36",
-      "weight": 3
+      "data": "wilderwild:flower/patch_poppy_and_pasqueflower_36",
+      "weight": 2
     },
     {
       "data": "wilderwild:flower/patch_marigold_and_pasqueflower_36",
+      "weight": 3
+    },
+    {
+      "data": "wilderwild:flower/patch_pasqueflower_and_poppy_36",
       "weight": 3
     },
     {
