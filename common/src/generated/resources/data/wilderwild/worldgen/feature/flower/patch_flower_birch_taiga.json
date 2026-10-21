@@ -6,16 +6,16 @@
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_peony_42_large",
-      "weight": 1
-    },
-    {
       "data": "wilderwild:flower/patch_datura_38",
       "weight": 3
     },
     {
       "data": "wilderwild:flower/patch_lilac_48_large",
       "weight": 2
+    },
+    {
+      "data": "wilderwild:flower/patch_peony_42_large",
+      "weight": 1
     }
   ]
 }

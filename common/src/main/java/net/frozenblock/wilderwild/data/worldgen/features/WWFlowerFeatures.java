@@ -17,8 +17,6 @@
 
 package net.frozenblock.wilderwild.data.worldgen.features;
 
-import java.util.Comparator;
-import java.util.Map;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
@@ -220,19 +218,25 @@ public final class WWFlowerFeatures {
 		registerSimpleBlock(FLOWER_SUNFLOWER_PLAINS, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_SUNFLOWER_PLAINS));
 		registerSimpleBlock(FLOWER_SUNFLOWER_PLAINS_PINK, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_SUNFLOWER_PLAINS_PINK));
 		registerWeightedSelector(PATCH_FLOWER_SUNFLOWER_PLAINS,
-			Map.of(
-				flowerPatchInlinePlaced(
-					SEEDING_DANDELION_AND_DANDELION_SUNFLOWER_PLAINS.getHolder(),
-					32, 6, 2
-				), 12,
-				flowerPatchInlinePlaced(
-					FLOWER_SUNFLOWER_PLAINS.getHolder(),
-					42, 6, 2
-				), 6,
-				flowerPatchInlinePlaced(
-					FLOWER_SUNFLOWER_PLAINS_PINK.getHolder(),
-					42, 6, 2
-				), 2
+			WeightedList.of(
+				new Weighted<>(
+					flowerPatchInlinePlaced(
+						SEEDING_DANDELION_AND_DANDELION_SUNFLOWER_PLAINS.getHolder(),
+						32, 6, 2
+					), 12
+				),
+				new Weighted<>(
+					flowerPatchInlinePlaced(
+						FLOWER_SUNFLOWER_PLAINS.getHolder(),
+						42, 6, 2
+					), 6
+				),
+				new Weighted<>(
+					flowerPatchInlinePlaced(
+						FLOWER_SUNFLOWER_PLAINS_PINK.getHolder(),
+						42, 6, 2
+					), 2
+				)
 			)
 		);
 
@@ -311,24 +315,24 @@ public final class WWFlowerFeatures {
 			)
 		);
 		registerWeightedSelector(PATCH_FLOWER_FLOWER_FIELD,
-			Map.of(
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 4,
-				WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 1)
+				.build()
 		);
 
 		// FOREST
 		registerSimpleBlock(FLOWER_FOREST, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_FOREST));
 		registerWeightedSelector(PATCH_FLOWER_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_42.getHolder(), 2,
-				WWFlowerPlacements.PATCH_CARNATION_42.getHolder(), 2,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_32.getHolder(), 1,
-				WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_LILAC_64_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_64_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_PEONY_52_LARGE.getHolder(), 3
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_42.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_CARNATION_42.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_32.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_LILAC_64_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_64_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_PEONY_52_LARGE.getHolder(), 3)
+				.build()
 		);
 		registerRandomSelector(PATCH_FLOWER_SPARSE_FOREST,
 			WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_38.getHolder(),
@@ -368,121 +372,121 @@ public final class WWFlowerFeatures {
 		registerSimpleBlock(FLOWER_FLOWER_FOREST_1, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_FLOWER_FOREST_1));
 		registerSimpleBlock(FLOWER_FLOWER_FOREST_2, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_FLOWER_FOREST_2));
 		registerWeightedSelector(PATCH_FLOWER_FLOWER_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 2,
-				WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_LILAC_64_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_64_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_PEONY_52_LARGE.getHolder(), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_LILAC_64_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_64_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_PEONY_52_LARGE.getHolder(), 1)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_DYING_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_MARIGOLD_46.getHolder(), 5,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_38.getHolder(), 3
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_46.getHolder(), 5)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_38.getHolder(), 3)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_DYING_MIXED_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_MARIGOLD_32.getHolder(), 1,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_32.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 2)
+				.build()
 		);
 
 		// BIRCH FOREST
 		registerWeightedSelector(PATCH_FLOWER_BIRCH_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_DANDELION_72_LARGE.getHolder(), 6,
-				WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 3,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_72_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2,
-				WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_PEONY_42_LARGE.getHolder(), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_DANDELION_72_LARGE.getHolder(), 6)
+				.add(WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_72_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_PEONY_42_LARGE.getHolder(), 1)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_SEMI_BIRCH_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_DANDELION_72_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 2,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_72_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 2,
-				WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_PEONY_42_LARGE.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_DANDELION_72_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_72_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_PEONY_42_LARGE.getHolder(), 2)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_BIRCH_JUNGLE,
-			Map.of(
-				WWFlowerPlacements.PATCH_HIBISCUS_72.getHolder(), 3,
-				WWFlowerPlacements.PATCH_FLOWER_DEFAULT_64_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 2,
-				WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 3,
-				WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_HIBISCUS_72.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_FLOWER_DEFAULT_64_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_BIRCH_TAIGA,
-			Map.of(
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_72_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 3,
-				WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_PEONY_42_LARGE.getHolder(), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_72_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_PEONY_42_LARGE.getHolder(), 1)
+				.build()
 		);
 
 		// DARK FOREST
 		registerWeightedSelector(PATCH_PHLOX_AND_LANTANAS_DARK_FOREST,
-			Map.of(
-				flowerPatchInlinePlaced(PHLOX.getHolder(), 42, 6, 2), 4,
-				flowerPatchInlinePlaced(LANTANAS.getHolder(), 42, 6, 2), 3
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(flowerPatchInlinePlaced(PHLOX.getHolder(), 42, 6, 2), 4)
+				.add(flowerPatchInlinePlaced(LANTANAS.getHolder(), 42, 6, 2), 3)
+				.build()
 		);
 		registerSimpleBlock(FLOWER_DARK_FOREST, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_DARK_FOREST));
 		registerWeightedSelector(PATCH_FLOWER_DARK_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_CARNATION_52.getHolder(), 5,
-				WWFlowerPlacements.PATCH_MARIGOLD_52.getHolder(), 5,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_52.getHolder(), 4,
-				WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 4,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_CARNATION_52.getHolder(), 5)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_52.getHolder(), 5)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_52.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 2)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_DARK_BIRCH_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_CARNATION_42.getHolder(), 3,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 3,
-				WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 3,
-				WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 3,
-				WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2,
-				WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_CARNATION_42.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_LILAC_48_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 2)
+				.build()
 		);
 		registerSimpleBlock(FLOWER_DARK_TAIGA, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_DARK_TAIGA));
 		registerWeightedSelector(PATCH_FLOWER_DARK_TAIGA,
-			Map.of(
-				WWFlowerPlacements.PATCH_MARIGOLD_52.getHolder(), 3,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_52.getHolder(), 3,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_52.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_52.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 1)
+				.build()
 		);
 
 		// JUNGLE
 		registerSimpleBlock(FLOWER_JUNGLE, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_JUNGLE));
 		registerWeightedSelector(PATCH_FLOWER_JUNGLE,
-			Map.of(
-				WWFlowerPlacements.PATCH_HIBISCUS_72.getHolder(), 6,
-				WWFlowerPlacements.PATCH_FLOWER_DEFAULT_64_LARGE.getHolder(), 1,
-				flowerPatchInlinePlaced(FLOWER_JUNGLE.getHolder(), 64, 7, 3), 3,
-				WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 2,
-				WWFlowerPlacements.PATCH_BLUE_ORCHID_48.getHolder(), 1,
-				WWFlowerPlacements.PATCH_MILKWEED_64.getHolder(), 4,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_HIBISCUS_72.getHolder(), 6)
+				.add(WWFlowerPlacements.PATCH_FLOWER_DEFAULT_64_LARGE.getHolder(), 1)
+				.add(flowerPatchInlinePlaced(FLOWER_JUNGLE.getHolder(), 64, 7, 3), 3)
+				.add(WWFlowerPlacements.PATCH_LILY_OF_THE_VALLEY_48.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_BLUE_ORCHID_48.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_MILKWEED_64.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2)
+				.build()
 		);
 
 		// SWAMP
@@ -496,61 +500,61 @@ public final class WWFlowerFeatures {
 		registerSimpleBlock(FLOWER_CHERRY_GROVE_1, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_CHERRY_GROVE_1));
 		registerSimpleBlock(FLOWER_CHERRY_GROVE_2, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_CHERRY_GROVE_2));
 		registerWeightedSelector(PATCH_FLOWER_CHERRY_GROVE,
-			Map.of(
-				flowerPatchInlinePlaced(FLOWER_CHERRY_GROVE_1.getHolder(), 42, 6, 2), 4,
-				flowerPatchInlinePlaced(FLOWER_CHERRY_GROVE_2.getHolder(), 42, 6, 2), 4,
-				WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2,
-				WWFlowerPlacements.PATCH_LILAC_38.getHolder(), 2,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_38.getHolder(), 3,
-				WWFlowerPlacements.PATCH_PEONY_38.getHolder(), 2
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(flowerPatchInlinePlaced(FLOWER_CHERRY_GROVE_1.getHolder(), 42, 6, 2), 4)
+				.add(flowerPatchInlinePlaced(FLOWER_CHERRY_GROVE_2.getHolder(), 42, 6, 2), 4)
+				.add(WWFlowerPlacements.PATCH_DATURA_38.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_LILAC_38.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_38.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_PEONY_38.getHolder(), 2)
+				.build()
 		);
 
 		// AUTUMNAL
 		registerSimpleBlock(FLOWER_MAPLE_FOREST, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_MAPLE_FOREST));
 		registerWeightedSelector(PATCH_FLOWER_MAPLE_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_ALLIUM_42.getHolder(), 4,
-				WWFlowerPlacements.PATCH_MARIGOLD_42.getHolder(), 1,
-				WWFlowerPlacements.PATCH_POPPY_48_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 3,
-				WWFlowerPlacements.PATCH_DATURA_32.getHolder(), 2,
-				WWFlowerPlacements.PATCH_LILAC_38_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_42_LARGE.getHolder(), 3
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_ALLIUM_42.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_42.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_POPPY_48_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_DATURA_32.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_LILAC_38_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_42_LARGE.getHolder(), 3)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_TUNDRA,
-			Map.of(
-				WWFlowerPlacements.PATCH_POPPY_AND_PASQUEFLOWER_36.getHolder(), 2,
-				WWFlowerPlacements.PATCH_MARIGOLD_AND_PASQUEFLOWER_36.getHolder(), 3,
-				WWFlowerPlacements.PATCH_MARIGOLD_AND_SEEDING_DANDELION_36.getHolder(), 2,
-				WWFlowerPlacements.PATCH_PASQUEFLOWER_AND_POPPY_36.getHolder(), 3,
-				WWFlowerPlacements.PATCH_AZURE_BLUET_AND_SEEDING_DANDELION_64_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_AZURE_BLUET_52_LARGE.getHolder(), 4,
-				WWFlowerPlacements.PATCH_POPPY_38_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_MARIGOLD_38_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_POPPY_AND_PASQUEFLOWER_36.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_AND_PASQUEFLOWER_36.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_AND_SEEDING_DANDELION_36.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_PASQUEFLOWER_AND_POPPY_36.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_AZURE_BLUET_AND_SEEDING_DANDELION_64_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_AZURE_BLUET_52_LARGE.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_POPPY_38_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_38_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 1)
+				.build()
 		);
 		registerWeightedSelector(PATCH_FLOWER_DAPPLED_FOREST,
-			Map.of(
-				WWFlowerPlacements.PATCH_POPPY_AND_PASQUEFLOWER_36.getHolder(), 3,
-				WWFlowerPlacements.PATCH_AZURE_BLUET_AND_SEEDING_DANDELION_64_LARGE.getHolder(), 2,
-				WWFlowerPlacements.PATCH_POPPY_AND_MARIGOLD_64_LARGE.getHolder(), 3,
-				WWFlowerPlacements.PATCH_AZURE_BLUET_52_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_ALLIUM_42.getHolder(), 1,
-				WWFlowerPlacements.PATCH_POPPY_32_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_MARIGOLD_32_LARGE.getHolder(), 1,
-				WWFlowerPlacements.PATCH_ROSE_BUSH_42.getHolder(), 3
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(WWFlowerPlacements.PATCH_POPPY_AND_PASQUEFLOWER_36.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_AZURE_BLUET_AND_SEEDING_DANDELION_64_LARGE.getHolder(), 2)
+				.add(WWFlowerPlacements.PATCH_POPPY_AND_MARIGOLD_64_LARGE.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_AZURE_BLUET_52_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_ALLIUM_42.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_POPPY_32_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_32_LARGE.getHolder(), 1)
+				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_42.getHolder(), 3)
+				.build()
 		);
 
 		// MEADOW
 		registerWeightedSelector(PATCH_WILDFLOWERS_AND_PHLOX_MEADOW,
-			Map.of(
-				flowerPatchInlinePlaced(WILDFLOWERS.getHolder(), 52, 6, 2), 2,
-				flowerPatchInlinePlaced(PHLOX.getHolder(), 52, 6, 2), 1
-			)
+			WeightedList.<Holder<PlacedFeature>>builder()
+				.add(flowerPatchInlinePlaced(WILDFLOWERS.getHolder(), 52, 6, 2), 2)
+				.add(flowerPatchInlinePlaced(PHLOX.getHolder(), 52, 6, 2), 1)
+				.build()
 		);
 		registerSimpleBlock(FLOWER_MEADOW, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_MEADOW));
 
@@ -597,17 +601,8 @@ public final class WWFlowerFeatures {
 		feature.makeAndSetHolder(new SimpleRandomSelectorFeature(HolderSet.direct(placements)));
 	}
 
-	private static void registerWeightedSelector(FrozenLibFeature feature, Map<Holder<PlacedFeature>, Integer> placements) {
-		feature.makeAndSetHolder(
-			new WeightedRandomSelectorFeature(
-				WeightedList.of(
-					placements.entrySet().stream()
-						.map((entry) -> new Weighted<>(entry.getKey(), entry.getValue()))
-						.sorted(Comparator.comparing(Weighted::hashCode))
-						.toList()
-				)
-			)
-		);
+	private static void registerWeightedSelector(FrozenLibFeature feature, WeightedList<Holder<PlacedFeature>> placements) {
+		feature.makeAndSetHolder(new WeightedRandomSelectorFeature(placements));
 	}
 
 	private static Holder<PlacedFeature> flowerPatchInlinePlaced(Holder<Feature> feature, int count, int xzRange, int yRange) {

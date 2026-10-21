@@ -17,9 +17,8 @@
 
 package net.frozenblock.wilderwild.data.worldgen.features;
 
-import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
 import java.util.List;
-import java.util.Map;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
@@ -314,13 +313,13 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			BIRCH_AND_OAK_NO_LITTER, BIRCH_AND_OAK_LEAF_LITTER,
 			WWTreePlacements.OAK_BEES_0004,
-			Map.of(
-				WWTreePlacements.SHORT_BIRCH_BEES_0004, 0.2F,
-				WWTreePlacements.DYING_SHORT_BIRCH, 0.04F,
-				WWTreePlacements.FANCY_OAK_BEES_0004, 0.2F,
-				WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.055F,
-				WWTreePlacements.DYING_OAK, 0.04F,
-				WWTreePlacements.SHORT_OAK, 0.115F
+			List.of(
+				Pair.of(WWTreePlacements.SHORT_BIRCH_BEES_0004, 0.2F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.04F),
+				Pair.of(WWTreePlacements.FANCY_OAK_BEES_0004, 0.2F),
+				Pair.of(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.055F),
+				Pair.of(WWTreePlacements.DYING_OAK, 0.04F),
+				Pair.of(WWTreePlacements.SHORT_OAK, 0.115F)
 			)
 		);
 
@@ -348,17 +347,17 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_MIXED_FOREST_NO_LITTER, TREE_MIXED_FOREST_LEAF_LITTER,
 			WWTreePlacements.OAK,
-			Map.of(
-				WWTreePlacements.SHORT_SPRUCE, 0.33F,
-				WWTreePlacements.SPRUCE, 0.29F,
-				WWTreePlacements.FUNGUS_PINE, 0.086F,
-				WWTreePlacements.DYING_FUNGUS_PINE, 0.02F,
-				WWTreePlacements.FANCY_OAK_BEES_0004, 0.12F,
-				WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.025F,
-				WWTreePlacements.DYING_OAK, 0.01F,
-				WWTreePlacements.DYING_SHORT_BIRCH, 0.01F,
-				WWTreePlacements.SHORT_OAK, 0.23F,
-				WWTreePlacements.SHORT_BIRCH, 0.325F
+			List.of(
+				Pair.of(WWTreePlacements.SHORT_SPRUCE, 0.33F),
+				Pair.of(WWTreePlacements.SPRUCE, 0.29F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.086F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.02F),
+				Pair.of(WWTreePlacements.FANCY_OAK_BEES_0004, 0.12F),
+				Pair.of(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.025F),
+				Pair.of(WWTreePlacements.DYING_OAK, 0.01F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.01F),
+				Pair.of(WWTreePlacements.SHORT_OAK, 0.23F),
+				Pair.of(WWTreePlacements.SHORT_BIRCH, 0.325F)
 			)
 		);
 
@@ -372,19 +371,19 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_RAINFOREST_NO_LITTER, TREE_RAINFOREST_LEAF_LITTER,
 			WWTreePlacements.DYING_OAK,
-			ImmutableMap.<FrozenLibPlacedTreeFeature, Float>builder()
-				.put(WWTreePlacements.OAK, 0.085F)
-				.put(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.12F)
-				.put(WWTreePlacements.FANCY_OAK_BEES_0004, 0.27F)
-				.put(WWTreePlacements.OLD_DYING_FANCY_OAK_BEES_0004, 0.15F)
-				.put(WWTreePlacements.DYING_BIRCH, 0.022F)
-				.put(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.052F)
-				.put(WWTreePlacements.DYING_SHORT_BIRCH, 0.120F)
-				.put(WWTreePlacements.SHORT_BIRCH, 0.098F)
-				.put(WWTreePlacements.SHORT_OAK, 0.37F)
-				.put(WWTreePlacements.BIRCH, 0.02F)
-				.put(WWTreePlacements.MEDIUM_BIRCH, 0.19F)
-				.build()
+			List.of(
+				Pair.of(WWTreePlacements.OAK, 0.085F),
+				Pair.of(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.12F),
+				Pair.of(WWTreePlacements.FANCY_OAK_BEES_0004, 0.27F),
+				Pair.of(WWTreePlacements.OLD_DYING_FANCY_OAK_BEES_0004, 0.15F),
+				Pair.of(WWTreePlacements.DYING_BIRCH, 0.022F),
+				Pair.of(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.052F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.120F),
+				Pair.of(WWTreePlacements.SHORT_BIRCH, 0.098F),
+				Pair.of(WWTreePlacements.SHORT_OAK, 0.37F),
+				Pair.of(WWTreePlacements.BIRCH, 0.02F),
+				Pair.of(WWTreePlacements.MEDIUM_BIRCH, 0.19F)
+			)
 		);
 
 		TREE_RAINFOREST.makeAndSetHolder(
@@ -559,11 +558,11 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			ARID_FOREST_TREES_NO_LITTER, ARID_FOREST_TREES_LEAF_LITTER,
 			WWTreePlacements.DYING_OAK,
-			Map.of(
-				WWTreePlacements.DYING_OAK, 0.7085F,
-				WWTreePlacements.FANCY_DYING_OAK, 0.175F,
-				WWTreePlacements.DYING_SHORT_BIRCH, 0.38F,
-				WWTreePlacements.DYING_BIRCH, 0.2325F
+			List.of(
+				Pair.of(WWTreePlacements.DYING_OAK, 0.7085F),
+				Pair.of(WWTreePlacements.FANCY_DYING_OAK, 0.175F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.38F),
+				Pair.of(WWTreePlacements.DYING_BIRCH, 0.2325F)
 			)
 		);
 
@@ -592,12 +591,12 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREES_BIRCH_TALL_NO_LITTER, TREES_BIRCH_TALL_LEAF_LITTER,
 			WWTreePlacements.SUPER_BIRCH_BEES_0004,
-			Map.of(
-				WWTreePlacements.SHORT_BIRCH_BEES_0004, 0.002F,
-				WWTreePlacements.DYING_SHORT_BIRCH, 0.001F,
-				WWTreePlacements.DYING_SUPER_BIRCH, 0.075F,
-				WWTreePlacements.BIRCH_BEES_0004, 0.02F,
-				WWTreePlacements.DYING_BIRCH, 0.177F
+			List.of(
+				Pair.of(WWTreePlacements.SHORT_BIRCH_BEES_0004, 0.002F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.001F),
+				Pair.of(WWTreePlacements.DYING_SUPER_BIRCH, 0.075F),
+				Pair.of(WWTreePlacements.BIRCH_BEES_0004, 0.02F),
+				Pair.of(WWTreePlacements.DYING_BIRCH, 0.177F)
 			)
 		);
 
@@ -611,18 +610,18 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREES_SEMI_BIRCH_AND_OAK_NO_LITTER, TREES_SEMI_BIRCH_AND_OAK_LEAF_LITTER,
 			WWTreePlacements.OAK_BEES_0004,
-			ImmutableMap.<FrozenLibPlacedTreeFeature, Float>builder()
-				.put(WWTreePlacements.SHORT_BIRCH_BEES_0004, 0.2F)
-				.put(WWTreePlacements.DYING_SHORT_BIRCH, 0.04F)
-				.put(WWTreePlacements.FANCY_OAK_BEES_0004, 0.06F)
-				.put(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.025F)
-				.put(WWTreePlacements.DYING_OAK, 0.04F)
-				.put(WWTreePlacements.SHORT_OAK, 0.13F)
-				.put(WWTreePlacements.MEDIUM_BIRCH, 0.14F)
-				.put(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.045F)
-				.put(WWTreePlacements.SHORT_BIRCH, 0.1F)
-				.put(WWTreePlacements.MEDIUM_BIRCH_BEES_0004, 0.025F)
-				.build()
+			List.of(
+				Pair.of(WWTreePlacements.SHORT_BIRCH_BEES_0004, 0.2F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.04F),
+				Pair.of(WWTreePlacements.FANCY_OAK_BEES_0004, 0.06F),
+				Pair.of(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.025F),
+				Pair.of(WWTreePlacements.DYING_OAK, 0.04F),
+				Pair.of(WWTreePlacements.SHORT_OAK, 0.13F),
+				Pair.of(WWTreePlacements.MEDIUM_BIRCH, 0.14F),
+				Pair.of(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.045F),
+				Pair.of(WWTreePlacements.SHORT_BIRCH, 0.1F),
+				Pair.of(WWTreePlacements.MEDIUM_BIRCH_BEES_0004, 0.025F)
+			)
 		);
 
 		TREES_SEMI_BIRCH_AND_OAK.makeAndSetHolder(
@@ -711,14 +710,14 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_BIRCH_TAIGA_NO_LITTER, TREE_BIRCH_TAIGA_LEAF_LITTER,
 			WWTreePlacements.SHORT_BIRCH,
-			Map.of(
-				WWTreePlacements.SPRUCE, 0.39F,
-				WWTreePlacements.FUNGUS_PINE, 0.086F,
-				WWTreePlacements.DYING_FUNGUS_PINE, 0.02F,
-				WWTreePlacements.SHORT_SPRUCE, 0.155F,
-				WWTreePlacements.MEDIUM_BIRCH, 0.37F,
-				WWTreePlacements.DYING_MEDIUM_BIRCH, 0.01F,
-				WWTreePlacements.DYING_SHORT_BIRCH, 0.01F
+			List.of(
+				Pair.of(WWTreePlacements.SPRUCE, 0.39F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.086F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.02F),
+				Pair.of(WWTreePlacements.SHORT_SPRUCE, 0.155F),
+				Pair.of(WWTreePlacements.MEDIUM_BIRCH, 0.37F),
+				Pair.of(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.01F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.01F)
 			)
 		);
 
@@ -732,19 +731,19 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_OLD_GROWTH_BIRCH_TAIGA_NO_LITTER, TREE_OLD_GROWTH_BIRCH_TAIGA_LEAF_LITTER,
 			WWTreePlacements.BIRCH,
-			ImmutableMap.<FrozenLibPlacedTreeFeature, Float>builder()
-				.put(WWTreePlacements.SPRUCE, 0.39F)
-				.put(WWTreePlacements.FUNGUS_PINE, 0.086F)
-				.put(WWTreePlacements.DYING_FUNGUS_PINE, 0.02F)
-				.put(WWTreePlacements.SHORT_SPRUCE, 0.155F)
-				.put(WWTreePlacements.DYING_SUPER_BIRCH, 0.37F)
-				.put(WWTreePlacements.DYING_BIRCH, 0.01F)
-				.put(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.01F)
-				.put(WWTreePlacements.DYING_SHORT_BIRCH, 0.01F)
-				.put(WWTreePlacements.BIRCH, 0.355F)
-				.put(WWTreePlacements.MEDIUM_BIRCH, 0.1F)
-				.put(WWTreePlacements.SHORT_BIRCH, 0.1F)
-				.build()
+			List.of(
+				Pair.of(WWTreePlacements.SPRUCE, 0.39F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.086F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.02F),
+				Pair.of(WWTreePlacements.SHORT_SPRUCE, 0.155F),
+				Pair.of(WWTreePlacements.DYING_SUPER_BIRCH, 0.37F),
+				Pair.of(WWTreePlacements.DYING_BIRCH, 0.01F),
+				Pair.of(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.01F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.01F),
+				Pair.of(WWTreePlacements.BIRCH, 0.355F),
+				Pair.of(WWTreePlacements.MEDIUM_BIRCH, 0.1F),
+				Pair.of(WWTreePlacements.SHORT_BIRCH, 0.1F)
+			)
 		);
 
 		TREE_OLD_GROWTH_BIRCH_TAIGA.makeAndSetHolder(
@@ -915,24 +914,24 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_DARK_TAIGA_NO_LITTER, TREE_DARK_TAIGA_LEAF_LITTER,
 			WWTreePlacements.DARK_OAK,
-			ImmutableMap.<FrozenLibPlacedTreeFeature, Float>builder()
-				.put(WWTreePlacements.SPRUCE, 0.155F)
-				.put(WWTreePlacements.FUNGUS_PINE, 0.086F)
-				.put(WWTreePlacements.DYING_FUNGUS_PINE, 0.045F)
-				.put(WWTreePlacements.SHORT_SPRUCE, 0.19F)
-				.put(WWTreePlacements.DARK_OAK, 0.235F)
-				.put(WWTreePlacements.DYING_DARK_OAK, 0.075F)
-				.put(WWTreePlacements.SHORT_BIRCH, 0.12F)
-				.put(WWTreePlacements.DYING_SHORT_BIRCH, 0.004F)
-				.put(WWTreePlacements.BIRCH, 0.1F)
-				.put(WWTreePlacements.DYING_BIRCH, 0.005F)
-				.put(WWTreePlacements.TALL_DARK_OAK, 0.2F)
-				.put(WWTreePlacements.FANCY_TALL_DARK_OAK, 0.08F)
-				.put(WWTreePlacements.DYING_TALL_DARK_OAK, 0.024F)
-				.put(WWTreePlacements.DYING_FANCY_TALL_DARK_OAK, 0.01F)
-				.put(WWTreePlacements.DYING_OAK, 0.031F)
-				.put(WWTreePlacements.FANCY_OAK, 0.015F)
-				.build()
+			List.of(
+				Pair.of(WWTreePlacements.SPRUCE, 0.155F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.086F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.045F),
+				Pair.of(WWTreePlacements.SHORT_SPRUCE, 0.19F),
+				Pair.of(WWTreePlacements.DARK_OAK, 0.235F),
+				Pair.of(WWTreePlacements.DYING_DARK_OAK, 0.075F),
+				Pair.of(WWTreePlacements.SHORT_BIRCH, 0.12F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.004F),
+				Pair.of(WWTreePlacements.BIRCH, 0.1F),
+				Pair.of(WWTreePlacements.DYING_BIRCH, 0.005F),
+				Pair.of(WWTreePlacements.TALL_DARK_OAK, 0.2F),
+				Pair.of(WWTreePlacements.FANCY_TALL_DARK_OAK, 0.08F),
+				Pair.of(WWTreePlacements.DYING_TALL_DARK_OAK, 0.024F),
+				Pair.of(WWTreePlacements.DYING_FANCY_TALL_DARK_OAK, 0.01F),
+				Pair.of(WWTreePlacements.DYING_OAK, 0.031F),
+				Pair.of(WWTreePlacements.FANCY_OAK, 0.015F)
+			)
 		);
 
 		TREE_DARK_TAIGA.makeAndSetHolder(
@@ -956,7 +955,6 @@ public final class WWTreeVegetationFeatures {
 		);
 
 		PALE_OAK_CREAKING.makeAndSetHolder(
-
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlacements.TALL_PALE_OAK_CREAKING.asWeightedPlacedFeature(0.075F),
@@ -1313,9 +1311,9 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_SWAMP_SURFACE_WILLOW_NO_LITTER, TREE_SWAMP_SURFACE_WILLOW_LEAF_LITTER,
 			WWTreePlacements.SWAMP_OAK,
-			Map.of(
-				WWTreePlacements.SHORT_WILLOW, 0.75F,
-				WWTreePlacements.WILLOW, 0.2F
+			List.of(
+				Pair.of(WWTreePlacements.SHORT_WILLOW, 0.75F),
+				Pair.of(WWTreePlacements.WILLOW, 0.2F)
 			)
 		);
 
@@ -1336,7 +1334,7 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			MANGROVE_NO_LITTER, MANGROVE_LEAF_LITTER,
 			WWTreePlacements.MANGROVE,
-			Map.of(WWTreePlacements.TALL_MANGROVE, 0.85F)
+			List.of(Pair.of(WWTreePlacements.TALL_MANGROVE, 0.85F))
 		);
 
 		MANGROVE.makeAndSetHolder(
@@ -1580,9 +1578,9 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_TAIGA_NO_LITTER, TREE_TAIGA_LEAF_LITTER,
 			WWTreePlacements.SPRUCE,
-			Map.of(
-				WWTreePlacements.FUNGUS_PINE, 0.33333334F,
-				WWTreePlacements.DYING_FUNGUS_PINE, 0.075F
+			List.of(
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.33333334F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.075F)
 			)
 		);
 
@@ -1618,12 +1616,12 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_OLD_GROWTH_PINE_TAIGA_NO_LITTER, TREE_OLD_GROWTH_PINE_TAIGA_LEAF_LITTER,
 			WWTreePlacements.SPRUCE,
-			Map.of(
-				WWTreePlacements.MEGA_FUNGUS_SPRUCE, 0.025641026F,
-				WWTreePlacements.DYING_MEGA_FUNGUS_PINE, 0.028F,
-				WWTreePlacements.MEGA_FUNGUS_PINE, 0.30769232F,
-				WWTreePlacements.DYING_FUNGUS_PINE, 0.045F,
-				WWTreePlacements.FUNGUS_PINE, 0.33333334F
+			List.of(
+				Pair.of(WWTreePlacements.MEGA_FUNGUS_SPRUCE, 0.025641026F),
+				Pair.of(WWTreePlacements.DYING_MEGA_FUNGUS_PINE, 0.028F),
+				Pair.of(WWTreePlacements.MEGA_FUNGUS_PINE, 0.30769232F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.045F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.33333334F)
 			)
 		);
 
@@ -1637,10 +1635,10 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_OLD_GROWTH_SPRUCE_TAIGA_NO_LITTER, TREE_OLD_GROWTH_SPRUCE_TAIGA_LEAF_LITTER,
 			WWTreePlacements.SPRUCE,
-			Map.of(
-				WWTreePlacements.MEGA_FUNGUS_SPRUCE, 0.33333334F,
-				WWTreePlacements.DYING_FUNGUS_PINE, 0.075F,
-				WWTreePlacements.FUNGUS_PINE, 0.33333334F
+			List.of(
+				Pair.of(WWTreePlacements.MEGA_FUNGUS_SPRUCE, 0.33333334F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.075F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.33333334F)
 			)
 		);
 
@@ -1667,11 +1665,11 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_WINDSWEPT_HILLS_NO_LITTER, TREE_WINDSWEPT_HILLS_LEAF_LITTER,
 			WWTreePlacements.OAK,
-			Map.of(
-				WWTreePlacements.SPRUCE, 0.666F,
-				WWTreePlacements.FANCY_DYING_OAK, 0.01F,
-				WWTreePlacements.DYING_OAK, 0.02F,
-				WWTreePlacements.FANCY_OAK, 0.1F
+			List.of(
+				Pair.of(WWTreePlacements.SPRUCE, 0.666F),
+				Pair.of(WWTreePlacements.FANCY_DYING_OAK, 0.01F),
+				Pair.of(WWTreePlacements.DYING_OAK, 0.02F),
+				Pair.of(WWTreePlacements.FANCY_OAK, 0.1F)
 			)
 		);
 
@@ -1685,20 +1683,20 @@ public final class WWTreeVegetationFeatures {
 		registerNoLitterAndLitterFeature(
 			TREE_TEMPERATE_RAINFOREST_NO_LITTER, TREE_TEMPERATE_RAINFOREST_LEAF_LITTER,
 			WWTreePlacements.DYING_FUNGUS_PINE,
-			ImmutableMap.<FrozenLibPlacedTreeFeature, Float>builder()
-				.put(WWTreePlacements.DYING_OAK, 0.045F)
-				.put(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.042F)
-				.put(WWTreePlacements.SHORT_OAK, 0.02F)
-				.put(WWTreePlacements.DYING_BIRCH, 0.021F)
-				.put(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.041F)
-				.put(WWTreePlacements.DYING_SHORT_BIRCH, 0.05F)
-				.put(WWTreePlacements.SHORT_BIRCH, 0.025F)
-				.put(WWTreePlacements.FUNGUS_PINE, 0.09F)
-				.put(WWTreePlacements.SHORT_SPRUCE, 0.4F)
-				.put(WWTreePlacements.SPRUCE, 0.2F)
-				.put(WWTreePlacements.DYING_FUNGUS_PINE, 0.72F)
-				.put(WWTreePlacements.SHORT_MEGA_SPRUCE, 0.6F)
-				.build()
+			List.of(
+				Pair.of(WWTreePlacements.DYING_OAK, 0.045F),
+				Pair.of(WWTreePlacements.DYING_FANCY_OAK_BEES_0004, 0.042F),
+				Pair.of(WWTreePlacements.SHORT_OAK, 0.02F),
+				Pair.of(WWTreePlacements.DYING_BIRCH, 0.021F),
+				Pair.of(WWTreePlacements.DYING_MEDIUM_BIRCH, 0.041F),
+				Pair.of(WWTreePlacements.DYING_SHORT_BIRCH, 0.05F),
+				Pair.of(WWTreePlacements.SHORT_BIRCH, 0.025F),
+				Pair.of(WWTreePlacements.FUNGUS_PINE, 0.09F),
+				Pair.of(WWTreePlacements.SHORT_SPRUCE, 0.4F),
+				Pair.of(WWTreePlacements.SPRUCE, 0.2F),
+				Pair.of(WWTreePlacements.DYING_FUNGUS_PINE, 0.72F),
+				Pair.of(WWTreePlacements.SHORT_MEGA_SPRUCE, 0.6F)
+			)
 		);
 
 		TREE_TEMPERATE_RAINFOREST.makeAndSetHolder(
@@ -1867,12 +1865,12 @@ public final class WWTreeVegetationFeatures {
 		FrozenLibFeature noLitterFeature,
 		FrozenLibFeature litterFeature,
 		FrozenLibPlacedTreeFeature placementFallback,
-		Map<FrozenLibPlacedTreeFeature, Float> placements
+		List<Pair<FrozenLibPlacedTreeFeature, Float>> trees
 	) {
 		noLitterFeature.makeAndSetHolder(
 			new RandomSelectorFeature(
-				placements.entrySet().stream()
-					.map(entry -> entry.getKey().asWeightedPlacedFeature(entry.getValue()))
+				trees.stream()
+					.map(pair -> new WeightedPlacedFeature(pair.getFirst().getHolder(), pair.getSecond()))
 					.toList(),
 				placementFallback.getHolder()
 			)
@@ -1880,8 +1878,8 @@ public final class WWTreeVegetationFeatures {
 
 		litterFeature.makeAndSetHolder(
 			new RandomSelectorFeature(
-				placements.entrySet().stream()
-					.map(entry -> entry.getKey().litterAsWeightedPlacedFeature(entry.getValue()))
+				trees.stream()
+					.map(pair -> new WeightedPlacedFeature(pair.getFirst().getLitterVariantHolder(), pair.getSecond()))
 					.toList(),
 				placementFallback.getLitterVariantHolder()
 			)
