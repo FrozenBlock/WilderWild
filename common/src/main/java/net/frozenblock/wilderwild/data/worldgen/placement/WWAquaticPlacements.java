@@ -170,8 +170,8 @@ public final class WWAquaticPlacements {
 		);
 
 		registerCattail(context, PATCH_CATTAIL, 4, 24, 32, 6);
-		registerCattail(context, PATCH_CATTAIL_COMMON, 2, 14, 24, 4);
-		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 3, 14, 24, 4);
+		registerCattail(context, PATCH_CATTAIL_COMMON, 1, 14, 24, 4);
+		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 2, 14, 24, 4);
 
 		registerBarnacles(context, PATCH_BARNACLES, WWAquaticFeatures.BARNACLES, 18, 6, 3,
 			RarityFilter.onAverageOnceEvery(8)
@@ -285,7 +285,8 @@ public final class WWAquaticPlacements {
 				modifiersWithFilter(
 					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL),
 					RarityFilter.onAverageOnceEvery(rarity),
-					PlacementUtils.HEIGHTMAP_TOP_SOLID
+					PlacementUtils.HEIGHTMAP_TOP_SOLID,
+					BlockPredicateFilter.forPredicate(BlockPredicate.noFluid())
 				),
 				CountPlacement.of(UniformInt.of(minCount, maxCount)),
 				OffsetPlacement.horizontal(TrapezoidInt.triangle(horizontalRange)),

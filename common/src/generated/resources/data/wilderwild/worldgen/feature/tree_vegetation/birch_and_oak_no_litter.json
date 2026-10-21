@@ -3,16 +3,12 @@
   "default": "wilderwild:tree/oak_bees_0004",
   "features": [
     {
-      "chance": 0.055,
-      "feature": "wilderwild:tree/fancy_dying_oak_bees_0004"
-    },
-    {
       "chance": 0.04,
       "feature": "wilderwild:tree/dying_short_birch"
     },
     {
-      "chance": 0.2,
-      "feature": "wilderwild:tree/fancy_oak_bees_0004"
+      "chance": 0.115,
+      "feature": "wilderwild:tree/short_oak"
     },
     {
       "chance": 0.04,
@@ -23,8 +19,12 @@
       "feature": "wilderwild:tree/short_birch_bees_0004"
     },
     {
-      "chance": 0.115,
-      "feature": "wilderwild:tree/short_oak"
+      "chance": 0.2,
+      "feature": "wilderwild:tree/fancy_oak_bees_0004"
+    },
+    {
+      "chance": 0.055,
+      "feature": "wilderwild:tree/fancy_dying_oak_bees_0004"
     }
   ]
 }

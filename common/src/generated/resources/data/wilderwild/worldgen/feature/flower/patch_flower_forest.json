@@ -18,15 +18,15 @@
       "weight": 2
     },
     {
+      "data": "wilderwild:flower/patch_rose_bush_64_large",
+      "weight": 3
+    },
+    {
       "data": "wilderwild:flower/patch_peony_52_large",
       "weight": 3
     },
     {
       "data": "wilderwild:flower/patch_lilac_64_large",
-      "weight": 3
-    },
-    {
-      "data": "wilderwild:flower/patch_rose_bush_64_large",
       "weight": 3
     }
   ]

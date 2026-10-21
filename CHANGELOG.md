@@ -57,3 +57,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Sweet Berry Bushes no longer generate outside Taiga biomes.
 - Tumbleweed no longer generate in Windswept Savanna or Savanna Plateau biomes.
 - Cattails can no longer generate more than a single block away from Water.
+- Cattail patches will no longer attempt to generate if their origin is inside a Water block.

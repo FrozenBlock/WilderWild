@@ -2,15 +2,15 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
+      "data": "wilderwild:flower/patch_marigold_38_large",
+      "weight": 1
+    },
+    {
       "data": "wilderwild:flower/patch_seeding_dandelion_42",
       "weight": 1
     },
     {
       "data": "wilderwild:flower/patch_poppy_38_large",
-      "weight": 1
-    },
-    {
-      "data": "wilderwild:flower/patch_marigold_38_large",
       "weight": 1
     },
     {

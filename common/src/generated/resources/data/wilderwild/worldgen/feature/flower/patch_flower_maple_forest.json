@@ -6,15 +6,15 @@
       "weight": 1
     },
     {
-      "data": "wilderwild:flower/patch_datura_32",
-      "weight": 2
-    },
-    {
       "data": "wilderwild:flower/patch_lilac_38_large",
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_seeding_dandelion_42",
+      "data": "wilderwild:flower/patch_datura_32",
+      "weight": 2
+    },
+    {
+      "data": "wilderwild:flower/patch_poppy_48_large",
       "weight": 3
     },
     {
@@ -22,7 +22,7 @@
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_poppy_48_large",
+      "data": "wilderwild:flower/patch_seeding_dandelion_42",
       "weight": 3
     },
     {

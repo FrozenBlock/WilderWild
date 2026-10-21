@@ -3,6 +3,34 @@
   "default": "wilderwild:tree/oak_leaf_litter",
   "features": [
     {
+      "chance": 0.23,
+      "feature": "wilderwild:tree/short_oak_leaf_litter"
+    },
+    {
+      "chance": 0.01,
+      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
+    },
+    {
+      "chance": 0.12,
+      "feature": "wilderwild:tree/fancy_oak_bees_0004_leaf_litter"
+    },
+    {
+      "chance": 0.086,
+      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
+    },
+    {
+      "chance": 0.02,
+      "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
+    },
+    {
+      "chance": 0.025,
+      "feature": "wilderwild:tree/fancy_dying_oak_bees_0004_leaf_litter"
+    },
+    {
+      "chance": 0.325,
+      "feature": "wilderwild:tree/short_birch_leaf_litter"
+    },
+    {
       "chance": 0.33,
       "feature": "wilderwild:tree/short_spruce_leaf_litter"
     },
@@ -11,36 +39,8 @@
       "feature": "wilderwild:tree/spruce_leaf_litter"
     },
     {
-      "chance": 0.025,
-      "feature": "wilderwild:tree/fancy_dying_oak_bees_0004_leaf_litter"
-    },
-    {
-      "chance": 0.086,
-      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
-    },
-    {
-      "chance": 0.12,
-      "feature": "wilderwild:tree/fancy_oak_bees_0004_leaf_litter"
-    },
-    {
-      "chance": 0.23,
-      "feature": "wilderwild:tree/short_oak_leaf_litter"
-    },
-    {
-      "chance": 0.02,
-      "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
-    },
-    {
       "chance": 0.01,
       "feature": "wilderwild:tree/dying_oak_leaf_litter"
-    },
-    {
-      "chance": 0.325,
-      "feature": "wilderwild:tree/short_birch_leaf_litter"
-    },
-    {
-      "chance": 0.01,
-      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
     }
   ]
 }

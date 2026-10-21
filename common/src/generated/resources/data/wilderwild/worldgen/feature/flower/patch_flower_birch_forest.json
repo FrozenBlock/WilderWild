@@ -6,6 +6,10 @@
       "weight": 1
     },
     {
+      "data": "wilderwild:flower/patch_rose_bush_48_large",
+      "weight": 2
+    },
+    {
       "data": "wilderwild:flower/patch_lilac_48_large",
       "weight": 2
     },
@@ -14,15 +18,11 @@
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_rose_bush_48_large",
-      "weight": 2
-    },
-    {
-      "data": "wilderwild:flower/patch_seeding_dandelion_72_large",
+      "data": "wilderwild:flower/patch_lily_of_the_valley_48",
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_lily_of_the_valley_48",
+      "data": "wilderwild:flower/patch_seeding_dandelion_72_large",
       "weight": 3
     },
     {
