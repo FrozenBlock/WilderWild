@@ -17,34 +17,30 @@
 
 package net.frozenblock.wilderwild.mixin.block.ice;
 
-import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SnowLayerBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(SnowLayerBlock.class)
-public class SnowLayerBlockMixin {
+@Mixin(Biome.class)
+public class BiomeMixin {
 
-	@Inject(
-		method = "canSurvive",
+	@ModifyExpressionValue(
+		method = "shouldSnow",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/tags/TagKey;)Z",
-			ordinal = 0
-		),
-		cancellable = true
+			target = "Lnet/minecraft/world/level/block/state/BlockState;canSurvive(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z"
+		)
 	)
-	public void wilderWild$disableSnowLayerPlacementOnBrittleIce(
-		BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> info,
-		@Local(name = "belowState") BlockState belowState
+	public boolean wilderWild$disableSnowingOnBrittleIce(
+		boolean original,
+		LevelReader level, BlockPos pos
 	) {
-		if (WWWorldgenConfig.BRITTLE_ICE_DECORATION.get() && belowState.is(Blocks.BRITTLE_ICE)) info.setReturnValue(false);
+		if (original && WWWorldgenConfig.BRITTLE_ICE_DECORATION.get() && level.getBlockState(pos.below()).is(Blocks.BRITTLE_ICE)) return false;
+		return original;
 	}
 }
