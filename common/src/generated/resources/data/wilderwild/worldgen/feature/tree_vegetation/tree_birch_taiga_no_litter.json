@@ -7,12 +7,12 @@
       "feature": "wilderwild:tree/dying_fungus_pine"
     },
     {
-      "chance": 0.39,
-      "feature": "wilderwild:tree/spruce"
-    },
-    {
       "chance": 0.01,
       "feature": "wilderwild:tree/dying_medium_birch"
+    },
+    {
+      "chance": 0.39,
+      "feature": "wilderwild:tree/spruce"
     },
     {
       "chance": 0.155,

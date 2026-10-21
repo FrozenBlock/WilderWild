@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.levelgen.feature;
 
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.wilderwild.block.CattailBlock;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
@@ -45,14 +44,12 @@ public record CattailFeature() implements Feature {
 		final BlockPos aboveOrigin = origin.above();
 		final BlockState bottomState = level.getBlockState(origin);
 		final boolean bottomStateIsWater = bottomState.is(Blocks.WATER);
-		final BlockState topState = level.getBlockState(aboveOrigin);
-		if (!(bottomState.isAir() || bottomStateIsWater) || !topState.isAir()) return false;
 
 		final BlockState bottomPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
 			.setValue(CattailBlock.WATERLOGGED, bottomStateIsWater)
 			.setValue(CattailBlock.SWAYING, bottomStateIsWater);
+
 		if (!bottomPlaceState.canSurvive(level, origin)) return false;
-		if (!(bottomStateIsWater || FrozenLibFeatureUtil.isWaterNearby(level, origin, 2))) return false;
 
 		final BlockState topPlaceState = WWBlocks.CATTAIL.get().defaultBlockState()
 			.setValue(CattailBlock.HALF, DoubleBlockHalf.UPPER)

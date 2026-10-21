@@ -27,9 +27,6 @@
             ],
             "tag": "wilderwild:feature/fallen_tree_placeable"
           }
-        },
-        {
-          "type": "minecraft:biome"
         }
       ]
     },
@@ -46,12 +43,13 @@
         {
           "type": "minecraft:heightmap",
           "heightmap": "OCEAN_FLOOR"
-        },
-        {
-          "type": "minecraft:biome"
         }
       ]
     }
   },
-  "placement": []
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
 }

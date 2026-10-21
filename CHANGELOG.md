@@ -56,3 +56,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Tall Flowers can no longer be generated with Bone Meal.
 - Sweet Berry Bushes no longer generate outside Taiga biomes.
 - Tumbleweed no longer generate in Windswept Savanna or Savanna Plateau biomes.
+- Cattails can no longer generate more than a single block away from Water.

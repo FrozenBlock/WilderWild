@@ -24,13 +24,13 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.modifiersWithFilter;
 import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.postModifiers;
-import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
+import net.minecraft.core.CompositeDirection;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -38,8 +38,10 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
+import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.TrapezoidInt;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -68,6 +70,7 @@ public final class WWAquaticPlacements {
 	public static final FrozenLibPlacedFeature RIVER_POOL = register("river_pool");
 	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
 
+	public static final FrozenLibPlacedFeature CATTAIL_CHECKED = register("cattail_checked");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL = register("patch_cattail");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_COMMON = register("patch_cattail_common");
 	public static final FrozenLibPlacedFeature PATCH_CATTAIL_UNCOMMON = register("patch_cattail_uncommon");
@@ -139,9 +142,35 @@ public final class WWAquaticPlacements {
 			BiomeFilter.biome()
 		);
 
+		CATTAIL_CHECKED.makeAndSetHolder(WWAquaticFeatures.CATTAIL,
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.matchesTag(Direction.UP, BlockTags.AIR),
+					BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.CATTAIL_PLACEABLE),
+					BlockPredicate.wouldSurvive(WWBlocks.CATTAIL.get()),
+					BlockPredicate.anyOf(
+						BlockPredicate.matchesBlocks(Blocks.WATER),
+						BlockPredicate.allOf(
+							BlockPredicate.ONLY_IN_AIR_PREDICATE,
+							BlockPredicate.anyOf(
+								BlockPredicate.matchesBlocks(CompositeDirection.NORTH_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.NORTH_EAST_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.EAST_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.SOUTH_EAST_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.SOUTH_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.SOUTH_WEST_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.WEST_DOWN, Blocks.WATER),
+								BlockPredicate.matchesBlocks(CompositeDirection.NORTH_WEST_DOWN, Blocks.WATER)
+							)
+						)
+					)
+				)
+			)
+		);
+
 		registerCattail(context, PATCH_CATTAIL, 4, 24, 32, 6);
-		registerCattail(context, PATCH_CATTAIL_COMMON, 2, 10, 20, 4);
-		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 3, 10, 20, 4);
+		registerCattail(context, PATCH_CATTAIL_COMMON, 2, 16, 24, 4);
+		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 3, 16, 24, 4);
 
 		registerBarnacles(context, PATCH_BARNACLES, WWAquaticFeatures.BARNACLES, 18, 6, 3,
 			RarityFilter.onAverageOnceEvery(8)
@@ -258,8 +287,7 @@ public final class WWAquaticPlacements {
 				),
 				CountPlacement.of(UniformInt.of(minCount, maxCount)),
 				OffsetPlacement.horizontal(TrapezoidInt.triangle(horizontalRange)),
-				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-				BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(Direction.DOWN, WWFeatureBlockTags.CATTAIL_PLACEABLE))
+				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 			)
 		);
 	}

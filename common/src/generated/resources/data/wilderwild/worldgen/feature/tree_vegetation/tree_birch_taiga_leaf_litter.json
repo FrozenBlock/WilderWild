@@ -7,12 +7,12 @@
       "feature": "wilderwild:tree/dying_fungus_pine_leaf_litter"
     },
     {
-      "chance": 0.39,
-      "feature": "wilderwild:tree/spruce_leaf_litter"
-    },
-    {
       "chance": 0.01,
       "feature": "wilderwild:tree/dying_medium_birch_leaf_litter"
+    },
+    {
+      "chance": 0.39,
+      "feature": "wilderwild:tree/spruce_leaf_litter"
     },
     {
       "chance": 0.155,

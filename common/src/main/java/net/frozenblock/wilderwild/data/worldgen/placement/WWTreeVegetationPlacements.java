@@ -746,19 +746,18 @@ public final class WWTreeVegetationPlacements {
 						WWTreeVegetationFeatures.FALLEN_WILLOW_AND_OAK.getHolder(),
 						RarityFilter.onAverageOnceEvery(4),
 						InSquarePlacement.spread(),
-						PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-						BiomeFilter.biome()
+						PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 					),
 					PlacementUtils.inlinePlaced(
 						WWTreeFeatures.MOSSY_FALLEN_OAK.getHolder(),
 						RarityFilter.onAverageOnceEvery(4),
 						InSquarePlacement.spread(),
 						PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-						WWTreePlacements.fallenTreePlacementFilter(),
-						BiomeFilter.biome()
+						WWTreePlacements.fallenTreePlacementFilter()
 					)
 				)
-			)
+			),
+			BiomeFilter.biome()
 		);
 		registerFallen(FALLEN_CYPRESS_AND_OAK, WWTreeVegetationFeatures.FALLEN_CYPRESS_AND_OAK, RarityFilter.onAverageOnceEvery(6));
 		registerFallenDirect(FALLEN_MANGROVE, WWTreeFeatures.FALLEN_MANGROVE, RarityFilter.onAverageOnceEvery(1));

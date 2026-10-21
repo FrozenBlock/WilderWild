@@ -429,7 +429,7 @@ public final class WWVegetationPlacements {
 		PATCH_DRY_GRASS_BEACH.makeAndSetHolder(features.getOrThrow(VegetationFeatures.DRY_GRASS),
 			FrozenLibPlacementUtil.postModifiers(
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(2), PlacementUtils.HEIGHTMAP),
-				CountPlacement.of(28),
+				CountPlacement.of(20),
 				OffsetPlacement.ofTriangle(7, 3),
 				BlockPredicateFilter.forPredicate(
 					BlockPredicate.allOf(
