@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:large_fern_and_grass_2",
+  "feature": "minecraft:tall_grass",
   "placement": [
     {
       "type": "minecraft:noise_threshold_count",

@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.data.tag;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWConfiguredFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWFlowerFeatures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -36,7 +36,7 @@ public final class WWFeatureTagsProvider extends FabricTagsProvider<Feature> {
 	@Override
 	public void addTags(HolderLookup.Provider arg) {
 		this.builder(FeatureTags.CAN_SPAWN_FROM_BONE_MEAL)
-			.add(WWConfiguredFeatures.CLOVER.getKey())
+			.add(WWVegetationFeatures.CLOVER.getKey())
 			.add(WWFlowerFeatures.ALLIUM.getKey())
 			.add(WWFlowerFeatures.AZURE_BLUET.getKey())
 			.add(WWFlowerFeatures.BLUE_ORCHID.getKey())

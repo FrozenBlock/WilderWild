@@ -3,12 +3,12 @@
   "default": "wilderwild:tree/dying_oak",
   "features": [
     {
-      "chance": 0.38,
-      "feature": "wilderwild:tree/dying_short_birch"
-    },
-    {
       "chance": 0.2325,
       "feature": "wilderwild:tree/dying_birch"
+    },
+    {
+      "chance": 0.38,
+      "feature": "wilderwild:tree/dying_short_birch"
     },
     {
       "chance": 0.175,

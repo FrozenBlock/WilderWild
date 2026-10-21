@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:mycelium_growth",
+  "feature": "wilderwild:vegetation/mycelium_growth",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_mushroom"
+    },
     {
       "type": "minecraft:count",
       "count": 3

@@ -1,9 +1,16 @@
 {
-  "feature": "wilderwild:prickly_pear",
+  "feature": "wilderwild:vegetation/prickly_pear",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_cactus"
+    },
     {
       "type": "minecraft:rarity_filter",
       "chance": 9
+    },
+    {
+      "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",

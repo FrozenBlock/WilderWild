@@ -2,6 +2,10 @@
   "feature": "wilderwild:tree/huge_pale_mushroom",
   "placement": [
     {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_pale_mushroom"
+    },
+    {
       "type": "minecraft:rarity_filter",
       "chance": 3
     },

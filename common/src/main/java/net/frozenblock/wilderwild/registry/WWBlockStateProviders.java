@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
+import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.registries.Registries;
@@ -42,8 +43,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import java.util.List;
 
 public final class WWBlockStateProviders {
-	public static final ResourceKey<BlockStateProvider> FLOWER_HIBISCUS = bind("flower/hibiscus");
-
+	// FLOWERS
+	// PLAINS FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_WITH_SEEDING_DANDELION = bind("flower/default_with_seeding_dandelion");
 	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_PLAINS = bind("flower/default_plains");
 	public static final ResourceKey<BlockStateProvider> FLOWER_PLAINS = bind("flower/plains");
@@ -63,23 +64,24 @@ public final class WWBlockStateProviders {
 	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_BLUE = bind("flower/flower_field_blue");
 	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PURPLE = bind("flower/flower_field_purple");
 	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FIELD_PURPLE_TALL = bind("flower/flower_field_purple_tall");
-
+	// FOREST FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_FOREST = bind("flower/forest");
 	public static final ResourceKey<BlockStateProvider> FLOWER_RAINFOREST = bind("flower/rainforest");
 	public static final ResourceKey<BlockStateProvider> FLOWER_TEMPERATE_RAINFOREST = bind("flower/temperate_rainforest");
 	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FOREST_1 = bind("flower/flower_forest_1");
 	public static final ResourceKey<BlockStateProvider> FLOWER_FLOWER_FOREST_2 = bind("flower/flower_forest_2");
-
+	// DARK FOREST FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_DARK_FOREST = bind("flower/dark_forest");
 	public static final ResourceKey<BlockStateProvider> FLOWER_DARK_TAIGA = bind("flower/dark_taiga");
-
+	// JUNGLE FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_JUNGLE = bind("flower/jungle");
-
+	public static final ResourceKey<BlockStateProvider> FLOWER_HIBISCUS = bind("flower/hibiscus");
+	// SWAMP FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_CYPRESS_WETLANDS = bind("flower/cypress_wetlands");
-
+	// CHERRY GROVE FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_CHERRY_GROVE_1 = bind("flower/cherry_grove_1");
 	public static final ResourceKey<BlockStateProvider> FLOWER_CHERRY_GROVE_2 = bind("flower/cherry_grove_2");
-
+	// AUTUMNAL FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_MAPLE_FOREST = bind("flower/maple_forest");
 	public static final ResourceKey<BlockStateProvider> FLOWER_POPPY_AND_PASQUEFLOWER = bind("flower/poppy_and_pasqueflower");
 	public static final ResourceKey<BlockStateProvider> FLOWER_MARIGOLD_AND_PASQUEFLOWER = bind("flower/marigold_and_pasqueflower");
@@ -87,8 +89,36 @@ public final class WWBlockStateProviders {
 	public static final ResourceKey<BlockStateProvider> FLOWER_PASQUEFLOWER_AND_POPPY = bind("flower/pasqueflower_and_poppy");
 	public static final ResourceKey<BlockStateProvider> FLOWER_AZURE_BLUET_AND_SEEDING_DANDELION = bind("flower/azure_bluet_and_seeding_dandelion");
 	public static final ResourceKey<BlockStateProvider> FLOWER_POPPY_AND_MARIGOLD = bind("flower/poppy_and_marigold");
-
+	// MEADOW FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_MEADOW = bind("flower/flower_meadow");
+
+	// VEGETATION
+	// GRASS
+	public static final ResourceKey<BlockStateProvider> GRASS_AND_FERN = bind("vegetation/grass_and_fern");
+	public static final ResourceKey<BlockStateProvider> FERN_AND_GRASS = bind("vegetation/fern_and_grass");
+	public static final ResourceKey<BlockStateProvider> GRASS_OASIS = bind("vegetation/grass_oasis");
+	public static final ResourceKey<BlockStateProvider> TALL_GRASS_AND_GRASS_WATER = bind("vegetation/tall_grass_and_grass_water");
+	public static final ResourceKey<BlockStateProvider> TALL_GRASS_AND_LARGE_FERN = bind("vegetation/tall_grass_and_large_fern");
+	public static final ResourceKey<BlockStateProvider> LARGE_FERN_AND_TALL_GRASS = bind("vegetation/large_fern_and_tall_grass");
+	public static final ResourceKey<BlockStateProvider> FERN_SWAMP = bind("vegetation/fern_swamp");
+	// FROZEN GRASS
+	public static final ResourceKey<BlockStateProvider> FROZEN_TALL_GRASS = bind("vegetation/frozen_tall_grass");
+	public static final ResourceKey<BlockStateProvider> FROZEN_GRASS_TAIGA = bind("vegetation/frozen_grass_taiga");
+	public static final ResourceKey<BlockStateProvider> FROZEN_LARGE_FERN = bind("vegetation/frozen_large_fern");
+	// SHRUB
+	public static final ResourceKey<BlockStateProvider> SHRUB_GENERIC = bind("vegetation/shrub_generic");
+	public static final ResourceKey<BlockStateProvider> SHRUB_SPARSE = bind("vegetation/shrub_sparse");
+	public static final ResourceKey<BlockStateProvider> SHRUB_FLOWER_FIELD = bind("vegetation/shrub_flower_field");
+	public static final ResourceKey<BlockStateProvider> SHRUB_JUNGLE = bind("vegetation/shrub_jungle");
+	public static final ResourceKey<BlockStateProvider> SHRUB_OASIS = bind("vegetation/shrub_oasis");
+	public static final ResourceKey<BlockStateProvider> SHRUB_DESERT = bind("vegetation/shrub_desert");
+	// MUSHROOM
+	public static final ResourceKey<BlockStateProvider> MUSHROOM_DARK_FOREST = bind("vegetation/mushroom_dark_forest");
+	// CACTUS
+	public static final ResourceKey<BlockStateProvider> PRICKLY_PEAR = bind("vegetation/prickly_pear");
+	// TUMBLEWEED
+	public static final ResourceKey<BlockStateProvider> TUMBLEWEED = bind("vegetation/tumbleweed");
+
 
 	public static final ResourceKey<BlockStateProvider> BAOBAB_NUT = bind("baobab_nut");
 	public static final ResourceKey<BlockStateProvider> COCONUT = bind("coconut");
@@ -96,24 +126,7 @@ public final class WWBlockStateProviders {
 	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_DESERT_TREE = bind("soil_beneath_desert_tree");
 
 	public static void bootstrap(BootstrapContext<BlockStateProvider> context) {
-		context.register(
-			FLOWER_HIBISCUS,
-			new NoiseProvider(
-				1234L,
-				NormalNoise.createParity(0, 1D),
-				0.088833334F,
-				List.of(
-					WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
-					WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
-					WWBlocks.YELLOW_HIBISCUS.get().defaultBlockState(),
-					WWBlocks.WHITE_HIBISCUS.get().defaultBlockState(),
-					WWBlocks.PINK_HIBISCUS.get().defaultBlockState(),
-					WWBlocks.PURPLE_HIBISCUS.get().defaultBlockState(),
-					WWBlocks.PURPLE_HIBISCUS.get().defaultBlockState()
-				)
-			)
-		);
-
+		// PLAINS FLOWERS
 		context.register(
 			FLOWER_DEFAULT_WITH_SEEDING_DANDELION,
 			new WeightedStateProvider(
@@ -343,6 +356,7 @@ public final class WWBlockStateProviders {
 			)
 		);
 
+		// FOREST FLOWERS
 		context.register(
 			FLOWER_FOREST,
 			new NoiseProvider(
@@ -479,6 +493,7 @@ public final class WWBlockStateProviders {
 			)
 		);
 
+		// DARK FOREST FLOWERS
 		context.register(
 			FLOWER_DARK_FOREST,
 			new NoiseProvider(
@@ -513,6 +528,7 @@ public final class WWBlockStateProviders {
 			)
 		);
 
+		// JUNGLE FLOWERS
 		context.register(
 			FLOWER_JUNGLE,
 			new NoiseProvider(
@@ -529,6 +545,25 @@ public final class WWBlockStateProviders {
 			)
 		);
 
+		context.register(
+			FLOWER_HIBISCUS,
+			new NoiseProvider(
+				1234L,
+				NormalNoise.createParity(0, 1D),
+				0.088833334F,
+				List.of(
+					WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
+					WWBlocks.RED_HIBISCUS.get().defaultBlockState(),
+					WWBlocks.YELLOW_HIBISCUS.get().defaultBlockState(),
+					WWBlocks.WHITE_HIBISCUS.get().defaultBlockState(),
+					WWBlocks.PINK_HIBISCUS.get().defaultBlockState(),
+					WWBlocks.PURPLE_HIBISCUS.get().defaultBlockState(),
+					WWBlocks.PURPLE_HIBISCUS.get().defaultBlockState()
+				)
+			)
+		);
+
+		// SWAMP FLOWERS
 		context.register(
 			FLOWER_CYPRESS_WETLANDS,
 			RuleBasedStateProvider.builder(
@@ -560,6 +595,7 @@ public final class WWBlockStateProviders {
 			).build()
 		);
 
+		// CHERRY GROVE FLOWERS
 		context.register(
 			FLOWER_CHERRY_GROVE_1,
 			new WeightedStateProvider(
@@ -578,6 +614,7 @@ public final class WWBlockStateProviders {
 			)
 		);
 
+		// AUTUMNAL FLOWERS
 		context.register(
 			FLOWER_MAPLE_FOREST,
 			new WeightedStateProvider(
@@ -641,6 +678,7 @@ public final class WWBlockStateProviders {
 			)
 		);
 
+		// MEADOW FLOWERS
 		context.register(
 			FLOWER_MEADOW,
 			new DualNoiseProvider(
@@ -661,6 +699,218 @@ public final class WWBlockStateProviders {
 					Blocks.OXEYE_DAISY.defaultBlockState(),
 					WWBlocks.SEEDING_DANDELION.get().defaultBlockState()
 				)
+			)
+		);
+
+		// VEGETATION
+		// GRASS
+		context.register(
+			GRASS_AND_FERN,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.SHORT_GRASS.defaultBlockState(), 11)
+					.add(Blocks.FERN.defaultBlockState(), 1)
+					.build()
+			)
+		);
+
+		context.register(
+			FERN_AND_GRASS,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.SHORT_GRASS.defaultBlockState(), 3)
+					.add(Blocks.FERN.defaultBlockState(), 1)
+					.build()
+			)
+		);
+
+		context.register(
+			GRASS_OASIS,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.TALL_GRASS.defaultBlockState(), 2)
+					.add(Blocks.SHORT_GRASS.defaultBlockState(), 5)
+					.build()
+			)
+		);
+
+		context.register(
+			TALL_GRASS_AND_GRASS_WATER,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.TALL_GRASS.defaultBlockState(), 1)
+					.add(Blocks.SHORT_GRASS.defaultBlockState(), 4)
+					.build()
+			)
+		);
+
+		context.register(
+			TALL_GRASS_AND_LARGE_FERN,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.TALL_GRASS.defaultBlockState(), 5)
+					.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
+					.build()
+			)
+		);
+
+		context.register(
+			LARGE_FERN_AND_TALL_GRASS,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.TALL_GRASS.defaultBlockState(), 3)
+					.add(Blocks.LARGE_FERN.defaultBlockState(), 3)
+					.build()
+			)
+		);
+
+		context.register(
+			FERN_SWAMP,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.FERN.defaultBlockState(), 4)
+					.add(Blocks.LARGE_FERN.defaultBlockState(), 1)
+					.build()
+			)
+		);
+
+		// FROZEN GRASS
+		context.register(
+			FROZEN_TALL_GRASS,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.FROZEN_TALL_GRASS.get().defaultBlockState(), 1)
+					.add(WWBlocks.FROZEN_SHORT_GRASS.get().defaultBlockState(), 2)
+					.build()
+			)
+		);
+
+		context.register(
+			FROZEN_GRASS_TAIGA,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.FROZEN_SHORT_GRASS.get().defaultBlockState(), 1)
+					.add(WWBlocks.FROZEN_FERN.get().defaultBlockState(), 4)
+					.build()
+			)
+		);
+
+		context.register(
+			FROZEN_LARGE_FERN,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.FROZEN_LARGE_FERN.get().defaultBlockState(), 1)
+					.add(WWBlocks.FROZEN_FERN.get().defaultBlockState(), 2)
+					.build()
+			)
+		);
+
+		// SHRUB
+		context.register(
+			SHRUB_GENERIC,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 6)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 2)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
+					.build()
+			)
+		);
+
+		context.register(
+			SHRUB_SPARSE,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 6)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
+					.build()
+			)
+		);
+
+		context.register(
+			SHRUB_FLOWER_FIELD,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 2)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 4)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 4)
+					.build()
+			)
+		);
+
+		context.register(
+			SHRUB_JUNGLE,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 2)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 5)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 5)
+					.build()
+			)
+		);
+
+		context.register(
+			SHRUB_OASIS,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.DEAD_BUSH.defaultBlockState(), 8)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 1)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 2)
+					.build()
+			)
+		);
+
+		context.register(
+			SHRUB_DESERT,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 0), 1)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 1), 3)
+					.add(WWBlocks.SHRUB.get().defaultBlockState().setValue(ShrubBlock.AGE, 2), 3)
+					.build()
+			)
+		);
+
+		// MUSHROOM
+		context.register(
+			MUSHROOM_DARK_FOREST,
+			new NoiseProvider(
+				5234L,
+				NormalNoise.createParity(0, 1D),
+				0.020833334F,
+				List.of(
+					Blocks.RED_MUSHROOM.defaultBlockState(),
+					Blocks.BROWN_MUSHROOM.defaultBlockState()
+				)
+			)
+		);
+
+		// CACTUS
+		context.register(
+			PRICKLY_PEAR,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 5)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 3)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 2)
+					.add(WWBlocks.PRICKLY_PEAR.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 2)
+					.add(Blocks.CACTUS.defaultBlockState(), 3)
+					.build()
+			)
+		);
+
+		// TUMBLEWEED
+		context.register(
+			TUMBLEWEED,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 3), 1)
+					.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 2), 1)
+					.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
+					.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
+					.build()
 			)
 		);
 

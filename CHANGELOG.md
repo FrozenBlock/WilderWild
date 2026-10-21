@@ -54,4 +54,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Biomes that rely heavily on flowers, such as the Flower Forest, Flower Field, and Sunflower Plains biomes, will now look far more pleasant than before.
   - Added many new Block State Providers for Wilder Wild's flower generation.
   - Tall Flowers can no longer be generated with Bone Meal.
-- Sweet Berry bushes no longer generate outside Taiga biomes.
+- Sweet Berry Bushes no longer generate outside Taiga biomes.
+- Tumbleweed no longer generate in Windswept Savanna or Savanna Plateau biomes.

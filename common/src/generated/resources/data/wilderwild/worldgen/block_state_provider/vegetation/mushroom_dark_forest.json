@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:noise",
+  "noise": {
+    "base_amplitude": 0.955388882960065,
+    "base_octave": 0
+  },
+  "scale": 0.020833334,
+  "seed": 5234,
+  "states": [
+    "minecraft:red_mushroom",
+    "minecraft:brown_mushroom"
+  ]
+}

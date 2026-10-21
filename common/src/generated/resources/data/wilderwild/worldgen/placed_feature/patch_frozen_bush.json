@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:frozen_bush",
+  "feature": "wilderwild:vegetation/frozen_bush",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
@@ -23,8 +23,8 @@
       "type": "minecraft:offset",
       "x": {
         "type": "minecraft:trapezoid",
-        "max": 5,
-        "min": -5,
+        "max": 7,
+        "min": -7,
         "plateau": 0
       },
       "y": {
@@ -35,8 +35,8 @@
       },
       "z": {
         "type": "minecraft:trapezoid",
-        "max": 5,
-        "min": -5,
+        "max": 7,
+        "min": -7,
         "plateau": 0
       }
     },

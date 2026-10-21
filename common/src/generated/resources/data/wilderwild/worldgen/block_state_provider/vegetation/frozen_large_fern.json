@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:frozen_large_fern",
+      "weight": 1
+    },
+    {
+      "data": "wilderwild:frozen_fern",
+      "weight": 2
+    }
+  ]
+}

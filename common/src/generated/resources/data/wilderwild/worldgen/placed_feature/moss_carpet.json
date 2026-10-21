@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:moss_carpet",
+  "feature": "wilderwild:vegetation/moss_carpet",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_moss"
+    },
     {
       "type": "minecraft:rarity_filter",
       "chance": 2
@@ -23,20 +27,20 @@
       "type": "minecraft:offset",
       "x": {
         "type": "minecraft:trapezoid",
-        "max": 7,
-        "min": -7,
+        "max": 6,
+        "min": -6,
         "plateau": 0
       },
       "y": {
         "type": "minecraft:trapezoid",
-        "max": 3,
-        "min": -3,
+        "max": 2,
+        "min": -2,
         "plateau": 0
       },
       "z": {
         "type": "minecraft:trapezoid",
-        "max": 7,
-        "min": -7,
+        "max": 6,
+        "min": -6,
         "plateau": 0
       }
     },

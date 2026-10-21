@@ -208,7 +208,7 @@
     ],
     [
       "minecraft:glow_lichen",
-      "wilderwild:seagrass_cypress",
+      "wilderwild:aquatic/seagrass_cypress",
       "wilderwild:tree_vegetation/tree_cypress_wetlands",
       "wilderwild:tree_vegetation/tree_cypress_wetlands_water",
       "wilderwild:flower/flower_rainforest",

@@ -25,10 +25,8 @@ import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.levelgen.treedecorators.WWTreeDecorators;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.villager.VillagerType;
@@ -45,20 +43,13 @@ public final class WWWorldgen {
 		WWAquaticGeneration.setup();
 		WWFlowerGeneration.setup();
 		WWTreeGeneration.setup();
+		WWVegetationGeneration.setup();
 
 		replaceFeatures();
-		WWVegetationGeneration.generateFlower();
-		WWVegetationGeneration.generateShrub();
-		WWVegetationGeneration.generateCacti();
-		WWVegetationGeneration.generateGrass();
+
 		WWMiscGeneration.generateMisc();
 
-		WWVegetationGeneration.generateMushroom();
-		WWVegetationGeneration.generatePumpkin();
-
 		WWBiomeSettings.setup();
-
-		generatePollen();
 
 		final Map<ResourceKey<Biome>, ResourceKey<VillagerType>> villagerTypeMap = VillagerType.BY_BIOME;
 		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
@@ -95,16 +86,6 @@ public final class WWWorldgen {
 				if (WWWorldgenConfig.SNOW_TRANSITION_GENERATION.get()) {
 					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
 				}
-			});
-	}
-
-	private static void generatePollen() {
-		BiomeModifications.create(WWConstants.id("pollen_generation")).add(
-			ModificationPhase.ADDITIONS,
-			BiomeSelectors.all(),
-			(biomeSelectionContext, context) -> {
-				if (!WWWorldgenConfig.POLLEN_GENERATION.get() || !biomeSelectionContext.hasTag(WWBiomeTags.HAS_POLLEN)) return;
-				context.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.POLLEN.getKey());
 			});
 	}
 

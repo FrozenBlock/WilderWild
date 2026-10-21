@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:grass_jungle",
+  "feature": "minecraft:grass",
   "placement": [
     {
       "type": "minecraft:count",

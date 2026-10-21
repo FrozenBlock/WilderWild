@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "minecraft:dead_bush",
+      "weight": 8
+    },
+    {
+      "data": "wilderwild:shrub",
+      "weight": 1
+    },
+    {
+      "data": {
+        "id": "wilderwild:shrub",
+        "properties": {
+          "age": "1",
+          "half": "lower"
+        }
+      },
+      "weight": 3
+    },
+    {
+      "data": {
+        "id": "wilderwild:shrub",
+        "properties": {
+          "age": "2",
+          "half": "lower"
+        }
+      },
+      "weight": 2
+    }
+  ]
+}

@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:pale_mushroom",
+  "feature": "wilderwild:vegetation/pale_mushroom",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_pale_mushroom"
+    },
     {
       "type": "minecraft:count",
       "count": 1

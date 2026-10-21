@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -47,16 +46,6 @@ public final class WWMiscGeneration {
 
 				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_NETHER_LAVA_GEOTHERMAL_VENT)) {
 					generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, WWCavePlaced.NETHER_LAVA_GEOTHERMAL_VENT.getKey());
-				}
-			});
-
-		BiomeModifications.create(WWConstants.id("termite_generation")).add(
-			ModificationPhase.ADDITIONS,
-			BiomeSelectors.all(),
-			(biomeSelectionContext, context) -> {
-				if (!WWWorldgenConfig.TERMITE_GENERATION.get()) return;
-				if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TERMITE_MOUND)) {
-					context.getGenerationSettings().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWPlacedFeatures.TERMITE_MOUND.getKey());
 				}
 			});
 
@@ -152,10 +141,6 @@ public final class WWMiscGeneration {
 				if (WWWorldgenConfig.MOSS_DECORATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PATH)) {
 						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MOSS_PATH.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_CARPET)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.MOSS_CARPET.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PILE)) {

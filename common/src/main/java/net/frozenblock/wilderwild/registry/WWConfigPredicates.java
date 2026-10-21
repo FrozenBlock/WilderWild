@@ -42,7 +42,16 @@ public final class WWConfigPredicates {
 
 	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_TERMITE = createKey("generate_termite");
+
 	public static final ResourceKey<ConfigPredicate> GENERATE_FLOWER = createKey("generate_flower");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SHRUB = createKey("generate_shrub");
+	public static final ResourceKey<ConfigPredicate> GENERATE_CACTUS = createKey("generate_cactus");
+	public static final ResourceKey<ConfigPredicate> GENERATE_MUSHROOM = createKey("generate_mushroom");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MUSHROOM = createKey("generate_pale_mushroom");
+	public static final ResourceKey<ConfigPredicate> GENERATE_POLLEN = createKey("generate_pollen");
+	public static final ResourceKey<ConfigPredicate> GENERATE_TUMBLEWEED = createKey("generate_tumbleweed");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PUMPKIN = createKey("generate_pumpkin");
 	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SNAPPED_TREE = createKey("generate_snapped_tree");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALM = createKey("generate_palm");
@@ -60,6 +69,8 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_SPRUCE = createKey("generate_shelf_mushroom_spruce");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_WILLOW = createKey("generate_shelf_mushroom_willow");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_MAPLE = createKey("generate_shelf_mushroom_maple");
+
+	public static final ResourceKey<ConfigPredicate> GENERATE_MOSS = createKey("generate_moss");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BRITTLE_ICE = createKey("generate_brittle_ice");
@@ -130,8 +141,41 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
+			GENERATE_TERMITE,
+			WWWorldgenConfig.TERMITE_GENERATION.equalTo(true)
+		);
+
+		context.register(
 			GENERATE_FLOWER,
 			WWWorldgenConfig.FLOWER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SHRUB,
+			WWWorldgenConfig.SHRUB_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_CACTUS,
+			WWWorldgenConfig.CACTUS_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_MUSHROOM,
+			WWWorldgenConfig.MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PALE_MUSHROOM,
+			WWWorldgenConfig.PALE_MUSHROOM_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_POLLEN,
+			WWWorldgenConfig.POLLEN_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_TUMBLEWEED,
+			WWWorldgenConfig.TUMBLEWEED_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PUMPKIN,
+			WWWorldgenConfig.PUMPKIN_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_TREE,
@@ -205,6 +249,11 @@ public final class WWConfigPredicates {
 		context.register(
 			MUSIC_PITCH_SHIFT_DYING_FORESTS,
 			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
+		);
+
+		context.register(
+			GENERATE_MOSS,
+			WWWorldgenConfig.MOSS_DECORATION.equalTo(true)
 		);
 
 		context.register(

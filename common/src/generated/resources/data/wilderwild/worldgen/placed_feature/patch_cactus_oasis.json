@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:cactus_oasis",
+  "feature": "wilderwild:vegetation/cactus_oasis",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_cactus"
+    },
     {
       "type": "minecraft:rarity_filter",
       "chance": 2
@@ -17,7 +21,7 @@
     },
     {
       "type": "minecraft:count",
-      "count": 10
+      "count": 8
     },
     {
       "type": "minecraft:offset",

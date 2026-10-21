@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:frozen_tall_grass",
+  "feature": "wilderwild:vegetation/frozen_tall_grass",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

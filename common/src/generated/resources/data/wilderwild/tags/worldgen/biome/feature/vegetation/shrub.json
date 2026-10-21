@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:cherry_grove",
+    "minecraft:mangrove_swamp",
+    {
+      "id": "wilderwild:rainforest",
+      "required": false
+    },
+    {
+      "id": "wilderwild:temperate_rainforest",
+      "required": false
+    }
+  ]
+}

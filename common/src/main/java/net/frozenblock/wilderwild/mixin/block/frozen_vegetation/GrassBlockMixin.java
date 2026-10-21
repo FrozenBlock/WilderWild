@@ -23,7 +23,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -80,7 +80,7 @@ public class GrassBlockMixin {
 		ResourceKey<PlacedFeature> original,
 		@Share("wilderWild$isSnowy") LocalBooleanRef isSnowy
 	) {
-		return isSnowy.get() ? WWPlacedFeatures.PATCH_GRASS_FROZEN_BONEMEAL.getKey() : original;
+		return isSnowy.get() ? WWVegetationPlacements.PATCH_FROZEN_GRASS_BONEMEAL.getKey() : original;
 	}
 
 	@WrapOperation(

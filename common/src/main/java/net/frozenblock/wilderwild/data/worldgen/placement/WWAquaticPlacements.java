@@ -24,6 +24,7 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.modifiersWithFilter;
 import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.postModifiers;
+import static net.minecraft.data.worldgen.placement.AquaticPlacements.seagrassPlacement;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
@@ -36,6 +37,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -84,6 +86,7 @@ public final class WWAquaticPlacements {
 	public static final FrozenLibPlacedFeature PATCH_PLANKTON = register("patch_plankton");
 
 	public static final FrozenLibPlacedFeature SEAGRASS_MEADOW = register("seagrass_meadow");
+	public static final FrozenLibPlacedFeature SEAGRASS_CYPRESS = register("seagrass_cypress");
 
 	public static final FrozenLibPlacedFeature SPONGE_BUDS = register("sponge_buds");
 	public static final FrozenLibPlacedFeature SPONGE_BUDS_RARE = register("sponge_buds_rare");
@@ -202,6 +205,8 @@ public final class WWAquaticPlacements {
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER))
 			)
 		);
+
+		SEAGRASS_CYPRESS.makeAndSetHolder(features.getOrThrow(AquaticFeatures.SEAGRASS_MID), seagrassPlacement(56));
 
 		registerSpongeBud(context, SPONGE_BUDS, CountPlacement.of(UniformInt.of(0, 3)));
 		registerSpongeBud(context, SPONGE_BUDS_RARE, CountPlacement.of(UniformInt.of(0, 1)), RarityFilter.onAverageOnceEvery(2));

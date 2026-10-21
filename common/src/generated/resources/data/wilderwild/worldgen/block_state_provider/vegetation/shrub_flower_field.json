@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "wilderwild:shrub",
+      "weight": 2
+    },
+    {
+      "data": {
+        "id": "wilderwild:shrub",
+        "properties": {
+          "age": "1",
+          "half": "lower"
+        }
+      },
+      "weight": 4
+    },
+    {
+      "data": {
+        "id": "wilderwild:shrub",
+        "properties": {
+          "age": "2",
+          "half": "lower"
+        }
+      },
+      "weight": 4
+    }
+  ]
+}

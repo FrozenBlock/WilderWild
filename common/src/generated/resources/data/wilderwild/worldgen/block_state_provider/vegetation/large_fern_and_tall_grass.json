@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": "minecraft:tall_grass",
+      "weight": 3
+    },
+    {
+      "data": "minecraft:large_fern",
+      "weight": 3
+    }
+  ]
+}

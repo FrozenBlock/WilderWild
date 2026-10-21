@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:cactus_tall_badlands",
+  "feature": "wilderwild:vegetation/cactus_tall_badlands",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_cactus"
+    },
     {
       "type": "minecraft:rarity_filter",
       "chance": 7

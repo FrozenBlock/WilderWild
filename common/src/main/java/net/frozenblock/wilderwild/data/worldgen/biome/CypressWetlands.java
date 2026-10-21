@@ -29,7 +29,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWPlacedFeatures;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
@@ -133,7 +133,7 @@ public final class CypressWetlands extends FrozenLibBiome {
 	@Override
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
 		WWSharedWorldgen.addBasicFeatures(features, true);
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWPlacedFeatures.SEAGRASS_CYPRESS.getKey());
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.SEAGRASS_CYPRESS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_CYPRESS_WETLANDS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_CYPRESS_WETLANDS_WATER.getKey());
 		this.addCypressPaths(features);

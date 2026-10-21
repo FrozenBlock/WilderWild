@@ -1,6 +1,10 @@
 {
-  "feature": "wilderwild:termite_mound",
+  "feature": "wilderwild:vegetation/termite_mound",
   "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_termite"
+    },
     {
       "type": "minecraft:rarity_filter",
       "chance": 45
