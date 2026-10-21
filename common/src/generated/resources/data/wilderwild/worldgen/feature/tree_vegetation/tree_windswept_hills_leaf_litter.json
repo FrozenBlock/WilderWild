@@ -3,10 +3,6 @@
   "default": "wilderwild:tree/oak_leaf_litter",
   "features": [
     {
-      "chance": 0.666,
-      "feature": "wilderwild:tree/spruce_leaf_litter"
-    },
-    {
       "chance": 0.1,
       "feature": "wilderwild:tree/fancy_oak_leaf_litter"
     },
@@ -17,6 +13,10 @@
     {
       "chance": 0.02,
       "feature": "wilderwild:tree/dying_oak_leaf_litter"
+    },
+    {
+      "chance": 0.666,
+      "feature": "wilderwild:tree/spruce_leaf_litter"
     }
   ]
 }

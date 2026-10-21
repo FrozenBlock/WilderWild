@@ -4,7 +4,7 @@
   "features": [
     {
       "chance": 0.33333334,
-      "feature": "wilderwild:tree/mega_fungus_spruce_leaf_litter"
+      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
     },
     {
       "chance": 0.075,
@@ -12,7 +12,7 @@
     },
     {
       "chance": 0.33333334,
-      "feature": "wilderwild:tree/fungus_pine_leaf_litter"
+      "feature": "wilderwild:tree/mega_fungus_spruce_leaf_litter"
     }
   ]
 }

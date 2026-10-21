@@ -743,7 +743,15 @@ public final class WWVegetationPlacements {
 				FrozenLibPlacementUtil.modifiers(CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(96),
 				OffsetPlacement.ofTriangle(7, 3),
-				PlacementUtils.isEmpty()
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.anyOf(
+							BlockPredicate.belowHeightmap(Heightmap.Types.MOTION_BLOCKING),
+							BlockPredicate.matchesTag(Direction.DOWN, BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+						)
+					)
+				)
 			)
 		);
 
@@ -753,7 +761,15 @@ public final class WWVegetationPlacements {
 				FrozenLibPlacementUtil.modifiers(CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(96),
 				OffsetPlacement.ofTriangle(7, 3),
-				PlacementUtils.isEmpty()
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.anyOf(
+							BlockPredicate.belowHeightmap(Heightmap.Types.MOTION_BLOCKING),
+							BlockPredicate.matchesTag(Direction.DOWN, BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+						)
+					)
+				)
 			)
 		);
 
@@ -763,7 +779,15 @@ public final class WWVegetationPlacements {
 				FrozenLibPlacementUtil.modifiers(CountPlacement.of(1), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(96),
 				OffsetPlacement.ofTriangle(7, 3),
-				PlacementUtils.isEmpty()
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.anyOf(
+							BlockPredicate.belowHeightmap(Heightmap.Types.MOTION_BLOCKING),
+							BlockPredicate.matchesTag(Direction.DOWN, BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+						)
+					)
+				)
 			)
 		);
 
@@ -780,7 +804,15 @@ public final class WWVegetationPlacements {
 			BiomeFilter.biome(),
 			CountPlacement.of(50),
 			OffsetPlacement.ofTriangle(4, 2),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+			BlockPredicateFilter.forPredicate(
+				BlockPredicate.allOf(
+					BlockPredicate.ONLY_IN_AIR_PREDICATE,
+					BlockPredicate.anyOf(
+						BlockPredicate.belowHeightmap(Heightmap.Types.MOTION_BLOCKING),
+						BlockPredicate.matchesTag(Direction.DOWN, BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+					)
+				)
+			)
 		);
 
 		HUGE_BROWN_MUSHROOM.makeAndSetHolder(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM),

@@ -603,7 +603,7 @@ public final class WWFlowerFeatures {
 				WeightedList.of(
 					placements.entrySet().stream()
 						.map((entry) -> new Weighted<>(entry.getKey(), entry.getValue()))
-						.sorted(Comparator.comparing(Weighted::weight))
+						.sorted(Comparator.comparing(Weighted::hashCode))
 						.toList()
 				)
 			)

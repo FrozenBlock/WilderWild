@@ -2,20 +2,8 @@
   "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "data": "wilderwild:flower/patch_flower_default_64_large",
-      "weight": 1
-    },
-    {
-      "data": "wilderwild:flower/patch_blue_orchid_48",
-      "weight": 1
-    },
-    {
-      "data": "wilderwild:flower/patch_lily_of_the_valley_48",
-      "weight": 2
-    },
-    {
-      "data": "wilderwild:flower/patch_rose_bush_48_large",
-      "weight": 2
+      "data": "wilderwild:flower/patch_hibiscus_72",
+      "weight": 6
     },
     {
       "data": {
@@ -58,12 +46,24 @@
       "weight": 3
     },
     {
+      "data": "wilderwild:flower/patch_blue_orchid_48",
+      "weight": 1
+    },
+    {
       "data": "wilderwild:flower/patch_milkweed_64",
       "weight": 4
     },
     {
-      "data": "wilderwild:flower/patch_hibiscus_72",
-      "weight": 6
+      "data": "wilderwild:flower/patch_flower_default_64_large",
+      "weight": 1
+    },
+    {
+      "data": "wilderwild:flower/patch_rose_bush_48_large",
+      "weight": 2
+    },
+    {
+      "data": "wilderwild:flower/patch_lily_of_the_valley_48",
+      "weight": 2
     }
   ]
 }

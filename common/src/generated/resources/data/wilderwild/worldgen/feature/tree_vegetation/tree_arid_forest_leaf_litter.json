@@ -3,20 +3,20 @@
   "default": "wilderwild:tree/dying_oak_leaf_litter",
   "features": [
     {
-      "chance": 0.2325,
-      "feature": "wilderwild:tree/dying_birch_leaf_litter"
-    },
-    {
-      "chance": 0.38,
-      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
-    },
-    {
       "chance": 0.175,
       "feature": "wilderwild:tree/fancy_dying_oak_leaf_litter"
     },
     {
+      "chance": 0.2325,
+      "feature": "wilderwild:tree/dying_birch_leaf_litter"
+    },
+    {
       "chance": 0.7085,
       "feature": "wilderwild:tree/dying_oak_leaf_litter"
+    },
+    {
+      "chance": 0.38,
+      "feature": "wilderwild:tree/dying_short_birch_leaf_litter"
     }
   ]
 }
