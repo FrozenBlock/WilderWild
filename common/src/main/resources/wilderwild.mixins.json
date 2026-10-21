@@ -17,6 +17,7 @@
     "block.frozen_vegetation.GrassBlockMixin",
     "block.ice.BrittleIceBlockMixin",
     "block.ice.IcicleBlockMixin",
+    "block.ice.SnowLayerBlockMixin",
     "block.ice.SpeleothemBlockMixin",
     "block.lava.LavaFluidMixin",
     "block.leaves.BlockMixin",
