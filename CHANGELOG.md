@@ -23,6 +23,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Whether projectiles can cause Brittle Ice to shatter (enabled by default.)
 - Particles are now much more visibly affected by Wind Disturbances (Breezes, Wind Charges, Geysers, Geothermal Vents, etc.)
 - Seeding Dandelions now spawn Seed particles around themselves, based on the current Wind intensity.
+- The recipes for Gabbro Walls and Gabbro Brick Walls are now properly sorted into the Decorations category instead of Building Blocks.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

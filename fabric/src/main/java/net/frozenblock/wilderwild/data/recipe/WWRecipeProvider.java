@@ -190,7 +190,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICKS, Items.PACKED_MUD);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICK_SLAB, Items.PACKED_MUD, 2);
 				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICK_STAIRS, Items.PACKED_MUD);
-				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, Items.MUD_BRICK_WALL, Items.PACKED_MUD);
+				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, Items.MUD_BRICK_WALL, Items.PACKED_MUD);
 
 				// MOSSY MUD BRICKS
 
@@ -219,14 +219,14 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_SLAB, WWItems.GABBRO, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_STAIRS, WWItems.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_WALL, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.GABBRO_WALL, WWItems.GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO, WWItems.GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_SLAB, WWItems.GABBRO, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_STAIRS, WWItems.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_WALL, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.POLISHED_GABBRO_WALL, WWItems.GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_SLAB, WWItems.POLISHED_GABBRO, 2);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_STAIRS, WWItems.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_GABBRO_WALL, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.POLISHED_GABBRO_WALL, WWItems.POLISHED_GABBRO);
 
 				this.shaped(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICKS, 4)
 					.define('#', WWItems.POLISHED_GABBRO)
@@ -246,9 +246,9 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_STAIRS, WWItems.GABBRO_BRICKS);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_STAIRS, WWItems.POLISHED_GABBRO);
 				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_STAIRS, WWItems.GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO_BRICKS);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_WALL, WWItems.POLISHED_GABBRO);
-				stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO_BRICKS);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.GABBRO_BRICK_WALL, WWItems.POLISHED_GABBRO);
+				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO);
 
 				// MOSSY GABBRO
 
