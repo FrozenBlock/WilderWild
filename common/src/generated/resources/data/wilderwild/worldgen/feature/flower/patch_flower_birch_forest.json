@@ -6,15 +6,15 @@
       "weight": 1
     },
     {
-      "data": "wilderwild:flower/patch_rose_bush_48_large",
-      "weight": 2
-    },
-    {
       "data": "wilderwild:flower/patch_lilac_48_large",
       "weight": 2
     },
     {
       "data": "wilderwild:flower/patch_datura_38",
+      "weight": 2
+    },
+    {
+      "data": "wilderwild:flower/patch_rose_bush_48_large",
       "weight": 2
     },
     {

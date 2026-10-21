@@ -1,5 +1,8 @@
 {
-  "feature": "wilderwild:aquatic/cattail",
+  "feature": {
+    "type": "minecraft:sequence",
+    "features": "wilderwild:aquatic/cattail_checked"
+  },
   "placement": [
     {
       "type": "frozenlib:config_predicate",

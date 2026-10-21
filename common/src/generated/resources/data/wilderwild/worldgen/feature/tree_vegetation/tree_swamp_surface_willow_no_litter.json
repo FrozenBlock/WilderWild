@@ -3,12 +3,12 @@
   "default": "wilderwild:tree/swamp_oak",
   "features": [
     {
-      "chance": 0.2,
-      "feature": "wilderwild:tree/willow"
-    },
-    {
       "chance": 0.75,
       "feature": "wilderwild:tree/short_willow"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:tree/willow"
     }
   ]
 }

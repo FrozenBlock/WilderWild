@@ -51,6 +51,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleRandomSelectorFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
@@ -169,8 +170,8 @@ public final class WWAquaticPlacements {
 		);
 
 		registerCattail(context, PATCH_CATTAIL, 4, 24, 32, 6);
-		registerCattail(context, PATCH_CATTAIL_COMMON, 2, 16, 24, 4);
-		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 3, 16, 24, 4);
+		registerCattail(context, PATCH_CATTAIL_COMMON, 2, 14, 24, 4);
+		registerCattail(context, PATCH_CATTAIL_UNCOMMON, 3, 14, 24, 4);
 
 		registerBarnacles(context, PATCH_BARNACLES, WWAquaticFeatures.BARNACLES, 18, 6, 3,
 			RarityFilter.onAverageOnceEvery(8)
@@ -278,7 +279,8 @@ public final class WWAquaticPlacements {
 		int minCount, int maxCount,
 		int horizontalRange
 	) {
-		placement.makeAndSetHolder(WWAquaticFeatures.CATTAIL,
+		placement.makeAndSetHolder(
+			new SequenceFeature(CATTAIL_CHECKED.asHolderSet()),
 			postModifiers(
 				modifiersWithFilter(
 					context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL),

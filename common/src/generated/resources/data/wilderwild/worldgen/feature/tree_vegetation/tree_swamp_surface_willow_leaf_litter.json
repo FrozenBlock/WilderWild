@@ -3,12 +3,12 @@
   "default": "wilderwild:tree/swamp_oak_leaf_litter",
   "features": [
     {
-      "chance": 0.2,
-      "feature": "wilderwild:tree/willow_leaf_litter"
-    },
-    {
       "chance": 0.75,
       "feature": "wilderwild:tree/short_willow_leaf_litter"
+    },
+    {
+      "chance": 0.2,
+      "feature": "wilderwild:tree/willow_leaf_litter"
     }
   ]
 }

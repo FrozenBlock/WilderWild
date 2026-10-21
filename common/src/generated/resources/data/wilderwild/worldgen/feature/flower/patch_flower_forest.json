@@ -10,11 +10,11 @@
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_lily_of_the_valley_42",
+      "data": "wilderwild:flower/patch_milkweed_52_large",
       "weight": 2
     },
     {
-      "data": "wilderwild:flower/patch_milkweed_52_large",
+      "data": "wilderwild:flower/patch_lily_of_the_valley_42",
       "weight": 2
     },
     {
@@ -22,11 +22,11 @@
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_rose_bush_64_large",
+      "data": "wilderwild:flower/patch_lilac_64_large",
       "weight": 3
     },
     {
-      "data": "wilderwild:flower/patch_lilac_64_large",
+      "data": "wilderwild:flower/patch_rose_bush_64_large",
       "weight": 3
     }
   ]
