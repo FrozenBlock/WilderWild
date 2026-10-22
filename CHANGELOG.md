@@ -24,6 +24,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Particles are now much more visibly affected by Wind Disturbances (Breezes, Wind Charges, Geysers, Geothermal Vents, etc.)
 - Seeding Dandelions now spawn Seed particles around themselves, based on the current Wind intensity.
 - The recipes for Gabbro Walls and Gabbro Brick Walls are now properly sorted into the Decorations category instead of Building Blocks.
+- Plankton particles are now visible behind Water with the Improved Transparency option disabled.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

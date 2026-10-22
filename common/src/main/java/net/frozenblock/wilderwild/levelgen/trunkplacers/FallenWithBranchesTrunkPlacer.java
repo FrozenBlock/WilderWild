@@ -131,7 +131,7 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
 				this.placeLog(level, trunkSetter, random, stateProvider, mutable, trunkDirection);
-				
+
 				if (!useHollowedLogs && this.branchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
 					final Direction branchDirection = random.nextFloat() <= 0.66F
 						? Direction.Plane.HORIZONTAL.getRandomDirection(random)

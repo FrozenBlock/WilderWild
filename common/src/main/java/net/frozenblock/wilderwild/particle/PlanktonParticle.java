@@ -18,7 +18,9 @@
 package net.frozenblock.wilderwild.particle;
 
 import net.frozenblock.lib.math.api.AdvancedMath;
+import net.frozenblock.wilderwild.WWPreLoadConstants;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
@@ -27,6 +29,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.material.FluidState;
@@ -45,6 +48,7 @@ public class PlanktonParticle extends SingleQuadParticle {
 	private static final float MIN_G_GLOWING = 111F;
 	private static final float B_GLOWING = 255F;
 
+	private final boolean improvedTransparency;
 	private float prevScale = 0F;
 	private float scale = 0F;
 	private float targetScale = 0F;
@@ -66,6 +70,8 @@ public class PlanktonParticle extends SingleQuadParticle {
 	) {
 		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.setSize(0.01F, 0.02F);
+		this.improvedTransparency = Minecraft.getInstance().options.improvedTransparency().get();
+		if (!WWPreLoadConstants.HAS_PARTICLE_TWEAKS) this.snapScaleTo(1F);
 		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.gravity = 0F;
@@ -90,27 +96,30 @@ public class PlanktonParticle extends SingleQuadParticle {
 			this.zd *= 0.7D;
 		}
 
-		this.prevScale = this.scale;
-		this.scale += (this.targetScale - this.scale) * 0.1F;
 		this.rotSpeed = this.rotSpeed + this.spinAcceleration / 20F;
 		this.oRoll = this.roll;
 		this.roll = this.roll + this.rotSpeed / 20F;
 
 		final BlockPos pos = BlockPos.containing(this.x, this.y, this.z);
 		final FluidState fluidState = this.level.getFluidState(pos);
-		if (pos.getY() + fluidState.getHeight(this.level, pos) < this.y) {
-			this.lifetime = this.age;
-		}
+		if (pos.getY() + fluidState.getHeight(this.level, pos) < this.y) this.lifetime = this.age;
 
-		if (this.age++ >= this.lifetime) {
-			if (this.prevScale == 0F) {
-				this.remove();
+		if (WWPreLoadConstants.HAS_PARTICLE_TWEAKS) {
+			this.prevScale = this.scale;
+			this.scale += (this.targetScale - this.scale) * 0.1F;
+
+			if (this.age++ >= this.lifetime) {
+				if (this.prevScale == 0F) {
+					this.remove();
+				} else {
+					this.targetScale = 0F;
+					if (this.prevScale <= 0.04F) this.scale = 0F;
+				}
 			} else {
-				this.targetScale = 0F;
-				if (this.prevScale <= 0.04F) this.scale = 0F;
+				this.targetScale = 1F;
 			}
 		} else {
-			this.targetScale = 1F;
+			if (this.age++ >= this.lifetime) this.remove();
 		}
 	}
 
@@ -121,11 +130,15 @@ public class PlanktonParticle extends SingleQuadParticle {
 			this.rCol = Mth.lerp(scale, this.baseR, this.glowingR);
 			this.gCol = Mth.lerp(scale, this.baseG, this.glowingG);
 			this.bCol = Mth.lerp(scale, this.baseB, this.glowingB);
-			this.alpha = scale;
+			if (WWPreLoadConstants.HAS_PARTICLE_TWEAKS) this.alpha = scale;
 		} else {
-			this.alpha = 0.75F;
+			this.alpha = this.improvedTransparency ? 0.75F : 1F;
 		}
 		return this.quadSize * scale;
+	}
+
+	public void snapScaleTo(float scale) {
+		this.prevScale = this.scale = this.targetScale = scale;
 	}
 
 	public void setBaseColors(float r, float g, float b) {
@@ -144,14 +157,14 @@ public class PlanktonParticle extends SingleQuadParticle {
 	}
 
 	@Override
-	protected int getLightCoords(float partialTicks) {
-		if (this.glowing) return (int) (Mth.lerp(partialTicks, this.prevScale, this.scale) * 240F);
-		return super.getLightCoords(partialTicks);
+	protected int getLightCoords(float partialTick) {
+		if (this.glowing) return LightCoordsUtil.addSmoothBlockEmission(super.getLightCoords(partialTick), Mth.lerp(partialTick, this.prevScale, this.scale));
+		return super.getLightCoords(partialTick);
 	}
 
 	@Override
 	protected Layer getLayer() {
-		return Layer.TRANSLUCENT;
+		return this.alpha >= 1F ? Layer.OPAQUE : Layer.TRANSLUCENT;
 	}
 
 	public record PlanktonProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
