@@ -32,7 +32,6 @@ import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -53,7 +52,7 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 	private static final IntProvider STUMP_HEIGHT = UniformInt.of(1, MAX_STUMP_HEIGHT);
 	private static final int STUMP_MAX_SEARCH_POSITIVE_Y = 10;
 	private static final int STUMP_MAX_SEARCH_NEGATIVE_Y = 3;
-	public static final MapCodec<FallenLargeTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
+	public static final MapCodec<FallenLargeTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
 			.and(Codec.floatRange(0F, 1F).fieldOf("water_success_probability").forGetter(trunkPlacer -> trunkPlacer.waterSuccessProbability))
 			.and(Codec.floatRange(0F, 1F).fieldOf("stump_probability").forGetter(trunkPlacer -> trunkPlacer.stumpProbability))
@@ -72,10 +71,6 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		this.stumpProbability = stumpProbability;
 	}
 
-	private static boolean isWaterAt(LevelSimulatedReader level, BlockPos blockpos) {
-		return level.isFluidAtPosition(blockpos, fluidState -> fluidState.is(FluidTags.WATER));
-	}
-
 	@Override
 	protected TrunkPlacerType<?> type() {
 		return WWFeatures.FALLEN_LARGE_TRUNK_PLACER.get();
@@ -91,22 +86,28 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 		TreeFeature tree
 	) {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
-		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-        if (isWaterAt(level, origin) && this.waterSuccessProbability <= random.nextFloat()) return foliageAttachments;
 
+        if (TrunkPlacerHelper.isWaterSourceAt(level, origin) && random.nextFloat() > this.waterSuccessProbability) return foliageAttachments;
+
+		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 		final Pair<List<BlockPos>, Optional<Direction>> positionsAndSideDirection = this.getAllPositionsAndSideDirection(level, origin, random, trunkDirection);
 		for (BlockPos blockPos : positionsAndSideDirection.getFirst()) {
 			this.placeLog(level, trunkSetter, random, blockPos, tree, (state) -> state.trySetValue(RotatedPillarBlock.AXIS, trunkDirection.getAxis()));
 		}
 
-		final Optional<Direction> optionalSideDirection = positionsAndSideDirection.getSecond();
-		if (optionalSideDirection.isPresent() && this.stumpProbability <= random.nextFloat()) {
+		placeStump: {
+			final Optional<Direction> optionalSideDirection = positionsAndSideDirection.getSecond();
+			if (optionalSideDirection.isEmpty() || random.nextFloat() > this.stumpProbability) break placeStump;
+
 			final Direction sideDirection = optionalSideDirection.get();
 			final List<BlockPos> stumpPoses = findStumpPositions(level, random, origin, trunkDirection, sideDirection);
 
 			final BlockPos.MutableBlockPos stumpPos = new BlockPos.MutableBlockPos();
+			final int stumpHeight = STUMP_HEIGHT.sample(random);
+
+			for (BlockPos blockPos : stumpPoses) if (TrunkPlacerHelper.isWaterSourceAt(level, blockPos)) break placeStump;
+
 			for (BlockPos blockPos : stumpPoses) {
-				final int stumpHeight = STUMP_HEIGHT.sample(random);
 				for (int i = 0; i < stumpHeight; i++) {
 					this.placeLog(level, trunkSetter, random, stumpPos.setWithOffset(blockPos, 0, i, 0), tree);
 				}

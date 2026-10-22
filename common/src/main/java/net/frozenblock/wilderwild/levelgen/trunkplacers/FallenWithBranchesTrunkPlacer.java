@@ -49,14 +49,14 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 	private static final int STUMP_MAX_SEARCH_NEGATIVE_Y = 2;
 	public static final MapCodec<FallenWithBranchesTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(Codec.floatRange(0F, 1F).fieldOf("water_success_probability").forGetter(trunkPlacer -> trunkPlacer.successInWaterChance))
+			.and(Codec.floatRange(0F, 1F).fieldOf("water_success_probability").forGetter(trunkPlacer -> trunkPlacer.waterSuccessProbability))
 			.and(BlockStateProvider.CODEC.fieldOf("hollow_state").forGetter(trunkPlacer -> trunkPlacer.hollowedTrunkProvider))
 			.and(Codec.floatRange(0F, 1F).fieldOf("hollow_probability").forGetter(trunkPlacer -> trunkPlacer.hollowedLogChance))
 			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
 			.and(Codec.floatRange(0F, 1F).fieldOf("stump_probability").forGetter(trunkPlacer -> trunkPlacer.stumpProbability))
 			.apply(instance, FallenWithBranchesTrunkPlacer::new));
 
-	public final float successInWaterChance;
+	public final float waterSuccessProbability;
 	public final Holder<BlockStateProvider> hollowedTrunkProvider;
 	public final float hollowedLogChance;
 	public final BranchPlacement branchPlacement;
@@ -66,14 +66,14 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		float successInWaterChance,
+		float waterSuccessProbability,
 		Holder<BlockStateProvider> hollowedTrunkProvider,
 		float hollowedLogProbability,
 		BranchPlacement branchPlacement,
 		float stumpProbability
 	) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
-		this.successInWaterChance = successInWaterChance;
+		this.waterSuccessProbability = waterSuccessProbability;
 		this.hollowedTrunkProvider = hollowedTrunkProvider;
 		this.hollowedLogChance = hollowedLogProbability;
 		this.branchPlacement = branchPlacement;
@@ -95,18 +95,14 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 		TreeFeature tree
 	) {
 		final List<FoliagePlacer.FoliageAttachment> foliageAttachments = Lists.newArrayList();
+
+		if (TrunkPlacerHelper.isWaterSourceAt(level, origin) && random.nextFloat() > this.waterSuccessProbability) return foliageAttachments;
+
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
-			? this.hollowedTrunkProvider.value()
-			: tree.trunkProvider().value();
-		final int maxBranches = this.branchPlacement.getMaxBranchCount(random);
 		final Direction trunkDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		int generatedBranches = 0;
-
-		if (TrunkPlacerHelper.isWaterSourceAt(level, origin) && random.nextFloat() >= this.successInWaterChance) return foliageAttachments;
-
 		final BlockPos endPos = origin.relative(trunkDirection, treeHeight);
 		final BlockPos secondToEndPos = endPos.relative(trunkDirection.getOpposite());
+
 		int aboveSolidAmount = 0;
 		boolean isEndAboveSolid = false;
 		final Iterable<BlockPos> poses = BlockPos.betweenClosed(origin, endPos);
@@ -126,12 +122,21 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			}
 		}
 
+		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
+			? this.hollowedTrunkProvider.value()
+			: tree.trunkProvider().value();
+		final int maxBranches = this.branchPlacement.getMaxBranchCount(random);
+
+		int generatedBranches = 0;
 		if (isEndAboveSolid || ((double) aboveSolidAmount / (double) treeHeight) > 0.5D) {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
 				this.placeLog(level, trunkSetter, random, stateProvider, mutable, trunkDirection);
 				if (this.branchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
-					final Direction branchDirection = random.nextFloat() <= 0.66F ? Direction.Plane.HORIZONTAL.getRandomDirection(random) : Direction.Plane.VERTICAL.getRandomDirection(random);
+					final Direction branchDirection = random.nextFloat() <= 0.66F
+						? Direction.Plane.HORIZONTAL.getRandomDirection(random)
+						: Direction.Plane.VERTICAL.getRandomDirection(random);
+
 					if (trunkDirection.getAxis() != branchDirection.getAxis()) {
 						this.branchPlacement.generateExtraBranchForFallenLog(
 							level,
@@ -148,13 +153,15 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			}
 		}
 
-		if (random.nextFloat() <= this.stumpProbability) {
+		placeStump: {
+			if (random.nextFloat() > this.stumpProbability) break placeStump;
+
 			final Optional<BlockPos.MutableBlockPos> optionalStumpPos = this.findStumpPos(level, random, origin, trunkDirection);
-			if (optionalStumpPos.isPresent()) {
-				final BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();
-				this.placeLog(level, trunkSetter, random, stumpPos, tree);
-				if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, trunkSetter, random, stumpPos.move(Direction.UP), tree);
-			}
+			if (optionalStumpPos.isEmpty() || TrunkPlacerHelper.isWaterSourceAt(level, optionalStumpPos.get())) break placeStump;
+
+			final BlockPos.MutableBlockPos stumpPos = optionalStumpPos.get();
+			this.placeLog(level, trunkSetter, random, stumpPos, tree);
+			if (random.nextFloat() <= TWO_TALL_STUMP_CHANCE) this.placeLog(level, trunkSetter, random, stumpPos.move(Direction.UP), tree);
 		}
 
 		return foliageAttachments;
