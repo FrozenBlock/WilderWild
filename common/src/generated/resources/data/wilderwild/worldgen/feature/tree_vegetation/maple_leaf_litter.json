@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/yellow_maple_bees_0004_leaf_litter",
+  "features": [
+    {
+      "chance": 0.4,
+      "feature": {
+        "feature": "wilderwild:tree_vegetation/yellow_maple_leaf_litter",
+        "placement": []
+      }
+    },
+    {
+      "chance": 0.55,
+      "feature": {
+        "feature": "wilderwild:tree_vegetation/orange_maple_leaf_litter",
+        "placement": []
+      }
+    },
+    {
+      "chance": 0.9,
+      "feature": {
+        "feature": "wilderwild:tree_vegetation/red_maple_leaf_litter",
+        "placement": []
+      }
+    }
+  ]
+}

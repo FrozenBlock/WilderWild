@@ -18,10 +18,8 @@
 package net.frozenblock.wilderwild.data.worldgen.placement;
 
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
@@ -208,15 +206,15 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedFeature SNAPPED_CHERRY = register("snapped_cherry");
 
 	// MAPLE
-	public static final MapleCollection<FrozenLibPlacedFeature> MAPLE = MapleCollection.NAMES.map(name -> register(name + "_maple"));
-	public static final MapleCollection<FrozenLibPlacedFeature> DYING_MAPLE = MapleCollection.NAMES.map(name -> register("dying_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibPlacedFeature> TALL_MAPLE = MapleCollection.NAMES.map(name -> register("tall_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibPlacedFeature> TALL_DYING_MAPLE = MapleCollection.NAMES.map(name -> register("tall_dying_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibPlacedFeature> MAPLE_BEES_0004 = MapleCollection.NAMES.map(name -> register(name + "_maple_bees_0004"));
-	public static final MapleCollection<FrozenLibPlacedFeature> TALL_MAPLE_BEES_0004 = MapleCollection.NAMES.map(name -> register("tall_" + name + "_maple_bees_0004"));
-	public static final MapleCollection<FrozenLibPlacedFeature> SHORT_MAPLE = MapleCollection.NAMES.map(name -> register("short_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibPlacedFeature> FULL_MAPLE = MapleCollection.NAMES.map(name -> register("full_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibPlacedFeature> BIG_BUSH_MAPLE = MapleCollection.NAMES.map(name -> register("big_bush_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> MAPLE = WWTreeFeatures.MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> DYING_MAPLE = WWTreeFeatures.DYING_MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> TALL_MAPLE = WWTreeFeatures.TALL_MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> TALL_DYING_MAPLE = WWTreeFeatures.TALL_DYING_MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);;
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> MAPLE_BEES_0004 = WWTreeFeatures.MAPLE_BEES_0004.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> TALL_MAPLE_BEES_0004 = WWTreeFeatures.TALL_MAPLE_BEES_0004.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> SHORT_MAPLE = WWTreeFeatures.SHORT_MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> FULL_MAPLE = WWTreeFeatures.FULL_MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);
+	public static final MapleCollection<FrozenLibPlacedTreeFeature> BIG_BUSH_MAPLE = WWTreeFeatures.BIG_BUSH_MAPLE.map(FrozenLibTreeFeature::toPlacedFeature);
 
 	public static final FrozenLibPlacedFeature SNAPPED_MAPLE = register("snapped_maple");
 
@@ -440,24 +438,24 @@ public final class WWTreePlacements {
 		SNAPPED_CHERRY.makeAndSetHolder(WWTreeFeatures.SNAPPED_CHERRY, cherrySaplingPlacement);
 
 		// MAPLE
-		final MapleCollection<BlockPredicateFilter> mapleSaplingPlacement = WWBlocks.MAPLE_SAPLING.map(sapling -> {
-			return PlacementUtils.filteredByBlockSurvival(sapling.get());
-		});
-		final BiConsumer<MapleCollection<FrozenLibPlacedFeature>, MapleCollection<FrozenLibFeature>> registerMaple = (placedCollection, collection) -> {
-			MapleCollection.zipApply(placedCollection, MapleCollection.DYE_COLORS, (feature, color) -> {
-				feature.makeAndSetHolder(collection.pick(color).getHolder(), mapleSaplingPlacement.pick(color));
-			});
+		final MapleCollection<BlockPredicateFilter> mapleSaplingPlacement = WWBlocks.MAPLE_SAPLING.map(sapling -> PlacementUtils.filteredByBlockSurvival(sapling.get()));
+		final Consumer<MapleCollection<FrozenLibPlacedTreeFeature>> registerMaple = collection -> {
+			MapleCollection.zipApply(
+				collection,
+				MapleCollection.DYE_COLORS,
+				(feature, color) -> feature.makeAndSetHolders(mapleSaplingPlacement.pick(color))
+			);
 		};
 
-		registerMaple.accept(MAPLE, WWTreeFeatures.MAPLE);
-		registerMaple.accept(DYING_MAPLE, WWTreeFeatures.DYING_MAPLE);
-		registerMaple.accept(TALL_MAPLE, WWTreeFeatures.TALL_MAPLE);
-		registerMaple.accept(TALL_DYING_MAPLE, WWTreeFeatures.TALL_DYING_MAPLE);
-		registerMaple.accept(MAPLE_BEES_0004, WWTreeFeatures.MAPLE_BEES_0004);
-		registerMaple.accept(TALL_MAPLE_BEES_0004, WWTreeFeatures.TALL_MAPLE_BEES_0004);
-		registerMaple.accept(SHORT_MAPLE, WWTreeFeatures.SHORT_MAPLE);
-		registerMaple.accept(FULL_MAPLE, WWTreeFeatures.FULL_MAPLE);
-		registerMaple.accept(BIG_BUSH_MAPLE, WWTreeFeatures.BIG_BUSH_MAPLE);
+		registerMaple.accept(MAPLE);
+		registerMaple.accept(DYING_MAPLE);
+		registerMaple.accept(TALL_MAPLE);
+		registerMaple.accept(TALL_DYING_MAPLE);
+		registerMaple.accept(MAPLE_BEES_0004);
+		registerMaple.accept(TALL_MAPLE_BEES_0004);
+		registerMaple.accept(SHORT_MAPLE);
+		registerMaple.accept(FULL_MAPLE);
+		registerMaple.accept(BIG_BUSH_MAPLE);
 
 		SNAPPED_MAPLE.makeAndSetHolder(WWTreeFeatures.SNAPPED_MAPLE.getHolder(), fallenTreePlacement);
 

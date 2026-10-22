@@ -85,7 +85,7 @@ import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
@@ -1789,7 +1789,7 @@ public final class WWBlocks {
 					final BlockPos blockPos = pos.above();
 					final Optional<Holder.Reference<PlacedFeature>> optional = level.registryAccess()
 						.lookupOrThrow(Registries.PLACED_FEATURE)
-						.get(WWMiscPlaced.MYCELIUM_GROWTH_BONEMEAL.getKey());
+						.get(WWVegetationPlacements.MYCELIUM_GROWTH_BONEMEAL.getKey());
 
 					masterLoop:
 					for (int i = 0; i < 128; i++) {

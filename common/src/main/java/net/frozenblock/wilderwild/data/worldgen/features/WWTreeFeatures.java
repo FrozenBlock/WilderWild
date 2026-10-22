@@ -280,15 +280,15 @@ public final class WWTreeFeatures {
 	public static final FrozenLibFeature SNAPPED_CHERRY = register("snapped_cherry");
 
 	// MAPLE
-	public static final MapleCollection<FrozenLibFeature> MAPLE = MapleCollection.NAMES.map(name -> register(name + "_maple"));
-	public static final MapleCollection<FrozenLibFeature> DYING_MAPLE = MapleCollection.NAMES.map(name -> register("dying_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibFeature> TALL_MAPLE = MapleCollection.NAMES.map(name -> register("tall_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibFeature> TALL_DYING_MAPLE = MapleCollection.NAMES.map(name -> register("tall_dying_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibFeature> MAPLE_BEES_0004 = MapleCollection.NAMES.map(name -> register(name + "_maple_bees_0004"));
-	public static final MapleCollection<FrozenLibFeature> TALL_MAPLE_BEES_0004 = MapleCollection.NAMES.map(name -> register("tall_" + name + "_maple_bees_0004"));
-	public static final MapleCollection<FrozenLibFeature> SHORT_MAPLE = MapleCollection.NAMES.map(name -> register("short_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibFeature> FULL_MAPLE = MapleCollection.NAMES.map(name -> register("full_" + name + "_maple"));
-	public static final MapleCollection<FrozenLibFeature> BIG_BUSH_MAPLE = MapleCollection.NAMES.map(name -> register("big_bush_" + name + "_maple"));
+	public static final MapleCollection<FrozenLibTreeFeature> MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple(color.getName() + "_maple", color));
+	public static final MapleCollection<FrozenLibTreeFeature> DYING_MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple("dying_" + color.getName() + "_maple", color));
+	public static final MapleCollection<FrozenLibTreeFeature> TALL_MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple("tall_" + color.getName() + "_maple", color));
+	public static final MapleCollection<FrozenLibTreeFeature> TALL_DYING_MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple("tall_dying_" + color.getName() + "_maple", color));
+	public static final MapleCollection<FrozenLibTreeFeature> MAPLE_BEES_0004 = MapleCollection.DYE_COLORS.map(color -> registerMaple(color.getName() + "_maple_bees_0004", color));
+	public static final MapleCollection<FrozenLibTreeFeature> TALL_MAPLE_BEES_0004 = MapleCollection.DYE_COLORS.map(color -> registerMaple("tall_" + color.getName() + "_maple_bees_0004", color));
+	public static final MapleCollection<FrozenLibTreeFeature> SHORT_MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple("short_" + color.getName() + "_maple", color));
+	public static final MapleCollection<FrozenLibTreeFeature> FULL_MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple("full_" + color.getName() + "_maple", color));
+	public static final MapleCollection<FrozenLibTreeFeature> BIG_BUSH_MAPLE = MapleCollection.DYE_COLORS.map(color -> registerMaple("big_bush_" + color.getName() + "_maple", color));
 
 	public static final FrozenLibFeature FALLEN_MAPLE = register("fallen_maple");
 	public static final FrozenLibFeature SNAPPED_MAPLE = register("snapped_maple");
@@ -1528,7 +1528,7 @@ public final class WWTreeFeatures {
 
 		// MAPLE
 		MapleCollection.zipApply(MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				maple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
@@ -1536,7 +1536,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(DYING_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				maple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE), vines1Under26003))
 					.build()
@@ -1544,7 +1544,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(TALL_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				tallMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
@@ -1552,7 +1552,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(TALL_DYING_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				tallMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE), vines1Under26003))
 					.build()
@@ -1560,7 +1560,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				maple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(bees0004, pollen01, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
@@ -1568,7 +1568,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(TALL_MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				tallMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(bees0004, pollen01, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
@@ -1576,7 +1576,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(SHORT_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				shortMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
@@ -1584,7 +1584,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(FULL_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				fullMaple(leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
@@ -1592,7 +1592,7 @@ public final class WWTreeFeatures {
 		});
 
 		MapleCollection.zipApply(BIG_BUSH_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
-			feature.makeAndSetHolder(
+			feature.makeAndSetHolders(
 				new TreeFeature.Builder(
 					BlockStateProvider.of(WWBlocks.MAPLE_LOG.get()),
 					new StraightTrunkPlacer(1, 0, 0),
@@ -2969,6 +2969,10 @@ public final class WWTreeFeatures {
 
 	public static FrozenLibTreeFeature registerMangrove(String name) {
 		return register(name, WWBlocks.MANGROVE_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
+	}
+
+	public static FrozenLibTreeFeature registerMaple(String name, DyeColor color) {
+		return register(name, WWBlocks.MAPLE_LEAF_LITTER.pick(color).get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerPoplar(String name, DyeColor color) {

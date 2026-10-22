@@ -19,10 +19,17 @@ package net.frozenblock.wilderwild.data.worldgen.features;
 
 import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
+import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
+import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
+import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.FlowerBedStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
+import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -34,6 +41,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -43,14 +52,23 @@ import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
+import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
+import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.material.Fluids;
 
 public final class WWVegetationFeatures {
 	// LEAF LITTER
@@ -67,6 +85,7 @@ public final class WWVegetationFeatures {
 	public static final FrozenLibFeature TALL_GRASS_AND_LARGE_FERN = register("tall_grass_and_large_fern");
 	public static final FrozenLibFeature LARGE_FERN_AND_TALL_GRASS = register("large_fern_and_tall_grass");
 	public static final FrozenLibFeature FERN_SWAMP = register("fern_swamp");
+	public static final FrozenLibFeature PATH_GRASS = register("path_grass");
 	public static final FrozenLibFeature CLOVER = register("clover");
 
 	// FROZEN GRASS
@@ -103,7 +122,18 @@ public final class WWVegetationFeatures {
 	public static final FrozenLibFeature POLLEN = register("pollen");
 
 	// MOSS
+	public static final FrozenLibFeature PATH_MOSS = register("path_moss");
+	public static final FrozenLibFeature PATH_MOSS_OASIS = register("path_moss_oasis");
 	public static final FrozenLibFeature MOSS_CARPET = register("moss_carpet");
+	public static final FrozenLibFeature MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
+	public static final FrozenLibFeature MOSS_PATCH_BONEMEAL_NO_AZALEA = register("moss_patch_bonemeal_no_azalea");
+
+	// AUBURN MOSS
+	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH = register("auburn_moss_patch");
+	public static final FrozenLibFeature AUBURN_MOSS = register("auburn_moss");
+	public static final FrozenLibFeature AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
 
 	// MISC (move to misc features later)
 	public static final FrozenLibFeature TERMITE_MOUND = register("termite_mound");
@@ -129,6 +159,31 @@ public final class WWVegetationFeatures {
 		TALL_GRASS_AND_LARGE_FERN.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.TALL_GRASS_AND_LARGE_FERN)));
 		LARGE_FERN_AND_TALL_GRASS.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.LARGE_FERN_AND_TALL_GRASS)));
 		FERN_SWAMP.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.FERN_SWAMP)));
+
+		PATH_GRASS.makeAndSetHolder(
+			new NoisePathFeature(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
+					.noiseScale(0.15D)
+					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
+					.noiseBandBlockPlacements(
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRASS_BLOCK))
+							.within(0.4D, 1D)
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE))
+							.searchingPredicate(
+								BlockPredicate.not(
+									SearchInDirectionBlockPredicate.anyAboveMatch(
+										BlockPredicate.matchesFluids(Fluids.WATER, Fluids.LAVA),
+										1
+									)
+								)
+							)
+							.placementChance(0.8F)
+							.build()
+					).build(),
+				11
+			)
+		);
+
 		CLOVER.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.CLOVERS.get())));
 
 		// FROZEN GRASS
@@ -175,7 +230,165 @@ public final class WWVegetationFeatures {
 		);
 
 		// MOSS
+		PATH_MOSS.makeAndSetHolder(
+			new NoisePathFeature(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
+					.noiseScale(0.15D)
+					.calculateNoiseWithY()
+					.scaleYNoise()
+					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
+					.noiseBandBlockPlacement(
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
+							.within(0.18D, 1D)
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MOSS_PATH_REPLACEABLE))
+							.searchingPredicate(TouchingBlockPredicate.exposed())
+							.placementChance(0.7F)
+							.build()
+					).build(),
+				9
+			)
+		);
+
+		PATH_MOSS_OASIS.makeAndSetHolder(
+			new NoisePathFeature(
+				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
+					.noiseScale(0.1D)
+					.calculateNoiseWithY()
+					.scaleYNoise()
+					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
+					.noiseBandBlockPlacement(
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
+							.within(0.12D, 1D)
+							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE))
+							.searchingPredicate(TouchingBlockPredicate.exposed())
+							.placementChance(0.725F)
+							.build()
+					).build(),
+				9
+			)
+		);
+
 		MOSS_CARPET.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.MOSS_CARPET)));
+
+		MOSS_VEGETATION_NO_AZALEA.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.MOSS_VEGETATION_NO_AZALEA)));
+
+		MOSS_PATCH_BONEMEAL_NO_AZALEA.makeAndSetHolder(
+			new VegetationPatchFeature(
+				blocks.getOrThrow(BlockTags.MOSS_REPLACEABLE),
+				BlockStateProvider.holderOf(Blocks.MOSS_BLOCK),
+				PlacementUtils.inlinePlaced(MOSS_VEGETATION_NO_AZALEA.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.6F,
+				UniformInt.of(1, 2),
+				0.75F
+			)
+		);
+
+		// AUBURN MOSS
+		AUBURN_MOSS_VEGETATION.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_CARPET.get())),
+							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+						),
+						0.275F
+					)
+				),
+				PlacementUtils.inlinePlaced(
+					new MultifaceGrowthFeature(
+						WWBlocks.AUBURN_CREEPING_MOSS.get(),
+						1,
+						true,
+						false,
+						true,
+						0.5F,
+						blocks.getOrThrow(WWFeatureBlockTags.AUBURN_CREEPING_MOSS_PLACEABLE)
+					),
+					BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+				)
+			)
+		);
+
+		AUBURN_MOSS_PATCH.makeAndSetHolder(
+			new FlexibleVegetationPatchFeature(
+				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.45F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.PLACE_ON_EDGES
+			)
+		);
+
+		AUBURN_MOSS.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							AUBURN_MOSS_PATCH.getHolder(),
+							CountPlacement.of(8),
+							OffsetPlacement.ofTriangle(6, 3)
+						),
+						0.25F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							AUBURN_MOSS_PATCH.getHolder(),
+							CountPlacement.of(8),
+							OffsetPlacement.ofTriangle(6, 4)
+						),
+						0.15F
+					),
+					new WeightedPlacedFeature(
+						PlacementUtils.inlinePlaced(
+							AUBURN_MOSS_PATCH.getHolder(),
+							CountPlacement.of(7),
+							OffsetPlacement.ofTriangle(3, 2)
+						),
+						0.25F
+					)
+				),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
+			)
+		);
+
+		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(
+			new MultifaceGrowthFeature(
+				WWBlocks.AUBURN_CREEPING_MOSS.get(),
+				10,
+				true,
+				true,
+				true,
+				0.7F,
+				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_CREEPING_MOSS_PLACEABLE)
+			)
+		);
+
+		AUBURN_MOSS_PATCH_BONEMEAL.makeAndSetHolder(
+			new FlexibleVegetationPatchFeature(
+				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
+				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0F,
+				5,
+				0.475F,
+				UniformInt.of(1, 2),
+				0.75F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.PLACE_ON_EDGES
+			)
+		);
 
 		// MISC (move to misc features later)
 		TERMITE_MOUND.makeAndSetHolder(

@@ -87,6 +87,8 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature PATCH_LARGE_FERN_AND_GRASS_RARE = register("patch_large_fern_and_grass_rare");
 	public static final FrozenLibPlacedFeature PATCH_FERN_DENSE = register("patch_fern_dense");
 	public static final FrozenLibPlacedFeature PATCH_FERN_SWAMP = register("patch_fern_swamp");
+	public static final FrozenLibPlacedFeature PATH_GRASS_OASIS = register("path_grass_oasis");
+	public static final FrozenLibPlacedFeature PATH_GRASS_RARE = register("path_grass_rare");
 	public static final FrozenLibPlacedFeature PATCH_CLOVER = register("patch_clover");
 	public static final FrozenLibPlacedFeature PATCH_CLOVER_SPARSE = register("patch_clover_sparse");
 
@@ -141,6 +143,7 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature HUGE_MUSHROOM_MIXED_FOREST = register("huge_mushroom_mixed_forest");
 	public static final FrozenLibPlacedFeature HUGE_MUSHROOM_RAINFOREST = register("huge_mushroom_rainforest");
 	public static final FrozenLibPlacedFeature PATCH_MYCELIUM_GROWTH = register("patch_mycelium_growth");
+	public static final FrozenLibPlacedFeature MYCELIUM_GROWTH_BONEMEAL = register("mycelium_growth_bonemeal");
 
 	// CACTUS
 	public static final FrozenLibPlacedFeature PATCH_CACTUS_TALL = register("patch_cactus_tall");
@@ -157,7 +160,13 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature POLLEN = register("pollen");
 
 	// MOSS
+	public static final FrozenLibPlacedFeature PATH_MOSS = register("path_moss");
+	public static final FrozenLibPlacedFeature PATH_MOSS_OASIS = register("path_moss_oasis");
 	public static final FrozenLibPlacedFeature MOSS_CARPET = register("moss_carpet");
+
+	// AUBURN MOSS
+	public static final FrozenLibPlacedFeature AUBURN_MOSS = register("auburn_moss");
+	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS = register("auburn_creeping_moss");
 
 	// BERRY
 	public static final FrozenLibPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
@@ -387,6 +396,19 @@ public final class WWVegetationPlacements {
 				OffsetPlacement.ofTriangle(7, 3),
 				PlacementUtils.isEmpty()
 			)
+		);
+
+		PATH_GRASS_OASIS.makeAndSetHolder(WWVegetationFeatures.PATH_GRASS,
+			CountPlacement.of(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATH_GRASS_RARE.makeAndSetHolder(WWVegetationFeatures.PATH_GRASS,
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
 		);
 
 		PATCH_CLOVER.makeAndSetHolder(WWVegetationFeatures.CLOVER,
@@ -853,6 +875,8 @@ public final class WWVegetationPlacements {
 			)
 		);
 
+		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWVegetationFeatures.MYCELIUM_GROWTH, PlacementUtils.isEmpty());
+
 		// CACTUS
 		final PlacementFilter cactusConfigFilter = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_CACTUS));
 		final PlacementFilter cactusSurvivalFilter = BlockPredicateFilter.forPredicate(
@@ -943,6 +967,23 @@ public final class WWVegetationPlacements {
 		);
 
 		// MOSS
+		final PlacementFilter mossConfigFilter = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS));
+
+		PATH_MOSS.makeAndSetHolder(WWVegetationFeatures.PATH_MOSS,
+			mossConfigFilter,
+			RarityFilter.onAverageOnceEvery(3),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PATH_MOSS_OASIS.makeAndSetHolder(WWVegetationFeatures.PATH_MOSS_OASIS,
+			RarityFilter.onAverageOnceEvery(4),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
 		MOSS_CARPET.makeAndSetHolder(WWVegetationFeatures.MOSS_CARPET,
 			FrozenLibPlacementUtil.postModifiersWithPreFilter(
 				ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
@@ -956,6 +997,28 @@ public final class WWVegetationPlacements {
 					)
 				)
 			)
+		);
+
+		// AUBURN MOSS
+		final PlacementFilter auburnMossConfigFilter = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_AUBURN_MOSS));
+
+		AUBURN_MOSS.makeAndSetHolder(WWVegetationFeatures.AUBURN_MOSS,
+			auburnMossConfigFilter,
+			RarityFilter.onAverageOnceEvery(24),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		AUBURN_CREEPING_MOSS.makeAndSetHolder(WWVegetationFeatures.AUBURN_CREEPING_MOSS_PATCH,
+			auburnMossConfigFilter,
+			RarityFilter.onAverageOnceEvery(17),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome(),
+			CountPlacement.of(38),
+			OffsetPlacement.ofTriangle(6, 3),
+			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 
 		// BERRY

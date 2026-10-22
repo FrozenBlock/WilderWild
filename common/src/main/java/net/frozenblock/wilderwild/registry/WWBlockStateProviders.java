@@ -118,7 +118,8 @@ public final class WWBlockStateProviders {
 	public static final ResourceKey<BlockStateProvider> PRICKLY_PEAR = bind("vegetation/prickly_pear");
 	// TUMBLEWEED
 	public static final ResourceKey<BlockStateProvider> TUMBLEWEED = bind("vegetation/tumbleweed");
-
+	// MOSS
+	public static final ResourceKey<BlockStateProvider> MOSS_VEGETATION_NO_AZALEA = bind("vegetation/moss_vegetation_no_azalea");
 
 	public static final ResourceKey<BlockStateProvider> BAOBAB_NUT = bind("baobab_nut");
 	public static final ResourceKey<BlockStateProvider> COCONUT = bind("coconut");
@@ -911,6 +912,17 @@ public final class WWBlockStateProviders {
 					.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 1), 1)
 					.add(WWBlocks.TUMBLEWEED_PLANT.get().defaultBlockState().setValue(BlockStateProperties.AGE_3, 0), 1)
 					.build()
+			)
+		);
+
+		// MOSS
+		context.register(
+			MOSS_VEGETATION_NO_AZALEA,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(Blocks.MOSS_CARPET.defaultBlockState(), 25)
+					.add(Blocks.SHORT_GRASS.defaultBlockState(), 50)
+					.add(Blocks.TALL_GRASS.defaultBlockState(), 10)
 			)
 		);
 

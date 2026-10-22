@@ -45,6 +45,7 @@ public final class WWVegetationGeneration {
 		setupTumbleweed();
 		setupPollen();
 		setupMoss();
+		setupAuburnMoss();
 		setupBerry();
 		setupPumpkin();
 		setupMisc();
@@ -457,8 +458,29 @@ public final class WWVegetationGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.HAS_MOSS_CARPET)) {
+				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.PATH_MOSS)) {
+					addTopLayerModification(generationSettings, WWVegetationPlacements.PATH_MOSS);
+				}
+
+				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.MOSS_CARPET)) {
 					addVegetalDecoration(generationSettings, WWVegetationPlacements.MOSS_CARPET);
+				}
+			});
+	}
+
+	private static void setupAuburnMoss() {
+		BiomeModifications.create(WWConstants.id("auburn_moss_generation")).add(
+			ModificationPhase.ADDITIONS,
+			BiomeSelectors.all(),
+			(biomeSelectionContext, context) -> {
+				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
+
+				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.AUBURN_MOSS)) {
+					addVegetalDecoration(generationSettings, WWVegetationPlacements.AUBURN_MOSS);
+				}
+
+				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.AUBURN_CREEPING_MOSS)) {
+					addVegetalDecoration(generationSettings, WWVegetationPlacements.AUBURN_CREEPING_MOSS);
 				}
 			});
 	}

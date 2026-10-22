@@ -133,7 +133,7 @@
     ],
     [
       "minecraft:desert_well",
-      "wilderwild:desert_well"
+      "wilderwild:desert_well_oasis"
     ],
     [],
     [
@@ -163,7 +163,7 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "wilderwild:grass_path"
+      "wilderwild:path_grass_rare"
     ],
     [],
     [

@@ -88,7 +88,7 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWTreeVegetationFeatures.COLORED_MAPLE_BEES_SAPLING.pick(color).getKey() : WWTreeVegetationFeatures.COLORED_MAPLE_NO_BEES.pick(color).getKey();
+			return hasFlowers ? WWTreeVegetationFeatures.COLORED_MAPLE_BEES_SAPLING.pick(color).getKey() : WWTreeVegetationFeatures.COLORED_MAPLE_NO_BEES_SAPLING.pick(color).getKey();
 		}
 	});
 

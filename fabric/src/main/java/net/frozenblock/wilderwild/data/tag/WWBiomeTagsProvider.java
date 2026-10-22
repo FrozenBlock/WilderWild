@@ -999,12 +999,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.SNOWY_TAIGA)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
-		this.builder(WWBiomeTags.HAS_MOSS_PATH)
-			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
-			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.OASIS);
-
 		this.builder(WWBiomeTags.HAS_PACKED_MUD_PATH)
 			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.SAVANNA_PLATEAU)
 			.addOptional(WWBiomes.ARID_SAVANNA)
@@ -1018,14 +1012,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_MUD_LAKE)
 			.add(Biomes.MANGROVE_SWAMP);
-
-		this.builder(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS)
-			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
-
-		this.builder(WWBiomeTags.HAS_AUBURN_MOSS)
-			.addOptional(WWBiomes.TUNDRA);
 
 		this.builder(WWBiomeTags.HAS_MOSS_BASIN)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE)
@@ -2157,7 +2143,13 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		// MOSS
-		this.builder(WWVegetationFeatureBiomeTags.HAS_MOSS_CARPET)
+		this.builder(WWVegetationFeatureBiomeTags.PATH_MOSS)
+			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
+			.addOptional(WWBiomes.OASIS);
+
+		this.builder(WWVegetationFeatureBiomeTags.MOSS_CARPET)
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS)
@@ -2165,6 +2157,15 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
+
+		// AUBURN MOSS
+		this.builder(WWVegetationFeatureBiomeTags.AUBURN_MOSS)
+			.addOptional(WWBiomes.TUNDRA);
+
+		this.builder(WWVegetationFeatureBiomeTags.AUBURN_CREEPING_MOSS)
+			.add(Biomes.DAPPLED_FOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST)
+			.addOptional(WWBiomes.TUNDRA);
 
 		// BERRY
 		this.builder(WWVegetationFeatureBiomeTags.BERRY_FOREST)

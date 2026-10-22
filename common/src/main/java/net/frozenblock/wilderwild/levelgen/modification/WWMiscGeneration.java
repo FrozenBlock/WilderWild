@@ -139,22 +139,8 @@ public final class WWMiscGeneration {
 				}
 
 				if (WWWorldgenConfig.MOSS_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MOSS_PATH.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MOSS_PILE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MOSS_PILE.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.AUBURN_MOSS_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CREEPING_AUBURN_MOSS)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.AUBURN_CREEPING_MOSS.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_AUBURN_MOSS)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.AUBURN_MOSS.getKey());
 					}
 				}
 

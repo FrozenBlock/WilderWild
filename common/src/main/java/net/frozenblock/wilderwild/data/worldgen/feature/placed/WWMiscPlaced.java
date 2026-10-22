@@ -55,7 +55,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
-	public static final FrozenLibPlacedFeature MYCELIUM_GROWTH_BONEMEAL = register("mycelium_growth_bonemeal");
 
 	public static final FrozenLibPlacedFeature COARSE_PATH_RARE = register("coarse_dirt_path_rare");
 	public static final FrozenLibPlacedFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
@@ -91,9 +90,6 @@ public final class WWMiscPlaced {
 	// SAVANNA
 	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
 
-	// JUNGLE
-	public static final FrozenLibPlacedFeature MOSS_PATH = register("moss_path");
-
 	// DESERT
 	public static final FrozenLibPlacedFeature ORE_PACKED_MUD = register("ore_packed_mud");
 	public static final FrozenLibPlacedFeature SANDSTONE_PATH = register("sandstone_path");
@@ -109,15 +105,12 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = register("red_sand_transition");
 
 	// OASIS
-	public static final FrozenLibPlacedFeature GRASS_PATH = register("grass_path");
-	public static final FrozenLibPlacedFeature MOSS_PATH_OASIS = register("moss_path_oasis");
-	public static final FrozenLibPlacedFeature DESERT_WELL = register("desert_well");
+	public static final FrozenLibPlacedFeature DESERT_WELL_OASIS = register("desert_well_oasis");
 
 	// BIRCH TAIGA
 	public static final FrozenLibPlacedFeature COARSE_PATH_10 = register("coarse_dirt_path_10");
 
 	// ARID SAVANNA
-	public static final FrozenLibPlacedFeature GRASS_PATH_RARE = register("grass_path_rare");
 	public static final FrozenLibPlacedFeature ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
@@ -145,10 +138,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
-	// AUBURN MOSS
-	public static final FrozenLibPlacedFeature AUBURN_MOSS = register("auburn_moss");
-	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS = register("auburn_creeping_moss");
-
 	// SNOW
 	public static final FrozenLibPlacedFeature SNOW_BLANKET = register("snow_blanket");
 	public static final FrozenLibPlacedFeature SNOW_AND_ICE_TRANSITION = register("snow_and_freeze_transition");
@@ -159,8 +148,6 @@ public final class WWMiscPlaced {
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
-
-		MYCELIUM_GROWTH_BONEMEAL.makeAndSetHolder(WWMiscConfigured.SINGLE_MYCELIUM_GROWTH, PlacementUtils.isEmpty());
 
 		COARSE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_RARE,
 			RarityFilter.onAverageOnceEvery(36),
@@ -348,14 +335,6 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		// JUNGLE
-		MOSS_PATH.makeAndSetHolder(WWMiscConfigured.MOSS_PATH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		// DESERT
 		ORE_PACKED_MUD.makeAndSetHolder(WWMiscConfigured.ORE_PACKED_MUD,
 			modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250)))
@@ -431,21 +410,7 @@ public final class WWMiscPlaced {
 		);
 
 		// OASIS
-		GRASS_PATH.makeAndSetHolder(WWMiscConfigured.GRASS_PATH,
-			CountPlacement.of(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		MOSS_PATH_OASIS.makeAndSetHolder(WWMiscConfigured.MOSS_PATH_OASIS,
-			RarityFilter.onAverageOnceEvery(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		DESERT_WELL.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
+		DESERT_WELL_OASIS.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
 			RarityFilter.onAverageOnceEvery(1000),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -461,12 +426,6 @@ public final class WWMiscPlaced {
 		);
 
 		// ARID SAVANNA
-		GRASS_PATH_RARE.makeAndSetHolder(WWMiscConfigured.GRASS_PATH,
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		ARID_COARSE_PATH.makeAndSetHolder(WWMiscConfigured.ARID_COARSE_PATH,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
@@ -597,24 +556,6 @@ public final class WWMiscPlaced {
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.COARSE_DIRT)),
 			BiomeFilter.biome()
-		);
-
-		// AUBURN MOSS
-		AUBURN_MOSS.makeAndSetHolder(WWMiscConfigured.AUBURN_MOSS,
-			RarityFilter.onAverageOnceEvery(24),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
-		AUBURN_CREEPING_MOSS.makeAndSetHolder(WWMiscConfigured.AUBURN_CREEPING_MOSS_PATCH,
-			RarityFilter.onAverageOnceEvery(17),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome(),
-			CountPlacement.of(38),
-			OffsetPlacement.ofTriangle(6, 3),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 
 		// SNOW

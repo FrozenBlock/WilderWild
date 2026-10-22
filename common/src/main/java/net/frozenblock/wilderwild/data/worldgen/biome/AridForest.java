@@ -24,7 +24,6 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
 import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
@@ -120,7 +119,7 @@ public final class AridForest extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWVegetationPlacements.PATCH_CACTUS_ARID.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRASS_PATH_RARE.getKey());
+		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWVegetationPlacements.PATH_GRASS_RARE.getKey());
 	}
 
 	@Override

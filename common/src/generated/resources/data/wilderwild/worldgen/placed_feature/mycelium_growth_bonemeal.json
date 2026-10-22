@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:single_mycelium_growth",
+  "feature": "wilderwild:vegetation/mycelium_growth",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

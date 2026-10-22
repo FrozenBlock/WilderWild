@@ -48,9 +48,9 @@ public final class WWAbandonedCampStructurePools {
 			context,
 			empty,
 			ImmutableList.of(
-				Pair.of(WWConstants.string("yellow_maple"), WWTreePlacements.MAPLE.yellow().getKey()),
-				Pair.of(WWConstants.string("orange_maple"), WWTreePlacements.MAPLE.orange().getKey()),
-				Pair.of(WWConstants.string("red_maple"), WWTreePlacements.MAPLE.red().getKey())
+				Pair.of(WWConstants.string("yellow_maple"), WWTreePlacements.MAPLE.yellow().getLitterVariantHolder().unwrapKey().get()),
+				Pair.of(WWConstants.string("orange_maple"), WWTreePlacements.MAPLE.orange().getLitterVariantHolder().unwrapKey().get()),
+				Pair.of(WWConstants.string("red_maple"), WWTreePlacements.MAPLE.red().getLitterVariantHolder().unwrapKey().get())
 			)
 		);
 	}

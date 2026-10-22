@@ -110,7 +110,6 @@ public final class WWBiomeTags {
 
 	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("feature/has_taiga_forest_rock");
 	public static final TagKey<Biome> HAS_SNOW_PILE = bind("feature/has_snow_pile");
-	public static final TagKey<Biome> HAS_MOSS_PATH = bind("feature/has_moss_path");
 	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("feature/has_moss_lake");
 	public static final TagKey<Biome> HAS_MOSS_LAKE_RARE = bind("feature/has_moss_lake_rare");
 	public static final TagKey<Biome> HAS_MOSS_BASIN = bind("feature/has_moss_basin");
@@ -119,8 +118,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_BASIN = bind("feature/has_mud_basin");
 	public static final TagKey<Biome> HAS_MUD_PILE = bind("feature/has_mud_pile");
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("feature/has_mud_lake");
-	public static final TagKey<Biome> HAS_CREEPING_AUBURN_MOSS = bind("feature/has_auburn_creeping_moss");
-	public static final TagKey<Biome> HAS_AUBURN_MOSS = bind("feature/has_auburn_moss");
 
 	public static final TagKey<Biome> HAS_RARE_COARSE = bind("feature/has_rare_coarse");
 	public static final TagKey<Biome> HAS_RARE_GRAVEL = bind("feature/has_rare_gravel");

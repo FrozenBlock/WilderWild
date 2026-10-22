@@ -97,7 +97,11 @@ public final class WWVegetationFeatureBiomeTags {
 	// POLLEN
 	public static final TagKey<Biome> POLLEN = bind("pollen");
 	// MOSS
-	public static final TagKey<Biome> HAS_MOSS_CARPET = bind("moss_carpet");
+	public static final TagKey<Biome> PATH_MOSS = bind("path_moss");
+	public static final TagKey<Biome> MOSS_CARPET = bind("moss_carpet");
+	// AUBURN MOSS
+	public static final TagKey<Biome> AUBURN_MOSS = bind("auburn_moss");
+	public static final TagKey<Biome> AUBURN_CREEPING_MOSS = bind("auburn_creeping_moss");
 	// BERRY
 	public static final TagKey<Biome> BERRY_FOREST = bind("berry_forest");
 	// MELON

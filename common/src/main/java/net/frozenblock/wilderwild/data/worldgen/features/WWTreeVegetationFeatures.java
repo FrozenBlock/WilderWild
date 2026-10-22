@@ -26,11 +26,9 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -42,7 +40,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
-import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
@@ -181,11 +178,12 @@ public final class WWTreeVegetationFeatures {
 	public static final FrozenLibFeature CHERRY = register("cherry");
 
 	// MAPLE FOREST
-	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE = MapleCollection.NAMES.map(name -> register(name + "_maple"));
-	public static final FrozenLibFeature MAPLE = register("maple");
-	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_NO_BEES = MapleCollection.NAMES.map(name -> register(name + "_maple_no_bees"));
+	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_NO_LITTER = MapleCollection.NAMES.map(name -> register(name + "_maple_no_litter"));
+	public static final FrozenLibFeature MAPLE_NO_LITTER = register("maple_no_litter");
+	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_LEAF_LITTER = MapleCollection.NAMES.map(name -> register(name + "_maple_leaf_litter"));
+	public static final FrozenLibFeature MAPLE_LEAF_LITTER = register("maple_leaf_litter");
+	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_NO_BEES_SAPLING = MapleCollection.NAMES.map(name -> register(name + "_maple_no_bees_sapling"));
 	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_BEES_SAPLING = MapleCollection.NAMES.map(name -> register(name + "_maple_bees_sapling"));
-	public static final FrozenLibFeature MAPLE_BEES_SAPLING = register("maple_bees_sapling");
 
 	// DAPPLED FOREST
 	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLAR_NO_LITTER = PoplarCollection.NAMES.map(name -> register(name + "_poplar_no_litter"));
@@ -1388,40 +1386,63 @@ public final class WWTreeVegetationFeatures {
 		);
 
 		// MAPLE FOREST
-		MapleCollection.zipApply(COLORED_MAPLE, MapleCollection.DYE_COLORS, (feature, color) -> {
+		MapleCollection.zipApply(COLORED_MAPLE_NO_LITTER, MapleCollection.DYE_COLORS, (feature, color) -> {
 			feature.makeAndSetHolder(
-				new SequenceFeature(
-					HolderSet.direct(
-						PlacementUtils.inlinePlaced(
-							new RandomSelectorFeature(
-								List.of(
-									WWTreePlacements.MAPLE.pick(color).asWeightedPlacedFeature(0.025F),
-									WWTreePlacements.FULL_MAPLE.pick(color).asWeightedPlacedFeature(0.15F),
-									WWTreePlacements.TALL_MAPLE.pick(color).asWeightedPlacedFeature(0.25F),
-									WWTreePlacements.DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
-									WWTreePlacements.TALL_MAPLE_BEES_0004.pick(color).asWeightedPlacedFeature(0.37F),
-									WWTreePlacements.TALL_DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
-									WWTreePlacements.MAPLE_BEES_0004.pick(color).asWeightedPlacedFeature(0.37F),
-									WWTreePlacements.SHORT_MAPLE.pick(color).asWeightedPlacedFeature(0.2F),
-									WWTreePlacements.BIG_BUSH_MAPLE.pick(color).asWeightedPlacedFeature(0.4F)
-								),
-								WWTreePlacements.MAPLE_BEES_0004.pick(color).getHolder()
-							)
-						),
-						WWMiscConfigured.MAPLE_LEAF_LITTER.pick(color).asInlinePlaced()
-					)
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlacements.MAPLE.pick(color).asWeightedPlacedFeature(0.025F),
+						WWTreePlacements.FULL_MAPLE.pick(color).asWeightedPlacedFeature(0.15F),
+						WWTreePlacements.TALL_MAPLE.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlacements.DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlacements.TALL_MAPLE_BEES_0004.pick(color).asWeightedPlacedFeature(0.37F),
+						WWTreePlacements.TALL_DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlacements.MAPLE_BEES_0004.pick(color).asWeightedPlacedFeature(0.37F),
+						WWTreePlacements.SHORT_MAPLE.pick(color).asWeightedPlacedFeature(0.2F),
+						WWTreePlacements.BIG_BUSH_MAPLE.pick(color).asWeightedPlacedFeature(0.4F)
+					),
+					WWTreePlacements.MAPLE_BEES_0004.pick(color).getHolder()
 				)
 			);
 		});
 
-		MAPLE.makeAndSetHolder(
+		MAPLE_NO_LITTER.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					COLORED_MAPLE.yellow().asWeightedPlacedFeature(0.4F),
-					COLORED_MAPLE.orange().asWeightedPlacedFeature(0.55F),
-					COLORED_MAPLE.red().asWeightedPlacedFeature(0.9F)
+					COLORED_MAPLE_NO_LITTER.yellow().asWeightedPlacedFeature(0.4F),
+					COLORED_MAPLE_NO_LITTER.orange().asWeightedPlacedFeature(0.55F),
+					COLORED_MAPLE_NO_LITTER.red().asWeightedPlacedFeature(0.9F)
 				),
 				WWTreePlacements.MAPLE_BEES_0004.yellow().getHolder()
+			)
+		);
+
+		MapleCollection.zipApply(COLORED_MAPLE_LEAF_LITTER, MapleCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlacements.MAPLE.pick(color).litterAsWeightedPlacedFeature(0.025F),
+						WWTreePlacements.FULL_MAPLE.pick(color).litterAsWeightedPlacedFeature(0.15F),
+						WWTreePlacements.TALL_MAPLE.pick(color).litterAsWeightedPlacedFeature(0.25F),
+						WWTreePlacements.DYING_MAPLE.pick(color).litterAsWeightedPlacedFeature(0.0785F),
+						WWTreePlacements.TALL_MAPLE_BEES_0004.pick(color).litterAsWeightedPlacedFeature(0.37F),
+						WWTreePlacements.TALL_DYING_MAPLE.pick(color).litterAsWeightedPlacedFeature(0.0785F),
+						WWTreePlacements.MAPLE_BEES_0004.pick(color).litterAsWeightedPlacedFeature(0.37F),
+						WWTreePlacements.SHORT_MAPLE.pick(color).litterAsWeightedPlacedFeature(0.2F),
+						WWTreePlacements.BIG_BUSH_MAPLE.pick(color).litterAsWeightedPlacedFeature(0.4F)
+					),
+					WWTreePlacements.MAPLE_BEES_0004.pick(color).getLitterVariantHolder()
+				)
+			);
+		});
+
+		MAPLE_LEAF_LITTER.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					COLORED_MAPLE_LEAF_LITTER.yellow().asWeightedPlacedFeature(0.4F),
+					COLORED_MAPLE_LEAF_LITTER.orange().asWeightedPlacedFeature(0.55F),
+					COLORED_MAPLE_LEAF_LITTER.red().asWeightedPlacedFeature(0.9F)
+				),
+				WWTreePlacements.MAPLE_BEES_0004.yellow().getLitterVariantHolder()
 			)
 		);
 
@@ -1443,18 +1464,7 @@ public final class WWTreeVegetationFeatures {
 			);
 		});
 
-		MAPLE_BEES_SAPLING.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					COLORED_MAPLE_BEES_SAPLING.yellow().asWeightedPlacedFeature(0.4F),
-					COLORED_MAPLE_BEES_SAPLING.orange().asWeightedPlacedFeature(0.55F),
-					COLORED_MAPLE_BEES_SAPLING.red().asWeightedPlacedFeature(0.9F)
-				),
-				WWTreePlacements.MAPLE_BEES_0004.yellow().getHolder()
-			)
-		);
-
-		MapleCollection.zipApply(COLORED_MAPLE_NO_BEES, MapleCollection.DYE_COLORS, (feature, color) -> {
+		MapleCollection.zipApply(COLORED_MAPLE_NO_BEES_SAPLING, MapleCollection.DYE_COLORS, (feature, color) -> {
 			feature.makeAndSetHolder(
 				new RandomSelectorFeature(
 					List.of(
@@ -1529,6 +1539,20 @@ public final class WWTreeVegetationFeatures {
 			)
 		);
 
+		PoplarCollection.zipApply(COLORED_POPLAR_NO_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
+			feature.makeAndSetHolder(
+				new RandomSelectorFeature(
+					List.of(
+						WWTreePlacements.POPLAR.pick(color).asWeightedPlacedFeature(0.45F),
+						WWTreePlacements.TALL_POPLAR.pick(color).asWeightedPlacedFeature(0.25F),
+						WWTreePlacements.DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.0785F),
+						WWTreePlacements.TALL_DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.1F)
+					),
+					WWTreePlacements.POPLAR.pick(color).getHolder()
+				)
+			);
+		});
+
 		PoplarCollection.zipApply(COLORED_POPLAR_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
 			feature.makeAndSetHolder(
 				new RandomSelectorFeature(
@@ -1540,20 +1564,6 @@ public final class WWTreeVegetationFeatures {
 						WWTreePlacements.TALL_DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.1F)
 					),
 					WWTreePlacements.POPLAR_BEES_0002.pick(color).getHolder()
-				)
-			);
-		});
-
-		PoplarCollection.zipApply(COLORED_POPLAR_NO_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(
-				new RandomSelectorFeature(
-					List.of(
-						WWTreePlacements.POPLAR.pick(color).asWeightedPlacedFeature(0.45F),
-						WWTreePlacements.TALL_POPLAR.pick(color).asWeightedPlacedFeature(0.25F),
-						WWTreePlacements.DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.TALL_DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.1F)
-					),
-					WWTreePlacements.POPLAR.pick(color).getHolder()
 				)
 			);
 		});

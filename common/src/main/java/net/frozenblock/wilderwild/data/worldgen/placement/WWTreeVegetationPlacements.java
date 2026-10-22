@@ -543,7 +543,7 @@ public final class WWTreeVegetationPlacements {
 		);
 
 		// MAPLE FOREST
-		MAPLE.makeAndSetHolder(WWTreeVegetationFeatures.MAPLE,
+		MAPLE.makeAndSetHolder(WWTreeVegetationFeatures.MAPLE_LEAF_LITTER,
 			PlacementUtils.countExtra(6, 0.1F, 2),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,

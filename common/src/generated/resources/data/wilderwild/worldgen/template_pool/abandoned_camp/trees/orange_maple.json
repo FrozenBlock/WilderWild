@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:feature_pool_element",
-        "feature": "wilderwild:tree/orange_maple",
+        "feature": "wilderwild:tree/orange_maple_leaf_litter",
         "projection": "rigid"
       },
       "weight": 1
