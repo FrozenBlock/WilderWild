@@ -96,9 +96,9 @@ public final class SnowBlanketFeature implements Feature {
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos().set(x, bottomHeight, z);
 
 		BlockState state;
-		while (
-			((state = level.getBlockState(mutable.move(Direction.DOWN))).is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH) || state.isAir())
-				&& state.getFluidState().isEmpty()
+		while (level.isInsideBuildHeight(mutable.getY())
+			&& ((state = level.getBlockState(mutable.move(Direction.DOWN))).is(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH) || state.isAir())
+			&& state.getFluidState().isEmpty()
 		) {
 			bottomHeight -= 1;
 		}

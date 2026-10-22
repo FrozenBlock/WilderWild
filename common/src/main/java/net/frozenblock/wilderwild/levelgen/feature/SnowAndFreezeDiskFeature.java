@@ -59,15 +59,15 @@ public record SnowAndFreezeDiskFeature(
 	}
 
 	public static boolean canPlaceSnow(LevelReader level, BlockPos pos) {
-		return pos.getY() >= level.getMinY()
-			&& pos.getY() < level.getMaxY()
+		return level.isInsideBuildHeight(pos.getY())
 			&& level.getBrightness(LightLayer.BLOCK, pos) < 10
 			&& (level.getBlockState(pos)).isAir()
-			&& Blocks.SNOW.defaultBlockState().canSurvive(level, pos);
+			&& Blocks.SNOW.defaultBlockState().canSurvive(level, pos)
+			&& !level.getBlockState(pos.below()).is(Blocks.BRITTLE_ICE);
 	}
 
 	public static boolean canPlaceIce(LevelReader level, BlockPos pos) {
-		if (pos.getY() < level.getMinY() || pos.getY() >= level.getMaxY() || level.getBrightness(LightLayer.BLOCK, pos) >= 10) return false;
+		if (level.isInsideBuildHeight(pos.getY()) || level.getBrightness(LightLayer.BLOCK, pos) >= 10) return false;
 		final BlockState state = level.getBlockState(pos);
 		final FluidState fluidState = state.getFluidState();
 		return fluidState.is(Fluids.WATER) && state.getBlock() instanceof LiquidBlock;

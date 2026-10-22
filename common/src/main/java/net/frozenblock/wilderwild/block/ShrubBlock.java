@@ -208,11 +208,11 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		final BlockPos belowPos = pos.below();
-		if (state.is(this) && !isLower(state)) {
-			final BlockState belowState = level.getBlockState(belowPos);
-			return belowState.is(this) && isLower(belowState) && isFullyGrown(belowState) && isFullyGrown(state);
-		}
-		return this.mayPlaceOn(level.getBlockState(belowPos), level, belowPos);
+		final BlockState belowState = level.getBlockState(belowPos);
+
+		if (state.is(this) && !isLower(state)) return belowState.is(this) && isLower(belowState) && isFullyGrown(belowState) && isFullyGrown(state);
+
+		return this.mayPlaceOn(belowState, level, belowPos);
 	}
 
 	@Override
