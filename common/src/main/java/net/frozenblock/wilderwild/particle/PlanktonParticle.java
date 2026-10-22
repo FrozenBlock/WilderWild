@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.particle;
 
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.WWPreLoadConstants;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -71,7 +71,7 @@ public class PlanktonParticle extends SingleQuadParticle {
 		super(level, x, y - 0.125D, z, xd, yd, zd, sprite);
 		this.setSize(0.01F, 0.02F);
 		this.improvedTransparency = Minecraft.getInstance().options.improvedTransparency().get();
-		if (!WWPreLoadConstants.HAS_PARTICLE_TWEAKS) this.snapScaleTo(1F);
+		if (!FrozenLibEarlyConstants.HAS_PARTICLE_TWEAKS) this.snapScaleTo(1F);
 		this.quadSize *= (this.random.nextFloat() * 0.6F + 0.6F) * 0.5F;
 		this.lifetime = (int) (16D / (AdvancedMath.random().nextDouble() * 0.8D + 0.2D));
 		this.gravity = 0F;
@@ -104,7 +104,7 @@ public class PlanktonParticle extends SingleQuadParticle {
 		final FluidState fluidState = this.level.getFluidState(pos);
 		if (pos.getY() + fluidState.getHeight(this.level, pos) < this.y) this.lifetime = this.age;
 
-		if (WWPreLoadConstants.HAS_PARTICLE_TWEAKS) {
+		if (FrozenLibEarlyConstants.HAS_PARTICLE_TWEAKS) {
 			this.prevScale = this.scale;
 			this.scale += (this.targetScale - this.scale) * 0.1F;
 
@@ -130,7 +130,7 @@ public class PlanktonParticle extends SingleQuadParticle {
 			this.rCol = Mth.lerp(scale, this.baseR, this.glowingR);
 			this.gCol = Mth.lerp(scale, this.baseG, this.glowingG);
 			this.bCol = Mth.lerp(scale, this.baseB, this.glowingB);
-			if (WWPreLoadConstants.HAS_PARTICLE_TWEAKS) this.alpha = scale;
+			if (FrozenLibEarlyConstants.HAS_PARTICLE_TWEAKS) this.alpha = scale;
 		} else {
 			this.alpha = this.improvedTransparency ? 0.75F : 1F;
 		}

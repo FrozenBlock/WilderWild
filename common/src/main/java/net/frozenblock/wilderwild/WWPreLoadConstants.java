@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild;
 
 import java.nio.file.Path;
-import net.frozenblock.lib.platform.ModLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +28,6 @@ public final class WWPreLoadConstants {
 	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
 	public static final Logger LOGGER = LoggerFactory.getLogger(PROJECT_ID);
-	public static final boolean HAS_PARTICLE_TWEAKS = ModLoader.isModLoaded("particletweaks");
 
 	public static Path configPath(String name, boolean json5) {
 		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
