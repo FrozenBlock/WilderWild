@@ -122,9 +122,8 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			}
 		}
 
-		final BlockStateProvider stateProvider = (WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance)
-			? this.hollowedTrunkProvider.value()
-			: tree.trunkProvider().value();
+		final boolean useHollowedLogs = WWWorldgenConfig.HOLLOWED_FALLEN_TREE_GENERATION.get() && random.nextFloat() <= this.hollowedLogChance;
+		final BlockStateProvider stateProvider = useHollowedLogs ? this.hollowedTrunkProvider.value() : tree.trunkProvider().value();
 		final int maxBranches = this.branchPlacement.getMaxBranchCount(random);
 
 		int generatedBranches = 0;
@@ -132,7 +131,8 @@ public class FallenWithBranchesTrunkPlacer extends TrunkPlacer {
 			for (BlockPos blockPos : poses) {
 				mutable.set(blockPos);
 				this.placeLog(level, trunkSetter, random, stateProvider, mutable, trunkDirection);
-				if (this.branchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
+				
+				if (!useHollowedLogs && this.branchPlacement.canPlaceBranch(random) && generatedBranches < maxBranches) {
 					final Direction branchDirection = random.nextFloat() <= 0.66F
 						? Direction.Plane.HORIZONTAL.getRandomDirection(random)
 						: Direction.Plane.VERTICAL.getRandomDirection(random);
