@@ -101,12 +101,11 @@ public class FallenLargeTrunkPlacer extends TrunkPlacer {
 
 			final Direction sideDirection = optionalSideDirection.get();
 			final List<BlockPos> stumpPoses = findStumpPositions(level, random, origin, trunkDirection, sideDirection);
+			
+			for (BlockPos blockPos : stumpPoses) if (TrunkPlacerHelper.isWaterSourceAt(level, blockPos)) break placeStump;
 
 			final BlockPos.MutableBlockPos stumpPos = new BlockPos.MutableBlockPos();
 			final int stumpHeight = STUMP_HEIGHT.sample(random);
-
-			for (BlockPos blockPos : stumpPoses) if (TrunkPlacerHelper.isWaterSourceAt(level, blockPos)) break placeStump;
-
 			for (BlockPos blockPos : stumpPoses) {
 				for (int i = 0; i < stumpHeight; i++) {
 					this.placeLog(level, trunkSetter, random, stumpPos.setWithOffset(blockPos, 0, i, 0), tree);
