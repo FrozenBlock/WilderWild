@@ -32,8 +32,7 @@
         "max_segment": 3
       },
       "height": 2,
-      "radius": 4,
-      "tries": 96
+      "radius": 4
     },
     {
       "type": "minecraft:place_on_ground",
@@ -42,7 +41,7 @@
         "block": "wilderwild:yellow_maple_leaf_litter"
       },
       "height": 2,
-      "tries": 150
+      "tries": 216
     }
   ],
   "foliage_placer": {

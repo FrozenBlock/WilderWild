@@ -2972,7 +2972,7 @@ public final class WWTreeFeatures {
 	}
 
 	public static FrozenLibTreeFeature registerMaple(String name, DyeColor color) {
-		return register(name, WWBlocks.MAPLE_LEAF_LITTER.pick(color).get(), 96, 4, 2, 150, 2, 2);
+		return register(name, WWBlocks.MAPLE_LEAF_LITTER.pick(color).get(), 128, 4, 2, 216, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerPoplar(String name, DyeColor color) {
