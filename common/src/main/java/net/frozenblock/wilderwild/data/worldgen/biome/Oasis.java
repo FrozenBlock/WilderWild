@@ -131,7 +131,6 @@ public final class Oasis extends FrozenLibBiome {
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWVegetationPlacements.PATH_GRASS_RARE.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWVegetationPlacements.PATCH_GRASS_OASIS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWVegetationPlacements.PATCH_CACTUS_OASIS.getKey());
 		features.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, WWMiscPlaced.DESERT_WELL_OASIS.getKey());

@@ -25,29 +25,24 @@ import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetation
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
-import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.levelgen.feature.CattailFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SpongeBudFeature;
 import net.frozenblock.wilderwild.levelgen.feature.TubeWormsFeature;
 import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
+import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.AquaticFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.MultifaceBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
@@ -56,7 +51,6 @@ import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
@@ -80,7 +74,7 @@ public final class WWAquaticFeatures {
 	public static final FrozenLibFeature HYDROTHERMAL_VENT = register("hydrothermal_vent");
 	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION_UNDERWATER = register("auburn_moss_vegetation_underwater");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH_UNDERWATER = register("auburn_moss_patch_underwater");
-	public static final FrozenLibFeature AUBURN_MOSS_UNDERWATER = register("auburn_moss_underwater");
+	public static final FrozenLibFeature PATCH_AUBURN_MOSS_PATCH_UNDERWATER = register("patch_auburn_moss_patch_underwater");
 	public static final FrozenLibFeature AUBURN_CREEPING_MOSS_PATCH_UNDERWATER = register("auburn_creeping_moss_patch_underwater");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH_BONEMEAL_UNDERWATER = register("auburn_moss_patch_bonemeal_underwater");
 
@@ -88,39 +82,11 @@ public final class WWAquaticFeatures {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
-		RIVER_POOL.makeAndSetHolder(
-			new FlexibleWaterloggedVegetationPatchFeature(
-				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
-				PlacementUtils.inlinePlaced(new NoOpFeature()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(1),
-				0.8F,
-				1,
-				0F,
-				UniformInt.of(4, 8),
-				0.35F,
-				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
-			)
-		);
-
-		SMALL_RIVER_POOL.makeAndSetHolder(
-			new FlexibleWaterloggedVegetationPatchFeature(
-				blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE),
-				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
-				PlacementUtils.inlinePlaced(new NoOpFeature()),
-				CaveSurface.FLOOR,
-				ConstantInt.of(1),
-				0.8F,
-				1,
-				0F,
-				UniformInt.of(1, 2),
-				0.35F,
-				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
-			)
-		);
+		registerRiverPool(RIVER_POOL, 4, 8, blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE));
+		registerRiverPool(SMALL_RIVER_POOL, 1, 2, blocks.getOrThrow(WWFeatureBlockTags.RIVER_POOL_REPLACEABLE));
 
 		CATTAIL.makeAndSetHolder(CattailFeature.INSTANCE);
 
@@ -132,29 +98,8 @@ public final class WWAquaticFeatures {
 
 		SEAGRASS_VERY_SHORT.makeAndSetHolder(AquaticFeatures.seagrass(2));
 
-		BARNACLES.makeAndSetHolder(
-			new MultifaceGrowthFeature(
-				WWBlocks.BARNACLES.get(),
-				10,
-				true,
-				false,
-				true,
-				0.7F,
-				blocks.getOrThrow(WWFeatureBlockTags.BARNACLES_PLACEABLE)
-			)
-		);
-
-		BARNACLES_STRUCTURE.makeAndSetHolder(
-			new MultifaceGrowthFeature(
-				WWBlocks.BARNACLES.get(),
-				6,
-				true,
-				true,
-				true,
-				0.7F,
-				blocks.getOrThrow(WWFeatureBlockTags.BARNACLES_PLACEABLE_UNNATURAL)
-			)
-		);
+		registerBarnacles(BARNACLES, 10, blocks.getOrThrow(WWFeatureBlockTags.BARNACLES_PLACEABLE));
+		registerBarnacles(BARNACLES_STRUCTURE, 6, blocks.getOrThrow(WWFeatureBlockTags.BARNACLES_PLACEABLE_UNNATURAL));
 
 		SPONGE_BUD.makeAndSetHolder(
 			new SpongeBudFeature(
@@ -215,19 +160,7 @@ public final class WWAquaticFeatures {
 		);
 
 		AUBURN_MOSS_VEGETATION_UNDERWATER.makeAndSetHolder(
-			new SimpleBlockFeature(
-				new WeightedStateProvider(
-					WeightedList.<BlockState>builder()
-						.add(
-							WWBlocks.AUBURN_CREEPING_MOSS.get().defaultBlockState()
-								.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
-								.setValue(AuburnCreepingMossBlock.WATERLOGGED, true),
-							3
-						)
-						.add(WWBlocks.AUBURN_MOSS_CARPET.get().defaultBlockState().setValue(AuburnMossCarpetBlock.WATERLOGGED, true), 1)
-						.add(WWBlocks.SEA_WHIP.get().defaultBlockState(), 1)
-				)
-			)
+			new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.AUBURN_MOSS_VEGETATION_UNDERWATER))
 		);
 
 		AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(
@@ -251,7 +184,7 @@ public final class WWAquaticFeatures {
 			)
 		);
 
-		AUBURN_MOSS_UNDERWATER.makeAndSetHolder(
+		PATCH_AUBURN_MOSS_PATCH_UNDERWATER.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
 					AUBURN_MOSS_PATCH_UNDERWATER.asWeightedPlacedFeature(
@@ -304,6 +237,38 @@ public final class WWAquaticFeatures {
 					false,
 					true
 				)
+			)
+		);
+	}
+
+	private static void registerRiverPool(FrozenLibFeature feature, int minSize, int maxSize, HolderSet<Block> replaceable) {
+		feature.makeAndSetHolder(
+			new FlexibleWaterloggedVegetationPatchFeature(
+				replaceable,
+				BlockStateProvider.holderOf(Blocks.GRASS_BLOCK),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
+				CaveSurface.FLOOR,
+				ConstantInt.of(1),
+				0.8F,
+				1,
+				0F,
+				UniformInt.of(minSize, maxSize),
+				0.35F,
+				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR_NO_BASE_BLOCK
+			)
+		);
+	}
+
+	private static void registerBarnacles(FrozenLibFeature feature, int searchRange, HolderSet<Block> placeable) {
+		feature.makeAndSetHolder(
+			new MultifaceGrowthFeature(
+				WWBlocks.BARNACLES.get(),
+				searchRange,
+				true,
+				false,
+				true,
+				0.7F,
+				placeable
 			)
 		);
 	}

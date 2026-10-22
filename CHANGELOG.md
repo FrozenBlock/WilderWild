@@ -49,6 +49,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Geothermal Vent Stacks on ceilings and floors.
   - Lakes of Lava.
 - Gabbro and Magma path generation in the Magmatic Caves biome is now generated via a Material Rule instead of a Feature.
+- Fixed an issue that caused both normal and multi-layered Sand Beta Beaches to generate with the same depth.
+- Grass Block generation in the Oasis biome is now generated via a Material Rule instead of a Feature.
 - Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.

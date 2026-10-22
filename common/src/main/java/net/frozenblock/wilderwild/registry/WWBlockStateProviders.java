@@ -18,10 +18,13 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
+import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
 import net.frozenblock.wilderwild.block.BaobabNutBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -29,6 +32,7 @@ import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -43,6 +47,10 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import java.util.List;
 
 public final class WWBlockStateProviders {
+	// AQUATIC
+	// AUBURN MOSS
+	public static final ResourceKey<BlockStateProvider> AUBURN_MOSS_VEGETATION_UNDERWATER = bind("aquatic/auburn_moss_vegetation_underwater");
+
 	// FLOWERS
 	// PLAINS FLOWERS
 	public static final ResourceKey<BlockStateProvider> FLOWER_DEFAULT_WITH_SEEDING_DANDELION = bind("flower/default_with_seeding_dandelion");
@@ -127,6 +135,24 @@ public final class WWBlockStateProviders {
 	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_DESERT_TREE = bind("soil_beneath_desert_tree");
 
 	public static void bootstrap(BootstrapContext<BlockStateProvider> context) {
+		// AQUATIC
+		// AUBURN MOSS
+		context.register(
+			AUBURN_MOSS_VEGETATION_UNDERWATER,
+			new WeightedStateProvider(
+				WeightedList.<BlockState>builder()
+					.add(
+						WWBlocks.AUBURN_CREEPING_MOSS.get().defaultBlockState()
+							.setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true)
+							.setValue(AuburnCreepingMossBlock.WATERLOGGED, true),
+						3
+					)
+					.add(WWBlocks.AUBURN_MOSS_CARPET.get().defaultBlockState().setValue(AuburnMossCarpetBlock.WATERLOGGED, true), 1)
+					.add(WWBlocks.SEA_WHIP.get().defaultBlockState(), 1)
+			)
+		);
+
+		// FLOWERS
 		// PLAINS FLOWERS
 		context.register(
 			FLOWER_DEFAULT_WITH_SEEDING_DANDELION,

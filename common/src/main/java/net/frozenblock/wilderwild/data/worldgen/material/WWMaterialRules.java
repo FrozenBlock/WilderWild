@@ -31,9 +31,11 @@ import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.material.OverworldMaterialRules;
 import net.minecraft.data.worldgen.material.VanillaMaterialConditions;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.Noises;
@@ -43,6 +45,12 @@ import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 
 public final class WWMaterialRules {
+	public static final ResourceKey<MaterialRule> GRASS_AND_DIRT = createKey("grass_and_dirt");
+	public static final ResourceKey<MaterialRule> GRAVEL_AND_STONE_BETA_BEACH = createKey("gravel_and_stone_beta_beach");
+	public static final ResourceKey<MaterialRule> SAND_AND_SANDSTONE_BETA_BEACH = createKey("sand_and_sandstone_beta_beach");
+	public static final ResourceKey<MaterialRule> SAND_AND_SANDSTONE = createKey("sand_and_sandstone");
+	public static final ResourceKey<MaterialRule> SAND_AND_VERY_DEEP_SANDSTONE = createKey("sand_and_very_deep_sandstone");
+	public static final ResourceKey<MaterialRule> SAND_AND_SANDSTONE_AQUATIC = createKey("sand_and_sandstone_aquatic");
 
 	public static MaterialRule cypressMaterialRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
@@ -71,152 +79,36 @@ public final class WWMaterialRules {
 		);
 	}
 
-	public static MaterialRule fallingBlockAndSafeBlockRules(HolderGetter<MaterialCondition> materialConditions, Block fallingBlock, Block safeBlock) {
-		final MaterialRule fallingBlockRule = FrozenLibMaterialRules.makeStateRule(fallingBlock);
-		final MaterialRule safeBlockRule = FrozenLibMaterialRules.makeStateRule(safeBlock);
-		return MaterialRules.sequence(
-			MaterialRules.ifTrue(
-				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
-				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-							safeBlockRule
-						),
-						fallingBlockRule
-					)
-				)
-			),
-			MaterialRules.ifTrue(
-				MaterialRules.waterStartCheck(-6, -1),
-				MaterialRules.sequence(
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-							safeBlockRule
-						),
-						fallingBlockRule
-					)
-				)
-			)
-		);
-	}
-
-	public static MaterialRule warmRiverRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
+	public static MaterialRule sandAndSandstoneAquaticBiomeRule(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules, ResourceKey<Biome>... biomeKeys) {
 		return MaterialRules.ifTrue(
-			MaterialRules.isBiome(biomes, WWBiomes.WARM_RIVER),
-			MaterialRules.sequence(
-			desertAndBeachRules(biomes, materialConditions),
-				MaterialRules.ifTrue(
-					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-							FrozenLibMaterialRules.SANDSTONE
-						),
-						FrozenLibMaterialRules.SAND
-					)
-				)
-			)
+			MaterialRules.isBiome(biomes, biomeKeys),
+			MaterialRules.getRule(materialRules, SAND_AND_SANDSTONE_AQUATIC)
 		);
 	}
 
-	public static MaterialRule desertAndBeachRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
-		return MaterialRules.sequence(
-			MaterialRules.ifTrue(
-				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
-				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-							FrozenLibMaterialRules.SANDSTONE
-						),
-						FrozenLibMaterialRules.SAND
-					)
-				)
-			),
-			MaterialRules.ifTrue(
-				MaterialRules.waterStartCheck(-6, -1),
-				MaterialRules.sequence(
-					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
-						MaterialRules.sequence(
-							MaterialRules.ifTrue(
-								MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-								FrozenLibMaterialRules.SANDSTONE
-							),
-							FrozenLibMaterialRules.SAND
-						)
-					),
-					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.VERY_DEEP_UNDER_FLOOR),
-						FrozenLibMaterialRules.SANDSTONE
-					)
-				)
-			)
-		);
-	}
-
-	public static MaterialRule warmBeachRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
-		return MaterialRules.ifTrue(
-			MaterialRules.isBiome(biomes, WWBiomes.WARM_BEACH),
-			desertAndBeachRules(biomes, materialConditions)
-		);
-	}
-
-	public static MaterialRule oasisRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
+	public static MaterialRule oasisRules(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules) {
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.OASIS),
-			desertAndBeachRules(biomes, materialConditions)
-		);
-	}
-
-	public static MaterialRule aridGrass(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
-		return MaterialRules.ifTrue(
-			MaterialRules.isBiome(biomes, WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
 			MaterialRules.sequence(
 				MaterialRules.ifTrue(
-					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
-					MaterialRules.ifTrue(
-						MaterialRules.noiseCondition2d(Noises.SURFACE, 0.155, 0.3666),
-						MaterialRules.sequence(
-							MaterialRules.ifTrue(
-								MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-								FrozenLibMaterialRules.DIRT
-							),
-							FrozenLibMaterialRules.GRASS_BLOCK
-						)
-					)
+					MaterialRules.noiseCondition2d(WWNoise.OASIS_GRASS, -2D, -0.66D),
+					MaterialRules.getRule(materialRules, GRASS_AND_DIRT)
 				),
-				MaterialRules.ifTrue(
-					MaterialRules.noiseCondition2d(Noises.SURFACE, 0.155, 0.3666),
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
-							MaterialRules.sequence(
-								MaterialRules.ifTrue(
-									MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING),
-									FrozenLibMaterialRules.DIRT
-								),
-								FrozenLibMaterialRules.DIRT
-							)
-						),
-						MaterialRules.ifTrue(
-							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
-							FrozenLibMaterialRules.DIRT
-						)
-					)
-				)
+				MaterialRules.getRule(materialRules, SAND_AND_VERY_DEEP_SANDSTONE)
 			)
 		);
 	}
 
-	public static MaterialRule aridRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
+	public static MaterialRule aridRules(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules) {
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.ARID_SAVANNA, WWBiomes.ARID_FOREST),
-			desertAndBeachRules(biomes, materialConditions)
+			MaterialRules.sequence(
+				MaterialRules.ifTrue(
+					MaterialRules.noiseCondition2d(Noises.SURFACE, 0.155D, 0.3666D),
+					MaterialRules.getRule(materialRules, GRASS_AND_DIRT)
+				),
+				MaterialRules.getRule(materialRules, SAND_AND_VERY_DEEP_SANDSTONE)
+			)
 		);
 	}
 
@@ -438,18 +330,25 @@ public final class WWMaterialRules {
 		);
 	}
 
-	public static MaterialRule gravelBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
+	public static MaterialRule betaBeach(
+		HolderGetter<Biome> biomes,
+		TagKey<Biome> biomeTag,
+		MaterialCondition underFloorCondition,
+		int maxYLevel,
+		MaterialCondition noiseCondition,
+		MaterialRule materialRule
+	) {
 		return MaterialRules.ifTrue(
-			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_GRAVEL),
+			FrozenLibMaterialRules.isBiomeTag(biomes, biomeTag),
 			MaterialRules.ifTrue(
-				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+				underFloorCondition,
 				MaterialRules.ifTrue(
 					MaterialRules.yStartCheck(VerticalAnchor.absolute(58), 0),
 					MaterialRules.ifTrue(
-						MaterialRules.not(MaterialRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
+						MaterialRules.not(MaterialRules.yStartCheck(VerticalAnchor.absolute(maxYLevel), 0)),
 						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoise.GRAVEL_BEACH, -1.7976931348623157E308, -0.12),
-							fallingBlockAndSafeBlockRules(materialConditions, Blocks.GRAVEL, Blocks.STONE)
+							noiseCondition,
+							materialRule
 						)
 					)
 				)
@@ -457,51 +356,34 @@ public final class WWMaterialRules {
 		);
 	}
 
-	public static MaterialRule sandBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
-		return MaterialRules.ifTrue(
-			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_SAND),
-			MaterialRules.ifTrue(
-				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
-				MaterialRules.ifTrue(
-					MaterialRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-					MaterialRules.ifTrue(
-						MaterialRules.not(MaterialRules.yStartCheck(VerticalAnchor.absolute(65), 0)),
-						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoise.SAND_BEACH, 0.12, 1.7976931348623157E308),
-							fallingBlockAndSafeBlockRules(materialConditions, Blocks.SAND, Blocks.SANDSTONE)
-						)
-					)
-				)
-			)
-		);
-	}
-
-	public static MaterialRule multiLayerSandBetaBeaches(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
-		return MaterialRules.ifTrue(
-			FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND),
-			MaterialRules.ifTrue(
-				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
-				MaterialRules.ifTrue(
-					MaterialRules.yStartCheck(VerticalAnchor.absolute(58), 0),
-					MaterialRules.ifTrue(
-						MaterialRules.not(MaterialRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
-						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoise.SAND_BEACH, 0.12, 1.7976931348623157E308),
-							fallingBlockAndSafeBlockRules(materialConditions, Blocks.SAND, Blocks.SANDSTONE)
-						)
-					)
-				)
-			)
-		);
-	}
-
-	public static MaterialRule betaBeaches(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
+	public static MaterialRule betaBeaches(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			WWWorldgenConfig.BETA_BEACHES.equalTo(true).asMaterialCondition(),
 			MaterialRules.sequence(
-				gravelBetaBeaches(biomes, materialConditions),
-				sandBetaBeaches(biomes, materialConditions),
-				multiLayerSandBetaBeaches(biomes, materialConditions)
+				betaBeach(
+					biomes,
+					WWBiomeTags.BETA_BEACH_GRAVEL,
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+					65,
+					MaterialRules.noiseCondition2d(WWNoise.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12),
+					MaterialRules.getRule(materialRules, WWMaterialRules.GRAVEL_AND_STONE_BETA_BEACH)
+				),
+				betaBeach(
+					biomes,
+					WWBiomeTags.BETA_BEACH_SAND,
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+					65,
+					MaterialRules.noiseCondition2d(WWNoise.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
+					MaterialRules.getRule(materialRules, WWMaterialRules.SAND_AND_SANDSTONE_BETA_BEACH)
+				),
+				betaBeach(
+					biomes,
+					WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND,
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+					64,
+					MaterialRules.noiseCondition2d(WWNoise.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
+					MaterialRules.getRule(materialRules, WWMaterialRules.SAND_AND_SANDSTONE_BETA_BEACH)
+				)
 			)
 		);
 	}
@@ -531,16 +413,17 @@ public final class WWMaterialRules {
 		);
 	}
 
-	public static void bootstrap(BootstrapContext<MaterialRuleAddition> context) {
+	public static void bootstrapAdditions(BootstrapContext<MaterialRuleAddition> context) {
 		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+		final HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
 		final HolderGetter<MaterialCondition> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("beta_beach"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			aboveSurface(betaBeaches(biomes, materialConditions))
+			aboveSurface(betaBeaches(biomes, materialRules, materialConditions))
 		);
 
 		MaterialRuleAdditions.register(
@@ -552,35 +435,30 @@ public final class WWMaterialRules {
 
 		MaterialRuleAdditions.register(
 			context,
-			WWConstants.id("warm_river"),
+			WWConstants.id("warm_beach"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			aboveSurface(warmRiverRules(biomes, materialConditions))
+			aboveSurface(sandAndSandstoneAquaticBiomeRule(biomes, materialRules, WWBiomes.WARM_BEACH))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
-			WWConstants.id("warm_beach"),
+			WWConstants.id("warm_river"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			aboveSurface(warmBeachRules(biomes, materialConditions))
+			aboveSurface(sandAndSandstoneAquaticBiomeRule(biomes, materialRules, WWBiomes.WARM_RIVER))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("oasis"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			aboveSurface(oasisRules(biomes, materialConditions))
+			aboveSurface(oasisRules(biomes, materialRules))
 		);
 
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("arid_savanna_and_arid_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
-			aboveSurface(
-				MaterialRules.sequence(
-					aridGrass(biomes, materialConditions),
-					aridRules(biomes, materialConditions)
-				)
-			)
+			aboveSurface(aridRules(biomes, materialRules))
 		);
 
 		MaterialRuleAdditions.register(
@@ -589,7 +467,6 @@ public final class WWMaterialRules {
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
 			aboveSurface(oceanMossRules(biomes, materialConditions))
 		);
-
 
 		MaterialRuleAdditions.register(
 			context,
@@ -654,4 +531,149 @@ public final class WWMaterialRules {
 			snowUnderMountains(biomes, materialConditions)
 		);
 	}
+
+	public static MaterialRule baseSurfaceAndUnderSurfaceRule(
+		HolderGetter<MaterialCondition> materialConditions,
+		MaterialRule floorNotUnderWater,
+		MaterialRule notUnderDeepWater
+	) {
+		return MaterialRules.sequence(
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					floorNotUnderWater
+				)
+			),
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDER_DEEP_WATER),
+				notUnderDeepWater
+			)
+		);
+	}
+
+	public static void bootstrapRules(BootstrapContext<MaterialRule> context) {
+		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
+		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
+		final HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
+		final HolderGetter<MaterialCondition> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
+
+
+		context.register(
+			GRASS_AND_DIRT,
+			baseSurfaceAndUnderSurfaceRule(
+				materialConditions,
+				MaterialRules.getRule(materialRules, OverworldMaterialRules.DEFAULT_BIOME_SURFACE),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+					MaterialRules.getRule(materialRules, OverworldMaterialRules.DEFAULT_UNDER_BIOME_SURFACE)
+				)
+			)
+		);
+
+		context.register(
+			GRAVEL_AND_STONE_BETA_BEACH,
+			baseSurfaceAndUnderSurfaceRule(
+				materialConditions,
+				MaterialRules.getRule(materialRules, OverworldMaterialRules.GRAVEL_OR_STONE_IF_CEILING),
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+						MaterialRules.getRule(materialRules, OverworldMaterialRules.GRAVEL_OR_STONE_IF_CEILING)
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+						FrozenLibMaterialRules.STONE
+					)
+				)
+			)
+		);
+
+		final MaterialRule sandOrSandstoneIfCeiling = MaterialRules.getRule(materialRules, OverworldMaterialRules.SAND_OR_SANDSTONE_IF_CEILING);
+		context.register(
+			SAND_AND_SANDSTONE_BETA_BEACH,
+			baseSurfaceAndUnderSurfaceRule(
+				materialConditions,
+				sandOrSandstoneIfCeiling,
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+						sandOrSandstoneIfCeiling
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+						FrozenLibMaterialRules.SANDSTONE
+					)
+				)
+			)
+		);
+
+		context.register(
+			SAND_AND_SANDSTONE,
+			baseSurfaceAndUnderSurfaceRule(
+				materialConditions,
+				sandOrSandstoneIfCeiling,
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+						sandOrSandstoneIfCeiling
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+						FrozenLibMaterialRules.SANDSTONE
+					)
+				)
+			)
+		);
+
+		context.register(
+			SAND_AND_VERY_DEEP_SANDSTONE,
+			baseSurfaceAndUnderSurfaceRule(
+				materialConditions,
+				sandOrSandstoneIfCeiling,
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+						sandOrSandstoneIfCeiling
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+						FrozenLibMaterialRules.SANDSTONE
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.VERY_DEEP_UNDER_FLOOR),
+						FrozenLibMaterialRules.SANDSTONE
+					)
+				)
+			)
+		);
+
+		context.register(
+			SAND_AND_SANDSTONE_AQUATIC,
+			MaterialRules.sequence(
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+					sandOrSandstoneIfCeiling
+				),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDER_DEEP_WATER),
+					MaterialRules.sequence(
+						MaterialRules.ifTrue(
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+							sandOrSandstoneIfCeiling
+						),
+						MaterialRules.ifTrue(
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+							FrozenLibMaterialRules.SANDSTONE
+						)
+					)
+				)
+			)
+		);
+	}
+
+	private static ResourceKey<MaterialRule> createKey(String name) {
+		return ResourceKey.create(Registries.MATERIAL_RULE, WWConstants.id(name));
+	}
+
 }

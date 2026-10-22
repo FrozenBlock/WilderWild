@@ -126,6 +126,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.PLACED_FEATURE, WWFeatureBootstrap::bootstrapPlaced);
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoise::bootstrap);
+		registryBuilder.add(Registries.MATERIAL_RULE, WWMaterialRules::bootstrapRules);
 		registryBuilder.add(Registries.VILLAGER_TRADE, WWVillagerTrades::bootstrap);
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 		registryBuilder.add(Registries.TEMPLATE_POOL, WWAbandonedCampStructurePools::bootstrap);
@@ -139,7 +140,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_MUSIC, WWStructureMusic::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.MATERIAL_RULE_ADDITION, WWMaterialRules::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.MATERIAL_RULE_ADDITION, WWMaterialRules::bootstrapAdditions);
 		registryBuilder.add(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND, WWPlayerDamageTypeSounds::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, WWStructureProcessorListAdditions::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.VARIANT_SPAWN_INJECTION, WWVariantSpawnInjections::bootstrap);

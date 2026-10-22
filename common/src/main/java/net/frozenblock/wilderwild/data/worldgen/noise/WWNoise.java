@@ -29,6 +29,7 @@ public final class WWNoise {
 	public static final ResourceKey<NormalNoise> GRAVEL_BEACH = createKey("gravel_beach");
 	public static final ResourceKey<NormalNoise> MAGMATIC_CAVE_GRADIENT = createKey("magmatic_cave_gradient");
 	public static final ResourceKey<NormalNoise> OCEAN_MOSS = createKey("ocean_moss");
+	public static final ResourceKey<NormalNoise> OASIS_GRASS = createKey("oasis_grass");
 
 	public static void bootstrap(BootstrapContext<NormalNoise> entries) {
 		register(entries, SAND_BEACH, -9,
@@ -95,6 +96,7 @@ public final class WWNoise {
 		);
 		register(entries, MAGMATIC_CAVE_GRADIENT, -6, 0D, 3D, 5D, 2D);
 		register(entries, OCEAN_MOSS, -4, 0D, 2D, 2D, 1D);
+		register(entries, OASIS_GRASS, -6, 0D, 1D, 6D, 7D, 4D);
 	}
 
 	private static ResourceKey<NormalNoise> createKey(String name) {

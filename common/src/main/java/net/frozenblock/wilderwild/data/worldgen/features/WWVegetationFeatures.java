@@ -123,7 +123,6 @@ public final class WWVegetationFeatures {
 
 	// MOSS
 	public static final FrozenLibFeature PATH_MOSS = register("path_moss");
-	public static final FrozenLibFeature PATH_MOSS_OASIS = register("path_moss_oasis");
 	public static final FrozenLibFeature MOSS_CARPET = register("moss_carpet");
 	public static final FrozenLibFeature MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
 	public static final FrozenLibFeature MOSS_PATCH_BONEMEAL_NO_AZALEA = register("moss_patch_bonemeal_no_azalea");
@@ -243,25 +242,6 @@ public final class WWVegetationFeatures {
 							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MOSS_PATH_REPLACEABLE))
 							.searchingPredicate(TouchingBlockPredicate.exposed())
 							.placementChance(0.7F)
-							.build()
-					).build(),
-				9
-			)
-		);
-
-		PATH_MOSS_OASIS.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.1D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
-							.within(0.12D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.725F)
 							.build()
 					).build(),
 				9

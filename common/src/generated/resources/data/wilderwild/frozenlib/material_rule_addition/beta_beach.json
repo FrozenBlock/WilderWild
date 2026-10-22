@@ -58,72 +58,7 @@
                       "min_threshold": -1.7976931348623157E308,
                       "noise": "wilderwild:gravel_beach"
                     },
-                    "then_run": {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": "minecraft:on_floor",
-                          "then_run": {
-                            "type": "minecraft:condition",
-                            "if_true": {
-                              "type": "minecraft:water",
-                              "add_stone_depth": false,
-                              "offset": -1,
-                              "surface_depth_multiplier": 0
-                            },
-                            "then_run": {
-                              "type": "minecraft:sequence",
-                              "sequence": [
-                                {
-                                  "type": "minecraft:condition",
-                                  "if_true": "minecraft:on_ceiling",
-                                  "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": "minecraft:stone"
-                                  }
-                                },
-                                {
-                                  "type": "minecraft:block",
-                                  "result_state": "minecraft:gravel"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:water",
-                            "add_stone_depth": true,
-                            "offset": -6,
-                            "surface_depth_multiplier": -1
-                          },
-                          "then_run": {
-                            "type": "minecraft:sequence",
-                            "sequence": [
-                              {
-                                "type": "minecraft:sequence",
-                                "sequence": [
-                                  {
-                                    "type": "minecraft:condition",
-                                    "if_true": "minecraft:on_ceiling",
-                                    "then_run": {
-                                      "type": "minecraft:block",
-                                      "result_state": "minecraft:stone"
-                                    }
-                                  },
-                                  {
-                                    "type": "minecraft:block",
-                                    "result_state": "minecraft:gravel"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
+                    "then_run": "wilderwild:gravel_and_stone_beta_beach"
                   }
                 }
               }
@@ -137,7 +72,7 @@
             },
             "then_run": {
               "type": "minecraft:condition",
-              "if_true": "minecraft:deep_under_floor",
+              "if_true": "minecraft:under_floor",
               "then_run": {
                 "type": "minecraft:condition",
                 "if_true": {
@@ -169,72 +104,7 @@
                       "min_threshold": 0.12,
                       "noise": "wilderwild:sand_beach"
                     },
-                    "then_run": {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": "minecraft:on_floor",
-                          "then_run": {
-                            "type": "minecraft:condition",
-                            "if_true": {
-                              "type": "minecraft:water",
-                              "add_stone_depth": false,
-                              "offset": -1,
-                              "surface_depth_multiplier": 0
-                            },
-                            "then_run": {
-                              "type": "minecraft:sequence",
-                              "sequence": [
-                                {
-                                  "type": "minecraft:condition",
-                                  "if_true": "minecraft:on_ceiling",
-                                  "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": "minecraft:sandstone"
-                                  }
-                                },
-                                {
-                                  "type": "minecraft:block",
-                                  "result_state": "minecraft:sand"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:water",
-                            "add_stone_depth": true,
-                            "offset": -6,
-                            "surface_depth_multiplier": -1
-                          },
-                          "then_run": {
-                            "type": "minecraft:sequence",
-                            "sequence": [
-                              {
-                                "type": "minecraft:sequence",
-                                "sequence": [
-                                  {
-                                    "type": "minecraft:condition",
-                                    "if_true": "minecraft:on_ceiling",
-                                    "then_run": {
-                                      "type": "minecraft:block",
-                                      "result_state": "minecraft:sandstone"
-                                    }
-                                  },
-                                  {
-                                    "type": "minecraft:block",
-                                    "result_state": "minecraft:sand"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
+                    "then_run": "wilderwild:sand_and_sandstone_beta_beach"
                   }
                 }
               }
@@ -280,72 +150,7 @@
                       "min_threshold": 0.12,
                       "noise": "wilderwild:sand_beach"
                     },
-                    "then_run": {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": "minecraft:on_floor",
-                          "then_run": {
-                            "type": "minecraft:condition",
-                            "if_true": {
-                              "type": "minecraft:water",
-                              "add_stone_depth": false,
-                              "offset": -1,
-                              "surface_depth_multiplier": 0
-                            },
-                            "then_run": {
-                              "type": "minecraft:sequence",
-                              "sequence": [
-                                {
-                                  "type": "minecraft:condition",
-                                  "if_true": "minecraft:on_ceiling",
-                                  "then_run": {
-                                    "type": "minecraft:block",
-                                    "result_state": "minecraft:sandstone"
-                                  }
-                                },
-                                {
-                                  "type": "minecraft:block",
-                                  "result_state": "minecraft:sand"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:water",
-                            "add_stone_depth": true,
-                            "offset": -6,
-                            "surface_depth_multiplier": -1
-                          },
-                          "then_run": {
-                            "type": "minecraft:sequence",
-                            "sequence": [
-                              {
-                                "type": "minecraft:sequence",
-                                "sequence": [
-                                  {
-                                    "type": "minecraft:condition",
-                                    "if_true": "minecraft:on_ceiling",
-                                    "then_run": {
-                                      "type": "minecraft:block",
-                                      "result_state": "minecraft:sandstone"
-                                    }
-                                  },
-                                  {
-                                    "type": "minecraft:block",
-                                    "result_state": "minecraft:sand"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
+                    "then_run": "wilderwild:sand_and_sandstone_beta_beach"
                   }
                 }
               }

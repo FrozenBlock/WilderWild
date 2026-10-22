@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:weighted",
+  "entries": [
+    {
+      "data": {
+        "id": "wilderwild:auburn_creeping_moss",
+        "properties": {
+          "down": "true",
+          "east": "false",
+          "north": "false",
+          "south": "false",
+          "up": "false",
+          "waterlogged": "true",
+          "west": "false"
+        }
+      },
+      "weight": 3
+    },
+    {
+      "data": {
+        "id": "wilderwild:auburn_moss_carpet",
+        "properties": {
+          "waterlogged": "true"
+        }
+      },
+      "weight": 1
+    },
+    {
+      "data": "wilderwild:sea_whip",
+      "weight": 1
+    }
+  ]
+}
