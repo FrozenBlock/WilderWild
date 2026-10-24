@@ -10,10 +10,6 @@
     {
       "id": "wilderwild:sparse_birch_jungle",
       "required": false
-    },
-    {
-      "id": "wilderwild:oasis",
-      "required": false
     }
   ]
 }

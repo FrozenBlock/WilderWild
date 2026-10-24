@@ -2146,8 +2146,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWVegetationFeatureBiomeTags.PATH_MOSS)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.OASIS);
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
 
 		this.builder(WWVegetationFeatureBiomeTags.MOSS_CARPET)
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)

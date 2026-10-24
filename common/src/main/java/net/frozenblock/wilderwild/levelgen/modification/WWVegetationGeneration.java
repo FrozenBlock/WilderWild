@@ -458,10 +458,6 @@ public final class WWVegetationGeneration {
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.PATH_MOSS)) {
-					addTopLayerModification(generationSettings, WWVegetationPlacements.PATH_MOSS);
-				}
-
 				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.MOSS_CARPET)) {
 					addVegetalDecoration(generationSettings, WWVegetationPlacements.MOSS_CARPET);
 				}

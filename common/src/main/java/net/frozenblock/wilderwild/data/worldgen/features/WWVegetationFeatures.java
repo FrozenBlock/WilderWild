@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.data.worldgen.features;
 import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
-import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
@@ -122,7 +121,6 @@ public final class WWVegetationFeatures {
 	public static final FrozenLibFeature POLLEN = register("pollen");
 
 	// MOSS
-	public static final FrozenLibFeature PATH_MOSS = register("path_moss");
 	public static final FrozenLibFeature MOSS_CARPET = register("moss_carpet");
 	public static final FrozenLibFeature MOSS_VEGETATION_NO_AZALEA = register("moss_vegetation_no_azalea");
 	public static final FrozenLibFeature MOSS_PATCH_BONEMEAL_NO_AZALEA = register("moss_patch_bonemeal_no_azalea");
@@ -229,25 +227,6 @@ public final class WWVegetationFeatures {
 		);
 
 		// MOSS
-		PATH_MOSS.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
-					.noiseScale(0.15D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK))
-							.within(0.18D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MOSS_PATH_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.7F)
-							.build()
-					).build(),
-				9
-			)
-		);
-
 		MOSS_CARPET.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.MOSS_CARPET)));
 
 		MOSS_VEGETATION_NO_AZALEA.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.MOSS_VEGETATION_NO_AZALEA)));

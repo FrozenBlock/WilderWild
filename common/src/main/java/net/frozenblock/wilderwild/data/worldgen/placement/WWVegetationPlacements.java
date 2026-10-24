@@ -160,7 +160,6 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature POLLEN = register("pollen");
 
 	// MOSS
-	public static final FrozenLibPlacedFeature PATH_MOSS = register("path_moss");
 	public static final FrozenLibPlacedFeature MOSS_CARPET = register("moss_carpet");
 
 	// AUBURN MOSS
@@ -967,14 +966,6 @@ public final class WWVegetationPlacements {
 
 		// MOSS
 		final PlacementFilter mossConfigFilter = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS));
-
-		PATH_MOSS.makeAndSetHolder(WWVegetationFeatures.PATH_MOSS,
-			mossConfigFilter,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
 
 		MOSS_CARPET.makeAndSetHolder(WWVegetationFeatures.MOSS_CARPET,
 			FrozenLibPlacementUtil.postModifiersWithPreFilter(

@@ -17,17 +17,21 @@
 
 package net.frozenblock.wilderwild.data.worldgen.material;
 
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.material.api.FrozenLibMaterialRules;
 import net.frozenblock.lib.levelgen.material.api.MaterialRuleAdditions;
 import net.frozenblock.lib.levelgen.material.impl.MaterialRuleAddition;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.lib.tag.api.FrozenLibDimensionTypeTags;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.noise.WWNoise;
+import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWAquaticFeatureBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.tag.WWVegetationFeatureBiomeTags;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -91,7 +95,7 @@ public final class WWMaterialRules {
 			MaterialRules.isBiome(biomes, WWBiomes.OASIS),
 			MaterialRules.sequence(
 				MaterialRules.ifTrue(
-					MaterialRules.noiseCondition2d(WWNoise.OASIS_GRASS, -2D, -0.66D),
+					MaterialRules.noiseCondition2d(WWNoises.OASIS_GRASS, -2D, -0.66D),
 					MaterialRules.getRule(materialRules, GRASS_AND_DIRT)
 				),
 				MaterialRules.getRule(materialRules, SAND_AND_VERY_DEEP_SANDSTONE)
@@ -112,19 +116,40 @@ public final class WWMaterialRules {
 		);
 	}
 
+	public static MaterialRule jungleMossRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions, HolderGetter<ConfigPredicate> configPredicates) {
+		return MaterialRules.ifTrue(
+			ConfigPredicate.materialCondition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
+			MaterialRules.ifTrue(
+				FrozenLibMaterialRules.isBiomeTag(biomes, WWVegetationFeatureBiomeTags.PATH_MOSS),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(WWNoises.JUNGLE_MOSS, 0.1D, 0.55D),
+							MaterialRules.ifTrue(
+								MaterialRules.noiseCondition2d(WWNoises.JUNGLE_MOSS_PATCH, 0.85D, 2D),
+								FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
+							)
+						)
+					)
+				)
+			)
+		);
+	}
+
 	public static MaterialRule oceanMossRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			WWWorldgenConfig.OCEAN_MOSS_GENERATION.equalTo(true).asMaterialCondition(),
 			MaterialRules.ifTrue(
 				FrozenLibMaterialRules.isBiomeTag(biomes, WWAquaticFeatureBiomeTags.OCEAN_MOSS),
-				MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					MaterialRules.ifTrue(
 						MaterialRules.not(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER)),
-						MaterialRules.sequence(
-							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(WWNoise.OCEAN_MOSS, -0.65D, -0.25D),
-								FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
-							)
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(WWNoises.OCEAN_MOSS, -0.65D, -0.25D),
+							FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
 						)
 					)
 				)
@@ -135,9 +160,10 @@ public final class WWMaterialRules {
 	public static MaterialRule oldGrowthSnowyPineTaigaRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA),
-			MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
 					MaterialRules.sequence(
 						MaterialRules.ifTrue(
 							MaterialRules.noiseCondition2d(Noises.SURFACE, 1.75D / 8.25D, Double.MAX_VALUE),
@@ -164,14 +190,13 @@ public final class WWMaterialRules {
 	public static MaterialRule oldGrowthDarkForestRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.OLD_GROWTH_DARK_FOREST),
-			MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(Noises.SURFACE, -0.0667, 0.04),
-							FrozenLibMaterialRules.PODZOL
-						)
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.ifTrue(
+						MaterialRules.noiseCondition2d(Noises.SURFACE, -0.0667, 0.04),
+						FrozenLibMaterialRules.PODZOL
 					)
 				)
 			)
@@ -183,7 +208,7 @@ public final class WWMaterialRules {
 			MaterialRules.isBiome(biomes, WWBiomes.TEMPERATE_RAINFOREST),
 			MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
 					MaterialRules.sequence(
 						MaterialRules.ifTrue(
 							MaterialRules.noiseCondition2d(Noises.SURFACE, 0.095, 0.2),
@@ -208,12 +233,10 @@ public final class WWMaterialRules {
 			MaterialRules.isBiome(biomes, WWBiomes.RAINFOREST),
 			MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
-					MaterialRules.sequence(
-						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
-							FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
-						)
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.ifTrue(
+						MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
+						FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
 					)
 				)
 			)
@@ -222,31 +245,33 @@ public final class WWMaterialRules {
 
 	public static MaterialRule dyingForestRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
-				MaterialRules.isBiome(biomes, WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
-				MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+			MaterialRules.isBiome(biomes, WWBiomes.DYING_FOREST, WWBiomes.DYING_MIXED_FOREST),
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.sequence(
 						MaterialRules.ifTrue(
-								MaterialRules.waterBlockCheck(-1, 0),
-								MaterialRules.sequence(
-										MaterialRules.ifTrue(
-												MaterialRules.noiseCondition2d(Noises.SURFACE, 0.033, 0.095),
-												FrozenLibMaterialRules.makeStateRule(Blocks.PODZOL)
-										),
-										MaterialRules.ifTrue(
-												MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.0667, 0.1),
-												FrozenLibMaterialRules.COARSE_DIRT
-										)
-								)
+							MaterialRules.noiseCondition2d(Noises.SURFACE, 0.033, 0.095),
+							FrozenLibMaterialRules.makeStateRule(Blocks.PODZOL)
+						),
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.0667, 0.1),
+							FrozenLibMaterialRules.COARSE_DIRT
 						)
+					)
 				)
+			)
 		);
 	}
 
 	public static MaterialRule mapleForestRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.MAPLE_FOREST),
-			MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
 					MaterialRules.sequence(
 						MaterialRules.ifTrue(
 							MaterialRules.noiseCondition2d(Noises.SURFACE, 0.023, 0.095),
@@ -271,9 +296,10 @@ public final class WWMaterialRules {
 	public static MaterialRule tundraRules(HolderGetter<Biome> biomes, HolderGetter<MaterialCondition> materialConditions) {
 		return MaterialRules.ifTrue(
 			MaterialRules.isBiome(biomes, WWBiomes.TUNDRA),
-			MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.waterBlockCheck(-1, 0),
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
 					MaterialRules.sequence(
 						MaterialRules.ifTrue(
 							MaterialRules.noiseCondition2d(Noises.SURFACE, 0.525D, 0.725D),
@@ -320,11 +346,11 @@ public final class WWMaterialRules {
 			FrozenLibMaterialRules.avoidBedrockFloorAndRoof(
 				materialConditions,
 				MaterialRules.sequence(
-					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.45F, -0.245F), gabbro),
-					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.245F, -0.07F), magmaOrGabbroUnderWater),
-					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, -0.07F, 0.3F), gabbro),
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoises.MAGMATIC_CAVE_GRADIENT, -0.45F, -0.245F), gabbro),
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoises.MAGMATIC_CAVE_GRADIENT, -0.245F, -0.07F), magmaOrGabbroUnderWater),
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoises.MAGMATIC_CAVE_GRADIENT, -0.07F, 0.3F), gabbro),
 
-					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoise.MAGMATIC_CAVE_GRADIENT, 0.655, 1F), gabbro)
+					MaterialRules.ifTrue(MaterialRules.noiseCondition3d(WWNoises.MAGMATIC_CAVE_GRADIENT, 0.655, 1F), gabbro)
 				)
 			)
 		);
@@ -365,7 +391,7 @@ public final class WWMaterialRules {
 					WWBiomeTags.BETA_BEACH_GRAVEL,
 					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 					65,
-					MaterialRules.noiseCondition2d(WWNoise.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12),
+					MaterialRules.noiseCondition2d(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12),
 					MaterialRules.getRule(materialRules, WWMaterialRules.GRAVEL_AND_STONE_BETA_BEACH)
 				),
 				betaBeach(
@@ -373,7 +399,7 @@ public final class WWMaterialRules {
 					WWBiomeTags.BETA_BEACH_SAND,
 					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 					65,
-					MaterialRules.noiseCondition2d(WWNoise.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
+					MaterialRules.noiseCondition2d(WWNoises.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
 					MaterialRules.getRule(materialRules, WWMaterialRules.SAND_AND_SANDSTONE_BETA_BEACH)
 				),
 				betaBeach(
@@ -381,7 +407,7 @@ public final class WWMaterialRules {
 					WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND,
 					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
 					64,
-					MaterialRules.noiseCondition2d(WWNoise.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
+					MaterialRules.noiseCondition2d(WWNoises.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
 					MaterialRules.getRule(materialRules, WWMaterialRules.SAND_AND_SANDSTONE_BETA_BEACH)
 				)
 			)
@@ -418,6 +444,7 @@ public final class WWMaterialRules {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
 		final HolderGetter<MaterialCondition> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
 
 		MaterialRuleAdditions.register(
 			context,
@@ -459,6 +486,13 @@ public final class WWMaterialRules {
 			WWConstants.id("arid_savanna_and_arid_forest"),
 			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
 			aboveSurface(aridRules(biomes, materialRules))
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("jungle_moss"),
+			dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD),
+			aboveSurface(jungleMossRules(biomes, materialConditions, configPredicates))
 		);
 
 		MaterialRuleAdditions.register(

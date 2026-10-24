@@ -18,104 +18,70 @@
 package net.frozenblock.wilderwild.data.worldgen.noise;
 
 import net.frozenblock.wilderwild.WWConstants;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.NoiseData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
-public final class WWNoise {
+public final class WWNoises {
 	public static final ResourceKey<NormalNoise> SAND_BEACH = createKey("sand_beach");
 	public static final ResourceKey<NormalNoise> GRAVEL_BEACH = createKey("gravel_beach");
 	public static final ResourceKey<NormalNoise> MAGMATIC_CAVE_GRADIENT = createKey("magmatic_cave_gradient");
 	public static final ResourceKey<NormalNoise> OCEAN_MOSS = createKey("ocean_moss");
 	public static final ResourceKey<NormalNoise> OASIS_GRASS = createKey("oasis_grass");
+	public static final ResourceKey<NormalNoise> JUNGLE_MOSS = createKey("jungle_moss");
+	public static final ResourceKey<NormalNoise> JUNGLE_MOSS_PATCH = createKey("jungle_moss_patch");
 
-	public static void bootstrap(BootstrapContext<NormalNoise> entries) {
-		register(entries, SAND_BEACH, -9,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			40.0,
-			20.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0
+	public static void bootstrap(BootstrapContext<NormalNoise> context) {
+		registerBetaBeach(context, SAND_BEACH);
+		registerBetaBeach(context, GRAVEL_BEACH);
+		NoiseData.register(context, MAGMATIC_CAVE_GRADIENT, -6, 0D, 3D, 5D, 2D);
+		NoiseData.register(context, OCEAN_MOSS, -4, 0D, 2D, 2D, 1D);
+		NoiseData.register(context, OASIS_GRASS, -6, 0D, 1D, 6D, 7D, 4D);
+		NoiseData.register(context, JUNGLE_MOSS, -6, 2D, 6D, 5D, 4D, 6D, 8D);
+		NoiseData.register(context, JUNGLE_MOSS_PATCH, -6, 5D, 3D);
+	}
+
+	private static void registerBetaBeach(BootstrapContext<NormalNoise> context, ResourceKey<NormalNoise> key) {
+		NoiseData.register(
+			context,
+			key,
+			-9,
+			1D,
+			1D,
+			1D,
+			1D,
+			1D,
+			1D,
+			1D,
+			1D,
+			1D,
+			1D,
+			40D,
+			20D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D,
+			10D
 		);
-		register(entries, GRAVEL_BEACH, -9,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			1.0,
-			40.0,
-			20.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0,
-			10.0
-		);
-		register(entries, MAGMATIC_CAVE_GRADIENT, -6, 0D, 3D, 5D, 2D);
-		register(entries, OCEAN_MOSS, -4, 0D, 2D, 2D, 1D);
-		register(entries, OASIS_GRASS, -6, 0D, 1D, 6D, 7D, 4D);
 	}
 
 	private static ResourceKey<NormalNoise> createKey(String name) {
 		return ResourceKey.create(Registries.NOISE, WWConstants.id(name));
-	}
-
-	public static Holder.Reference<NormalNoise> register(
-		BootstrapContext<NormalNoise> entries,
-		ResourceKey<NormalNoise> id,
-		int firstOctave,
-		double firstAmplitude,
-		double... amplitudes
-	) {
-		WWConstants.log("Registering noise " + id.identifier(), true);
-
-		final double[] allAmplitudes = new double[amplitudes.length + 1];
-		allAmplitudes[0] = firstAmplitude;
-		System.arraycopy(amplitudes, 0, allAmplitudes, 1, amplitudes.length);
-		return entries.register(id, NormalNoise.createParity(firstOctave, allAmplitudes));
 	}
 }
 

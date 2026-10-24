@@ -1,0 +1,53 @@
+{
+  "dimensions": "#frozenlib:overworld",
+  "rule": {
+    "type": "minecraft:condition",
+    "if_true": {
+      "type": "minecraft:above_preliminary_surface"
+    },
+    "then_run": {
+      "type": "minecraft:condition",
+      "if_true": {
+        "type": "frozenlib:config_predicate",
+        "config_predicate": "wilderwild:generate_moss"
+      },
+      "then_run": {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": "#wilderwild:feature/vegetation/path_moss"
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": "minecraft:on_floor",
+          "then_run": {
+            "type": "minecraft:condition",
+            "if_true": "minecraft:not_underwater",
+            "then_run": {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:noise_threshold",
+                "max_threshold": 0.55,
+                "min_threshold": 0.1,
+                "noise": "wilderwild:jungle_moss"
+              },
+              "then_run": {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:noise_threshold",
+                  "max_threshold": 2.0,
+                  "min_threshold": 0.85,
+                  "noise": "wilderwild:jungle_moss_patch"
+                },
+                "then_run": {
+                  "type": "minecraft:block",
+                  "result_state": "minecraft:moss_block"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
