@@ -47,6 +47,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.generateBiomeTags();
 		this.generateClimateAndVegetationTags();
 		this.generateUtilityTags();
+		this.generateMaterialRuleTags();
 		this.generateFeatureTags();
 		this.generateAquaticFeatureTags();
 		this.generateFlowerFeatureTags();
@@ -652,7 +653,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_CLAY_PATH)
 			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND_DEEP)
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.WARM_RIVER)
 			.addOptional(WWBiomes.WARM_BEACH);
@@ -731,6 +732,21 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.CYPRESS_WETLANDS);
 
+		this.builder(BiomeTags.SPAWNS_SNOW_FOXES)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		this.builder(BiomeTags.SPAWNS_WHITE_RABBITS)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+	}
+
+	private void generateMaterialRuleTags() {
+		this.builder(WWBiomeTags.BELOW_SURFACE_SNOW)
+			.add(Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.SNOWY_SLOPES, Biomes.GROVE);
+
 		this.builder(WWBiomeTags.BETA_BEACH_GRAVEL)
 			.add(Biomes.BIRCH_FOREST)
 			.add(Biomes.FROZEN_RIVER)
@@ -761,25 +777,31 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
-		this.builder(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND)
+		this.builder(WWBiomeTags.BETA_BEACH_SAND_DEEP)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE)
 			.add(Biomes.SAVANNA)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
 			.addOptional(WWBiomes.ARID_SAVANNA);
 
-		this.builder(WWBiomeTags.BELOW_SURFACE_SNOW)
-			.add(Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.SNOWY_SLOPES, Biomes.GROVE);
+		this.builder(WWBiomeTags.COARSE_DIRT_PATH)
+			.add(Biomes.TAIGA)
+			.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+			.add(Biomes.WINDSWEPT_FOREST)
+			.addOptional(WWBiomes.DARK_TAIGA);
 
-		this.builder(BiomeTags.SPAWNS_SNOW_FOXES)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
-			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+		this.builder(WWBiomeTags.COARSE_DIRT_PATH_PATCHY)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA);
 
-		this.builder(BiomeTags.SPAWNS_WHITE_RABBITS)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
-			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+		this.builder(WWBiomeTags.MOSS_PATH_JUNGLE)
+			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
+
+		this.builder(WWBiomeTags.MOSS_PATH_OCEAN)
+			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 	}
 
 	private void generateFeatureTags() {
@@ -831,13 +853,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.ARID_SAVANNA)
 			.addOptional(WWBiomes.ARID_FOREST);
-
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_PATH)
-			.add(Biomes.TAIGA)
-			.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-			.add(Biomes.WINDSWEPT_FOREST)
-			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.DARK_TAIGA);
 
 		this.builder(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
@@ -972,7 +987,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)
 			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND);
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND_DEEP);
 
 		this.builder(WWBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION)
 			.addOptionalTag(WWBiomeTags.BETA_BEACH_GRAVEL);
@@ -1198,9 +1213,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.DEEP_COLD_OCEAN);
 
 		// MOSS
-		this.builder(WWAquaticFeatureBiomeTags.OCEAN_MOSS)
-			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
-
 		this.builder(WWAquaticFeatureBiomeTags.AUBURN_CREEPING_MOSS_UNDERWATER)
 			.add(Biomes.OCEAN, Biomes.DEEP_OCEAN)
 			.add(Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN)
@@ -1880,6 +1892,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		// DRY GRASS
 		this.builder(WWVegetationFeatureBiomeTags.DRY_GRASS_DESERT)
 			.add(Biomes.DESERT)
+			.addOptional(WWBiomes.OASIS)
 			.addOptional(WWBiomes.ARID_SAVANNA)
 			.addOptional(WWBiomes.ARID_FOREST);
 
@@ -1895,7 +1908,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWVegetationFeatureBiomeTags.DRY_GRASS_BETA_BEACH)
 			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_MULTI_LAYER_SAND);
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND_DEEP);
 
 		// FROZEN GRASS
 		this.builder(WWVegetationFeatureBiomeTags.FROZEN_GRASS_PLAIN)
@@ -2016,7 +2029,8 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OASIS);
 
 		this.builder(WWVegetationFeatureBiomeTags.SHRUB_DESERT)
-			.add(Biomes.DESERT);
+			.add(Biomes.DESERT)
+			.addOptional(WWBiomes.OASIS);
 
 		this.builder(WWVegetationFeatureBiomeTags.SHRUB_ARID)
 			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA)
@@ -2143,11 +2157,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		// MOSS
-		this.builder(WWVegetationFeatureBiomeTags.PATH_MOSS)
-			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
-			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
-
 		this.builder(WWVegetationFeatureBiomeTags.MOSS_CARPET)
 			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)

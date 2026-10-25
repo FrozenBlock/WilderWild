@@ -14,7 +14,7 @@
       "type": "minecraft:condition",
       "if_true": {
         "type": "minecraft:biome",
-        "biome_is": "#wilderwild:below_surface_snow"
+        "biome_is": "#wilderwild:material_rule/below_surface_snow"
       },
       "then_run": {
         "type": "minecraft:condition",

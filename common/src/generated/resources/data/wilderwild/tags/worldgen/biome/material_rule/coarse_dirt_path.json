@@ -5,10 +5,6 @@
     "minecraft:old_growth_spruce_taiga",
     "minecraft:windswept_forest",
     {
-      "id": "wilderwild:arid_savanna",
-      "required": false
-    },
-    {
       "id": "wilderwild:dark_taiga",
       "required": false
     }

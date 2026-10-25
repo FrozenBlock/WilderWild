@@ -62,11 +62,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> PRODUCES_SEA_WHIPS_FROM_BONEMEAL = bind("produces_sea_whips_from_bonemeal");
 	public static final TagKey<Biome> PRODUCES_TUBE_WORMS_FROM_BONEMEAL = bind("produces_tube_worms_from_bonemeal");
 
-	public static final TagKey<Biome> BETA_BEACH_GRAVEL = bind("beta_beach/gravel");
-	public static final TagKey<Biome> BETA_BEACH_SAND = bind("beta_beach/sand");
-	public static final TagKey<Biome> BETA_BEACH_MULTI_LAYER_SAND = bind("beta_beach/multi_layer_sand");
 
-	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("below_surface_snow");
+
+
 
 	public static final TagKey<Biome> LUKEWARM_WATER = bind("water_color/lukewarm");
 	public static final TagKey<Biome> HOT_WATER = bind("water_color/hot");
@@ -79,6 +77,17 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_SURFACE_BRITTLE_ICE = bind("feature/has_surface_brittle_ice");
 	public static final TagKey<Biome> HAS_CAVE_BRITTLE_ICE_PATCH = bind("feature/has_cave_brittle_ice_patch");
 
+	// MATERIAL RULES
+	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("material_rule/below_surface_snow");
+	public static final TagKey<Biome> BETA_BEACH_GRAVEL = bind("material_rule/gravel");
+	public static final TagKey<Biome> BETA_BEACH_SAND = bind("material_rule/sand");
+	public static final TagKey<Biome> BETA_BEACH_SAND_DEEP = bind("material_rule/beta_beach_sand_deep");
+	public static final TagKey<Biome> COARSE_DIRT_PATH = bind("material_rule/coarse_dirt_path");
+	public static final TagKey<Biome> COARSE_DIRT_PATH_PATCHY = bind("material_rule/coarse_dirt_path_patchy");
+	public static final TagKey<Biome> MOSS_PATH_JUNGLE = bind("material_rule/moss_path_jungle");
+	public static final TagKey<Biome> MOSS_PATH_OCEAN = bind("material_rule/moss_path_ocean");
+
+
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE = bind("feature/has_stone_pile");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PILE_WITH_DISK = bind("feature/has_coarse_dirt_pile_with_disk");
@@ -88,7 +97,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_GRAVEL_AND_PALE_MOSS_PATH = bind("feature/has_gravel_and_pale_moss_path");
 	public static final TagKey<Biome> HAS_DECORATIVE_MUD = bind("feature/has_decorative_mud");
 	public static final TagKey<Biome> HAS_PACKED_MUD_ORE = bind("feature/has_packed_mud_ore");
-	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH = bind("feature/has_coarse_dirt_path");
+
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH_SMALL = bind("feature/has_coarse_dirt_path_small");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH_BADLANDS = bind("feature/has_packed_mud_path_badlands");
 	public static final TagKey<Biome> HAS_SANDSTONE_PATH = bind("feature/has_sandstone_path");

@@ -26,7 +26,6 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
 import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
-import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -58,30 +57,6 @@ public final class WWMiscGeneration {
 				if (WWWorldgenConfig.COARSE_DIRT_DECORATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_COARSE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_RARE.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH.getKey());
-					}
-
-					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.MIXED_FOREST)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_5.getKey());
-					}
-
-					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.ARID_FOREST)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ARID_COARSE_PATH.getKey());
-					}
-
-					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.ARID_SAVANNA)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ARID_COARSE_PATH.getKey());
-					}
-
-					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.BIRCH_TAIGA)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_10.getKey());
-					}
-
-					if (biomeSelectionContext.getBiomeKey().equals(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_10.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {

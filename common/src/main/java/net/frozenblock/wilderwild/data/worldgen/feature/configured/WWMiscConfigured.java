@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
 import java.util.List;
 import java.util.Optional;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
@@ -32,11 +33,15 @@ import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseB
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleWaterloggedVegetationPatchFeature;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
+import net.frozenblock.wilderwild.data.worldgen.features.WWTreeVegetationFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
 import net.frozenblock.wilderwild.levelgen.feature.SnowAndFreezeDiskFeature;
 import net.frozenblock.wilderwild.levelgen.feature.SnowBlanketFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
@@ -48,6 +53,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.TrapezoidInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -60,10 +66,15 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.NoOpFeature;
 import net.minecraft.world.level.levelgen.feature.OreFeature;
+import net.minecraft.world.level.levelgen.feature.OverlayFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
@@ -112,6 +123,9 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
 	public static final FrozenLibFeature SAND_TRANSITION_DISK = register("sand_transition");
 
+	// OASIS
+	public static final FrozenLibFeature SANDSTONE_LAKE_OASIS = register("sandstone_lake_oasis");
+
 	// BADLANDS
 	public static final FrozenLibFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
 	public static final FrozenLibFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
@@ -119,9 +133,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
 	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
 	public static final FrozenLibFeature RED_SAND_TRANSITION_DISK = register("red_sand_transition");
-
-	// ARID SAVANNA
-	public static final FrozenLibFeature ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
 	public static final FrozenLibFeature SNOW = register("snow");
@@ -152,10 +163,14 @@ public final class WWMiscConfigured {
 	// ICE
 	public static final FrozenLibFeature BRITTLE_ICE_DISK_SURFACE = register("brittle_ice_disk_surface");
 
-	public static void registerMiscConfigured(BootstrapContext<Feature> entries) {
+	public static void registerMiscConfigured(BootstrapContext<Feature> context) {
 		WWConstants.logWithModId("Registering WWMiscConfigured for", true);
-		final HolderGetter<Block> blocks = entries.lookup(Registries.BLOCK);
 
+		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
+		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
+		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 		EMPTY.makeAndSetHolder(new NoOpFeature());
 
 		COARSE_DIRT_PATH_RARE.makeAndSetHolder(
@@ -487,7 +502,7 @@ public final class WWMiscConfigured {
 							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SMALL_SAND_TRANSITION_REPLACEABLE))
 							.build()
 					).excludedBiomes(
-						entries.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SMALL_SAND_TRANSITION)
+						context.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SMALL_SAND_TRANSITION)
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
@@ -644,11 +659,79 @@ public final class WWMiscConfigured {
 							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SAND_TRANSITION_REPLACEABLE))
 							.build()
 					).excludedBiomes(
-						entries.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SAND_TRANSITION)
+						context.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_SAND_TRANSITION)
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
-				UniformInt.of(7, 12)
+				UniformInt.of(6, 9)
+			)
+		);
+
+		SANDSTONE_LAKE_OASIS.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						new LakeFeature(
+							BlockStateProvider.holderOf(Blocks.WATER.defaultBlockState()),
+							BlockStateProvider.holderOf(Blocks.SANDSTONE.defaultBlockState()),
+							BlockPredicate.alwaysTrue(),
+							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
+							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
+						)
+					),
+					PlacementUtils.inlinePlaced(
+						new OverlayFeature(
+							HolderSet.direct(
+								PlacementUtils.inlinePlaced(
+									WWTreeVegetationFeatures.PALM_OASIS.getHolder(),
+									ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALM)),
+									CountPlacement.of(UniformInt.of(6, 14)),
+									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
+									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
+									PlacementUtils.isEmpty()
+								),
+								PlacementUtils.inlinePlaced(
+									WWVegetationFeatures.CACTUS_OASIS.getHolder(),
+									CountPlacement.of(148),
+									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
+									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
+									BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+											BlockPredicate.ONLY_IN_AIR_PREDICATE,
+											BlockPredicate.wouldSurvive(Blocks.CACTUS)
+										)
+									)
+								),
+								PlacementUtils.inlinePlaced(
+									WWVegetationFeatures.SHRUB_OASIS.getHolder(),
+									ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SHRUB)),
+									CountPlacement.of(196),
+									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
+									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
+									BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+											BlockPredicate.replaceable(),
+											BlockPredicate.noFluid(),
+											BlockPredicate.wouldSurvive(WWBlocks.SHRUB.get())
+										)
+									)
+								),
+								PlacementUtils.inlinePlaced(
+									WWVegetationFeatures.GRASS_OASIS.getHolder(),
+									CountPlacement.of(196),
+									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
+									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
+									BlockPredicateFilter.forPredicate(
+										BlockPredicate.allOf(
+											BlockPredicate.ONLY_IN_AIR_PREDICATE,
+											BlockPredicate.wouldSurvive(Blocks.SHORT_GRASS)
+										)
+									)
+								)
+							)
+						)
+					)
+				)
 			)
 		);
 
@@ -755,31 +838,11 @@ public final class WWMiscConfigured {
 							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.RED_SAND_TRANSITION_REPLACEABLE))
 							.build()
 					).excludedBiomes(
-						entries.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_RED_SAND_TRANSITION)
+						context.lookup(Registries.BIOME).getOrThrow(WWBiomeTags.HAS_RED_SAND_TRANSITION)
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
-				UniformInt.of(7, 12)
-			)
-		);
-
-		// ARID SAVANNA
-		ARID_COARSE_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.15D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
-							.within(-0.15D, 0.55D)
-							.replacementPredicate(BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD))
-							.searchingPredicate(
-								BlockPredicate.allOf(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-							)
-							.placementChance(0.825F)
-							.build()
-					).build(),
-				12
+				UniformInt.of(6, 9)
 			)
 		);
 

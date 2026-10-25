@@ -22,7 +22,7 @@
             "type": "minecraft:condition",
             "if_true": {
               "type": "minecraft:biome",
-              "biome_is": "#wilderwild:beta_beach/gravel"
+              "biome_is": "#wilderwild:material_rule/gravel"
             },
             "then_run": {
               "type": "minecraft:condition",
@@ -68,7 +68,7 @@
             "type": "minecraft:condition",
             "if_true": {
               "type": "minecraft:biome",
-              "biome_is": "#wilderwild:beta_beach/sand"
+              "biome_is": "#wilderwild:material_rule/sand"
             },
             "then_run": {
               "type": "minecraft:condition",
@@ -114,7 +114,7 @@
             "type": "minecraft:condition",
             "if_true": {
               "type": "minecraft:biome",
-              "biome_is": "#wilderwild:beta_beach/multi_layer_sand"
+              "biome_is": "#wilderwild:material_rule/beta_beach_sand_deep"
             },
             "then_run": {
               "type": "minecraft:condition",

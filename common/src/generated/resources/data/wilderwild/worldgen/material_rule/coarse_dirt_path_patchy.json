@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:condition",
+  "if_true": {
+    "type": "minecraft:not",
+    "invert": {
+      "type": "minecraft:noise_threshold",
+      "max_threshold": 0.07,
+      "min_threshold": -0.1,
+      "noise": "wilderwild:coarse_dirt_patch_patchy"
+    }
+  },
+  "then_run": "wilderwild:coarse_dirt_path_base"
+}

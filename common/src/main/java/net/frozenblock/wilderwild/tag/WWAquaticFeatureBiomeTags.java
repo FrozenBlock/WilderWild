@@ -62,7 +62,6 @@ public final class WWAquaticFeatureBiomeTags {
 	public static final TagKey<Biome> TUBE_WORMS = bind("tube_worms");
 	public static final TagKey<Biome> TUBE_WORMS_RARE = bind("tube_worms_rare");
 	// MOSS
-	public static final TagKey<Biome> OCEAN_MOSS = bind("ocean_moss");
 	public static final TagKey<Biome> AUBURN_CREEPING_MOSS_UNDERWATER = bind("auburn_creeping_moss_underwater");
 	public static final TagKey<Biome> AUBURN_MOSS_UNDERWATER = bind("auburn_moss_underwater");
 	public static final TagKey<Biome> AUBURN_MOSS_UNDERWATER_RARE = bind("auburn_moss_underwater_rare");

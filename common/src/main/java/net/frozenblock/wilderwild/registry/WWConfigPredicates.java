@@ -76,6 +76,7 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_AUBURN_MOSS = createKey("generate_auburn_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MOSS = createKey("generate_pale_moss");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_COARSE_DIRT = createKey("generate_coarse_dirt");
 	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BRITTLE_ICE = createKey("generate_brittle_ice");
 
@@ -90,6 +91,7 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SEA_WHIP = createKey("generate_sea_whip");
 	public static final ResourceKey<ConfigPredicate> GENERATE_TUBE_WORMS = createKey("generate_tube_worms");
 	public static final ResourceKey<ConfigPredicate> GENERATE_HYDROTHERMAL_VENT = createKey("generate_hydrothermal_vent");
+	public static final ResourceKey<ConfigPredicate> GENERATE_OCEAN_MOSS = createKey("generate_ocean_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_OCEAN_AUBURN_MOSS = createKey("generate_ocean_auburn_moss");
 
 	public static final ResourceKey<ConfigPredicate> SPAWN_WOLF_VARIANT = createKey("spawn_wolf_variant");
@@ -274,6 +276,10 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
+			GENERATE_COARSE_DIRT,
+			WWWorldgenConfig.COARSE_DIRT_DECORATION.equalTo(true)
+		);
+		context.register(
 			GENERATE_DECORATIVE_ICICLE,
 			WWWorldgenConfig.ICICLE_DECORATION.equalTo(true)
 		);
@@ -325,6 +331,10 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_HYDROTHERMAL_VENT,
 			WWWorldgenConfig.HYDROTHERMAL_VENT_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_OCEAN_MOSS,
+			WWWorldgenConfig.OCEAN_MOSS_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_OCEAN_AUBURN_MOSS,

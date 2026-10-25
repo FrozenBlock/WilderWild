@@ -32,7 +32,7 @@
   "heightmap": "OCEAN_FLOOR",
   "placement_radius": {
     "type": "minecraft:uniform",
-    "max_inclusive": 12,
-    "min_inclusive": 7
+    "max_inclusive": 9,
+    "min_inclusive": 6
   }
 }

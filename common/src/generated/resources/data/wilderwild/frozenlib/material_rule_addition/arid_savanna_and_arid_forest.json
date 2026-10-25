@@ -25,7 +25,20 @@
               "min_threshold": 0.155,
               "noise": "minecraft:surface"
             },
-            "then_run": "wilderwild:grass_and_dirt"
+            "then_run": {
+              "type": "minecraft:sequence",
+              "sequence": [
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "frozenlib:config_predicate",
+                    "config_predicate": "wilderwild:generate_coarse_dirt"
+                  },
+                  "then_run": "wilderwild:coarse_dirt_path"
+                },
+                "wilderwild:grass_and_dirt"
+              ]
+            }
           },
           "wilderwild:sand_and_very_deep_sandstone"
         ]

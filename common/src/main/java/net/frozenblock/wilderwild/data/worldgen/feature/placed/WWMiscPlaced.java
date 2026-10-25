@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
@@ -33,6 +34,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.BiasedToBottomInt;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -69,8 +71,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature MUD_TRANSITION = register("mud_transition");
 
 	// TAIGA
-	public static final FrozenLibPlacedFeature COARSE_PATH = register("coarse_dirt_path");
-	public static final FrozenLibPlacedFeature COARSE_PATH_5 = register("coarse_dirt_path_5");
 	public static final FrozenLibPlacedFeature FOREST_ROCK_TAIGA = register("forest_rock_taiga");
 
 	// CYPRESS WETLANDS
@@ -97,21 +97,16 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature SCORCHED_SAND_HUGE = register("scorched_sand_huge");
 	public static final FrozenLibPlacedFeature SAND_TRANSITION = register("sand_transition");
 
+	// OASIS
+	public static final FrozenLibPlacedFeature DESERT_WELL_OASIS = register("desert_well_oasis");
+	public static final FrozenLibPlacedFeature SANDSTONE_LAKE_OASIS = register("sandstone_lake_oasis");
+
 	// BADLANDS
 	public static final FrozenLibPlacedFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
 	public static final FrozenLibPlacedFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
 	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND = register("scorched_red_sand");
 	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND_HUGE = register("scorched_red_sand_huge");
 	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = register("red_sand_transition");
-
-	// OASIS
-	public static final FrozenLibPlacedFeature DESERT_WELL_OASIS = register("desert_well_oasis");
-
-	// BIRCH TAIGA
-	public static final FrozenLibPlacedFeature COARSE_PATH_10 = register("coarse_dirt_path_10");
-
-	// ARID SAVANNA
-	public static final FrozenLibPlacedFeature ARID_COARSE_PATH = register("arid_coarse_dirt_path");
 
 	// OLD GROWTH SNOWY TAIGA
 	public static final FrozenLibPlacedFeature SNOW_PILE = register("snow_pile");
@@ -220,20 +215,6 @@ public final class WWMiscPlaced {
 		);
 
 		// TAIGA
-		COARSE_PATH.makeAndSetHolder(WWMiscConfigured.COARSE_PATH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		COARSE_PATH_5.makeAndSetHolder(WWMiscConfigured.COARSE_PATH,
-			RarityFilter.onAverageOnceEvery(5),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		FOREST_ROCK_TAIGA.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.FOREST_ROCK),
 			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
@@ -371,6 +352,23 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
+		// OASIS
+		DESERT_WELL_OASIS.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
+			RarityFilter.onAverageOnceEvery(1000),
+			InSquarePlacement.spread(),
+			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+			BiomeFilter.biome()
+		);
+
+		SANDSTONE_LAKE_OASIS.makeAndSetHolder(WWMiscConfigured.SANDSTONE_LAKE_OASIS,
+			FrozenLibPlacementUtil.modifiers(
+				CountPlacement.of(1),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRASS_BLOCK)),
+				OffsetPlacement.vertical(BiasedToBottomInt.of(-1, 0))
+			)
+		);
+
 		// BADLANDS
 		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_SMALL,
 			RarityFilter.onAverageOnceEvery(6),
@@ -406,30 +404,6 @@ public final class WWMiscPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.RED_SAND_TRANSITION_PLACEABLE)),
-			BiomeFilter.biome()
-		);
-
-		// OASIS
-		DESERT_WELL_OASIS.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
-			RarityFilter.onAverageOnceEvery(1000),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
-		// BIRCH TAIGA
-		COARSE_PATH_10.makeAndSetHolder(WWMiscConfigured.COARSE_PATH,
-			RarityFilter.onAverageOnceEvery(10),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		// ARID SAVANNA
-		ARID_COARSE_PATH.makeAndSetHolder(WWMiscConfigured.ARID_COARSE_PATH,
-			RarityFilter.onAverageOnceEvery(5),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 

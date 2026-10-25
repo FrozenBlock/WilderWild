@@ -147,7 +147,6 @@ public final class WWVegetationPlacements {
 
 	// CACTUS
 	public static final FrozenLibPlacedFeature PATCH_CACTUS_TALL = register("patch_cactus_tall");
-	public static final FrozenLibPlacedFeature PATCH_CACTUS_OASIS = register("patch_cactus_oasis");
 	public static final FrozenLibPlacedFeature PATCH_CACTUS_ARID = register("patch_cactus_arid");
 	public static final FrozenLibPlacedFeature PATCH_CACTUS_TALL_BADLANDS = register("patch_cactus_tall_badlands");
 	public static final FrozenLibPlacedFeature PATCH_PRICKLY_PEAR = register("patch_prickly_pear");
@@ -267,10 +266,10 @@ public final class WWVegetationPlacements {
 			)
 		);
 
-		PATCH_GRASS_OASIS.makeAndSetHolder(WWVegetationFeatures.GRASS_OASIS,
+		PATCH_GRASS_OASIS.makeAndSetHolder(features.getOrThrow(VegetationFeatures.GRASS),
 			FrozenLibPlacementUtil.postModifiers(
-				FrozenLibPlacementUtil.modifiers(CountPlacement.of(19), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
-				CountPlacement.of(35),
+				FrozenLibPlacementUtil.modifiers(CountPlacement.of(3), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
+				CountPlacement.of(20),
 				OffsetPlacement.ofTriangle(7, 3),
 				PlacementUtils.isEmpty()
 			)
@@ -888,16 +887,6 @@ public final class WWVegetationPlacements {
 			FrozenLibPlacementUtil.postModifiersWithPreFilter(
 				cactusConfigFilter,
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(8), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
-				CountPlacement.of(8),
-				OffsetPlacement.ofTriangle(7, 3),
-				cactusSurvivalFilter
-			)
-		);
-
-		PATCH_CACTUS_OASIS.makeAndSetHolder(WWVegetationFeatures.CACTUS_OASIS,
-			FrozenLibPlacementUtil.postModifiersWithPreFilter(
-				cactusConfigFilter,
-				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(8),
 				OffsetPlacement.ofTriangle(7, 3),
 				cactusSurvivalFilter

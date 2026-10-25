@@ -446,7 +446,7 @@ public final class WWTreeVegetationPlacements {
 
 		PALMS_OASIS.makeAndSetHolder(WWTreeVegetationFeatures.PALM_OASIS,
 			generatePalm,
-			RarityFilter.onAverageOnceEvery(3),
+			RarityFilter.onAverageOnceEvery(14),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -730,8 +730,8 @@ public final class WWTreeVegetationPlacements {
 		registerFallenDirect(CLEAN_FALLEN_SPRUCE, WWTreeFeatures.CLEAN_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(6));
 		registerFallenDirect(CLEAN_LARGE_FALLEN_SPRUCE, WWTreeFeatures.CLEAN_LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(25));
 		registerFallenDirect(CLEAN_LARGE_FALLEN_SPRUCE_COMMON, WWTreeFeatures.CLEAN_LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(8));
-		registerFallenDirect(LARGE_FALLEN_SPRUCE, WWTreeFeatures.LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(2));
-		registerFallenDirect(LARGE_FALLEN_SPRUCE_COMMON, WWTreeFeatures.LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(8));
+		registerFallenDirect(LARGE_FALLEN_SPRUCE, WWTreeFeatures.LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(17));
+		registerFallenDirect(LARGE_FALLEN_SPRUCE_COMMON, WWTreeFeatures.LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(9));
 		registerFallenDirect(FALLEN_DARK_OAK, WWTreeFeatures.LARGE_FALLEN_DARK_OAK, RarityFilter.onAverageOnceEvery(10));
 		registerFallenDirect(FALLEN_DARK_OAK_COMMON, WWTreeFeatures.LARGE_FALLEN_DARK_OAK, RarityFilter.onAverageOnceEvery(5));
 		registerFallenDirect(FALLEN_PALE_OAK, WWTreeFeatures.LARGE_FALLEN_PALE_OAK, RarityFilter.onAverageOnceEvery(4));
