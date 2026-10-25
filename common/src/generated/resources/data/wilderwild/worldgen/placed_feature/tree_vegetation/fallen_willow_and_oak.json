@@ -3,7 +3,7 @@
     "type": "frozenlib:config_selector",
     "config_predicate": "wilderwild:generate_willow",
     "feature_if_false": {
-      "feature": "wilderwild:tree/mossy_fallen_oak",
+      "feature": "wilderwild:tree/fallen_oak_mossy",
       "placement": [
         {
           "type": "minecraft:rarity_filter",

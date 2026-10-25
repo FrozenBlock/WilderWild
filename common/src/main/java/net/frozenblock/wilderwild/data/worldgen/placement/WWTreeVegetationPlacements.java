@@ -163,21 +163,21 @@ public final class WWTreeVegetationPlacements {
 	public static final FrozenLibPlacedFeature BIG_BUSH_ON_SAND = register("big_bush_on_sand");
 
 	// FALLEN
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_OAK_AND_BIRCH = register("mossy_fallen_oak_and_birch");
+	public static final FrozenLibPlacedFeature FALLEN_OAK_AND_BIRCH_MOSSY = register("fallen_oak_and_birch_mossy");
 	public static final FrozenLibPlacedFeature FALLEN_OAK_AND_BIRCH_DARK_FOREST = register("fallen_oak_and_birch_dark_forest");
 	public static final FrozenLibPlacedFeature FALLEN_BIRCH = register("fallen_birch");
 	public static final FrozenLibPlacedFeature FALLEN_BIRCH_AND_OAK = register("fallen_birch_and_oa");
 	public static final FrozenLibPlacedFeature FALLEN_BIRCH_AND_OAK_SPARSE = register("fallen_birch_and_oak_sparse");
 	public static final FrozenLibPlacedFeature FALLEN_BIRCH_AND_SPRUCE = register("fallen_birch_and_spruce");
 	public static final FrozenLibPlacedFeature FALLEN_OAK_AND_BIRCH_AND_SPRUCE = register("fallen_oak_and_birch_and_spruce");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE = register("mossy_fallen_oak_and_birch_and_spruce");
+	public static final FrozenLibPlacedFeature FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY = register("fallen_oak_and_birch_and_spruce_mossy");
 	public static final FrozenLibPlacedFeature FALLEN_SPRUCE_AND_OAK = register("fallen_spruce_and_oak");
 	public static final FrozenLibPlacedFeature FALLEN_SPRUCE = register("fallen_spruce");
-	public static final FrozenLibPlacedFeature CLEAN_FALLEN_SPRUCE = register("clean_fallen_spruce");
+	public static final FrozenLibPlacedFeature FALLEN_SPRUCE_CLEAN = register("fallen_spruce_clean");
 	public static final FrozenLibPlacedFeature LARGE_FALLEN_SPRUCE = register("large_fallen_spruce");
 	public static final FrozenLibPlacedFeature LARGE_FALLEN_SPRUCE_COMMON = register("large_fallen_spruce_common");
-	public static final FrozenLibPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE = register("clean_large_fallen_spruce");
-	public static final FrozenLibPlacedFeature CLEAN_LARGE_FALLEN_SPRUCE_COMMON = register("clean_large_fallen_spruce_common");
+	public static final FrozenLibPlacedFeature LARGE_FALLEN_SPRUCE_CLEAN = register("large_fallen_spruce_clean");
+	public static final FrozenLibPlacedFeature LARGE_FALLEN_SPRUCE_CLEAN_COMMON = register("large_fallen_spruce_clean_common");
 	public static final FrozenLibPlacedFeature FALLEN_DARK_OAK = register("fallen_dark_oak");
 	public static final FrozenLibPlacedFeature FALLEN_DARK_OAK_COMMON = register("fallen_dark_oak_common");
 	public static final FrozenLibPlacedFeature FALLEN_PALE_OAK = register("fallen_pale_oak");
@@ -188,6 +188,7 @@ public final class WWTreeVegetationPlacements {
 	public static final FrozenLibPlacedFeature FALLEN_CYPRESS_AND_OAK = register("fallen_cypress_and_oak");
 	public static final FrozenLibPlacedFeature FALLEN_MANGROVE = register("fallen_mangrove");
 	public static final FrozenLibPlacedFeature FALLEN_PALM = register("fallen_palm");
+	public static final FrozenLibPlacedFeature FALLEN_PALM_DESERT = register("fallen_palm_desert");
 	public static final FrozenLibPlacedFeature FALLEN_PALM_RARE = register("fallen_palm_rare");
 	public static final FrozenLibPlacedFeature FALLEN_PALM_AND_JUNGLE_AND_OAK = register("fallen_palm_and_jungle_and_oak");
 	public static final FrozenLibPlacedFeature FALLEN_CHERRY = register("fallen_cherry");
@@ -717,26 +718,26 @@ public final class WWTreeVegetationPlacements {
 		);
 
 		// FALLEN
-		registerFallen(MOSSY_FALLEN_OAK_AND_BIRCH, WWTreeVegetationFeatures.MOSSY_FALLEN_OAK_AND_BIRCH, CountPlacement.of(2));
+		registerFallen(FALLEN_OAK_AND_BIRCH_MOSSY, WWTreeVegetationFeatures.FALLEN_OAK_AND_BIRCH_MOSSY, CountPlacement.of(2));
 		registerFallen(FALLEN_OAK_AND_BIRCH_DARK_FOREST, WWTreeVegetationFeatures.FALLEN_OAK_AND_BIRCH_DARK_FOREST, RarityFilter.onAverageOnceEvery(10));
 		registerFallenDirect(FALLEN_BIRCH, WWTreeFeatures.FALLEN_BIRCH, RarityFilter.onAverageOnceEvery(6));
 		registerFallen(FALLEN_BIRCH_AND_OAK, WWTreeVegetationFeatures.FALLEN_BIRCH_AND_OAK, RarityFilter.onAverageOnceEvery(7));
 		registerFallen(FALLEN_BIRCH_AND_OAK_SPARSE, WWTreeVegetationFeatures.FALLEN_BIRCH_AND_OAK, RarityFilter.onAverageOnceEvery(10));
 		registerFallen(FALLEN_BIRCH_AND_SPRUCE, WWTreeVegetationFeatures.FALLEN_BIRCH_AND_SPRUCE, RarityFilter.onAverageOnceEvery(7));
 		registerFallen(FALLEN_OAK_AND_BIRCH_AND_SPRUCE, WWTreeVegetationFeatures.FALLEN_OAK_AND_BIRCH_AND_SPRUCE, RarityFilter.onAverageOnceEvery(8));
-		registerFallen(MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE, WWTreeVegetationFeatures.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE, CountPlacement.of(2));
+		registerFallen(FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY, WWTreeVegetationFeatures.FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY, CountPlacement.of(2));
 		registerFallen(FALLEN_SPRUCE_AND_OAK, WWTreeVegetationFeatures.FALLEN_SPRUCE_AND_OAK, RarityFilter.onAverageOnceEvery(7));
 		registerFallenDirect(FALLEN_SPRUCE, WWTreeFeatures.FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(6));
-		registerFallenDirect(CLEAN_FALLEN_SPRUCE, WWTreeFeatures.CLEAN_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(6));
-		registerFallenDirect(CLEAN_LARGE_FALLEN_SPRUCE, WWTreeFeatures.CLEAN_LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(25));
-		registerFallenDirect(CLEAN_LARGE_FALLEN_SPRUCE_COMMON, WWTreeFeatures.CLEAN_LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(8));
+		registerFallenDirect(FALLEN_SPRUCE_CLEAN, WWTreeFeatures.FALLEN_SPRUCE_CLEAN, RarityFilter.onAverageOnceEvery(6));
+		registerFallenDirect(LARGE_FALLEN_SPRUCE_CLEAN, WWTreeFeatures.LARGE_FALLEN_SPRUCE_CLEAN, RarityFilter.onAverageOnceEvery(25));
+		registerFallenDirect(LARGE_FALLEN_SPRUCE_CLEAN_COMMON, WWTreeFeatures.LARGE_FALLEN_SPRUCE_CLEAN, RarityFilter.onAverageOnceEvery(8));
 		registerFallenDirect(LARGE_FALLEN_SPRUCE, WWTreeFeatures.LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(17));
 		registerFallenDirect(LARGE_FALLEN_SPRUCE_COMMON, WWTreeFeatures.LARGE_FALLEN_SPRUCE, RarityFilter.onAverageOnceEvery(9));
 		registerFallenDirect(FALLEN_DARK_OAK, WWTreeFeatures.LARGE_FALLEN_DARK_OAK, RarityFilter.onAverageOnceEvery(10));
 		registerFallenDirect(FALLEN_DARK_OAK_COMMON, WWTreeFeatures.LARGE_FALLEN_DARK_OAK, RarityFilter.onAverageOnceEvery(5));
 		registerFallenDirect(FALLEN_PALE_OAK, WWTreeFeatures.LARGE_FALLEN_PALE_OAK, RarityFilter.onAverageOnceEvery(4));
-		registerFallenDirect(LARGE_FALLEN_JUNGLE, WWTreeFeatures.LARGE_FALLEN_JUNGLE, RarityFilter.onAverageOnceEvery(2));
-		registerFallenDirect(LARGE_FALLEN_JUNGLE_COMMON, WWTreeFeatures.LARGE_FALLEN_JUNGLE, RarityFilter.onAverageOnceEvery(5));
+		registerFallenDirect(LARGE_FALLEN_JUNGLE, WWTreeFeatures.LARGE_FALLEN_JUNGLE, RarityFilter.onAverageOnceEvery(8));
+		registerFallenDirect(LARGE_FALLEN_JUNGLE_COMMON, WWTreeFeatures.LARGE_FALLEN_JUNGLE, RarityFilter.onAverageOnceEvery(3));
 		registerFallen(FALLEN_ACACIA_AND_OAK, WWTreeVegetationFeatures.FALLEN_ACACIA_AND_OAK, RarityFilter.onAverageOnceEvery(29));
 		FALLEN_WILLOW_AND_OAK.makeAndSetHolder(
 			Holder.direct(
@@ -749,7 +750,7 @@ public final class WWTreeVegetationPlacements {
 						PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 					),
 					PlacementUtils.inlinePlaced(
-						WWTreeFeatures.MOSSY_FALLEN_OAK.getHolder(),
+						WWTreeFeatures.FALLEN_OAK_MOSSY.getHolder(),
 						RarityFilter.onAverageOnceEvery(4),
 						InSquarePlacement.spread(),
 						PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -762,6 +763,7 @@ public final class WWTreeVegetationPlacements {
 		registerFallen(FALLEN_CYPRESS_AND_OAK, WWTreeVegetationFeatures.FALLEN_CYPRESS_AND_OAK, RarityFilter.onAverageOnceEvery(6));
 		registerFallenDirect(FALLEN_MANGROVE, WWTreeFeatures.FALLEN_MANGROVE, RarityFilter.onAverageOnceEvery(1));
 		registerFallenDirect(FALLEN_PALM, WWTreeFeatures.FALLEN_PALM, RarityFilter.onAverageOnceEvery(60), generatePalm);
+		registerFallenDirect(FALLEN_PALM_DESERT, WWTreeFeatures.FALLEN_PALM_CLEAN, RarityFilter.onAverageOnceEvery(135), generatePalm);
 		registerFallenDirect(FALLEN_PALM_RARE, WWTreeFeatures.FALLEN_PALM, RarityFilter.onAverageOnceEvery(135), generatePalm);
 		FALLEN_PALM_AND_JUNGLE_AND_OAK.makeAndSetHolder(
 			Holder.direct(

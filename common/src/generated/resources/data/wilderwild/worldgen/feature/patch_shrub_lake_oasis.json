@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:sequence",
+  "features": {
+    "feature": "wilderwild:vegetation/shrub_desert",
+    "placement": [
+      {
+        "type": "frozenlib:config_predicate",
+        "config_predicate": "wilderwild:generate_shrub"
+      },
+      {
+        "type": "minecraft:count",
+        "count": 32
+      },
+      {
+        "type": "minecraft:offset",
+        "x": {
+          "type": "minecraft:trapezoid",
+          "max": 6,
+          "min": -6,
+          "plateau": 0
+        },
+        "y": {
+          "type": "minecraft:trapezoid",
+          "max": 2,
+          "min": -2,
+          "plateau": 0
+        },
+        "z": {
+          "type": "minecraft:trapezoid",
+          "max": 6,
+          "min": -6,
+          "plateau": 0
+        }
+      },
+      {
+        "type": "minecraft:block_predicate_filter",
+        "predicate": {
+          "type": "minecraft:all_of",
+          "predicates": [
+            {
+              "type": "minecraft:replaceable"
+            },
+            {
+              "type": "minecraft:matching_fluids",
+              "fluids": "minecraft:empty"
+            },
+            {
+              "type": "minecraft:would_survive",
+              "state": "wilderwild:shrub"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

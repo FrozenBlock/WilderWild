@@ -4,7 +4,7 @@
   "features": [
     {
       "chance": 0.25,
-      "feature": "wilderwild:tree/mossy_fallen_oak"
+      "feature": "wilderwild:tree/fallen_oak_mossy"
     }
   ]
 }

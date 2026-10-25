@@ -72,7 +72,7 @@ public final class WWTreePlacements {
 
 	public static final FrozenLibPlacedFeature FALLEN_OAK = register("fallen_oak");
 	public static final FrozenLibPlacedFeature FALLEN_OAK_NO_MOSS = register("fallen_oak_no_moss");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_OAK = register("mossy_fallen_oak");
+	public static final FrozenLibPlacedFeature FALLEN_OAK_MOSSY = register("fallen_oak_mossy");
 	public static final FrozenLibPlacedFeature SNAPPED_OAK = register("snapped_oak");
 
 	// BIRCH
@@ -95,7 +95,7 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature DEAD_MEDIUM_BIRCH = WWTreeFeatures.DEAD_MEDIUM_BIRCH.toPlacedFeature();
 
 	public static final FrozenLibPlacedFeature FALLEN_BIRCH = register("fallen_birch");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_BIRCH = register("mossy_fallen_birch");
+	public static final FrozenLibPlacedFeature FALLEN_BIRCH_MOSSY = register("fallen_birch_mossy");
 	public static final FrozenLibPlacedFeature SNAPPED_BIRCH = register("snapped_birch");
 
 	// SPRUCE
@@ -118,7 +118,7 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedFeature SHORT_MEGA_DYING_SPRUCE_ON_SNOW = register("short_mega_dying_spruce_on_snow");
 
 	public static final FrozenLibPlacedFeature FALLEN_SPRUCE = register("fallen_spruce");
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_SPRUCE = register("mossy_fallen_spruce");
+	public static final FrozenLibPlacedFeature FALLEN_SPRUCE_MOSSY = register("fallen_spruce_mossy");
 	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE = register("snapped_spruce");
 	public static final FrozenLibPlacedFeature SNAPPED_SPRUCE_ON_SNOW = register("snapped_spruce_on_snow");
 	public static final FrozenLibPlacedFeature LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce");
@@ -159,7 +159,7 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature WILLOW = WWTreeFeatures.WILLOW.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature SWAMP_OAK = WWTreeFeatures.SWAMP_OAK.toPlacedFeature();
 
-	public static final FrozenLibPlacedFeature MOSSY_FALLEN_WILLOW = register("mossy_fallen_willow");
+	public static final FrozenLibPlacedFeature FALLEN_WILLOW_MOSSY = register("fallen_willow_mossy");
 
 	// CYPRESS
 	public static final FrozenLibPlacedFeature CYPRESS = register("cypress");
@@ -296,7 +296,7 @@ public final class WWTreePlacements {
 
 		FALLEN_OAK.makeAndSetHolder(WWTreeFeatures.FALLEN_OAK, fallenTreePlacement);
 		FALLEN_OAK_NO_MOSS.makeAndSetHolder(WWTreeFeatures.FALLEN_OAK_NO_MOSS, fallenTreePlacement);
-		MOSSY_FALLEN_OAK.makeAndSetHolder(WWTreeFeatures.MOSSY_FALLEN_OAK, fallenTreePlacement);
+		FALLEN_OAK_MOSSY.makeAndSetHolder(WWTreeFeatures.FALLEN_OAK_MOSSY, fallenTreePlacement);
 		SNAPPED_OAK.makeAndSetHolder(WWTreeFeatures.SNAPPED_OAK, oakSaplingPlacement);
 
 		// BIRCH
@@ -320,7 +320,7 @@ public final class WWTreePlacements {
 		DEAD_MEDIUM_BIRCH.makeAndSetHolders(birchSaplingPlacement);
 
 		FALLEN_BIRCH.makeAndSetHolder(WWTreeFeatures.FALLEN_BIRCH, fallenTreePlacement);
-		MOSSY_FALLEN_BIRCH.makeAndSetHolder(WWTreeFeatures.MOSSY_FALLEN_BIRCH, fallenTreePlacement);
+		FALLEN_BIRCH_MOSSY.makeAndSetHolder(WWTreeFeatures.FALLEN_BIRCH_MOSSY, fallenTreePlacement);
 		SNAPPED_BIRCH.makeAndSetHolder(WWTreeFeatures.SNAPPED_BIRCH, birchSaplingPlacement);
 
 		// SPRUCE
@@ -344,7 +344,7 @@ public final class WWTreePlacements {
 		SHORT_MEGA_DYING_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeFeatures.SHORT_MEGA_DYING_SPRUCE.getHolder(), snowTreePlacement);
 
 		FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.FALLEN_SPRUCE, fallenTreePlacement);
-		MOSSY_FALLEN_SPRUCE.makeAndSetHolder(WWTreeFeatures.MOSSY_FALLEN_SPRUCE, fallenTreePlacement);
+		FALLEN_SPRUCE_MOSSY.makeAndSetHolder(WWTreeFeatures.FALLEN_SPRUCE_MOSSY, fallenTreePlacement);
 		SNAPPED_SPRUCE.makeAndSetHolder(WWTreeFeatures.SNAPPED_SPRUCE, spruceSaplingPlacement);
 		SNAPPED_SPRUCE_ON_SNOW.makeAndSetHolder(WWTreeFeatures.SNAPPED_SPRUCE, snowTreePlacement);
 		LARGE_SNAPPED_SPRUCE.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_SPRUCE, spruceSaplingPlacement);
@@ -388,7 +388,7 @@ public final class WWTreePlacements {
 		WILLOW.makeAndSetHolders(willowSaplingPlacement);
 		SWAMP_OAK.makeAndSetHolders(willowSaplingPlacement);
 
-		MOSSY_FALLEN_WILLOW.makeAndSetHolder(WWTreeFeatures.MOSSY_FALLEN_WILLOW, fallenTreePlacement);
+		FALLEN_WILLOW_MOSSY.makeAndSetHolder(WWTreeFeatures.FALLEN_WILLOW_MOSSY, fallenTreePlacement);
 
 		// CYPRESS
 		final BlockPredicateFilter cypressSaplingPlacement = PlacementUtils.filteredByBlockSurvival(WWBlocks.CYPRESS_SAPLING.get());

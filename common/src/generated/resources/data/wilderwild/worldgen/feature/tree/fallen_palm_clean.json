@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": "wilderwild:soil_beneath_desert_tree",
+  "decorators": [],
+  "foliage_placer": {
+    "type": "wilderwild:no_op_foliage_placer"
+  },
+  "foliage_provider": {
+    "id": "minecraft:air"
+  },
+  "ignore_vines": true,
+  "minimum_size": {
+    "type": "minecraft:two_layers_feature_size"
+  },
+  "trunk_placer": {
+    "type": "wilderwild:fallen_with_branches_trunk_placer",
+    "base_height": 5,
+    "branch_placement": {
+      "length": 1,
+      "max_count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      },
+      "probability": 0.0
+    },
+    "height_rand_a": 1,
+    "height_rand_b": 2,
+    "hollow_probability": 0.045,
+    "hollow_state": {
+      "id": "wilderwild:hollowed_palm_log",
+      "properties": {
+        "axis": "y",
+        "waterlogged": "false"
+      }
+    },
+    "stump_probability": 0.6,
+    "water_success_probability": 0.8
+  },
+  "trunk_provider": {
+    "id": "wilderwild:palm_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

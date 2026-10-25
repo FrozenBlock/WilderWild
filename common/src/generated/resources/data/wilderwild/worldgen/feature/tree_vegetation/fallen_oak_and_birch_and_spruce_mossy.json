@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "wilderwild:tree/fallen_oak_mossy",
+  "features": [
+    {
+      "chance": 0.15,
+      "feature": "wilderwild:tree/fallen_spruce_mossy"
+    },
+    {
+      "chance": 0.1,
+      "feature": "wilderwild:tree/fallen_birch_mossy"
+    }
+  ]
+}

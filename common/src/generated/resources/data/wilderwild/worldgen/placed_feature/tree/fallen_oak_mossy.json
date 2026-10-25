@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:tree/mossy_fallen_oak",
+  "feature": "wilderwild:tree/fallen_oak_mossy",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

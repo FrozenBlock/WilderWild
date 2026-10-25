@@ -1531,7 +1531,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OASIS);
 
 		// FALLEN
-		this.builder(WWTreeFeatureBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH)
+		this.builder(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_MOSSY)
 			.addOptional(WWBiomes.RAINFOREST);
 
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_DARK_FOREST)
@@ -1565,7 +1565,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_AND_SPRUCE)
 			.addOptional(WWBiomes.MIXED_FOREST);
 
-		this.builder(WWTreeFeatureBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE)
+		this.builder(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
 
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_SPRUCE_AND_OAK)
@@ -1578,7 +1578,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
 			.addOptional(WWBiomes.DARK_TAIGA);
 
-		this.builder(WWTreeFeatureBiomeTags.CLEAN_FALLEN_SPRUCE)
+		this.builder(WWTreeFeatureBiomeTags.FALLEN_SPRUCE_CLEAN)
 			.add(Biomes.SNOWY_TAIGA)
 			.add(Biomes.GROVE)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
@@ -1589,10 +1589,10 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE_COMMON)
 			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA);
 
-		this.builder(WWTreeFeatureBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE)
+		this.builder(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE_CLEAN)
 			.add(Biomes.SNOWY_TAIGA);
 
-		this.builder(WWTreeFeatureBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE_COMMON)
+		this.builder(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE_CLEAN_COMMON)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
 
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_DARK_OAK)
@@ -1631,10 +1631,12 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_PALM)
 			.addOptional(WWBiomes.OASIS);
 
-		this.builder(WWTreeFeatureBiomeTags.FALLEN_PALM_RARE)
+		this.builder(WWTreeFeatureBiomeTags.FALLEN_PALM_DESERT)
 			.add(Biomes.DESERT)
 			.addOptional(WWBiomes.ARID_FOREST)
-			.addOptional(WWBiomes.ARID_SAVANNA)
+			.addOptional(WWBiomes.ARID_SAVANNA);
+
+		this.builder(WWTreeFeatureBiomeTags.FALLEN_PALM_RARE)
 			.addOptional(WWBiomes.WARM_BEACH);
 
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_PALM_AND_JUNGLE_AND_OAK)

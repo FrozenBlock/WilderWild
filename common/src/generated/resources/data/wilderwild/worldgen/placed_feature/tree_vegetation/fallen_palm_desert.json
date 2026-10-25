@@ -1,9 +1,13 @@
 {
-  "feature": "wilderwild:tree/clean_large_snapped_spruce",
+  "feature": "wilderwild:tree/fallen_palm_clean",
   "placement": [
     {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_palm"
+    },
+    {
       "type": "minecraft:rarity_filter",
-      "chance": 8
+      "chance": 135
     },
     {
       "type": "minecraft:in_square"

@@ -297,8 +297,8 @@ public final class WWTreeGeneration {
 
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
-				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH)) {
-					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.MOSSY_FALLEN_OAK_AND_BIRCH);
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_MOSSY)) {
+					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_OAK_AND_BIRCH_MOSSY);
 				}
 
 				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_DARK_FOREST)) {
@@ -325,8 +325,8 @@ public final class WWTreeGeneration {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_OAK_AND_BIRCH_AND_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE)) {
-					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE);
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY)) {
+					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY);
 				}
 
 				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_SPRUCE_AND_OAK)) {
@@ -337,8 +337,8 @@ public final class WWTreeGeneration {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_SPRUCE);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.CLEAN_FALLEN_SPRUCE)) {
-					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.CLEAN_FALLEN_SPRUCE);
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_SPRUCE_CLEAN)) {
+					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_SPRUCE_CLEAN);
 				}
 
 				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE)) {
@@ -349,12 +349,12 @@ public final class WWTreeGeneration {
 					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_SPRUCE_COMMON);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE)) {
-					addLocalModification(generationSettings, WWTreeVegetationPlacements.CLEAN_LARGE_FALLEN_SPRUCE);
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE_CLEAN)) {
+					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_SPRUCE_CLEAN);
 				}
 
-				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.CLEAN_LARGE_FALLEN_SPRUCE_COMMON)) {
-					addLocalModification(generationSettings, WWTreeVegetationPlacements.CLEAN_LARGE_FALLEN_SPRUCE_COMMON);
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.LARGE_FALLEN_SPRUCE_CLEAN_COMMON)) {
+					addLocalModification(generationSettings, WWTreeVegetationPlacements.LARGE_FALLEN_SPRUCE_CLEAN_COMMON);
 				}
 
 				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_DARK_OAK)) {
@@ -395,6 +395,10 @@ public final class WWTreeGeneration {
 
 				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALM)) {
 					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_PALM);
+				}
+
+				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALM_DESERT)) {
+					addVegetalDecoration(generationSettings, WWTreeVegetationPlacements.FALLEN_PALM_DESERT);
 				}
 
 				if (biomeSelectionContext.hasTag(WWTreeFeatureBiomeTags.FALLEN_PALM_RARE)) {

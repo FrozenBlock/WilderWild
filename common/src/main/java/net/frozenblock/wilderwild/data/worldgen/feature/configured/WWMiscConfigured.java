@@ -53,7 +53,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.TrapezoidInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -125,6 +124,10 @@ public final class WWMiscConfigured {
 
 	// OASIS
 	public static final FrozenLibFeature LAKE_OASIS = register("lake_oasis");
+	public static final FrozenLibFeature PATCH_PALM_LAKE_OASIS = register("patch_palm_lake_oasis");
+	public static final FrozenLibFeature PATCH_CACTUS_LAKE_OASIS = register("patch_cactus_lake_oasis");
+	public static final FrozenLibFeature PATCH_SHRUB_LAKE_OASIS = register("patch_shrub_lake_oasis");
+	public static final FrozenLibFeature PATCH_GRASS_LAKE_OASIS = register("patch_grass_lake_oasis");
 
 	// BADLANDS
 	public static final FrozenLibFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
@@ -689,52 +692,97 @@ public final class WWMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						new OverlayFeature(
 							HolderSet.direct(
-								PlacementUtils.inlinePlaced(
-									WWTreeVegetationFeatures.PALM_OASIS.getHolder(),
-									ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALM)),
-									CountPlacement.of(UniformInt.of(6, 14)),
-									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
-									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
-									PlacementUtils.isEmpty()
+								PATCH_PALM_LAKE_OASIS.asInlinePlaced(
+									CountPlacement.of(UniformInt.of(3, 6)),
+									OffsetPlacement.ofTriangle(3, 1)
 								),
-								PlacementUtils.inlinePlaced(
-									WWVegetationFeatures.CACTUS_OASIS.getHolder(),
-									CountPlacement.of(148),
-									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
-									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
-									BlockPredicateFilter.forPredicate(
-										BlockPredicate.allOf(
-											BlockPredicate.ONLY_IN_AIR_PREDICATE,
-											BlockPredicate.wouldSurvive(Blocks.CACTUS)
-										)
-									)
+								PATCH_CACTUS_LAKE_OASIS.asInlinePlaced(
+									CountPlacement.of(UniformInt.of(2, 5)),
+									OffsetPlacement.ofTriangle(3, 1)
 								),
-								PlacementUtils.inlinePlaced(
-									WWVegetationFeatures.SHRUB_OASIS.getHolder(),
-									ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SHRUB)),
-									CountPlacement.of(196),
-									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
-									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
-									BlockPredicateFilter.forPredicate(
-										BlockPredicate.allOf(
-											BlockPredicate.replaceable(),
-											BlockPredicate.noFluid(),
-											BlockPredicate.wouldSurvive(WWBlocks.SHRUB.get())
-										)
-									)
+								PATCH_SHRUB_LAKE_OASIS.asInlinePlaced(
+									CountPlacement.of(UniformInt.of(5, 8)),
+									OffsetPlacement.ofTriangle(3, 1)
 								),
-								PlacementUtils.inlinePlaced(
-									WWVegetationFeatures.GRASS_OASIS.getHolder(),
-									CountPlacement.of(196),
-									OffsetPlacement.horizontal(TrapezoidInt.of(-8, 8, 0)),
-									OffsetPlacement.vertical(UniformInt.of(-1, 2)),
-									BlockPredicateFilter.forPredicate(
-										BlockPredicate.allOf(
-											BlockPredicate.ONLY_IN_AIR_PREDICATE,
-											BlockPredicate.wouldSurvive(Blocks.SHORT_GRASS)
-										)
-									)
+								PATCH_GRASS_LAKE_OASIS.asInlinePlaced(
+									CountPlacement.of(UniformInt.of(3, 9)),
+									OffsetPlacement.ofTriangle(4, 1)
 								)
+							)
+						)
+					)
+				)
+			)
+		);
+
+		PATCH_PALM_LAKE_OASIS.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						WWTreeVegetationFeatures.PALM_OASIS.getHolder(),
+						ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALM)),
+						CountPlacement.of(UniformInt.of(1, 3)),
+						OffsetPlacement.ofTriangle(6, 2),
+						BlockPredicateFilter.forPredicate(
+							BlockPredicate.allOf(
+								BlockPredicate.ONLY_IN_AIR_PREDICATE,
+								BlockPredicate.wouldSurvive(WWBlocks.COCONUT.get())
+							)
+						)
+					)
+				)
+			)
+		);
+
+		PATCH_CACTUS_LAKE_OASIS.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						WWVegetationFeatures.CACTUS_OASIS.getHolder(),
+						CountPlacement.of(32),
+						OffsetPlacement.ofTriangle(6, 2),
+						BlockPredicateFilter.forPredicate(
+							BlockPredicate.allOf(
+								BlockPredicate.ONLY_IN_AIR_PREDICATE,
+								BlockPredicate.wouldSurvive(Blocks.CACTUS)
+							)
+						)
+					)
+				)
+			)
+		);
+
+		PATCH_SHRUB_LAKE_OASIS.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						WWVegetationFeatures.SHRUB_DESERT.getHolder(),
+						ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SHRUB)),
+						CountPlacement.of(32),
+						OffsetPlacement.ofTriangle(6, 2),
+						BlockPredicateFilter.forPredicate(
+							BlockPredicate.allOf(
+								BlockPredicate.replaceable(),
+								BlockPredicate.noFluid(),
+								BlockPredicate.wouldSurvive(WWBlocks.SHRUB.get())
+							)
+						)
+					)
+				)
+			)
+		);
+
+		PATCH_GRASS_LAKE_OASIS.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						WWVegetationFeatures.GRASS_OASIS.getHolder(),
+						CountPlacement.of(72),
+						OffsetPlacement.ofTriangle(7, 2),
+						BlockPredicateFilter.forPredicate(
+							BlockPredicate.allOf(
+								BlockPredicate.ONLY_IN_AIR_PREDICATE,
+								BlockPredicate.wouldSurvive(Blocks.SHORT_GRASS)
 							)
 						)
 					)

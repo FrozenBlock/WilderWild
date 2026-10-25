@@ -224,13 +224,13 @@ public final class WWTreeVegetationFeatures {
 	public static final FrozenLibFeature BIG_BUSH = register("big_bush");
 
 	// FALLEN
-	public static final FrozenLibFeature MOSSY_FALLEN_OAK_AND_BIRCH = register("mossy_fallen_oak_and_birch");
+	public static final FrozenLibFeature FALLEN_OAK_AND_BIRCH_MOSSY = register("fallen_oak_and_birch_mossy");
 	public static final FrozenLibFeature FALLEN_OAK_AND_BIRCH_DARK_FOREST = register("fallen_oak_and_birch_dark_forest");
 	public static final FrozenLibFeature FALLEN_BIRCH_AND_OAK = register("fallen_birch_and_oak");
 	public static final FrozenLibFeature FALLEN_BIRCH_AND_SPRUCE = register("fallen_birch_and_spruce");
 	public static final FrozenLibFeature FALLEN_SPRUCE_AND_OAK = register("fallen_spruce_and_oak");
 	public static final FrozenLibFeature FALLEN_OAK_AND_BIRCH_AND_SPRUCE = register("fallen_oak_and_birch_and_spruce");
-	public static final FrozenLibFeature MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE = register("mossy_fallen_oak_and_birch_and_spruce");
+	public static final FrozenLibFeature FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY = register("fallen_oak_and_birch_and_spruce_mossy");
 	public static final FrozenLibFeature FALLEN_JUNGLE_AND_OAK = register("fallen_jungle_and_oak");
 	public static final FrozenLibFeature FALLEN_PALM_AND_JUNGLE_AND_OAK = register("fallen_palm_and_jungle_and_oak");
 	public static final FrozenLibFeature FALLEN_ACACIA_AND_OAK = register("fallen_acacia_and_oak");
@@ -1725,10 +1725,10 @@ public final class WWTreeVegetationFeatures {
 		);
 
 		// FALLEN
-		MOSSY_FALLEN_OAK_AND_BIRCH.makeAndSetHolder(
+		FALLEN_OAK_AND_BIRCH_MOSSY.makeAndSetHolder(
 			new RandomSelectorFeature(
-				List.of(WWTreePlacements.MOSSY_FALLEN_BIRCH.asWeightedPlacedFeature(0.0225F)),
-				WWTreePlacements.MOSSY_FALLEN_OAK.getHolder()
+				List.of(WWTreePlacements.FALLEN_BIRCH_MOSSY.asWeightedPlacedFeature(0.0225F)),
+				WWTreePlacements.FALLEN_OAK_MOSSY.getHolder()
 			)
 		);
 
@@ -1736,7 +1736,7 @@ public final class WWTreeVegetationFeatures {
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlacements.FALLEN_BIRCH.asWeightedPlacedFeature(0.135F),
-					WWTreePlacements.MOSSY_FALLEN_OAK.asWeightedPlacedFeature(0.25F)
+					WWTreePlacements.FALLEN_OAK_MOSSY.asWeightedPlacedFeature(0.25F)
 				),
 				WWTreePlacements.FALLEN_OAK.getHolder()
 			)
@@ -1773,19 +1773,19 @@ public final class WWTreeVegetationFeatures {
 			)
 		);
 
-		MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE.makeAndSetHolder(
+		FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
-					WWTreePlacements.MOSSY_FALLEN_SPRUCE.asWeightedPlacedFeature(0.15F),
-					WWTreePlacements.MOSSY_FALLEN_BIRCH.asWeightedPlacedFeature(0.1F)
+					WWTreePlacements.FALLEN_SPRUCE_MOSSY.asWeightedPlacedFeature(0.15F),
+					WWTreePlacements.FALLEN_BIRCH_MOSSY.asWeightedPlacedFeature(0.1F)
 				),
-				WWTreePlacements.MOSSY_FALLEN_OAK.getHolder()
+				WWTreePlacements.FALLEN_OAK_MOSSY.getHolder()
 			)
 		);
 
 		FALLEN_JUNGLE_AND_OAK.makeAndSetHolder(
 			new RandomSelectorFeature(
-				List.of(WWTreePlacements.MOSSY_FALLEN_OAK.asWeightedPlacedFeature(0.25F)),
+				List.of(WWTreePlacements.FALLEN_OAK_MOSSY.asWeightedPlacedFeature(0.25F)),
 				WWTreePlacements.FALLEN_JUNGLE.getHolder()
 			)
 		);
@@ -1794,7 +1794,7 @@ public final class WWTreeVegetationFeatures {
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlacements.FALLEN_PALM.asWeightedPlacedFeature(0.135F),
-					WWTreePlacements.MOSSY_FALLEN_OAK.asWeightedPlacedFeature(0.25F)
+					WWTreePlacements.FALLEN_OAK_MOSSY.asWeightedPlacedFeature(0.25F)
 				),
 				WWTreePlacements.FALLEN_JUNGLE.getHolder()
 			)
@@ -1819,8 +1819,8 @@ public final class WWTreeVegetationFeatures {
 
 		FALLEN_WILLOW_AND_OAK.makeAndSetHolder(
 			new RandomSelectorFeature(
-				List.of(WWTreePlacements.MOSSY_FALLEN_WILLOW.asWeightedPlacedFeature(0.8F)),
-				WWTreePlacements.MOSSY_FALLEN_OAK.getHolder()
+				List.of(WWTreePlacements.FALLEN_WILLOW_MOSSY.asWeightedPlacedFeature(0.8F)),
+				WWTreePlacements.FALLEN_OAK_MOSSY.getHolder()
 			)
 		);
 

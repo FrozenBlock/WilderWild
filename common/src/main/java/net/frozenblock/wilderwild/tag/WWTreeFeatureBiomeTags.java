@@ -70,21 +70,21 @@ public final class WWTreeFeatureBiomeTags {
 	public static final TagKey<Biome> PALM_OASIS = bind("palm_oasis");
 
 	// FALLEN
-	public static final TagKey<Biome> MOSSY_FALLEN_OAK_AND_BIRCH = bind("mossy_fallen_oak_and_birch");
+	public static final TagKey<Biome> FALLEN_OAK_AND_BIRCH_MOSSY = bind("fallen_oak_and_birch_mossy");
 	public static final TagKey<Biome> FALLEN_OAK_AND_BIRCH_DARK_FOREST = bind("fallen_oak_and_birch_dark_forest");
 	public static final TagKey<Biome> FALLEN_BIRCH = bind("fallen_birch");
 	public static final TagKey<Biome> FALLEN_BIRCH_AND_OAK = bind("fallen_birch_and_oak");
 	public static final TagKey<Biome> FALLEN_BIRCH_AND_OAK_SPARSE = bind("fallen_birch_and_oak_sparse");
 	public static final TagKey<Biome> FALLEN_BIRCH_AND_SPRUCE = bind("fallen_birch_and_spruce");
 	public static final TagKey<Biome> FALLEN_OAK_AND_BIRCH_AND_SPRUCE = bind("fallen_oak_and_birch_and_spruce");
-	public static final TagKey<Biome> MOSSY_FALLEN_OAK_AND_BIRCH_AND_SPRUCE = bind("mossy_fallen_oak_and_birch_and_spruce");
+	public static final TagKey<Biome> FALLEN_OAK_AND_BIRCH_AND_SPRUCE_MOSSY = bind("fallen_oak_and_birch_and_spruce_mossy");
 	public static final TagKey<Biome> FALLEN_SPRUCE_AND_OAK = bind("fallen_spruce_and_oak");
 	public static final TagKey<Biome> FALLEN_SPRUCE = bind("fallen_spruce");
-	public static final TagKey<Biome> CLEAN_FALLEN_SPRUCE = bind("clean_fallen_spruce");
+	public static final TagKey<Biome> FALLEN_SPRUCE_CLEAN = bind("fallen_spruce_clean");
 	public static final TagKey<Biome> LARGE_FALLEN_SPRUCE = bind("large_fallen_spruce");
 	public static final TagKey<Biome> LARGE_FALLEN_SPRUCE_COMMON = bind("large_fallen_spruce_common");
-	public static final TagKey<Biome> CLEAN_LARGE_FALLEN_SPRUCE = bind("clean_large_fallen_spruce");
-	public static final TagKey<Biome> CLEAN_LARGE_FALLEN_SPRUCE_COMMON = bind("clean_large_fallen_spruce_common");
+	public static final TagKey<Biome> LARGE_FALLEN_SPRUCE_CLEAN = bind("large_fallen_spruce_clean");
+	public static final TagKey<Biome> LARGE_FALLEN_SPRUCE_CLEAN_COMMON = bind("large_fallen_spruce_clean_common");
 	public static final TagKey<Biome> FALLEN_DARK_OAK = bind("fallen_dark_oak");
 	public static final TagKey<Biome> FALLEN_DARK_OAK_COMMON = bind("fallen_dark_oak_common");
 	public static final TagKey<Biome> FALLEN_PALE_OAK = bind("fallen_pale_oak");
@@ -95,6 +95,7 @@ public final class WWTreeFeatureBiomeTags {
 	public static final TagKey<Biome> FALLEN_MANGROVE = bind("fallen_mangrove");
 	public static final TagKey<Biome> FALLEN_CYPRESS_AND_OAK = bind("fallen_cypress_and_oak");
 	public static final TagKey<Biome> FALLEN_PALM = bind("fallen_palm");
+	public static final TagKey<Biome> FALLEN_PALM_DESERT = bind("fallen_palm_desert");
 	public static final TagKey<Biome> FALLEN_PALM_RARE = bind("fallen_palm_rare");
 	public static final TagKey<Biome> FALLEN_PALM_AND_JUNGLE_AND_OAK = bind("fallen_palm_and_jungle_and_oak");
 	public static final TagKey<Biome> FALLEN_CHERRY = bind("fallen_cherry");

@@ -154,7 +154,7 @@ public final class WWTreeFeatures {
 
 	public static final FrozenLibFeature FALLEN_OAK = register("fallen_oak");
 	public static final FrozenLibFeature FALLEN_OAK_NO_MOSS = register("fallen_oak_no_moss");
-	public static final FrozenLibFeature MOSSY_FALLEN_OAK = register("mossy_fallen_oak");
+	public static final FrozenLibFeature FALLEN_OAK_MOSSY = register("fallen_oak_mossy");
 	public static final FrozenLibFeature SNAPPED_OAK = register("snapped_oak");
 
 	// BIRCH
@@ -177,7 +177,7 @@ public final class WWTreeFeatures {
 	public static final FrozenLibTreeFeature DEAD_MEDIUM_BIRCH = registerBirch("dead_medium_birch");
 
 	public static final FrozenLibFeature FALLEN_BIRCH = register("fallen_birch");
-	public static final FrozenLibFeature MOSSY_FALLEN_BIRCH = register("mossy_fallen_birch");
+	public static final FrozenLibFeature FALLEN_BIRCH_MOSSY = register("fallen_birch_mossy");
 	public static final FrozenLibFeature SNAPPED_BIRCH = register("snapped_birch");
 
 	// SPRUCE
@@ -194,10 +194,10 @@ public final class WWTreeFeatures {
 	public static final FrozenLibTreeFeature SHORT_MEGA_DYING_SPRUCE = registerSpruce("short_mega_dying_spruce");
 
 	public static final FrozenLibFeature FALLEN_SPRUCE = register("fallen_spruce");
-	public static final FrozenLibFeature MOSSY_FALLEN_SPRUCE = register("mossy_fallen_spruce");
-	public static final FrozenLibFeature CLEAN_FALLEN_SPRUCE = register("clean_fallen_spruce");
+	public static final FrozenLibFeature FALLEN_SPRUCE_MOSSY = register("mossy_fallen_spruce_mossy");
+	public static final FrozenLibFeature FALLEN_SPRUCE_CLEAN = register("fallen_spruce_clean");
 	public static final FrozenLibFeature LARGE_FALLEN_SPRUCE = register("large_fallen_spruce");
-	public static final FrozenLibFeature CLEAN_LARGE_FALLEN_SPRUCE = register("clean_large_snapped_spruce");
+	public static final FrozenLibFeature LARGE_FALLEN_SPRUCE_CLEAN = register("large_fallen_spruce_clean");
 	public static final FrozenLibFeature SNAPPED_SPRUCE = register("snapped_spruce");
 	public static final FrozenLibFeature LARGE_SNAPPED_SPRUCE = register("large_snapped_spruce");
 
@@ -240,7 +240,7 @@ public final class WWTreeFeatures {
 	public static final FrozenLibTreeFeature TALL_WILLOW = registerWillow("tall_willow");
 	public static final FrozenLibTreeFeature SWAMP_OAK = registerOak("swamp_oak");
 
-	public static final FrozenLibFeature MOSSY_FALLEN_WILLOW = register("mossy_fallen_willow");
+	public static final FrozenLibFeature FALLEN_WILLOW_MOSSY = register("fallen_willow_mossy");
 
 	// CYPRESS
 	public static final FrozenLibFeature CYPRESS = register("cypress");
@@ -266,6 +266,7 @@ public final class WWTreeFeatures {
 	public static final FrozenLibTreeFeature TALL_WINDMILL_PALM = registerPalm("tall_windmill_palm");
 
 	public static final FrozenLibFeature FALLEN_PALM = register("fallen_palm");
+	public static final FrozenLibFeature FALLEN_PALM_CLEAN = register("fallen_palm_clean");
 
 	// CHERRY
 	public static final FrozenLibFeature CHERRY = register("cherry");
@@ -573,7 +574,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		MOSSY_FALLEN_OAK.makeAndSetHolder(
+		FALLEN_OAK_MOSSY.makeAndSetHolder(
 			fallenTrunkBuilder(
 				Blocks.OAK_LOG,
 				WWBlocks.HOLLOWED_OAK_LOG.get(),
@@ -716,7 +717,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		MOSSY_FALLEN_BIRCH.makeAndSetHolder(
+		FALLEN_BIRCH_MOSSY.makeAndSetHolder(
 			fallenTrunkBuilder(
 				Blocks.BIRCH_LOG,
 				WWBlocks.HOLLOWED_BIRCH_LOG.get(),
@@ -890,7 +891,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		MOSSY_FALLEN_SPRUCE.makeAndSetHolder(
+		FALLEN_SPRUCE_MOSSY.makeAndSetHolder(
 			fallenTrunkBuilder(
 				Blocks.SPRUCE_LOG,
 				WWBlocks.HOLLOWED_SPRUCE_LOG.get(),
@@ -907,7 +908,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		CLEAN_FALLEN_SPRUCE.makeAndSetHolder(
+		FALLEN_SPRUCE_CLEAN.makeAndSetHolder(
 			fallenSpruce(belowTrunkProvider)
 				.decorators(List.of(mushroomsFallenSpruce))
 				.build()
@@ -919,7 +920,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		CLEAN_LARGE_FALLEN_SPRUCE.makeAndSetHolder(
+		LARGE_FALLEN_SPRUCE_CLEAN.makeAndSetHolder(
 			largeFallenBuilder(Blocks.SPRUCE_LOG, 5, 2, 3, belowTrunkProvider)
 				.decorators(List.of(mushroomsFallenSpruce))
 				.build()
@@ -1197,7 +1198,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		MOSSY_FALLEN_WILLOW.makeAndSetHolder(
+		FALLEN_WILLOW_MOSSY.makeAndSetHolder(
 			fallenWillowTrunkBuilder(
 				WWBlocks.WILLOW_LOG.get(),
 				WWBlocks.HOLLOWED_WILLOW_LOG.get(),
@@ -1457,6 +1458,11 @@ public final class WWTreeFeatures {
 		FALLEN_PALM.makeAndSetHolder(
 			fallenPalm(belowDesertTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossSprucePalm))
+				.build()
+		);
+
+		FALLEN_PALM_CLEAN.makeAndSetHolder(
+			fallenPalm(belowDesertTrunkProvider)
 				.build()
 		);
 
