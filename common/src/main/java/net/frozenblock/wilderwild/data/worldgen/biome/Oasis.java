@@ -50,8 +50,8 @@ import org.jetbrains.annotations.Nullable;
 
 public final class Oasis extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.HOT;
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.FAR_INLAND);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.WET, Humidity.HUMID);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(Continentalness.COAST, Continentalness.MID_INLAND);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_3, Erosion.EROSION_5);
 	public static final float OFFSET = 0F;
 	public static final float TEMP = 2F;
