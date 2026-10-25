@@ -5,7 +5,21 @@
       "feature": {
         "type": "minecraft:lake",
         "barrier": {
-          "id": "minecraft:sandstone"
+          "type": "minecraft:rule_based",
+          "fallback": {
+            "id": "minecraft:sandstone"
+          },
+          "rules": [
+            {
+              "if_true": {
+                "type": "frozenlib:config_predicate",
+                "config_predicate": "wilderwild:generate_moss"
+              },
+              "then": {
+                "id": "minecraft:moss_block"
+              }
+            }
+          ]
         },
         "can_place_feature": {
           "type": "minecraft:true"

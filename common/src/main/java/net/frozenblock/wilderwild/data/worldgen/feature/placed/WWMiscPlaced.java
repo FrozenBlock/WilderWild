@@ -99,7 +99,7 @@ public final class WWMiscPlaced {
 
 	// OASIS
 	public static final FrozenLibPlacedFeature DESERT_WELL_OASIS = register("desert_well_oasis");
-	public static final FrozenLibPlacedFeature SANDSTONE_LAKE_OASIS = register("sandstone_lake_oasis");
+	public static final FrozenLibPlacedFeature LAKE_OASIS = register("lake_oasis");
 
 	// BADLANDS
 	public static final FrozenLibPlacedFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
@@ -360,7 +360,7 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		SANDSTONE_LAKE_OASIS.makeAndSetHolder(WWMiscConfigured.SANDSTONE_LAKE_OASIS,
+		LAKE_OASIS.makeAndSetHolder(WWMiscConfigured.LAKE_OASIS,
 			FrozenLibPlacementUtil.modifiers(
 				CountPlacement.of(1),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,

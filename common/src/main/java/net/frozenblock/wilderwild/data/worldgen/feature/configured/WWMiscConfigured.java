@@ -124,7 +124,7 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature SAND_TRANSITION_DISK = register("sand_transition");
 
 	// OASIS
-	public static final FrozenLibFeature SANDSTONE_LAKE_OASIS = register("sandstone_lake_oasis");
+	public static final FrozenLibFeature LAKE_OASIS = register("lake_oasis");
 
 	// BADLANDS
 	public static final FrozenLibFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
@@ -667,13 +667,20 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		SANDSTONE_LAKE_OASIS.makeAndSetHolder(
+		LAKE_OASIS.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
 						new LakeFeature(
 							BlockStateProvider.holderOf(Blocks.WATER.defaultBlockState()),
-							BlockStateProvider.holderOf(Blocks.SANDSTONE.defaultBlockState()),
+							Holder.direct(
+								RuleBasedStateProvider.builder(BlockStateProvider.of(Blocks.SANDSTONE.defaultBlockState()))
+									.ifTrueThenProvide(
+										ConfigPredicate.blockPredicate(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
+										BlockStateProvider.of(Blocks.MOSS_BLOCK.defaultBlockState())
+									)
+									.build()
+							),
 							BlockPredicate.alwaysTrue(),
 							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
 							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
