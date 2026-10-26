@@ -4,7 +4,7 @@
     "type": "minecraft:noise_threshold",
     "max_threshold": 0.15,
     "min_threshold": -0.25,
-    "noise": "wilderwild:tcoarse_dirt_path_patch"
+    "noise": "wilderwild:coarse_dirt_path_selector"
   },
   "then_run": {
     "type": "minecraft:condition",

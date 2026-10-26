@@ -37,7 +37,7 @@
                   "type": "minecraft:noise_threshold",
                   "max_threshold": 2.0,
                   "min_threshold": 0.85,
-                  "noise": "wilderwild:jungle_moss_path_patch"
+                  "noise": "wilderwild:jungle_moss_path_selector"
                 },
                 "then_run": {
                   "type": "minecraft:block",

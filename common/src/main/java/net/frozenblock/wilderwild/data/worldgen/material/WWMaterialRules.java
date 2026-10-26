@@ -231,6 +231,21 @@ public final class WWMaterialRules {
 			aboveSurfaceAndInBiomes(
 				biomes,
 				MaterialRules.sequence(
+					/*
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+						MaterialRules.ifTrue(
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+							MaterialRules.ifTrue(
+								MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.575D, 1D),
+								MaterialRules.ifTrue(
+									MaterialRules.noiseCondition2d(WWNoises.SCORCHED_SAND_SELECTOR, 0.875D, 2D),
+									FrozenLibMaterialRules.makeStateRule(WWBlocks.SCORCHED_SAND.get())
+								)
+							)
+						)
+					),
+					 */
 					MaterialRules.ifTrue(
 						MaterialRules.noiseCondition2d(WWNoises.OASIS_GRASS, -2D, -0.66D),
 						MaterialRules.getRule(materialRules, GRASS_AND_DIRT)
@@ -280,7 +295,7 @@ public final class WWMaterialRules {
 						MaterialRules.ifTrue(
 							MaterialRules.noiseCondition2d(WWNoises.JUNGLE_MOSS_PATH, 0.1D, 0.55D),
 							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(WWNoises.JUNGLE_MOSS_PATH_PATCH, 0.85D, 2D),
+								MaterialRules.noiseCondition2d(WWNoises.JUNGLE_MOSS_PATH_SELECTOR, 0.85D, 2D),
 								FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
 							)
 						)
@@ -336,6 +351,7 @@ public final class WWMaterialRules {
 				MaterialRules.getRule(materialRules, COARSE_DIRT_PATH_PATCHY)
 			)
 		);
+
 
 		MaterialRuleAdditions.register(
 			context,
@@ -724,7 +740,7 @@ public final class WWMaterialRules {
 		context.register(
 			COARSE_DIRT_PATH,
 			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_PATCH, -0.25D, 0.15D),
+				MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_SELECTOR, -0.25D, 0.15D),
 				MaterialRules.getRule(materialRules, COARSE_DIRT_PATH_BASE)
 			)
 		);
@@ -732,7 +748,7 @@ public final class WWMaterialRules {
 		context.register(
 			COARSE_DIRT_PATH_PATCHY,
 			MaterialRules.ifTrue(
-				MaterialRules.not(MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_PATCH_PATCHY, -0.1D, 0.07D)),
+				MaterialRules.not(MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_SELECTOR_PATCHY, -0.1D, 0.07D)),
 				MaterialRules.getRule(materialRules, COARSE_DIRT_PATH_BASE)
 			)
 		);
@@ -740,7 +756,7 @@ public final class WWMaterialRules {
 		context.register(
 			SANDSTONE_PATH,
 			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_PATCH, -0.25D, 0.15D),
+				MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_SELECTOR, -0.25D, 0.15D),
 				MaterialRules.ifTrue(
 					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					MaterialRules.ifTrue(

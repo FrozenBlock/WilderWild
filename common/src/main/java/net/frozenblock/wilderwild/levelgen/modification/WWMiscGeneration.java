@@ -89,7 +89,7 @@ public final class WWMiscGeneration {
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_ORE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ORE_PACKED_MUD.getKey());
+						generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.ORE_PACKED_MUD.getKey());
 					}
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)) {
@@ -126,20 +126,6 @@ public final class WWMiscGeneration {
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.GRAVEL_AND_PALE_MOSS_PATH.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.SCORCHED_SAND_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_SAND)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_SAND.getKey());
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_SAND_HUGE.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.SCORCHED_RED_SAND_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SCORCHED_RED_SAND)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_RED_SAND.getKey());
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SCORCHED_RED_SAND_HUGE.getKey());
 					}
 				}
 

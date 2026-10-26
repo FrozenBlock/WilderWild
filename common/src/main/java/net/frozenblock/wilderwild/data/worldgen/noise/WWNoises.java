@@ -31,10 +31,12 @@ public final class WWNoises {
 	public static final ResourceKey<NormalNoise> OCEAN_MOSS = createKey("ocean_moss");
 	public static final ResourceKey<NormalNoise> OASIS_GRASS = createKey("oasis_grass");
 	public static final ResourceKey<NormalNoise> JUNGLE_MOSS_PATH = createKey("jungle_moss_path");
-	public static final ResourceKey<NormalNoise> JUNGLE_MOSS_PATH_PATCH = createKey("jungle_moss_path_patch");
+	public static final ResourceKey<NormalNoise> JUNGLE_MOSS_PATH_SELECTOR = createKey("jungle_moss_path_selector");
 	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH = createKey("coarse_dirt_path");
-	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH_PATCH = createKey("tcoarse_dirt_path_patch");
-	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH_PATCH_PATCHY = createKey("coarse_dirt_patch_patchy");
+	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH_SELECTOR = createKey("coarse_dirt_path_selector");
+	public static final ResourceKey<NormalNoise> COARSE_DIRT_SELECTOR_PATCHY = createKey("coarse_dirt_selector_patchy");
+	public static final ResourceKey<NormalNoise> SCORCHED_SAND = createKey("scorched_sand");
+	public static final ResourceKey<NormalNoise> SCORCHED_SAND_SELECTOR = createKey("scorched_sand_selector");
 
 	public static void bootstrap(BootstrapContext<NormalNoise> context) {
 
@@ -44,10 +46,11 @@ public final class WWNoises {
 		NoiseData.register(context, OCEAN_MOSS, -4, 0D, 2D, 2D, 1D);
 		NoiseData.register(context, OASIS_GRASS, -6, 0D, 1D, 6D, 7D, 4D, 7D);
 		NoiseData.register(context, JUNGLE_MOSS_PATH, -6, 2D, 6D, 5D, 4D, 6D, 8D);
-		NoiseData.register(context, JUNGLE_MOSS_PATH_PATCH, -6, 5D, 3D);
+		NoiseData.register(context, JUNGLE_MOSS_PATH_SELECTOR, -6, 5D, 3D);
 		NoiseData.register(context, COARSE_DIRT_PATH, -8, 0D, 0D, 5D, 10D, 20D, 25D, 30D);
-		NoiseData.register(context, COARSE_DIRT_PATH_PATCH, -6, 0D, 1D, 1D, 1D, 2D, 2D);
-		NoiseData.register(context, COARSE_DIRT_PATH_PATCH_PATCHY, -6, 0D, 0D, 0D, 3D, 2D, 2D);
+		NoiseData.register(context, COARSE_DIRT_PATH_SELECTOR, -6, 0D, 1D, 1D, 1D, 2D, 2D);
+		NoiseData.register(context, COARSE_DIRT_SELECTOR_PATCHY, -6, 0D, 0D, 0D, 3D, 2D, 2D);
+		NoiseData.register(context, SCORCHED_SAND_SELECTOR, -7, 1.25D);
 	}
 
 	private static void registerBetaBeach(BootstrapContext<NormalNoise> context, ResourceKey<NormalNoise> key) {
