@@ -676,14 +676,7 @@ public final class WWMiscConfigured {
 					PlacementUtils.inlinePlaced(
 						new LakeFeature(
 							BlockStateProvider.holderOf(Blocks.WATER.defaultBlockState()),
-							Holder.direct(
-								RuleBasedStateProvider.builder(BlockStateProvider.of(Blocks.SANDSTONE.defaultBlockState()))
-									.ifTrueThenProvide(
-										ConfigPredicate.blockPredicate(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
-										BlockStateProvider.of(Blocks.MOSS_BLOCK.defaultBlockState())
-									)
-									.build()
-							),
+							BlockStateProvider.holderOf(Blocks.CLAY.defaultBlockState()),
 							BlockPredicate.alwaysTrue(),
 							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.FEATURES_CANNOT_REPLACE)),
 							BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
@@ -701,7 +694,7 @@ public final class WWMiscConfigured {
 									OffsetPlacement.ofTriangle(3, 1)
 								),
 								PATCH_SHRUB_LAKE_OASIS.asInlinePlaced(
-									CountPlacement.of(UniformInt.of(5, 8)),
+									CountPlacement.of(UniformInt.of(2, 8)),
 									OffsetPlacement.ofTriangle(3, 1)
 								),
 								PATCH_GRASS_LAKE_OASIS.asInlinePlaced(
