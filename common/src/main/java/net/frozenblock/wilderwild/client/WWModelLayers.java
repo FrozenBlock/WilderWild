@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
+import net.frozenblock.wilderwild.client.model.monster.skeleton.SunkenModel;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
 import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
@@ -38,10 +39,11 @@ import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.monster.spider.SpiderModel;
+import net.minecraft.client.renderer.entity.ArmorModelSet;
 
 @ClientOnly
 public final class WWModelLayers {
-	// BLOCK ENTITIES
+	// BLOCK ENTITY
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WWConstants.id("sculk_sensor"), "main");
 	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WWConstants.id("hanging_tendril"), "main");
 	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WWConstants.id("display_lantern"), "main");
@@ -49,7 +51,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WWConstants.id("double_stone_chest_left"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WWConstants.id("double_stone_chest_right"), "main");
 
-	// ENTITIES
+	// ENTITY
 	public static final ModelLayerLocation JELLYFISH = new ModelLayerLocation(WWConstants.id("jellyfish"), "main");
 	public static final ModelLayerLocation JELLYFISH_BABY = new ModelLayerLocation(WWConstants.id("jellyfish_baby"), "main");
 
@@ -69,6 +71,9 @@ public final class WWModelLayers {
 
 	public static final ModelLayerLocation SCORCHED = new ModelLayerLocation(WWConstants.id("scorched"), "main");
 
+	public static final ModelLayerLocation SUNKEN = new ModelLayerLocation(WWConstants.id("sunken"), "main");
+	public static final ArmorModelSet<ModelLayerLocation> SUNKEN_ARMOR = createArmorSet("sunken");
+
 	public static final ModelLayerLocation BUTTERFLY = new ModelLayerLocation(WWConstants.id("butterfly"), "main");
 
 	public static final ModelLayerLocation MOOBLOOM = new ModelLayerLocation(WWConstants.id("moobloom"), "main");
@@ -87,7 +92,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation MAPLE_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/maple"), "main");
 
 	public static void init() {
-		// BLOCK ENTITIES
+		// BLOCK ENTITY
 		ModelLayerRegistry.register(SCULK_SENSOR, SculkSensorModel::createModelLayer);
 
 		ModelLayerRegistry.register(HANGING_TENDRIL, BillboardBlockEntityRenderer::createModelLayer);
@@ -98,7 +103,7 @@ public final class WWModelLayers {
 		ModelLayerRegistry.register(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
 		ModelLayerRegistry.register(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
 
-		// ENTITIES
+		// ENTITY
 		ModelLayerRegistry.register(BUTTERFLY, ButterflyModel::createBodyLayer);
 
 		ModelLayerRegistry.register(JELLYFISH, JellyfishModel::createBodyLayer);
@@ -117,6 +122,9 @@ public final class WWModelLayers {
 
 		ModelLayerRegistry.register(SCORCHED, SpiderModel::createSpiderBodyLayer);
 
+		ModelLayerRegistry.register(SUNKEN, SunkenModel::createBodyLayer);
+		ModelLayerRegistry.registerHumanoidArmorSet(SUNKEN_ARMOR);
+
 		ModelLayerRegistry.register(MOOBLOOM, CowModel::createBodyLayer);
 		ModelLayerRegistry.register(MOOBLOOM_BABY, BabyCowModel::createBodyLayer);
 
@@ -132,4 +140,13 @@ public final class WWModelLayers {
 	}
 
 	private WWModelLayers() {}
+
+	private static ArmorModelSet<ModelLayerLocation> createArmorSet(String modelId) {
+		return new ArmorModelSet<>(
+			new ModelLayerLocation(WWConstants.id(modelId), "helmet"),
+			new ModelLayerLocation(WWConstants.id(modelId), "chestplate"),
+			new ModelLayerLocation(WWConstants.id(modelId), "leggings"),
+			new ModelLayerLocation(WWConstants.id(modelId), "boots")
+		);
+	}
 }

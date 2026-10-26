@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.entity.penguin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.entity.Penguin;
+import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import org.spongepowered.asm.mixin.Mixin;

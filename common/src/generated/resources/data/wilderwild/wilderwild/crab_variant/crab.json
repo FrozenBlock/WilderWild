@@ -5,11 +5,7 @@
   "mojang_asset_id": "wilderwild:entity/crab/crab_mojang",
   "spawn_conditions": [
     {
-      "condition": {
-        "type": "minecraft:biome",
-        "biomes": []
-      },
-      "priority": 1
+      "priority": 0
     }
   ]
 }

@@ -56,7 +56,7 @@ public record PoplarCollection<T>(T yellow, T orange, T red) {
 			case YELLOW -> this.yellow;
 			case ORANGE -> this.orange;
 			case RED -> this.red;
-			default -> throw new IllegalArgumentException("Invalid poplar color: " + dyeColor);
+			default -> throw new IllegalArgumentException("Invalid poplar variant: " + dyeColor);
 		};
 	}
 

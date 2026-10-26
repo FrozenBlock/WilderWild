@@ -23,7 +23,7 @@ import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.animal.crab.Crab;
 import net.frozenblock.wilderwild.entity.effect.ScorchingMobEffect;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.Mth;

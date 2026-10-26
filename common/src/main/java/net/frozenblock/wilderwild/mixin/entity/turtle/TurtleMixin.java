@@ -18,8 +18,8 @@
 package net.frozenblock.wilderwild.mixin.entity.turtle;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.frozenblock.wilderwild.entity.Jellyfish;
-import net.frozenblock.wilderwild.entity.ai.turtle.TurtleNearestAttackableGoal;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.Jellyfish;
+import net.frozenblock.wilderwild.entity.animal.turtle.TurtleNearestAttackableGoal;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;

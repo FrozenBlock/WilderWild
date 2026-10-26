@@ -22,7 +22,7 @@ import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.Jellyfish;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;

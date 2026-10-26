@@ -51,9 +51,15 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 
 		final List<Dynamic<?>> oldDynamics = optionalFireflies.orElseEmptyList().asStream().collect(Collectors.toCollection(ArrayList::new));
 		final List<Dynamic<?>> newDynamics = Lists.newArrayList();
-		for (Dynamic<?> embeddedDynamic : oldDynamics) newDynamics.add(net.frozenblock.wilderwild.datafix.minecraft.fixes.DisplayLanternComponentizationFix.fixOccupant(embeddedDynamic));
+		for (Dynamic<?> embeddedDynamic : oldDynamics) newDynamics.add(fixOccupant(embeddedDynamic));
 
 		return ((Dynamic<?>) optionalFireflies.result().get()).createList(newDynamics.stream());
+	}
+
+	private static Dynamic<?> fixOccupant(Dynamic<?> dynamic) {
+		dynamic = DisplayLanternComponentizationFix.fixOccupantColor(dynamic);
+		dynamic = dynamic.renameField("customName", "custom_name");
+		return dynamic;
 	}
 
 	@Override
@@ -88,5 +94,4 @@ public final class DisplayLanternItemComponentizationFix extends DataFix {
 
 		return componentData;
 	}
-
 }

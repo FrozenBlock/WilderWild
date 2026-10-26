@@ -21,8 +21,8 @@ import java.util.Optional;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.FlowerCowFlowerLayer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FlowerCowRenderState;
-import net.frozenblock.wilderwild.entity.FlowerCow;
-import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
+import net.frozenblock.wilderwild.entity.animal.cow.FlowerCow;
+import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
@@ -30,6 +30,7 @@ import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -50,9 +51,9 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	@Override
 	protected AABB getBoundingBoxForCulling(FlowerCow flowerCow, float partialTicks) {
 		final AABB boundingBox = super.getBoundingBoxForCulling(flowerCow, partialTicks);
-		final Optional<MoobloomVariant> variant = flowerCow.getVariantForRendering();
+		final Optional<Holder<MoobloomVariant>> variant = Optional.ofNullable(flowerCow.wilderWild$getVariant());
 		if (variant.isEmpty()) return boundingBox;
-		if (variant.get().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
+		if (variant.get().value().isDoubleBlock()) return boundingBox.setMaxY(boundingBox.maxY + boundingBox.getYsize() * 0.75F);
 		return boundingBox;
 	}
 
@@ -66,10 +67,10 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 		super.extractRenderState(flowerCow, renderState, partialTicks);
 		renderState.flowers = flowerCow.getFlowersLeft();
 
-		final Optional<MoobloomVariant> optionalVariant = flowerCow.getVariantForRendering();
+		final Optional<Holder<MoobloomVariant>> optionalVariant = Optional.ofNullable(flowerCow.wilderWild$getVariant());
 		if (optionalVariant.isEmpty()) return;
 
-		final MoobloomVariant variant = optionalVariant.get();
+		final MoobloomVariant variant = optionalVariant.get().value();
 		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
 
 		final BlockState flowerState = variant.flowerBlockState();

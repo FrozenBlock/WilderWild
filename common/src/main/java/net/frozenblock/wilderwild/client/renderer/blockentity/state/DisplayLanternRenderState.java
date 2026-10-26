@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.client.renderer.blockentity.state;
 import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -34,16 +34,15 @@ public class DisplayLanternRenderState extends BlockEntityRenderState {
 	public List<Occupant> occupants;
 
 	public void extractOccupants(DisplayLanternBlockEntity displayLantern, float partialTicks) {
-		ArrayList<Occupant> occupants = new ArrayList<>();
+		final ArrayList<Occupant> occupants = new ArrayList<>();
 		displayLantern.getFireflies().forEach(occupant -> {
-			if (!occupant.canRender()) return;
 
 			final float age = occupant.age + partialTicks;
 			occupants.add(
 				new Occupant(
 					age,
 					((age * Mth.PI) * -4F) / 255F,
-					occupant.getColorForRendering(),
+					occupant.variant().value(),
 					(float) occupant.pos.x,
 					(this.isHanging ? 0.38F : 0.225F) + (float) Math.sin(age * 0.03F) * 0.15F,
 					(float) occupant.pos.z
@@ -54,6 +53,5 @@ public class DisplayLanternRenderState extends BlockEntityRenderState {
 		this.occupants = occupants;
 	}
 
-	public record Occupant(float age, float calcColor, FireflyColor color, float x, float y, float z) {
-	}
+	public record Occupant(float age, float flicker, FireflyVariant variant, float x, float y, float z) { }
 }

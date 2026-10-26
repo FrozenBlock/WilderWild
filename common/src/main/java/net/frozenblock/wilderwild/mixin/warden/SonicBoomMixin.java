@@ -22,7 +22,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import java.util.function.Consumer;
 import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
-import net.frozenblock.wilderwild.entity.impl.WilderSonicBoom;
+import net.frozenblock.wilderwild.entity.monster.warden.WilderSonicBoom;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;

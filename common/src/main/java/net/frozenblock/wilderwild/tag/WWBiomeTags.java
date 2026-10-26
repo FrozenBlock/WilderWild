@@ -35,6 +35,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_ZOMBIE_OSTRICH = bind("entity/spawn/zombie_ostrich");
 	public static final TagKey<Biome> HAS_PENGUIN = bind("entity/spawn/penguin");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("entity/spawn/tumbleweed");
+	public static final TagKey<Biome> MORE_FREQUENT_SUNKEN_SPAWNS = bind("entity/spawn/more_frequent_sunken_spawns");
 
 	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
 	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("entity/variant/butterfly_red_lacewing");
@@ -49,6 +50,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> RED_JELLYFISH = bind("entity/variant/red_jellyfish");
 	public static final TagKey<Biome> YELLOW_JELLYFISH = bind("entity/variant/yellow_jellyfish");
 	public static final TagKey<Biome> PEARLESCENT_JELLYFISH = bind("entity/variant/pearlescent_jellyfish");
+	public static final TagKey<Biome> CORAL_VARIANT_SUNKEN = bind("entity/variant/coral_variant_sunken");
 
 	public static final TagKey<Biome> WOLF_ASHEN = bind("entity/variant/wolf_ashen");
 	public static final TagKey<Biome> WOLF_WOODS = bind("entity/variant/wolf_woods");

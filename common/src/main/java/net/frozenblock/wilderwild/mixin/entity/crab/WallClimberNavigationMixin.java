@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.entity.crab;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.animal.crab.Crab;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;

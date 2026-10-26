@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.BabyJellyfishModel;
 import net.frozenblock.wilderwild.client.model.animal.jellyfish.JellyfishModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
-import net.frozenblock.wilderwild.entity.Jellyfish;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.Jellyfish;
 import net.frozenblock.wilderwild.mod_compat.WWIrisCompat;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
@@ -95,7 +95,7 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 		super.extractRenderState(jellyfish, renderState, partialTicks);
 		renderState.tickCount = jellyfish.tickCount;
 		renderState.isRGB = jellyfish.isRGB();
-		renderState.variant = jellyfish.getVariantForRendering().orElse(null);
+		renderState.variant = jellyfish.wilderWild$getVariantOr(null);
 
 		final Level level = jellyfish.level();
 		if (level != null) renderState.levelTime = (level.getGameTime() + partialTicks) * 0.05F;

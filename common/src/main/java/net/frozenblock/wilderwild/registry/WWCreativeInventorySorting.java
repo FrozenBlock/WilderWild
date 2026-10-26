@@ -394,6 +394,9 @@ public final class WWCreativeInventorySorting {
 		insertAfterInIngredients(Items.SPIDER_EYE, WWItems.SCORCHED_EYE);
 		insertAfterInIngredients(Items.FERMENTED_SPIDER_EYE, WWItems.FERMENTED_SCORCHED_EYE);
 
+		// SUNKEN
+		insertAfterInSpawnEggs(Items.DROWNED_SPAWN_EGG, WWItems.SUNKEN_SPAWN_EGG);
+
 		// MOOBLOOM
 		insertBeforeInSpawnEggs(Items.MOOSHROOM_SPAWN_EGG, WWItems.MOOBLOOM_SPAWN_EGG);
 

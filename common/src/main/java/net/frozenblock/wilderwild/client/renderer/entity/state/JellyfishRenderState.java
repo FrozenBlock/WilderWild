@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity.state;
 
-import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import org.jspecify.annotations.Nullable;

@@ -1,0 +1,206 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.entity.monster.spider;
+
+import net.frozenblock.wilderwild.config.WWEntityConfig;
+import net.frozenblock.wilderwild.registry.WWMobEffects;
+import net.frozenblock.wilderwild.registry.WWSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.armadillo.Armadillo;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
+public class Scorched extends Spider {
+	public static final Vec3 LAVA_FLOAT_VECTOR = new Vec3(0D, 0.085D, 0D);
+	public static final int FALL_DAMAGE_RESISTANCE = 8;
+    private float lavaAnimProgress;
+	private float prevLavaAnimProgress;
+
+	public Scorched(EntityType<? extends Spider> type, Level level) {
+		super(type, level);
+		this.setPathfindingMalus(PathType.WATER, -1F);
+		this.setPathfindingMalus(PathType.LAVA, 0F);
+		this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0F);
+		this.setPathfindingMalus(PathType.FIRE, 0F);
+	}
+	@Override
+	protected void registerGoals() {
+		//this.goalSelector.addGoal(1, new FloatGoal(this));
+		this.goalSelector.addGoal(
+			2,
+			new AvoidEntityGoal<>(
+				this,
+				Armadillo.class,
+				6F,
+				1D,
+				1.2D,
+				livingEntity -> !((Armadillo)livingEntity).isScared())
+		);
+		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
+		this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
+		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8F));
+		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));
+	}
+
+	@Override
+	public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+		final BlockState belowState = level.getBlockState(pos.below());
+		if (level.getFluidState(pos).is(FluidTags.LAVA) || belowState.getFluidState().is(FluidTags.LAVA)) return 1.5F;
+		if (belowState.is(Blocks.MAGMA_BLOCK)) return 10F;
+		return super.getWalkTargetValue(pos, level);
+	}
+
+	public static boolean checkScorchedSpawnRules(EntityType<? extends Scorched> type, ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_SCORCHED.get()) return false;
+		return EntitySpawnReason.ignoresLightRequirements(reason)
+			|| (level.getFluidState(pos).is(FluidTags.LAVA) || level.getBlockState(pos.below()).is(Blocks.MAGMA_BLOCK) || isDarkEnoughToSpawn(level, pos, random));
+	}
+
+	@Override
+	public boolean checkSpawnObstruction(LevelReader level) {
+		return level.isUnobstructed(this);
+	}
+
+	@Override
+	protected PathNavigation createNavigation(Level level) {
+		return new ScorchedNavigation(this, level);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (this.getBlockStateOn().is(Blocks.MAGMA_BLOCK) || this.getInBlockState().is(BlockTags.FIRE) || this.isInLava()) {
+			this.addEffect(new MobEffectInstance(WWMobEffects.SCORCHING.asHolder(), 200, 0));
+		}
+		this.floatScorched();
+		this.applyEffectsFromBlocks();
+        float targetLavaAnimProgress = this.isInLava() ? 1F : 0F;
+		this.prevLavaAnimProgress = this.lavaAnimProgress;
+		this.lavaAnimProgress = this.lavaAnimProgress + (targetLavaAnimProgress - this.lavaAnimProgress) * 0.1F;
+	}
+
+	private void floatScorched() {
+		if (!this.isInLava()) return;
+
+		final CollisionContext context = CollisionContext.of(this);
+		if (context.isAbove(this.getLiquidCollisionShape(), this.blockPosition(), true) && !this.level().getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+			this.setOnGround(true);
+		} else {
+			this.addDeltaMovement(LAVA_FLOAT_VECTOR);
+		}
+	}
+
+	@Override
+	public VoxelShape getLiquidCollisionShape() {
+		return Block.column(16D, 0D, 8D);
+	}
+
+	@Override
+	public boolean doHurtTarget(final ServerLevel level, final Entity target) {
+		final boolean hurtTarget = super.doHurtTarget(level, target);
+		if (hurtTarget) target.igniteForSeconds(this.hasEffect(WWMobEffects.SCORCHING.asHolder()) ? 4 : 3);
+		return hurtTarget;
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA.get() : WWSounds.ENTITY_SCORCHED_STEP.get(), 0.15F, 1F);
+	}
+
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return WWSounds.ENTITY_SCORCHED_AMBIENT.get();
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return WWSounds.ENTITY_SCORCHED_HURT.get();
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return WWSounds.ENTITY_SCORCHED_DEATH.get();
+	}
+
+	@Override
+	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
+		this.applyEffectsFromBlocks();
+		if (this.isInLava()) {
+			this.resetFallDistance();
+		} else {
+			super.checkFallDamage(ya, onGround, onState, pos);
+		}
+	}
+
+	@Override
+	protected int calculateFallDamage(double fallDistance, float damageMultiplier) {
+		return super.calculateFallDamage(fallDistance, damageMultiplier) - FALL_DAMAGE_RESISTANCE;
+	}
+
+	@Override
+	public boolean canStandOnFluid(FluidState fluid) {
+		return fluid.is(FluidTags.LAVA);
+	}
+
+	@Override
+	public boolean isOnFire() {
+		return false;
+	}
+
+	public float getLavaAnimProgress(float partialTicks) {
+		return Mth.lerp(partialTicks, this.prevLavaAnimProgress, this.lavaAnimProgress);
+	}
+}

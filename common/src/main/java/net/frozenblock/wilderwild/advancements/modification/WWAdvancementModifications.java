@@ -217,6 +217,7 @@ public final class WWAdvancementModifications {
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("zombie_ostrich")));
 					}
+					// TODO: add Sunken
 				}
 				case "minecraft:adventure/kill_all_mobs" -> {
 					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
@@ -231,9 +232,9 @@ public final class WWAdvancementModifications {
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("zombie_ostrich")))));
 					}
+					// TODO: add Sunken
 				}
-				default -> {
-				}
+				default -> {}
 			}
 		});
 	}

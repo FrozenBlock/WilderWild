@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichInbredModel
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.OstrichRenderState;
 import net.frozenblock.wilderwild.client.resources.model.WWEquipmentClientInfoLayerType;
-import net.frozenblock.wilderwild.entity.Ostrich;
+import net.frozenblock.wilderwild.entity.animal.ostrich.Ostrich;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;

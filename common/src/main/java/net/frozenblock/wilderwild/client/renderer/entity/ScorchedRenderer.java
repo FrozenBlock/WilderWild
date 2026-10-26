@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.monster.spider.ScorchedModel;
 import net.frozenblock.wilderwild.client.renderer.entity.layers.ScorchedGlowingLayer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ScorchedRenderState;
-import net.frozenblock.wilderwild.entity.Scorched;
+import net.frozenblock.wilderwild.entity.monster.spider.Scorched;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

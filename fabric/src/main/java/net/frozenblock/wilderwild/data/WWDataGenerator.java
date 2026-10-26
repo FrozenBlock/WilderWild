@@ -57,11 +57,12 @@ import net.frozenblock.wilderwild.data.worldgen.structure.WWAbandonedCampStructu
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureMusic;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureProcessorListAdditions;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
-import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariants;
-import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
-import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
-import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
+import net.frozenblock.wilderwild.entity.ambient.butterfly.ButterflyVariants;
+import net.frozenblock.wilderwild.entity.animal.crab.CrabVariants;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariants;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariants;
+import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariants;
+import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariants;
 import net.frozenblock.wilderwild.registry.WWBiomeEnvironmentAttributeModifications;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockSoundSets;
@@ -149,11 +150,12 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.SUFFOCATION_TYPE, WWSuffocationTypes::bootstrap);
 
 		// Wilder Wild Registries
-		registryBuilder.add(WilderWildRegistries.FIREFLY_COLOR, FireflyColors::bootstrap);
+		registryBuilder.add(WilderWildRegistries.FIREFLY_VARIANT, FireflyVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.BUTTERFLY_VARIANT, ButterflyVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.JELLYFISH_VARIANT, JellyfishVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.CRAB_VARIANT, CrabVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.MOOBLOOM_VARIANT, MoobloomVariants::bootstrap);
+		registryBuilder.add(WilderWildRegistries.SUNKEN_VARIANT, SunkenVariants::bootstrap);
 		registryBuilder.add(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehaviors::bootstrap);
 		registryBuilder.add(WilderWildRegistries.FALLING_LEAF, FallingLeafDatas::bootstrap);
 	}

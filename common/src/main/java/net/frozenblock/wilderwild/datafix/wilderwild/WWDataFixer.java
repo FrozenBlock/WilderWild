@@ -19,20 +19,25 @@ package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.schemas.Schema;
+import java.util.Map;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
 import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.BushStateFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.fixes.DisplayLanternItemRenameOccupantColorToVariantFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.fixes.DisplayLanternRenameOccupantColorToVariantFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.DrySandStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.FireflyBottleComponentizationFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.OsseousSculkStateFix;
+import net.frozenblock.wilderwild.datafix.wilderwild.fixes.RenameFireflyColorToFireflyVariantComponentFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.ScorchedSandStateFix2;
+import net.minecraft.util.datafix.fixes.EntityFieldsRenameFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 30;
+	public static final int DATA_VERSION = 31;
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
@@ -200,6 +205,19 @@ public final class WWDataFixer {
 
 		final Schema schemaV30 = builder.addSchema(30, NamespacedSchema::new);
 		builder.addFixer(new BushStateFix(schemaV30, "bush age 2 to age 3", WWConstants.id("bush")));
+
+		final Schema schemaV31 = builder.addSchema(31, NamespacedSchema::new);
+		builder.addFixer(
+			new EntityFieldsRenameFix(
+				schemaV31,
+				"Rename Firefly Color field to variant",
+				WWConstants.string("firefly"),
+				Map.of("color", "variant")
+			)
+		);
+		builder.addFixer(new RenameFireflyColorToFireflyVariantComponentFix(schemaV31));
+		builder.addFixer(new DisplayLanternRenameOccupantColorToVariantFix(schemaV31));
+		builder.addFixer(new DisplayLanternItemRenameOccupantColorToVariantFix(schemaV31));
 
 		FabricDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

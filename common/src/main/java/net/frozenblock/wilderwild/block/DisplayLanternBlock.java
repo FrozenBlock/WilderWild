@@ -21,13 +21,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
-import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -121,12 +120,12 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		}
 
 		final List<DisplayLanternBlockEntity.Occupant> fireflies = displayLantern.getFireflies();
-		if (itemStack.has(WWDataComponents.FIREFLY_COLOR.get())) {
-			final Holder<FireflyColor> fireflyColor = itemStack.get(WWDataComponents.FIREFLY_COLOR.get());
-			if (fireflyColor != null && fireflies.size() < MAX_FIREFLIES) {
+		if (itemStack.has(WWDataComponents.FIREFLY_VARIANT.get())) {
+			final Holder<FireflyVariant> fireflyVariant = itemStack.get(WWDataComponents.FIREFLY_VARIANT.get());
+			if (fireflyVariant != null && fireflies.size() < MAX_FIREFLIES) {
 				String name = "";
 				if (itemStack.has(DataComponents.CUSTOM_NAME)) name = itemStack.getHoverName().getString();
-				displayLantern.addFirefly(level, fireflyColor.unwrapKey().orElseThrow().identifier(), name);
+				displayLantern.addFirefly(level, fireflyVariant, name);
 
 				final ItemStack emptyResult = ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE));
 
@@ -141,12 +140,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 
 			final ItemStack filledBottle = new ItemStack(WWItems.FIREFLY_BOTTLE);
-			filledBottle.set(
-				WWDataComponents.FIREFLY_COLOR.get(),
-				level.registryAccess()
-					.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR)
-					.get(fireflyInLantern.getColor()).orElseThrow()
-			);
+			filledBottle.set(WWDataComponents.FIREFLY_VARIANT.get(), fireflyInLantern.variant());
 			if (!Objects.equals(fireflyInLantern.customName, "")) filledBottle.set(DataComponents.CUSTOM_NAME, Component.nullToEmpty(fireflyInLantern.customName));
 
 			final ItemStack filledResult = ItemUtils.createFilledResult(itemStack, player, filledBottle);
@@ -253,7 +247,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return !level.isClientSide() ?
 			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
+			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.clientTick());
 	}
 
 	@Override
@@ -266,5 +260,4 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern) return displayLantern.getComparatorOutput();
 		return 0;
 	}
-
 }

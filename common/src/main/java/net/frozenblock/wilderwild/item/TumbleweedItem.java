@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.item;
 
-import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;

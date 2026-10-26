@@ -24,8 +24,8 @@ import net.frozenblock.lib.renderer.model.FrozenLibModelLayers;
 import net.frozenblock.lib.renderer.model.NoOpModel;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.entity.state.FireflyRenderState;
-import net.frozenblock.wilderwild.entity.Firefly;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.ambient.firefly.Firefly;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -56,8 +56,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		PoseStack poseStack,
 		SubmitNodeCollector collector,
 		Quaternionf cameraOrientation,
-		@Nullable FireflyColor color,
-		float calcColor,
+		@Nullable FireflyVariant variant,
+		float flicker,
 		float scale,
 		float xOffset,
 		float yOffset,
@@ -79,8 +79,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderTypes.entityTranslucentEmissive(getColorTextureOrFallback(color)),
-				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, calcColor)
+				RenderTypes.entityTranslucentEmissive(getVariantTextureOrFallback(variant)),
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, flicker)
 			);
 
 		poseStack.popPose();
@@ -108,8 +108,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderTypes.entityTranslucentEmissive(getColorTextureOrFallback(renderState.color)),
-				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, renderState.calcColor)
+				RenderTypes.entityTranslucentEmissive(getVariantTextureOrFallback(renderState.variant)),
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, renderState.flicker)
 			);
 
 		poseStack.popPose();
@@ -134,14 +134,14 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		this.submitNameDisplay(renderState, poseStack, collector, camera);
 	}
 
-	private static Identifier getColorTextureOrFallback(@Nullable FireflyColor color) {
-		if (color == null) return FALLBACK_ON_TEXTURE;
-		return color.resourceTexture().texturePath();
+	private static Identifier getVariantTextureOrFallback(@Nullable FireflyVariant variant) {
+		if (variant == null) return FALLBACK_ON_TEXTURE;
+		return variant.resourceTexture().texturePath();
 	}
 
 	@Override
 	public Identifier getTextureLocation(FireflyRenderState renderState) {
-		return getColorTextureOrFallback(renderState.color);
+		return getVariantTextureOrFallback(renderState.variant);
 	}
 
 	@Override
@@ -153,8 +153,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	public void extractRenderState(Firefly firefly, FireflyRenderState renderState, float partialTicks) {
 		super.extractRenderState(firefly, renderState, partialTicks);
 		renderState.animScale = Mth.lerp(partialTicks, firefly.getPrevAnimScale(), firefly.getAnimScale());
-		renderState.color = firefly.getColorForRendering().orElse(null);
-		renderState.calcColor = (((firefly.getFlickerAge() + partialTicks) * Mth.PI) * -4F) / 255F;
+		renderState.variant = firefly.wilderWild$getVariantOr(null);
+		renderState.flicker = (((firefly.getFlickerAge() + partialTicks) * Mth.PI) * -4F) / 255F;
 	}
 
 	private static void setupPoseStack(PoseStack poseStack, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {
@@ -166,7 +166,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	//CREDIT TO magistermaks ON GITHUB!!
-	private static void render(PoseStack.Pose pose, VertexConsumer vertexConsumer, float color, int lightCoords, int overlayCoords) {
+	private static void render(PoseStack.Pose pose, VertexConsumer vertexConsumer, float flicker, int lightCoords, int overlayCoords) {
 		final Vector3f transformedNormal = pose.transformNormal(0F, 1F, 0F, new Vector3f());
 		final float normalX = transformedNormal.x;
 		final float normalY = transformedNormal.y;
@@ -174,28 +174,28 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 
 		vertexConsumer
 			.addVertex(pose, -0.5F, -0.5F, 0F)
-			.setColor(color, color, color, color)
+			.setColor(flicker, flicker, flicker, flicker)
 			.setUv(0, 1)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
 			.setNormal(normalX, normalY, normalZ);
 		vertexConsumer
 			.addVertex(pose, 0.5F, -0.5F, 0F)
-			.setColor(color, color, color, color)
+			.setColor(flicker, flicker, flicker, flicker)
 			.setUv(1, 1)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
 			.setNormal(normalX, normalY, normalZ);
 		vertexConsumer
 			.addVertex(pose, 0.5F, 0.5F, 0F)
-			.setColor(color, color, color, color)
+			.setColor(flicker, flicker, flicker, flicker)
 			.setUv(1, 0)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)
 			.setNormal(normalX, normalY, normalZ);
 		vertexConsumer
 			.addVertex(pose, -0.5F, 0.5F, 0F)
-			.setColor(color, color, color, color)
+			.setColor(flicker, flicker, flicker, flicker)
 			.setUv(0, 0)
 			.setOverlay(overlayCoords)
 			.setLight(lightCoords)

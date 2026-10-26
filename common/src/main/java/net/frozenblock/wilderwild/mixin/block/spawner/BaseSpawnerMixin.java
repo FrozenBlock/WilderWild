@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.block.spawner;
 
-import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.ambient.firefly.Firefly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BaseSpawner;

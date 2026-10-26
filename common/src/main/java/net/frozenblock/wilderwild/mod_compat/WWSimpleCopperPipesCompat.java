@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mod_compat;
 
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.lunade.copper.SimpleCopperPipes;

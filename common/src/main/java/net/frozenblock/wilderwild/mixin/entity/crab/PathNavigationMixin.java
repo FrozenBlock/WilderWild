@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.crab;
 
-import net.frozenblock.wilderwild.entity.ai.crab.CrabNavigation;
+import net.frozenblock.wilderwild.entity.animal.crab.CrabNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -7,13 +7,13 @@
       "fabric:type": "fabric:components",
       "base": "wilderwild:firefly_bottle",
       "components": {
-        "wilderwild:firefly/color": "wilderwild:on"
+        "wilderwild:firefly/variant": "wilderwild:on"
       }
     }
   ],
   "result": {
     "components": {
-      "wilderwild:firefly/color": "wilderwild:orange"
+      "wilderwild:firefly/variant": "wilderwild:orange"
     },
     "id": "wilderwild:firefly_bottle"
   }

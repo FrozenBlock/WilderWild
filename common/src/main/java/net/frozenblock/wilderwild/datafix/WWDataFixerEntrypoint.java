@@ -48,6 +48,7 @@ public final class WWDataFixerEntrypoint implements DataFixerEntrypoint {
 		registry.register(WWConstants.id("tumbleweed"), () -> DSL.optionalFields("Items", References.ITEM_STACK.in(schema)));
 		registry.register(WWConstants.id("coconut"), DSL::remainder);
 		registry.register(WWConstants.id("scorched"), DSL::remainder);
+		registry.register(WWConstants.id("sunken"), DSL::remainder);
 		registry.register(WWConstants.id("moobloom"), DSL::remainder);
 		registry.register(WWConstants.id("penguin"), DSL::remainder);
 		registry.register(WWConstants.id("falling_leaves"), () -> DSL.optionalFields("LeafLitterBlock", References.BLOCK_NAME.in(schema)));

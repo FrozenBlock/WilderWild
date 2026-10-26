@@ -24,7 +24,7 @@ import net.frozenblock.lib.tag.api.ConventionalBlockTags;
 import net.frozenblock.wilderwild.block.FroglightGoopBlock;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.entity.Firefly;
+import net.frozenblock.wilderwild.entity.ambient.firefly.Firefly;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -99,7 +99,7 @@ public final class WWBlockTicks {
 						3,
 						3,
 						3,
-						net.frozenblock.wilderwild.entity.Firefly.FIREFLY_SPAWN_STRATEGY,
+						Firefly.FIREFLY_SPAWN_STRATEGY,
 						false
 					);
 				}

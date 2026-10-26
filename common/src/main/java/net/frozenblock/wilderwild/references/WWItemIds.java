@@ -59,6 +59,7 @@ public final class WWItemIds {
 	public static final ResourceKey<Item> OSTRICH_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.OSTRICH);
 	public static final ResourceKey<Item> ZOMBIE_OSTRICH_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.ZOMBIE_OSTRICH);
 	public static final ResourceKey<Item> SCORCHED_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.SCORCHED);
+	public static final ResourceKey<Item> SUNKEN_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.SUNKEN);
 	public static final ResourceKey<Item> BUTTERFLY_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.BUTTERFLY);
 	public static final ResourceKey<Item> MOOBLOOM_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.MOOBLOOM);
 	public static final ResourceKey<Item> PENGUIN_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.PENGUIN);

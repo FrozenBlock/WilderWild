@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.client.warden;
 import net.frozenblock.lib.renderer.FrozenLibRenderState;
 import net.frozenblock.wilderwild.client.WWRenderStateDataKeys;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
-import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
+import net.frozenblock.wilderwild.entity.monster.warden.SwimmingWardenInterface;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.WardenRenderer;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;

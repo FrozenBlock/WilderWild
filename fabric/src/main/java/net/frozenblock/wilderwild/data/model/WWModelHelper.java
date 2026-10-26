@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
 import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariants;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -61,7 +61,6 @@ import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraft.world.level.block.state.properties.SpeleothemThickness;
 
 @ClientOnly
 public final class WWModelHelper {
@@ -290,7 +289,7 @@ public final class WWModelHelper {
 	public static void generateFireflyBottles(ItemModelGenerators generator) {
 		final List<SelectItemModel.SwitchCase<String>> switchCases = new ArrayList<>();
 
-		FireflyColors.COLORED.forEach(key -> {
+		FireflyVariants.COLORED.forEach(key -> {
 			final String color = key.identifier().getPath();
 			final Identifier modelLocation = WWConstants.id("item/" + color + "_firefly_bottle");
 			final Material texture = new Material(WWConstants.id("item/" + color + "_firefly_bottle"));

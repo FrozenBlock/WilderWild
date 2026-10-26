@@ -86,7 +86,7 @@ import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.references.WWBlockIds;

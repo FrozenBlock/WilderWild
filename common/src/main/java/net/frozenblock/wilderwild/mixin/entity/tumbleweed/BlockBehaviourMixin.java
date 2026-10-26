@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.tumbleweed;
 
-import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;

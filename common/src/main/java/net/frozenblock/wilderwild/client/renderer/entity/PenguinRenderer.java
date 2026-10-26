@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.PenguinModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.PenguinRenderState;
-import net.frozenblock.wilderwild.entity.Penguin;
+import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

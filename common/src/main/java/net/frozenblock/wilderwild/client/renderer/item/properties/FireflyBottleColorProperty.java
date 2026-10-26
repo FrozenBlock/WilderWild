@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.client.renderer.item.properties;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -38,7 +38,7 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 	@Nullable
 	@Override
 	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
-		final Holder<FireflyColor> fireflyColor = stack.get(WWDataComponents.FIREFLY_COLOR.get());
+		final Holder<FireflyVariant> fireflyColor = stack.get(WWDataComponents.FIREFLY_VARIANT.get());
 		if (fireflyColor != null) return fireflyColor.value().name();
 		return null;
 	}

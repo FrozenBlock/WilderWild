@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.PenguinRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.ScorchedRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.SunkenRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.TumbleweedRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.UndeadOstrichRenderer;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
@@ -82,6 +83,11 @@ public final class WWEntityRenderers {
 		register.register(
 			entityKey(WWEntityTypeIds.SCORCHED),
 			() ->  (EntityRendererProvider) ScorchedRenderer::new
+		);
+
+		register.register(
+			entityKey(WWEntityTypeIds.SUNKEN),
+			() ->  (EntityRendererProvider) SunkenRenderer::new
 		);
 
 		register.register(

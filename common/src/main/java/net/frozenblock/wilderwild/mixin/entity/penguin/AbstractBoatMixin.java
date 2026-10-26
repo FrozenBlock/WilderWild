@@ -19,8 +19,8 @@ package net.frozenblock.wilderwild.mixin.entity.penguin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
-import net.frozenblock.wilderwild.entity.Penguin;
-import net.frozenblock.wilderwild.entity.ai.penguin.PenguinBoostBoat;
+import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
+import net.frozenblock.wilderwild.entity.animal.penguin.PenguinBoostBoat;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.VehicleEntity;

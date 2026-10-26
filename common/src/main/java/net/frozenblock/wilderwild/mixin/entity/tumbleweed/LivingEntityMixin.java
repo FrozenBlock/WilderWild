@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.tumbleweed;
 
-import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

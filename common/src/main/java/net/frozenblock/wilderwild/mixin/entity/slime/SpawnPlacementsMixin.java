@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.entity.slime;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.frozenblock.wilderwild.registry.WWSpawnTypes;
+import net.frozenblock.wilderwild.registry.WWSpawnPlacementTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacementType;
@@ -51,6 +51,6 @@ public class SpawnPlacementsMixin {
 	private static <T extends Mob> void wilderWild$slimesSpawnInAlgaeToo(
 		EntityType<T> type, SpawnPlacementType placementType, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> spawnPredicate, Operation<Void> original
 	) {
-		original.call(type, WWSpawnTypes.ON_GROUND_OR_IN_ALGAE, heightmap, spawnPredicate);
+		original.call(type, WWSpawnPlacementTypes.ON_GROUND_OR_IN_ALGAE, heightmap, spawnPredicate);
 	}
 }

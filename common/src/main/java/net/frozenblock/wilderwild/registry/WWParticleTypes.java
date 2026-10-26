@@ -26,7 +26,7 @@ import net.frozenblock.lib.platform.api.registry.DeferredSimpleParticleType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
-import net.frozenblock.wilderwild.entity.Crab;
+import net.frozenblock.wilderwild.entity.animal.crab.Crab;
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
 import net.frozenblock.wilderwild.particle.options.LeafClusterSeedParticleOptions;
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;

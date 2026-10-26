@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import net.frozenblock.lib.block.api.friction.BlockFrictionModification;
-import net.frozenblock.wilderwild.entity.Penguin;
+import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 
 public final class WWFrictionModifications {

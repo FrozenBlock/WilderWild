@@ -22,7 +22,7 @@ import net.frozenblock.lib.entity.client.api.renderer.entity.AbstractBlockLikeMo
 import net.frozenblock.lib.renderer.model.FrozenLibModelLayers;
 import net.frozenblock.lib.renderer.model.NoOpModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.TumbleweedRenderState;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;

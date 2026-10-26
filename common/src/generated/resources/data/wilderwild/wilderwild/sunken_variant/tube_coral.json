@@ -1,0 +1,14 @@
+{
+  "asset_id": "wilderwild:entity/skeleton/sunken_tube_coral",
+  "dried_variant": "wilderwild:dead_tube_coral",
+  "sheared_variant": "wilderwild:default",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#wilderwild:entity/variant/coral_variant_sunken"
+      },
+      "priority": 1
+    }
+  ]
+}

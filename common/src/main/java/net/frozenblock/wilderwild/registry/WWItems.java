@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariants;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
@@ -438,8 +438,8 @@ public final class WWItems {
 			.stacksTo(16)
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
 			.delayedComponent(
-				WWDataComponents.FIREFLY_COLOR.get(),
-				context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_COLOR).get(FireflyColors.DEFAULT).orElse(null)
+				WWDataComponents.FIREFLY_VARIANT.get(),
+				context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_VARIANT).get(FireflyVariants.DEFAULT).orElse(null)
 			)
 	);
 	public static final DeferredItem<MobBottleItem> BUTTERFLY_BOTTLE = REGISTER.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
@@ -490,6 +490,7 @@ public final class WWItems {
 	public static final DeferredItem<SpawnEggItem> OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.OSTRICH_SPAWN_EGG, WWEntityTypes.OSTRICH);
 	public static final DeferredItem<SpawnEggItem> ZOMBIE_OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.ZOMBIE_OSTRICH_SPAWN_EGG, WWEntityTypes.ZOMBIE_OSTRICH);
 	public static final DeferredItem<SpawnEggItem> SCORCHED_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SCORCHED_SPAWN_EGG, WWEntityTypes.SCORCHED);
+	public static final DeferredItem<SpawnEggItem> SUNKEN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SUNKEN_SPAWN_EGG, WWEntityTypes.SUNKEN);
 	public static final DeferredItem<SpawnEggItem> BUTTERFLY_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.BUTTERFLY_SPAWN_EGG, WWEntityTypes.BUTTERFLY);
 	public static final DeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM);
 	public static final DeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN);

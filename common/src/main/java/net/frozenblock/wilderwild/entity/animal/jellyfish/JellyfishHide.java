@@ -1,0 +1,75 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.entity.animal.jellyfish;
+
+import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
+import net.frozenblock.wilderwild.block.NematocystBlock;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class JellyfishHide extends MoveToBlockBehavior<Jellyfish> {
+
+	public JellyfishHide(double speedModifier, int searchRange, int verticalSearchRange) {
+		super(speedModifier, searchRange, verticalSearchRange);
+	}
+
+	@Override
+	public void start(ServerLevel level, Jellyfish entity, long timestamp) {
+		super.start(level, entity, timestamp);
+	}
+
+	@Override
+	public boolean checkExtraStartConditions(ServerLevel level, Jellyfish entity) {
+		return entity.shouldHide() && super.checkExtraStartConditions(level, entity);
+	}
+
+	@Override
+	protected void tick(ServerLevel level, Jellyfish entity, long timestamp) {
+		super.tick(level, entity, timestamp);
+		if (this.isReachedTarget() && !entity.vanishing) {
+			level.broadcastEntityEvent(entity, EntityEvent.TENDRILS_SHIVER);
+			entity.vanishing = true;
+		}
+	}
+
+	@Override
+	public boolean isValidTarget(LevelReader level, BlockPos pos) {
+		final BlockState state = level.getBlockState(pos);
+		return state.is(WWBlockItemTags.MESOGLEA.block()) || (state.getBlock() instanceof NematocystBlock && state.getFluidState().is(FluidTags.WATER));
+	}
+
+	@Override
+	public double acceptedDistance() {
+		return 0.5D;
+	}
+
+	@Override
+	protected void moveMobToBlock(Jellyfish entity) {
+		entity.getNavigation().moveTo(this.blockPos.getX() + 0.5D, this.blockPos.getY() + 0.5D, this.blockPos.getZ() + 0.5D, this.speedModifier);
+	}
+
+	@Override
+	protected BlockPos getMoveToTarget() {
+		return this.blockPos;
+	}
+}

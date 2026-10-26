@@ -1,0 +1,85 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.entity.animal.turtle;
+
+import java.util.EnumSet;
+import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
+
+public class TurtleNearestAttackableGoal<T extends LivingEntity> extends TargetGoal {
+	protected final Class<T> targetType;
+	protected final int randomInterval;
+	@Nullable
+	protected LivingEntity target;
+	protected TargetingConditions targetConditions;
+
+	public TurtleNearestAttackableGoal(Mob mob, Class<T> targetClass, boolean mustSee) {
+		this(mob, targetClass, 10, mustSee, false, null);
+	}
+
+	public TurtleNearestAttackableGoal(Mob mob, Class<T> targetClass, int randomInterval, boolean mustSee, boolean mustReach, @Nullable TargetingConditions.Selector selector) {
+		super(mob, mustSee, mustReach);
+		this.targetType = targetClass;
+		this.randomInterval = NearestAttackableTargetGoal.reducedTickDelay(randomInterval);
+		this.setFlags(EnumSet.of(Goal.Flag.TARGET));
+		this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(selector);
+	}
+
+	@Override
+	public boolean canUse() {
+		if (this.randomInterval > 0 && this.mob.getRandom().nextInt(this.randomInterval) != 0) return false;
+		this.findTarget();
+		return this.target != null && this.mob.frozenLib$getAttachedOrElse(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, 0) <= 0;
+	}
+
+	protected AABB getTargetSearchArea(double d) {
+		return this.mob.getBoundingBox().inflate(d, 4.0, d);
+	}
+
+	protected void findTarget() {
+		this.target = this.targetType == Player.class
+			|| this.targetType == ServerPlayer.class
+			? getServerLevel(this.mob).getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ())
+			: getServerLevel(this.mob).getNearestEntity(
+				this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), livingEntity -> true),
+				this.targetConditions,
+				this.mob,
+				this.mob.getX(), this.mob.getEyeY(), this.mob.getZ()
+			);
+	}
+
+	@Override
+	public void start() {
+		this.mob.frozenLib$setAttached(WWAttachmentTypes.TURTLE_HUNT_COOLDOWN, 2400);
+		this.mob.setTarget(this.target);
+		super.start();
+	}
+
+	public void setTarget(@Nullable LivingEntity entity) {
+		this.target = entity;
+	}
+}

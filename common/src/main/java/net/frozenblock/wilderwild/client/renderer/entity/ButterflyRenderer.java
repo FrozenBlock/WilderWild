@@ -17,12 +17,11 @@
 
 package net.frozenblock.wilderwild.client.renderer.entity;
 
-import java.util.Optional;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.ambient.ButterflyModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.ButterflyRenderState;
-import net.frozenblock.wilderwild.entity.Butterfly;
-import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.ambient.butterfly.Butterfly;
+import net.frozenblock.wilderwild.entity.ambient.butterfly.ButterflyVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -47,10 +46,10 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 		renderState.groundProgress = butterfly.getGroundProgress(partialTicks);
 		renderState.flyingXRot = butterfly.getFlyingXRot(partialTicks);
 
-		final Optional<ButterflyVariant> variant = butterfly.getVariantForRendering();
-		if (variant.isEmpty()) return;
+		final ButterflyVariant variant = butterfly.wilderWild$getVariantOr(null);
+		if (variant == null) return;
 
-		renderState.texture = variant.get().resourceTexture().texturePath();
+		renderState.texture = variant.resourceTexture().texturePath();
 	}
 
 	@Override

@@ -272,18 +272,19 @@ public final class WWModelProvider extends FabricModelProvider {
 
 		WWModelHelper.generateEchoGlass(generator, WWItems.ECHO_GLASS.get());
 
-		// Spawn Eggs
+		// SPAWN EGG
 		generator.generateFlatItem(WWItems.FIREFLY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.JELLYFISH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.CRAB_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.OSTRICH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.ZOMBIE_OSTRICH_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.SCORCHED_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+		generator.generateFlatItem(WWItems.SUNKEN_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.BUTTERFLY_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.MOOBLOOM_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.PENGUIN_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
 
-		// Firefly Bottles
+		// FIREFLY & BUTTERFLY BOTTLE
 		WWModelHelper.generateFireflyBottles(generator);
 		generator.generateFlatItem(WWItems.BUTTERFLY_BOTTLE.get(), ModelTemplates.FLAT_ITEM);
 	}

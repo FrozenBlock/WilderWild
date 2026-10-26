@@ -111,7 +111,7 @@ public final class WWColoredRecipeProvider extends FabricRecipeProvider {
 						possibleIngredients.add(DefaultCustomIngredients.components(
 							Ingredient.of(WWItems.FIREFLY_BOTTLE),
 							DataComponentPatch.builder()
-								.set(WWDataComponents.FIREFLY_COLOR.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
+								.set(WWDataComponents.FIREFLY_VARIANT.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_VARIANT, fireflyColor)))
 								.build()
 						));
 					}
@@ -123,7 +123,7 @@ public final class WWColoredRecipeProvider extends FabricRecipeProvider {
 							new ItemStackTemplate(
 								WWItems.FIREFLY_BOTTLE.get(),
 								DataComponentPatch.builder()
-									.set(WWDataComponents.FIREFLY_COLOR.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, outputColor)))
+									.set(WWDataComponents.FIREFLY_VARIANT.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_VARIANT, outputColor)))
 									.build()
 							)
 						)
@@ -144,7 +144,7 @@ public final class WWColoredRecipeProvider extends FabricRecipeProvider {
 						new ItemStackTemplate(
 							WWItems.FIREFLY_BOTTLE.get(),
 							DataComponentPatch.builder()
-								.set(WWDataComponents.FIREFLY_COLOR.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, fireflyColor)))
+								.set(WWDataComponents.FIREFLY_VARIANT.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_VARIANT, fireflyColor)))
 								.build()
 						)
 					)
@@ -154,7 +154,7 @@ public final class WWColoredRecipeProvider extends FabricRecipeProvider {
 						DefaultCustomIngredients.components(
 							Ingredient.of(WWItems.FIREFLY_BOTTLE),
 							DataComponentPatch.builder()
-								.set(WWDataComponents.FIREFLY_COLOR.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_COLOR, WWConstants.id("on"))))
+								.set(WWDataComponents.FIREFLY_VARIANT.get(), registries.getOrThrow(ResourceKey.create(WilderWildRegistries.FIREFLY_VARIANT, WWConstants.id("on"))))
 								.build()
 						)
 					)

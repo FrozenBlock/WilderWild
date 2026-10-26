@@ -73,7 +73,7 @@ public final class WWMinecraftDataFixer {
 				"Firefly Bottle Color componentization fix",
 				WWConstants.id("firefly_bottle"),
 				"FireflyBottleVariantTag",
-				WWConstants.string("firefly/color")
+				WWConstants.string("firefly/variant")
 			)
 		);
 		builder.addFixer(

@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.animal.ostrich.OstrichModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
 import net.frozenblock.wilderwild.client.resources.model.WWEquipmentClientInfoLayerType;
-import net.frozenblock.wilderwild.entity.ZombieOstrich;
+import net.frozenblock.wilderwild.entity.animal.ostrich.ZombieOstrich;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;

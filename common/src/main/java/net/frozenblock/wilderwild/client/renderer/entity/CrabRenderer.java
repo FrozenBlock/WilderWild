@@ -26,14 +26,15 @@ import net.frozenblock.wilderwild.client.model.animal.crab.AdultCrabModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.BabyCrabModel;
 import net.frozenblock.wilderwild.client.model.animal.crab.CrabModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.CrabRenderState;
-import net.frozenblock.wilderwild.entity.Crab;
-import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
+import net.frozenblock.wilderwild.entity.animal.crab.Crab;
+import net.frozenblock.wilderwild.entity.animal.crab.CrabVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
@@ -104,10 +105,10 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		renderState.diggingAnimationState.copyFrom(crab.diggingAnimationState);
 		renderState.emergingAnimationState.copyFrom(crab.emergingAnimationState);
 
-		final Optional<CrabVariant> optionalVariant = crab.getVariantForRendering();
+		final Optional<Holder<CrabVariant>> optionalVariant = Optional.ofNullable(crab.wilderWild$getVariant());
 		if (optionalVariant.isEmpty()) return;
 
-		final CrabVariant variant = optionalVariant.get();
+		final CrabVariant variant = optionalVariant.get().value();
 		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
 		renderState.mojangTexture = (renderState.isBaby ? variant.babyMojangTexture() : variant.mojangTexture()).texturePath();
 	}

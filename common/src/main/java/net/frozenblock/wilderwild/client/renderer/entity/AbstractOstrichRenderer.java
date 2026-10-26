@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import net.frozenblock.wilderwild.client.renderer.entity.state.AbstractOstrichRenderState;
-import net.frozenblock.wilderwild.entity.AbstractOstrich;
+import net.frozenblock.wilderwild.entity.animal.ostrich.AbstractOstrich;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;

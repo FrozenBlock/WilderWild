@@ -26,11 +26,12 @@ import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.entity.variant.butterfly.ButterflyVariant;
-import net.frozenblock.wilderwild.entity.variant.crab.CrabVariant;
-import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
-import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
-import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
+import net.frozenblock.wilderwild.entity.ambient.butterfly.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.animal.crab.CrabVariant;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariant;
+import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariant;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -51,9 +52,9 @@ public final class WWDataComponents {
 		builder -> builder.persistent(CustomData.CODEC).networkSynchronized(CustomData.STREAM_CODEC)
 	);
 
-	public static final DeferredDataComponentType<Holder<FireflyColor>> FIREFLY_COLOR = register(
-		"firefly/color",
-		builder -> builder.persistent(FireflyColor.CODEC).networkSynchronized(FireflyColor.STREAM_CODEC)
+	public static final DeferredDataComponentType<Holder<FireflyVariant>> FIREFLY_VARIANT = register(
+		"firefly/variant",
+		builder -> builder.persistent(FireflyVariant.CODEC).networkSynchronized(FireflyVariant.STREAM_CODEC)
 	);
 	public static final DeferredDataComponentType<Holder<ButterflyVariant>> BUTTERFLY_VARIANT = register(
 		"butterfly/variant",
@@ -71,6 +72,10 @@ public final class WWDataComponents {
 		"moobloom/variant",
 		builder -> builder.persistent(MoobloomVariant.CODEC).networkSynchronized(MoobloomVariant.STREAM_CODEC)
 	);
+	public static final DeferredDataComponentType<Holder<SunkenVariant>> SUNKEN_VARIANT = register(
+		"sunken/variant",
+		builder -> builder.persistent(SunkenVariant.CODEC).networkSynchronized(SunkenVariant.STREAM_CODEC)
+	);
 
 	static {
 		REGISTER.register();
@@ -82,7 +87,7 @@ public final class WWDataComponents {
 			stack -> !FrozenLibEarlyConstants.HAS_TRAILIER_TALES && stack.getItem().requiredFeatures().contains(WWFeatureFlags.TRAILIER_TALES_COMPAT)
 		);
 
-		TooltipAdditionRegistry.addComponentTooltipAtHead(WWDataComponents.FIREFLY_COLOR, FireflyColor.TOOLTIP);
+		TooltipAdditionRegistry.addComponentTooltipAtHead(WWDataComponents.FIREFLY_VARIANT, FireflyVariant.TOOLTIP);
 		TooltipAdditionRegistry.addComponentTooltipAtHead(WWDataComponents.BUTTERFLY_VARIANT, ButterflyVariant.TOOLTIP);
 	}
 

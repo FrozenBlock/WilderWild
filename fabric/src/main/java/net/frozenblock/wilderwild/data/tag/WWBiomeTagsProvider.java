@@ -580,6 +580,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.PEARLESCENT_JELLYFISH)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
+		this.builder(WWBiomeTags.CORAL_VARIANT_SUNKEN)
+			.add(Biomes.WARM_OCEAN);
+
 		this.builder(WWBiomeTags.WOLF_ASHEN)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
@@ -631,6 +634,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
+
+		this.builder(WWBiomeTags.MORE_FREQUENT_SUNKEN_SPAWNS)
+			.addOptionalTag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS);
 
 		this.builder(BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)

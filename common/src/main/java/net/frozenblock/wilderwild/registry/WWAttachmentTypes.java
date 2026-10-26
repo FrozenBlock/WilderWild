@@ -21,10 +21,55 @@ import com.mojang.serialization.Codec;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentSyncPredicate;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.ambient.butterfly.ButterflyVariant;
+import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
+import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariant;
+import net.frozenblock.wilderwild.entity.animal.crab.CrabVariant;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariant;
+import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariant;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 
 public final class WWAttachmentTypes {
+	// VARIANT
+	public static final DataAttachmentType<Holder<FireflyVariant>> FIREFLY_VARIANT = DataAttachmentType.create(
+		WWConstants.id("firefly_variant"),
+		builder -> {
+			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.FIREFLY_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+	public static final DataAttachmentType<Holder<ButterflyVariant>> BUTTERFLY_VARIANT = DataAttachmentType.create(
+		WWConstants.id("butterfly_variant"),
+		builder -> {
+			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.BUTTERFLY_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+	public static final DataAttachmentType<Holder<CrabVariant>> CRAB_VARIANT = DataAttachmentType.create(
+		WWConstants.id("crab_variant"),
+		builder -> {
+			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.CRAB_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+	public static final DataAttachmentType<Holder<JellyfishVariant>> JELLYFISH_VARIANT = DataAttachmentType.create(
+		WWConstants.id("jellyfish_variant"),
+		builder -> {
+			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.JELLYFISH_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+	public static final DataAttachmentType<Holder<MoobloomVariant>> MOOBLOOM_VARIANT = DataAttachmentType.create(
+		WWConstants.id("moobloom_variant"),
+		builder -> {
+			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.MOOBLOOM_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+	public static final DataAttachmentType<Holder<SunkenVariant>> SUNKEN_VARIANT = DataAttachmentType.create(
+		WWConstants.id("sunken_variant"),
+		builder -> {
+			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.SUNKEN_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+
 	// BOAT
 	public static final DataAttachmentType<Integer> BOAT_BOOST_TICKS = DataAttachmentType.create(
 		WWConstants.id("boat_boosted"),
