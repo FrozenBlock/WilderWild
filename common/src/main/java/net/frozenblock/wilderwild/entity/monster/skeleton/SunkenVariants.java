@@ -70,7 +70,6 @@ public final class SunkenVariants {
 		register(context, DEAD_FIRE_CORAL, "dead_fire_coral", defaultVariant);
 		register(context, DEAD_HORN_CORAL, "dead_horn_coral", defaultVariant);
 		register(context, DEAD_TUBE_CORAL, "dead_tube_coral", defaultVariant);
-
 	}
 
 	private static void register(
@@ -82,10 +81,14 @@ public final class SunkenVariants {
 		SpawnPrioritySelectors spawnConditions
 	) {
 		final String texturePath = "entity/skeleton/sunken" + (StringUtil.isNullOrEmpty(textureName) ? "" : "_" + textureName);
+		final String eyePatchLeftHandedTexturePath = texturePath + "_eye_patch_left_handed";
+		final String eyePatchRightHandedTexturePath = texturePath + "_eye_patch_right_handed";
 		context.register(
 			name,
 			new SunkenVariant(
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(eyePatchLeftHandedTexturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(eyePatchRightHandedTexturePath)),
 				driedVariant,
 				shearedVariant,
 				spawnConditions

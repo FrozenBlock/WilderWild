@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.client;
 
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
+import net.frozenblock.wilderwild.client.renderer.item.properties.select.FireflyBottleColorProperty;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 

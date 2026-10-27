@@ -1,6 +1,8 @@
 {
   "asset_id": "wilderwild:entity/skeleton/sunken_bubble_coral",
   "dried_variant": "wilderwild:dead_bubble_coral",
+  "eye_patch_left_handed_asset_id": "wilderwild:entity/skeleton/sunken_bubble_coral_eye_patch_left_handed",
+  "eye_patch_right_handed_asset_id": "wilderwild:entity/skeleton/sunken_bubble_coral_eye_patch_right_handed",
   "sheared_variant": "wilderwild:default",
   "spawn_conditions": [
     {

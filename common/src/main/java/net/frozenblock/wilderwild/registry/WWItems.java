@@ -30,6 +30,7 @@ import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariants;
 import net.frozenblock.wilderwild.item.CoconutItem;
 import net.frozenblock.wilderwild.item.CrabClawItem;
+import net.frozenblock.wilderwild.item.HarpoonItem;
 import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.item.TumbleweedItem;
@@ -451,6 +452,10 @@ public final class WWItems {
 		() -> new Item.Properties()
 			.stacksTo(1)
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
+	);
+	public static final DeferredItem<HarpoonItem> HARPOON = REGISTER.registerItem(WWItemIds.HARPOON,
+		properties -> new HarpoonItem(properties),
+		() -> new Item.Properties().stacksTo(1)
 	);
 
 	// FOOD

@@ -23,19 +23,20 @@ import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
-import net.frozenblock.wilderwild.entity.ambient.butterfly.Butterfly;
-import net.frozenblock.wilderwild.entity.monster.skeleton.Sunken;
-import net.frozenblock.wilderwild.entity.projectile.CoconutProjectile;
-import net.frozenblock.wilderwild.entity.animal.crab.Crab;
 import net.frozenblock.wilderwild.entity.FallingLeafTicker;
+import net.frozenblock.wilderwild.entity.ambient.butterfly.Butterfly;
 import net.frozenblock.wilderwild.entity.ambient.firefly.Firefly;
 import net.frozenblock.wilderwild.entity.animal.cow.FlowerCow;
+import net.frozenblock.wilderwild.entity.animal.crab.Crab;
 import net.frozenblock.wilderwild.entity.animal.jellyfish.Jellyfish;
 import net.frozenblock.wilderwild.entity.animal.ostrich.Ostrich;
-import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
-import net.frozenblock.wilderwild.entity.monster.spider.Scorched;
-import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.frozenblock.wilderwild.entity.animal.ostrich.ZombieOstrich;
+import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
+import net.frozenblock.wilderwild.entity.block.Tumbleweed;
+import net.frozenblock.wilderwild.entity.monster.skeleton.Sunken;
+import net.frozenblock.wilderwild.entity.monster.spider.Scorched;
+import net.frozenblock.wilderwild.entity.projectile.CoconutProjectile;
+import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.frozenblock.wilderwild.references.WWEntityTypeIds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.resources.ResourceKey;
@@ -261,6 +262,16 @@ public final class WWEntityTypes {
 		MobCategory.MISC,
 		builder -> builder
 			.sized(0.25F, 0.25F)
+			.clientTrackingRange(4)
+			.updateInterval(20)
+	);
+
+	public static final DeferredEntityType<Harpoon> HARPOON = REGISTER.register(WWEntityTypeIds.HARPOON,
+		Harpoon::new,
+		MobCategory.MISC,
+		builder -> builder
+			.sized(0.5F, 0.5F)
+			.eyeHeight(0.13F)
 			.clientTrackingRange(4)
 			.updateInterval(20)
 	);

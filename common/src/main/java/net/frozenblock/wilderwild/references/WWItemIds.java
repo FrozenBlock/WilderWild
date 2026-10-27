@@ -41,6 +41,7 @@ public final class WWItemIds {
 	public static final ResourceKey<Item> SPLIT_COCONUT = create("split_coconut");
 	public static final ResourceKey<Item> FIREFLY_BOTTLE = create("firefly_bottle");
 	public static final ResourceKey<Item> BUTTERFLY_BOTTLE = create("butterfly_bottle");
+	public static final ResourceKey<Item> HARPOON = create("harpoon");
 
 	// FOOD
 	public static final ResourceKey<Item> PEELED_PRICKLY_PEAR = create("peeled_prickly_pear");

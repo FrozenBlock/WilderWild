@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.client.renderer.entity.ButterflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.CrabRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.FlowerCowRenderer;
+import net.frozenblock.wilderwild.client.renderer.entity.HarpoonRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.OstrichRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.PenguinRenderer;
@@ -108,6 +109,11 @@ public final class WWEntityRenderers {
 		register.register(
 			entityKey(WWEntityTypeIds.COCONUT),
 			() ->  (EntityRendererProvider) ThrownItemRenderer::new
+		);
+
+		register.register(
+			entityKey(WWEntityTypeIds.HARPOON),
+			() ->  (EntityRendererProvider) HarpoonRenderer::new
 		);
 
 		register.register(

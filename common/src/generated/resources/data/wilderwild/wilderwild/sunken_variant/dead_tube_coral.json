@@ -1,5 +1,7 @@
 {
   "asset_id": "wilderwild:entity/skeleton/sunken_dead_tube_coral",
+  "eye_patch_left_handed_asset_id": "wilderwild:entity/skeleton/sunken_dead_tube_coral_eye_patch_left_handed",
+  "eye_patch_right_handed_asset_id": "wilderwild:entity/skeleton/sunken_dead_tube_coral_eye_patch_right_handed",
   "sheared_variant": "wilderwild:default",
   "spawn_conditions": []
 }

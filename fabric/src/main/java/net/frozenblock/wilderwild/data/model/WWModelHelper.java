@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.SeaAnemoneBlock;
 import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
-import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
+import net.frozenblock.wilderwild.client.renderer.item.properties.select.FireflyBottleColorProperty;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariants;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;

@@ -36,12 +36,16 @@ import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 
 public record SunkenVariant(
 	ClientAsset.ResourceTexture texture,
+	ClientAsset.ResourceTexture eyePatchLeftHandedTexture,
+	ClientAsset.ResourceTexture eyePatchRightHandedTexture,
 	Optional<Holder<SunkenVariant>> driedVariant,
 	Optional<Holder<SunkenVariant>> shearedVariant,
 	SpawnPrioritySelectors spawnConditions
 ) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<SunkenVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(SunkenVariant::texture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("eye_patch_left_handed_asset_id").forGetter(SunkenVariant::eyePatchLeftHandedTexture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("eye_patch_right_handed_asset_id").forGetter(SunkenVariant::eyePatchRightHandedTexture),
 		RegistryCodecs.holder(WilderWildRegistries.SUNKEN_VARIANT).optionalFieldOf("dried_variant").forGetter(SunkenVariant::driedVariant),
 		RegistryCodecs.holder(WilderWildRegistries.SUNKEN_VARIANT).optionalFieldOf("sheared_variant").forGetter(SunkenVariant::shearedVariant),
 		SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(SunkenVariant::spawnConditions)
@@ -49,14 +53,21 @@ public record SunkenVariant(
 	// For now I'm keeping shearedVariant, as I'm pretty sure omitting it will cause arm swing desyncs between client & server.
 	public static final Codec<SunkenVariant> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(SunkenVariant::texture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("eye_patch_left_handed_asset_id").forGetter(SunkenVariant::eyePatchLeftHandedTexture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("eye_patch_right_handed_asset_id").forGetter(SunkenVariant::eyePatchRightHandedTexture),
 		RegistryCodecs.holder(WilderWildRegistries.SUNKEN_VARIANT).optionalFieldOf("sheared_variant").forGetter(SunkenVariant::shearedVariant)
 	).apply(instance, SunkenVariant::new));
 
 	public static final Codec<Holder<SunkenVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.SUNKEN_VARIANT);
 	public static final StreamCodec<RegistryFriendlyByteBuf, Holder<SunkenVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WilderWildRegistries.SUNKEN_VARIANT);
 
-	private SunkenVariant(ClientAsset.ResourceTexture texture, Optional<Holder<SunkenVariant>> shearedVariant) {
-		this(texture, Optional.empty(), shearedVariant, SpawnPrioritySelectors.EMPTY);
+	private SunkenVariant(
+		ClientAsset.ResourceTexture texture,
+		ClientAsset.ResourceTexture eyePatchLeftHandedTexture,
+		ClientAsset.ResourceTexture eyePatchRightHandedTexture,
+		Optional<Holder<SunkenVariant>> shearedVariant
+	) {
+		this(texture, eyePatchLeftHandedTexture, eyePatchRightHandedTexture, Optional.empty(), shearedVariant, SpawnPrioritySelectors.EMPTY);
 	}
 
 	@Override

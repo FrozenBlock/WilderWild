@@ -26,6 +26,9 @@ import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -68,6 +71,7 @@ import org.jspecify.annotations.Nullable;
 
 public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<SunkenVariant> {
 	// TODO: new goal for crossbow usage instead of RangedBowAttackGoal
+	private static final EntityDataAccessor<Boolean> HAS_EYE_PATCH = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 
 	public Sunken(EntityType<? extends Sunken> type, Level level) {
 		super(type, level);
@@ -91,6 +95,12 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 	}
 
 	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
+		super.defineSynchedData(entityData);
+		entityData.define(HAS_EYE_PATCH, false);
+	}
+
+	@Override
 	protected PathNavigation createNavigation(Level level) {
 		return new AmphibiousPathNavigation(this, level);
 	}
@@ -106,6 +116,8 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 		groupData = super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 
 		VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WilderWildRegistries.SUNKEN_VARIANT).ifPresent(this::wilderWild$setVariant);
+
+		if (level.getRandom().nextFloat() <= 0.25F) this.setHasEyePatch(true);
 
 		if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && level.getRandom().nextFloat() < 0.01F) {
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SPYGLASS));
@@ -204,6 +216,14 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 		return 70;
 	}
 
+	public void setHasEyePatch(boolean hasEyePatch) {
+		this.entityData.set(HAS_EYE_PATCH, hasEyePatch);
+	}
+
+	public boolean hasEyePatch() {
+		return this.entityData.get(HAS_EYE_PATCH);
+	}
+
 	@Override
 	public ResourceKey<Registry<SunkenVariant>> wilderWild$variantRegistry() {
 		return WilderWildRegistries.SUNKEN_VARIANT;
@@ -223,11 +243,13 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 	public void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		this.wilderWild$writeVariant(output);
+		output.putBoolean("has_eye_patch", this.hasEyePatch());
 	}
 
 	@Override
 	public void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		this.wilderWild$readVariant(input).ifPresent(this::wilderWild$setVariant);
+		this.setHasEyePatch(input.getBooleanOr("has_eye_patch", false));
 	}
 }

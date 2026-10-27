@@ -48,7 +48,11 @@ public class SunkenRenderer extends AbstractSkeletonRenderer<Sunken, SunkenRende
 		if (optionalVariant.isEmpty()) return;
 
 		final SunkenVariant variant = optionalVariant.get().value();
-		renderState.texture = variant.texture().texturePath();
+		final boolean eyePatch = sunken.hasEyePatch();
+		renderState.texture = (eyePatch
+			? sunken.isLeftHanded() ? variant.eyePatchLeftHandedTexture() : variant.eyePatchRightHandedTexture()
+			: variant.texture()
+		).texturePath();
 	}
 
 	@Override

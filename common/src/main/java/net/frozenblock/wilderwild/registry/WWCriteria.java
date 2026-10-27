@@ -23,6 +23,7 @@ import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancements.trigger.BrittleIceFallOntoAndBreakTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.KilledByHarpoonTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.minecraft.advancements.triggers.CriterionTrigger;
@@ -38,6 +39,8 @@ public final class WWCriteria {
 	public static final DeferredHolder<CriterionTrigger<?>, TermiteEatTrigger> TERMITE_EAT = register("termite_eat", TermiteEatTrigger::new);
 	public static final DeferredHolder<CriterionTrigger<?>, BrittleIceFallOntoAndBreakTrigger> BRITTLE_ICE_FALL_ONTO_AND_BREAK = register("brittle_ice_fall_onto_and_break", BrittleIceFallOntoAndBreakTrigger::new);
 	public static final DeferredHolder<CriterionTrigger<?>, GeothermalVentPushMobTrigger> GEOTHERMAL_VENT_PUSH_MOB_TRIGGER = register("geothermal_vent_push_mob", GeothermalVentPushMobTrigger::new);
+	// TODO: add an advancement for this i guess
+	public static final DeferredHolder<CriterionTrigger<?>, KilledByHarpoonTrigger> KILLED_BY_HARPOON = register("killed_by_harpoon", KilledByHarpoonTrigger::new);
 
 	static {
 		REGISTER.register();

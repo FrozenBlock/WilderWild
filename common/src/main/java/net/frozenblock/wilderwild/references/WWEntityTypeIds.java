@@ -35,6 +35,7 @@ public final class WWEntityTypeIds {
 	public static final ResourceKey<EntityType<?>> MOOBLOOM = create("moobloom");
 	public static final ResourceKey<EntityType<?>> PENGUIN = create("penguin");
 	public static final ResourceKey<EntityType<?>> COCONUT = create("coconut");
+	public static final ResourceKey<EntityType<?>> HARPOON = create("harpoon");
 	public static final ResourceKey<EntityType<?>> FALLING_LEAVES = create("falling_leaves");
 
 	public static final ResourceKey<EntityType<?>> BAOBAB_BOAT = create("baobab_boat");

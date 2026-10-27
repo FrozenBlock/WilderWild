@@ -1,5 +1,7 @@
 {
   "asset_id": "wilderwild:entity/skeleton/sunken",
+  "eye_patch_left_handed_asset_id": "wilderwild:entity/skeleton/sunken_eye_patch_left_handed",
+  "eye_patch_right_handed_asset_id": "wilderwild:entity/skeleton/sunken_eye_patch_right_handed",
   "spawn_conditions": [
     {
       "priority": 0

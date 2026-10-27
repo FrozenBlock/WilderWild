@@ -217,6 +217,9 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 
 		this.builder(EntityTypeTags.BURN_IN_DAYLIGHT)
 			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
+
+		this.builder(EntityTypeTags.IMPACT_PROJECTILES)
+			.add(WWEntityTypeIds.HARPOON);
 	}
 
 	private static ResourceKey<EntityType<?>> createKey(String namespace, String path) {
