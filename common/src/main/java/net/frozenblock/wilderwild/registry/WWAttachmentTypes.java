@@ -27,9 +27,12 @@ import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariant;
 import net.frozenblock.wilderwild.entity.animal.crab.CrabVariant;
 import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariant;
 import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariant;
+import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.LivingEntity;
 
 public final class WWAttachmentTypes {
 	// VARIANT
@@ -67,6 +70,20 @@ public final class WWAttachmentTypes {
 		WWConstants.id("sunken_variant"),
 		builder -> {
 			builder.syncWith(ByteBufCodecs.holderRegistry(WilderWildRegistries.SUNKEN_VARIANT), DataAttachmentSyncPredicate.all());
+		}
+	);
+
+	// HARPOON
+	public static final DataAttachmentType<EntityReference<Harpoon>> HARPOON = DataAttachmentType.create(
+		WWConstants.id("harpoon"),
+		builder -> {
+			builder.syncWith(EntityReference.streamCodec(), DataAttachmentSyncPredicate.all());
+		}
+	);
+	public static final DataAttachmentType<EntityReference<LivingEntity>> HARPOON_ATTACHED_TO = DataAttachmentType.create(
+		WWConstants.id("harpoon_attached_to"),
+		builder -> {
+			builder.syncWith(EntityReference.streamCodec(), DataAttachmentSyncPredicate.all());
 		}
 	);
 

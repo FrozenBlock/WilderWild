@@ -245,6 +245,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.generateFlatItem(WWItems.CRAB_CLAW.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.COOKED_CRAB_CLAW.get(), ModelTemplates.FLAT_ITEM);
 
+		generator.generateFlatItem(WWItems.HARPOON.get(), ModelTemplates.FLAT_ITEM);
+
 		generator.generateFlatItem(WWItems.BAOBAB_BOAT.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.BAOBAB_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
 		generator.generateFlatItem(WWItems.WILLOW_BOAT.get(), ModelTemplates.FLAT_ITEM);

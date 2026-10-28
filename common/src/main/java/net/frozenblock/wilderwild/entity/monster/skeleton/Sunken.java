@@ -20,12 +20,15 @@ package net.frozenblock.wilderwild.entity.monster.skeleton;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
+import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -222,6 +225,28 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 
 	public boolean hasEyePatch() {
 		return this.entityData.get(HAS_EYE_PATCH);
+	}
+
+	@org.jetbrains.annotations.Nullable
+	@Override
+	public <T> T get(DataComponentType<? extends T> type) {
+		if (type == WWDataComponents.SUNKEN_VARIANT.get()) return castComponentValue(type, this.wilderWild$getVariant());
+		return super.get(type);
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentGetter components) {
+		this.applyImplicitComponentIfPresent(components, WWDataComponents.SUNKEN_VARIANT.get());
+		super.applyImplicitComponents(components);
+	}
+
+	@Override
+	protected <T> boolean applyImplicitComponent(DataComponentType<T> type, T value) {
+		if (type == WWDataComponents.SUNKEN_VARIANT.get()) {
+			this.wilderWild$setVariant(castComponentValue(WWDataComponents.SUNKEN_VARIANT.get(), value));
+			return true;
+		}
+		return super.applyImplicitComponent(type, value);
 	}
 
 	@Override

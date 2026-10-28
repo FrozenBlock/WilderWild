@@ -22,9 +22,9 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.HarpoonRenderState;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -35,6 +35,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
@@ -56,32 +57,35 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 		return owner.getMainHandItem().getItem() instanceof CrossbowItem ? owner.getMainArm() : owner.getMainArm().getOpposite();
 	}
 
-	private Vec3 getOwnerHandPos(LivingEntity owner, float swing, float partialTicks) {
-		final int invert = getHoldingArm(owner) == HumanoidArm.RIGHT ? 1 : -1;
-		if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && owner == Minecraft.getInstance().player) {
+	private Vec3 getAttachedToHandPos(LivingEntity attachedTo, float swing, float partialTicks) {
+		final int invert = getHoldingArm(attachedTo) == HumanoidArm.RIGHT ? 1 : -1;
+		if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && attachedTo == Minecraft.getInstance().player) {
 			float fov = this.entityRenderDispatcher.options.fov().get().intValue();
 			final double viewBobbingScale = 960D / fov;
-			final Vec3 viewVec = this.entityRenderDispatcher
-				.camera
+			final Camera camera = this.entityRenderDispatcher.camera;
+
+			final Vec3 viewVec = camera
 				.getNearPlane(fov)
-				.getPointOnPlane(invert * 0.525F, -0.1F)
+				.getPointOnPlane(invert * 0.575F, Mth.lerp(camera.xRot() / 90F, -0.65F, -0.325F))
 				.scale(viewBobbingScale)
 				.yRot(swing * 0.5F)
-				.xRot(-swing * 0.7F);
-			return owner.getEyePosition(partialTicks).add(viewVec);
+				.xRot(-swing * 0.7F)
+				.multiply(0.8D, 1D, 0.8D);
+			return attachedTo.getEyePosition(partialTicks).add(viewVec);
 		} else {
 			// TODO: check how this appears on skeletons and zombies
-			final float ownerYRot = Mth.lerp(partialTicks, owner.yBodyRotO, owner.yBodyRot) * Mth.DEG_TO_RAD;
+			final float ownerYRot = Mth.lerp(partialTicks, attachedTo.yBodyRotO, attachedTo.yBodyRot) * Mth.DEG_TO_RAD;
 			final double sin = Mth.sin(ownerYRot);
 			final double cos = Mth.cos(ownerYRot);
-			final float ownerScale = owner.getScale();
+			final float ownerScale = attachedTo.getScale();
 			final double rightOffset = invert * 0.35D * ownerScale;
-			final double forwardOffset = 0.8D * ownerScale;
-			final float yOffset = owner.isCrouching() ? -0.1875F : 0F;
-			return owner.getEyePosition(partialTicks)
+			final double forwardOffset = 0.375D * ownerScale;
+			final float yOffset = attachedTo.isCrouching() ? -0.1875F : 0F;
+
+			return attachedTo.getEyePosition(partialTicks)
 				.add(
 					-cos * rightOffset - sin * forwardOffset,
-					yOffset - 0.45 * ownerScale,
+					yOffset - 0.95D * ownerScale,
 					-sin * rightOffset + cos * forwardOffset
 				);
 		}
@@ -93,8 +97,16 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 	}
 
 	@Override
-	public boolean shouldRender(Harpoon harpoon, Frustum culler, double camX, double camY, double camZ, float partialTicks) {
-		return super.shouldRender(harpoon, culler, camX, camY, camZ, partialTicks) && harpoon.getOwner() != null;
+	protected AABB getBoundingBoxForCulling(Harpoon entity, float partialTicks) {
+		AABB boundingBox = super.getBoundingBoxForCulling(entity, partialTicks);
+
+		final Entity hookedIn = entity.getHookedIn();
+		if (hookedIn != null) boundingBox = boundingBox.minmax(hookedIn.getInterpolatedBoundingBox(partialTicks));
+
+		final Entity attachedTo = entity.getAttachedTo();
+		if (attachedTo != null) boundingBox = boundingBox.minmax(attachedTo.getInterpolatedBoundingBox(partialTicks));
+
+		return boundingBox;
 	}
 
 	@Override
@@ -122,24 +134,24 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 	public void extractRenderState(Harpoon harpoon, HarpoonRenderState state, float partialTicks) {
 		super.extractRenderState(harpoon, state, partialTicks);
 
-		final Entity owner = harpoon.getOwner();
-		if (owner == null) {
+		final Entity attachedTo = harpoon.getAttachedTo();
+		if (attachedTo == null) {
 			state.lineOriginOffset = Vec3.ZERO;
 			return;
 		}
 
 		final Vec3 harpoonPos = harpoon.getPosition(partialTicks).add(0D, 0.2D, 0D);
-		final Vec3 ownerPos;
-		if (!(owner instanceof LivingEntity livingOwner)) {
-			ownerPos = owner.getEyePosition();
+		final Vec3 attachedToPos;
+		if (!(attachedTo instanceof LivingEntity livingOwner)) {
+			attachedToPos = attachedTo.getEyePosition();
 		} else {
 			// TODO: check how this appears on skeletons and zombies
 			final float swing = livingOwner.getSwingAnimation(partialTicks);
 			final float swing2 = Mth.sin(Mth.sqrt(swing) * Mth.PI);
-			ownerPos = this.getOwnerHandPos(livingOwner, swing2, partialTicks);
+			attachedToPos = this.getAttachedToHandPos(livingOwner, swing2, partialTicks);
 		}
 
-		state.lineOriginOffset = ownerPos.subtract(harpoonPos);
+		state.lineOriginOffset = attachedToPos.subtract(harpoonPos);
 	}
 
 	private static float fraction(int i, int steps) {

@@ -19,13 +19,20 @@ package net.frozenblock.wilderwild.mixin.projectile.harpoon;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import java.util.function.Predicate;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
+import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,6 +45,31 @@ public class CrossbowItemMixin {
 	@ModifyReturnValue(method = "getSupportedHeldProjectiles", at = @At("RETURN"))
 	public Predicate<ItemStack> wilderWild$supportHeldHarpoon(Predicate<ItemStack> predicate) {
 		return predicate.or(itemStack -> itemStack.is(WWItems.HARPOON.get()));
+	}
+
+	@Inject(
+		method = "use",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/player/Player;getProjectile(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;"
+		),
+		cancellable = true
+	)
+	public void wilderWild$retractHarpoon(
+		Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> info,
+		@Local(name = "itemStack") ItemStack itemStack
+	) {
+		final Harpoon harpoon = EntityReference.get(WWAttachmentTypes.HARPOON.get(player), level, Harpoon.class);
+		if (harpoon == null) return;
+
+		harpoon.retrieve(itemStack);
+		info.setReturnValue(InteractionResult.SUCCESS);
+	}
+
+	@ModifyReturnValue(method = "getShootingPower", at = @At("RETURN"))
+	private static float wilderWild$getShootingPowerForHarpoon(float original, ChargedProjectiles projectiles) {
+		if (projectiles.contains(WWItems.HARPOON.get())) return 1.4F;
+		return original;
 	}
 
 	@Inject(
@@ -61,7 +93,7 @@ public class CrossbowItemMixin {
 	}
 
 	@ModifyReturnValue(method = "getDurabilityUse", at = @At("RETURN"))
-	public int wilderWild$shootingHarpoonUses5Durability(int original, ItemStack projectile) {
-		return projectile.is(WWItems.HARPOON.get()) ? 5 : original;
+	public int wilderWild$shootingHarpoonUses3Durability(int original, ItemStack projectile) {
+		return projectile.is(WWItems.HARPOON.get()) ? 3 : original;
 	}
 }

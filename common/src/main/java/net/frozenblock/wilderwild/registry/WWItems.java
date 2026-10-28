@@ -455,7 +455,7 @@ public final class WWItems {
 	);
 	public static final DeferredItem<HarpoonItem> HARPOON = REGISTER.registerItem(WWItemIds.HARPOON,
 		properties -> new HarpoonItem(properties),
-		() -> new Item.Properties().stacksTo(1)
+		() -> new Item.Properties()
 	);
 
 	// FOOD

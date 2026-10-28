@@ -21,6 +21,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import java.util.Collection;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.minecraft.advancements.triggers.KilledByArrowTrigger;
@@ -30,7 +31,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,34 +38,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.Collection;
 
 @Mixin(AbstractArrow.class)
 public class AbstractArrowMixin {
-
-	@WrapOperation(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;applyInertia(F)V"
-		),
-		slice = @Slice(
-			from = @At(
-				value = "INVOKE",
-				target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;getAirDrag()F"
-			)
-		)
-	)
-	public void wilderWild$applyHarpoonAirDrag(AbstractArrow instance, float inertia, Operation<Void> original) {
-		if (AbstractArrow.class.cast(this) instanceof Harpoon harpoon) {
-			final Vec3 movement = harpoon.getDeltaMovement();
-			final double horizontalInertia = harpoon.getAirHorizontalDrag();
-			harpoon.setDeltaMovement(movement.multiply(horizontalInertia, inertia, horizontalInertia));
-			return;
-		}
-
-		original.call(instance, inertia);
-	}
 
 	@WrapWithCondition(
 		method = "onHitEntity",
