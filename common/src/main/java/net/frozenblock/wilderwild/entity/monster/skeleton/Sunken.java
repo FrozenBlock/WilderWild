@@ -46,14 +46,15 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.nautilus.ZombieNautilus;
+import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.Arrow;
@@ -64,6 +65,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.material.Fluids;
@@ -72,9 +74,13 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
 
-public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<SunkenVariant> {
+public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEntityVariantHolder<SunkenVariant> {
 	// TODO: new goal for crossbow usage instead of RangedBowAttackGoal
+	private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EYE_PATCH = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
+	public final RangedHarpoonCrossbowAttackGoal<Sunken> harpoonGoal = new RangedHarpoonCrossbowAttackGoal<>(
+		this, 1D, 8F, 1.375D, 20F
+	);
 
 	public Sunken(EntityType<? extends Sunken> type, Level level) {
 		super(type, level);
@@ -100,12 +106,15 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 		super.defineSynchedData(entityData);
+		entityData.define(IS_CHARGING_CROSSBOW, false);
 		entityData.define(HAS_EYE_PATCH, false);
 	}
 
 	@Override
 	protected PathNavigation createNavigation(Level level) {
-		return new AmphibiousPathNavigation(this, level);
+		final SunkenPathNavigation pathNavigation = new SunkenPathNavigation(this, level);
+		pathNavigation.setCanFloat(false);
+		return pathNavigation;
 	}
 
 	@Override
@@ -208,6 +217,25 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 		return WWItemTags.SUNKEN_PREFERRED_WEAPONS;
 	}
 
+	private boolean isChargingCrossbow() {
+		return this.entityData.get(IS_CHARGING_CROSSBOW);
+	}
+
+	@Override
+	public void setChargingCrossbow(boolean isCharging) {
+		this.entityData.set(IS_CHARGING_CROSSBOW, isCharging);
+	}
+
+	@Override
+	public void onCrossbowAttackPerformed() {
+		this.noActionTime = 0;
+	}
+
+	@Override
+	public void performRangedAttack(LivingEntity target, float power) {
+		this.performCrossbowAttack(this, 1.6F);
+	}
+
 	// TODO: see what timing fits harpoons best
 	@Override
 	protected int getHardAttackInterval() {
@@ -227,7 +255,12 @@ public class Sunken extends AbstractSkeleton implements WWEntityVariantHolder<Su
 		return this.entityData.get(HAS_EYE_PATCH);
 	}
 
-	@org.jetbrains.annotations.Nullable
+	@Override
+	public boolean checkSpawnObstruction(LevelReader level) {
+		return level.isUnobstructed(this);
+	}
+
+	@Nullable
 	@Override
 	public <T> T get(DataComponentType<? extends T> type) {
 		if (type == WWDataComponents.SUNKEN_VARIANT.get()) return castComponentValue(type, this.wilderWild$getVariant());

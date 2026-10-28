@@ -215,8 +215,18 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 		this.builder(EntityTypeTags.ZOMBIES)
 			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
 
+		this.builder(EntityTypeTags.SKELETONS)
+			.add(WWEntityTypeIds.SUNKEN);
+
 		this.builder(EntityTypeTags.BURN_IN_DAYLIGHT)
-			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
+			.add(WWEntityTypeIds.ZOMBIE_OSTRICH)
+			.add(WWEntityTypeIds.SUNKEN);
+
+		this.builder(EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES)
+			.add(WWEntityTypeIds.SUNKEN);
+
+		this.builder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+			.add(WWEntityTypeIds.SUNKEN);
 
 		this.builder(EntityTypeTags.IMPACT_PROJECTILES)
 			.add(WWEntityTypeIds.HARPOON);

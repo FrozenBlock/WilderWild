@@ -131,7 +131,7 @@ public class Harpoon extends AbstractArrow {
         return this.isInWater() ? 0.01D : 0.075D;
     }
 
-    public int retrieve(ItemStack crossbow) {
+    public int retrieve(@Nullable ItemStack crossbow) {
 		if (!(this.getOrSetAttachedTo() instanceof LivingEntity attachedTo)) return 0;
 
 		if (this.level().isClientSide() || this.shouldStopHarpooning(attachedTo)) return 0;
@@ -140,12 +140,16 @@ public class Harpoon extends AbstractArrow {
 		pullEntityOrAttachedTo: {
 			if (this.hookedIn != null) {
 				this.pullEntity(this.hookedIn);
-				// TODO: criteria for reeling hooked entity
-				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)owner, crossbow, this, Collections.emptyList());
+				if (crossbow != null) {
+					// TODO: criteria for reeling hooked entity
+					//CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)owner, crossbow, this, Collections.emptyList());
+				}
 			} else if (this.isInGround()) {
 				this.pullEntity(attachedTo);
-				// TODO: criteria for using as grappling hook
-				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)owner, crossbow, this, Collections.emptyList());
+				if (crossbow != null) {
+					// TODO: criteria for using as grappling hook
+					//CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer)owner, crossbow, this, Collections.emptyList());
+				}
 			} else {
 				break pullEntityOrAttachedTo;
 			}
