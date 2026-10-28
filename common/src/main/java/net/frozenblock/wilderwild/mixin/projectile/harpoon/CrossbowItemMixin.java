@@ -43,7 +43,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class CrossbowItemMixin {
 
 	@ModifyReturnValue(method = "getSupportedHeldProjectiles", at = @At("RETURN"))
-	public Predicate<ItemStack> wilderWild$supportHeldHarpoon(Predicate<ItemStack> predicate) {
+	public Predicate<ItemStack> wilderWild$supportHeldHarpoons(Predicate<ItemStack> predicate) {
+		return predicate.or(itemStack -> itemStack.is(WWItems.HARPOON.get()));
+	}
+
+	@ModifyReturnValue(method = "getAllSupportedProjectiles", at = @At("RETURN"))
+	public Predicate<ItemStack> wilderWild$supportAllHarpoons(Predicate<ItemStack> predicate) {
 		return predicate.or(itemStack -> itemStack.is(WWItems.HARPOON.get()));
 	}
 
