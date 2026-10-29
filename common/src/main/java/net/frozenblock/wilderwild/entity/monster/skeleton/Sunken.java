@@ -77,9 +77,7 @@ import org.jspecify.annotations.Nullable;
 public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEntityVariantHolder<SunkenVariant> {
 	private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EYE_PATCH = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
-	public final RangedHarpoonCrossbowAttackGoal<Sunken> harpoonGoal = new RangedHarpoonCrossbowAttackGoal<>(
-		this, 1D, 8F, 1.375D, 20F
-	);
+	public final RangedHarpoonCrossbowAttackGoal<Sunken> harpoonGoal = new RangedHarpoonCrossbowAttackGoal<>(this, 1D, 8F, 20F);
 
 	public Sunken(EntityType<? extends Sunken> type, Level level) {
 		super(type, level);
@@ -99,7 +97,7 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 			.add(Attributes.FOLLOW_RANGE, 24D)
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.MOVEMENT_SPEED, 0.27F)
-			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.5D);
+			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.4D);
 	}
 
 	@Override

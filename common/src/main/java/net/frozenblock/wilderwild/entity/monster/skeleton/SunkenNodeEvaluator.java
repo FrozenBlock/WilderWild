@@ -89,6 +89,7 @@ public class SunkenNodeEvaluator extends WalkNodeEvaluator {
 				final PathType belowType = context.getPathTypeFromState(x, y - 1, z);
 				if (belowType == PathType.WALKABLE || belowType == PathType.WALKABLE_DOOR) return belowType;
 				if (belowType == PathType.BLOCKED) return PathType.WALKABLE;
+				if (belowType == PathType.WATER) return PathType.WALKABLE;
 			}
 			return pathTypeFromNeighbors;
 		}
@@ -100,6 +101,7 @@ public class SunkenNodeEvaluator extends WalkNodeEvaluator {
 				if (belowType == PathType.WALKABLE || belowType == PathType.WALKABLE_DOOR) return belowType;
 				if (belowType == PathType.BLOCKED) return PathType.WALKABLE;
 				if (belowType == PathType.WATER || belowType == PathType.WATER_BORDER) return PathType.WALKABLE;
+				if (belowType == PathType.OPEN) return PathType.OPEN;
 			}
 			return pathTypeFromNeighbors;
 		}

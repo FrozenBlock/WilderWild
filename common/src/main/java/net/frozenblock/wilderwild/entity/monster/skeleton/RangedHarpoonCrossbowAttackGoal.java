@@ -50,22 +50,19 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 	public RangedCrossbowAttackGoal.CrossbowState crossbowState = RangedCrossbowAttackGoal.CrossbowState.UNCHARGED;
 	public final double speedModifier;
 	public final float attackRadiusSqr;
-	private final double speedModifierWhenRepositioning;
 	private final float attackRadiusInWaterSqr;
 	public int seeTime;
 	public int attackDelay;
 	public int updatePathDelay;
 	private boolean strafingClockwise;
-	private boolean strafingBackwards;
 	private int strafingTime = -1;
 	private int ticksSinceShot;
 	private boolean reelingIn;
 
-	public RangedHarpoonCrossbowAttackGoal(T mob, double speedModifier, float attackRadius, double speedModifierWhenRepositioning, float attackRadiusInWater) {
+	public RangedHarpoonCrossbowAttackGoal(T mob, double speedModifier, float attackRadius, float attackRadiusInWater) {
 		this.mob = mob;
 		this.speedModifier = speedModifier;
 		this.attackRadiusSqr = attackRadius * attackRadius;
-		this.speedModifierWhenRepositioning = speedModifierWhenRepositioning;
 		this.attackRadiusInWaterSqr = attackRadiusInWater * attackRadiusInWater;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
 	}
@@ -210,9 +207,10 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 		}
 
 		if (this.strafingTime > -1) {
-			this.strafingBackwards = !(this.mob.distanceToSqr(target) > this.activeAttackRange() * 0.75F) && hasLineOfSight;
+			final boolean strafingBackwards = !(this.mob.distanceToSqr(target) > this.activeAttackRange() * 0.75F) && hasLineOfSight;
 
-			this.mob.getMoveControl().strafe(this.strafingBackwards ? -2F : 1F, this.strafingClockwise ? 2F : -2F);
+			final float strafeSpeed = this.mob.isInLiquid() ? 2F : 1F;
+			this.mob.getMoveControl().strafe((strafingBackwards ? -1F : 0.5F) * strafeSpeed, (this.strafingClockwise ? 1F : -1F) * strafeSpeed);
 			if (this.mob.getControlledVehicle() instanceof Mob vehicle) vehicle.lookAt(target, 30F, 30F);
 			this.mob.lookAt(target, 30F, 30F);
 		} else {
