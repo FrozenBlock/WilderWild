@@ -36,6 +36,8 @@ accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal see
 accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal attackDelay I
 accessible method net/minecraft/world/entity/ai/navigation/GroundPathNavigation findSurfacePosition (Lnet/minecraft/world/level/chunk/LevelChunk;Lnet/minecraft/core/BlockPos;I)Lnet/minecraft/core/BlockPos;
 extendable method net/minecraft/world/entity/ai/navigation/GroundPathNavigation findSurfacePosition (Lnet/minecraft/world/level/chunk/LevelChunk;Lnet/minecraft/core/BlockPos;I)Lnet/minecraft/core/BlockPos;
+accessible field net/minecraft/client/renderer/entity/ArrowRenderer model Lnet/minecraft/client/model/object/projectile/ArrowModel;
+mutable field net/minecraft/client/renderer/entity/ArrowRenderer model Lnet/minecraft/client/model/object/projectile/ArrowModel;
 
 # Item
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;

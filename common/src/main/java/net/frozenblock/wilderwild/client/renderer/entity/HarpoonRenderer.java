@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 FrozenBlock
+ * Copyright 2026 FrozenBlock
  * This file is part of Wilder Wild.
  *
  * This program is free software; you can modify it under
@@ -20,6 +20,8 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.WWModelLayers;
+import net.frozenblock.wilderwild.client.model.object.projectile.HarpoonModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.HarpoonRenderState;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -45,6 +47,7 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 
 	public HarpoonRenderer(EntityRendererProvider.Context context) {
 		super(context);
+		this.model = new HarpoonModel(context.bakeLayer(WWModelLayers.HARPOON));
 	}
 
 	@Override
@@ -117,6 +120,7 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 	public void submit(HarpoonRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
 		if (!state.hookedInEntity) super.submit(state, poseStack, submitNodeCollector, camera);
 
+		if (state.lineOriginOffset.equals(Vec3.ZERO)) return;
 		// TODO: better rope/string design
 		poseStack.pushPose();
 		float xa = (float)state.lineOriginOffset.x;

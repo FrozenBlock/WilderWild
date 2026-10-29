@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.client.model.animal.penguin.AdultPenguinModel;
 import net.frozenblock.wilderwild.client.model.animal.penguin.BabyPenguinModel;
 import net.frozenblock.wilderwild.client.model.monster.skeleton.SunkenModel;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
+import net.frozenblock.wilderwild.client.model.object.projectile.HarpoonModel;
 import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
 import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -79,7 +80,10 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation MOOBLOOM = new ModelLayerLocation(WWConstants.id("moobloom"), "main");
 	public static final ModelLayerLocation MOOBLOOM_BABY = new ModelLayerLocation(WWConstants.id("moobloom_baby"), "main");
 
-	// BOATS
+	// PROJECTILE
+	public static final ModelLayerLocation HARPOON = new ModelLayerLocation(WWConstants.id("harpoon"), "main");
+
+	// BOAT
 	public static final ModelLayerLocation BAOBAB_BOAT = new ModelLayerLocation(WWConstants.id("boat/baobab"), "main");
 	public static final ModelLayerLocation BAOBAB_CHEST_BOAT = new ModelLayerLocation(WWConstants.id("chest_boat/baobab"), "main");
 	public static final ModelLayerLocation WILLOW_BOAT = new ModelLayerLocation(WWConstants.id("boat/willow"), "main");
@@ -131,7 +135,10 @@ public final class WWModelLayers {
 		ModelLayerRegistry.register(PENGUIN, AdultPenguinModel::createBodyLayer);
 		ModelLayerRegistry.register(PENGUIN_BABY, BabyPenguinModel::createBodyLayer);
 
-		// BOATS
+		// PROJECTILE
+		ModelLayerRegistry.register(HARPOON, HarpoonModel::createBodyLayer);
+
+		// BOAT
 		ModelLayerRegistry.registerBoats(BAOBAB_BOAT, BAOBAB_CHEST_BOAT);
 		ModelLayerRegistry.registerBoats(WILLOW_BOAT, WILLOW_CHEST_BOAT);
 		ModelLayerRegistry.registerBoats(CYPRESS_BOAT, CYPRESS_CHEST_BOAT);
