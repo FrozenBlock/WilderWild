@@ -237,6 +237,13 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 		this.performCrossbowAttack(this, 1.6F);
 	}
 
+	@Override
+	public float rangedAttackUncertainty(Level level) {
+		final float rangedAttackUncertainty = super.rangedAttackUncertainty(level);
+		if (this.hasEyePatch()) return rangedAttackUncertainty * 0.5F;
+		return rangedAttackUncertainty;
+	}
+
 	// TODO: see what timing fits harpoons best
 	@Override
 	protected int getHardAttackInterval() {
@@ -254,12 +261,6 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 
 	public boolean hasEyePatch() {
 		return this.entityData.get(HAS_EYE_PATCH);
-	}
-
-	public SunkenArmPos getArmPose() {
-		if (this.isChargingCrossbow()) return SunkenArmPos.CROSSBOW_CHARGE;
-		if (this.isHolding(Items.CROSSBOW)) return SunkenArmPos.CROSSBOW_HOLD;
-		return this.isAggressive() ? SunkenArmPos.ATTACKING : SunkenArmPos.NEUTRAL;
 	}
 
 	@Override
@@ -316,13 +317,5 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 		super.readAdditionalSaveData(input);
 		this.wilderWild$readVariant(input).ifPresent(this::wilderWild$setVariant);
 		this.setHasEyePatch(input.getBooleanOr("has_eye_patch", false));
-	}
-
-	public enum SunkenArmPos {
-		ATTACKING,
-		BOW_AND_ARROW,
-		CROSSBOW_HOLD,
-		CROSSBOW_CHARGE,
-		NEUTRAL;
 	}
 }
