@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.client.model.monster.skeleton;
 
 import net.frozenblock.wilderwild.client.renderer.entity.state.SunkenRenderState;
+import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -92,7 +93,7 @@ public class SunkenModel extends SkeletonModel<SunkenRenderState> {
 		);
 
 		final PartDefinition head = root.getChild("head");
-		final PartDefinition coral = head.addOrReplaceChild("coral", CubeListBuilder.create(), PartPose.ZERO);
+		final PartDefinition coral = head.addOrReplaceChild("coral", CubeListBuilder.create(), PartPose.offset(0F, -4F, 0F));
 
 		final PartDefinition coralHat = coral.addOrReplaceChild(
 			"coral_hat",
@@ -108,5 +109,11 @@ public class SunkenModel extends SkeletonModel<SunkenRenderState> {
 				.addBox(-3F, 0F, -2F, 6F, 0F, 4F),
 			PartPose.offset(2F, 1F, 4F)
 		);
+	}
+
+	@Override
+	public void setupAnim(SunkenRenderState state) {
+		super.setupAnim(state);
+		this.headCoral.visible = state.modelType == SunkenVariant.ModelType.CORAL;
 	}
 }

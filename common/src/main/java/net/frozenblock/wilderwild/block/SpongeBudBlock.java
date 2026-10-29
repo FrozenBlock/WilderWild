@@ -110,7 +110,7 @@ public class SpongeBudBlock extends FaceAttachedHorizontalDirectionalBlock imple
 	public static void dropSpongeBud(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
-			WWLootTables.SHEAR_SPONGE_BUD,
+			WWLootTables.HARVEST_SPONGE_BUD,
 			pos,
 			state,
 			blockEntity,

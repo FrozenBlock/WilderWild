@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:shearing",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": 1
+          },
+          "name": "minecraft:dead_tube_coral"
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": 1
+          },
+          "name": "minecraft:dead_tube_coral_fan"
+        }
+      ],
+      "rolls": 2
+    }
+  ]
+}

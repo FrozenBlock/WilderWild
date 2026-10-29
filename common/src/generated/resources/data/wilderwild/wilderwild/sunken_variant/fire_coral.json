@@ -1,9 +1,15 @@
 {
   "asset_id": "wilderwild:entity/skeleton/sunken_fire_coral",
-  "dried_variant": "wilderwild:dead_fire_coral",
+  "dry_result": {
+    "result_variant": "wilderwild:dead_fire_coral"
+  },
   "eye_patch_left_handed_asset_id": "wilderwild:entity/skeleton/sunken_fire_coral_eye_patch_left_handed",
   "eye_patch_right_handed_asset_id": "wilderwild:entity/skeleton/sunken_fire_coral_eye_patch_right_handed",
-  "sheared_variant": "wilderwild:default",
+  "model": "coral",
+  "shear_result": {
+    "drop_on_conversion": "wilderwild:shearing/sunken_fire_coral",
+    "result_variant": "wilderwild:default"
+  },
   "spawn_conditions": [
     {
       "condition": {

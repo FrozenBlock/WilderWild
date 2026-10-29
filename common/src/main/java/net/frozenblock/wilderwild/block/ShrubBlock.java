@@ -190,7 +190,7 @@ public class ShrubBlock extends VegetationBlock implements BonemealableBlock {
 	public static void dropShrub(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
-			WWLootTables.SHEAR_SHRUB,
+			WWLootTables.HARVEST_SHRUB,
 			pos,
 			state,
 			blockEntity,

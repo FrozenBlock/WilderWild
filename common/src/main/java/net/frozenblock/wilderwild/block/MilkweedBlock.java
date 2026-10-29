@@ -76,7 +76,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	public static void dropMilkweed(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
-			WWLootTables.SHEAR_MILKWEED,
+			WWLootTables.HARVEST_MILKWEED,
 			pos,
 			state,
 			blockEntity,

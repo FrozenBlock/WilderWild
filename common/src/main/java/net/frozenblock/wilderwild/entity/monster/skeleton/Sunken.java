@@ -33,12 +33,18 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -47,15 +53,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.entity.animal.nautilus.ZombieNautilus;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.variant.SpawnContext;
@@ -68,6 +78,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
@@ -75,10 +86,13 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
-public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEntityVariantHolder<SunkenVariant> {
+public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shearable, WWEntityVariantHolder<SunkenVariant> {
+	private static final IntProvider TICKS_UNTIL_DRIED_OUT_PROVIDER = UniformInt.of(60, 100);
+	private static final int DEFAULT_TICKS_UNTIL_DRIED_OUT = -1;
 	private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EYE_PATCH = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 	public final RangedHarpoonCrossbowAttackGoal<Sunken> harpoonGoal = new RangedHarpoonCrossbowAttackGoal<>(this, 1D, 8F, 20F);
+	private int ticksUntilDriedOut = DEFAULT_TICKS_UNTIL_DRIED_OUT;
 
 	public Sunken(EntityType<? extends Sunken> type, Level level) {
 		super(type, level);
@@ -91,7 +105,7 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 		super.registerGoals();
 		this.goalSelector.removeAllGoals(goal -> goal instanceof WaterAvoidingRandomStrollGoal);
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1D));
-
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Axolotl.class, true, false));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -175,6 +189,87 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 	}
 
 	@Override
+	public void tick() {
+		super.tick();
+		this.tickDrying();
+	}
+
+	private void tickDrying() {
+		if (!(this.level() instanceof ServerLevel level)) return;
+
+		if (this.isInWaterOrRain()) {
+			this.ticksUntilDriedOut = DEFAULT_TICKS_UNTIL_DRIED_OUT;
+		} else {
+			if (this.ticksUntilDriedOut == DEFAULT_TICKS_UNTIL_DRIED_OUT) {
+				this.ticksUntilDriedOut = TICKS_UNTIL_DRIED_OUT_PROVIDER.sample(this.random);
+			} else {
+				this.ticksUntilDriedOut -= 1;
+
+				if (this.ticksUntilDriedOut <= 0) {
+					this.wilderWild$getVariant().value().dryResult().ifPresent(convertOnDry -> {
+						convertOnDry.convertTo(
+							this,
+							lootTable -> {
+								this.dropFromGiftLootTable(
+									level,
+									lootTable,
+									(serverLevel, drop) -> this.spawnAtLocation(serverLevel, drop, this.getBbHeight())
+								);
+							}
+						);
+					});
+					this.ticksUntilDriedOut = DEFAULT_TICKS_UNTIL_DRIED_OUT;
+				}
+			}
+		}
+	}
+
+	@Override
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+		final ItemStack itemStack = player.getItemInHand(hand);
+		if (itemStack.is(Items.SHEARS) && this.readyForShearing()) {
+			if (this.level() instanceof ServerLevel level) {
+				this.shear(level, SoundSource.PLAYERS, itemStack);
+				this.gameEvent(GameEvent.SHEAR, player);
+				itemStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+			}
+
+			return InteractionResult.SUCCESS;
+		}
+
+		return super.mobInteract(player, hand);
+	}
+
+	@Override
+	public void shear(ServerLevel level, SoundSource soundSource, ItemStack tool) {
+		final Holder<SunkenVariant> variant = this.wilderWild$getVariant();
+		if (variant == null) return;
+
+		variant.value().shearResult().ifPresent(convertOnShear -> {
+			// TODO: shear sound
+			level.playSound(null, this, SoundEvents.BOGGED_SHEAR, soundSource, 1F, 1F);
+
+			convertOnShear.convertTo(
+				this,
+				lootTable -> {
+					this.dropFromShearingLootTable(
+						level,
+						lootTable,
+						tool,
+						(serverLevel, drop) -> this.spawnAtLocation(serverLevel, drop, this.getBbHeight())
+					);
+				}
+			);
+		});
+	}
+
+	@Override
+	public boolean readyForShearing() {
+		final Holder<SunkenVariant> variant = this.wilderWild$getVariant();
+		return variant != null && variant.value().shearResult().isPresent();
+	}
+
+	@Override
 	public AABB getAttackBoundingBox(double horizontalExpansion) {
 		return super.getAttackBoundingBox(horizontalExpansion);
 	}
@@ -242,7 +337,6 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 		return super.rangedAttackUncertainty(level) * 0.75F;
 	}
 
-	// TODO: see what timing fits harpoons best
 	@Override
 	protected int getHardAttackInterval() {
 		return 50;

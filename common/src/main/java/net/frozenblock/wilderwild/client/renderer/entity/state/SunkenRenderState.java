@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.client.renderer.entity.state;
 
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
 import net.minecraft.resources.Identifier;
@@ -25,5 +26,6 @@ import net.minecraft.resources.Identifier;
 @ClientOnly
 public class SunkenRenderState extends SkeletonRenderState {
 	private static final Identifier DEFAULT_TEXTURE = WWConstants.id("textures/entity/skeleton/sunken.png");
+	public SunkenVariant.ModelType modelType = SunkenVariant.ModelType.NORMAL;
 	public Identifier texture = DEFAULT_TEXTURE;
 }

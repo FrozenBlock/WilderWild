@@ -59,6 +59,7 @@ public class SunkenRenderer extends AbstractSkeletonRenderer<Sunken, SunkenRende
 			? sunken.isLeftHanded() ? variant.eyePatchLeftHandedTexture() : variant.eyePatchRightHandedTexture()
 			: variant.texture()
 		).texturePath();
+		state.modelType = variant.model();
 	}
 
 	@Override

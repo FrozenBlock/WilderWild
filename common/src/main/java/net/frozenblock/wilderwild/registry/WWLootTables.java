@@ -56,10 +56,23 @@ import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class WWLootTables {
-	public static final ResourceKey<LootTable> SHEAR_MILKWEED = register("shearing/milkweed");
-	public static final ResourceKey<LootTable> SHEAR_PRICKLY_PEAR = register("shearing/prickly_pear");
-	public static final ResourceKey<LootTable> SHEAR_SPONGE_BUD = register("shearing/sponge_bud");
-	public static final ResourceKey<LootTable> SHEAR_SHRUB = register("shearing/shrub");
+	// BLOCKS
+	public static final ResourceKey<LootTable> HARVEST_MILKWEED = register("harvest/milkweed");
+	public static final ResourceKey<LootTable> HARVEST_PRICKLY_PEAR = register("harvest/prickly_pear");
+	public static final ResourceKey<LootTable> HARVEST_SPONGE_BUD = register("harvest/sponge_bud");
+	public static final ResourceKey<LootTable> HARVEST_SHRUB = register("harvest/shrub");
+	// SUNKEN CORAL
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_BRAIN_CORAL = register("shearing/sunken_brain_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_BUBBLE_CORAL = register("shearing/sunken_bubble_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_FIRE_CORAL = register("shearing/sunken_fire_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_HORN_CORAL = register("shearing/sunken_horn_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_TUBE_CORAL = register("shearing/sunken_tube_coral");
+	// SUNKEN DEAD CORAL
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_BRAIN_CORAL = register("shearing/sunken_dead_brain_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_BUBBLE_CORAL = register("shearing/sunken_dead_bubble_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_FIRE_CORAL = register("shearing/sunken_dead_fire_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_HORN_CORAL = register("shearing/sunken_dead_horn_coral");
+	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_TUBE_CORAL = register("shearing/sunken_dead_tube_coral");
 
 	// FIXME: I dont work on Neo for some reason :(
 	public static void init() {

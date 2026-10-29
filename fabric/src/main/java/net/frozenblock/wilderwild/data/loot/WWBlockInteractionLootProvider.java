@@ -49,7 +49,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 		final HolderLookup.Provider registryLookup = this.registries.join();
 
 		output.accept(
-			WWLootTables.SHEAR_MILKWEED,
+			WWLootTables.HARVEST_MILKWEED,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -62,7 +62,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 		);
 
 		output.accept(
-			WWLootTables.SHEAR_PRICKLY_PEAR,
+			WWLootTables.HARVEST_PRICKLY_PEAR,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -75,7 +75,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 		);
 
 		output.accept(
-			WWLootTables.SHEAR_SPONGE_BUD,
+			WWLootTables.HARVEST_SPONGE_BUD,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()
@@ -88,7 +88,7 @@ public final class WWBlockInteractionLootProvider extends SimpleFabricLootTableS
 		);
 
 		output.accept(
-			WWLootTables.SHEAR_SHRUB,
+			WWLootTables.HARVEST_SHRUB,
 			LootTable.lootTable()
 				.withPool(
 					LootPool.lootPool()

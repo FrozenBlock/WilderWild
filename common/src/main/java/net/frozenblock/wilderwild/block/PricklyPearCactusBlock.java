@@ -152,7 +152,7 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 	public static void dropPricklyPear(ServerLevel level, ItemStack stack, BlockState state, @Nullable BlockEntity blockEntity, @Nullable Entity user, BlockPos pos) {
 		dropFromBlockInteractLootTable(
 			level,
-			WWLootTables.SHEAR_PRICKLY_PEAR,
+			WWLootTables.HARVEST_PRICKLY_PEAR,
 			pos,
 			state,
 			blockEntity,

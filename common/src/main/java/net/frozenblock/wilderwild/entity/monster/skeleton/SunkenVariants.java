@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.monster.skeleton;
 
 import java.util.Optional;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.registry.WWLootTables;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.ClientAsset;
@@ -33,6 +34,7 @@ import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 public final class SunkenVariants {
 	public static final ResourceKey<SunkenVariant> DEFAULT = createKey("default");
@@ -59,25 +61,66 @@ public final class SunkenVariants {
 
 		register(context, DEFAULT, "");
 		// CORAL
-		register(context, BRAIN_CORAL, "brain_coral", sunkenVariants.getOrThrow(DEAD_BRAIN_CORAL), defaultVariant, WWBiomeTags.CORAL_VARIANT_SUNKEN);
-		register(context, BUBBLE_CORAL, "bubble_coral", sunkenVariants.getOrThrow(DEAD_BUBBLE_CORAL), defaultVariant, WWBiomeTags.CORAL_VARIANT_SUNKEN);
-		register(context, FIRE_CORAL, "fire_coral", sunkenVariants.getOrThrow(DEAD_FIRE_CORAL), defaultVariant, WWBiomeTags.CORAL_VARIANT_SUNKEN);
-		register(context, HORN_CORAL, "horn_coral", sunkenVariants.getOrThrow(DEAD_HORN_CORAL), defaultVariant, WWBiomeTags.CORAL_VARIANT_SUNKEN);
-		register(context, TUBE_CORAL, "tube_coral", sunkenVariants.getOrThrow(DEAD_TUBE_CORAL), defaultVariant, WWBiomeTags.CORAL_VARIANT_SUNKEN);
+		registerCoral(
+			context,
+			BRAIN_CORAL,
+			"brain_coral",
+			sunkenVariants.getOrThrow(DEAD_BRAIN_CORAL),
+			defaultVariant,
+			WWLootTables.SHEAR_SUNKEN_BRAIN_CORAL,
+			WWBiomeTags.CORAL_VARIANT_SUNKEN
+		);
+		registerCoral(
+			context,
+			BUBBLE_CORAL,
+			"bubble_coral",
+			sunkenVariants.getOrThrow(DEAD_BUBBLE_CORAL),
+			defaultVariant,
+			WWLootTables.SHEAR_SUNKEN_BUBBLE_CORAL,
+			WWBiomeTags.CORAL_VARIANT_SUNKEN
+		);
+		registerCoral(
+			context,
+			FIRE_CORAL,
+			"fire_coral",
+			sunkenVariants.getOrThrow(DEAD_FIRE_CORAL),
+			defaultVariant,
+			WWLootTables.SHEAR_SUNKEN_FIRE_CORAL,
+			WWBiomeTags.CORAL_VARIANT_SUNKEN
+		);
+		registerCoral(
+			context,
+			HORN_CORAL,
+			"horn_coral",
+			sunkenVariants.getOrThrow(DEAD_HORN_CORAL),
+			defaultVariant,
+			WWLootTables.SHEAR_SUNKEN_HORN_CORAL,
+			WWBiomeTags.CORAL_VARIANT_SUNKEN
+		);
+		registerCoral(
+			context,
+			TUBE_CORAL,
+			"tube_coral",
+			sunkenVariants.getOrThrow(DEAD_TUBE_CORAL),
+			defaultVariant,
+			WWLootTables.SHEAR_SUNKEN_TUBE_CORAL,
+			WWBiomeTags.CORAL_VARIANT_SUNKEN
+		);
 		// DEAD CORAL
-		register(context, DEAD_BRAIN_CORAL, "dead_brain_coral", defaultVariant);
-		register(context, DEAD_BUBBLE_CORAL, "dead_bubble_coral", defaultVariant);
-		register(context, DEAD_FIRE_CORAL, "dead_fire_coral", defaultVariant);
-		register(context, DEAD_HORN_CORAL, "dead_horn_coral", defaultVariant);
-		register(context, DEAD_TUBE_CORAL, "dead_tube_coral", defaultVariant);
+		registerDeadCoral(context, DEAD_BRAIN_CORAL, "dead_brain_coral", defaultVariant, WWLootTables.SHEAR_SUNKEN_DEAD_BRAIN_CORAL);
+		registerDeadCoral(context, DEAD_BUBBLE_CORAL, "dead_bubble_coral", defaultVariant, WWLootTables.SHEAR_SUNKEN_DEAD_BUBBLE_CORAL);
+		registerDeadCoral(context, DEAD_FIRE_CORAL, "dead_fire_coral", defaultVariant, WWLootTables.SHEAR_SUNKEN_DEAD_FIRE_CORAL);
+		registerDeadCoral(context, DEAD_HORN_CORAL, "dead_horn_coral", defaultVariant, WWLootTables.SHEAR_SUNKEN_DEAD_HORN_CORAL);
+		registerDeadCoral(context, DEAD_TUBE_CORAL, "dead_tube_coral", defaultVariant, WWLootTables.SHEAR_SUNKEN_DEAD_TUBE_CORAL);
 	}
 
 	private static void register(
 		BootstrapContext<SunkenVariant> context,
 		ResourceKey<SunkenVariant> name,
+		SunkenVariant.ModelType model,
 		String textureName,
-		Optional<Holder<SunkenVariant>> driedVariant,
-		Optional<Holder<SunkenVariant>> shearedVariant,
+		Optional<SunkenVariant.ConversionResult> dryResult,
+		Optional<SunkenVariant.ConversionResult> shearResult,
 		SpawnPrioritySelectors spawnConditions
 	) {
 		final String texturePath = "entity/skeleton/sunken" + (StringUtil.isNullOrEmpty(textureName) ? "" : "_" + textureName);
@@ -86,35 +129,54 @@ public final class SunkenVariants {
 		context.register(
 			name,
 			new SunkenVariant(
+				model,
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
 				new ClientAsset.ResourceTexture(WWConstants.id(eyePatchLeftHandedTexturePath)),
 				new ClientAsset.ResourceTexture(WWConstants.id(eyePatchRightHandedTexturePath)),
-				driedVariant,
-				shearedVariant,
+				dryResult,
+				shearResult,
 				spawnConditions
 			)
 		);
 	}
 
-	private static void register(
+	private static void registerCoral(
 		BootstrapContext<SunkenVariant> context,
 		ResourceKey<SunkenVariant> name,
 		String textureName,
 		Holder<SunkenVariant> driedVariant,
 		Holder<SunkenVariant> shearedVariant,
+		ResourceKey<LootTable> shearLootTable,
 		TagKey<Biome> spawnBiome
 	) {
 		final HolderSet<Biome> biomes = context.lookup(Registries.BIOME).getOrThrow(spawnBiome);
-		register(context, name, textureName, Optional.of(driedVariant), Optional.of(shearedVariant), SpawnPrioritySelectors.single(new BiomeCheck(biomes), 1));
+		register(
+			context,
+			name,
+			SunkenVariant.ModelType.CORAL,
+			textureName,
+			Optional.of(new SunkenVariant.ConversionResult(driedVariant, Optional.empty())),
+			Optional.of(new SunkenVariant.ConversionResult(shearedVariant, Optional.of(shearLootTable))),
+			SpawnPrioritySelectors.single(new BiomeCheck(biomes), 1)
+		);
 	}
 
-	private static void register(
+	private static void registerDeadCoral(
 		BootstrapContext<SunkenVariant> context,
 		ResourceKey<SunkenVariant> name,
 		String textureName,
-		Holder<SunkenVariant> shearedVariant
+		Holder<SunkenVariant> shearedVariant,
+		ResourceKey<LootTable> shearLootTable
 	) {
-		register(context, name, textureName, Optional.empty(), Optional.of(shearedVariant), SpawnPrioritySelectors.EMPTY);
+		register(
+			context,
+			name,
+			SunkenVariant.ModelType.CORAL,
+			textureName,
+			Optional.empty(),
+			Optional.of(new SunkenVariant.ConversionResult(shearedVariant, Optional.of(shearLootTable))),
+			SpawnPrioritySelectors.EMPTY
+		);
 	}
 
 	private static void register(
@@ -122,6 +184,14 @@ public final class SunkenVariants {
 		ResourceKey<SunkenVariant> name,
 		String textureName
 	) {
-		register(context, name, textureName, Optional.empty(), Optional.empty(), SpawnPrioritySelectors.fallback(0));
+		register(
+			context,
+			name,
+			SunkenVariant.ModelType.NORMAL,
+			textureName,
+			Optional.empty(),
+			Optional.empty(),
+			SpawnPrioritySelectors.fallback(0)
+		);
 	}
 }
