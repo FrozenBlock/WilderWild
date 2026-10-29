@@ -54,5 +54,6 @@ public final class WWBiomeSettings {
 		WWSpawns.addTumbleweed();
 		WWSpawns.addRabbits();
 		WWSpawns.addMooblooms();
+		WWSpawns.addSunken();
 	}
 }

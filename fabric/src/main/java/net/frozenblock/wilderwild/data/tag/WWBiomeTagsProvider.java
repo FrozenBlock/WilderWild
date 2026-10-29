@@ -635,6 +635,22 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
 
+		this.builder(WWBiomeTags.HAS_SUNKEN_OCEAN)
+			.add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
+			.add(Biomes.DEEP_COLD_OCEAN)
+			.add(Biomes.DEEP_OCEAN)
+			.add(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_WARM_OCEAN)
+			.add(Biomes.WARM_OCEAN);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_RIVER)
+			.add(Biomes.RIVER)
+			.addOptional(WWBiomes.WARM_RIVER);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_FROZEN_RIVER)
+			.add(Biomes.FROZEN_RIVER);
+
 		this.builder(WWBiomeTags.MORE_FREQUENT_SUNKEN_SPAWNS)
 			.addOptionalTag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS);
 

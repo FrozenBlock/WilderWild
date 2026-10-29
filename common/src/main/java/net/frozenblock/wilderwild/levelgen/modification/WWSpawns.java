@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMobCategories;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
@@ -124,6 +125,24 @@ public final class WWSpawns {
 			context -> {
 				context.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.COW);
 				context.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(WWEntityTypes.MOOBLOOM.get(), UniformInt.of(2, 4)), 34);
+			}
+		);
+	}
+
+	public static void addSunken() {
+		BiomeModifications.create(WWConstants.id("sunken_spawns")).add(
+			ModificationPhase.ADDITIONS,
+			BiomeSelectors.all(),
+			(selectionContext, context) -> {
+				int weight = 0;
+				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_OCEAN)) weight = Math.max(4, weight);
+				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_WARM_OCEAN)) weight = Math.max(8, weight);
+				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_RIVER)) weight = Math.max(100, weight);
+				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_FROZEN_RIVER)) weight = 1;
+
+				if (weight <= 0) return;
+
+				context.getMobSpawnSettings().addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(WWEntityTypes.SUNKEN.get(), ConstantInt.of(1)), weight);
 			}
 		);
 	}

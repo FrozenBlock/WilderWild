@@ -35,6 +35,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_ZOMBIE_OSTRICH = bind("entity/spawn/zombie_ostrich");
 	public static final TagKey<Biome> HAS_PENGUIN = bind("entity/spawn/penguin");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("entity/spawn/tumbleweed");
+	public static final TagKey<Biome> HAS_SUNKEN_OCEAN = bind("entity/spawn/sunken_ocean");
+	public static final TagKey<Biome> HAS_SUNKEN_WARM_OCEAN = bind("entity/spawn/sunken_warm_ocean");
+	public static final TagKey<Biome> HAS_SUNKEN_RIVER = bind("entity/spawn/sunken_river");
+	public static final TagKey<Biome> HAS_SUNKEN_FROZEN_RIVER = bind("entity/spawn/sunken_frozen_river");
 	public static final TagKey<Biome> MORE_FREQUENT_SUNKEN_SPAWNS = bind("entity/spawn/more_frequent_sunken_spawns");
 
 	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
