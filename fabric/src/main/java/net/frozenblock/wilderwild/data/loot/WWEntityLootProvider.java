@@ -49,6 +49,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
@@ -161,6 +162,33 @@ public final class WWEntityLootProvider extends FabricEntityLootSubProvider {
 								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
 						)
 						.when(LootItemKilledByPlayerCondition.killedByPlayer())
+				)
+		);
+
+		this.add(
+			WWEntityTypes.SUNKEN.get(),
+			LootTable.lootTable().withPool(
+				LootPool.lootPool()
+					.setRolls(ContextIntProviders.exactly(1))
+					.add(
+						LootItem.lootTableItem(WWItems.HARPOON.get())
+							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2)))
+							.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
+					)
+				).withPool(
+					LootPool.lootPool()
+						.setRolls(ContextIntProviders.exactly(1))
+						.add(
+							LootItem.lootTableItem(Items.BONE)
+								.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2)))
+								.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
+						)
+				).withPool(
+					LootPool.lootPool()
+						.setRolls(ContextIntProviders.exactly(1))
+						.add(LootItem.lootTableItem(Items.GOLD_NUGGET))
+						.when(LootItemKilledByPlayerCondition.killedByPlayer())
+						.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.enchantments, 0.11F, 0.02F))
 				)
 		);
 
