@@ -105,11 +105,7 @@ public class CrossbowItemMixin {
 				final boolean targetInLiquid = targetOverride.isInLiquid();
 				if (!deltaPos.equals(Vec3.ZERO)) {
 					originalVector = originalVector.add(
-						deltaPos.multiply(
-							targetInLiquid ? 0.5D : 1D,
-							targetInLiquid ? 1D : 0.2D,
-							targetInLiquid ? 0.5D : 1D
-						).scale(distanceToTarget)
+						deltaPos.multiply(1D, targetInLiquid ? 1D : 0.2D, 1D).scale(distanceToTarget)
 					);
 				}
 			}
