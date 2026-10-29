@@ -32,7 +32,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RangedCrossbowAttackGoal;
 import net.minecraft.world.entity.monster.CrossbowAttackMob;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.CrossbowItem;
@@ -42,7 +41,7 @@ import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.component.SwingAnimation;
 import org.jspecify.annotations.Nullable;
 
-public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob & CrossbowAttackMob> extends Goal {
+public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob & CrossbowAttackMob> extends Goal {
 	private static final int MAX_TICKS_SINCE_SHOT_BEFORE_REEL_IN = 100;
 	private static final int TICKS_SINCE_SHOT_BEFORE_REEL_IN_ENTITY = 60;
 	public static final UniformInt PATHFINDING_DELAY_RANGE = TimeUtil.rangeOfSeconds(1, 2);
@@ -69,7 +68,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 
 	@Override
 	public boolean canUse() {
-		return this.isValidTarget() && this.isHoldingCrossbow();
+		return this.isValidTarget() && this.isHoldingCrossbow() && !this.mob.getAttackBoundingBox(4D).intersects(this.mob.getTarget().getBoundingBox());
 	}
 
 	private boolean isHoldingCrossbow() {
@@ -78,7 +77,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.isValidTarget() && (this.canUse() || !this.mob.getNavigation().isDone()) && this.isHoldingCrossbow();
+		return this.isValidTarget() && (this.canUse() || !this.mob.getNavigation().isDone() || this.isHookedInEntity(this.getHarpoon())) && this.isHoldingCrossbow();
 	}
 
 	private boolean isValidTarget() {
@@ -228,7 +227,8 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 		return harpoon.getHookedIn() == null && harpoon.isInGround();
 	}
 
-	private boolean isHookedInEntity(Harpoon harpoon) {
+	private boolean isHookedInEntity(@Nullable Harpoon harpoon) {
+		if (harpoon == null) return false;
 		return harpoon.getHookedIn() != null;
 	}
 

@@ -72,6 +72,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
 
 public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEntityVariantHolder<SunkenVariant> {
@@ -90,6 +91,8 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 		super.registerGoals();
 		this.goalSelector.removeAllGoals(goal -> goal instanceof WaterAvoidingRandomStrollGoal);
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1D));
+		this.goalSelector.addGoal(5, new SunkenMeleeAttackGoal(this, 1D, false));
+
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -170,6 +173,11 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 
 	private static boolean isDeepEnoughToSpawn(LevelAccessor level, BlockPos pos) {
 		return pos.getY() < level.getSeaLevel() - 5;
+	}
+
+	@Override
+	public AABB getAttackBoundingBox(double horizontalExpansion) {
+		return super.getAttackBoundingBox(horizontalExpansion);
 	}
 
 	// TODO: custom sounds
