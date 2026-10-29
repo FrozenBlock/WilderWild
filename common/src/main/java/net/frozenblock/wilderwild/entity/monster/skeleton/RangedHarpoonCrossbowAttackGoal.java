@@ -130,6 +130,8 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 			if (harpoon.reelingIn() && this.reelingIn) {
 				this.strafingTime = -1;
 			} else if (this.shouldReelIn(harpoon) || target == null) {
+				if ((this.mob.onGround() || this.mob.isInLiquid()) && this.isHookedInGround(harpoon)) this.mob.jumpFromGround();
+
 				harpoon.retrieve(null);
 				this.mob.swing(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW), SwingAnimation.DEFAULT);
 				this.reelingIn = true;
@@ -172,11 +174,9 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 			this.tickStrafeAndLook(target, hasLineOfSight);
 
 			if (this.crossbowState == RangedCrossbowAttackGoal.CrossbowState.UNCHARGED) {
-				if (!needsToMoveCloser) {
-					this.mob.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW));
-					this.crossbowState = RangedCrossbowAttackGoal.CrossbowState.CHARGING;
-					this.mob.setChargingCrossbow(true);
-				}
+				this.mob.startUsingItem(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW));
+				this.crossbowState = RangedCrossbowAttackGoal.CrossbowState.CHARGING;
+				this.mob.setChargingCrossbow(true);
 			} else if (this.crossbowState == RangedCrossbowAttackGoal.CrossbowState.CHARGING) {
 				if (!this.mob.isUsingItem()) this.crossbowState = RangedCrossbowAttackGoal.CrossbowState.UNCHARGED;
 
@@ -209,7 +209,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 			final boolean strafingBackwards = !(this.mob.distanceToSqr(target) > this.activeAttackRange() * 0.75F) && hasLineOfSight;
 
 			final float strafeSpeed = this.mob.isInLiquid() ? 2F : 1F;
-			this.mob.getMoveControl().strafe((strafingBackwards ? -1F : 0.5F) * strafeSpeed, (this.strafingClockwise ? 1F : -1F) * strafeSpeed);
+			this.mob.getMoveControl().strafe((strafingBackwards ? -1.5F : 0.5F) * strafeSpeed, (this.strafingClockwise ? 1F : -1F) * strafeSpeed);
 			if (this.mob.getControlledVehicle() instanceof Mob vehicle) vehicle.lookAt(target, 30F, 30F);
 			this.mob.lookAt(target, 30F, 30F);
 		} else {

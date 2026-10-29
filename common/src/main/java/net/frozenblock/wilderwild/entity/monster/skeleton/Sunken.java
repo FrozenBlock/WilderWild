@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity.monster.skeleton;
 
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
@@ -32,6 +33,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -55,6 +57,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -89,6 +93,9 @@ import org.jspecify.annotations.Nullable;
 public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shearable, WWEntityVariantHolder<SunkenVariant> {
 	private static final IntProvider TICKS_UNTIL_DRIED_OUT_PROVIDER = UniformInt.of(60, 100);
 	private static final int DEFAULT_TICKS_UNTIL_DRIED_OUT = -1;
+	private static final Identifier EYE_PATCH_BONUS_ID = WWConstants.id("eye_patch_bonus");
+	private static final AttributeModifier FOLLOW_RANGE_MODIFIER_EYE_PATCH = new AttributeModifier(EYE_PATCH_BONUS_ID, 16D, AttributeModifier.Operation.ADD_VALUE);
+	private static final AttributeModifier ARMOR_MODIFIER_EYE_PATCH = new AttributeModifier(EYE_PATCH_BONUS_ID, 4D, AttributeModifier.Operation.ADD_VALUE);
 	private static final EntityDataAccessor<Boolean> IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EYE_PATCH = SynchedEntityData.defineId(Sunken.class, EntityDataSerializers.BOOLEAN);
 	public final RangedHarpoonCrossbowAttackGoal<Sunken> harpoonGoal = new RangedHarpoonCrossbowAttackGoal<>(this, 1D, 8F, 20F);
@@ -110,7 +117,7 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return AbstractSkeleton.createAttributes()
-			.add(Attributes.FOLLOW_RANGE, 24D)
+			.add(Attributes.FOLLOW_RANGE, 32D)
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.MOVEMENT_SPEED, 0.27F)
 			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.4D);
@@ -146,7 +153,6 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 
 		if (this.getItemBySlot(EquipmentSlot.OFFHAND).isEmpty() && level.getRandom().nextFloat() < 0.01F) {
 			this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SPYGLASS));
-			this.setGuaranteedDrop(EquipmentSlot.OFFHAND);
 		}
 
 		if ((spawnReason == EntitySpawnReason.NATURAL || spawnReason == EntitySpawnReason.STRUCTURE)
@@ -349,6 +355,19 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 
 	public void setHasEyePatch(boolean hasEyePatch) {
 		this.entityData.set(HAS_EYE_PATCH, hasEyePatch);
+
+		if (this.level() != null && !this.level().isClientSide()) {
+			final AttributeInstance followRange = this.getAttribute(Attributes.FOLLOW_RANGE);
+			followRange.removeModifier(EYE_PATCH_BONUS_ID);
+
+			final AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
+			armor.removeModifier(EYE_PATCH_BONUS_ID);
+
+			if (hasEyePatch) {
+				followRange.addTransientModifier(FOLLOW_RANGE_MODIFIER_EYE_PATCH);
+				armor.addTransientModifier(ARMOR_MODIFIER_EYE_PATCH);
+			}
+		}
 	}
 
 	public boolean hasEyePatch() {
