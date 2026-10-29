@@ -32,6 +32,7 @@ accessible field net/minecraft/world/entity/projectile/arrow/AbstractArrow baseD
 accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal crossbowState Lnet/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal$CrossbowState;
 accessible class net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal$CrossbowState
 accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal speedModifier D
+accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal attackRadiusSqr F
 accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal seeTime I
 accessible field net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal attackDelay I
 accessible method net/minecraft/world/entity/ai/navigation/GroundPathNavigation findSurfacePosition (Lnet/minecraft/world/level/chunk/LevelChunk;Lnet/minecraft/core/BlockPos;I)Lnet/minecraft/core/BlockPos;

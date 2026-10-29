@@ -84,14 +84,19 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 				} else {
 					final double targetDistSqr = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
 					final double distance = Math.sqrt(targetDistSqr);
-					final int mountDistance = this.mob.isPassenger() ? 2 : 0;
-					this.awayPos = LandRandomPos.getPosAway(
-						this.mob,
-						Math.max(0D, 6 + mountDistance - distance),
-						Math.max(1D, 16 + mountDistance - distance),
-						16,
-						target.position()
-					);
+
+					if (targetDistSqr >= this.attackRadiusSqr) {
+						this.navigatedToAwayPos = true;
+					} else {
+						final int mountDistance = this.mob.isPassenger() ? 2 : 0;
+						this.awayPos = LandRandomPos.getPosAway(
+							this.mob,
+							Math.max(0D, 6 + mountDistance - distance),
+							Math.max(1D, 16 + mountDistance - distance),
+							16,
+							target.position()
+						);
+					}
 				}
 			}
 
