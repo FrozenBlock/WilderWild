@@ -101,6 +101,7 @@ public record SunkenVariant(
 			if (sunken.wilderWild$getVariant() == this.resultVariant) return false;
 
 			sunken.wilderWild$setVariant(this.resultVariant);
+			this.resultLoot.ifPresent(ifLootTablePresent);
 			return true;
 		}
 	}
