@@ -51,6 +51,7 @@ public class Harpoon extends AbstractArrow {
 	private static final double MAX_STRING_DISTANCE_SQUARED = MAX_STRING_DISTANCE * MAX_STRING_DISTANCE;
 	private static final int REEL_IN_TICKS_DEFAULT = -1;
 	private static final int REEL_IN_TICKS = 5;
+	private static final int REEL_IN_TICKS_BUFFER_BLOCK = 3;
 	private static final EntityDataAccessor<Integer> HOOKED_ENTITY = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.INT);
 	private @Nullable Entity attachedTo;
 	private @Nullable Entity hookedIn;
@@ -150,12 +151,14 @@ public class Harpoon extends AbstractArrow {
 		boolean pulled = false;
 		pullEntityOrAttachedTo: {
 			if (this.hookedIn != null) {
+				if (this.reelInTicks >= 0) return 0;
 				this.reelInTicks = REEL_IN_TICKS;
 				if (crossbow != null && attachedTo instanceof ServerPlayer player) {
 					// TODO: criteria for reeling hooked entity
 					//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
 				}
 			} else if (this.isInGround()) {
+				if (this.reelInTicks >= REEL_IN_TICKS_BUFFER_BLOCK) return 0;
 				this.reelInTicks = REEL_IN_TICKS;
 				if (crossbow != null && attachedTo instanceof ServerPlayer player) {
 					// TODO: criteria for using as grappling hook
@@ -171,7 +174,10 @@ public class Harpoon extends AbstractArrow {
 
 		if (!pulled) {
 			this.discard();
-			if (attachedTo instanceof ServerPlayer player) player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
+			final ItemStack pickupItem = this.getPickupItem();
+			if (attachedTo instanceof ServerPlayer player && !pickupItem.has(DataComponents.INTANGIBLE_PROJECTILE)) {
+				player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
+			}
 		}
 
 		return pulled ? 3 : 0;
@@ -291,8 +297,9 @@ public class Harpoon extends AbstractArrow {
 	}
 
 	@Override
-	protected boolean tryPickup(final Player player) {
-		return super.tryPickup(player) || this.isNoPhysics() && this.ownedBy(player) && player.getInventory().add(this.getPickupItem());
+	protected boolean tryPickup(Player player) {
+		if (this.getOrSetAttachedTo() != null) return false;
+		return super.tryPickup(player) || this.ownedBy(player) && player.getInventory().add(this.getPickupItem());
 	}
 
 	@Override

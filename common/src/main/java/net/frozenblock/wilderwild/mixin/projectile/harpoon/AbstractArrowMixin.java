@@ -31,6 +31,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,6 +42,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
 public class AbstractArrowMixin {
+
+	@Inject(method = "addBubbleParticles", at = @At("HEAD"), cancellable = true)
+	private void wilderWild$cancelBubbleParticlesIfHookedHarpoon(Vec3 position, CallbackInfo info) {
+		if (AbstractArrow.class.cast(this) instanceof Harpoon harpoon && harpoon.getHookedIn() != null) info.cancel();
+	}
 
 	@WrapWithCondition(
 		method = "onHitEntity",

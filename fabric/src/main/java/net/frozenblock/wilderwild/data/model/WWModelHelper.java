@@ -84,26 +84,6 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.INSIDE, TextureSlot.FAN
 	);
-	private static final ModelTemplate SHELF_FUNGI_1_MODEL = new ModelTemplate(
-		Optional.of(WWConstants.id("block/template_shelf_fungi_1")),
-		Optional.of("_1"),
-		TextureSlot.TOP, TextureSlot.BOTTOM
-	);
-	private static final ModelTemplate SHELF_FUNGI_2_MODEL = new ModelTemplate(
-		Optional.of(WWConstants.id("block/template_shelf_fungi_2")),
-		Optional.of("_2"),
-		TextureSlot.TOP, TextureSlot.BOTTOM
-	);
-	private static final ModelTemplate SHELF_FUNGI_3_MODEL = new ModelTemplate(
-		Optional.of(WWConstants.id("block/template_shelf_fungi_3")),
-		Optional.of("_3"),
-		TextureSlot.TOP, TextureSlot.BOTTOM
-	);
-	private static final ModelTemplate SHELF_FUNGI_4_MODEL = new ModelTemplate(
-		Optional.of(WWConstants.id("block/template_shelf_fungi_4")),
-		Optional.of("_4"),
-		TextureSlot.TOP, TextureSlot.BOTTOM
-	);
 	private static final ModelTemplate MULTIFACE_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_multiface_block")),
 		Optional.empty(),

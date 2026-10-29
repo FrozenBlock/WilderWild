@@ -40,6 +40,7 @@ extendable method net/minecraft/world/entity/ai/navigation/GroundPathNavigation 
 # Item
 accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/client/renderer/item/properties/select/SelectItemModelProperties ID_MAPPER Lnet/minecraft/util/ExtraCodecs$LateBoundIdMapper;
+transitive-extend-enum net/minecraft/world/item/CrossbowItem$ChargeType WILDERWILD_HARPOON
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
@@ -61,6 +62,8 @@ accessible field net/minecraft/data/worldgen/material/OverworldMaterialRules DEF
 accessible field net/minecraft/data/worldgen/material/OverworldMaterialRules DEFAULT_UNDER_BIOME_SURFACE Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/data/worldgen/material/OverworldMaterialRules SAND_OR_SANDSTONE_IF_CEILING Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/data/worldgen/material/OverworldMaterialRules GRAVEL_OR_STONE_IF_CEILING Lnet/minecraft/resources/ResourceKey;
+accessible method net/minecraft/client/resources/model/sprite/TextureSlots <init> (Ljava/util/Map;)V
+accessible field net/minecraft/client/resources/model/sprite/TextureSlots resolvedValues Ljava/util/Map;
 
 # Particles
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
