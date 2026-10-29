@@ -423,6 +423,7 @@ public class Jellyfish extends NoFlopAbstractFish implements WWEntityVariantHold
 
 		for (LivingEntity entity : list) {
 			if (!this.targetingConditions.test(serverLevel, this, entity)) continue;
+			if (!this.doTeamsAllowDamage(entity)) continue;
 			if (!entity.hurtServer(serverLevel, this.damageSources().mobAttack(this), damage)) continue;
 
 			entity.addEffect(new MobEffectInstance(MobEffects.POISON, poisonDuration * 20, 0), this);
