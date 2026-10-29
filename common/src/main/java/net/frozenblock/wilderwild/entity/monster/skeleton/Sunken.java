@@ -239,9 +239,8 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, WWEnt
 
 	@Override
 	public float rangedAttackUncertainty(Level level) {
-		final float rangedAttackUncertainty = super.rangedAttackUncertainty(level);
-		if (this.hasEyePatch()) return rangedAttackUncertainty * 0.5F;
-		return rangedAttackUncertainty;
+		if (this.hasEyePatch()) return super.rangedAttackUncertainty(level) * 0.35F;
+		return super.rangedAttackUncertainty(level) * 0.75F;
 	}
 
 	// TODO: see what timing fits harpoons best
