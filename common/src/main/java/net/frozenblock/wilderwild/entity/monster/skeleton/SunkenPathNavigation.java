@@ -24,7 +24,7 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
@@ -32,6 +32,12 @@ public class SunkenPathNavigation extends GroundPathNavigation {
 
 	public SunkenPathNavigation(Sunken mob, Level level) {
 		super(mob, level);
+	}
+
+	@Override
+	protected PathFinder createPathFinder(int maxVisitedNodes) {
+		this.nodeEvaluator = new SunkenNodeEvaluator();
+		return new PathFinder(this.nodeEvaluator, maxVisitedNodes);
 	}
 
 	@Override
@@ -47,7 +53,7 @@ public class SunkenPathNavigation extends GroundPathNavigation {
 		final BlockPos belowPos = blockPos.below();
 		return isWaterOrEmptyBlockState(this.level, this.mob, belowPos, this.level.getBlockState(belowPos))
 			? target.y
-			: WalkNodeEvaluator.getFloorLevel(this.level, blockPos);
+			: SunkenNodeEvaluator.getFloorLevel(this.level, blockPos);
 	}
 
 	public static boolean isWaterOrEmptyBlockState(Level level, Entity entity, BlockPos pos, BlockState state) {

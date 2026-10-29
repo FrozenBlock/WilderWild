@@ -71,7 +71,6 @@
     "projectile.ThrownLingeringPotionMixin",
     "projectile.harpoon.AbstractArrowMixin",
     "projectile.harpoon.CrossbowItemMixin",
-    "projectile.harpoon.RangedCrossbowAttackGoalMixin",
     "sculk.CalibratedSculkSensorBlockMixin",
     "sculk.SculkBlockMixin",
     "sculk.SculkSensorBlockMixin",
