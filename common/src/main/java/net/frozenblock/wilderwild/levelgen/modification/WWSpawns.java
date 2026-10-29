@@ -135,8 +135,8 @@ public final class WWSpawns {
 			BiomeSelectors.all(),
 			(selectionContext, context) -> {
 				int weight = 0;
-				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_OCEAN)) weight = Math.max(4, weight);
-				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_WARM_OCEAN)) weight = Math.max(8, weight);
+				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_OCEAN)) weight = Math.max(6, weight);
+				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_WARM_OCEAN)) weight = Math.max(20, weight);
 				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_RIVER)) weight = Math.max(100, weight);
 				if (selectionContext.hasTag(WWBiomeTags.HAS_SUNKEN_FROZEN_RIVER)) weight = 1;
 
