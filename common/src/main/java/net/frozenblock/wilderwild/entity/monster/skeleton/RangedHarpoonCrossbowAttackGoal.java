@@ -42,6 +42,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 	private int ticksSinceShot;
 	private @Nullable Vec3 awayPos;
 	private boolean navigatedToAwayPos;
+	private boolean reelingIn;
 
 	public RangedHarpoonCrossbowAttackGoal(T mob, double speedModifier, float attackRadius, double speedModifierWhenRepositioning, float attackRadiusInWater) {
 		super(mob, speedModifier, attackRadius);
@@ -51,15 +52,22 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 	}
 
 	@Override
+	public void stop() {
+		super.stop();
+		this.resetHarpoonState();
+	}
+
+	@Override
 	public void tick() {
 		final LivingEntity target = this.mob.getTarget();
 		final Harpoon harpoon = this.getHarpoon();
 		if (harpoon != null) {
 			this.ticksSinceShot += 1;
 
-			if (this.shouldReelIn(harpoon) || target == null) {
+			if (harpoon.reelingIn() && this.reelingIn) {
+			} else if (this.shouldReelIn(harpoon) || target == null) {
 				harpoon.retrieve(null);
-				this.resetHarpoonState();
+				this.reelingIn = true;
 			} else if (this.isHookedInEntity(harpoon) && !this.shouldReelInEntity(harpoon.getHookedIn())) {
 				this.resetHarpoonState();
 				this.mob.swing(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW), SwingAnimation.DEFAULT);
@@ -87,14 +95,16 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 				}
 			}
 
-			final boolean hasLineOfSight = this.mob.getSensing().hasLineOfSight(target);
-			final boolean hadLineOfSight = this.seeTime > 0;
-			if (hasLineOfSight != hadLineOfSight) this.seeTime = 0;
+			if (target != null) {
+				final boolean hasLineOfSight = this.mob.getSensing().hasLineOfSight(target);
+				final boolean hadLineOfSight = this.seeTime > 0;
+				if (hasLineOfSight != hadLineOfSight) this.seeTime = 0;
 
-			if (hasLineOfSight) {
-				this.seeTime++;
-			} else {
-				this.seeTime--;
+				if (hasLineOfSight) {
+					this.seeTime++;
+				} else {
+					this.seeTime--;
+				}
 			}
 
 			this.attackDelay = 0;
@@ -111,6 +121,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 		this.ticksSinceShot = 0;
 		this.awayPos = null;
 		this.navigatedToAwayPos = false;
+		this.reelingIn = false;
 	}
 
 	private boolean isHookedInGround(Harpoon harpoon) {

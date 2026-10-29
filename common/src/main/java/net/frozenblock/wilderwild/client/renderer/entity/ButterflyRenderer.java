@@ -40,21 +40,21 @@ public class ButterflyRenderer extends MobRenderer<Butterfly, ButterflyRenderSta
 	}
 
 	@Override
-	public void extractRenderState(Butterfly butterfly, ButterflyRenderState renderState, float partialTicks) {
-		super.extractRenderState(butterfly, renderState, partialTicks);
-		renderState.downProgress = butterfly.getDownProgress(partialTicks);
-		renderState.groundProgress = butterfly.getGroundProgress(partialTicks);
-		renderState.flyingXRot = butterfly.getFlyingXRot(partialTicks);
+	public void extractRenderState(Butterfly butterfly, ButterflyRenderState state, float partialTicks) {
+		super.extractRenderState(butterfly, state, partialTicks);
+		state.downProgress = butterfly.getDownProgress(partialTicks);
+		state.groundProgress = butterfly.getGroundProgress(partialTicks);
+		state.flyingXRot = butterfly.getFlyingXRot(partialTicks);
 
 		final ButterflyVariant variant = butterfly.wilderWild$getVariantOr(null);
 		if (variant == null) return;
 
-		renderState.texture = variant.resourceTexture().texturePath();
+		state.texture = variant.resourceTexture().texturePath();
 	}
 
 	@Override
-	public Identifier getTextureLocation(ButterflyRenderState renderState) {
-		return renderState.texture;
+	public Identifier getTextureLocation(ButterflyRenderState state) {
+		return state.texture;
 	}
 }
 

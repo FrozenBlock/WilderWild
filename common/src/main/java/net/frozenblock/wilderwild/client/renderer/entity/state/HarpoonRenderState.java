@@ -23,5 +23,6 @@ import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
 public class HarpoonRenderState extends ArrowRenderState {
+	public boolean hookedInEntity;
 	public Vec3 lineOriginOffset = Vec3.ZERO;
 }

@@ -54,7 +54,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 
 	public static void submitFireflyWithoutRenderState(
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		Quaternionf cameraOrientation,
 		@Nullable FireflyVariant variant,
 		float flicker,
@@ -67,7 +67,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	) {
 		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, cameraOrientation);
 
-		collector
+		submitNodeCollector
 			.order(0)
 			.submitCustomGeometry(
 				poseStack,
@@ -75,7 +75,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, lightCoords, overlayCoords)
 			);
 
-		collector
+		submitNodeCollector
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
@@ -88,15 +88,15 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 
 	public static void submitFirefly(
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		Quaternionf orientation,
-		FireflyRenderState renderState
+		FireflyRenderState state
 	) {
-		setupPoseStack(poseStack, renderState.scale * renderState.animScale, 0F, Y_OFFSET, 0F, orientation);
+		setupPoseStack(poseStack, state.scale * state.animScale, 0F, Y_OFFSET, 0F, orientation);
 
-		final int lightCoords = renderState.lightCoords;
-		final int overlayCoords = getOverlayCoords(renderState, 0F);
-		collector
+		final int lightCoords = state.lightCoords;
+		final int overlayCoords = getOverlayCoords(state, 0F);
+		submitNodeCollector
 			.order(0)
 			.submitCustomGeometry(
 				poseStack,
@@ -104,12 +104,12 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 				(pose, vertexConsumer) -> renderFireflyBase(pose, vertexConsumer, lightCoords, overlayCoords)
 			);
 
-		collector
+		submitNodeCollector
 			.order(1)
 			.submitCustomGeometry(
 				poseStack,
-				RenderTypes.entityTranslucentEmissive(getVariantTextureOrFallback(renderState.variant)),
-				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, renderState.flicker)
+				RenderTypes.entityTranslucentEmissive(getVariantTextureOrFallback(state.variant)),
+				(pose, vertexConsumer) -> renderFireflyColor(pose, vertexConsumer, lightCoords, overlayCoords, state.flicker)
 			);
 
 		poseStack.popPose();
@@ -125,13 +125,13 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 
 	@Override
 	public void submit(
-		FireflyRenderState renderState,
+		FireflyRenderState state,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState camera
 	) {
-		submitFirefly(poseStack, collector, camera.orientation, renderState);
-		this.submitNameDisplay(renderState, poseStack, collector, camera);
+		submitFirefly(poseStack, submitNodeCollector, camera.orientation, state);
+		this.submitNameDisplay(state, poseStack, submitNodeCollector, camera);
 	}
 
 	private static Identifier getVariantTextureOrFallback(@Nullable FireflyVariant variant) {
@@ -140,8 +140,8 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	@Override
-	public Identifier getTextureLocation(FireflyRenderState renderState) {
-		return getVariantTextureOrFallback(renderState.variant);
+	public Identifier getTextureLocation(FireflyRenderState state) {
+		return getVariantTextureOrFallback(state.variant);
 	}
 
 	@Override
@@ -150,11 +150,11 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	}
 
 	@Override
-	public void extractRenderState(Firefly firefly, FireflyRenderState renderState, float partialTicks) {
-		super.extractRenderState(firefly, renderState, partialTicks);
-		renderState.animScale = Mth.lerp(partialTicks, firefly.getPrevAnimScale(), firefly.getAnimScale());
-		renderState.variant = firefly.wilderWild$getVariantOr(null);
-		renderState.flicker = (((firefly.getFlickerAge() + partialTicks) * Mth.PI) * -4F) / 255F;
+	public void extractRenderState(Firefly firefly, FireflyRenderState state, float partialTicks) {
+		super.extractRenderState(firefly, state, partialTicks);
+		state.animScale = Mth.lerp(partialTicks, firefly.getPrevAnimScale(), firefly.getAnimScale());
+		state.variant = firefly.wilderWild$getVariantOr(null);
+		state.flicker = (((firefly.getFlickerAge() + partialTicks) * Mth.PI) * -4F) / 255F;
 	}
 
 	private static void setupPoseStack(PoseStack poseStack, float scale, float xOffset, float yOffset, float zOffset, Quaternionf rotation) {

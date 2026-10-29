@@ -33,14 +33,14 @@ public abstract class AbstractOstrichRenderer<T extends AbstractOstrich, S exten
 	}
 
 	@Override
-	public void extractRenderState(T entity, S renderState, float partialTicks) {
-		super.extractRenderState(entity, renderState, partialTicks);
-		renderState.walkAnimationPos *= 1.65F;
-		renderState.walkAnimationSpeed = Math.min(renderState.walkAnimationSpeed * 1.5F, 1F);
+	public void extractRenderState(T entity, S state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.walkAnimationPos *= 1.65F;
+		state.walkAnimationSpeed = Math.min(state.walkAnimationSpeed * 1.5F, 1F);
 
-		renderState.beakAnimProgress = entity.getBeakAnimProgress(partialTicks);
-		renderState.targetStraightProgress = entity.getTargetStraightProgress(partialTicks);
-		renderState.saddle = entity.getItemBySlot(EquipmentSlot.SADDLE);
+		state.beakAnimProgress = entity.getBeakAnimProgress(partialTicks);
+		state.targetStraightProgress = entity.getTargetStraightProgress(partialTicks);
+		state.saddle = entity.getItemBySlot(EquipmentSlot.SADDLE);
 	}
 }
 

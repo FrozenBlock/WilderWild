@@ -46,13 +46,13 @@ public class ScorchedRenderer extends MobRenderer<Scorched, ScorchedRenderState,
 	}
 
 	@Override
-	public void scale(ScorchedRenderState renderState, PoseStack poseStack) {
-		super.scale(renderState, poseStack);
+	public void scale(ScorchedRenderState state, PoseStack poseStack) {
+		super.scale(state, poseStack);
 		poseStack.scale(SCALE, SCALE, SCALE);
 	}
 
 	@Override
-	public Identifier getTextureLocation(ScorchedRenderState renderState) {
+	public Identifier getTextureLocation(ScorchedRenderState state) {
 		return SCORCHED_LOCATION;
 	}
 
@@ -62,9 +62,9 @@ public class ScorchedRenderer extends MobRenderer<Scorched, ScorchedRenderState,
 	}
 
 	@Override
-	public void extractRenderState(Scorched scorched, ScorchedRenderState renderState, float partialTicks) {
-		super.extractRenderState(scorched, renderState, partialTicks);
-		renderState.lavaAnimProgress = scorched.getLavaAnimProgress(partialTicks);
+	public void extractRenderState(Scorched scorched, ScorchedRenderState state, float partialTicks) {
+		super.extractRenderState(scorched, state, partialTicks);
+		state.lavaAnimProgress = scorched.getLavaAnimProgress(partialTicks);
 	}
 }
 

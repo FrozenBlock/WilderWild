@@ -63,32 +63,32 @@ public class FlowerCowRenderer extends AgeableMobRenderer<FlowerCow, FlowerCowRe
 	}
 
 	@Override
-	public void extractRenderState(FlowerCow flowerCow, FlowerCowRenderState renderState, float partialTicks) {
-		super.extractRenderState(flowerCow, renderState, partialTicks);
-		renderState.flowers = flowerCow.getFlowersLeft();
+	public void extractRenderState(FlowerCow flowerCow, FlowerCowRenderState state, float partialTicks) {
+		super.extractRenderState(flowerCow, state, partialTicks);
+		state.flowers = flowerCow.getFlowersLeft();
 
 		final Optional<Holder<MoobloomVariant>> optionalVariant = Optional.ofNullable(flowerCow.wilderWild$getVariant());
 		if (optionalVariant.isEmpty()) return;
 
 		final MoobloomVariant variant = optionalVariant.get().value();
-		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
+		state.texture = (state.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
 
 		final BlockState flowerState = variant.flowerBlockState();
-		this.blockModelResolver.update(renderState.flowerModel, flowerState, BLOCK_DISPLAY_CONTEXT);
+		this.blockModelResolver.update(state.flowerModel, flowerState, BLOCK_DISPLAY_CONTEXT);
 		if (variant.isDoubleBlock()) {
 			this.blockModelResolver.update(
-				renderState.topFlowerModel,
+				state.topFlowerModel,
 				flowerState.trySetValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER),
 				BLOCK_DISPLAY_CONTEXT
 			);
 		} else {
-			renderState.topFlowerModel.clear();
+			state.topFlowerModel.clear();
 		}
 	}
 
 	@Override
-	public Identifier getTextureLocation(FlowerCowRenderState renderState) {
-		return renderState.texture;
+	public Identifier getTextureLocation(FlowerCowRenderState state) {
+		return state.texture;
 	}
 }
 

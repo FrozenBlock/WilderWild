@@ -50,27 +50,27 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 	}
 
 	@Override
-	protected void setupRotations(JellyfishRenderState renderState, PoseStack poseStack, float bodyRot, float entityScale) {
-		super.setupRotations(renderState, poseStack, bodyRot, entityScale);
-		poseStack.translate(0F, -1F * renderState.ageScale, 0F);
+	protected void setupRotations(JellyfishRenderState state, PoseStack poseStack, float bodyRot, float entityScale) {
+		super.setupRotations(state, poseStack, bodyRot, entityScale);
+		poseStack.translate(0F, -1F * state.ageScale, 0F);
 	}
 
 	@Override
-	protected int getModelTint(JellyfishRenderState renderState) {
-		if (renderState.isRGB) return ARGB.color(
-			(int) (Math.clamp(Math.abs((renderState.levelTime % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Math.clamp(Math.abs(((renderState.levelTime - 2) % 6) - 3) - 1, 0, 1) * 255),
-			(int) (Math.clamp(Math.abs(((renderState.levelTime - 4) % 6) - 3) - 1, 0, 1) * 255)
+	protected int getModelTint(JellyfishRenderState state) {
+		if (state.isRGB) return ARGB.color(
+			(int) (Math.clamp(Math.abs((state.levelTime % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Math.clamp(Math.abs(((state.levelTime - 2) % 6) - 3) - 1, 0, 1) * 255),
+			(int) (Math.clamp(Math.abs(((state.levelTime - 4) % 6) - 3) - 1, 0, 1) * 255)
 		);
-		return super.getModelTint(renderState);
+		return super.getModelTint(state);
 	}
 
 	@Override
-	protected void scale(JellyfishRenderState renderState, PoseStack poseStack) {
-		super.scale(renderState, poseStack);
-		final float scaleAmount = !renderState.isBaby ? 0.8F : 0.6F;
+	protected void scale(JellyfishRenderState state, PoseStack poseStack) {
+		super.scale(state, poseStack);
+		final float scaleAmount = !state.isBaby ? 0.8F : 0.6F;
 		poseStack.scale(scaleAmount, scaleAmount, scaleAmount);
-		poseStack.scale(renderState.jellyScale, renderState.jellyScale, renderState.jellyScale);
+		poseStack.scale(state.jellyScale, state.jellyScale, state.jellyScale);
 	}
 
 	@Override
@@ -80,9 +80,9 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 	}
 
 	@Override
-	public Identifier getTextureLocation(JellyfishRenderState renderState) {
-		if (renderState.isRGB || renderState.variant == null) return renderState.isBaby ? WHITE_TEXTURE_BABY : WHITE_TEXTURE;
-		return (renderState.isBaby ? renderState.variant.babyTexture() : renderState.variant.texture()).texturePath();
+	public Identifier getTextureLocation(JellyfishRenderState state) {
+		if (state.isRGB || state.variant == null) return state.isBaby ? WHITE_TEXTURE_BABY : WHITE_TEXTURE;
+		return (state.isBaby ? state.variant.babyTexture() : state.variant.texture()).texturePath();
 	}
 
 	@Override
@@ -91,19 +91,19 @@ public class JellyfishRenderer extends AgeableMobRenderer<Jellyfish, JellyfishRe
 	}
 
 	@Override
-	public void extractRenderState(Jellyfish jellyfish, JellyfishRenderState renderState, float partialTicks) {
-		super.extractRenderState(jellyfish, renderState, partialTicks);
-		renderState.tickCount = jellyfish.tickCount;
-		renderState.isRGB = jellyfish.isRGB();
-		renderState.variant = jellyfish.wilderWild$getVariantOr(null);
+	public void extractRenderState(Jellyfish jellyfish, JellyfishRenderState state, float partialTicks) {
+		super.extractRenderState(jellyfish, state, partialTicks);
+		state.tickCount = jellyfish.tickCount;
+		state.isRGB = jellyfish.isRGB();
+		state.variant = jellyfish.wilderWild$getVariantOr(null);
 
 		final Level level = jellyfish.level();
-		if (level != null) renderState.levelTime = (level.getGameTime() + partialTicks) * 0.05F;
+		if (level != null) state.levelTime = (level.getGameTime() + partialTicks) * 0.05F;
 
-		renderState.jellyXRot = -(jellyfish.xRot1 + partialTicks * (jellyfish.xBodyRot - jellyfish.xRot1)) * Mth.DEG_TO_RAD;
-		renderState.tentXRot = -(jellyfish.xRot6 + partialTicks * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
-		renderState.armXRot = -(jellyfish.xRot9 + partialTicks * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
-		renderState.jellyScale = jellyfish.prevScale + partialTicks * (jellyfish.scale - jellyfish.prevScale);
+		state.jellyXRot = -(jellyfish.xRot1 + partialTicks * (jellyfish.xBodyRot - jellyfish.xRot1)) * Mth.DEG_TO_RAD;
+		state.tentXRot = -(jellyfish.xRot6 + partialTicks * (jellyfish.xRot5 - jellyfish.xRot6)) * Mth.DEG_TO_RAD;
+		state.armXRot = -(jellyfish.xRot9 + partialTicks * (jellyfish.xRot8 - jellyfish.xRot9)) * Mth.DEG_TO_RAD;
+		state.jellyScale = jellyfish.prevScale + partialTicks * (jellyfish.scale - jellyfish.prevScale);
 	}
 
 	public static boolean isUsingIrisShaderPack() {

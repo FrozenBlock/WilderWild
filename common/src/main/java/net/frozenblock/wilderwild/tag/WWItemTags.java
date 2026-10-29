@@ -34,7 +34,6 @@ public final class WWItemTags {
 	public static final TagKey<Item> TUMBLEWEED_RARE = bind("tumbleweed_rare");
 	public static final TagKey<Item> SUNKEN_PREFERRED_WEAPONS = bind("sunken_preferred_weapons");
 
-
 	private static TagKey<Item> bind(String name) {
 		return TagKey.create(Registries.ITEM, WWConstants.id(name));
 	}

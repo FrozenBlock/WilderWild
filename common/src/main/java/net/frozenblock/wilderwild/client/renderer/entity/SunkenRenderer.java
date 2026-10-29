@@ -23,10 +23,16 @@ import net.frozenblock.wilderwild.client.renderer.entity.state.SunkenRenderState
 import net.frozenblock.wilderwild.entity.monster.skeleton.Sunken;
 import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariant;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.AbstractSkeletonRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ChargedProjectiles;
 
 @ClientOnly
 public class SunkenRenderer extends AbstractSkeletonRenderer<Sunken, SunkenRenderState> {
@@ -41,18 +47,33 @@ public class SunkenRenderer extends AbstractSkeletonRenderer<Sunken, SunkenRende
 	}
 
 	@Override
-	public void extractRenderState(Sunken sunken, SunkenRenderState renderState, float partialTicks) {
-		super.extractRenderState(sunken, renderState, partialTicks);
+	public void extractRenderState(Sunken sunken, SunkenRenderState state, float partialTicks) {
+		super.extractRenderState(sunken, state, partialTicks);
 
 		final Optional<Holder<SunkenVariant>> optionalVariant = Optional.ofNullable(sunken.wilderWild$getVariant());
 		if (optionalVariant.isEmpty()) return;
 
 		final SunkenVariant variant = optionalVariant.get().value();
 		final boolean eyePatch = sunken.hasEyePatch();
-		renderState.texture = (eyePatch
+		state.texture = (eyePatch
 			? sunken.isLeftHanded() ? variant.eyePatchLeftHandedTexture() : variant.eyePatchRightHandedTexture()
 			: variant.texture()
 		).texturePath();
+	}
+
+	@Override
+	protected HumanoidModel.ArmPose getArmPose(Sunken sunken, HumanoidArm arm) {
+		extractCrossbowPose: {
+			if (sunken.getMainArm() != arm) break extractCrossbowPose;
+
+			final ItemStack itemStack = sunken.getMainHandItem();
+			if (!itemStack.is(Items.CROSSBOW)) break extractCrossbowPose;
+
+			if (sunken.isChargingCrossbow()) return HumanoidModel.ArmPose.CROSSBOW_CHARGE;
+			if (!itemStack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY).isEmpty()) return HumanoidModel.ArmPose.CROSSBOW_HOLD;
+		}
+
+		return super.getArmPose(sunken, arm);
 	}
 
 	@Override

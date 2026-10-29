@@ -82,7 +82,7 @@ public class CrossbowItemMixin {
 		at = @At("HEAD"),
 		cancellable = true
 	)
-	public void wilderWild$shootHarpoonProjectile(
+	public void wilderWild$createHarpoonProjectile(
 		Level level,
 		LivingEntity shooter,
 		ItemStack heldItem,

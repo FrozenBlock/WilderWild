@@ -41,12 +41,12 @@ public class TumbleweedRenderer extends AbstractBlockLikeMobRenderer<Tumbleweed,
 	}
 
 	@Override
-	public void submitExtras(TumbleweedRenderState renderState, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
-		if (renderState.item.isEmpty()) return;
+	public void submitExtras(TumbleweedRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+		if (state.item.isEmpty()) return;
 
 		poseStack.pushPose();
 		poseStack.translate(0.5D, 0.333D, 0.5D);
-		renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
+		state.item.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
 		poseStack.popPose();
 	}
 
@@ -56,9 +56,9 @@ public class TumbleweedRenderer extends AbstractBlockLikeMobRenderer<Tumbleweed,
 	}
 
 	@Override
-	public void extractRenderState(Tumbleweed tumbleweed, TumbleweedRenderState renderState, float partialTicks) {
-		super.extractRenderState(tumbleweed, renderState, partialTicks);
-		renderState.hasRedOverlay = false;
-		this.itemModelResolver.updateForLiving(renderState.item, tumbleweed.getVisibleItem(), ItemDisplayContext.GROUND, tumbleweed);
+	public void extractRenderState(Tumbleweed tumbleweed, TumbleweedRenderState state, float partialTicks) {
+		super.extractRenderState(tumbleweed, state, partialTicks);
+		state.hasRedOverlay = false;
+		this.itemModelResolver.updateForLiving(state.item, tumbleweed.getVisibleItem(), ItemDisplayContext.GROUND, tumbleweed);
 	}
 }

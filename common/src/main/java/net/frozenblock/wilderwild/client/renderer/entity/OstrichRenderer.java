@@ -67,24 +67,24 @@ public class OstrichRenderer extends net.frozenblock.wilderwild.client.renderer.
 
 	@Override
 	public void submit(
-		OstrichRenderState renderState,
+		OstrichRenderState state,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState camera
 	) {
-		if (renderState.isInbred) {
+		if (state.isInbred) {
 			this.adultModel = this.inbredModel;
 			this.babyModel = this.inbredBabyModel;
 		} else {
 			this.adultModel = this.normalModel;
 			this.babyModel = this.normalBabyModel;
 		}
-		super.submit(renderState, poseStack, collector, camera);
+		super.submit(state, poseStack, submitNodeCollector, camera);
 	}
 
 	@Override
-	public Identifier getTextureLocation(OstrichRenderState renderState) {
-		if (!renderState.isInbred && renderState.isBaby) return OSTRICH_BABY_LOCATION;
+	public Identifier getTextureLocation(OstrichRenderState state) {
+		if (!state.isInbred && state.isBaby) return OSTRICH_BABY_LOCATION;
 		return OSTRICH_LOCATION;
 	}
 
@@ -94,9 +94,9 @@ public class OstrichRenderer extends net.frozenblock.wilderwild.client.renderer.
 	}
 
 	@Override
-	public void extractRenderState(Ostrich ostrich, OstrichRenderState renderState, float partialTicks) {
-		super.extractRenderState(ostrich, renderState, partialTicks);
-		renderState.isInbred = ostrich.isInbred();
+	public void extractRenderState(Ostrich ostrich, OstrichRenderState state, float partialTicks) {
+		super.extractRenderState(ostrich, state, partialTicks);
+		state.isInbred = ostrich.isInbred();
 	}
 }
 

@@ -51,22 +51,22 @@ public class PenguinRenderer<T extends Penguin> extends AgeableMobRenderer<T, Pe
 	}
 
 	@Override
-	public void extractRenderState(T penguin, PenguinRenderState renderState, float partialTicks) {
-		super.extractRenderState(penguin, renderState, partialTicks);
-		renderState.movementDelta = Math.min(renderState.walkAnimationSpeed * 5F, 1F);
-		renderState.swimAmount = penguin.getSwimAmount(partialTicks);
-		renderState.wadeProgress = penguin.getWadeProgress(partialTicks);
-		renderState.slideProgress = penguin.getSlideProgress(partialTicks);
-		renderState.isLinux = penguin.isLinux();
-		renderState.layDownAnimationState = penguin.layDownAnimationState;
-		renderState.standUpAnimationState = penguin.standUpAnimationState;
-		renderState.callAnimationState = penguin.callAnimationState;
+	public void extractRenderState(T penguin, PenguinRenderState state, float partialTicks) {
+		super.extractRenderState(penguin, state, partialTicks);
+		state.movementDelta = Math.min(state.walkAnimationSpeed * 5F, 1F);
+		state.swimAmount = penguin.getSwimAmount(partialTicks);
+		state.wadeProgress = penguin.getWadeProgress(partialTicks);
+		state.slideProgress = penguin.getSlideProgress(partialTicks);
+		state.isLinux = penguin.isLinux();
+		state.layDownAnimationState = penguin.layDownAnimationState;
+		state.standUpAnimationState = penguin.standUpAnimationState;
+		state.callAnimationState = penguin.callAnimationState;
 	}
 
 	@Override
-	public Identifier getTextureLocation(PenguinRenderState renderState) {
-		if (renderState.isBaby) return renderState.isLinux ? LINUX_BABY : TEXTURE_BABY;
-		return renderState.isLinux ? LINUX : TEXTURE;
+	public Identifier getTextureLocation(PenguinRenderState state) {
+		if (state.isBaby) return state.isLinux ? LINUX_BABY : TEXTURE_BABY;
+		return state.isLinux ? LINUX : TEXTURE;
 	}
 }
 

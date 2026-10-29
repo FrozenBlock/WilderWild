@@ -56,27 +56,27 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	protected void setupRotations(CrabRenderState renderState, PoseStack poseStack, float bodyRot, float entityScale) {
-		poseStack.translate(0F, 0.17F * renderState.ageScale, 0F);
+	protected void setupRotations(CrabRenderState state, PoseStack poseStack, float bodyRot, float entityScale) {
+		poseStack.translate(0F, 0.17F * state.ageScale, 0F);
 		poseStack.rotate(Axis.YP.rotationDegrees(-90F));
-		super.setupRotations(renderState, poseStack, bodyRot, entityScale);
+		super.setupRotations(state, poseStack, bodyRot, entityScale);
 	}
 
 	@Override
-	protected void scale(CrabRenderState renderState, PoseStack poseStack) {
-		super.scale(renderState, poseStack);
-		if (renderState.isDitto && renderState.isBaby) poseStack.scale(renderState.ageScale, renderState.ageScale, renderState.ageScale);
+	protected void scale(CrabRenderState state, PoseStack poseStack) {
+		super.scale(state, poseStack);
+		if (state.isDitto && state.isBaby) poseStack.scale(state.ageScale, state.ageScale, state.ageScale);
 	}
 
 	@Override
 	public void submit(
-		CrabRenderState renderState,
+		CrabRenderState state,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState camera
 	) {
-		this.model = renderState.isBaby && !renderState.isDitto ? this.babyModel : (!WWConstants.MOJANG_CRABS || renderState.isDitto) ? this.normalModel : this.mojangModel;
-		super.submit(renderState, poseStack, collector, camera);
+		this.model = state.isBaby && !state.isDitto ? this.babyModel : (!WWConstants.MOJANG_CRABS || state.isDitto) ? this.normalModel : this.mojangModel;
+		super.submit(state, poseStack, submitNodeCollector, camera);
 	}
 
 	@Override
@@ -85,9 +85,9 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	public Identifier getTextureLocation(CrabRenderState renderState) {
-		if (renderState.isDitto) return CRAB_DITTO_LOCATION;
-		return WWConstants.MOJANG_CRABS ? renderState.mojangTexture : renderState.texture;
+	public Identifier getTextureLocation(CrabRenderState state) {
+		if (state.isDitto) return CRAB_DITTO_LOCATION;
+		return WWConstants.MOJANG_CRABS ? state.mojangTexture : state.texture;
 	}
 
 	@Override
@@ -96,21 +96,21 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	}
 
 	@Override
-	public void extractRenderState(Crab crab, CrabRenderState renderState, float partialTicks) {
-		super.extractRenderState(crab, renderState, partialTicks);
-		renderState.climbXRot = Mth.lerp(partialTicks, crab.prevClimbAnimX, crab.climbAnimX) * 85F;
-		renderState.attackTime = crab.getSwingAnimation(partialTicks);
-		renderState.isDitto = crab.isDitto();
-		renderState.hidingAnimationState.copyFrom(crab.hidingAnimationState);
-		renderState.diggingAnimationState.copyFrom(crab.diggingAnimationState);
-		renderState.emergingAnimationState.copyFrom(crab.emergingAnimationState);
+	public void extractRenderState(Crab crab, CrabRenderState state, float partialTicks) {
+		super.extractRenderState(crab, state, partialTicks);
+		state.climbXRot = Mth.lerp(partialTicks, crab.prevClimbAnimX, crab.climbAnimX) * 85F;
+		state.attackTime = crab.getSwingAnimation(partialTicks);
+		state.isDitto = crab.isDitto();
+		state.hidingAnimationState.copyFrom(crab.hidingAnimationState);
+		state.diggingAnimationState.copyFrom(crab.diggingAnimationState);
+		state.emergingAnimationState.copyFrom(crab.emergingAnimationState);
 
 		final Optional<Holder<CrabVariant>> optionalVariant = Optional.ofNullable(crab.wilderWild$getVariant());
 		if (optionalVariant.isEmpty()) return;
 
 		final CrabVariant variant = optionalVariant.get().value();
-		renderState.texture = (renderState.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
-		renderState.mojangTexture = (renderState.isBaby ? variant.babyMojangTexture() : variant.mojangTexture()).texturePath();
+		state.texture = (state.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
+		state.mojangTexture = (state.isBaby ? variant.babyMojangTexture() : variant.mojangTexture()).texturePath();
 	}
 }
 
