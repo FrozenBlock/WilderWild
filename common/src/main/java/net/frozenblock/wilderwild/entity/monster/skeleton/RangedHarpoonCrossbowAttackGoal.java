@@ -68,7 +68,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 
 	@Override
 	public boolean canUse() {
-		return this.isValidTarget() && this.isHoldingCrossbow() && !this.mob.getAttackBoundingBox(4D).intersects(this.mob.getTarget().getBoundingBox());
+		return this.isValidTarget() && this.isHoldingCrossbow();
 	}
 
 	private boolean isHoldingCrossbow() {
@@ -131,6 +131,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 				this.strafingTime = -1;
 			} else if (this.shouldReelIn(harpoon) || target == null) {
 				harpoon.retrieve(null);
+				this.mob.swing(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW), SwingAnimation.DEFAULT);
 				this.reelingIn = true;
 				this.strafingTime = -1;
 			} else if (this.isHookedInEntity(harpoon) && !this.shouldReelInEntity(harpoon.getHookedIn())) {

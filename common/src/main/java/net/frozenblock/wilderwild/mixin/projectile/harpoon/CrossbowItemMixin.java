@@ -92,7 +92,7 @@ public class CrossbowItemMixin {
 			target = "Lnet/minecraft/world/item/CrossbowItem;getProjectileShotVector(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/phys/Vec3;F)Lorg/joml/Vector3f;"
 		)
 	)
-	public Vector3f wilderWild$shootHarpoonsLowerInWater(
+	public Vector3f wilderWild$shootHarpoonsMoreAccurately(
 		LivingEntity body, Vec3 originalVector, float angle, Operation<Vector3f> original,
 		@Local(argsOnly = true) Projectile projectileEntity,
 		@Local(argsOnly = true, ordinal = 1) LivingEntity targetOverride,
@@ -101,8 +101,17 @@ public class CrossbowItemMixin {
 		if (projectileEntity instanceof Harpoon) {
 			if (body.isInLiquid()) originalVector = originalVector.subtract(0D, distanceToTarget * 0.1F, 0D);
 			if (targetOverride != null) {
-				final Vec3 deltaPos = body.position().subtract(body.oldPosition());
-				if (!deltaPos.equals(Vec3.ZERO)) originalVector = originalVector.add(deltaPos.multiply(0.5D, 1D, 0.5D).scale(distanceToTarget * 0.5D));
+				final Vec3 deltaPos = targetOverride.position().subtract(targetOverride.oldPosition());
+				final boolean targetInLiquid = targetOverride.isInLiquid();
+				if (!deltaPos.equals(Vec3.ZERO)) {
+					originalVector = originalVector.add(
+						deltaPos.multiply(
+							targetInLiquid ? 0.5D : 1D,
+							targetInLiquid ? 1D : 0.2D,
+							targetInLiquid ? 0.5D : 1D
+						).scale(distanceToTarget)
+					);
+				}
 			}
 		}
 		return original.call(body, originalVector, angle);
