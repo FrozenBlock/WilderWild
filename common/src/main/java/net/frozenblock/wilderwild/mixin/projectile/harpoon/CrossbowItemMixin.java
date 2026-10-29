@@ -99,7 +99,12 @@ public class CrossbowItemMixin {
 		@Local(name = "distanceToTarget") double distanceToTarget
 	) {
 		if (projectileEntity instanceof Harpoon) {
-			if (body.isInLiquid()) originalVector = originalVector.subtract(0D, distanceToTarget * 0.1F, 0D);
+			if (body.isInLiquid()) {
+				originalVector = originalVector.subtract(0D, distanceToTarget * 0.1F, 0D);
+			} else {
+				originalVector = originalVector.add(0D, distanceToTarget * 0.1F, 0D);
+			}
+
 			if (targetOverride != null) {
 				final Vec3 deltaPos = targetOverride.position().subtract(targetOverride.oldPosition());
 				final boolean targetInLiquid = targetOverride.isInLiquid();
