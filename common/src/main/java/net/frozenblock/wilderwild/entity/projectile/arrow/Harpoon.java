@@ -105,7 +105,7 @@ public class Harpoon extends AbstractArrow {
 				if (!this.hookedIn.isRemoved() && this.hookedIn.canInteractWithLevel() && this.hookedIn.level().dimension() == this.level().dimension()) {
 					this.setPos(this.hookedIn.getX(), this.hookedIn.getY(0.7D), this.hookedIn.getZ());
 				} else {
-					this.setHookedIn(null);
+					this.discard();
 				}
 			}
 		}
@@ -128,10 +128,12 @@ public class Harpoon extends AbstractArrow {
 	}
 
 	private void onHarpoonStringBroken(LivingEntity attachedTo) {
-		this.setHookedIn(null);
 		WWAttachmentTypes.HARPOON_ATTACHED_TO.remove(this);
 		WWAttachmentTypes.HARPOON.remove(attachedTo);
-		// TOOD: sounds and particles for string breaking
+
+		// TODO: sounds and particles for string breaking
+
+		if (this.getHookedIn() != null) this.discard();
 	}
 
 	public static boolean isEmptyCrossbow(ItemStack itemStack) {
@@ -247,6 +249,12 @@ public class Harpoon extends AbstractArrow {
 	@Override
 	protected void doPostHurtEffects(LivingEntity mob) {
 		super.doPostHurtEffects(mob);
+
+		if (!mob.canInteractWithLevel()) {
+			this.discard();
+			return;
+		}
+		
 		this.setDealtDamage(true);
 		this.setHookedIn(mob);
 	}
