@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.entity.state.HarpoonRenderState;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -40,7 +41,7 @@ import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
 public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> {
-	public static final Identifier HARPOON_LOCATION = Identifier.withDefaultNamespace("textures/entity/projectiles/arrow_spectral.png");
+	public static final Identifier HARPOON_LOCATION = WWConstants.id("textures/entity/projectiles/harpoon.png");
 
 	public HarpoonRenderer(EntityRendererProvider.Context context) {
 		super(context);
