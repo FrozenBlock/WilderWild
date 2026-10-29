@@ -231,7 +231,9 @@ public class Harpoon extends AbstractArrow {
 		final Vec3 delta = new Vec3(attachedTo.getX() - this.getX(), attachedTo.getY(attachedToYHeight) - this.getY(), attachedTo.getZ() - this.getZ())
 			.scale(!reverse ? 1D : -1D);
 		final double distance = delta.length();
-		final Vec3 reelDelta = delta.normalize().scale(Math.min(distance * 1.5D, 16D)).scale(!reverse ? 0.04D : 0.02D);
+		Vec3 reelDelta = delta.normalize().scale(Math.min(distance * 1.5D, 12D)).scale(!reverse ? 0.04D : 0.02D);
+		if (reelDelta.y() > 0D) reelDelta = reelDelta.multiply(1D, 0.75D, 1D);
+
 		entity.addDeltaMovement(reelDelta);
 	}
 
@@ -254,7 +256,7 @@ public class Harpoon extends AbstractArrow {
 			this.discard();
 			return;
 		}
-		
+
 		this.setDealtDamage(true);
 		this.setHookedIn(mob);
 	}
