@@ -18,8 +18,10 @@
 package net.frozenblock.wilderwild.mixin.projectile.harpoon;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import java.util.function.Predicate;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import java.util.function.Predicate;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -34,6 +36,8 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -79,6 +83,29 @@ public class CrossbowItemMixin {
 	private static float wilderWild$getShootingPowerForHarpoon(float original, ChargedProjectiles projectiles) {
 		if (projectiles.contains(WWItems.HARPOON.get())) return 1.4F;
 		return original;
+	}
+
+	@WrapOperation(
+		method = "shootProjectile",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/item/CrossbowItem;getProjectileShotVector(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/phys/Vec3;F)Lorg/joml/Vector3f;"
+		)
+	)
+	public Vector3f wilderWild$shootHarpoonsLowerInWater(
+		LivingEntity body, Vec3 originalVector, float angle, Operation<Vector3f> original,
+		@Local(argsOnly = true) Projectile projectileEntity,
+		@Local(argsOnly = true, ordinal = 1) LivingEntity targetOverride,
+		@Local(name = "distanceToTarget") double distanceToTarget
+	) {
+		if (projectileEntity instanceof Harpoon) {
+			if (body.isInLiquid()) originalVector = originalVector.subtract(0D, distanceToTarget * 0.1F, 0D);
+			if (targetOverride != null) {
+				final Vec3 deltaPos = body.position().subtract(body.oldPosition());
+				if (!deltaPos.equals(Vec3.ZERO)) originalVector = originalVector.add(deltaPos.multiply(0.5D, 1D, 0.5D).scale(distanceToTarget * 0.5D));
+			}
+		}
+		return original.call(body, originalVector, angle);
 	}
 
 	@Inject(
