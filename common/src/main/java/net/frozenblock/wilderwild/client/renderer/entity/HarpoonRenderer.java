@@ -40,6 +40,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 @ClientOnly
 public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> {
@@ -55,12 +56,15 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 		return HARPOON_LOCATION;
 	}
 
-	public static HumanoidArm getHoldingArm(LivingEntity owner) {
-		return Harpoon.isEmptyCrossbow(owner.getMainHandItem()) ? owner.getMainArm() : owner.getMainArm().getOpposite();
+	public static @Nullable HumanoidArm getHoldingArm(LivingEntity owner) {
+		return Harpoon.isEmptyCrossbow(owner.getMainHandItem())
+			? owner.getMainArm()
+			: Harpoon.isEmptyCrossbow(owner.getOffhandItem()) ? owner.getMainArm().getOpposite()
+			: null;
 	}
 
-	private Vec3 getAttachedToHandPos(LivingEntity attachedTo, float swing, float partialTicks) {
-		final int invert = getHoldingArm(attachedTo) == HumanoidArm.RIGHT ? 1 : -1;
+	private Vec3 getAttachedToHandPos(LivingEntity attachedTo, HumanoidArm arm, float swing, float partialTicks) {
+		final int invert = arm == HumanoidArm.RIGHT ? 1 : -1;
 		if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && attachedTo == Minecraft.getInstance().player) {
 			float fov = this.entityRenderDispatcher.options.fov().get().intValue();
 			final double viewBobbingScale = 960D / fov;
@@ -152,16 +156,22 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 
 		state.hookedInEntity = harpoon.getHookedIn() != null;
 
-		final Vec3 harpoonPos = harpoon.getPosition(partialTicks).add(0D, 0.2D, 0D);
 		final Vec3 attachedToPos;
 		if (!(attachedTo instanceof LivingEntity livingOwner)) {
 			attachedToPos = attachedTo.getEyePosition();
 		} else {
+			final HumanoidArm holdingArm = getHoldingArm(livingOwner);
+			if (holdingArm == null) {
+				state.lineOriginOffset = Vec3.ZERO;
+				return;
+			}
+
 			final float swing = livingOwner.getSwingAnimation(partialTicks);
 			final float swing2 = Mth.sin(Mth.sqrt(swing) * Mth.PI);
-			attachedToPos = this.getAttachedToHandPos(livingOwner, swing2, partialTicks);
+			attachedToPos = this.getAttachedToHandPos(livingOwner, holdingArm, swing2, partialTicks);
 		}
 
+		final Vec3 harpoonPos = harpoon.getPosition(partialTicks).add(0D, 0.2D, 0D);
 		state.lineOriginOffset = attachedToPos.subtract(harpoonPos);
 	}
 
