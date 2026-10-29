@@ -137,7 +137,6 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 			} else if (this.isHookedInEntity(harpoon) && !this.shouldReelInEntity(harpoon.getHookedIn())) {
 				this.resetHarpoonState();
 				this.mob.swing(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW), SwingAnimation.DEFAULT);
-				harpoon.discard();
 				this.strafingTime = -1;
 			} else {
 				this.strafingTime++;
@@ -221,6 +220,8 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Monster & RangedAttackMob
 	private void resetHarpoonState() {
 		this.ticksSinceShot = 0;
 		this.reelingIn = false;
+		final Harpoon harpoon = this.getHarpoon();
+		if (harpoon != null) harpoon.discard();
 	}
 
 	private boolean isHookedInGround(Harpoon harpoon) {
