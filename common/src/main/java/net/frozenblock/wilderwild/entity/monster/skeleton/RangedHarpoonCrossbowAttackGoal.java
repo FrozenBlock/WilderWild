@@ -128,9 +128,14 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 			this.ticksSinceShot += 1;
 
 			if (harpoon.reelingIn() && this.reelingIn) {
+				this.mob.getNavigation().stop();
+				if ((this.mob.onGround()) && this.isHookedInGround(harpoon)) this.mob.jumpFromGround();
 				this.strafingTime = -1;
-			} else if (this.shouldReelIn(harpoon) || target == null) {
-				if ((this.mob.onGround() || this.mob.isInLiquid()) && this.isHookedInGround(harpoon)) this.mob.jumpFromGround();
+			} else if (this.shouldReelIn(harpoon, 0) || target == null) {
+				if ((this.mob.onGround() || this.mob.isInLiquid()) && this.isHookedInGround(harpoon)) {
+					this.mob.getNavigation().stop();
+					this.mob.jumpFromGround();
+				}
 
 				harpoon.retrieve(null);
 				this.mob.swing(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW), SwingAnimation.DEFAULT);
@@ -141,6 +146,15 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 				this.mob.swing(ProjectileUtil.getWeaponHoldingHand(this.mob, Items.CROSSBOW), SwingAnimation.DEFAULT);
 				this.strafingTime = -1;
 			} else {
+				if (this.mob.onGround()
+					&& this.isHookedInEntity(harpoon)
+					&& this.shouldReelInEntity(harpoon.getHookedIn())
+					&& this.shouldReelIn(harpoon, 7)
+					&& (target.getY() < this.mob.getY() || !hasLineOfSight)
+				) {
+					this.mob.jumpFromGround();
+				}
+
 				this.strafingTime++;
 			}
 
@@ -237,11 +251,14 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 		return hookedIn != null && hookedIn == this.mob.getTarget();
 	}
 
-	private boolean shouldReelIn(Harpoon harpoon) {
-		return this.ticksSinceShot >= MAX_TICKS_SINCE_SHOT_BEFORE_REEL_IN
+	private boolean shouldReelIn(Harpoon harpoon, int within) {
+		return this.ticksSinceShot >= (MAX_TICKS_SINCE_SHOT_BEFORE_REEL_IN - within)
 			|| this.isHookedInGround(harpoon)
 			|| (this.isHookedInEntity(harpoon)
-				&& (this.ticksSinceShot >= TICKS_SINCE_SHOT_BEFORE_REEL_IN_ENTITY)
+				&& (
+					this.ticksSinceShot >= (TICKS_SINCE_SHOT_BEFORE_REEL_IN_ENTITY - within)
+					|| (this.mob.hasEyePatch() && !harpoon.getHookedIn().onGround() && !harpoon.getHookedIn().isInLiquid())
+				)
 				&& this.shouldReelInEntity(harpoon.getHookedIn())
 			);
 	}
