@@ -35,6 +35,16 @@ accessible field net/minecraft/client/renderer/item/properties/select/SelectItem
 
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
+accessible class net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs$Keys
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs$Keys <init> (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/resources/ResourceKey;)V
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs register (Lnet/minecraft/data/worldgen/BootstrapContext;Lnet/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs$Keys;Lnet/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfig;Lnet/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfig;)V
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs spawnData (Lnet/minecraft/world/entity/EntityType;)Lnet/minecraft/world/level/SpawnData;
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs customSpawnData (Lnet/minecraft/world/entity/EntityType;Ljava/util/function/Consumer;)Lnet/minecraft/world/level/SpawnData;
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs spawnDataWithEquipment (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/SpawnData;
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs customSpawnDataWithEquipment (Lnet/minecraft/world/entity/EntityType;Ljava/util/function/Consumer;Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/SpawnData;
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs trialChamberMeleeOminous ()Lnet/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfig$Builder;
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs trialChamberSlowRanged ()Lnet/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfig$Builder;
+accessible method net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs trialChamberBase ()Lnet/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfig$Builder;
 
 # Features
 accessible method net/minecraft/data/worldgen/placement/AquaticPlacements seagrassPlacement (I)Ljava/util/List;

@@ -72,6 +72,7 @@ import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWMusicPitchProviders;
 import net.frozenblock.wilderwild.registry.WWSuffocationTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
+import net.frozenblock.wilderwild.registry.WWTrialSpawnerConfigs;
 import net.frozenblock.wilderwild.registry.WWVariantSpawnInjections;
 import net.frozenblock.wilderwild.registry.WWWaterLikeTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -128,6 +129,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.NOISE, WWNoises::bootstrap);
 		registryBuilder.add(Registries.MATERIAL_RULE, WWMaterialRules::bootstrapRules);
 		registryBuilder.add(Registries.VILLAGER_TRADE, WWVillagerTrades::bootstrap);
+		registryBuilder.add(Registries.TRIAL_SPAWNER_CONFIG, WWTrialSpawnerConfigs::bootstrap);
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);
 		registryBuilder.add(Registries.TEMPLATE_POOL, WWAbandonedCampStructurePools::bootstrap);
 		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);

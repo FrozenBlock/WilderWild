@@ -51,6 +51,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.MATERIAL_RULE)));
 		WWConstants.log("Adding finalized villager trades to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.VILLAGER_TRADE)));
+		WWConstants.log("Adding finalized trial spawner configs to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.TRIAL_SPAWNER_CONFIG)));
 		WWConstants.log("Adding finalized timelines to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.TIMELINE)));
 		WWConstants.log("Adding finalized template pools to datagen", true);
