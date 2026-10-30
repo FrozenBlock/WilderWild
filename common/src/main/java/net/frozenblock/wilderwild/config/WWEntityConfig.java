@@ -72,6 +72,10 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> SPAWN_SCORCHED = CONFIG.entry("scorched/spawnScorched", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SCORCHED_IN_TRIAL_CHAMBERS = CONFIG.entryBuilder("scorched/scorchedInTrialChambers", EntryType.BOOL, true).requireRestart().build();
 
+	// SUNKEN
+	public static final ConfigEntry<Boolean> SPAWN_SUNKEN = CONFIG.entry("sunken/spawnSunken", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SUNKEN_IN_TRIAL_CHAMBERS = CONFIG.entryBuilder("sunken/sunkenInTrialChambers", EntryType.BOOL, true).requireRestart().build();
+
 	// MOOBLOOM
 	public static final ConfigEntry<Boolean> SPAWN_MOOBLOOMS = CONFIG.entry("moobloom/spawnMooblooms", EntryType.BOOL, true);
 

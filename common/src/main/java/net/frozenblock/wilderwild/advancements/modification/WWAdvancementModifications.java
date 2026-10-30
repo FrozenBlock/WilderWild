@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.advancements.modification;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,18 +175,23 @@ public final class WWAdvancementModifications {
 
 				}
 				case "minecraft:husbandry/tactical_fishing" -> {
+					final List<String> newRequirements = new ArrayList<>();
+
 					if (WWEntityConfig.SPAWN_CRABS.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("crab_bucket"), CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.CRAB_BUCKET)).triggerInstance())
 						);
+						newRequirements.add(WWConstants.string("crab_bucket"));
 					}
 
 					if (WWEntityConfig.SPAWN_JELLYFISH.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("jellyfish_bucket"), CriteriaTriggers.FILLED_BUCKET.createCriterion(
 							FilledBucketTrigger.TriggerInstance.filledBucket(ItemPredicate.Builder.item().of(items, WWItems.JELLYFISH_BUCKET)).triggerInstance())
 						);
-						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("crab_bucket"), WWConstants.string("jellyfish_bucket")));
+						newRequirements.add(WWConstants.string("jellyfish_bucket"));
 					}
+
+					if (!newRequirements.isEmpty()) AdvancementAPI.addRequirementsToList(advancement, List.copyOf(newRequirements));
 				}
 				case "minecraft:nether/all_potions", "minecraft:nether/all_effects" -> {
 					if (advancement.criteria().get("all_effects") != null && advancement.criteria().get("all_effects").triggerInstance() instanceof EffectsChangedTrigger.TriggerInstance) {
@@ -200,6 +206,7 @@ public final class WWAdvancementModifications {
 						if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
 							map.put(WWMobEffects.SCORCHING.asHolder(), new MobEffectsPredicate.MobEffectInstancePredicate());
 						}
+
 						MobEffectsPredicateAccessor.class.cast(predicate).frozenLib$setEffectMap(map);
 					}
 				}
@@ -211,13 +218,19 @@ public final class WWAdvancementModifications {
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("scorched")));
 					}
 
+					if (WWEntityConfig.SPAWN_SUNKEN.get() || WWEntityConfig.SUNKEN_IN_TRIAL_CHAMBERS.get()) {
+						AdvancementAPI.addCriteria(advancement, WWConstants.string("sunken"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.SUNKEN.get())).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("sunken")));
+					}
+
 					if (WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("zombie_ostrich"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.ZOMBIE_OSTRICH.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsToList(advancement, List.of(WWConstants.string("zombie_ostrich")));
 					}
-					// TODO: add Sunken
 				}
 				case "minecraft:adventure/kill_all_mobs" -> {
 					if (WWEntityConfig.SPAWN_SCORCHED.get() || WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
@@ -226,13 +239,20 @@ public final class WWAdvancementModifications {
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("scorched")))));
 					}
+
+					if (WWEntityConfig.SPAWN_SUNKEN.get() || WWEntityConfig.SUNKEN_IN_TRIAL_CHAMBERS.get()) {
+						AdvancementAPI.addCriteria(advancement, WWConstants.string("sunken"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
+							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.SUNKEN.get())).triggerInstance())
+						);
+						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("sunken")))));
+					}
+
 					if (WWEntityConfig.SPAWN_ZOMBIE_OSTRICHES.get()) {
 						AdvancementAPI.addCriteria(advancement, WWConstants.string("zombie_ostrich"), CriteriaTriggers.PLAYER_KILLED_ENTITY.createCriterion(
 							KilledTrigger.TriggerInstance.playerKilledEntity(EntityPredicate.Builder.entity().of(entityTypes, WWEntityTypes.ZOMBIE_OSTRICH.get())).triggerInstance())
 						);
 						AdvancementAPI.addRequirementsAsNewList(advancement, new AdvancementRequirements(List.of(List.of(WWConstants.string("zombie_ostrich")))));
 					}
-					// TODO: add Sunken
 				}
 				default -> {}
 			}

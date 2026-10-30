@@ -73,6 +73,8 @@ public final class WWLootTables {
 	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_FIRE_CORAL = register("shearing/sunken_dead_fire_coral");
 	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_HORN_CORAL = register("shearing/sunken_dead_horn_coral");
 	public static final ResourceKey<LootTable> SHEAR_SUNKEN_DEAD_TUBE_CORAL = register("shearing/sunken_dead_tube_coral");
+	// EQUIPMENT
+	public static final ResourceKey<LootTable> EQUIPMENT_TRIAL_CHAMBER_SUNKEN = register("equipment/trial_chamber_sunken");
 
 	// FIXME: I dont work on Neo for some reason :(
 	public static void init() {

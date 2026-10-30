@@ -744,6 +744,8 @@
     "tooltip.wilderwild.allow_ostrich_attack": "Whether the Ostrich's peck attack can be used.",
     "option.wilderwild.scorched_in_trial_chambers": "Scorched In Trial Chambers",
     "tooltip.wilderwild.scorched_in_trial_chambers": "Whether Scorched will have spawners in Trial Chambers.",
+    "option.wilderwild.sunken_in_trial_chambers": "Sunken In Trial Chambers",
+   "tooltip.wilderwild.sunken_in_trial_chambers": "Whether Sunken will have spawners in Trial Chambers.",
     "option.wilderwild.leashed_tumbleweed": "Tumbleweed Leashing",
     "tooltip.wilderwild.leashed_tumbleweed": "Whether Tumbleweed are able to be leashed.",
     "tooltip.wilderwild.tumbleweed": "Contains options for the Tumbleweed.",

@@ -28,6 +28,7 @@ import net.frozenblock.wilderwild.data.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
+import net.frozenblock.wilderwild.data.loot.WWEquipmentLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWShearingLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
 import net.frozenblock.wilderwild.data.numberprovider.WWContextIntProviderProvider;
@@ -111,6 +112,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWStructureTagsProvider::new);
 		pack.addProvider(WWTimelineTagsProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
+		pack.addProvider(WWEquipmentLootProvider::new);
 		pack.addProvider(WWShearingLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
 		pack.addProvider(WWColoredRecipeProvider::new);

@@ -91,6 +91,12 @@ public final class WWEntityConfigGui {
 			booleanEntry(builder, "scorched_in_trial_chambers", WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS)
 		);
 
+		// SUNKEN
+		createSubCategory(builder, category, WWEntityTypes.SUNKEN.get().getDescription(), tooltip("entity_category", WWEntityTypes.SUNKEN.get().getDescription()),
+			entitySpawnEntry(builder, WWEntityTypes.SUNKEN.get(), WWEntityConfig.SPAWN_SUNKEN),
+			booleanEntry(builder, "sunken_in_trial_chambers", WWEntityConfig.SUNKEN_IN_TRIAL_CHAMBERS)
+		);
+
 		// MOOBLOOM
 		createSubCategory(builder, category, WWEntityTypes.MOOBLOOM.get().getDescription(), tooltip("entity_category", WWEntityTypes.MOOBLOOM.get().getDescription()),
 			entitySpawnEntry(builder, WWEntityTypes.MOOBLOOM.get(), WWEntityConfig.SPAWN_MOOBLOOMS)

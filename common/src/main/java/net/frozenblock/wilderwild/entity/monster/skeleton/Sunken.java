@@ -93,6 +93,7 @@ import org.jspecify.annotations.Nullable;
 public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shearable, WWEntityVariantHolder<SunkenVariant> {
 	private static final IntProvider TICKS_UNTIL_DRIED_OUT_PROVIDER = UniformInt.of(60, 100);
 	private static final int DEFAULT_TICKS_UNTIL_DRIED_OUT = -1;
+	public static final String TAG_EYE_PATCH = "has_eye_patch";
 	private static final Identifier EYE_PATCH_BONUS_ID = WWConstants.id("eye_patch_bonus");
 	private static final AttributeModifier FOLLOW_RANGE_MODIFIER_EYE_PATCH = new AttributeModifier(EYE_PATCH_BONUS_ID, 16D, AttributeModifier.Operation.ADD_VALUE);
 	private static final AttributeModifier ARMOR_MODIFIER_EYE_PATCH = new AttributeModifier(EYE_PATCH_BONUS_ID, 4D, AttributeModifier.Operation.ADD_VALUE);
@@ -420,13 +421,13 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 	public void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		this.wilderWild$writeVariant(output);
-		output.putBoolean("has_eye_patch", this.hasEyePatch());
+		output.putBoolean(TAG_EYE_PATCH, this.hasEyePatch());
 	}
 
 	@Override
 	public void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		this.wilderWild$readVariant(input).ifPresent(this::wilderWild$setVariant);
-		this.setHasEyePatch(input.getBooleanOr("has_eye_patch", false));
+		this.setHasEyePatch(input.getBooleanOr(TAG_EYE_PATCH, false));
 	}
 }
