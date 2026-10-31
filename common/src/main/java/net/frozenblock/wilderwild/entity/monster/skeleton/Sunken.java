@@ -121,7 +121,8 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 			.add(Attributes.FOLLOW_RANGE, 32D)
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.MOVEMENT_SPEED, 0.27F)
-			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.4D);
+			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.4D)
+			.add(Attributes.SAFE_FALL_DISTANCE, 5D);
 	}
 
 	@Override
