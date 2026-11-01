@@ -153,7 +153,6 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 		}
 	}
 
-
 	@Inject(method = "growTree", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$growOrangePoplarTree(
 		ServerLevel level, ChunkGenerator generator, BlockPos pos, BlockState state, RandomSource random, CallbackInfoReturnable<Boolean> info

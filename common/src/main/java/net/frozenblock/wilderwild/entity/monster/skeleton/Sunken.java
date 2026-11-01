@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -37,7 +38,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -255,7 +255,7 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 
 		variant.value().shearResult().ifPresent(convertOnShear -> {
 			// TODO: shear sound
-			level.playSound(null, this, SoundEvents.BOGGED_SHEAR, soundSource, 1F, 1F);
+			level.playSound(null, this, WWSounds.ENTITY_SUNKEN_SHEAR.get(), soundSource, 1F, 1F);
 
 			convertOnShear.convertTo(
 				this,
@@ -285,22 +285,22 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 	// TODO: custom sounds
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return SoundEvents.BOGGED_AMBIENT;
+		return this.isInWater() ? WWSounds.ENTITY_SUNKEN_AMBIENT_WATER.get() : WWSounds.ENTITY_SUNKEN_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return SoundEvents.BOGGED_HURT;
+		return this.isInWater() ? WWSounds.ENTITY_SUNKEN_HURT_WATER.get() : WWSounds.ENTITY_SUNKEN_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return SoundEvents.BOGGED_DEATH;
+		return this.isInWater() ? WWSounds.ENTITY_SUNKEN_DEATH_WATER.get() : WWSounds.ENTITY_SUNKEN_DEATH.get();
 	}
 
 	@Override
 	protected SoundEvent getStepSound() {
-		return SoundEvents.BOGGED_STEP;
+		return WWSounds.ENTITY_SUNKEN_STEP.get();
 	}
 
 	@Override

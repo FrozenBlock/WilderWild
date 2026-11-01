@@ -123,8 +123,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.MESOGLEA_CAVES)
 			.addOptional(WWBiomes.MAGMATIC_CAVES);
 
-
-
 		this.builder(BiomeTags.IS_TAIGA)
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
@@ -1345,7 +1343,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWFlowerFeatureBiomeTags.SPARSE_JUNGLE_FLOWERS)
 			.add(Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE);
-
 
 		// SAVANNA
 		this.builder(WWFlowerFeatureBiomeTags.SAVANNA_FLOWERS)

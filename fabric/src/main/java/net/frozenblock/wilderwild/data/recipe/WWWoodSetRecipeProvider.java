@@ -197,7 +197,6 @@ public final class WWWoodSetRecipeProvider extends FabricRecipeProvider {
 				this.leafLitterSmelting(Items.SPRUCE_LEAVES, WWItems.SPRUCE_LEAF_LITTER);
 				this.leafLitterSmelting(WWItems.WILLOW_LEAVES, WWItems.WILLOW_LEAF_LITTER);
 
-
 				MapleCollection.zipApply(WWItems.MAPLE_LEAF_LITTER, WWItems.MAPLE_LEAVES,
 					(leafLitter, leaves) -> this.leafLitterSmelting(leaves, leafLitter)
 				);

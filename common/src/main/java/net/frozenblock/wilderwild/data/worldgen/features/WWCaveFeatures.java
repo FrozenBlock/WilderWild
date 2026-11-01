@@ -164,7 +164,6 @@ public final class WWCaveFeatures {
 			)
 		);
 
-
 		registerMesogleaPatch(context, PATCH_MESOGLEA, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get(), WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get(), false);
 		registerMesogleaPatch(context, PATCH_MESOGLEA_CEILING, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get(), WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get(), true);
 

@@ -68,10 +68,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> PRODUCES_SEA_WHIPS_FROM_BONEMEAL = bind("produces_sea_whips_from_bonemeal");
 	public static final TagKey<Biome> PRODUCES_TUBE_WORMS_FROM_BONEMEAL = bind("produces_tube_worms_from_bonemeal");
 
-
-
-
-
 	public static final TagKey<Biome> LUKEWARM_WATER = bind("water_color/lukewarm");
 	public static final TagKey<Biome> HOT_WATER = bind("water_color/hot");
 	public static final TagKey<Biome> SNOWY_WATER = bind("water_color/snowy");
@@ -92,7 +88,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> COARSE_DIRT_PATH_PATCHY = bind("material_rule/coarse_dirt_path_patchy");
 	public static final TagKey<Biome> MOSS_PATH_JUNGLE = bind("material_rule/moss_path_jungle");
 	public static final TagKey<Biome> MOSS_PATH_OCEAN = bind("material_rule/moss_path_ocean");
-
 
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE = bind("feature/has_stone_pile");

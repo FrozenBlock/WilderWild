@@ -137,6 +137,7 @@ public final class WWBlockItemIds {
 	public static final BlockItemId STONE_CHEST = create("stone_chest");
 	public static final BlockItemId NULL_BLOCK = create("null_block");
 	public static final BlockItemId DISPLAY_LANTERN = create("display_lantern");
+	public static final BlockItemId PEARL_BLOCK = create("pearl_block");
 
 	// FLOWERS
 	public static final BlockItemId SEEDING_DANDELION = create("seeding_dandelion");

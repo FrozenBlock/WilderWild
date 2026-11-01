@@ -206,6 +206,5 @@ public final class WWAquaticGeneration {
 		for (FrozenLibPlacedFeature placement : placements) generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placement.getKey());
 	}
 
-
 	private WWAquaticGeneration() {}
 }

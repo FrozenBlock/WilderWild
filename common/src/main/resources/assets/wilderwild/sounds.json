@@ -4454,9 +4454,115 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "entity.sunken.ambient": {
+    "sounds": [
+      "wilderwild:mob/sunken/idle1",
+      "wilderwild:mob/sunken/idle2",
+      "wilderwild:mob/sunken/idle3",
+      "wilderwild:mob/sunken/idle4"
+    ],
+    "subtitle": "subtitles.entity.sunken.ambient"
+  },
+  "entity.sunken.ambient_water": {
+    "sounds": [
+      "wilderwild:mob/sunken/water/idle1",
+      "wilderwild:mob/sunken/water/idle2",
+      "wilderwild:mob/sunken/water/idle3",
+      "wilderwild:mob/sunken/water/idle4"
+    ],
+    "subtitle": "subtitles.entity.sunken.ambient"
+  },
+  "entity.sunken.death": {
+    "sounds": [
+      "wilderwild:mob/sunken/death"
+    ],
+    "subtitle": "subtitles.entity.sunken.death"
+  },
+  "entity.sunken.death_water": {
+    "sounds": [
+      "wilderwild:mob/sunken/water/death"
+    ],
+    "subtitle": "subtitles.entity.sunken.death"
+  },
+  "entity.sunken.hurt": {
+    "sounds": [
+      "wilderwild:mob/sunken/hurt1",
+      "wilderwild:mob/sunken/hurt2",
+      "wilderwild:mob/sunken/hurt3",
+      "wilderwild:mob/sunken/hurt4"
+    ],
+    "subtitle": "subtitles.entity.sunken.hurt"
+  },
+  "entity.sunken.hurt_water": {
+    "sounds": [
+      "wilderwild:mob/sunken/water/hurt1",
+      "wilderwild:mob/sunken/water/hurt2",
+      "wilderwild:mob/sunken/water/hurt3",
+      "wilderwild:mob/sunken/water/hurt4"
+    ],
+    "subtitle": "subtitles.entity.sunken.hurt"
+  },
+  "entity.sunken.shoot": {
+    "sounds": [
+      {
+        "name": "minecraft:item/crossbow/shoot1",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot1",
+        "volume": 0.9
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot1",
+        "pitch": 0.9,
+        "volume": 0.9
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot2",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot2",
+        "volume": 0.9
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot2",
+        "pitch": 0.9,
+        "volume": 0.9
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot3",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot3",
+        "volume": 0.9
+      },
+      {
+        "name": "minecraft:item/crossbow/shoot3",
+        "pitch": 0.9,
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.entity.sunken.shoot"
+  },
+  "entity.sunken.shear": {
+    "sounds": [
+      "minecraft:mob/sheep/shear"
+    ],
+    "subtitle": "subtitles.item.shears.shear"
+  },
+  "entity.sunken.step": {
+    "sounds": [
+      "wilderwild:mob/sunken/step1",
+      "wilderwild:mob/sunken/step2",
+      "wilderwild:mob/sunken/step3"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "entity.moobloom.shear": {
     "sounds": [
-      "mob/sheep/shear"
+      "minecraft:mob/sheep/shear"
     ],
     "subtitle": "subtitles.item.shears.shear"
   },

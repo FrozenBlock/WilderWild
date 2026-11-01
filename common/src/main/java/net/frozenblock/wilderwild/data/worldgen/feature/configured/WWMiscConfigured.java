@@ -1083,7 +1083,5 @@ public final class WWMiscConfigured {
 				UniformInt.of(3, 4)
 			)
 		);
-
-
 	}
 }

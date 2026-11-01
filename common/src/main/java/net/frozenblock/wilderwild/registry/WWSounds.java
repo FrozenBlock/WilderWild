@@ -266,6 +266,15 @@ public final class WWSounds {
 	public static final DeferredSoundEvent ENTITY_SCORCHED_DEATH = register("entity.scorched.death");
 	public static final DeferredSoundEvent ENTITY_SCORCHED_STEP = register("entity.scorched.step");
 	public static final DeferredSoundEvent ENTITY_SCORCHED_STEP_LAVA = register("entity.scorched.step_lava");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_AMBIENT = register("entity.sunken.ambient");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_AMBIENT_WATER = register("entity.sunken.ambient_water");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_HURT = register("entity.sunken.hurt");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_HURT_WATER = register("entity.sunken.hurt_water");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_DEATH = register("entity.sunken.death");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_DEATH_WATER = register("entity.sunken.death_water");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_STEP = register("entity.sunken.step");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_SHEAR = register("entity.sunken.shear");
+	public static final DeferredSoundEvent ENTITY_SUNKEN_SHOOT = register("entity.sunken.shoot");
 	public static final DeferredSoundEvent ENTITY_MOOBLOOM_SHEAR = register("entity.moobloom.shear");
 	public static final DeferredSoundEvent ENTITY_TUMBLEWEED_BOUNCE = register("entity.tumbleweed.bounce");
 	public static final DeferredSoundEvent ENTITY_TUMBLEWEED_BREAK = register("entity.tumbleweed.break");
@@ -324,6 +333,7 @@ public final class WWSounds {
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_DAPPLED_FORESTS = register("music.overworld.wilder_dappled_forests");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_LUSH_CAVES = register("music.overworld.wilder_lush_caves");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES = register("music.overworld.wilder_dripstone_caves");
+	public static final DeferredSoundEvent MUSIC_OVERWORLD_FROZEN_CAVES = register("music.overworld.frozen_caves");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_CHERRY_GROVES = register("music.overworld.wilder_cherry_groves");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_GROVES = register("music.overworld.wilder_groves");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_JUNGLES = register("music.overworld.wilder_jungles");
@@ -337,7 +347,7 @@ public final class WWSounds {
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_OCEANS = register("music.overworld.wilder_oceans");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_FROZEN_OCEANS = register("music.overworld.wilder_frozen_oceans");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_WILD_WARM_OCEANS = register("music.overworld.wilder_warm_oceans");
-	public static final DeferredSoundEvent MUSIC_OVERWORLD_FROZEN_CAVES = register("music.overworld.frozen_caves");
+
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_MESOGLEA_CAVES = register("music.overworld.mesoglea_caves");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_MAGMATIC_CAVES = register("music.overworld.magmatic_caves");
 	public static final DeferredSoundEvent MUSIC_OVERWORLD_MAPLE_FOREST = register("music.overworld.maple_forest");

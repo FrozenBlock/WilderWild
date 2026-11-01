@@ -25,6 +25,7 @@ import net.minecraft.world.entity.EntityType;
 public final class WWEntityTypeIds {
 	public static final ResourceKey<EntityType<?>> FIREFLY = create("firefly");
 	public static final ResourceKey<EntityType<?>> BUTTERFLY = create("butterfly");
+	public static final ResourceKey<EntityType<?>> CLAM = create("clam");
 	public static final ResourceKey<EntityType<?>> JELLYFISH = create("jellyfish");
 	public static final ResourceKey<EntityType<?>> TUMBLEWEED = create("tumbleweed");
 	public static final ResourceKey<EntityType<?>> CRAB = create("crab");

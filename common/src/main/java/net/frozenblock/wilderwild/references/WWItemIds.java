@@ -41,6 +41,7 @@ public final class WWItemIds {
 	public static final ResourceKey<Item> SPLIT_COCONUT = create("split_coconut");
 	public static final ResourceKey<Item> FIREFLY_BOTTLE = create("firefly_bottle");
 	public static final ResourceKey<Item> BUTTERFLY_BOTTLE = create("butterfly_bottle");
+	public static final ResourceKey<Item> PEARL = create("pearl");
 	public static final ResourceKey<Item> HARPOON = create("harpoon");
 
 	// FOOD
@@ -55,13 +56,14 @@ public final class WWItemIds {
 	public static final ResourceKey<Item> CRAB_BUCKET = create("crab_bucket");
 
 	public static final ResourceKey<Item> FIREFLY_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.FIREFLY);
+	public static final ResourceKey<Item> BUTTERFLY_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.BUTTERFLY);
+	public static final ResourceKey<Item> CLAM_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.CLAM);
 	public static final ResourceKey<Item> JELLYFISH_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.JELLYFISH);
 	public static final ResourceKey<Item> CRAB_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.CRAB);
 	public static final ResourceKey<Item> OSTRICH_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.OSTRICH);
 	public static final ResourceKey<Item> ZOMBIE_OSTRICH_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.ZOMBIE_OSTRICH);
 	public static final ResourceKey<Item> SCORCHED_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.SCORCHED);
 	public static final ResourceKey<Item> SUNKEN_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.SUNKEN);
-	public static final ResourceKey<Item> BUTTERFLY_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.BUTTERFLY);
 	public static final ResourceKey<Item> MOOBLOOM_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.MOOBLOOM);
 	public static final ResourceKey<Item> PENGUIN_SPAWN_EGG = ItemIds.createSpawnEgg(WWEntityTypeIds.PENGUIN);
 

@@ -164,7 +164,6 @@ public final class WWParticleTypes {
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> FLOWERING_AZALEA_LEAVES = createLeafParticle("flowering_azalea_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> AZALEA_LITTER_LEAVES = createLeafParticle("azalea_litter_leaves");
 
-
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> BAOBAB_LEAVES = createLeafParticle("baobab_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> BAOBAB_LITTER_LEAVES = createLeafParticle("baobab_litter_leaves");
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> WILLOW_LEAVES = createLeafParticle("willow_leaves");

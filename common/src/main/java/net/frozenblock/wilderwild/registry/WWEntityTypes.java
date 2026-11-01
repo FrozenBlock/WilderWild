@@ -320,7 +320,6 @@ public final class WWEntityTypes {
 		);
 	}
 
-
 	private static DeferredEntityType<Boat> registerBoat(ResourceKey<EntityType<?>> key, Supplier<Item> item) {
 		return registerAbstractBoat(key, EntityTypes.boatFactory(() -> item.get()));
 	}

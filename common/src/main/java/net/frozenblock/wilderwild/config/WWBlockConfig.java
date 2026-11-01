@@ -82,7 +82,6 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> BRITTLE_ICE_SHATTERS_ON_FALL = CONFIG.entry("brittleIce/brittleIceShattersOnFall", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> BRITTLE_ICE_SHATTERS_FROM_PROJECTILE = CONFIG.entry("brittleIce/brittleIceShattersFromProjectile", EntryType.BOOL, true);
 
-
 	// SNOWLOGGING
 	public static final ConfigEntry<Boolean> SNOWLOGGING = CONFIG.entryBuilder("snowlogging/snowlogging", EntryType.BOOL, true)
 		.visibilityPredicate(VisibilityPredicate.of(() -> !SnowloggingUtil.HAS_ANTIQUE_ATLAS))

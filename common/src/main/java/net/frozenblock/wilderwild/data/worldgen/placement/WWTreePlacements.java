@@ -69,7 +69,6 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature DEAD_OAK = WWTreeFeatures.DEAD_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DEAD_OAK_BRANCHES = WWTreeFeatures.DEAD_OAK_BRANCHES.toPlacedFeature();
 
-
 	public static final FrozenLibPlacedFeature FALLEN_OAK = register("fallen_oak");
 	public static final FrozenLibPlacedFeature FALLEN_OAK_NO_MOSS = register("fallen_oak_no_moss");
 	public static final FrozenLibPlacedFeature FALLEN_OAK_MOSSY = register("fallen_oak_mossy");

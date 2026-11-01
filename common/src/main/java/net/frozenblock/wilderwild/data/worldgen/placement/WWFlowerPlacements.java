@@ -302,7 +302,6 @@ public final class WWFlowerPlacements {
 		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_52_LARGE, WWFlowerFeatures.ROSE_BUSH.getHolder(), 52, 7, 3);
 		registerFlowerPatchForFeature(PATCH_ROSE_BUSH_64_LARGE, WWFlowerFeatures.ROSE_BUSH.getHolder(), 64, 7, 3);
 
-
 		// PLAINS
 		FLOWER_DEFAULT_PLAINS.makeAndSetHolder(
 			WWFlowerFeatures.FLOWER_DEFAULT_PLAINS,

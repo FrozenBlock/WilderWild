@@ -352,7 +352,6 @@ public final class WWMaterialRules {
 			)
 		);
 
-
 		MaterialRuleAdditions.register(
 			context,
 			WWConstants.id("old_growth_snowy_pine_taiga"),
@@ -609,7 +608,6 @@ public final class WWMaterialRules {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
 		final HolderGetter<MaterialCondition> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
-
 
 		context.register(
 			GRASS_AND_DIRT,

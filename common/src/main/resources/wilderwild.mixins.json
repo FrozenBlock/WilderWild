@@ -53,6 +53,7 @@
     "entity.slime.SlimeMixin",
     "entity.slime.SpawnPlacementsMixin",
     "entity.sunken.AbstractSkeletonMixin",
+    "entity.sunken.CrossbowItemMixin",
     "entity.sunken.GroundPathNavigationMixin",
     "entity.sunken.MonsterMixin",
     "entity.tumbleweed.BlockBehaviourMixin",
