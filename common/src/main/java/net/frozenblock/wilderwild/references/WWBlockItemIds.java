@@ -132,12 +132,17 @@ public final class WWBlockItemIds {
 	public static final BlockItemId RED_NEMATOCYST = create("red_nematocyst");
 	public static final BlockItemId PINK_NEMATOCYST = create("pink_nematocyst");
 
+	// PEARL
+	public static final BlockItemId PEARL_BLOCK = create("pearl_block");
+	public static final BlockItemId CUT_PEARL = create("cut_pearl");
+	public static final BlockItemId CUT_PEARL_SLAB = create("cut_pearl_slab");
+	public static final BlockItemId CUT_PEARL_STAIRS = create("cut_pearl_stairs");
+
 	// MISC
 	public static final BlockItemId TERMITE_MOUND = create("termite_mound");
 	public static final BlockItemId STONE_CHEST = create("stone_chest");
 	public static final BlockItemId NULL_BLOCK = create("null_block");
 	public static final BlockItemId DISPLAY_LANTERN = create("display_lantern");
-	public static final BlockItemId PEARL_BLOCK = create("pearl_block");
 
 	// FLOWERS
 	public static final BlockItemId SEEDING_DANDELION = create("seeding_dandelion");

@@ -327,6 +327,9 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.RED_NEMATOCYST, WWItems.YELLOW_NEMATOCYST);
 		insertAfterInNaturalBlocks(WWItems.YELLOW_NEMATOCYST, WWItems.LIME_NEMATOCYST);
 
+		// PEARL
+		insertBeforeInIngredients(Items.PRISMARINE_SHARD, WWItems.PEARL);
+
 		// FROGLIGHT
 		insertAfterInNaturalAndFunctionalBlocks(Items.PEARLESCENT_FROGLIGHT, WWItems.OCHRE_FROGLIGHT_GOOP);
 		insertAfterInNaturalAndFunctionalBlocks(WWItems.OCHRE_FROGLIGHT_GOOP, WWItems.VERDANT_FROGLIGHT_GOOP);
