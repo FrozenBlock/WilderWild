@@ -454,7 +454,6 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropPottedContents(WWBlocks.POTTED_FROZEN_BUSH.get());
 
 		this.dropSelf(WWBlocks.NULL_BLOCK.get());
-		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS.get());
 		this.dropSelf(WWBlocks.TERMITE_MOUND.get());
 		this.dropSelf(WWBlocks.BLUE_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.BLUE_NEMATOCYST.get());
@@ -470,6 +469,8 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get());
 		this.dropSelf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get());
 		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get());
+
+		this.dropSelf(WWBlocks.PEARL_BLOCK.get());
 
 		this.makeHangingFroglightLoot(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
 		this.makeHangingFroglightLoot(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());

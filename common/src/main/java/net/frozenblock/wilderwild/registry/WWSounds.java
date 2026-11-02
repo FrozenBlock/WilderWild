@@ -151,6 +151,7 @@ public final class WWSounds {
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> MUSHROOM_BLOCK = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.MUSHROOM_BLOCK);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> NULL_BLOCK = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.NULL_BLOCK);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> OSSEOUS_SCULK = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.OSSEOUS_SCULK);
+	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> PEARL = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.PEARL);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> POLLEN = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.POLLEN);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> REINFORCED_DEEPSLATE = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.REINFORCED_DEEPSLATE);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> SAPLING = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.SAPLING);

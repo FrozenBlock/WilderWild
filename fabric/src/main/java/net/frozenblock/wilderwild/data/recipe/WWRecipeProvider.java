@@ -279,6 +279,9 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.mesoglea(WWItems.PEARLESCENT_BLUE_NEMATOCYST, WWItems.PEARLESCENT_BLUE_MESOGLEA);
 				this.mesoglea(WWItems.PEARLESCENT_PURPLE_NEMATOCYST, WWItems.PEARLESCENT_PURPLE_MESOGLEA);
 
+				// PEARL
+				this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, WWItems.PEARL_BLOCK, WWItems.PEARL);
+
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}
 

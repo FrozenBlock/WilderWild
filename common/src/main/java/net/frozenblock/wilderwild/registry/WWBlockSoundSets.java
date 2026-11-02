@@ -42,6 +42,7 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> GABBRO_BRICKS = createKey("gabbro_bricks");
 	public static final ResourceKey<BlockSoundSet> GEOTHERMAL_VENT = createKey("geothermal_vent");
 	public static final ResourceKey<BlockSoundSet> MESOGLEA = createKey("mesoglea");
+	public static final ResourceKey<BlockSoundSet> PEARL = createKey("pearl");
 	public static final ResourceKey<BlockSoundSet> POLLEN = createKey("pollen");
 	public static final ResourceKey<BlockSoundSet> TERMITE_MOUND = createKey("termite_mound");
 	public static final ResourceKey<BlockSoundSet> TUMBLEWEED_PLANT = createKey("tumbleweed_plant");
@@ -101,6 +102,7 @@ public final class WWBlockSoundSets {
 		context.register(GABBRO_BRICKS, new BlockSoundSet(WWSounds.GABBRO_BRICKS));
 		context.register(GEOTHERMAL_VENT, new BlockSoundSet(WWSounds.GEOTHERMAL_VENT));
 		context.register(MESOGLEA, new BlockSoundSet(0.8F, 1F, WWSounds.MESOGLEA));
+		context.register(PEARL, new BlockSoundSet(0.95F, 1F, WWSounds.PEARL));
 		context.register(POLLEN, new BlockSoundSet(0.8F, 1.2F, WWSounds.POLLEN));
 		context.register(TERMITE_MOUND, new BlockSoundSet(0.8F, 1F, WWSounds.TERMITE_MOUND));
 		context.register(TUMBLEWEED_PLANT, new BlockSoundSet(WWSounds.TUMBLEWEED_PLANT));

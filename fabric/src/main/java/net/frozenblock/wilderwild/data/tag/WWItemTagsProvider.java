@@ -135,7 +135,10 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
 			.addOptionalTag(WWBlockItemTags.HOLLOWED_LOGS.item());
 
-		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
+		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_BOUNCY)
+			.add(
+				WWBlockItemIds.PEARL_BLOCK
+			)
 			.add(
 				WWBlockItemIds.CHISELED_MUD_BRICKS,
 				WWBlockItemIds.MOSSY_MUD_BRICKS,
@@ -148,10 +151,11 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 				WWBlockItemIds.CRACKED_GABBRO_BRICKS,
 				WWBlockItemIds.CHISELED_GABBRO_BRICKS,
 				WWBlockItemIds.MOSSY_GABBRO_BRICKS
-			)
+			);
+
+		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
 			.add(WWBlockItemIds.SCORCHED_SAND, WWBlockItemIds.SCORCHED_RED_SAND)
-			.add(WWBlockItemIds.NULL_BLOCK)
-			.addOptionalTag(WWBlockItemTags.HOLLOWED_LOGS.item());
+			.add(WWBlockItemIds.NULL_BLOCK);
 
 		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
 			.add(WWBlockItemIds.PALE_MUSHROOM_BLOCK);

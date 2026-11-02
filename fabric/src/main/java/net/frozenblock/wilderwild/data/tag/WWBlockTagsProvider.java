@@ -469,6 +469,8 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.CRACKED_MUD_BRICKS)
 			.add(WWBlockItemIds.MOSSY_MUD_BRICKS, WWBlockItemIds.MOSSY_MUD_BRICK_STAIRS, WWBlockItemIds.MOSSY_MUD_BRICK_SLAB, WWBlockItemIds.MOSSY_MUD_BRICK_WALL)
 
+			.add(WWBlockItemIds.PEARL_BLOCK)
+
 			.add(WWBlockItemIds.GABBRO)
 			.add(WWBlockItemIds.GEOTHERMAL_VENT)
 			.add(WWBlockItemIds.GABBRO_STAIRS, WWBlockItemIds.GABBRO_SLAB, WWBlockItemIds.GABBRO_WALL)
@@ -519,6 +521,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK);
 
 		this.builder(BlockTags.NEEDS_STONE_TOOL)
+			.add(WWBlockItemIds.PEARL_BLOCK)
 			.add(WWBlockItemIds.GABBRO)
 			.add(WWBlockItemIds.GEOTHERMAL_VENT)
 			.add(WWBlockItemIds.GABBRO_STAIRS, WWBlockItemIds.GABBRO_SLAB, WWBlockItemIds.GABBRO_WALL)
@@ -571,6 +574,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.PALE_MUSHROOM_BLOCK)
 			.add(WWBlockItemIds.AUBURN_MOSS_BLOCK)
 			.add(WWBlockItemIds.OSTRICH_EGG, WWBlockItemIds.PENGUIN_EGG)
+			.add(WWBlockItemIds.PEARL_BLOCK)
 			.add(WWBlockItemIds.GABBRO, WWBlockItemIds.POLISHED_GABBRO)
 			.add(WWBlockItemIds.GABBRO_BRICKS, WWBlockItemIds.CRACKED_GABBRO_BRICKS, WWBlockItemIds.CHISELED_GABBRO_BRICKS, WWBlockItemIds.MOSSY_MUD_BRICKS)
 			.add(WWBlockItemIds.GEOTHERMAL_VENT);

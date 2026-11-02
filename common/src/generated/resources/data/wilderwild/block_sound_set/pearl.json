@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.pearl.break",
+  "fall_sound": "wilderwild:block.pearl.fall",
+  "hit_sound": "wilderwild:block.pearl.hit",
+  "place_sound": "wilderwild:block.pearl.place",
+  "step_sound": "wilderwild:block.pearl.step",
+  "volume": 0.95
+}

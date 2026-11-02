@@ -629,6 +629,16 @@ public final class WWBlocks {
 		);
 	}
 
+	// PEARL
+	public static final DeferredBlock<Block> PEARL_BLOCK = REGISTER.registerSimpleBlock(WWBlockItemIds.PEARL_BLOCK,
+		() -> Properties.of().mapColor(MapColor.COLOR_PINK)
+			// TODO: potential new NoteBlockInstrument?
+			.instrument(NoteBlockInstrument.HAT)
+			.requiresCorrectToolForDrops()
+			.strength(1F, 2F)
+			.sound(WWBlockSoundSets.PEARL)
+	);
+
 	// MISC
 	public static final DeferredBlock<TermiteMoundBlock> TERMITE_MOUND = REGISTER.registerBlock(WWBlockItemIds.TERMITE_MOUND,
 		TermiteMoundBlock::new,

@@ -3276,6 +3276,88 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.pearl.break": {
+    "sounds": [
+      "wilderwild:block/pearl/place1",
+      "wilderwild:block/pearl/place2",
+      "wilderwild:block/pearl/place3",
+      "wilderwild:block/pearl/place4",
+      {
+        "name": "wilderwild:block/pearl/place1",
+        "pitch": 0.95
+      },
+      {
+        "name": "wilderwild:block/pearl/place2",
+        "pitch": 0.95
+      },
+      {
+        "name": "wilderwild:block/pearl/place3",
+        "pitch": 0.95
+      },
+      {
+        "name": "wilderwild:block/pearl/place4",
+        "pitch": 0.95
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.pearl.fall": {
+    "sounds": [
+      "wilderwild:block/pearl/step1",
+      "wilderwild:block/pearl/step2",
+      "wilderwild:block/pearl/step3",
+      "wilderwild:block/pearl/step4",
+      "wilderwild:block/pearl/step5",
+      "wilderwild:block/pearl/step6"
+    ]
+  },
+  "block.pearl.hit": {
+    "sounds": [
+      "wilderwild:block/pearl/step1",
+      "wilderwild:block/pearl/step2",
+      "wilderwild:block/pearl/step3",
+      "wilderwild:block/pearl/step4",
+      "wilderwild:block/pearl/step5",
+      "wilderwild:block/pearl/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.pearl.place": {
+    "sounds": [
+      "wilderwild:block/pearl/place1",
+      "wilderwild:block/pearl/place2",
+      "wilderwild:block/pearl/place3",
+      "wilderwild:block/pearl/place4",
+      {
+        "name": "wilderwild:block/pearl/place1",
+        "pitch": 0.95
+      },
+      {
+        "name": "wilderwild:block/pearl/place2",
+        "pitch": 0.95
+      },
+      {
+        "name": "wilderwild:block/pearl/place3",
+        "pitch": 0.95
+      },
+      {
+        "name": "wilderwild:block/pearl/place4",
+        "pitch": 0.95
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.pearl.step": {
+    "sounds": [
+      "wilderwild:block/pearl/step1",
+      "wilderwild:block/pearl/step2",
+      "wilderwild:block/pearl/step3",
+      "wilderwild:block/pearl/step4",
+      "wilderwild:block/pearl/step5",
+      "wilderwild:block/pearl/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.pollen.break": {
     "sounds": [
       "wilderwild:block/pollen/break1",

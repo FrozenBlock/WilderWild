@@ -171,6 +171,9 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> RED_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_NEMATOCYST, WWBlocks.RED_NEMATOCYST);
 	public static final DeferredItem<BlockItem> PINK_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PINK_NEMATOCYST, WWBlocks.PINK_NEMATOCYST);
 
+	// PEARL
+	public static final DeferredItem<BlockItem> PEARL_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARL_BLOCK, WWBlocks.PEARL_BLOCK);
+
 	// MISC
 	public static final DeferredItem<BlockItem> TERMITE_MOUND = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TERMITE_MOUND, WWBlocks.TERMITE_MOUND);
 	public static final DeferredItem<BlockItem> STONE_CHEST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STONE_CHEST, WWBlocks.STONE_CHEST);
