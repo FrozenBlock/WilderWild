@@ -134,9 +134,12 @@ public final class WWBlockItemIds {
 
 	// PEARL
 	public static final BlockItemId PEARL_BLOCK = create("pearl_block");
-	public static final BlockItemId CUT_PEARL = create("cut_pearl");
-	public static final BlockItemId CUT_PEARL_SLAB = create("cut_pearl_slab");
-	public static final BlockItemId CUT_PEARL_STAIRS = create("cut_pearl_stairs");
+	public static final BlockItemId POLISHED_PEARL_BLOCK = create("polished_pearl_block");
+	public static final BlockItemId POLISHED_PEARL_SLAB = create("polished_pearl_slab");
+	public static final BlockItemId POLISHED_PEARL_STAIRS = create("polished_pearl_stairs");
+	public static final BlockItemId CUT_POLISHED_PEARL = create("cut_polished_pearl");
+	public static final BlockItemId CUT_POLISHED_PEARL_SLAB = create("cut_polished_pearl_slab");
+	public static final BlockItemId CUT_POLISHED_PEARL_STAIRS = create("cut_polished_pearl_stairs");
 
 	// MISC
 	public static final BlockItemId TERMITE_MOUND = create("termite_mound");

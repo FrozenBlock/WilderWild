@@ -62,6 +62,7 @@
     "item.brush.BrushItemMixin",
     "item.crossbow.CrossbowItemChargeTypeMixin",
     "item.instrument.InstrumentItemMixin",
+    "item.trim.TrimMaterialsPaletteMixin",
     "projectile.AbstractArrowMixin",
     "projectile.AbstractThrownPotionMixin",
     "projectile.CreeperMixin",

@@ -456,9 +456,8 @@ public final class WWItems {
 			.stacksTo(1)
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
 	);
-	// TODO: trim material & block recipe
 	public static final DeferredItem<Item> PEARL = REGISTER.registerSimpleItem(WWItemIds.PEARL,
-		() -> new Item.Properties()
+		() -> new Item.Properties().trimMaterial(WWTrimMaterials.PEARL)
 	);
 	public static final DeferredItem<HarpoonItem> HARPOON = REGISTER.registerItem(WWItemIds.HARPOON,
 		properties -> new HarpoonItem(properties),
