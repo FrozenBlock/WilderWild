@@ -124,6 +124,7 @@
     "client.easter.StellaWardenRenderer",
     "client.equipment.EquipmentClientInfoLayerTypeMixin",
     "client.equipment.EquipmentClientInfoMixin",
+    "client.experiment.ExperimentsScreenMixin",
     "client.item.crossbow.BlockModelWrapperUnbakedMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.sunken.SkeletonModelMixin",

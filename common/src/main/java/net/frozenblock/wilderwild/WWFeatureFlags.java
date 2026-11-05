@@ -27,6 +27,9 @@ public final class WWFeatureFlags {
 	public static final FeatureFlag WILDER_WILD = FeatureFlagApi.builder.create(WWConstants.id(WWConstants.MOD_ID));
 	public static final FeatureFlagSet WILDER_WILD_FLAG_SET = FeatureFlagSet.of(WILDER_WILD);
 
+	public static final FeatureFlag WILDER_AQUATIC = FeatureFlagApi.builder.create(WWConstants.id("wilder_aquatic"));
+	public static final FeatureFlagSet WILDER_AQUATIC_FLAG_SET = FeatureFlagSet.of(WILDER_AQUATIC);
+
 	public static final FeatureFlag FEATURE_FLAG = FrozenLibEarlyConstants.IS_DATAGEN ? WILDER_WILD : FeatureFlags.VANILLA;
 
 	public static final FeatureFlag TRAILIER_TALES_COMPAT = FeatureFlagApi.builder.create(WWConstants.id("trailiertales"));
@@ -35,4 +38,6 @@ public final class WWFeatureFlags {
 	public static void init() {
 		FeatureFlagApi.rebuild();
 	}
+
+	private WWFeatureFlags() {}
 }

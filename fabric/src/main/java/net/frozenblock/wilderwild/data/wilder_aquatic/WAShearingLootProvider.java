@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.data.loot;
+package net.frozenblock.wilderwild.data.wilder_aquatic;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -33,10 +33,10 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
-public final class WWShearingLootProvider extends SimpleFabricLootTableSubProvider {
+public final class WAShearingLootProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registries;
 
-	public WWShearingLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public WAShearingLootProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries, LootContextParamSets.SHEARING);
 		this.registries = registries;
 	}

@@ -652,6 +652,7 @@ public final class WWBlocks {
 			.requiresCorrectToolForDrops()
 			.strength(1F, 2F)
 			.sound(WWBlockSoundSets.PEARL)
+			.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 	);
 
 	// MISC

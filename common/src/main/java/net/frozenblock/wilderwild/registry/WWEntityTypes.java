@@ -207,7 +207,8 @@ public final class WWEntityTypes {
 			.eyeHeight(1.74F)
 			.ridingOffset(-0.7F)
 			.clientTrackingRange(8)
-			.notInPeaceful(),
+			.notInPeaceful()
+			.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC),
 		entityType -> {
 			DefaultAttributeRegistry.register(entityType, Sunken.createAttributes());
 			SpawnPlacements.register(
@@ -274,6 +275,7 @@ public final class WWEntityTypes {
 			.eyeHeight(0.13F)
 			.clientTrackingRange(4)
 			.updateInterval(20)
+			.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 	);
 
 	public static final DeferredEntityType<FallingLeafTicker> FALLING_LEAVES = REGISTER.register(WWEntityTypeIds.FALLING_LEAVES,

@@ -43,6 +43,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
+		this.generateWilderAquatic();
 		this.generateCompat();
 		this.generateBiomeTags();
 		this.generateClimateAndVegetationTags();
@@ -59,6 +60,20 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 	private TagKey<Biome> getTag(String id) {
 		return TagKey.create(this.registryKey, Identifier.parse(id));
+	}
+
+	private void generateWilderAquatic() {
+		this.builder(WWBiomeTags.CORAL_VARIANT_SUNKEN);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_OCEAN);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_WARM_OCEAN);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_RIVER);
+
+		this.builder(WWBiomeTags.HAS_SUNKEN_FROZEN_RIVER);
+
+		this.builder(WWBiomeTags.MORE_FREQUENT_SUNKEN_SPAWNS);
 	}
 
 	private void generateCompat() {
@@ -578,9 +593,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.PEARLESCENT_JELLYFISH)
 			.addOptional(WWBiomes.MESOGLEA_CAVES);
 
-		this.builder(WWBiomeTags.CORAL_VARIANT_SUNKEN)
-			.add(Biomes.WARM_OCEAN);
-
 		this.builder(WWBiomeTags.WOLF_ASHEN)
 			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
 
@@ -632,25 +644,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
-
-		this.builder(WWBiomeTags.HAS_SUNKEN_OCEAN)
-			.add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
-			.add(Biomes.DEEP_COLD_OCEAN)
-			.add(Biomes.DEEP_OCEAN)
-			.add(Biomes.DEEP_LUKEWARM_OCEAN);
-
-		this.builder(WWBiomeTags.HAS_SUNKEN_WARM_OCEAN)
-			.add(Biomes.WARM_OCEAN);
-
-		this.builder(WWBiomeTags.HAS_SUNKEN_RIVER)
-			.add(Biomes.RIVER)
-			.addOptional(WWBiomes.WARM_RIVER);
-
-		this.builder(WWBiomeTags.HAS_SUNKEN_FROZEN_RIVER)
-			.add(Biomes.FROZEN_RIVER);
-
-		this.builder(WWBiomeTags.MORE_FREQUENT_SUNKEN_SPAWNS)
-			.addOptionalTag(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS);
 
 		this.builder(BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)

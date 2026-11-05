@@ -34,6 +34,13 @@ public final class WWResources {
 				PackActivationType.ALWAYS_ENABLED
 			);
 		}
+
+		FrozenLibResourceLoader.registerBuiltinPack(
+			WWConstants.id("wilder_aquatic"),
+			WWConstants.MOD_ID,
+			Component.translatable("dataPack.wilder_aquatic.name"),
+			PackActivationType.NORMAL
+		);
 	}
 
 	private WWResources() {}

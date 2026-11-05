@@ -131,18 +131,11 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 		this.builder(ItemTags.NON_FLAMMABLE_WOOD)
 			.addOptionalTag(WWBlockItemTags.HOLLOWED_LOGS_DONT_BURN.item());
 
-		// TRIMS
-		this.builder(ItemTags.TRIM_MATERIALS)
-			.add(WWItemIds.PEARL);
-
 		// SULFUR CUBE
 		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
 			.addOptionalTag(WWBlockItemTags.HOLLOWED_LOGS.item());
 
 		this.builder(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_BOUNCY)
-			.add(
-				WWBlockItemIds.PEARL_BLOCK
-			)
 			.add(
 				WWBlockItemIds.CHISELED_MUD_BRICKS,
 				WWBlockItemIds.MOSSY_MUD_BRICKS,

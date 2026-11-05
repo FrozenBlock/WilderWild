@@ -172,7 +172,10 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> PINK_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PINK_NEMATOCYST, WWBlocks.PINK_NEMATOCYST);
 
 	// PEARL
-	public static final DeferredItem<BlockItem> PEARL_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARL_BLOCK, WWBlocks.PEARL_BLOCK);
+	public static final DeferredItem<BlockItem> PEARL_BLOCK = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARL_BLOCK,
+		WWBlocks.PEARL_BLOCK,
+		properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+	);
 
 	// MISC
 	public static final DeferredItem<BlockItem> TERMITE_MOUND = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TERMITE_MOUND, WWBlocks.TERMITE_MOUND);
@@ -457,11 +460,11 @@ public final class WWItems {
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
 	);
 	public static final DeferredItem<Item> PEARL = REGISTER.registerSimpleItem(WWItemIds.PEARL,
-		() -> new Item.Properties().trimMaterial(WWTrimMaterials.PEARL)
+		() -> new Item.Properties().trimMaterial(WWTrimMaterials.PEARL).requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 	);
 	public static final DeferredItem<HarpoonItem> HARPOON = REGISTER.registerItem(WWItemIds.HARPOON,
-		properties -> new HarpoonItem(properties),
-		() -> new Item.Properties()
+		HarpoonItem::new,
+		() -> new Item.Properties().requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 	);
 
 	// FOOD
@@ -502,7 +505,7 @@ public final class WWItems {
 	public static final DeferredItem<SpawnEggItem> OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.OSTRICH_SPAWN_EGG, WWEntityTypes.OSTRICH);
 	public static final DeferredItem<SpawnEggItem> ZOMBIE_OSTRICH_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.ZOMBIE_OSTRICH_SPAWN_EGG, WWEntityTypes.ZOMBIE_OSTRICH);
 	public static final DeferredItem<SpawnEggItem> SCORCHED_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SCORCHED_SPAWN_EGG, WWEntityTypes.SCORCHED);
-	public static final DeferredItem<SpawnEggItem> SUNKEN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SUNKEN_SPAWN_EGG, WWEntityTypes.SUNKEN);
+	public static final DeferredItem<SpawnEggItem> SUNKEN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.SUNKEN_SPAWN_EGG, WWEntityTypes.SUNKEN, properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC));
 	public static final DeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM);
 	public static final DeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN);
 

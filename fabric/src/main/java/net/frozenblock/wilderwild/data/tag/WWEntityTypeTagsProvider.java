@@ -159,8 +159,7 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 			.add(EntityTypeIds.FIREWORK_ROCKET);
 
 		this.builder(EntityTypeTags.IMMUNE_TO_FREEZING)
-			.add(WWEntityTypeIds.PENGUIN)
-			.add(WWEntityTypeIds.SUNKEN);
+			.add(WWEntityTypeIds.PENGUIN);
 
 		this.builder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
 			.add(WWEntityTypeIds.SCORCHED);
@@ -216,18 +215,8 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 		this.builder(EntityTypeTags.ZOMBIES)
 			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
 
-		this.builder(EntityTypeTags.SKELETONS)
-			.add(WWEntityTypeIds.SUNKEN);
-
 		this.builder(EntityTypeTags.BURN_IN_DAYLIGHT)
-			.add(WWEntityTypeIds.ZOMBIE_OSTRICH)
-			.add(WWEntityTypeIds.SUNKEN);
-
-		this.builder(EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES)
-			.add(WWEntityTypeIds.SUNKEN);
-
-		this.builder(EntityTypeTags.IMPACT_PROJECTILES)
-			.add(WWEntityTypeIds.HARPOON);
+			.add(WWEntityTypeIds.ZOMBIE_OSTRICH);
 	}
 
 	private static ResourceKey<EntityType<?>> createKey(String namespace, String path) {

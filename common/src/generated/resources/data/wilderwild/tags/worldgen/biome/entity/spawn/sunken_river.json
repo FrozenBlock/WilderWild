@@ -1,9 +1,3 @@
 {
-  "values": [
-    "minecraft:river",
-    {
-      "id": "wilderwild:warm_river",
-      "required": false
-    }
-  ]
+  "values": []
 }

@@ -28,8 +28,6 @@ import net.frozenblock.wilderwild.data.advancement.WWAdvancementProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
-import net.frozenblock.wilderwild.data.loot.WWEquipmentLootProvider;
-import net.frozenblock.wilderwild.data.loot.WWShearingLootProvider;
 import net.frozenblock.wilderwild.data.model.WWModelProvider;
 import net.frozenblock.wilderwild.data.numberprovider.WWContextIntProviderProvider;
 import net.frozenblock.wilderwild.data.recipe.WWBrewingRecipeProvider;
@@ -53,6 +51,15 @@ import net.frozenblock.wilderwild.data.tag.WWStructureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWTimelineTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
 import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WABiomeTagsProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WABlockLootProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WABlockTagsProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAEntityLootProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAEntityTypeTagsProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAEquipmentLootProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAItemTagsProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WARecipeProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAShearingLootProvider;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialRules;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWAbandonedCampStructurePools;
@@ -60,10 +67,10 @@ import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureMusic;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureProcessorListAdditions;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
 import net.frozenblock.wilderwild.entity.ambient.butterfly.ButterflyVariants;
-import net.frozenblock.wilderwild.entity.animal.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariants;
-import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariants;
+import net.frozenblock.wilderwild.entity.animal.crab.CrabVariants;
+import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariants;
 import net.frozenblock.wilderwild.registry.WWBiomeEnvironmentAttributeModifications;
 import net.frozenblock.wilderwild.registry.WWBiomes;
@@ -88,6 +95,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
 		FeatureFlagApi.rebuild();
+
 		final FabricDataGenerator.Pack pack = dataGenerator.createPack();
 
 		// ASSETS
@@ -113,8 +121,6 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWStructureTagsProvider::new);
 		pack.addProvider(WWTimelineTagsProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
-		pack.addProvider(WWEquipmentLootProvider::new);
-		pack.addProvider(WWShearingLootProvider::new);
 		pack.addProvider(WWRecipeProvider::new);
 		pack.addProvider(WWColoredRecipeProvider::new);
 		pack.addProvider(WWWoodSetRecipeProvider::new);
@@ -122,6 +128,20 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWBrewingRecipeProvider::new);
 		pack.addProvider(WWAdvancementProvider::new);
 		pack.addProvider(WWContextIntProviderProvider::new);
+
+		// WILDER AQUATIC
+		final FabricDataGenerator.Pack wilderAquaticPack = dataGenerator.createBuiltinResourcePack(WWConstants.id("wilder_aquatic"));
+
+		// DATA
+		wilderAquaticPack.addProvider(WARecipeProvider::new);
+		wilderAquaticPack.addProvider(WAShearingLootProvider::new);
+		wilderAquaticPack.addProvider(WABlockLootProvider::new);
+		wilderAquaticPack.addProvider(WAEntityLootProvider::new);
+		wilderAquaticPack.addProvider(WAEquipmentLootProvider::new);
+		wilderAquaticPack.addProvider(WABiomeTagsProvider::new);
+		wilderAquaticPack.addProvider(WABlockTagsProvider::new);
+		wilderAquaticPack.addProvider(WAItemTagsProvider::new);
+		wilderAquaticPack.addProvider(WAEntityTypeTagsProvider::new);
 	}
 
 	@Override

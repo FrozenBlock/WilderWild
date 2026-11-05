@@ -1,0 +1,14 @@
+{
+  "features": {
+    "enabled": [
+      "wilderwild:wilder_aquatic"
+    ]
+  },
+   "pack": {
+     "min_format": [108],
+     "max_format": [32767],
+     "description": {
+       "translate": "dataPack.wilder_aquatic.description"
+     }
+   }
+}
