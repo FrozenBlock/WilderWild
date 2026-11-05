@@ -123,7 +123,7 @@ public class AdultCrabModel extends CrabModel {
 			PartPose.offsetAndRotation(LEG_OFFSET_MOJANG, 1.5F, -2.75F, -0.4876F, -0.0741F, -0.7109F)
 		);
 
-		return LayerDefinition.create(meshdefinition, 32, 32);
+		return LayerDefinition.create(meshdefinition, 48, 48);
 	}
 
 	public static LayerDefinition createUglyBodyLayer() {

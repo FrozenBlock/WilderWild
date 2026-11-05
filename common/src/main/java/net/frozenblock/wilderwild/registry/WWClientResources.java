@@ -48,14 +48,6 @@ public final class WWClientResources {
 
 		FrozenLibResourceLoader.registerBuiltinPack(
 			PackType.CLIENT_RESOURCES,
-			WWConstants.id("mojang_crabs"),
-			WWConstants.MOD_ID,
-			Component.translatable("pack.wilderwild.mojang_crabs"),
-			PackActivationType.DEFAULT_ENABLED
-		);
-
-		FrozenLibResourceLoader.registerBuiltinPack(
-			PackType.CLIENT_RESOURCES,
 			WWConstants.id("original_icicle"),
 			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.original_icicle"),
