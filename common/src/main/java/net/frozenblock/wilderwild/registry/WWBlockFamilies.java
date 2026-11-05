@@ -27,6 +27,23 @@ public final class WWBlockFamilies {
 		.wall(WWBlocks.MOSSY_MUD_BRICK_WALL.get())
 		.getFamily();
 
+	// TODO: polished
+	public static final BlockFamily PEARL_BLOCK = BlockFamilies.familyBuilder(WWBlocks.PEARL_BLOCK.get())
+		//.polished(WWBlocks.POLISHED_PEAR_BLOCK.get())
+		.getFamily();
+	// TODO: polished
+	/*
+	public static final BlockFamily POLISHED_PEARL_BLOCK = BlockFamilies.familyBuilder(WWBlocks.POLISHED_PEARL_BLOCK.get())
+		.stairs(WWBlocks.POLISHED_PEARL_STAIRS.get())
+		.slab(WWBlocks.POLISHED_PEARL_SLAB.get())
+		.cut(WWBlocks.CUT_POLISHED_PEARL.get())
+		.getFamily();
+	 */
+	public static final BlockFamily CUT_POLISHED_PEARL = BlockFamilies.familyBuilder(WWBlocks.CUT_POLISHED_PEARL.get())
+		.stairs(WWBlocks.CUT_POLISHED_PEARL_STAIRS.get())
+		.slab(WWBlocks.CUT_POLISHED_PEARL_SLAB.get())
+		.getFamily();
+
 	public static final BlockFamily GABBRO = BlockFamilies.familyBuilder(WWBlocks.GABBRO.get())
 		.stairs(WWBlocks.GABBRO_STAIRS.get())
 		.slab(WWBlocks.GABBRO_SLAB.get())

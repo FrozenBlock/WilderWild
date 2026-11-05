@@ -170,7 +170,10 @@ public final class WWModelProvider extends FabricModelProvider {
 		WWModelHelper.createNematocyst(generator, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get());
 		WWModelHelper.createNematocyst(generator, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get());
 
-		generator.createTrivialCube(WWBlocks.PEARL_BLOCK.get());
+		generator.family(WWBlocks.PEARL_BLOCK.get()).generateFor(WWBlockFamilies.PEARL_BLOCK);
+		// TODO: polished
+		//generator.family(WWBlocks.POLISHED_PEARL_BLOCK.get()).generateFor(WWBlockFamilies.POLISHED_PEARL_BLOCK);
+		generator.family(WWBlocks.CUT_POLISHED_PEARL.get()).generateFor(WWBlockFamilies.CUT_POLISHED_PEARL);
 
 		WWModelHelper.createFroglightGoop(generator, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
 		WWModelHelper.createFroglightGoop(generator, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());

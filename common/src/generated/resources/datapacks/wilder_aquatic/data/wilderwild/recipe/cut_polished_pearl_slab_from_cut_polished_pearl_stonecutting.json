@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "wilderwild:cut_polished_pearl",
+  "result": {
+    "count": 2,
+    "id": "wilderwild:cut_polished_pearl_slab"
+  }
+}

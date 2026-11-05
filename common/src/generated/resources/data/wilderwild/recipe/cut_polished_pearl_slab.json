@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": "wilderwild:pearl"
+    "#": "wilderwild:cut_polished_pearl"
   },
   "pattern": [
-    "##",
-    "##"
+    "###"
   ],
   "result": {
-    "id": "wilderwild:pearl_block"
+    "count": 6,
+    "id": "wilderwild:cut_polished_pearl_slab"
   }
 }

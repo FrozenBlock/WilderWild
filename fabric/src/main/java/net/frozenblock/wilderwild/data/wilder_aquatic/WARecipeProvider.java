@@ -49,6 +49,29 @@ public final class WARecipeProvider extends FabricRecipeProvider {
 				// PEARL
 				this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, WWItems.PEARL_BLOCK, WWItems.PEARL);
 
+				// POLISHED PEARL
+				// TODO: polished
+				/*
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_PEARL_BLOCK, WWItems.PEARL_BLOCK, 1);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_PEARL_STAIRS, WWItems.PEARL_BLOCK, 1);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.POLISHED_PEARL_SLAB, WWItems.PEARL_BLOCK, 2);
+				 */
+
+				// CUT POLISHED PEARL
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL, WWItems.PEARL_BLOCK, 4);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL_STAIRS, WWItems.PEARL_BLOCK, 4);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL_SLAB, WWItems.PEARL_BLOCK, 8);
+
+				// TODO: polished
+				/*
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL, WWItems.POLISHED_PEARL_BLOCK, 4);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL_STAIRS, WWItems.POLISHED_PEARL_BLOCK, 4);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL_SLAB, WWItems.POLISHED_PEARL_BLOCK, 8);
+				 */
+
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL_STAIRS, WWItems.CUT_POLISHED_PEARL, 1);
+				this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, WWItems.CUT_POLISHED_PEARL_SLAB, WWItems.CUT_POLISHED_PEARL, 2);
+
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}
 		};

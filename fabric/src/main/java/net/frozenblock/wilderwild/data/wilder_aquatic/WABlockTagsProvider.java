@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.BlockItemTagsProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -36,6 +37,7 @@ public final class WABlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 	@Override
 	protected void addTags(HolderLookup.Provider registries) {
+		new WABlockItemTagsProvider(tagId -> BlockItemTagsProvider.wrapForBlocks(this.tag(tagId.block()))).run();
 		this.generateMinecraft(registries);
 	}
 
@@ -49,12 +51,40 @@ public final class WABlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 	private void generateMinecraft(HolderLookup.Provider registries) {
 		this.builder(BlockTags.MINEABLE_WITH_PICKAXE)
-			.add(WWBlockItemIds.PEARL_BLOCK);
+			.add(WWBlockItemIds.PEARL_BLOCK)
+			// TODO: polished
+			/*
+			.add(
+				WWBlockItemIds.POLISHED_PEARL_BLOCK,
+				WWBlockItemIds.POLISHED_PEARL_STAIRS,
+				WWBlockItemIds.POLISHED_PEARL_SLAB
+			)
+			 */
+			.add(
+				WWBlockItemIds.CUT_POLISHED_PEARL,
+				WWBlockItemIds.CUT_POLISHED_PEARL_STAIRS,
+				WWBlockItemIds.CUT_POLISHED_PEARL_SLAB
+			);
 
 		this.builder(BlockTags.NEEDS_STONE_TOOL)
-			.add(WWBlockItemIds.PEARL_BLOCK);
+			.add(WWBlockItemIds.PEARL_BLOCK)
+			// TODO: polished
+			/*
+			.add(
+				WWBlockItemIds.POLISHED_PEARL_BLOCK,
+				WWBlockItemIds.POLISHED_PEARL_STAIRS,
+				WWBlockItemIds.POLISHED_PEARL_SLAB
+			)
+			 */
+			.add(
+				WWBlockItemIds.CUT_POLISHED_PEARL,
+				WWBlockItemIds.CUT_POLISHED_PEARL_STAIRS,
+				WWBlockItemIds.CUT_POLISHED_PEARL_SLAB
+			);
 
 		this.builder(BlockTags.BLOCKS_MOTION_NO_LEAVES)
-			.add(WWBlockItemIds.PEARL_BLOCK);
+			.add(WWBlockItemIds.PEARL_BLOCK, WWBlockItemIds.CUT_POLISHED_PEARL);
+			// TODO: polished
+			//add(WWBlockItemIds.PEARL_BLOCK, WWBlockItemIds.POLISHED_PEARL_BLOCK,, WWBlockItemIds.CUT_POLISHED_PEARL);
 	}
 }

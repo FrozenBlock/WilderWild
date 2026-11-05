@@ -409,6 +409,18 @@ public final class WWCreativeInventorySorting {
 		// PENGUIN
 		insertAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
 
+		// PEARL
+		insertBeforeInBuildingBlocks(Items.QUARTZ_BLOCK, WWItems.PEARL_BLOCK);
+		// TODO: polished
+		/*
+		insertAfterInBuildingBlocks(WWItems.PEARL_BLOCK, WWItems.POLISHED_PEARL_BLOCK);
+		insertAfterInBuildingBlocks(WWItems.POLISHED_PEARL_BLOCK, WWItems.POLISHED_PEARL_STAIRS);
+		insertAfterInBuildingBlocks(WWItems.POLISHED_PEARL_STAIRS, WWItems.POLISHED_PEARL_SLAB);
+		 */
+		insertAfterInBuildingBlocks(WWItems.PEARL_BLOCK, WWItems.CUT_POLISHED_PEARL);
+		insertAfterInBuildingBlocks(WWItems.CUT_POLISHED_PEARL, WWItems.CUT_POLISHED_PEARL_STAIRS);
+		insertAfterInBuildingBlocks(WWItems.CUT_POLISHED_PEARL_STAIRS, WWItems.CUT_POLISHED_PEARL_SLAB);
+
 		// GABBRO
 		insertAfterInNaturalAndFunctionalBlocks(Items.MAGMA_BLOCK, WWItems.GEOTHERMAL_VENT);
 		insertBeforeInNaturalBlocks(WWItems.GEOTHERMAL_VENT, WWItems.GABBRO);

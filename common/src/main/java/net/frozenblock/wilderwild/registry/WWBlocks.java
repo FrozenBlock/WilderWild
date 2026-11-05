@@ -638,6 +638,10 @@ public final class WWBlocks {
 			.sound(WWBlockSoundSets.PEARL)
 			.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 	);
+	// TODO: recipes
+	public static final DeferredBlock<Block> CUT_POLISHED_PEARL = REGISTER.registerSimpleFullCopy(WWBlockItemIds.CUT_POLISHED_PEARL, PEARL_BLOCK);
+	public static final DeferredBlock<StairBlock> CUT_POLISHED_PEARL_STAIRS = REGISTER.registerStair(WWBlockItemIds.CUT_POLISHED_PEARL_STAIRS, PEARL_BLOCK);
+	public static final DeferredBlock<SlabBlock> CUT_POLISHED_PEARL_SLAB = REGISTER.registerSlab(WWBlockItemIds.CUT_POLISHED_PEARL_SLAB, PEARL_BLOCK);
 
 	// MISC
 	public static final DeferredBlock<TermiteMoundBlock> TERMITE_MOUND = REGISTER.registerBlock(WWBlockItemIds.TERMITE_MOUND,

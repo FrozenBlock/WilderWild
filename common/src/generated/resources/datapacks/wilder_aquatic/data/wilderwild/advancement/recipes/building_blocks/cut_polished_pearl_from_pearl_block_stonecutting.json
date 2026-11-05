@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_pearl": {
+    "has_pearl_block": {
       "conditions": {
         "items": [
           {
-            "items": "wilderwild:pearl"
+            "items": "wilderwild:pearl_block"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "wilderwild:pearl_block"
+        "recipes": "wilderwild:cut_polished_pearl_from_pearl_block_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_pearl"
+      "has_pearl_block"
     ]
   ],
   "rewards": {
     "recipes": [
-      "wilderwild:pearl_block"
+      "wilderwild:cut_polished_pearl_from_pearl_block_stonecutting"
     ]
   }
 }

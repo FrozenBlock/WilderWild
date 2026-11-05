@@ -79,9 +79,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 
 				this.carpet(WWItems.AUBURN_MOSS_CARPET, WWItems.AUBURN_MOSS_BLOCK);
 
-				// TODO: see if icicles have this recipe in vanilla
-				//this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, Blocks.ICE, WWItems.ICICLE);
-
 				this.shaped(RecipeCategory.DECORATIONS, WWItems.DISPLAY_LANTERN)
 					.define('X', Ingredient.of(Items.IRON_NUGGET))
 					.define('#', Ingredient.of(Items.GLASS_PANE))
@@ -171,7 +168,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 					.save(this.output, WWConstants.string(getConversionRecipeName(Items.SPONGE, WWItems.SPONGE_BUD)));
 
 				// MUD BRICKS
-
 				SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, WWItems.CRACKED_MUD_BRICKS.asItem(), 0.1F, 200)
 					.unlockedBy("has_mud_bricks", this.has(Items.MUD_BRICKS))
 					.save(this.output);
@@ -193,7 +189,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.stonecutterResultFromBase(RecipeCategory.DECORATIONS, Items.MUD_BRICK_WALL, Items.PACKED_MUD);
 
 				// MOSSY MUD BRICKS
-
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_MUD_BRICKS)
 					.requires(Items.MUD_BRICKS)
 					.requires(Items.VINE)
@@ -213,7 +208,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.MOSSY_MUD_BRICK_WALL, WWItems.MOSSY_MUD_BRICKS);
 
 				// GABBRO
-
 				this.generateRecipes(WWBlockFamilies.GABBRO, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 				this.generateRecipes(WWBlockFamilies.MOSSY_GABBRO_BRICK, WWFeatureFlags.TRAILIER_TALES_COMPAT_FLAG_SET);
 
@@ -251,7 +245,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.GABBRO_BRICK_WALL, WWItems.GABBRO);
 
 				// MOSSY GABBRO
-
 				this.shapeless(RecipeCategory.BUILDING_BLOCKS, WWItems.MOSSY_GABBRO_BRICKS)
 					.requires(WWItems.GABBRO_BRICKS)
 					.requires(Items.VINE)
@@ -278,9 +271,6 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				this.mesoglea(WWItems.RED_NEMATOCYST, WWItems.RED_MESOGLEA);
 				this.mesoglea(WWItems.PEARLESCENT_BLUE_NEMATOCYST, WWItems.PEARLESCENT_BLUE_MESOGLEA);
 				this.mesoglea(WWItems.PEARLESCENT_PURPLE_NEMATOCYST, WWItems.PEARLESCENT_PURPLE_MESOGLEA);
-
-				// PEARL
-				this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, WWItems.PEARL_BLOCK, WWItems.PEARL);
 
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}

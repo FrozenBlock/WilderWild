@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "wilderwild:cut_polished_pearl",
+  "result": {
+    "id": "wilderwild:cut_polished_pearl_stairs"
+  }
+}

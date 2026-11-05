@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wilderwild:block/cut_polished_pearl_slab"
+    },
+    "type=double": {
+      "model": "wilderwild:block/cut_polished_pearl"
+    },
+    "type=top": {
+      "model": "wilderwild:block/cut_polished_pearl_slab_top"
+    }
+  }
+}

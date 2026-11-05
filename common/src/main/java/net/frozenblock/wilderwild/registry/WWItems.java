@@ -176,6 +176,18 @@ public final class WWItems {
 		WWBlocks.PEARL_BLOCK,
 		properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 	);
+	public static final DeferredItem<BlockItem> CUT_POLISHED_PEARL = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CUT_POLISHED_PEARL,
+		WWBlocks.CUT_POLISHED_PEARL,
+		properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+	);
+	public static final DeferredItem<BlockItem> CUT_POLISHED_PEARL_STAIRS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CUT_POLISHED_PEARL_STAIRS,
+		WWBlocks.CUT_POLISHED_PEARL_STAIRS,
+		properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+	);
+	public static final DeferredItem<BlockItem> CUT_POLISHED_PEARL_SLAB = REGISTER.registerSimpleBlockItem(WWBlockItemIds.CUT_POLISHED_PEARL_SLAB,
+		WWBlocks.CUT_POLISHED_PEARL_SLAB,
+		properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+	);
 
 	// MISC
 	public static final DeferredItem<BlockItem> TERMITE_MOUND = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TERMITE_MOUND, WWBlocks.TERMITE_MOUND);

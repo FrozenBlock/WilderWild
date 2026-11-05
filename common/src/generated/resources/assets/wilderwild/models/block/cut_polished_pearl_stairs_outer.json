@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "wilderwild:block/cut_polished_pearl",
+    "side": "wilderwild:block/cut_polished_pearl",
+    "top": "wilderwild:block/cut_polished_pearl"
+  }
+}
