@@ -135,7 +135,7 @@ public class CrabModel extends EntityModel<CrabRenderState> {
 			this.legs.x -= climbProgress * 1.5F;
 		}
 
-		//Attack Anim
+		// ATTACK
 		this.body.yRot = Mth.sin(Mth.sqrt(renderState.attackTime) * (DOUBLE_PI)) * -0.2F;
 		final float attackSin = Mth.sin(renderState.attackTime * Mth.PI);
 		this.mainClaw.x += attackSin * 1.5F;
