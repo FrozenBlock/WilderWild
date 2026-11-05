@@ -31,15 +31,15 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 @ClientOnly
-public class FireflyBottleColorProperty implements SelectItemModelProperty<String> {
-	public static final MapCodec<FireflyBottleColorProperty> MAP_CODEC = MapCodec.unit(new FireflyBottleColorProperty());
-	public static final SelectItemModelProperty.Type<FireflyBottleColorProperty, String> TYPE = SelectItemModelProperty.Type.create(MAP_CODEC, Codec.STRING);
+public class FireflyVariantProperty implements SelectItemModelProperty<String> {
+	public static final MapCodec<FireflyVariantProperty> MAP_CODEC = MapCodec.unit(new FireflyVariantProperty());
+	public static final SelectItemModelProperty.Type<FireflyVariantProperty, String> TYPE = SelectItemModelProperty.Type.create(MAP_CODEC, Codec.STRING);
 
 	@Nullable
 	@Override
 	public String get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
-		final Holder<FireflyVariant> fireflyColor = stack.get(WWDataComponents.FIREFLY_VARIANT.get());
-		if (fireflyColor != null) return fireflyColor.value().name();
+		final Holder<FireflyVariant> fireflyVariant = stack.get(WWDataComponents.FIREFLY_VARIANT.get());
+		if (fireflyVariant != null) return fireflyVariant.value().name();
 		return null;
 	}
 
@@ -49,8 +49,7 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 	}
 
 	@Override
-	public Type<? extends SelectItemModelProperty<String>, String> type() {
+	public Type<FireflyVariantProperty, String> type() {
 		return TYPE;
 	}
-
 }

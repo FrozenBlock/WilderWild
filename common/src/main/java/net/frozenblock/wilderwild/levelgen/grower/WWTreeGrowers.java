@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.levelgen.grower;
 
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
@@ -34,7 +33,7 @@ import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
 public final class WWTreeGrowers {
-	public static final TreeGrower BAOBAB = new BaobabTreeGrower(WWConstants.string("baobab")) {
+	public static final TreeGrower BAOBAB = new BaobabTreeGrower() {
 		@Override
 		protected ResourceKey<Feature> getBaobabTreeFeature(RandomSource random) {
 			return random.nextFloat() <= 0.856F ? WWTreeFeatures.BAOBAB.getKey() : WWTreeFeatures.TALL_BAOBAB.getKey();
@@ -42,7 +41,6 @@ public final class WWTreeGrowers {
 	};
 
 	public static final TreeGrower CYPRESS = new TreeGrower(
-		WWConstants.string("cypress"),
 		WeightedList.of(),
 		WeightedList.of(),
 		WeightedList.of(),
@@ -66,7 +64,6 @@ public final class WWTreeGrowers {
 	};
 
 	public static final TreeGrower PALM = new TreeGrower(
-		WWConstants.string("palm"),
 		WeightedList.of(),
 		WeightedList.of(),
 		WeightedList.of(),
@@ -80,7 +77,6 @@ public final class WWTreeGrowers {
 	};
 
 	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> new TreeGrower(
-		WWConstants.string(MapleCollection.NAMES.pick(color) + "_maple"),
 		WeightedList.of(),
 		WeightedList.of(),
 		WeightedList.of(),
@@ -88,12 +84,13 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWTreeVegetationFeatures.COLORED_MAPLE_BEES_SAPLING.pick(color).getKey() : WWTreeVegetationFeatures.COLORED_MAPLE_NO_BEES_SAPLING.pick(color).getKey();
+			return hasFlowers
+				? WWTreeVegetationFeatures.COLORED_MAPLE_BEES_SAPLING.pick(color).getKey()
+				: WWTreeVegetationFeatures.COLORED_MAPLE_NO_BEES_SAPLING.pick(color).getKey();
 		}
 	});
 
 	public static final PoplarCollection<TreeGrower> POPLAR = PoplarCollection.DYE_COLORS.map(color -> new TreeGrower(
-		WWConstants.string(PoplarCollection.NAMES.pick(color) + "_poplar"),
 		WeightedList.of(),
 		WeightedList.of(),
 		WeightedList.of(),
@@ -101,12 +98,13 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers ? WWTreeVegetationFeatures.COLORED_POPLAR_BEES_SAPLING.pick(color).getKey() : WWTreeVegetationFeatures.COLORED_POPLAR_NO_BEES_SAPLING.pick(color).getKey();
+			return hasFlowers
+				? WWTreeVegetationFeatures.COLORED_POPLAR_BEES_SAPLING.pick(color).getKey()
+				: WWTreeVegetationFeatures.COLORED_POPLAR_NO_BEES_SAPLING.pick(color).getKey();
 		}
 	});
 
 	public static final TreeGrower WILLOW = new TreeGrower(
-		WWConstants.string("willow"),
 		WeightedList.of(),
 		WeightedList.of(),
 		WeightedList.of(),
@@ -114,8 +112,10 @@ public final class WWTreeGrowers {
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return random.nextFloat() <= 0.25F ?
-				random.nextFloat() <= 0.35F ? WWTreeFeatures.TALL_WILLOW.getKey() : WWTreeFeatures.WILLOW.getKey()
+			return random.nextFloat() <= 0.25F
+				? random.nextFloat() <= 0.35F
+					? WWTreeFeatures.TALL_WILLOW.getKey()
+					: WWTreeFeatures.WILLOW.getKey()
 				: WWTreeFeatures.WILLOW.getKey();
 		}
 	};

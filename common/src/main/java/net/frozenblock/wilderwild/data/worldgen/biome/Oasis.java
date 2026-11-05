@@ -121,7 +121,7 @@ public final class Oasis extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultCarversAndLakes(features);
 		BiomeDefaultFeatures.addDefaultCrystalFormations(features);
 		BiomeDefaultFeatures.addDefaultMonsterRoom(features);
-		BiomeDefaultFeatures.addDefaultUndergroundVariety(features, true, true);
+		BiomeDefaultFeatures.addDefaultUndergroundVariety(features);
 		BiomeDefaultFeatures.addDefaultSprings(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addDefaultOres(features);

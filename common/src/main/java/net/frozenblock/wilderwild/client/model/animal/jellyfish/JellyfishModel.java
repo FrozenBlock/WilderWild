@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.client.model.animal.jellyfish;
 
 import java.util.Arrays;
-import net.frozenblock.lib.renderer.FrozenLibRenderTypes;
+import net.frozenblock.lib.renderer.rendertype.FrozenLibRenderTypes;
 import net.frozenblock.wilderwild.client.renderer.entity.JellyfishRenderer;
 import net.frozenblock.wilderwild.client.renderer.entity.state.JellyfishRenderState;
 import net.frozenblock.wilderwild.config.WWEntityConfig;

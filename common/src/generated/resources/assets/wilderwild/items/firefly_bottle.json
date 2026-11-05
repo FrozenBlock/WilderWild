@@ -119,6 +119,6 @@
       "type": "minecraft:model",
       "model": "wilderwild:item/firefly_bottle"
     },
-    "property": "wilderwild:firefly_bottle_color"
+    "property": "wilderwild:firefly_variant"
   }
 }

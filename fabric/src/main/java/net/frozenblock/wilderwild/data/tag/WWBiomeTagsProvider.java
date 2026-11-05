@@ -2165,11 +2165,14 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		// POLLEN
 		this.builder(WWVegetationFeatureBiomeTags.POLLEN)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
+			.add(Biomes.FLOWER_FOREST)
 			.add(Biomes.SUNFLOWER_PLAINS)
+			.addOptional(WWBiomes.FLOWER_FIELD);
+
+		this.builder(WWVegetationFeatureBiomeTags.POLLEN_SPARSE)
+			.add(Biomes.FOREST)
 			.add(Biomes.CHERRY_GROVE)
 			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.FLOWER_FIELD)
 			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)
 			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)

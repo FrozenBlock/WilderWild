@@ -17,9 +17,11 @@
 
 package net.frozenblock.wilderwild.entity.block;
 
+import java.util.function.BooleanSupplier;
 import net.frozenblock.lib.entity.api.AbstractBlockLikeMob;
 import net.frozenblock.lib.entity.impl.EntityStepOnBlockInterface;
-import net.frozenblock.lib.storage.impl.ValueInputExtension;import net.frozenblock.lib.tag.api.TagUtils;
+import net.frozenblock.lib.storage.impl.ValueInputExtension;
+import net.frozenblock.lib.tag.api.TagUtils;
 import net.frozenblock.lib.wind.WindManager;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
@@ -42,6 +44,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
@@ -49,7 +52,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -165,7 +167,8 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	}
 
 	@Override
-	protected void onInsideBlock(BlockState state) {
+	protected void onInsideBlock(BlockState state, BooleanSupplier centerInsideBlock) {
+		super.onInsideBlock(state, centerInsideBlock);
 		if (state.is(BlockTags.LEAVES)) this.isTouchingStickingBlock = true;
 	}
 
@@ -201,7 +204,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 		if (!this.requiresCustomPersistence()
 			&& ((brightness < 7 && (entity == null || entity.distanceTo(this) > INACTIVE_PLAYER_DISTANCE_FROM))
 			|| this.isTouchingStoppingBlock || this.isTouchingStickingBlock ||
-			(this.wasTouchingWater && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))
+			(this.isInWater() && !(this.getBlockStateOn().getBlock() instanceof MesogleaBlock)))
 		) {
 			++this.ticksSinceActive;
 			if (this.ticksSinceActive >= MAX_INACTIVE_TICKS) this.destroy(false);
@@ -213,8 +216,8 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	private void moveWithWind(ServerLevel level, double brightness, Vec3 deltaPos) {
 		if (!(this.isTouchingStoppingBlock || this.isTouchingStickingBlock)) {
 			final WindManager windManager = WindManager.getOrCreate(level);
-			final Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.wasTouchingWater ? 0.16777216D : 1D);
-			final double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.wasTouchingWater ? 0.16777216D : 1D);
+			final Vec3 windVec = windManager.getWindMovement(this.position(), WIND_MULTIPLIER, WIND_CLAMP).scale(this.isInWater() ? 0.16777216D : 1D);
+			final double multiplier = (Math.max((brightness - (Math.max(15 - brightness, 0))), 0) * 0.0667D) * (this.isInWater() ? 0.16777216D : 1D);
 
 			Vec3 deltaMovement = this.getDeltaMovement();
 			deltaMovement = deltaMovement.add((windVec.x * 0.2D), 0D, (windVec.z * 0.2D));
@@ -230,7 +233,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 				final double nonNegZ = deltaMovement.z < 0D ? -deltaMovement.z : deltaMovement.z;
 				deltaMovement = deltaMovement.add(0D, (nonNegZ * 1.8D) * multiplier, 0D);
 			}
-			if (this.wasEyeInWater) deltaMovement = deltaMovement.add(0D, 0.01D, 0D);
+			if (this.isEyeInFluid(FluidTags.WATER)) deltaMovement = deltaMovement.add(0D, 0.01D, 0D);
 			this.setDeltaMovement(deltaMovement);
 		}
 	}
@@ -315,11 +318,6 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	@Override
 	public boolean canBeLeashed() {
 		return WWEntityConfig.LEASHED_TUMBLEWEED.get();
-	}
-
-	@Override
-	public boolean canBeAffected(MobEffectInstance effect) {
-		return false;
 	}
 
 	@Override

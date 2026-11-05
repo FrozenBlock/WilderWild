@@ -41,7 +41,7 @@ import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
 @ClientOnly
-public final class WWParticleEngine {
+public final class WWParticleResources {
 
 	public static void init() {
 		ParticleProviderRegistry.register(WWParticleTypes.LEAF_CLUSTER_SPAWNER::get, LeafClusterSeedParticle.Provider::new);
@@ -221,4 +221,6 @@ public final class WWParticleEngine {
 		ParticleProviderRegistry.register(WWParticleTypes.MESOGLEA_BUBBLE_POP_RED::get, MesogleaBubblePopParticle.Provider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.MESOGLEA_SPLASH_RED::get, MesogleaSplashParticle.Provider::new);
 	}
+
+	private WWParticleResources() {}
 }

@@ -261,6 +261,12 @@ public class Harpoon extends AbstractArrow {
 		this.setHookedIn(mob);
 	}
 
+	@Override
+	public void addBubbleParticles(Vec3 position) {
+		if (this.hookedIn != null) return;
+		super.addBubbleParticles(position);
+	}
+
 	public void setHookedIn(@Nullable Entity hookedIn) {
 		this.hookedIn = hookedIn;
 		this.getEntityData().set(HOOKED_ENTITY, hookedIn == null ? 0 : hookedIn.getId() + 1);

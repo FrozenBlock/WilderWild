@@ -17,9 +17,9 @@
 
 package net.frozenblock.wilderwild.entity.animal.ostrich;
 
-import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.StandardLookControl;
 
-public class OstrichLookControl extends LookControl {
+public class OstrichLookControl extends StandardLookControl {
 	private final AbstractOstrich mob;
 
 	public OstrichLookControl(AbstractOstrich mob) {

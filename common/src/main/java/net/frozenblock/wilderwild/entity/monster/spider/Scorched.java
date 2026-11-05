@@ -176,12 +176,12 @@ public class Scorched extends Spider {
 	}
 
 	@Override
-	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {
+	protected void checkFallDamage(boolean onGround, BlockState onState, BlockPos pos) {
 		this.applyEffectsFromBlocks();
 		if (this.isInLava()) {
 			this.resetFallDistance();
 		} else {
-			super.checkFallDamage(ya, onGround, onState, pos);
+			super.checkFallDamage(onGround, onState, pos);
 		}
 	}
 

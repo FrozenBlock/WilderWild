@@ -24,7 +24,6 @@ import net.frozenblock.wilderwild.registry.WWSounds;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
-import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
@@ -44,12 +43,12 @@ public class LevelEventHandlerMixin {
 		method = "levelEvent",
 		at = @At(
 			value = "FIELD",
-			target = "Lnet/minecraft/sounds/SoundEvents;ICICLE_LAND:Lnet/minecraft/core/Holder;",
+			target = "Lnet/minecraft/sounds/SoundEvents;ICICLE_LAND:Lnet/minecraft/sounds/SoundEvent;",
 			opcode = Opcodes.GETSTATIC
 		)
 	)
-	private Holder<SoundEvent> wilderWild$changeIcicleLandSound(Holder<SoundEvent> original) {
-		if (ConfigPredicate.lookupAndTest(this.level.registryAccess(), WWConfigPredicates.SOUND_OVERRIDE_ICICLE)) return WWSounds.BLOCK_ICICLE_LAND.asHolder();
+	private SoundEvent wilderWild$changeIcicleLandSound(SoundEvent original) {
+		if (ConfigPredicate.lookupAndTest(this.level.registryAccess(), WWConfigPredicates.SOUND_OVERRIDE_ICICLE)) return WWSounds.BLOCK_ICICLE_LAND.get();
 		return original;
 	}
 }

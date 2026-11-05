@@ -17,37 +17,32 @@
 
 package net.frozenblock.wilderwild.mixin.warden;
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityFluidInteraction;
-import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.level.material.Fluid;
-import org.objectweb.asm.Opcodes;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.level.material.FluidIds;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Slice;
 
-@Mixin(Entity.class)
-public class EntityMixin {
+@Mixin(EntityFluidInteraction.class)
+public class EntityFluidInteractionMixin {
 
-	@WrapWithCondition(
-		method = "updateFluidInteraction",
+	@ModifyExpressionValue(
+		method = "applyCurrentsTo",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/EntityFluidInteraction;applyCurrentTo(Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/entity/Entity;D)V",
-			ordinal = 0
-		),
-		slice = @Slice(
-			from = @At(
-				value = "FIELD",
-				target = "Lnet/minecraft/tags/FluidTags;WATER:Lnet/minecraft/tags/TagKey;",
-				opcode = Opcodes.GETSTATIC
-			)
+			target = "Lnet/minecraft/world/entity/EntityFluidInteraction$Tracker;getCurrentAccumulator()Lnet/minecraft/world/entity/EntityFluidInteraction$CurrentAccumulator;"
 		)
 	)
-	public boolean wilderWild$stopWaterFromPushingWardens(EntityFluidInteraction instance, TagKey<Fluid> fluid, Entity entity, double scale) {
-		return !WWEntityConfig.WARDEN_SWIMS.get() || (!(entity instanceof Warden));
+	public EntityFluidInteraction.CurrentAccumulator wilderWild$stopWaterFromPushingWardens(
+		EntityFluidInteraction.CurrentAccumulator original,
+		@Local(argsOnly = true) Entity entity,
+		@Local(name = "fluidTracker") EntityFluidInteraction.Tracker fluidTracker
+	) {
+		if (entity.is(EntityTypes.WARDEN) && WWEntityConfig.WARDEN_SWIMS.get() && fluidTracker.fluidType.is(FluidIds.WATER)) return null;
+		return original;
 	}
 }

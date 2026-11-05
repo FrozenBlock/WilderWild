@@ -15,33 +15,32 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.mixin.client.item.crossbow;
+package net.frozenblock.wilderwild.client;
 
 import com.mojang.serialization.MapCodec;
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.item.properties.conditional.ChargedHarpoon;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
+import net.minecraft.client.core.registries.ClientRegistries;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.ExtraCodecs;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @ClientOnly
-@Mixin(ConditionalItemModelProperties.class)
-public class ConditionalItemModelPropertiesMixin {
+public final class WWConditionalItemModelPropertyTypes {
 
-	@Shadow
-	@Final
-	private static ExtraCodecs.LateBoundIdMapper<Identifier, MapCodec<? extends ConditionalItemModelProperty>> ID_MAPPER;
+	static {
+		final DeferredRegister<MapCodec<? extends ConditionalItemModelProperty>> register = ClientRegistryHelper.createDeferredRegister(
+			ClientRegistries.CONDITIONAL_ITEM_MODEL_PROPERTY_TYPE,
+			WWConstants.MOD_ID
+		);
 
-	@Inject(method = "bootstrap", at = @At("TAIL"))
-	private static void wilderWild$bootstrap(CallbackInfo info) {
-		ID_MAPPER.put(WWConstants.id("charged_harpoon"), ChargedHarpoon.MAP_CODEC);
+		register.register("charged_harpoon", () -> ChargedHarpoon.MAP_CODEC);
+
+		register.register();
 	}
+
+	public static void init() {}
+
+	private WWConditionalItemModelPropertyTypes() {}
 }

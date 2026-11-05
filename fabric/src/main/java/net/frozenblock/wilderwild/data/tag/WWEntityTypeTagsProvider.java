@@ -158,8 +158,9 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 			.add(EntityTypeIds.LLAMA_SPIT)
 			.add(EntityTypeIds.FIREWORK_ROCKET);
 
-		this.builder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
-			.add(WWEntityTypeIds.PENGUIN);
+		this.builder(EntityTypeTags.IMMUNE_TO_FREEZING)
+			.add(WWEntityTypeIds.PENGUIN)
+			.add(WWEntityTypeIds.SUNKEN);
 
 		this.builder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)
 			.add(WWEntityTypeIds.SCORCHED);
@@ -223,9 +224,6 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 			.add(WWEntityTypeIds.SUNKEN);
 
 		this.builder(EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES)
-			.add(WWEntityTypeIds.SUNKEN);
-
-		this.builder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
 			.add(WWEntityTypeIds.SUNKEN);
 
 		this.builder(EntityTypeTags.IMPACT_PROJECTILES)

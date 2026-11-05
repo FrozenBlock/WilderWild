@@ -406,7 +406,7 @@ public class Firefly extends PathfinderMob implements WWBottleable, WWEntityVari
 	protected void playStepSound(BlockPos pos, BlockState state) {}
 
 	@Override
-	protected void checkFallDamage(double ya, boolean onGround, BlockState onState, BlockPos pos) {}
+	protected void checkFallDamage(boolean onGround, BlockState onState, BlockPos pos) {}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {

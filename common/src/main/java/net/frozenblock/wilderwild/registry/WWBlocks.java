@@ -160,30 +160,45 @@ public final class WWBlocks {
 	private static final DeferredRegister.Blocks REGISTER = DeferredRegister.createBlocks(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
 
 	// BLOCK SET TYPES
-	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.ACACIA).register(WWConstants.id("baobab"));
-	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE).register(WWConstants.id("willow"));
-	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.BIRCH).register(WWConstants.id("cypress"));
-	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.JUNGLE).register(WWConstants.id("palm"));
+	public static final Supplier<BlockSetType> PALE_OAK_SET = Suppliers.memoize(() -> new BlockSetType(
+		true,
+		true,
+		true,
+		BlockSetType.PressurePlateSensitivity.EVERYTHING,
+		WWBlockSoundSets.PALE_OAK_WOOD,
+		WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_CLOSE.get(),
+		WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_OPEN.get(),
+		WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_CLOSE.get(),
+		WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_OPEN.get(),
+		WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_OFF.get(),
+		WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_ON.get(),
+		WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_OFF.get(),
+		WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_ON.get()
+	));
 
-	// deferred so that WWSounds isn't init
-	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.SPRUCE)
+	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
+	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
+	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
+	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
+	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD)
 		.blockSoundSet(WWBlockSoundSets.MAPLE_WOOD)
 		.doorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_CLOSE.get()).doorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_OPEN.get())
 		.trapdoorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE.get()).trapdoorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN.get())
 		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON.get()).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF.get())
 		.buttonClickOnSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_ON.get()).buttonClickOffSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_OFF.get())
-		.register(WWConstants.id("maple")));
+		.build());
+
 	// WOOD TYPES
-	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).register(WWConstants.id("baobab"), BAOBAB_SET);
-	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).register(WWConstants.id("willow"), WILLOW_SET);
-	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).register(WWConstants.id("cypress"), CYPRESS_SET);
-	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).register(WWConstants.id("palm"), PALM_SET);
-	// deferred so that WWSounds isn't init
+	public static final WoodType BAOBAB_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.ACACIA).build(WWConstants.id("baobab"), BAOBAB_SET);
+	public static final WoodType WILLOW_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.SPRUCE).build(WWConstants.id("willow"), WILLOW_SET);
+	public static final WoodType CYPRESS_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.BIRCH).build(WWConstants.id("cypress"), CYPRESS_SET);
+	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).build(WWConstants.id("palm"), PALM_SET);
 	public static final Supplier<WoodType> MAPLE_WOOD_TYPE = Suppliers.memoize(() -> WoodTypeBuilder.copyOf(WoodType.SPRUCE)
 		.blockSoundSet(WWBlockSoundSets.MAPLE_WOOD)
 		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN.get())
 		.hangingSignSoundSet(WWBlockSoundSets.MAPLE_WOOD_HANGING_SIGN)
-		.register(WWConstants.id("maple"), MAPLE_SET.get()));
+		.build(WWConstants.id("maple"), MAPLE_SET.get()));
+
 	// WOOD COLORS
 	private static final MapColor BAOBAB_PLANKS_COLOR = MapColor.COLOR_ORANGE;
 	private static final MapColor BAOBAB_BARK_COLOR = MapColor.COLOR_BROWN;

@@ -58,4 +58,6 @@ public final class WWMusicPackDownloader {
 			"ww_" + trackName
 		);
 	}
+
+	private WWMusicPackDownloader() {}
 }

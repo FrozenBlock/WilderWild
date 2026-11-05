@@ -71,4 +71,6 @@ public final class WWBlockColors {
 			WWBlocks.WILLOW_LEAF_LITTER
 		);
 	}
+
+	private WWBlockColors() {}
 }

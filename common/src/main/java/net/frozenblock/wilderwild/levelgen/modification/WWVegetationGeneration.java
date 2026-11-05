@@ -448,6 +448,10 @@ public final class WWVegetationGeneration {
 				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.POLLEN)) {
 					addVegetalDecoration(generationSettings, WWVegetationPlacements.POLLEN);
 				}
+
+				if (biomeSelectionContext.hasTag(WWVegetationFeatureBiomeTags.POLLEN_SPARSE)) {
+					addVegetalDecoration(generationSettings, WWVegetationPlacements.POLLEN_SPARSE);
+				}
 			});
 	}
 

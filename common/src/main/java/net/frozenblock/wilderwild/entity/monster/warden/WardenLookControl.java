@@ -20,10 +20,10 @@ package net.frozenblock.wilderwild.entity.monster.warden;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.control.LookControl;
+import net.minecraft.world.entity.ai.control.StandardLookControl;
 import net.minecraft.world.entity.monster.warden.Warden;
 
-public class WardenLookControl extends LookControl {
+public class WardenLookControl extends StandardLookControl {
 	private final int maxYRotFromCenter;
 
 	public WardenLookControl(Warden warden, int maxYRotFromCenter) {

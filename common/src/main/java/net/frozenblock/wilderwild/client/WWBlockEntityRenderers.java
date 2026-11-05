@@ -34,7 +34,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTypeIds;
 @ClientOnly
 public final class WWBlockEntityRenderers {
 
-	public static void init() {
+	static {
 		final DeferredRegister<BlockEntityRendererProvider<?, ?>> register = ClientRegistryHelper.createDeferredRegister(
 			ClientRegistries.BLOCK_ENTITY_RENDERER,
 			WWConstants.MOD_ID
@@ -62,6 +62,8 @@ public final class WWBlockEntityRenderers {
 
 		register.register();
 	}
+
+	public static void init() {}
 
 	private static ResourceKey<BlockEntityRendererProvider<?, ?>> blockEntityKey(ResourceKey<BlockEntityType<?>> type) {
 		return ResourceKey.create(ClientRegistries.BLOCK_ENTITY_RENDERER, type.identifier());

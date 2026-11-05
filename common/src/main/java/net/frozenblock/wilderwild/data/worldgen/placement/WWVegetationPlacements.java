@@ -157,6 +157,7 @@ public final class WWVegetationPlacements {
 
 	// POLLEN
 	public static final FrozenLibPlacedFeature POLLEN = register("pollen");
+	public static final FrozenLibPlacedFeature POLLEN_SPARSE = register("pollen_sparse");
 
 	// MOSS
 	public static final FrozenLibPlacedFeature MOSS_CARPET = register("moss_carpet");
@@ -945,10 +946,20 @@ public final class WWVegetationPlacements {
 		);
 
 		// POLLEN
+		final PlacementFilter pollenConfigFilter = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_POLLEN));
+
 		POLLEN.makeAndSetHolder(WWVegetationFeatures.POLLEN,
 			FrozenLibPlacementUtil.modifiersWithFilter(
-				configPredicates.getOrThrow(WWConfigPredicates.GENERATE_POLLEN),
+				pollenConfigFilter,
 				CountPlacement.of(2),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE
+			)
+		);
+
+		POLLEN_SPARSE.makeAndSetHolder(WWVegetationFeatures.POLLEN,
+			FrozenLibPlacementUtil.modifiersWithFilter(
+				pollenConfigFilter,
+				RarityFilter.onAverageOnceEvery(2),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE
 			)
 		);
@@ -958,7 +969,7 @@ public final class WWVegetationPlacements {
 
 		MOSS_CARPET.makeAndSetHolder(WWVegetationFeatures.MOSS_CARPET,
 			FrozenLibPlacementUtil.postModifiersWithPreFilter(
-				ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
+				mossConfigFilter,
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(25),
 				OffsetPlacement.ofTriangle(6, 2),

@@ -34,8 +34,8 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class BaobabTreeGrower extends TreeGrower {
 
-	public BaobabTreeGrower(String string) {
-		super(string, WeightedList.of(), WeightedList.of(), WeightedList.of(), null);
+	public BaobabTreeGrower() {
+		super(WeightedList.of(), WeightedList.of(), WeightedList.of(), null);
 	}
 
 	public static boolean canGenerateBaobabTree(BlockState state, BlockGetter level, BlockPos pos, int xPos, int zPos) {

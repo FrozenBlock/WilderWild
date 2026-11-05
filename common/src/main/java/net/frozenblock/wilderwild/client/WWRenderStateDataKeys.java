@@ -29,4 +29,6 @@ public final class WWRenderStateDataKeys {
 	public static final RenderStateDataKey<Float> WARDEN_WADE_AMOUNT = RenderStateDataKey.create(WWConstants.id("warden_wade_amount"));
 
 	public static void init() {}
+
+	private WWRenderStateDataKeys() {}
 }

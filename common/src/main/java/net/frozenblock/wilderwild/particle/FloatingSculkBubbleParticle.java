@@ -65,7 +65,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 
 	@Override
 	protected Layer getLayer() {
-		return Layer.TRANSLUCENT;
+		return Layer.OPAQUE;
 	}
 
 	@Override
