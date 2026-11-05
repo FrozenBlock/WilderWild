@@ -87,6 +87,10 @@ public final class WWClientResources {
 					if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(WWConstants.string("mc_live_tendrils"));
 					return false;
 				});
+				WWConstants.MOJANG_CRABS = resourceManager.listPacks().anyMatch(packResources -> {
+					if (packResources.knownPackInfo().isPresent()) return packResources.knownPackInfo().get().id().equals(WWConstants.string("mojang_crabs"));
+					return false;
+				});
 			}
 		);
 	}

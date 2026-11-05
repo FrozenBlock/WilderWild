@@ -29,7 +29,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
 - Fixed the Gabbro, Mud, and Hollowed Log block sets yielding the incorrect Sulfur Cube Archetypes.
 - Unique sounds for Pale Oak Doors, Trapdoors, Pressure Plates, Buttons, and Fence Gates can now be heard on NeoForge.
-- Removed the original Crab design, now always using the Mojang-inspired design.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

@@ -57,7 +57,7 @@ public final class WWModelLayers {
 	public static final ModelLayerLocation JELLYFISH_BABY = new ModelLayerLocation(WWConstants.id("jellyfish_baby"), "main");
 
 	public static final ModelLayerLocation CRAB = new ModelLayerLocation(WWConstants.id("crab"), "main");
-	public static final ModelLayerLocation CRAB_UGLY = new ModelLayerLocation(WWConstants.id("crab"), "ugly");
+	public static final ModelLayerLocation CRAB_MOJANG = new ModelLayerLocation(WWConstants.id("crab"), "mojang");
 	public static final ModelLayerLocation CRAB_BABY = new ModelLayerLocation(WWConstants.id("crab_baby"), "main");
 
 	public static final ModelLayerLocation OSTRICH = new ModelLayerLocation(WWConstants.id("ostrich"), "main");
@@ -113,8 +113,8 @@ public final class WWModelLayers {
 		ModelLayerRegistry.register(JELLYFISH, JellyfishModel::createBodyLayer);
 		ModelLayerRegistry.register(JELLYFISH_BABY, BabyJellyfishModel::createBodyLayer);
 
-		ModelLayerRegistry.register(CRAB_UGLY, AdultCrabModel::createUglyBodyLayer);
 		ModelLayerRegistry.register(CRAB, AdultCrabModel::createBodyLayer);
+		ModelLayerRegistry.register(CRAB_MOJANG, AdultCrabModel::createMojangBodyLayer);
 		ModelLayerRegistry.register(CRAB_BABY, BabyCrabModel::createBodyLayer);
 
 		ModelLayerRegistry.register(OSTRICH, OstrichModel::createBodyLayer);

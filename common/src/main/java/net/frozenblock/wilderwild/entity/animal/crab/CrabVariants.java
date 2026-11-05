@@ -47,11 +47,11 @@ public final class CrabVariants {
 			name,
 			new CrabVariant(
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath)),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_mojang")),
 				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_baby")),
+				new ClientAsset.ResourceTexture(WWConstants.id(texturePath + "_baby_mojang")),
 				spawnConditions
 			)
 		);
 	}
-
-	private CrabVariants() {}
 }

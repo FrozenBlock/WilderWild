@@ -41,9 +41,9 @@ import net.minecraft.util.Mth;
 @ClientOnly
 public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> {
 	private static final Identifier CRAB_DITTO_LOCATION = WWConstants.id("textures/entity/crab/crab_ditto.png");
-	private final CrabModel defaultModel = this.getModel();
+	private final CrabModel normalModel = this.getModel();
+	private final CrabModel mojangModel;
 	private final CrabModel babyModel;
-	private final CrabModel uglyModel;
 
 	public CrabRenderer(Context context) {
 		this(context, WWModelLayers.CRAB);
@@ -51,8 +51,8 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 
 	public CrabRenderer(Context context, ModelLayerLocation layer) {
 		super(context, new AdultCrabModel(context.bakeLayer(layer)), 0.3F);
+		this.mojangModel = new AdultCrabModel(context.bakeLayer(WWModelLayers.CRAB_MOJANG));
 		this.babyModel = new BabyCrabModel(context.bakeLayer(WWModelLayers.CRAB_BABY));
-		this.uglyModel = new AdultCrabModel(context.bakeLayer(WWModelLayers.CRAB_UGLY));
 	}
 
 	@Override
@@ -75,9 +75,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState camera
 	) {
-		this.model = state.isBaby && !state.isDitto
-			? this.babyModel
-			: state.isDitto ? this.uglyModel : this.defaultModel;
+		this.model = state.isBaby && !state.isDitto ? this.babyModel : (!WWConstants.MOJANG_CRABS || state.isDitto) ? this.normalModel : this.mojangModel;
 		super.submit(state, poseStack, submitNodeCollector, camera);
 	}
 
@@ -89,7 +87,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 	@Override
 	public Identifier getTextureLocation(CrabRenderState state) {
 		if (state.isDitto) return CRAB_DITTO_LOCATION;
-		return state.texture;
+		return WWConstants.MOJANG_CRABS ? state.mojangTexture : state.texture;
 	}
 
 	@Override
@@ -112,6 +110,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabRenderState, CrabModel> 
 
 		final CrabVariant variant = optionalVariant.get().value();
 		state.texture = (state.isBaby ? variant.babyTexture() : variant.texture()).texturePath();
+		state.mojangTexture = (state.isBaby ? variant.babyMojangTexture() : variant.mojangTexture()).texturePath();
 	}
 }
 

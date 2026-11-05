@@ -34,17 +34,23 @@ import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 
 public record CrabVariant(
 	ClientAsset.ResourceTexture texture,
+	ClientAsset.ResourceTexture mojangTexture,
 	ClientAsset.ResourceTexture babyTexture,
+	ClientAsset.ResourceTexture babyMojangTexture,
 	SpawnPrioritySelectors spawnConditions
 ) implements PriorityProvider<SpawnContext, SpawnCondition> {
 	public static final Codec<CrabVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::texture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangTexture),
 		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(CrabVariant::babyTexture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_mojang_asset_id").forGetter(CrabVariant::babyMojangTexture),
 		SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(CrabVariant::spawnConditions)
 	).apply(instance, CrabVariant::new));
 	public static final Codec<CrabVariant> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 		ClientAsset.ResourceTexture.DEFAULT_FIELD_CODEC.forGetter(CrabVariant::texture),
-		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(CrabVariant::babyTexture)
+		ClientAsset.ResourceTexture.CODEC.fieldOf("mojang_asset_id").forGetter(CrabVariant::mojangTexture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_asset_id").forGetter(CrabVariant::babyTexture),
+		ClientAsset.ResourceTexture.CODEC.fieldOf("baby_mojang_asset_id").forGetter(CrabVariant::babyMojangTexture)
 	).apply(instance, CrabVariant::new));
 
 	public static final Codec<Holder<CrabVariant>> CODEC = RegistryFixedCodec.create(WilderWildRegistries.CRAB_VARIANT);
@@ -52,9 +58,11 @@ public record CrabVariant(
 
 	private CrabVariant(
 		ClientAsset.ResourceTexture texture,
-		ClientAsset.ResourceTexture babyTexture
+		ClientAsset.ResourceTexture mojangTexture,
+		ClientAsset.ResourceTexture babyTexture,
+		ClientAsset.ResourceTexture babyMojangTexture
 	) {
-		this(texture, babyTexture, SpawnPrioritySelectors.EMPTY);
+		this(texture, mojangTexture, babyTexture, babyMojangTexture, SpawnPrioritySelectors.EMPTY);
 	}
 
 	@Override
