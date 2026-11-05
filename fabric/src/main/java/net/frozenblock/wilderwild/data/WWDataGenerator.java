@@ -130,7 +130,10 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWContextIntProviderProvider::new);
 
 		// WILDER AQUATIC
-		final FabricDataGenerator.Pack wilderAquaticPack = dataGenerator.createBuiltinResourcePack(WWConstants.id("wilder_aquatic"));
+		final FabricDataGenerator.Pack wilderAquaticPack = dataGenerator.createBuiltinPack(
+			WWConstants.id("wilder_aquatic"),
+			"datapacks/wilder_aquatic"
+		);
 
 		// DATA
 		wilderAquaticPack.addProvider(WARecipeProvider::new);
