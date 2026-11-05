@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.warden;
 
+import java.util.List;
 import java.util.Optional;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenLookControl;
@@ -24,9 +25,9 @@ import net.frozenblock.wilderwild.entity.ai.warden.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.ai.warden.WardenNavigation;
 import net.frozenblock.wilderwild.entity.impl.SwimmingWardenInterface;
 import net.frozenblock.wilderwild.registry.WWSounds;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -154,16 +155,20 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 		return WWEntityConfig.WARDEN_SWIMS.get() ? WWSounds.ENTITY_WARDEN_SWIM.get() : super.getSwimSound();
 	}
 
-	@Unique
 	@Override
-	public void jumpInLiquid(TagKey<Fluid> type) {
+	protected void jumpInLiquid(List<Holder<Fluid>> fluidTypes) {
 		if (WWEntityConfig.WARDEN_SWIMS.get() && (this.getBrain().hasMemoryValue(MemoryModuleType.ROAR_TARGET) || this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET))) {
 			final Optional<LivingEntity> attackTarget = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
 			final Optional<LivingEntity> roarTarget = this.getBrain().getMemory(MemoryModuleType.ROAR_TARGET);
 			final LivingEntity target = attackTarget.orElseGet(() -> roarTarget.orElse(null));
-			if (target != null && (!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this)) && target.getY() > this.getY()) super.jumpInLiquid(type);
+			if (target != null
+				&& (!wilderWild$touchingLiquidOrSwimming(target) || !wilderWild$submergedOrSwimming(this))
+				&& target.getY() > this.getY()
+			) {
+				super.jumpInLiquid(fluidTypes);
+			}
 		} else {
-			super.jumpInLiquid(type);
+			super.jumpInLiquid(fluidTypes);
 		}
 	}
 

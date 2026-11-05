@@ -11,7 +11,7 @@
     "datagen.ItemsMixin",
     "item.brush.BrushItemMixin",
     "item.instrument.InstrumentItemMixin",
-    "warden.EntityMixin",
+    "warden.EntityFluidInteractionMixin",
     "worldgen.structure.SwampHutPieceMixin"
   ],
   "client": [

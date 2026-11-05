@@ -17,15 +17,30 @@
 
 package net.frozenblock.wilderwild.client;
 
+import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleColorProperty;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
+import net.minecraft.client.core.registries.ClientRegistries;
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 
 @ClientOnly
-public final class WWItemProperties {
+public final class WWSelectItemModelPropertyTypes {
 
-	public static void init() {
-		SelectItemModelProperties.ID_MAPPER.put(WWConstants.id("firefly_bottle_color"), FireflyBottleColorProperty.TYPE);
+	static {
+		final DeferredRegister<SelectItemModelProperty.Type<?, ?>> register = ClientRegistryHelper.createDeferredRegister(
+			ClientRegistries.SELECT_ITEM_MODEL_PROPERTY_TYPE,
+			WWConstants.MOD_ID
+		);
+
+		// TODO: rename to firefly variant once dev branch is merged
+		register.register("firefly_bottle_color", () -> FireflyBottleColorProperty.TYPE);
+
+		register.register();
 	}
+
+	public static void init() {}
+
+	private WWSelectItemModelPropertyTypes() {}
 }

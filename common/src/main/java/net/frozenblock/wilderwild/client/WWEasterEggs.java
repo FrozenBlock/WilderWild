@@ -31,7 +31,7 @@ import net.minecraft.world.entity.monster.warden.Warden;
 @ClientOnly
 public final class WWEasterEggs {
 
-	public static void hatchEasterEggs() {
+	static {
 		final DeferredRegister<EntityTextureOverride<?, ?>> register = ClientRegistryHelper.createDeferredRegister(
 			FrozenLibClientRegistries.ENTITY_TEXTURE_OVERRIDE,
 			WWConstants.MOD_ID
@@ -93,6 +93,8 @@ public final class WWEasterEggs {
 
 		register.register();
 	}
+
+	public static void hatchEasterEggs() {}
 
 	private WWEasterEggs() {}
 }

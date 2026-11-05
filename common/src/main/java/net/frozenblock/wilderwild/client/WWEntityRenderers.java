@@ -43,7 +43,7 @@ import net.minecraft.world.entity.EntityType;
 @ClientOnly
 public final class WWEntityRenderers {
 
-	public static void init() {
+	static {
 		final DeferredRegister<EntityRendererProvider<?>> register = ClientRegistryHelper.createDeferredRegister(
 			ClientRegistries.ENTITY_RENDERER,
 			WWConstants.MOD_ID
@@ -157,6 +157,8 @@ public final class WWEntityRenderers {
 
 		register.register();
 	}
+
+	public static void init() {}
 
 	private static ResourceKey<EntityRendererProvider<?>> entityKey(ResourceKey<EntityType<?>> type) {
 		return ResourceKey.create(ClientRegistries.ENTITY_RENDERER, type.identifier());

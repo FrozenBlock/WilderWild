@@ -26,12 +26,12 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.SculkShriekerBlock;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 @ClientOnly
 @Mixin(LevelEventHandler.class)
@@ -45,13 +45,18 @@ public class LevelEventHandlerMixin {
 		method = "levelEvent",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/state/BlockState;getValue(Lnet/minecraft/world/level/block/state/properties/Property;)Ljava/lang/Comparable;",
+			target = "Lnet/minecraft/world/level/block/state/BlockState;getValueOrElse(Lnet/minecraft/world/level/block/state/properties/Property;Ljava/lang/Comparable;)Ljava/lang/Comparable;",
 			ordinal = 0
 		),
-		require = 0
+		slice = @Slice(
+			from = @At(
+				value = "NEW",
+				target = "Lnet/minecraft/core/particles/ShriekParticleOption;"
+			)
+		)
 	)
 	private Comparable<Boolean> wilderWild$shriekerGargle(Comparable<Boolean> original, int eventType, BlockPos pos, int data) {
-		if (this.level != null && WWBlockConfig.SHRIEKER_GARGLING.get() && (original.compareTo(true) == 0 || this.level.getFluidState(pos.above()).is(FluidTags.WATER))) {
+		if (original.compareTo(true) == 0 && this.level != null && WWBlockConfig.SHRIEKER_GARGLING.get()) {
 			final double x = (double) pos.getX() + 0.5D;
 			final double y = (double) pos.getY() + SculkShriekerBlock.TOP_Y;
 			final double z = (double) pos.getZ() + 0.5D;
@@ -71,6 +76,7 @@ public class LevelEventHandlerMixin {
 				0D, 0D, 0D
 			);
 		}
+
 		return original;
 	}
 }

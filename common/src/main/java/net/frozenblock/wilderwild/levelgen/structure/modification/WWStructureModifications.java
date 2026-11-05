@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.levelgen.structure.modification;
 
-import net.frozenblock.lib.levelgen.structure.api.StructureSetApi;
-import net.frozenblock.lib.levelgen.structure.api.pools.RandomPoolAliasApi;
+import net.frozenblock.lib.levelgen.structure.api.StructureSetEvents;
+import net.frozenblock.lib.levelgen.structure.api.pools.RandomPoolAliasEvents;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -29,24 +29,24 @@ import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 public final class WWStructureModifications {
 
 	public static void init() {
-		StructureSetApi.ADD_OR_REMOVE_STRUCTURES.register((structures, structureSet, context) -> {
+		StructureSetEvents.ADD_OR_REMOVE_STRUCTURES.register((structures, structureSet, context) -> {
 			if (!structureSet.is(BuiltinStructureSets.ABANDONED_CAMP) || !WWWorldgenConfig.MAPLE_FOREST_GENERATION.get()) return;
 			structures.get(WWStructures.ABANDONED_CAMP_MAPLE_FOREST).ifPresent(abandonedCampMapleForest ->
 				context.frozenLib$addOrModifyStructureSelectionEntry(abandonedCampMapleForest, 1)
 			);
 		});
 
-		StructureSetApi.ADD_OR_REMOVE_STRUCTURES.register((structures, structureSet, context) -> {
+		StructureSetEvents.ADD_OR_REMOVE_STRUCTURES.register((structures, structureSet, context) -> {
 			if (!structureSet.is(BuiltinStructureSets.ABANDONED_CAMP) || !WWWorldgenConfig.DAPPLED_FOREST_REMOVAL.get()) return;
 			structures.get(BuiltinStructures.ABANDONED_CAMP_DAPPLED_FOREST).ifPresent(context::frozenLib$removeStructureSelectionEntry);
 		});
 
-		if (WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()) {
-			RandomPoolAliasApi.addTarget(
-				WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"),
-				WWConstants.id("trial_chambers/spawner/small_melee/scorched"),
-				1
-			);
-		}
+		RandomPoolAliasEvents.MODIFY.register(((resourceKey, context) -> {
+			if (WWEntityConfig.SCORCHED_IN_TRIAL_CHAMBERS.get()
+				&& resourceKey.identifier().equals(WWConstants.vanillaId("trial_chambers/spawner/contents/small_melee"))
+			) {
+				context.add(WWConstants.id("trial_chambers/spawner/small_melee/scorched"), 1);
+			}
+		}));
 	}
 }

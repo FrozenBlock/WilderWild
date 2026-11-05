@@ -49,8 +49,7 @@ public class FireflyBottleColorProperty implements SelectItemModelProperty<Strin
 	}
 
 	@Override
-	public Type<? extends SelectItemModelProperty<String>, String> type() {
+	public Type<FireflyBottleColorProperty, String> type() {
 		return TYPE;
 	}
-
 }

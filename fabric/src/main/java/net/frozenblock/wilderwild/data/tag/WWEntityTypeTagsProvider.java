@@ -158,7 +158,7 @@ public final class WWEntityTypeTagsProvider extends FabricTagsProvider.EntityTyp
 			.add(EntityTypeIds.LLAMA_SPIT)
 			.add(EntityTypeIds.FIREWORK_ROCKET);
 
-		this.builder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
+		this.builder(EntityTypeTags.IMMUNE_TO_FREEZING)
 			.add(WWEntityTypeIds.PENGUIN);
 
 		this.builder(EntityTypeTags.NO_ANGER_FROM_WIND_CHARGE)

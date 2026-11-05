@@ -20,25 +20,41 @@ package net.frozenblock.wilderwild.mixin.block.sound;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
+import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import java.util.Objects;
 
 @Mixin(WoodType.class)
 public class WoodTypeMixin {
 
+	@Shadow
+	@Final
+	private String name;
+
+	@ModifyReturnValue(method = "setType", at = @At("RETURN"))
+	private BlockSetType wilderWild$paleOakSetType(BlockSetType original) {
+		if (ModLoader.isNeoForge()) return original; // TODO FIX NEOFORGE
+		if (this.wilderWild$useNewPaleOakSounds()) return WWBlocks.PALE_OAK_SET.get();
+		return original;
+	}
+
 	@ModifyReturnValue(method = "fenceGateClose", at = @At("RETURN"))
-	private SoundEvent wilderWild$fenceGateClose(SoundEvent original) {
+	private SoundEvent wilderWild$paleOakFenceGateClose(SoundEvent original) {
 		if (ModLoader.isNeoForge()) return original; // TODO FIX NEOFORGE
 		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_CLOSE.get();
 		return original;
 	}
 
 	@ModifyReturnValue(method = "fenceGateOpen", at = @At("RETURN"))
-	private SoundEvent wilderWild$fenceGateOpen(SoundEvent original) {
+	private SoundEvent wilderWild$paleOakFenceGateOpen(SoundEvent original) {
 		if (ModLoader.isNeoForge()) return original; // TODO FIX NEOFORGE
 		if (this.wilderWild$useNewPaleOakSounds()) return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_OPEN.get();
 		return original;
@@ -46,6 +62,6 @@ public class WoodTypeMixin {
 
 	@Unique
 	private boolean wilderWild$useNewPaleOakSounds() {
-		return WoodType.class.cast(this) == WoodType.PALE_OAK && WWBlockConfig.PALE_OAK_SOUNDS.get();
+		return Objects.equals(this.name, "pale_oak") && WWBlockConfig.PALE_OAK_SOUNDS.get();
 	}
 }
