@@ -959,7 +959,7 @@ public final class WWVegetationPlacements {
 		POLLEN_SPARSE.makeAndSetHolder(WWVegetationFeatures.POLLEN,
 			FrozenLibPlacementUtil.modifiersWithFilter(
 				pollenConfigFilter,
-				CountPlacement.of(4),
+				RarityFilter.onAverageOnceEvery(2),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE
 			)
 		);
