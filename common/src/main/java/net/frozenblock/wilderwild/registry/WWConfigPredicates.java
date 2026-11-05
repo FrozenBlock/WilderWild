@@ -26,6 +26,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -355,6 +356,10 @@ public final class WWConfigPredicates {
 			SPAWN_WOLF_VARIANT,
 			WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true)
 		);
+	}
+
+	public static boolean testPaleOakWoodPredicate(RegistryAccess registryAccess) {
+		return ConfigPredicate.lookupAndTest(registryAccess, SOUND_OVERRIDE_PALE_OAK);
 	}
 
 	private static ResourceKey<ConfigPredicate> createKey(String name) {

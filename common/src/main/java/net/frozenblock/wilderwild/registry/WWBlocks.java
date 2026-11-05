@@ -160,22 +160,6 @@ public final class WWBlocks {
 	private static final DeferredRegister.Blocks REGISTER = DeferredRegister.createBlocks(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
 
 	// BLOCK SET TYPES
-	public static final Supplier<BlockSetType> PALE_OAK_SET = Suppliers.memoize(() -> new BlockSetType(
-		true,
-		true,
-		true,
-		BlockSetType.PressurePlateSensitivity.EVERYTHING,
-		WWBlockSoundSets.PALE_OAK_WOOD,
-		WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_CLOSE.get(),
-		WWSounds.BLOCK_PALE_OAK_WOOD_DOOR_OPEN.get(),
-		WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_CLOSE.get(),
-		WWSounds.BLOCK_PALE_OAK_WOOD_TRAPDOOR_OPEN.get(),
-		WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_OFF.get(),
-		WWSounds.BLOCK_PALE_OAK_WOOD_PRESSURE_PLATE_CLICK_ON.get(),
-		WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_OFF.get(),
-		WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_ON.get()
-	));
-
 	public static final BlockSetType BAOBAB_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
 	public static final BlockSetType WILLOW_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
 	public static final BlockSetType CYPRESS_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
