@@ -96,6 +96,7 @@ public final class WWVegetationFeatureBiomeTags {
 	public static final TagKey<Biome> TUMBLEWEED = bind("tumbleweed");
 	// POLLEN
 	public static final TagKey<Biome> POLLEN = bind("pollen");
+	public static final TagKey<Biome> POLLEN_SPARSE = bind("pollen_sparse");
 	// MOSS
 	public static final TagKey<Biome> MOSS_CARPET = bind("moss_carpet");
 	// AUBURN MOSS
