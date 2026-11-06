@@ -105,7 +105,7 @@ public final class WWSpawns {
 
 	public static void addPenguins() {
 		BiomeModifications.addSpawn(BiomeSelectors.tag(WWBiomeTags.HAS_PENGUIN),
-			MobCategory.CREATURE, WWEntityTypes.PENGUIN.get(), 3, 3, 5);
+			MobCategory.CREATURE, WWEntityTypes.PENGUIN.get(), 3, 2, 4);
 	}
 
 	public static void addTumbleweed() {
