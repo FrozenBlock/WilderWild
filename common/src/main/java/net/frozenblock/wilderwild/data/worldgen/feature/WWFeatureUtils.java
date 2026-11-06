@@ -22,6 +22,7 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import java.util.function.Supplier;
 
 public final class WWFeatureUtils {
 
@@ -37,7 +38,7 @@ public final class WWFeatureUtils {
 
 	public static FrozenLibTreeFeature registerTree(
 		String id,
-		Block leafLitterBlock,
+		Supplier<Block> leafLitterBlock,
 		int triesA, int radiusA, int heightA,
 		int triesB, int radiusB, int heightB
 	) {

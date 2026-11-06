@@ -182,8 +182,6 @@ public final class WWTreeVegetationFeatures {
 	public static final FrozenLibFeature MAPLE_NO_LITTER = register("maple_no_litter");
 	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_LEAF_LITTER = MapleCollection.NAMES.map(name -> register(name + "_maple_leaf_litter"));
 	public static final FrozenLibFeature MAPLE_LEAF_LITTER = register("maple_leaf_litter");
-	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_NO_BEES_SAPLING = MapleCollection.NAMES.map(name -> register(name + "_maple_no_bees_sapling"));
-	public static final MapleCollection<FrozenLibFeature> COLORED_MAPLE_BEES_SAPLING = MapleCollection.NAMES.map(name -> register(name + "_maple_bees_sapling"));
 
 	// DAPPLED FOREST
 	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLAR_NO_LITTER = PoplarCollection.NAMES.map(name -> register(name + "_poplar_no_litter"));
@@ -1445,41 +1443,6 @@ public final class WWTreeVegetationFeatures {
 				WWTreePlacements.MAPLE_BEES_0004.yellow().getLitterVariantHolder()
 			)
 		);
-
-		MapleCollection.zipApply(COLORED_MAPLE_BEES_SAPLING, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(
-				new RandomSelectorFeature(
-					List.of(
-						WWTreePlacements.MAPLE.pick(color).asWeightedPlacedFeature(0.025F),
-						WWTreePlacements.FULL_MAPLE.pick(color).asWeightedPlacedFeature(0.15F),
-						WWTreePlacements.TALL_MAPLE.pick(color).asWeightedPlacedFeature(0.25F),
-						WWTreePlacements.DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.TALL_MAPLE_BEES_0004.pick(color).asWeightedPlacedFeature(0.37F),
-						WWTreePlacements.TALL_DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.SHORT_MAPLE.pick(color).asWeightedPlacedFeature(0.2F),
-						WWTreePlacements.BIG_BUSH_MAPLE.pick(color).asWeightedPlacedFeature(0.4F)
-					),
-					WWTreePlacements.MAPLE_BEES_0004.pick(color).getHolder()
-				)
-			);
-		});
-
-		MapleCollection.zipApply(COLORED_MAPLE_NO_BEES_SAPLING, MapleCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(
-				new RandomSelectorFeature(
-					List.of(
-						WWTreePlacements.MAPLE.pick(color).asWeightedPlacedFeature(0.025F),
-						WWTreePlacements.FULL_MAPLE.pick(color).asWeightedPlacedFeature(0.15F),
-						WWTreePlacements.TALL_MAPLE.pick(color).asWeightedPlacedFeature(0.25F),
-						WWTreePlacements.DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.TALL_DYING_MAPLE.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.SHORT_MAPLE.pick(color).asWeightedPlacedFeature(0.2F),
-						WWTreePlacements.BIG_BUSH_MAPLE.pick(color).asWeightedPlacedFeature(0.4F)
-					),
-					WWTreePlacements.MAPLE.pick(color).getHolder()
-				)
-			);
-		});
 
 		// DAPPLED FOREST
 		PoplarCollection.zipApply(COLORED_POPLAR_NO_LITTER, PoplarCollection.DYE_COLORS, (feature, color) -> {

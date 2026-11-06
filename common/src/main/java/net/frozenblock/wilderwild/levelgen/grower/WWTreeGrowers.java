@@ -77,18 +77,23 @@ public final class WWTreeGrowers {
 	};
 
 	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> new TreeGrower(
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.MAPLE.pick(color).getKey(), 6)
+			.add(WWTreeFeatures.FULL_MAPLE.pick(color).getKey(), 2)
+			.add(WWTreeFeatures.TALL_MAPLE.pick(color).getKey(), 2)
+			.add(WWTreeFeatures.SHORT_MAPLE.pick(color).getKey(), 3)
+			.add(WWTreeFeatures.BIG_BUSH_MAPLE.pick(color).getKey(), 1)
+			.build(),
 		WeightedList.of(),
-		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers
-				? WWTreeVegetationFeatures.COLORED_MAPLE_BEES_SAPLING.pick(color).getKey()
-				: WWTreeVegetationFeatures.COLORED_MAPLE_NO_BEES_SAPLING.pick(color).getKey();
-		}
-	});
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.MAPLE_BEES_0004.pick(color).getKey(), 6)
+			.add(WWTreeFeatures.FULL_MAPLE.pick(color).getKey(), 2)
+			.add(WWTreeFeatures.TALL_MAPLE_BEES_0004.pick(color).getKey(), 2)
+			.add(WWTreeFeatures.SHORT_MAPLE.pick(color).getKey(), 3)
+			.add(WWTreeFeatures.BIG_BUSH_MAPLE.pick(color).getKey(), 1)
+			.build(),
+		WWTreeFeatures.BIG_BUSH_MAPLE.pick(color).getKey()
+	));
 
 	public static final PoplarCollection<TreeGrower> POPLAR = PoplarCollection.DYE_COLORS.map(color -> new TreeGrower(
 		WeightedList.of(),

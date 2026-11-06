@@ -18,6 +18,14 @@
 package net.frozenblock.wilderwild.data.worldgen.features;
 
 import com.google.common.collect.ImmutableList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
@@ -122,13 +130,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.PoplarTrunkPlacer
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public final class WWTreeFeatures {
 	// OAK
@@ -2938,56 +2939,56 @@ public final class WWTreeFeatures {
 
 	// FEATURES
 	public static FrozenLibTreeFeature registerBirch(String name) {
-		return register(name, WWBlocks.BIRCH_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
+		return register(name, () -> WWBlocks.BIRCH_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerOak(String name) {
-		return register(name, Blocks.LEAF_LITTER, 96, 4, 2, 150, 2, 2);
+		return register(name, () -> Blocks.LEAF_LITTER, 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerDarkOak(String name) {
-		return register(name, WWBlocks.DARK_OAK_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
+		return register(name, () -> WWBlocks.DARK_OAK_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerWillow(String name) {
-		return register(name, WWBlocks.WILLOW_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
+		return register(name, () -> WWBlocks.WILLOW_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerSpruce(String name) {
-		return register(name, WWBlocks.SPRUCE_LEAF_LITTER.get(), 48, 4, 2, 75, 2, 2);
+		return register(name, () -> WWBlocks.SPRUCE_LEAF_LITTER.get(), 48, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerBaobab(String name) {
-		return register(name, WWBlocks.BAOBAB_LEAF_LITTER.get(), 175, 8, 3, 280, 6, 3);
+		return register(name, () -> WWBlocks.BAOBAB_LEAF_LITTER.get(), 175, 8, 3, 280, 6, 3);
 	}
 
 	public static FrozenLibTreeFeature registerPalm(String name) {
-		return register(name, WWBlocks.PALM_FROND_LITTER.get(), 32, 4, 2, 68, 2, 2);
+		return register(name, () -> WWBlocks.PALM_FROND_LITTER.get(), 32, 4, 2, 68, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerCypress(String name) {
-		return register(name, WWBlocks.CYPRESS_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
+		return register(name, () -> WWBlocks.CYPRESS_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerJungle(String name) {
-		return register(name, WWBlocks.JUNGLE_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
+		return register(name, () -> WWBlocks.JUNGLE_LEAF_LITTER.get(), 43, 4, 2, 75, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerMangrove(String name) {
-		return register(name, WWBlocks.MANGROVE_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
+		return register(name, () -> WWBlocks.MANGROVE_LEAF_LITTER.get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerMaple(String name, DyeColor color) {
-		return register(name, WWBlocks.MAPLE_LEAF_LITTER.pick(color).get(), 128, 4, 2, 216, 2, 2);
+		return register(name, () -> WWBlocks.MAPLE_LEAF_LITTER.pick(color).get(), 128, 4, 2, 216, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature registerPoplar(String name, DyeColor color) {
-		return register(name, WWBlocks.POPLAR_LEAF_LITTER.pick(color).get(), 96, 4, 2, 150, 2, 2);
+		return register(name, () -> WWBlocks.POPLAR_LEAF_LITTER.pick(color).get(), 96, 4, 2, 150, 2, 2);
 	}
 
 	public static FrozenLibTreeFeature register(
 		String id,
-		Block leafLitterBlock,
+		Supplier<Block> leafLitterBlock,
 		int triesA, int radiusA, int heightA,
 		int triesB, int radiusB, int heightB
 	) {
