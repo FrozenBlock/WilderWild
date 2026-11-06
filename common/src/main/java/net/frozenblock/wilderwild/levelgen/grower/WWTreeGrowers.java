@@ -78,18 +78,18 @@ public final class WWTreeGrowers {
 
 	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> new TreeGrower(
 		WeightedList.<ResourceKey<Feature>>builder()
-			.add(WWTreeFeatures.MAPLE.pick(color).getKey(), 6)
+			.add(WWTreeFeatures.MAPLE.pick(color).getKey(), 4)
 			.add(WWTreeFeatures.FULL_MAPLE.pick(color).getKey(), 2)
 			.add(WWTreeFeatures.TALL_MAPLE.pick(color).getKey(), 2)
-			.add(WWTreeFeatures.SHORT_MAPLE.pick(color).getKey(), 3)
+			.add(WWTreeFeatures.SHORT_MAPLE.pick(color).getKey(), 6)
 			.add(WWTreeFeatures.BIG_BUSH_MAPLE.pick(color).getKey(), 1)
 			.build(),
 		WeightedList.of(),
 		WeightedList.<ResourceKey<Feature>>builder()
-			.add(WWTreeFeatures.MAPLE_BEES_0004.pick(color).getKey(), 6)
+			.add(WWTreeFeatures.MAPLE_BEES_0004.pick(color).getKey(), 4)
 			.add(WWTreeFeatures.FULL_MAPLE.pick(color).getKey(), 2)
 			.add(WWTreeFeatures.TALL_MAPLE_BEES_0004.pick(color).getKey(), 2)
-			.add(WWTreeFeatures.SHORT_MAPLE.pick(color).getKey(), 3)
+			.add(WWTreeFeatures.SHORT_MAPLE.pick(color).getKey(), 6)
 			.add(WWTreeFeatures.BIG_BUSH_MAPLE.pick(color).getKey(), 1)
 			.build(),
 		WWTreeFeatures.BIG_BUSH_MAPLE.pick(color).getKey()
