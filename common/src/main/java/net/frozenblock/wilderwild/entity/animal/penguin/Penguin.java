@@ -335,9 +335,9 @@ public class Penguin extends Animal {
 			return;
 		}
 
-		this.moveRelative(this.getSpeed(), input);
+		this.moveRelative(this.getSpeed() + 0.075F, input);
 		this.move(MoverType.SELF, this.getDeltaMovement());
-		this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+		this.setDeltaMovement(this.getDeltaMovement().scale(0.7D));
 	}
 
 	@Override
