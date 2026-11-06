@@ -45,6 +45,18 @@ public final class WWEntityConfigGui {
 			booleanEntry(builder, "keyframe_allay_dance", WWEntityConfig.ALLAY_KEYFRAME_DANCE)
 		);
 
+		// AXOLOTL
+		createSubCategory(builder, category, EntityTypes.AXOLOTL.getDescription(), tooltip("entity_category", EntityTypes.AXOLOTL.getDescription()),
+			booleanEntry(builder, "axolotl_idle_in_water_fix", WWEntityConfig.AXOLOTL_IDLE_IN_WATER_FIX),
+			booleanEntry(builder, "axolotl_head_rotation_fix", WWEntityConfig.AXOLOTL_HEAD_ROTATION_FIX)
+		);
+
+		// FROG
+		createSubCategory(builder, category, EntityTypes.FROG.getDescription(), tooltip("entity_category", EntityTypes.FROG.getDescription()),
+			booleanEntry(builder, "frog_idle_in_water_fix", WWEntityConfig.FROG_IDLE_IN_WATER_FIX),
+			booleanEntry(builder, "frog_shadow_size_fix", WWEntityConfig.FROG_SHADOW_SIZE_FIX)
+		);
+
 		// FIREFLY
 		createSubCategory(builder, category, WWEntityTypes.FIREFLY.get().getDescription(), tooltip("entity_category", WWEntityTypes.FIREFLY.get().getDescription()),
 			booleanEntry(builder, "spawn_firefly_particles", WWEntityConfig.SPAWN_FIREFLY_PARTICLES),

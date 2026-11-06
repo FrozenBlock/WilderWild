@@ -38,6 +38,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The radius at which Penguins are considered to have met has been slightly increased.
 - Penguins will now be able to navigate through water far more efficiently, no longer veering far off from their intended paths or spinning in place instead of descending.
 - Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
+- Fixed a bug that caused Axolotls to never stop moving while in water, and to hardly ever use their water idle animation. ([MC-231613](https://bugs.mojang.com/browse/MC/issues/MC-231613), [MC-225845](https://bugs.mojang.com/browse/MC/issues/MC-225845))
+  - Added a config option to toggle this fix.
+- Axolotls and Baby Axolotls now move their heads as their look angle changes, matching Bedrock Edition. ([MC-226727](https://bugs.mojang.com/browse/MC/issues/MC-226272))
+  - Added a config option to toggle this fix.
+- Fixed a bug that caused Frogs to never stop moving while in water, and to hardly ever use their water idle animation. ([MC-251529](https://bugs.mojang.com/browse/MC/issues/MC-251529))
+  - Added a config option to toggle this fix.
+- Fixed a bug that cased Frogs to use a smaller shadow size than intended. ([MC-249840](https://bugs.mojang.com/browse/MC/issues/MC-249840))
+  - Added a config option to toggle this fix.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

@@ -36,7 +36,15 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> LIGHTNING_SMOKE_PARTICLES = CONFIG.unsyncableEntry("lightning/lightningSmokeParticles", EntryType.BOOL, true);
 
 	// ALLAY
-	public static final ConfigEntry<Boolean> ALLAY_KEYFRAME_DANCE = CONFIG.entry("allay/keyframeAllayDance", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ALLAY_KEYFRAME_DANCE = CONFIG.unsyncableEntry("allay/keyframeAllayDance", EntryType.BOOL, true);
+
+	// AXOLOTL
+	public static final ConfigEntry<Boolean> AXOLOTL_IDLE_IN_WATER_FIX = CONFIG.entryBuilder("axolotl/axolotlIdleInWaterFix", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> AXOLOTL_HEAD_ROTATION_FIX = CONFIG.unsyncableEntry("axolotl/axolotlHeadRotationFix", EntryType.BOOL, true);
+
+	// FROG
+	public static final ConfigEntry<Boolean> FROG_IDLE_IN_WATER_FIX = CONFIG.entryBuilder("frog/frogIdleInWaterFix", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> FROG_SHADOW_SIZE_FIX = CONFIG.unsyncableEntryBuilder("frog/frogShadowSizeFix", EntryType.BOOL, true).requireRestart().build();
 
 	// FIREFLY
 	public static final ConfigEntry<Boolean> SPAWN_FIREFLY_PARTICLES = CONFIG.unsyncableEntry("firefly/spawnFireflyParticles", EntryType.BOOL, false);
