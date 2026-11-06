@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.registry;
+package net.frozenblock.wilderwild.data.block;
 
 import net.frozenblock.lib.block.api.clipgroup.ClipGroups;
 import net.frozenblock.lib.block.impl.clipgroup.ClipGroup;
@@ -27,10 +27,9 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
 public final class WWClipGroups {
-	public static final ResourceKey<ClipGroup> MESOGLEA = createKey("mesoglea");
 
 	public static void bootstrap(BootstrapContext<ClipGroup> context) {
-		ClipGroups.register(context, MESOGLEA, context.lookup(Registries.BLOCK).getOrThrow(WWBlockItemTags.MESOGLEA.block()));
+		ClipGroups.register(context, createKey("mesoglea"), context.lookup(Registries.BLOCK).getOrThrow(WWBlockItemTags.MESOGLEA.block()));
 	}
 
 	private static ResourceKey<ClipGroup> createKey(String name) {

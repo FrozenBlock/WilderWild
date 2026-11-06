@@ -76,7 +76,7 @@ import net.frozenblock.wilderwild.registry.WWBiomeEnvironmentAttributeModificati
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockSoundSets;
 import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
-import net.frozenblock.wilderwild.registry.WWClipGroups;
+import net.frozenblock.wilderwild.data.block.WWClipGroups;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWMusicPitchProviders;
