@@ -160,7 +160,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 
 			this.attackDelay = 1;
 			this.crossbowState = RangedCrossbowAttackGoal.CrossbowState.UNCHARGED;
-			this.tickStrafeAndLook(target, hasLineOfSight);
+			if (target != null) this.tickStrafeAndLook(target, hasLineOfSight);
 			return;
 		} else {
 			this.resetHarpoonState();
