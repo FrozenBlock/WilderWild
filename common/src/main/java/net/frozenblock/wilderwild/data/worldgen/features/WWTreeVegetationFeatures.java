@@ -172,7 +172,6 @@ public final class WWTreeVegetationFeatures {
 	public static final FrozenLibFeature MANGROVE = register("mangrove");
 	public static final FrozenLibFeature TREE_CYPRESS_WETLANDS = register("tree_cypress_wetlands");
 	public static final FrozenLibFeature TREE_CYPRESS_WETLANDS_WATER = register("tree_cypress_wetlands_water");
-	public static final FrozenLibFeature TREE_CYPRESS_SAPLING = register("tree_cypress_sapling");
 
 	// CHERRY GROVE
 	public static final FrozenLibFeature CHERRY = register("cherry");
@@ -189,8 +188,6 @@ public final class WWTreeVegetationFeatures {
 	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLAR_LEAF_LITTER = PoplarCollection.NAMES.map(name -> register(name + "_poplar_leaf_litter"));
 	public static final FrozenLibFeature POPLAR_LEAF_LITTER = register("poplar_leaf_litter");
 	public static final FrozenLibFeature POPLAR = register("poplar");
-	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLAR_NO_BEES_SAPLING = PoplarCollection.NAMES.map(name -> register(name + "_poplar_no_bees_sapling"));
-	public static final PoplarCollection<FrozenLibFeature> COLORED_POPLAR_BEES_SAPLING = PoplarCollection.NAMES.map(name -> register(name + "_poplar_bees_sapling"));
 
 	// MEADOW
 	public static final FrozenLibFeature TREE_MEADOW = register("tree_meadow");
@@ -1359,17 +1356,6 @@ public final class WWTreeVegetationFeatures {
 			)
 		);
 
-		TREE_CYPRESS_SAPLING.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlacements.CYPRESS.asWeightedPlacedFeature(0.4F),
-					WWTreePlacements.SHORT_CYPRESS.asWeightedPlacedFeature(0.15F),
-					WWTreePlacements.SWAMP_CYPRESS.asWeightedPlacedFeature(0.81F)
-				),
-				WWTreePlacements.FUNGUS_CYPRESS.getHolder()
-			)
-		);
-
 		// CHERRY GROVE
 		CHERRY.makeAndSetHolder(
 			new RandomSelectorFeature(
@@ -1501,35 +1487,6 @@ public final class WWTreeVegetationFeatures {
 				POPLAR_NO_LITTER.asInlinePlaced()
 			)
 		);
-
-		PoplarCollection.zipApply(COLORED_POPLAR_NO_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(
-				new RandomSelectorFeature(
-					List.of(
-						WWTreePlacements.POPLAR.pick(color).asWeightedPlacedFeature(0.45F),
-						WWTreePlacements.TALL_POPLAR.pick(color).asWeightedPlacedFeature(0.25F),
-						WWTreePlacements.DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.TALL_DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.1F)
-					),
-					WWTreePlacements.POPLAR.pick(color).getHolder()
-				)
-			);
-		});
-
-		PoplarCollection.zipApply(COLORED_POPLAR_BEES_SAPLING, PoplarCollection.DYE_COLORS, (feature, color) -> {
-			feature.makeAndSetHolder(
-				new RandomSelectorFeature(
-					List.of(
-						WWTreePlacements.POPLAR.pick(color).asWeightedPlacedFeature(0.45F),
-						WWTreePlacements.TALL_POPLAR.pick(color).asWeightedPlacedFeature(0.25F),
-						WWTreePlacements.DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.0785F),
-						WWTreePlacements.TALL_POPLAR_BEES_0002.pick(color).asWeightedPlacedFeature(0.37F),
-						WWTreePlacements.TALL_DYING_POPLAR.pick(color).asWeightedPlacedFeature(0.1F)
-					),
-					WWTreePlacements.POPLAR_BEES_0002.pick(color).getHolder()
-				)
-			);
-		});
 
 		// MEADOW
 		TREE_MEADOW.makeAndSetHolder(

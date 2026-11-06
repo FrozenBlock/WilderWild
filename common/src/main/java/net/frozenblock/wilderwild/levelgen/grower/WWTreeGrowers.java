@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.levelgen.grower;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
-import net.frozenblock.wilderwild.data.worldgen.features.WWTreeVegetationFeatures;
 import net.frozenblock.wilderwild.levelgen.grower.impl.TreeGrowerInterface;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
@@ -41,10 +40,15 @@ public final class WWTreeGrowers {
 	};
 
 	public static final TreeGrower CYPRESS = new TreeGrower(
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.CYPRESS.getKey(), 3)
+			.add(WWTreeFeatures.FUNGUS_CYPRESS.getKey(), 4)
+			.add(WWTreeFeatures.SHORT_CYPRESS.getKey(), 1)
+			.add(WWTreeFeatures.SWAMP_CYPRESS.getKey(), 1)
+			.build(),
 		WeightedList.of(),
 		WeightedList.of(),
-		WeightedList.of(),
-		null
+		WWTreeFeatures.SHORT_CYPRESS.getKey()
 	) {
 		@Override
 		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
@@ -58,23 +62,22 @@ public final class WWTreeGrowers {
 				if (level.getBlockState(pos).getFluidState().is(FluidTags.WATER)) return WWTreeFeatures.SWAMP_CYPRESS.getKey();
 				if (level.getBlockState(pos.below()).is(WWBlockTags.CYPRESS_GROWS_AS_JUNIPER_ON)) return WWTreeFeatures.JUNIPER.getKey();
 			}
-			if (random.nextFloat() <= 0.6F) return random.nextFloat() <= 0.3F ? WWTreeFeatures.CYPRESS.getKey() : WWTreeFeatures.FUNGUS_CYPRESS.getKey();
-			return WWTreeVegetationFeatures.TREE_CYPRESS_SAPLING.getKey();
+
+			return super.getConfiguredFeature(random, hasFlowers);
 		}
 	};
 
 	public static final TreeGrower PALM = new TreeGrower(
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.PALM.getKey(), 6)
+			.add(WWTreeFeatures.TALL_PALM.getKey(), 3)
+			.add(WWTreeFeatures.SHORT_WINDMILL_PALM.getKey(), 1)
+			.add(WWTreeFeatures.TALL_WINDMILL_PALM.getKey(), 1)
+			.build(),
 		WeightedList.of(),
 		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return random.nextFloat() <= 0.6F ? WWTreeFeatures.PALM.getKey()
-				: random.nextFloat() <= 0.7F ? WWTreeFeatures.TALL_PALM.getKey() : WWTreeFeatures.TALL_WINDMILL_PALM.getKey();
-		}
-	};
+		WWTreeFeatures.SHORT_WINDMILL_PALM.getKey()
+	);
 
 	public static final MapleCollection<TreeGrower> MAPLE = MapleCollection.DYE_COLORS.map(color -> new TreeGrower(
 		WeightedList.<ResourceKey<Feature>>builder()
@@ -96,32 +99,25 @@ public final class WWTreeGrowers {
 	));
 
 	public static final PoplarCollection<TreeGrower> POPLAR = PoplarCollection.DYE_COLORS.map(color -> new TreeGrower(
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.POPLAR.pick(color).getKey(), 2)
+			.add(WWTreeFeatures.TALL_POPLAR.pick(color).getKey(), 1)
+			.build(),
 		WeightedList.of(),
-		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return hasFlowers
-				? WWTreeVegetationFeatures.COLORED_POPLAR_BEES_SAPLING.pick(color).getKey()
-				: WWTreeVegetationFeatures.COLORED_POPLAR_NO_BEES_SAPLING.pick(color).getKey();
-		}
-	});
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.POPLAR_BEES_0002.pick(color).getKey(), 2)
+			.add(WWTreeFeatures.TALL_POPLAR_BEES_0002.pick(color).getKey(), 1)
+			.build(),
+		WWTreeFeatures.POPLAR.pick(color).getKey()
+	));
 
 	public static final TreeGrower WILLOW = new TreeGrower(
+		WeightedList.<ResourceKey<Feature>>builder()
+			.add(WWTreeFeatures.WILLOW.getKey(), 6)
+			.add(WWTreeFeatures.TALL_WILLOW.getKey(), 1)
+			.build(),
 		WeightedList.of(),
 		WeightedList.of(),
-		WeightedList.of(),
-		null
-	) {
-		@Override
-		public ResourceKey<Feature> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-			return random.nextFloat() <= 0.25F
-				? random.nextFloat() <= 0.35F
-					? WWTreeFeatures.TALL_WILLOW.getKey()
-					: WWTreeFeatures.WILLOW.getKey()
-				: WWTreeFeatures.WILLOW.getKey();
-		}
-	};
+		WWTreeFeatures.WILLOW.getKey()
+	);
 }
