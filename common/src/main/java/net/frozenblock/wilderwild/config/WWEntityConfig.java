@@ -41,6 +41,7 @@ public final class WWEntityConfig {
 	// AXOLOTL
 	public static final ConfigEntry<Boolean> AXOLOTL_IDLE_IN_WATER_FIX = CONFIG.entryBuilder("axolotl/axolotlIdleInWaterFix", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> AXOLOTL_HEAD_ROTATION_FIX = CONFIG.unsyncableEntry("axolotl/axolotlHeadRotationFix", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> BABY_AXOLOTL_SWIMMING_ROTATION_FIX = CONFIG.unsyncableEntry("axolotl/babyAxolotlSwimmingRotationFix", EntryType.BOOL, true);
 
 	// FROG
 	public static final ConfigEntry<Boolean> FROG_IDLE_IN_WATER_FIX = CONFIG.entryBuilder("frog/frogIdleInWaterFix", EntryType.BOOL, true).requireRestart().build();

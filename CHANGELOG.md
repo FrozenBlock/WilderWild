@@ -42,6 +42,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle this fix.
 - Axolotls and Baby Axolotls now move their heads as their look angle changes, matching Bedrock Edition. ([MC-226727](https://bugs.mojang.com/browse/MC/issues/MC-226272))
   - Added a config option to toggle this fix.
+- Fixed a bug that caused Baby Axolotls to not rotate vertically while swimming, unlike their adult counterparts.
+  - Added a config option to toggle this fix.
 - Fixed a bug that caused Frogs to never stop moving while in water, and to hardly ever use their water idle animation. ([MC-251529](https://bugs.mojang.com/browse/MC/issues/MC-251529))
   - Added a config option to toggle this fix.
 - Fixed a bug that cased Frogs to use a smaller shadow size than intended. ([MC-249840](https://bugs.mojang.com/browse/MC/issues/MC-249840))

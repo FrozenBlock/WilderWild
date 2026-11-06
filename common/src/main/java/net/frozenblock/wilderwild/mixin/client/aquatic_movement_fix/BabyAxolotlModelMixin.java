@@ -35,11 +35,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BabyAxolotlModelMixin {
 
 	@Unique
+	private ModelPart wilderWild$body;
+	@Unique
 	private ModelPart wilderWild$head;
 
-	@Inject(method = "<init>", at = @At("TAIL"))
+	@Inject(method = "<init>", at = @At("RETURN"))
 	public void wilderWild$init(ModelPart root, CallbackInfo info) {
-		this.wilderWild$head = root.getChild("root").getChild("body").getChild("head");
+		this.wilderWild$body = root.getChild("root").getChild("body");
+		this.wilderWild$head = this.wilderWild$body.getChild("head");
 	}
 
 	/**
@@ -53,10 +56,22 @@ public class BabyAxolotlModelMixin {
 			opcode = Opcodes.GETFIELD
 		)
 	)
-	private void wilderWild$alterWalkMovementThresholdInWater(AxolotlRenderState state, CallbackInfo info) {
-		if (!WWEntityConfig.AXOLOTL_HEAD_ROTATION_FIX.get()) return;
+	private void wilderWild$fixHeadAndSwimmingRotation(AxolotlRenderState state, CallbackInfo info) {
+		fixHeadRotation: {
+			if (!WWEntityConfig.AXOLOTL_HEAD_ROTATION_FIX.get()) break fixHeadRotation;
 
-		final float notMovingProgress = 1F - state.movingFactor;
-		this.wilderWild$head.xRot += state.xRot * Mth.DEG_TO_RAD * notMovingProgress;
+			final float notMovingProgress = 1F - state.movingFactor;
+			this.wilderWild$head.xRot += state.xRot * Mth.DEG_TO_RAD * notMovingProgress;
+		}
+
+		fixSwimmingRotation: {
+			if (!state.swimAnimation.isStarted()) break fixSwimmingRotation;
+			if (!WWEntityConfig.BABY_AXOLOTL_SWIMMING_ROTATION_FIX.get()) break fixSwimmingRotation;
+
+			final float swimmingFactor = state.movingFactor;
+			if (swimmingFactor <= 1.0E-5F) break fixSwimmingRotation;
+
+			this.wilderWild$body.xRot += (state.xRot * Mth.DEG_TO_RAD) * swimmingFactor;
+		}
 	}
 }

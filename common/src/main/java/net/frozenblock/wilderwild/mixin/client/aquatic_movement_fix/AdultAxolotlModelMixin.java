@@ -49,7 +49,7 @@ public class AdultAxolotlModelMixin {
 			shift = At.Shift.BEFORE
 		)
 	)
-	private void wilderWild$alterWalkMovementThresholdInWater(AxolotlRenderState state, CallbackInfo info) {
+	private void wilderWild$fixHeadRotation(AxolotlRenderState state, CallbackInfo info) {
 		if (!WWEntityConfig.AXOLOTL_HEAD_ROTATION_FIX.get()) return;
 
 		final float notMovingProgress = 1F - state.movingFactor;

@@ -48,7 +48,8 @@ public final class WWEntityConfigGui {
 		// AXOLOTL
 		createSubCategory(builder, category, EntityTypes.AXOLOTL.getDescription(), tooltip("entity_category", EntityTypes.AXOLOTL.getDescription()),
 			booleanEntry(builder, "axolotl_idle_in_water_fix", WWEntityConfig.AXOLOTL_IDLE_IN_WATER_FIX),
-			booleanEntry(builder, "axolotl_head_rotation_fix", WWEntityConfig.AXOLOTL_HEAD_ROTATION_FIX)
+			booleanEntry(builder, "axolotl_head_rotation_fix", WWEntityConfig.AXOLOTL_HEAD_ROTATION_FIX),
+			booleanEntry(builder, "baby_axolotl_swimming_rotation_fix", WWEntityConfig.BABY_AXOLOTL_SWIMMING_ROTATION_FIX)
 		);
 
 		// FROG

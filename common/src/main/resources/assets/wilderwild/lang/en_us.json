@@ -741,6 +741,8 @@
     "tooltip.wilderwild.axolotl_idle_in_water_fix": "Fixes a bug that causes Axolotls to perpetually move while in water.",
     "option.wilderwild.axolotl_head_rotation_fix": "Head Rotation Fix",
     "tooltip.wilderwild.axolotl_head_rotation_fix": "Fixes a bug that prevents the heads of Axolotls from rotating as they look.",
+    "option.wilderwild.baby_axolotl_swimming_rotation_fix": "Baby Swimming Rotation Fix",
+    "tooltip.wilderwild.baby_axolotl_swimming_rotation_fix": "Fixes a bug that prevents Baby Axolotls from vertically rotating while swimming.",
     "option.wilderwild.frog_idle_in_water_fix": "Water Idle Fix",
     "tooltip.wilderwild.frog_idle_in_water_fix": "Fixes a bug that causes Frogs to perpetually move while in water.",
     "option.wilderwild.frog_shadow_size_fix": "Shadow Size Fix",
