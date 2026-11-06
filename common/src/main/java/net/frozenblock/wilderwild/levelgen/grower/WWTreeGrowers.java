@@ -113,7 +113,7 @@ public final class WWTreeGrowers {
 
 	public static final TreeGrower WILLOW = new TreeGrower(
 		WeightedList.<ResourceKey<Feature>>builder()
-			.add(WWTreeFeatures.WILLOW.getKey(), 6)
+			.add(WWTreeFeatures.WILLOW.getKey(), 10)
 			.add(WWTreeFeatures.TALL_WILLOW.getKey(), 1)
 			.build(),
 		WeightedList.of(),
