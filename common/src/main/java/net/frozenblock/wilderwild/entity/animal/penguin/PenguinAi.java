@@ -99,8 +99,8 @@ public final class PenguinAi {
 
 	private static final BehaviorControl<Penguin> HUNTING_COOLDOWN_SETTER = BehaviorBuilder.create(
 		instance -> instance.group(instance.registered(MemoryModuleType.HAS_HUNTING_COOLDOWN))
-		.apply(instance, hasHuntingCOoldown -> (level, penguin, l) -> {
-			hasHuntingCOoldown.setWithExpiry(true, 600);
+		.apply(instance, hasHuntingCooldown -> (level, body, timestamp) -> {
+			hasHuntingCooldown.setWithExpiry(true, 600);
 			return true;
 		})
 	);
@@ -160,7 +160,7 @@ public final class PenguinAi {
 				Pair.of(0, PenguinBoostBoat.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> 2F,
+					entity -> 1.5F,
 					2
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.TRACKED_BOAT.get()))
@@ -200,8 +200,8 @@ public final class PenguinAi {
 				Pair.of(0, PenguinMeetCaller.create()),
 				Pair.of(0, SetWalkTargetFromLookTarget.create(
 					entity -> true,
-					entity -> 1.25F,
-					2
+					entity -> 1.15F,
+					3
 				)),
 				Pair.of(0, EraseMemoryIf.create(BehaviorUtils::isBreeding, WWMemoryModuleTypes.CALLER.get()))
 			),
@@ -454,6 +454,7 @@ public final class PenguinAi {
 
 	public static void addCallMemoryIfPenguinsClose(Penguin body) {
 		if (!hasNearbyPenguins(body)) return;
+
 		final Brain<Penguin> brain = body.getBrain();
 		if (brain.checkMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), MemoryStatus.VALUE_ABSENT)) {
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.WANTS_TO_CALL.get(), Unit.INSTANCE, 12000L);
@@ -472,9 +473,10 @@ public final class PenguinAi {
 
 		penguins.forEach(penguin -> {
 			if (penguin == body) return;
+
 			final Brain<Penguin> brain = penguin.getBrain();
 			brain.setMemoryWithExpiry(WWMemoryModuleTypes.CALLER.get(), callerUUID, 400L);
-			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), 400);
+			brain.setMemory(WWMemoryModuleTypes.CALL_COOLDOWN_TICKS.get(), 2400);
 			brain.eraseMemory(WWMemoryModuleTypes.WANTS_TO_CALL.get());
 			idleTime.ifPresentOrElse(
 				time -> brain.setMemory(WWMemoryModuleTypes.IDLE_TIME.get(), Math.max(time + penguin.getRandom().nextInt(0, 100), 0)),
@@ -485,12 +487,13 @@ public final class PenguinAi {
 
 	public static Optional<LivingEntity> getCaller(LivingEntity body, UUID callerID) {
 		final Optional<List<Penguin>> penguins = body.getBrain().getMemory(WWMemoryModuleTypes.NEARBY_PENGUINS.get());
-		if (penguins.isPresent()) {
-			final List<Penguin> penguinList = penguins.get();
-			for (Penguin penguin : penguinList) {
-				if (penguin.getUUID().equals(callerID)) return Optional.of(penguin);
-			}
+		if (penguins.isEmpty()) return Optional.empty();
+
+		final List<Penguin> penguinList = penguins.get();
+		for (Penguin penguin : penguinList) {
+			if (penguin.getUUID().equals(callerID)) return Optional.of(penguin);
 		}
+
 		return Optional.empty();
 	}
 

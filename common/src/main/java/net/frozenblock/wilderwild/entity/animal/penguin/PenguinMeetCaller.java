@@ -27,8 +27,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public final class PenguinMeetCaller {
 
-	private PenguinMeetCaller() {}
-
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.LOOK_TARGET),
@@ -36,11 +34,12 @@ public final class PenguinMeetCaller {
 		).apply(instance, (lookTarget, callerUUID) -> (level, body, timestamp) -> {
 			final UUID uuid = instance.get(callerUUID);
 			final Optional<LivingEntity> caller = PenguinAi.getCaller(body, uuid);
-			if (caller.isPresent()) {
-				lookTarget.set(new PenguinCallerTracker(caller.get(), true));
-				return true;
-			}
-			return false;
+			if (caller.isEmpty()) return false;
+
+			lookTarget.set(new PenguinCallerTracker(caller.get(), true));
+			return true;
 		}));
 	}
+
+	private PenguinMeetCaller() {}
 }

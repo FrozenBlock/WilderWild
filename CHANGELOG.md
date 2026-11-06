@@ -28,10 +28,16 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Floating Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
 - Termite particles are now visible behind Water with the Improved Transparency option disabled.
 - Coconut Splash particles are now visible behind Water with the Improved Transparency option disabled.
-- Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
+- Dying tree variants can no longer be grown from Maple and Poplar Saplings.
 - Fixed the Gabbro, Mud, and Hollowed Log block sets yielding the incorrect Sulfur Cube Archetypes.
 - Unique sounds for Pale Oak Doors, Trapdoors, Pressure Plates, Buttons, and Fence Gates can now be heard on NeoForge.
 - Removed the original Crab design, now always using the Mojang-inspired design.
+- Penguins can now be spawned from Spawners while the `Spawn Penguins` config option is disabled.
+- The cooldown before a Penguin can call other Penguins is now set much longer when it is called by another Penguin.
+- The speed at which Penguins move to meet each other has been slightly decreased.
+- The radius at which Penguins are considered to have met has been slightly increased.
+- Adjusted the movement of Penguins to be slightly less erratic in water.
+- Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

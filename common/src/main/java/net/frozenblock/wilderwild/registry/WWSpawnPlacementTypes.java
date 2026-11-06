@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -33,7 +33,8 @@ public final class WWSpawnPlacementTypes {
 			if (type == null || !level.getWorldBorder().isWithinBounds(pos)) return false;
 
 			final BlockPos abovePos = pos.above();
-			return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(abovePos).is(WWBlocks.ALGAE.get());
+			// TODO: Make sure this doesn't allow spawning in Ichor...
+			return level.getFluidState(pos).is(WWFluidTags.SUPPORTS_ALGAE) && level.getBlockState(abovePos).is(WWBlocks.ALGAE.get());
 		}
 
 		@Override

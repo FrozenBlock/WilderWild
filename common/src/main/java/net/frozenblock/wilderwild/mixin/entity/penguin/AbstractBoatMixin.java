@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.mixin.entity.penguin;
 
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.frozenblock.wilderwild.entity.animal.penguin.Penguin;
 import net.frozenblock.wilderwild.entity.animal.penguin.PenguinBoostBoat;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
@@ -48,6 +48,8 @@ public abstract class AbstractBoatMixin extends VehicleEntity {
 		if (newBoostTicks <= 0) WWAttachmentTypes.BOAT_BOOST_TICKS.remove(this);
 	}
 
+	// FIXME: This used to work, now @Local isn't functioning properly?
+	/*
 	@Inject(
 		method = "controlBoat",
 		at = @At(
@@ -57,8 +59,28 @@ public abstract class AbstractBoatMixin extends VehicleEntity {
 	)
 	private void wilderWild$applySpeedBoost(
 		CallbackInfo info,
-		@Local(name = "acceleration")LocalFloatRef acceleration
+		@Local(name = "acceleration") LocalFloatRef acceleration
 	) {
 		if (PenguinBoostBoat.isBoosted(AbstractBoat.class.cast(this))) acceleration.set(acceleration.get() * Penguin.BOAT_BOOST_SPEED);
+	}
+	 */
+
+	@WrapOperation(
+		method = "controlBoat",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/world/entity/vehicle/boat/AbstractBoat;addDeltaMovement(DDD)V"
+		)
+	)
+	private void wilderWild$applySpeedBoost(
+		AbstractBoat instance, double x, double y, double z, Operation<Void> original
+	) {
+		if (PenguinBoostBoat.isBoosted(AbstractBoat.class.cast(this))) {
+			x *= Penguin.BOAT_BOOST_SPEED;
+			y *= Penguin.BOAT_BOOST_SPEED;
+			z *= Penguin.BOAT_BOOST_SPEED;
+		}
+
+		original.call(instance, x, y, z);
 	}
 }

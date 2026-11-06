@@ -67,8 +67,9 @@ loom {
         named("client") {
             vmArg("-DMC_DEBUG_ENABLED=false")
             vmArg("-DMC_DEBUG_PATHFINDING=true")
-            vmArg("-DMC_DEBUG_FROZENLIB_WIND=true")
-            vmArg("-DMC_DEBUG_FROZENLIB_WIND_DISTURBANCES=true")
+            vmArg("-DMC_DEBUG_BRAIN=false")
+            vmArg("-DMC_DEBUG_FROZENLIB_WIND=false")
+            vmArg("-DMC_DEBUG_FROZENLIB_WIND_DISTURBANCES=false")
         }
     }
 }

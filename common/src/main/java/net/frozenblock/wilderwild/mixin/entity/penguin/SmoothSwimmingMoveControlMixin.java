@@ -37,7 +37,7 @@ public class SmoothSwimmingMoveControlMixin {
 		)
 	)
 	public boolean wilderWild$modifyPenguinWadeSpeed(Mob instance, Operation<Boolean> original) {
-		if (instance instanceof Penguin) return instance.isUnderWater();
+		if (instance instanceof Penguin) return instance.isSwimming();
 		return original.call(instance);
 	}
 }

@@ -33,11 +33,12 @@ import net.frozenblock.wilderwild.datafix.wilderwild.fixes.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.RenameFireflyColorToFireflyVariantComponentFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.ScorchedSandStateFix2;
+import net.minecraft.util.datafix.fixes.EntityAttributeBaseValueFix;
 import net.minecraft.util.datafix.fixes.EntityFieldsRenameFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
 
 public final class WWDataFixer {
-	public static final int DATA_VERSION = 31;
+	public static final int DATA_VERSION = 32;
 
 	public static void applyDataFixes() {
 		WWConstants.log("Applying DataFixes for Wilder Wild with Data Version " + DATA_VERSION, true);
@@ -218,6 +219,17 @@ public final class WWDataFixer {
 		builder.addFixer(new RenameFireflyColorToFireflyVariantComponentFix(schemaV31));
 		builder.addFixer(new DisplayLanternRenameOccupantColorToVariantFix(schemaV31));
 		builder.addFixer(new DisplayLanternItemRenameOccupantColorToVariantFix(schemaV31));
+
+		final Schema schemaV32 = builder.addSchema(32, NamespacedSchema::new);
+		builder.addFixer(
+			new EntityAttributeBaseValueFix(
+				schemaV32,
+				"Penguin water movement efficiency fix",
+				WWConstants.string("penguin"),
+				"minecraft:water_movement_efficiency",
+				(value) -> value == 0.5D ? 0.25D : value
+			)
+		);
 
 		FabricDataFixes.buildAndRegisterFixer(WWConstants.MOD_ID, builder);
 		WWConstants.log("DataFixes for Wilder Wild have been applied", true);

@@ -19,7 +19,6 @@ package net.frozenblock.wilderwild.entity.animal.penguin;
 
 import com.google.common.collect.ImmutableMap;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Pose;
@@ -52,7 +51,7 @@ public class PenguinCall<E extends Penguin> extends Behavior<E> {
 	protected void start(ServerLevel level, E body, long timestamp) {
 		body.stopInPlace();
 		body.setPose(Pose.ROARING);
-		body.playSound(body.isLinux() ? WWSounds.ENTITY_LINUX_CALL.get() : WWSounds.ENTITY_PENGUIN_CALL.get(), 1.2F, 0.9F + body.getRandom().nextFloat() * 0.2F);
+		body.playSound(body.getCallSound(), 1.2F, 0.9F + body.getRandom().nextFloat() * 0.2F);
 
 		body.getBrain().setMemory(WWMemoryModuleTypes.CALLING.get(), Unit.INSTANCE);
 		PenguinAi.addCallerMemoryToNearbyPenguins(body);

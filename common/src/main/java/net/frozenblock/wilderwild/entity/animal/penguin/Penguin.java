@@ -50,6 +50,7 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.Brain;
@@ -69,6 +70,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.ChatFormatting;
 
@@ -86,7 +88,7 @@ public class Penguin extends Animal {
 
 	public Penguin(EntityType<? extends Animal> type, Level level) {
 		super(type, level);
-		this.moveControl = new SmoothSwimmingMoveControl<>(this, 85, 30, 0.4F, 0.2F, true);
+		this.moveControl = new SmoothSwimmingMoveControl<>(this, 85, 30, 0.05F, 0.2F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
 
@@ -107,11 +109,11 @@ public class Penguin extends Animal {
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.ATTACK_DAMAGE, 2D)
 			.add(Attributes.SAFE_FALL_DISTANCE, 5D)
-			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.5D);
+			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.25D);
 	}
 
 	public static boolean checkPenguinSpawnRules(EntityType<? extends Penguin> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
-		if (!WWEntityConfig.SPAWN_PENGUINS.get()) return false;
+		if (!EntitySpawnReason.isSpawner(reason) && !WWEntityConfig.SPAWN_PENGUINS.get()) return false;
 		return level.getBlockState(pos.below()).is(WWBlockTags.PENGUIN_SPAWNABLE_ON) && isBrightEnoughToSpawn(level, pos);
 	}
 
@@ -129,9 +131,9 @@ public class Penguin extends Animal {
 	@Override
 	public void updateSwimming() {
 		if (this.isSwimming()) {
-			this.setSwimming(this.isInWater() && !this.isPassenger());
+			this.setSwimming(this.isInSwimmableLiquid() && !this.isPassenger());
 		} else {
-			this.setSwimming(this.isUnderWater() && !this.isPassenger() && this.level().getFluidState(this.blockPosition()).is(FluidTags.WATER));
+			this.setSwimming(this.isEyeInFluid(FluidTags.SWIMMABLE) && !this.isPassenger() && this.level().getFluidState(this.blockPosition()).is(FluidTags.SWIMMABLE));
 		}
 	}
 
@@ -286,6 +288,14 @@ public class Penguin extends Animal {
 		return this.isLinux() ? WWSounds.ENTITY_LINUX_DEATH.get() : WWSounds.ENTITY_PENGUIN_DEATH.get();
 	}
 
+	public SoundEvent getCallSound() {
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_CALL.get() : WWSounds.ENTITY_PENGUIN_CALL.get();
+	}
+
+	public SoundEvent getLayEggSound() {
+		return this.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG.get() : WWSounds.ENTITY_PENGUIN_LAY_EGG.get();
+	}
+
 	@Override
 	public int getAmbientSoundInterval() {
 		return 200;
@@ -304,7 +314,25 @@ public class Penguin extends Animal {
 			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP.get() : WWSounds.ENTITY_PENGUIN_STEP.get(), 0.1F, 1F);
 			return;
 		}
+
 		super.playStepSound(pos, state);
+	}
+
+	@Override
+	public boolean isPushedByFluid() {
+		return false;
+	}
+
+	@Override
+	protected void travelInWater(Vec3 input, double baseGravity, boolean isFalling, double oldY) {
+		if (!this.isVisuallySwimming()) {
+			super.travelInWater(input, baseGravity, isFalling, oldY);
+			return;
+		}
+
+		this.moveRelative(this.getSpeed(), input);
+		this.move(MoverType.SELF, this.getDeltaMovement());
+		this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
 	}
 
 	@Override
@@ -329,9 +357,7 @@ public class Penguin extends Animal {
 	public void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.getString("EntityPose").ifPresent(entityPose -> {
-			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) {
-				this.setPose(Pose.valueOf(entityPose));
-			}
+			if (Arrays.stream(Pose.values()).anyMatch(pose -> pose.name().equals(entityPose))) this.setPose(Pose.valueOf(entityPose));
 		});
 	}
 

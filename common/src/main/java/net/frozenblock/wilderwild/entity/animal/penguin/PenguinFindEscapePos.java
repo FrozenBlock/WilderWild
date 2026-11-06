@@ -22,9 +22,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
+import net.frozenblock.wilderwild.tag.WWFluidTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.PathfinderMob;
@@ -40,8 +40,6 @@ import org.apache.commons.lang3.mutable.MutableLong;
 
 public final class PenguinFindEscapePos {
 
-	private PenguinFindEscapePos() {}
-
 	public static BehaviorControl<PathfinderMob> create(int searchRange, float speedModifier) {
 		final MutableLong timer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
@@ -49,7 +47,8 @@ public final class PenguinFindEscapePos {
 			instance.absent(MemoryModuleType.WALK_TARGET),
 			instance.registered(MemoryModuleType.LOOK_TARGET)
 		).apply(instance, (diveTicks, walkTarget, lookTarget) -> (level, body, timestamp) -> {
-			if (!level.getFluidState(body.blockPosition().above()).is(FluidTags.WATER)) return false;
+			if (!level.getFluidState(body.blockPosition().above()).is(WWFluidTags.PENGUIN_TRIES_TO_FIND)) return false;
+
 			if (timestamp < timer.getValue()) {
 				timer.setValue(timestamp + 60L);
 				return true;
@@ -117,4 +116,6 @@ public final class PenguinFindEscapePos {
 			.sorted(Comparator.comparingInt(otherPos -> range - otherPos.distManhattan(pos)))
 			.collect(Collectors.toList());
 	}
+
+	private PenguinFindEscapePos() {}
 }

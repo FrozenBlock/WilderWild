@@ -26,15 +26,15 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public final class SetTrackedBoatLookTarget {
 
-	private SetTrackedBoatLookTarget() {}
-
 	public static OneShot<LivingEntity> create() {
 		return BehaviorBuilder.create(instance -> instance.group(
 			instance.absent(MemoryModuleType.LOOK_TARGET),
 			instance.present(WWMemoryModuleTypes.TRACKED_BOAT.get())
-		).apply(instance, (lookTarget, trackedBoat) -> (level, penguin, l) -> {
+		).apply(instance, (lookTarget, trackedBoat) -> (level, body, timestamp) -> {
 			lookTarget.set(new EntityTracker(instance.get(trackedBoat), true));
 			return true;
 		}));
 	}
+
+	private SetTrackedBoatLookTarget() {}
 }

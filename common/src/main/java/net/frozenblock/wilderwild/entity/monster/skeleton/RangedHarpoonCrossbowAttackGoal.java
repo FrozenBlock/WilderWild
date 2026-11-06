@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.Entity;
@@ -259,7 +258,7 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 		if (hookedIn != null) {
 			if (!this.shouldReelInEntity(hookedIn)) return false;
 			return this.ticksSinceShot >= (TICKS_SINCE_SHOT_BEFORE_REEL_IN_ENTITY - withinTicks)
-				|| (this.mob.isEyeInFluid(FluidTags.WATER) && !hookedIn.isEyeInFluid(FluidTags.WATER))
+				|| (this.mob.isUnderWater() && !hookedIn.isUnderWater())
 				|| (this.mob.hasEyePatch() && !hookedIn.onGround() && !hookedIn.isInLiquid());
 		}
 

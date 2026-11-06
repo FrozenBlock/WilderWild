@@ -31,8 +31,6 @@ import org.apache.commons.lang3.mutable.MutableLong;
 
 public final class PenguinReturnToWater {
 
-	private PenguinReturnToWater() {}
-
 	public static BehaviorControl<PathfinderMob> create(float speedModifier) {
 		final MutableLong returnTimer = new MutableLong(0L);
 		return BehaviorBuilder.create(instance -> instance.group(
@@ -67,4 +65,6 @@ public final class PenguinReturnToWater {
 			return true;
 		}));
 	}
+
+	private PenguinReturnToWater() {}
 }

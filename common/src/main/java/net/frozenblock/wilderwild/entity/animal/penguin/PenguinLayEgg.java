@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild.entity.animal.penguin;
 
 import com.google.common.collect.ImmutableMap;
-import net.frozenblock.wilderwild.registry.WWSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -43,14 +42,13 @@ public class PenguinLayEgg extends Behavior<Penguin> {
 		final BlockState state = level.getBlockState(placePos);
 		final BlockPos belowPos = placePos.below();
 		final BlockState belowState = level.getBlockState(belowPos);
-		if (state.isAir() && belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
-			final BlockState placementState = block.defaultBlockState();
-			level.setBlockAndUpdate(placePos, placementState);
-			level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(body, placementState));
-			level.playSound(null, body, body.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG.get() : WWSounds.ENTITY_PENGUIN_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
-			return true;
-		}
-		return false;
+		if (!state.isAir() || !belowState.isFaceSturdy(level, belowPos, Direction.UP)) return false;
+
+		final BlockState placementState = block.defaultBlockState();
+		level.setBlockAndUpdate(placePos, placementState);
+		level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(body, placementState));
+		level.playSound(null, body, body.getLayEggSound(), SoundSource.BLOCKS, 1F, 1F);
+		return true;
 	}
 
 	@Override
