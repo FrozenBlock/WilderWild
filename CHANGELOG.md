@@ -48,6 +48,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Added a config option to toggle this fix.
 - Fixed a bug that cased Frogs to use a smaller shadow size than intended. ([MC-249840](https://bugs.mojang.com/browse/MC/issues/MC-249840))
   - Added a config option to toggle this fix.
+- Fixed a bug that caused Penguins to never stop moving while idle or swimming.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

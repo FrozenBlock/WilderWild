@@ -47,6 +47,7 @@ import net.minecraft.world.entity.ai.behavior.BabyFollowAdult;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.behavior.CountDownCooldownTicks;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
 import net.minecraft.world.entity.ai.behavior.EraseMemoryIf;
 import net.minecraft.world.entity.ai.behavior.FollowTemptation;
 import net.minecraft.world.entity.ai.behavior.GateBehavior;
@@ -245,7 +246,15 @@ public final class PenguinAi {
 				new RunOne<>(
 					ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT),
 					ImmutableList.of(
-						Pair.of(RandomStroll.stroll(1F), 1),
+						Pair.of(
+							new RunOne<>(
+								ImmutableList.of(
+									Pair.of(RandomStroll.stroll(1F), 1),
+									Pair.of(new DoNothing(30, 60), 1)
+								)
+							),
+							1
+						),
 						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 1),
 						Pair.of(BehaviorBuilder.triggerIf(Entity::onGround), 2)
 					)
@@ -334,7 +343,15 @@ public final class PenguinAi {
 					GateBehavior.OrderPolicy.ORDERED,
 					GateBehavior.RunningPolicy.TRY_ALL,
 					ImmutableList.of(
-						Pair.of(RandomStroll.swim(1F), 2),
+						Pair.of(
+							new RunOne<>(
+								ImmutableList.of(
+									Pair.of(RandomStroll.swim(1F), 2),
+									Pair.of(new DoNothing(30, 60), 2)
+								)
+							),
+							1
+						),
 						Pair.of(SetWalkTargetFromLookTarget.create(1F, 3), 3),
 						Pair.of(BehaviorBuilder.triggerIf(Entity::isInWater), 5)
 					)
