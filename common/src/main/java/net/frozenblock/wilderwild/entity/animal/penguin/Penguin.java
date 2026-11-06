@@ -109,7 +109,7 @@ public class Penguin extends Animal {
 			.add(Attributes.STEP_HEIGHT, 1D)
 			.add(Attributes.ATTACK_DAMAGE, 2D)
 			.add(Attributes.SAFE_FALL_DISTANCE, 5D)
-			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.25D);
+			.add(Attributes.WATER_MOVEMENT_EFFICIENCY, 0.35D);
 	}
 
 	public static boolean checkPenguinSpawnRules(EntityType<? extends Penguin> type, LevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
@@ -330,9 +330,9 @@ public class Penguin extends Animal {
 			return;
 		}
 
-		this.moveRelative(this.getSpeed(), input);
+		this.moveRelative(this.getSpeed() + 0.075F, input);
 		this.move(MoverType.SELF, this.getDeltaMovement());
-		this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
+		this.setDeltaMovement(this.getDeltaMovement().scale(0.7D));
 	}
 
 	@Override
