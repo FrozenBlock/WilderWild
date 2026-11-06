@@ -86,9 +86,9 @@ public class Penguin extends Animal {
 	private float prevSlideProgress;
 	private float slideProgress;
 
-	public Penguin(EntityType<? extends Animal> type, Level level) {
+	public Penguin(EntityType<? extends Penguin> type, Level level) {
 		super(type, level);
-		this.moveControl = new SmoothSwimmingMoveControl<>(this, 85, 30, 0.05F, 0.2F, true);
+		this.moveControl = new SmoothSwimmingMoveControl<>(this, 90, 30, 0.05F, 0.2F, true);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 	}
 
@@ -319,6 +319,11 @@ public class Penguin extends Animal {
 	}
 
 	@Override
+	public int getHeadRotSpeed() {
+		return this.isVisuallySwimming() ? 35 : 10;
+	}
+
+	@Override
 	public boolean isPushedByFluid() {
 		return false;
 	}
@@ -330,9 +335,9 @@ public class Penguin extends Animal {
 			return;
 		}
 
-		this.moveRelative(this.getSpeed() + 0.075F, input);
+		this.moveRelative(this.getSpeed(), input);
 		this.move(MoverType.SELF, this.getDeltaMovement());
-		this.setDeltaMovement(this.getDeltaMovement().scale(0.7D));
+		this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
 	}
 
 	@Override

@@ -227,7 +227,7 @@ public final class WWDataFixer {
 				"Penguin water movement efficiency fix",
 				WWConstants.string("penguin"),
 				"minecraft:water_movement_efficiency",
-				(value) -> value == 0.5D ? 0.25D : value
+				(value) -> value == 0.5D ? 0.35D : value
 			)
 		);
 

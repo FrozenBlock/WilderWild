@@ -36,7 +36,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The cooldown before a Penguin can call other Penguins is now set much longer when it is called by another Penguin.
 - The speed at which Penguins move to meet each other has been slightly decreased.
 - The radius at which Penguins are considered to have met has been slightly increased.
-- Adjusted the movement of Penguins to be slightly less erratic in water.
+- Penguins will now be able to navigate through water far more efficiently, no longer veering far off from their intended paths or spinning in place instead of descending.
 - Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
 
 ### Worldgen
