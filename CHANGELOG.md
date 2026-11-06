@@ -25,7 +25,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Seeding Dandelions now spawn Seed particles around themselves, based on the current Wind intensity.
 - The recipes for Gabbro Walls and Gabbro Brick Walls are now properly sorted into the Decorations category instead of Building Blocks.
 - Plankton particles are now visible behind Water with the Improved Transparency option disabled.
-- Float Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
+- Floating Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
+- Termite particles are now visible behind Water with the Improved Transparency option disabled.
+- Coconut Splash particles are now visible behind Water with the Improved Transparency option disabled.
 - Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
 - Fixed the Gabbro, Mud, and Hollowed Log block sets yielding the incorrect Sulfur Cube Archetypes.
 - Unique sounds for Pale Oak Doors, Trapdoors, Pressure Plates, Buttons, and Fence Gates can now be heard on NeoForge.

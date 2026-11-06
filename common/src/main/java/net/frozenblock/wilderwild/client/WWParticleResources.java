@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.client;
 
 import net.frozenblock.lib.particle.client.api.ParticleProviderRegistry;
 import net.frozenblock.wilderwild.particle.ChestBubbleSeedParticle;
-import net.frozenblock.wilderwild.particle.FallingParticle;
+import net.frozenblock.wilderwild.particle.CoconutSplashParticle;
 import net.frozenblock.wilderwild.particle.FloatingSculkBubbleParticle;
 import net.frozenblock.wilderwild.particle.LeafClusterSeedParticle;
 import net.frozenblock.wilderwild.particle.MesogleaBubbleColumnUpParticle;
@@ -88,7 +88,7 @@ public final class WWParticleResources {
 		ParticleProviderRegistry.register(WWParticleTypes.PALE_SPORE::get, PollenParticle.PaleSporeFactory::new);
 		ParticleProviderRegistry.register(WWParticleTypes.FLOATING_SCULK_BUBBLE::get, FloatingSculkBubbleParticle.Provider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.TERMITE::get, TermiteParticle.Provider::new);
-		ParticleProviderRegistry.register(WWParticleTypes.COCONUT_SPLASH::get, FallingParticle.Provider::new);
+		ParticleProviderRegistry.register(WWParticleTypes.COCONUT_SPLASH::get, CoconutSplashParticle.Provider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.SCORCHING_FLAME::get, WWParticleProviders.ScorchingEffectFlameProvider::new);
 		ParticleProviderRegistry.register(WWParticleTypes.UNDERWATER_ASH::get, WWParticleProviders.UnderwaterAshProvider::new);
 

@@ -138,7 +138,7 @@ public class TermiteParticle extends SingleQuadParticle {
 
 	@Override
 	protected Layer getLayer() {
-		return Layer.TRANSLUCENT;
+		return Layer.OPAQUE;
 	}
 
 	enum TermiteRotationType {
@@ -156,7 +156,6 @@ public class TermiteParticle extends SingleQuadParticle {
 			RandomSource random
 		) {
 			final TermiteParticle termite = new TermiteParticle(level, x, y, z, this.spriteSet.get(random), random);
-			termite.setAlpha(1F);
 			termite.setLifetime(random.nextInt(10) + 5 + termite.age);
 			termite.scale(0.75F);
 			return termite;

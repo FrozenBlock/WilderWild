@@ -27,10 +27,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 @ClientOnly
-public class FallingParticle extends SingleQuadParticle {
+public class CoconutSplashParticle extends SingleQuadParticle {
 	private final SpriteSet spriteSet;
 
-	FallingParticle(
+	CoconutSplashParticle(
 		ClientLevel level,
 		double x, double y, double z,
 		double xd, double yd, double zSpeed,
@@ -46,7 +46,7 @@ public class FallingParticle extends SingleQuadParticle {
 		this.lifetime = level.getRandom().nextInt(4, 8);
 	}
 
-	public FallingParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
+	public CoconutSplashParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet) {
 		super(level, x, y, z, 0D, 0D, 0D, spriteSet.first());
 		this.spriteSet = spriteSet;
 		this.setSpriteFromAge(spriteSet);
@@ -66,7 +66,7 @@ public class FallingParticle extends SingleQuadParticle {
 
 	@Override
 	protected Layer getLayer() {
-		return Layer.TRANSLUCENT;
+		return Layer.OPAQUE;
 	}
 
 	public record Provider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
@@ -78,7 +78,7 @@ public class FallingParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new FallingParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
+			return new CoconutSplashParticle(level, x, y, z, xd, yd, zd, this.spriteSet);
 		}
 	}
 }
