@@ -467,7 +467,7 @@ public final class WWMaterialRules {
 						MaterialRules.sequence(
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE, 0.033, 0.095),
-								FrozenLibMaterialRules.makeStateRule(Blocks.PODZOL)
+								FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
 							),
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.0667, 0.1),
@@ -493,7 +493,7 @@ public final class WWMaterialRules {
 						MaterialRules.sequence(
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE, 0.023, 0.095),
-								FrozenLibMaterialRules.makeStateRule(Blocks.PODZOL)
+								FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
 							),
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.3667, 0.4),
@@ -525,7 +525,7 @@ public final class WWMaterialRules {
 						MaterialRules.sequence(
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE, 0.525D, 0.725D),
-								FrozenLibMaterialRules.makeStateRule(Blocks.PODZOL)
+								FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
 							),
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.3667D, 0.4D),

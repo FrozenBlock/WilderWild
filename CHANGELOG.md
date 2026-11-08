@@ -76,6 +76,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed an issue that caused both normal and multi-layered Sand Beta Beaches to generate with the same depth.
 - Grass Block path generation in the Oasis biome is now generated via a Material Rule instead of a Feature.
 - Coarse Dirt path generation in Taiga and Arid biomes are now generated via a Material Rule instead of a Feature.
+- Podzol in the Tundra, Maple Forest, Dying Forest, and Dying Mixed Forest biomes has been replaced with Coarse Dirt.
 - Moss Block path generation in Jungle biomes are now generated via a Material Rule instead of a Feature.
 - Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
 - Completely overhauled Wilder Wild's flower generation from the ground up.

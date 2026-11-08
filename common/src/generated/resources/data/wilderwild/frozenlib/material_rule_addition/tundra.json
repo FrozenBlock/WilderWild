@@ -30,7 +30,7 @@
                 },
                 "then_run": {
                   "type": "minecraft:block",
-                  "result_state": "minecraft:podzol"
+                  "result_state": "minecraft:coarse_dirt"
                 }
               },
               {
