@@ -87,8 +87,6 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature PATCH_LARGE_FERN_AND_GRASS_RARE = register("patch_large_fern_and_grass_rare");
 	public static final FrozenLibPlacedFeature PATCH_FERN_DENSE = register("patch_fern_dense");
 	public static final FrozenLibPlacedFeature PATCH_FERN_SWAMP = register("patch_fern_swamp");
-	public static final FrozenLibPlacedFeature PATH_GRASS_OASIS = register("path_grass_oasis");
-	public static final FrozenLibPlacedFeature PATH_GRASS_RARE = register("path_grass_rare");
 	public static final FrozenLibPlacedFeature PATCH_CLOVER = register("patch_clover");
 	public static final FrozenLibPlacedFeature PATCH_CLOVER_SPARSE = register("patch_clover_sparse");
 
@@ -270,7 +268,7 @@ public final class WWVegetationPlacements {
 		PATCH_GRASS_OASIS.makeAndSetHolder(features.getOrThrow(VegetationFeatures.GRASS),
 			FrozenLibPlacementUtil.postModifiers(
 				FrozenLibPlacementUtil.modifiers(CountPlacement.of(3), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
-				CountPlacement.of(20),
+				CountPlacement.of(28),
 				OffsetPlacement.ofTriangle(7, 3),
 				PlacementUtils.isEmpty()
 			)
@@ -396,19 +394,6 @@ public final class WWVegetationPlacements {
 			)
 		);
 
-		PATH_GRASS_OASIS.makeAndSetHolder(WWVegetationFeatures.PATH_GRASS,
-			CountPlacement.of(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATH_GRASS_RARE.makeAndSetHolder(WWVegetationFeatures.PATH_GRASS,
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		PATCH_CLOVER.makeAndSetHolder(WWVegetationFeatures.CLOVER,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
@@ -442,7 +427,12 @@ public final class WWVegetationPlacements {
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(3), PlacementUtils.HEIGHTMAP),
 				CountPlacement.of(64),
 				OffsetPlacement.ofTriangle(7, 3),
-				PlacementUtils.isEmpty()
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN, BlockTags.SUBSTRATE_OVERWORLD))
+					)
+				)
 			)
 		);
 

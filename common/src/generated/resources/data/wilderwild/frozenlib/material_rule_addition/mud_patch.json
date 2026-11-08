@@ -15,7 +15,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:biome",
-          "biome_is": "#wilderwild:material_rule/mud_patch_swamp"
+          "biome_is": "#wilderwild:material_rule/mud_patch"
         },
         "then_run": "wilderwild:mud_patch"
       }

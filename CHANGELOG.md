@@ -53,10 +53,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Gabbro and Magma path generation in the Magmatic Caves biome is now generated via a Material Rule instead of a Feature.
 - Fixed an issue that caused both normal and multi-layered Sand Beta Beaches to generate with the same depth.
 - Grass Block path generation in the Oasis biome is now generated via a Material Rule instead of a Feature.
-- Coarse Dirt path generation in Taiga and Arid biomes are now generated via a Material Rule instead of a Feature.
-- Moss Block path generation in Jungle biomes are now generated via a Material Rule instead of a Feature.
-- Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
-- Mud generation in the Swamp biome is now generated via a Material Rule instead of Features.
+- Coarse Dirt path generation in Taiga and Arid biomes is now generated via a Material Rule instead of a Feature.
+- Sandstone patch generation in Desert and Arid biomes is now generated via a Material Rule instead of a Feature.
+- Moss Block path generation in Jungle biomes is now generated via a Material Rule instead of a Feature.
+- Moss path generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
+- Mud patch generation in the Swamp biome is now generated via a Material Rule instead of Features.
 - Removed rare, occasional sparse patches of Coarse Dirt, Gravel, and Stone.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.
@@ -66,6 +67,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Tall Flowers can no longer be generated with Bone Meal.
 - Sweet Berry Bushes no longer generate outside Taiga biomes.
 - Tumbleweed no longer generate in Windswept Savanna or Savanna Plateau biomes.
+- Dry Grass generated in Desert biomes can no longer be placed on Grass Blocks, Dirt, Coarse Dirt, or Mud.
 - Dry Grass now generates in the Oasis biome.
 - Shrubs now generate more frequently in the Oasis biome.
 - Cactus generation in the Oasis biome has been reverted to Vanilla's default Desert Cactus generation.

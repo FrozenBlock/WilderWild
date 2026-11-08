@@ -119,7 +119,6 @@ public final class AridForest extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWVegetationPlacements.PATCH_CACTUS_ARID.getKey());
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWVegetationPlacements.PATH_GRASS_RARE.getKey());
 	}
 
 	@Override

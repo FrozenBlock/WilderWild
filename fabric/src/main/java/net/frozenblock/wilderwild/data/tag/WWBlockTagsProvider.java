@@ -984,10 +984,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWFeatureBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
 
-		this.builder(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND)
-			.add(BlockItemIds.SANDSTONE);
-
 		this.builder(WWFeatureBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
 			.addOptionalTag(BlockItemTags.SAND.block())
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)

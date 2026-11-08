@@ -84,9 +84,6 @@ public final class WWMiscConfigured {
 	// SWAMP
 	public static final FrozenLibFeature MUD_TRANSITION_DISK = register("mud_transition_disk");
 
-	// TAIGA
-	public static final FrozenLibFeature COARSE_PATH = register("coarse_dirt_path");
-
 	// CYPRESS WETLANDS
 	public static final FrozenLibFeature UNDER_WATER_SAND_PATH = register("under_water_sand_path");
 	public static final FrozenLibFeature UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
@@ -106,7 +103,6 @@ public final class WWMiscConfigured {
 	// DESERT
 	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WWFeatureBlockTags.PACKED_MUD_REPLACEABLE);
 	public static final FrozenLibFeature ORE_PACKED_MUD = register("ore_packed_mud");
-	public static final FrozenLibFeature SANDSTONE_PATH = register("sandstone_path");
 	public static final FrozenLibFeature SCORCHED_SAND_DISK = register("scorched_sand");
 	public static final FrozenLibFeature SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
 	public static final FrozenLibFeature SCORCHED_SAND_DISK_LIGHTNING = register("scorched_sand_lightning");
@@ -257,23 +253,6 @@ public final class WWMiscConfigured {
 					).build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
 				UniformInt.of(3, 5)
-			)
-		);
-
-		COARSE_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.12D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
-							.within(-0.2D, 0.3D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.COARSE_PATH_REPLACEABLE))
-							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-							.placementChance(0.65F)
-							.build()
-					).build(),
-				11
 			)
 		);
 
@@ -469,25 +448,6 @@ public final class WWMiscConfigured {
 				PACKED_MUD_REPLACEABLE,
 				Blocks.PACKED_MUD.defaultBlockState(),
 				40
-			)
-		);
-
-		SANDSTONE_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.2D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SANDSTONE))
-							.within(0.4D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SANDSTONE_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterOrLavaWithin(2))
-							.placementChance(0.65F)
-							.build()
-					).build(),
-				10
 			)
 		);
 

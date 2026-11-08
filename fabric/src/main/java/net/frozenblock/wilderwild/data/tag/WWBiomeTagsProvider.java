@@ -801,7 +801,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.MOSS_PATH_OCEAN)
 			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
 
-		this.builder(WWBiomeTags.MUD_PATCH_SWAMP)
+		this.builder(WWBiomeTags.MUD_PATCH)
 			.add(Biomes.SWAMP);
 	}
 
@@ -858,7 +858,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
 
-		this.builder(WWBiomeTags.HAS_SANDSTONE_PATH)
+		this.builder(WWBiomeTags.SANDSTONE_PATCH)
 			.add(Biomes.DESERT)
 			.addOptional(WWBiomes.ARID_SAVANNA)
 			.addOptional(WWBiomes.ARID_FOREST);

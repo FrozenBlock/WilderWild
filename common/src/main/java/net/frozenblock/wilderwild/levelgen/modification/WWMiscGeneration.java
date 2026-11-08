@@ -110,12 +110,6 @@ public final class WWMiscGeneration {
 					}
 				}
 
-				if (WWWorldgenConfig.SANDSTONE_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SANDSTONE_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SANDSTONE_PATH.getKey());
-					}
-				}
-
 				if (WWWorldgenConfig.CLAY_DECORATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLAY_PATH)) {
 						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH.getKey());

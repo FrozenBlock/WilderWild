@@ -84,9 +84,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> BETA_BEACH_SAND_DEEP = bind("material_rule/beta_beach_sand_deep");
 	public static final TagKey<Biome> COARSE_DIRT_PATH = bind("material_rule/coarse_dirt_path");
 	public static final TagKey<Biome> COARSE_DIRT_PATH_PATCHY = bind("material_rule/coarse_dirt_path_patchy");
+	public static final TagKey<Biome> SANDSTONE_PATCH = bind("feature/sandstone_patch");
 	public static final TagKey<Biome> MOSS_PATH_JUNGLE = bind("material_rule/moss_path_jungle");
 	public static final TagKey<Biome> MOSS_PATH_OCEAN = bind("material_rule/moss_path_ocean");
-	public static final TagKey<Biome> MUD_PATCH_SWAMP = bind("material_rule/mud_patch_swamp");
+	public static final TagKey<Biome> MUD_PATCH = bind("material_rule/mud_patch");
 
 	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
 	public static final TagKey<Biome> HAS_STONE_PILE = bind("feature/has_stone_pile");
@@ -99,7 +100,6 @@ public final class WWBiomeTags {
 
 	public static final TagKey<Biome> HAS_COARSE_DIRT_PATH_SMALL = bind("feature/has_coarse_dirt_path_small");
 	public static final TagKey<Biome> HAS_PACKED_MUD_PATH_BADLANDS = bind("feature/has_packed_mud_path_badlands");
-	public static final TagKey<Biome> HAS_SANDSTONE_PATH = bind("feature/has_sandstone_path");
 	public static final TagKey<Biome> HAS_COARSE_DIRT_CLEARING = bind("feature/has_coarse_dirt_clearing");
 	public static final TagKey<Biome> HAS_GRAVEL_CLEARING = bind("feature/has_gravel_clearing");
 	public static final TagKey<Biome> HAS_ROOTED_DIRT_CLEARING = bind("feature/has_rooted_dirt_clearing");

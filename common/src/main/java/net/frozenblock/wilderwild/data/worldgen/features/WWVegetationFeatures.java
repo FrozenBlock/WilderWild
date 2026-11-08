@@ -19,16 +19,11 @@ package net.frozenblock.wilderwild.data.worldgen.features;
 
 import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
-import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.FlowerBedStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
-import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -51,7 +46,6 @@ import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -67,7 +61,6 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.material.Fluids;
 
 public final class WWVegetationFeatures {
 	// LEAF LITTER
@@ -84,7 +77,6 @@ public final class WWVegetationFeatures {
 	public static final FrozenLibFeature TALL_GRASS_AND_LARGE_FERN = register("tall_grass_and_large_fern");
 	public static final FrozenLibFeature LARGE_FERN_AND_TALL_GRASS = register("large_fern_and_tall_grass");
 	public static final FrozenLibFeature FERN_SWAMP = register("fern_swamp");
-	public static final FrozenLibFeature PATH_GRASS = register("path_grass");
 	public static final FrozenLibFeature CLOVER = register("clover");
 
 	// FROZEN GRASS
@@ -156,31 +148,6 @@ public final class WWVegetationFeatures {
 		TALL_GRASS_AND_LARGE_FERN.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.TALL_GRASS_AND_LARGE_FERN)));
 		LARGE_FERN_AND_TALL_GRASS.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.LARGE_FERN_AND_TALL_GRASS)));
 		FERN_SWAMP.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.FERN_SWAMP)));
-
-		PATH_GRASS.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-					.noiseScale(0.15D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRASS_BLOCK))
-							.within(0.4D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE))
-							.searchingPredicate(
-								BlockPredicate.not(
-									SearchInDirectionBlockPredicate.anyAboveMatch(
-										BlockPredicate.matchesFluids(Fluids.WATER, Fluids.LAVA),
-										1
-									)
-								)
-							)
-							.placementChance(0.8F)
-							.build()
-					).build(),
-				11
-			)
-		);
-
 		CLOVER.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.CLOVERS.get())));
 
 		// FROZEN GRASS

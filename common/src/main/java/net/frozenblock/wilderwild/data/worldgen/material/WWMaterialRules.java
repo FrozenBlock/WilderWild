@@ -57,7 +57,7 @@ public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_BASE = createKey("coarse_dirt_path_base");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH = createKey("coarse_dirt_path");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_PATCHY = createKey("coarse_dirt_path_patchy");
-	public static final ResourceKey<MaterialRule> SANDSTONE_PATH = createKey("sandstone_path");
+	public static final ResourceKey<MaterialRule> SANDSTONE_PATCH = createKey("sandstone_patch");
 	public static final ResourceKey<MaterialRule> MUD_PATCH = createKey("mud_patch");
 
 	public static MaterialRule sandAndSandstoneAquaticBiomeRule(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules, ResourceKey<Biome>... biomeKeys) {
@@ -171,7 +171,7 @@ public final class WWMaterialRules {
 							WWBiomeTags.BETA_BEACH_GRAVEL,
 							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 							65,
-							MaterialRules.noiseCondition2d(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12),
+							MaterialRules.noiseCondition2d(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12D),
 							MaterialRules.getRule(materialRules, WWMaterialRules.GRAVEL_AND_STONE_BETA_BEACH)
 						),
 						betaBeachRule(
@@ -353,6 +353,19 @@ public final class WWMaterialRules {
 			)
 		);
 
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("sandstone_patch"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.SANDSTONE_PATCH,
+				configPredicates,
+				WWConfigPredicates.GENERATE_SANDSTONE,
+				MaterialRules.getRule(materialRules, SANDSTONE_PATCH)
+			)
+		);
+
 
 		MaterialRuleAdditions.register(
 			context,
@@ -458,11 +471,11 @@ public final class WWMaterialRules {
 
 		MaterialRuleAdditions.register(
 			context,
-			WWConstants.id("mud_swamp"),
+			WWConstants.id("mud_patch"),
 			overworld,
 			aboveSurfaceAndInBiomes(
 				biomes,
-				WWBiomeTags.MUD_PATCH_SWAMP,
+				WWBiomeTags.MUD_PATCH,
 				configPredicates,
 				WWConfigPredicates.GENERATE_MUD,
 				MaterialRules.getRule(materialRules, MUD_PATCH)
@@ -768,16 +781,19 @@ public final class WWMaterialRules {
 		);
 
 		context.register(
-			SANDSTONE_PATH,
+			SANDSTONE_PATCH,
 			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_SELECTOR, -0.25D, 0.15D),
-				MaterialRules.ifTrue(
-					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.noiseCondition2d(WWNoises.SANDSTONE_PATCH, 1.1F),
+				MaterialRules.sequence(
 					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+						FrozenLibMaterialRules.SANDSTONE
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDER_DEEP_WATER),
 						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH, 0.26D, 0.55D),
-							FrozenLibMaterialRules.makeStateRule(Blocks.SANDSTONE)
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+							FrozenLibMaterialRules.SANDSTONE
 						)
 					)
 				)

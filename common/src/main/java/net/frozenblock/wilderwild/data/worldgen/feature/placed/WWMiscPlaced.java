@@ -86,7 +86,6 @@ public final class WWMiscPlaced {
 
 	// DESERT
 	public static final FrozenLibPlacedFeature ORE_PACKED_MUD = register("ore_packed_mud");
-	public static final FrozenLibPlacedFeature SANDSTONE_PATH = register("sandstone_path");
 	public static final FrozenLibPlacedFeature SCORCHED_SAND = register("scorched_sand");
 	public static final FrozenLibPlacedFeature SCORCHED_SAND_HUGE = register("scorched_sand_huge");
 	public static final FrozenLibPlacedFeature SAND_TRANSITION = register("sand_transition");
@@ -277,13 +276,6 @@ public final class WWMiscPlaced {
 		// DESERT
 		ORE_PACKED_MUD.makeAndSetHolder(WWMiscConfigured.ORE_PACKED_MUD,
 			modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250)))
-		);
-
-		SANDSTONE_PATH.makeAndSetHolder(WWMiscConfigured.SANDSTONE_PATH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
 		);
 
 		SCORCHED_SAND.makeAndSetHolder(WWMiscConfigured.SCORCHED_SAND_DISK,
