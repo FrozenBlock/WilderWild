@@ -57,10 +57,6 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class WWMiscPlaced {
-
-	public static final FrozenLibPlacedFeature COARSE_PATH_RARE = register("coarse_dirt_path_rare");
-	public static final FrozenLibPlacedFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenLibPlacedFeature STONE_PATH_RARE = register("stone_path_rare");
 	public static final FrozenLibPlacedFeature COARSE_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenLibPlacedFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
 	public static final FrozenLibPlacedFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
@@ -143,27 +139,6 @@ public final class WWMiscPlaced {
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
-
-		COARSE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_RARE,
-			RarityFilter.onAverageOnceEvery(36),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		GRAVEL_PATH_RARE.makeAndSetHolder(WWMiscConfigured.GRAVEL_PATH_RARE,
-			RarityFilter.onAverageOnceEvery(36),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		STONE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.STONE_PATH_RARE,
-			RarityFilter.onAverageOnceEvery(72),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
 
 		COARSE_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_CLEARING,
 			CountPlacement.of(11),

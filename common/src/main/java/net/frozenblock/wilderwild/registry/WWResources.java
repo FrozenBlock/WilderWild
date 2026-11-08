@@ -22,12 +22,14 @@ import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackType;
 
 public final class WWResources {
 
 	public static void init() {
 		if (WWWorldgenConfig.NEW_ABANDONED_CAMP_GENERATION.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
+				PackType.SERVER_DATA,
 				WWConstants.id("wilder_abandoned_camps"),
 				WWConstants.MOD_ID,
 				Component.translatable("pack.wilderwild.wilder_abandoned_camps"),

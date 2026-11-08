@@ -41,7 +41,7 @@ public final class WWFeatureUtils {
 		int triesA, int radiusA, int heightA,
 		int triesB, int radiusB, int heightB
 	) {
-		return new FrozenLibTreeFeature(WWConstants.id(id), leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
+		return new FrozenLibTreeFeature(WWConstants.id(id), () -> leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
 	}
 
 	private WWFeatureUtils() {}

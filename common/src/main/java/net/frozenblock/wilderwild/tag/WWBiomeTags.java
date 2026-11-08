@@ -128,9 +128,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_MUD_PILE = bind("feature/has_mud_pile");
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("feature/has_mud_lake");
 
-	public static final TagKey<Biome> HAS_RARE_COARSE = bind("feature/has_rare_coarse");
-	public static final TagKey<Biome> HAS_RARE_GRAVEL = bind("feature/has_rare_gravel");
-	public static final TagKey<Biome> HAS_RARE_STONE = bind("feature/has_rare_stone");
 	public static final TagKey<Biome> HAS_CLAY_PATH = bind("feature/has_clay_path");
 
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");

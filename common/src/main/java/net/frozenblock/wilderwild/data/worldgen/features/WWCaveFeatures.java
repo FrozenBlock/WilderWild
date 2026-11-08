@@ -35,7 +35,6 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
@@ -130,7 +129,7 @@ public final class WWCaveFeatures {
 			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.STONE),
-				WWMiscConfigured.EMPTY.asInlinePlaced(),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),
 				0.8F,

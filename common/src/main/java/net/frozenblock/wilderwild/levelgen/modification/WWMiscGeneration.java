@@ -55,10 +55,6 @@ public final class WWMiscGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (WWWorldgenConfig.COARSE_DIRT_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_COARSE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_RARE.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {
 						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
 					}
@@ -97,17 +93,7 @@ public final class WWMiscGeneration {
 					}
 				}
 
-				if (WWWorldgenConfig.GRAVEL_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_GRAVEL)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_RARE.getKey());
-					}
-				}
-
 				if (WWWorldgenConfig.STONE_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_STONE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_PATH_RARE.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE.getKey());
 					}

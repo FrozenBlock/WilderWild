@@ -926,8 +926,6 @@
     "tooltip.wilderwild.surface_decoration": "Contains options for surface decorations.",
     "option.wilderwild.coarse_decoration": "Coarse Dirt Decoration",
     "tooltip.wilderwild.coarse_decoration": "Whether decorative Coarse Dirt can generate.",
-    "option.wilderwild.gravel_decoration": "Gravel Decoration",
-    "tooltip.wilderwild.gravel_decoration": "Whether decorative Gravel can generate.",
     "option.wilderwild.mud_decoration": "Mud Decoration",
     "tooltip.wilderwild.mud_decoration": "Whether decorative Mud can generate.",
     "option.wilderwild.packed_mud_decoration": "Packed Mud Decoration",

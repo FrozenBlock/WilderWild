@@ -81,9 +81,6 @@ import net.minecraft.world.level.material.Fluids;
 public final class WWMiscConfigured {
 	public static final FrozenLibFeature EMPTY = register("empty");
 
-	public static final FrozenLibFeature COARSE_DIRT_PATH_RARE = register("coarse_dirt_path_rare");
-	public static final FrozenLibFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenLibFeature STONE_PATH_RARE = register("stone_path_rare");
 	public static final FrozenLibFeature COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenLibFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
 	public static final FrozenLibFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
@@ -175,57 +172,6 @@ public final class WWMiscConfigured {
 		final HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 		EMPTY.makeAndSetHolder(new NoOpFeature());
-
-		COARSE_DIRT_PATH_RARE.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.12D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
-							.within(-0.2D, 0.3D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.COARSE_PATH_REPLACEABLE))
-							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-							.placementChance(0.25F)
-							.build()
-					).build(),
-				6
-			)
-		);
-
-		GRAVEL_PATH_RARE.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-					.noiseScale(0.12D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
-							.within(-0.2D, 0.3D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.GRAVEL_PATH_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.21F)
-							.build()
-					).build(),
-				6
-			)
-		);
-
-		STONE_PATH_RARE.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.12D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.STONE))
-							.within(-0.2D, 0.3D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.STONE_PATH_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.215F)
-							.build()
-					).build(),
-				6
-			)
-		);
 
 		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(
 			new NoisePathFeature(

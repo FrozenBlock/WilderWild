@@ -31,6 +31,7 @@ public final class WWClientResources {
 
 	public static void init() {
 		FrozenLibResourceLoader.registerBuiltinPack(
+			PackType.CLIENT_RESOURCES,
 			WWConstants.id("mc_live_tendrils"),
 			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.minecraft_live_tendrils"),
@@ -38,6 +39,7 @@ public final class WWClientResources {
 		);
 
 		FrozenLibResourceLoader.registerBuiltinPack(
+			PackType.CLIENT_RESOURCES,
 			WWConstants.id("original_firefly"),
 			WWConstants.MOD_ID,
 			Component.literal("Original Fireflies"),
@@ -45,6 +47,7 @@ public final class WWClientResources {
 		);
 
 		FrozenLibResourceLoader.registerBuiltinPack(
+			PackType.CLIENT_RESOURCES,
 			WWConstants.id("mojang_crabs"),
 			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.mojang_crabs"),
@@ -52,6 +55,7 @@ public final class WWClientResources {
 		);
 
 		FrozenLibResourceLoader.registerBuiltinPack(
+			PackType.CLIENT_RESOURCES,
 			WWConstants.id("original_icicle"),
 			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.original_icicle"),
@@ -59,6 +63,7 @@ public final class WWClientResources {
 		);
 
 		FrozenLibResourceLoader.registerBuiltinPack(
+			PackType.CLIENT_RESOURCES,
 			WWConstants.id("fragile_ice"),
 			WWConstants.MOD_ID,
 			Component.translatable("pack.wilderwild.fragile_ice"),
@@ -67,6 +72,7 @@ public final class WWClientResources {
 
 		if (WWAmbienceAndMiscConfig.WILDER_EXTRA_MUSIC.get()) {
 			FrozenLibResourceLoader.registerBuiltinPack(
+				PackType.CLIENT_RESOURCES,
 				WWConstants.id("wilder_extra_music"),
 				WWConstants.MOD_ID,
 				Component.translatable("pack.wilderwild.wilder_extra_music"),

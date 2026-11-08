@@ -157,7 +157,6 @@ public final class WWWorldgenConfig {
 
 	// SURFACE DECORATION
 	public static final ConfigEntry<Boolean> COARSE_DIRT_DECORATION = CONFIG.entryBuilder("surfaceDecoration/coarseDecoration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> GRAVEL_DECORATION = CONFIG.entryBuilder("surfaceDecoration/gravelDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MUD_DECORATION = CONFIG.entryBuilder("surfaceDecoration/mudDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PACKED_MUD_DECORATION = CONFIG.entryBuilder("surfaceDecoration/packedMudDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> STONE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/stoneDecoration", EntryType.BOOL, true).requireRestart().build();

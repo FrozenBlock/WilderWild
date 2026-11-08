@@ -151,7 +151,6 @@ public final class WWWorldgenConfigGui {
 		// SURFACE DECORATION
 		createSubCategory(builder, category, text("surface_decoration"), tooltip("surface_decoration"),
 			booleanEntry(builder, "coarse_decoration", WWWorldgenConfig.COARSE_DIRT_DECORATION),
-			booleanEntry(builder, "gravel_decoration", WWWorldgenConfig.GRAVEL_DECORATION),
 			booleanEntry(builder, "mud_decoration", WWWorldgenConfig.MUD_DECORATION),
 			booleanEntry(builder, "packed_mud_decoration", WWWorldgenConfig.PACKED_MUD_DECORATION),
 			booleanEntry(builder, "stone_decoration", WWWorldgenConfig.STONE_DECORATION),
