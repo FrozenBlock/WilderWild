@@ -37,6 +37,7 @@ public final class WWNoises {
 	public static final ResourceKey<NormalNoise> COARSE_DIRT_SELECTOR_PATCHY = createKey("coarse_dirt_selector_patchy");
 	public static final ResourceKey<NormalNoise> SCORCHED_SAND = createKey("scorched_sand");
 	public static final ResourceKey<NormalNoise> SCORCHED_SAND_SELECTOR = createKey("scorched_sand_selector");
+	public static final ResourceKey<NormalNoise> MUD_PATCH = createKey("mud_patch");
 
 	public static void bootstrap(BootstrapContext<NormalNoise> context) {
 
@@ -51,6 +52,7 @@ public final class WWNoises {
 		NoiseData.register(context, COARSE_DIRT_PATH_SELECTOR, -6, 0D, 1D, 1D, 1D, 2D, 2D);
 		NoiseData.register(context, COARSE_DIRT_SELECTOR_PATCHY, -6, 0D, 0D, 0D, 3D, 2D, 2D);
 		NoiseData.register(context, SCORCHED_SAND_SELECTOR, -7, 1.25D);
+		NoiseData.register(context, MUD_PATCH, -3, 3D, 0D, 2D, 2D);
 	}
 
 	private static void registerBetaBeach(BootstrapContext<NormalNoise> context, ResourceKey<NormalNoise> key) {

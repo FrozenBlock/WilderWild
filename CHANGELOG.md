@@ -56,6 +56,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Coarse Dirt path generation in Taiga and Arid biomes are now generated via a Material Rule instead of a Feature.
 - Moss Block path generation in Jungle biomes are now generated via a Material Rule instead of a Feature.
 - Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
+- Mud generation in the Swamp biome is now generated via a Material Rule instead of Features.
 - Removed rare, occasional sparse patches of Coarse Dirt, Gravel, and Stone.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.

@@ -17,7 +17,6 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
-import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
@@ -45,7 +44,6 @@ import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -60,7 +58,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockBlobFeature;
 import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
-import net.minecraft.world.level.levelgen.feature.DiskFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.NoOpFeature;
@@ -68,7 +65,6 @@ import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.OverlayFeature;
 import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -76,7 +72,6 @@ import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraft.world.level.material.Fluids;
 
 public final class WWMiscConfigured {
 	public static final FrozenLibFeature EMPTY = register("empty");
@@ -87,8 +82,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 
 	// SWAMP
-	public static final FrozenLibFeature DISK_MUD = register("disk_mud");
-	public static final FrozenLibFeature MUD_PATH = register("mud_path");
 	public static final FrozenLibFeature MUD_TRANSITION_DISK = register("mud_transition_disk");
 
 	// TAIGA
@@ -246,47 +239,6 @@ public final class WWMiscConfigured {
 						)
 					)
 				)
-			)
-		);
-
-		DISK_MUD.makeAndSetHolder(
-			new DiskFeature(
-				Holder.direct(
-					new RuleBasedStateProvider(
-						BlockStateProvider.holderOf(Blocks.MUD),
-						List.of(
-							new RuleBasedStateProvider.Rule(
-								BlockPredicate.not(
-									BlockPredicate.anyOf(
-										BlockPredicate.solid(Direction.UP),
-										BlockPredicate.matchesFluids(Direction.UP, Fluids.WATER)
-									)
-								),
-								BlockStateProvider.holderOf(Blocks.MUD)
-							)
-						)
-					)
-				),
-				BlockPredicate.matchesBlocks(Blocks.DIRT, Blocks.GRASS_BLOCK),
-				UniformInt.of(2, 6),
-				2
-			)
-		);
-
-		MUD_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-					.noiseScale(0.1D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.MUD))
-							.within(0.23D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MUD_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
-							.placementChance(0.75F)
-							.build()
-					).build(),
-				11
 			)
 		);
 

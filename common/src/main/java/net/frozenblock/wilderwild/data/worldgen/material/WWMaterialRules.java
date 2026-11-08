@@ -58,6 +58,7 @@ public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH = createKey("coarse_dirt_path");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_PATCHY = createKey("coarse_dirt_path_patchy");
 	public static final ResourceKey<MaterialRule> SANDSTONE_PATH = createKey("sandstone_path");
+	public static final ResourceKey<MaterialRule> MUD_PATCH = createKey("mud_patch");
 
 	public static MaterialRule sandAndSandstoneAquaticBiomeRule(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules, ResourceKey<Biome>... biomeKeys) {
 		return MaterialRules.ifTrue(
@@ -457,6 +458,19 @@ public final class WWMaterialRules {
 
 		MaterialRuleAdditions.register(
 			context,
+			WWConstants.id("mud_swamp"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.MUD_PATCH_SWAMP,
+				configPredicates,
+				WWConfigPredicates.GENERATE_MUD,
+				MaterialRules.getRule(materialRules, MUD_PATCH)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
 			WWConstants.id("dying_forest_and_dying_mixed_forest"),
 			overworld,
 			aboveSurfaceAndInBiomes(
@@ -765,6 +779,23 @@ public final class WWMaterialRules {
 							MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH, 0.26D, 0.55D),
 							FrozenLibMaterialRules.makeStateRule(Blocks.SANDSTONE)
 						)
+					)
+				)
+			)
+		);
+
+		context.register(
+			MUD_PATCH,
+			MaterialRules.ifTrue(
+				MaterialRules.noiseCondition2d(WWNoises.MUD_PATCH, 1.15F),
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+						FrozenLibMaterialRules.makeStateRule(Blocks.MUD)
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+						FrozenLibMaterialRules.makeStateRule(Blocks.MUD)
 					)
 				)
 			)

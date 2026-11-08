@@ -69,11 +69,6 @@ public final class WWMiscGeneration {
 				}
 
 				if (WWWorldgenConfig.MUD_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.DISK_MUD.getKey());
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MUD_PATH.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_PILE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MUD_PILE.getKey());
 					}

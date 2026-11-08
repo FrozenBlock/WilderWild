@@ -335,7 +335,10 @@ public final class WWAquaticPlacements {
 					OffsetPlacement.horizontal(TrapezoidInt.triangle(radius)),
 					EnvironmentScanPlacement.scanningFor(
 						Direction.DOWN,
-						BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER),
+						BlockPredicate.allOf(
+							BlockPredicate.ONLY_IN_AIR_PREDICATE,
+							BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER)
+						),
 						BlockPredicate.ONLY_IN_AIR_PREDICATE,
 						3
 					)

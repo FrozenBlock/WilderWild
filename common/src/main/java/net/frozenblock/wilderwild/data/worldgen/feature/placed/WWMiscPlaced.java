@@ -62,8 +62,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
 
 	// SWAMP
-	public static final FrozenLibPlacedFeature DISK_MUD = register("disk_mud");
-	public static final FrozenLibPlacedFeature MUD_PATH = register("mud_path");
 	public static final FrozenLibPlacedFeature MUD_TRANSITION = register("mud_transition");
 
 	// TAIGA
@@ -165,21 +163,6 @@ public final class WWMiscPlaced {
 		);
 
 		// SWAMP
-		DISK_MUD.makeAndSetHolder(WWMiscConfigured.DISK_MUD,
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.GRASS_BLOCK, Blocks.DIRT)),
-			BiomeFilter.biome()
-		);
-
-		MUD_PATH.makeAndSetHolder(WWMiscConfigured.MUD_PATH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		MUD_TRANSITION.makeAndSetHolder(WWMiscConfigured.MUD_TRANSITION_DISK,
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),

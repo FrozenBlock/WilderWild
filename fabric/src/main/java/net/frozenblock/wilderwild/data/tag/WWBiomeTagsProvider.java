@@ -800,6 +800,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.MOSS_PATH_OCEAN)
 			.addOptional(Biomes.DEEP_LUKEWARM_OCEAN);
+
+		this.builder(WWBiomeTags.MUD_PATCH_SWAMP)
+			.add(Biomes.SWAMP);
 	}
 
 	private void generateFeatureTags() {
@@ -841,9 +844,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)
 			.add(Biomes.PALE_GARDEN);
-
-		this.builder(WWBiomeTags.HAS_DECORATIVE_MUD)
-			.add(Biomes.SWAMP);
 
 		this.builder(WWBiomeTags.HAS_PACKED_MUD_ORE)
 			.add(Biomes.WINDSWEPT_SAVANNA)
@@ -994,7 +994,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS);
 
 		this.builder(WWBiomeTags.HAS_MUD_TRANSITION)
-			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+			.add(Biomes.MANGROVE_SWAMP);
 
 		this.builder(WWBiomeTags.HAS_NETHER_GEOTHERMAL_VENT)
 			.add(Biomes.BASALT_DELTAS);
