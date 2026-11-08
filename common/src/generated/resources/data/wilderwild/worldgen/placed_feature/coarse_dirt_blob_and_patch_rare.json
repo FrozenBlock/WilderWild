@@ -1,9 +1,9 @@
 {
-  "feature": "wilderwild:mud_pile",
+  "feature": "wilderwild:coarse_dirt_blob_and_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 9
+      "chance": 35
     },
     {
       "type": "minecraft:in_square"
@@ -11,13 +11,6 @@
     {
       "type": "minecraft:heightmap",
       "heightmap": "OCEAN_FLOOR"
-    },
-    {
-      "type": "minecraft:block_predicate_filter",
-      "predicate": {
-        "type": "minecraft:would_survive",
-        "state": "minecraft:oak_sapling"
-      }
     },
     {
       "type": "minecraft:biome"

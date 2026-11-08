@@ -860,13 +860,13 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.HAS_STONE_PILE)
 			.add(Biomes.STONY_SHORE);
 
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)
+		this.builder(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH)
 			.add(Biomes.DAPPLED_FOREST)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)
+		this.builder(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH_RARE)
 			.addOptional(WWBiomes.SPARSE_FOREST);
 
 		this.builder(WWBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)
@@ -1012,9 +1012,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.PARCHED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_MUD_BASIN)
-			.add(Biomes.MANGROVE_SWAMP);
-
-		this.builder(WWBiomeTags.HAS_MUD_PILE)
 			.add(Biomes.MANGROVE_SWAMP);
 
 		this.builder(WWBiomeTags.HAS_MUD_LAKE)

@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:coarse_dirt_disk_and_pile",
+  "feature": "wilderwild:coarse_dirt_blob_and_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",

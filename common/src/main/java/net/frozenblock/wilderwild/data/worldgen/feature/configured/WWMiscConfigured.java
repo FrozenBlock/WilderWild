@@ -120,9 +120,11 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature RED_SAND_TRANSITION_DISK = register("red_sand_transition");
 
 	// OLD GROWTH SNOWY TAIGA
+	// TODO: rename to block/block
 	public static final FrozenLibFeature SNOW = register("snow");
 
 	// TEMPERATE RAINFOREST & RAINFOREST
+	// TODO: rename to rock/blob
 	public static final FrozenLibFeature MOSS_PILE = register("moss_pile");
 	public static final FrozenLibFeature BASIN_PODZOL = register("basin_podzol");
 	public static final FrozenLibFeature BASIN_MOSS = register("basin_moss");
@@ -133,12 +135,11 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
-	public static final FrozenLibFeature MUD_PILE = register("mud_pile");
 	public static final FrozenLibFeature BASIN_MUD = register("basin_mud");
 	public static final FrozenLibFeature MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenLibFeature COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
+	public static final FrozenLibFeature COARSE_DIRT_BLOB_AND_PATCH = register("coarse_dirt_blob_and_patch");
 	public static final FrozenLibFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
 	// SNOW
@@ -722,7 +723,12 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		MOSS_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.MOSS_BLOCK)));
+		MOSS_PILE.makeAndSetHolder(
+			new BlockBlobFeature(
+				Blocks.MOSS_BLOCK.defaultBlockState(),
+				BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)
+			)
+		);
 
 		BASIN_PODZOL.makeAndSetHolder(
 			new FlexibleWaterloggedVegetationPatchFeature(
@@ -765,8 +771,6 @@ public final class WWMiscConfigured {
 				BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.LAVA_POOL_STONE_CANNOT_REPLACE))
 			)
 		);
-
-		MUD_PILE.makeAndSetHolder(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.MUD)));
 
 		BASIN_MUD.makeAndSetHolder(
 			new FlexibleWaterloggedVegetationPatchFeature(
@@ -820,10 +824,15 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(
+		COARSE_DIRT_BLOB_AND_PATCH.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
-					PlacementUtils.inlinePlaced(new BlockPileFeature(BlockStateProvider.holderOf(Blocks.COARSE_DIRT.defaultBlockState()))),
+					PlacementUtils.inlinePlaced(
+						new BlockBlobFeature(
+							Blocks.COARSE_DIRT.defaultBlockState(),
+							BlockPredicate.matchesTag(BlockTags.SUBSTRATE_OVERWORLD)
+						)
+					),
 					PlacementUtils.inlinePlaced(
 						new BallFeature(
 							new BallBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))

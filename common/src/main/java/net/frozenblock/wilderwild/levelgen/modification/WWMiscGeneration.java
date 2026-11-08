@@ -55,18 +55,12 @@ public final class WWMiscGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (WWWorldgenConfig.COARSE_DIRT_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
+					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH)) {
+						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_BLOB_AND_PATCH.getKey());
 					}
 
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE_RARE.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.MUD_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_PILE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MUD_PILE.getKey());
+					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH_RARE)) {
+						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_BLOB_AND_PATCH_RARE.getKey());
 					}
 				}
 

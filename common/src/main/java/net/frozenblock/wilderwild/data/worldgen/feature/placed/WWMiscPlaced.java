@@ -114,13 +114,12 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
-	public static final FrozenLibPlacedFeature MUD_PILE = register("mud_pile");
 	public static final FrozenLibPlacedFeature BASIN_MUD = register("basin_mud");
 	public static final FrozenLibPlacedFeature MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
-	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE_RARE = register("coarse_dirt_disk_and_pile_rare");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_BLOB_AND_PATCH = register("coarse_dirt_blob_and_patch");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_BLOB_AND_PATCH_RARE = register("coarse_dirt_blob_and_patch_rare");
 	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
@@ -410,14 +409,6 @@ public final class WWMiscPlaced {
 		);
 
 		// MANGROVE SWAMP
-		MUD_PILE.makeAndSetHolder(WWMiscConfigured.MUD_PILE,
-			RarityFilter.onAverageOnceEvery(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
-			BiomeFilter.biome()
-		);
-
 		BASIN_MUD.makeAndSetHolder(WWMiscConfigured.BASIN_MUD,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
@@ -436,14 +427,14 @@ public final class WWMiscPlaced {
 		);
 
 		// DYING FOREST
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_DISK_AND_PILE,
+		COARSE_DIRT_BLOB_AND_PATCH.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_BLOB_AND_PATCH,
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		COARSE_DIRT_DISK_AND_PILE_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_DISK_AND_PILE,
+		COARSE_DIRT_BLOB_AND_PATCH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_BLOB_AND_PATCH,
 			RarityFilter.onAverageOnceEvery(35),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
