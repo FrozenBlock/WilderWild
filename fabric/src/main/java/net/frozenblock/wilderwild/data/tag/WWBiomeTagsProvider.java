@@ -793,6 +793,11 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.BIRCH_TAIGA)
 			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA);
 
+		this.builder(WWBiomeTags.SANDSTONE_PATCH)
+			.add(Biomes.DESERT)
+			.addOptional(WWBiomes.ARID_SAVANNA)
+			.addOptional(WWBiomes.ARID_FOREST);
+
 		this.builder(WWBiomeTags.MOSS_PATH_JUNGLE)
 			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
@@ -849,17 +854,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.add(Biomes.DESERT)
 			.addOptional(WWBiomes.OASIS)
-			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.ARID_FOREST);
-
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)
-			.addOptionalTag(BiomeTags.IS_BADLANDS);
-
-		this.builder(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)
-			.addOptionalTag(BiomeTags.IS_BADLANDS);
-
-		this.builder(WWBiomeTags.SANDSTONE_PATCH)
-			.add(Biomes.DESERT)
 			.addOptional(WWBiomes.ARID_SAVANNA)
 			.addOptional(WWBiomes.ARID_FOREST);
 

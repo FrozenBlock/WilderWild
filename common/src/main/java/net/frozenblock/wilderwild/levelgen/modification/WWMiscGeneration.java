@@ -62,10 +62,6 @@ public final class WWMiscGeneration {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE_RARE.getKey());
 					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
-					}
 				}
 
 				if (WWWorldgenConfig.MUD_DECORATION.get()) {
@@ -81,10 +77,6 @@ public final class WWMiscGeneration {
 
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_ORE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.ORE_PACKED_MUD.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH_BADLANDS.getKey());
 					}
 				}
 

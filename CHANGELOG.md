@@ -59,6 +59,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Moss path generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
 - Mud patch generation in the Swamp biome is now generated via a Material Rule instead of Features.
 - Removed rare, occasional sparse patches of Coarse Dirt, Gravel, and Stone.
+- Coarse Dirt and Packed Mud no longer generate in Badlands biomes.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.
   - Many cases where Wilder Wild's flower generation could become chaotic have been resolved.

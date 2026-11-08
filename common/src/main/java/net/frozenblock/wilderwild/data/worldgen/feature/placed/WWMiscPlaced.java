@@ -95,8 +95,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature LAKE_OASIS = register("lake_oasis");
 
 	// BADLANDS
-	public static final FrozenLibPlacedFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
-	public static final FrozenLibPlacedFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
 	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND = register("scorched_red_sand");
 	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND_HUGE = register("scorched_red_sand_huge");
 	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = register("red_sand_transition");
@@ -320,20 +318,6 @@ public final class WWMiscPlaced {
 		);
 
 		// BADLANDS
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_SMALL,
-			RarityFilter.onAverageOnceEvery(6),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH_BADLANDS,
-			RarityFilter.onAverageOnceEvery(8),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		SCORCHED_RED_SAND.makeAndSetHolder(WWMiscConfigured.SCORCHED_RED_SAND_DISK,
 			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),

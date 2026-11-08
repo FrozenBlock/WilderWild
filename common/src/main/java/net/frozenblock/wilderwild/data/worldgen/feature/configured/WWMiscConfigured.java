@@ -70,7 +70,6 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 public final class WWMiscConfigured {
@@ -101,7 +100,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature PACKED_MUD_PATH = register("packed_mud_path");
 
 	// DESERT
-	public static final RuleTest PACKED_MUD_REPLACEABLE = new TagMatchTest(WWFeatureBlockTags.PACKED_MUD_REPLACEABLE);
 	public static final FrozenLibFeature ORE_PACKED_MUD = register("ore_packed_mud");
 	public static final FrozenLibFeature SCORCHED_SAND_DISK = register("scorched_sand");
 	public static final FrozenLibFeature SCORCHED_SAND_DISK_HUGE = register("scorched_sand_huge");
@@ -116,8 +114,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature PATCH_GRASS_LAKE_OASIS = register("patch_grass_lake_oasis");
 
 	// BADLANDS
-	public static final FrozenLibFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
-	public static final FrozenLibFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
 	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK = register("scorched_red_sand");
 	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK_HUGE = register("scorched_red_sand_huge");
 	public static final FrozenLibFeature SCORCHED_RED_SAND_DISK_LIGHTNING = register("scorched_red_sand_lightning");
@@ -252,7 +248,7 @@ public final class WWMiscConfigured {
 							.build()
 					).build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
-				UniformInt.of(3, 5)
+				UniformInt.of(3, 4)
 			)
 		);
 
@@ -445,7 +441,7 @@ public final class WWMiscConfigured {
 
 		ORE_PACKED_MUD.makeAndSetHolder(
 			new OreFeature(
-				PACKED_MUD_REPLACEABLE,
+				new TagMatchTest(WWFeatureBlockTags.PACKED_MUD_REPLACEABLE),
 				Blocks.PACKED_MUD.defaultBlockState(),
 				40
 			)
@@ -524,7 +520,7 @@ public final class WWMiscConfigured {
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
-				UniformInt.of(6, 9)
+				UniformInt.of(4, 6)
 			)
 		);
 
@@ -641,40 +637,6 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.15D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
-							.within(0.2D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE))
-							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-							.placementChance(0.715F)
-							.build()
-					).build(),
-				8
-			)
-		);
-
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.7D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.PACKED_MUD))
-							.within(0.2D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.9F)
-							.build()
-					).build(),
-				4
-			)
-		);
-
 		SCORCHED_RED_SAND_DISK.makeAndSetHolder(
 			new BallFeature(
 				new BallBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.SCORCHED_RED_SAND.get()))
@@ -748,7 +710,7 @@ public final class WWMiscConfigured {
 					)
 					.build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
-				UniformInt.of(6, 9)
+				UniformInt.of(4, 6)
 			)
 		);
 
@@ -771,7 +733,7 @@ public final class WWMiscConfigured {
 				ConstantInt.of(2),
 				0.8F,
 				1,
-				0.000F,
+				0F,
 				UniformInt.of(1, 3),
 				0.35F,
 				FlexibleVegetationPatchFeature.FlexibleComponents.CIRCULAR

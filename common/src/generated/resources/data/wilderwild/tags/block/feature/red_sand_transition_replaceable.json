@@ -4,9 +4,6 @@
     "minecraft:mud",
     "minecraft:gravel",
     "minecraft:sand",
-    {
-      "id": "#minecraft:base_stone_overworld",
-      "required": false
-    }
+    "minecraft:stone"
   ]
 }

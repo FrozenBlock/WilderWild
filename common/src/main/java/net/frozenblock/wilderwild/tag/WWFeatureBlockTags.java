@@ -61,8 +61,6 @@ public final class WWFeatureBlockTags {
 	public static final TagKey<Block> RED_SAND_TRANSITION_PLACEABLE = bind("red_sand_transition_placeable");
 	public static final TagKey<Block> MUD_TRANSITION_REPLACEABLE = bind("mud_transition_replaceable");
 	public static final TagKey<Block> MUD_TRANSITION_PLACEABLE = bind("mud_transition_placeable");
-	public static final TagKey<Block> MUD_PATH_REPLACEABLE = bind("mud_path_replaceable");
-	public static final TagKey<Block> COARSE_PATH_REPLACEABLE = bind("coarse_path_replaceable");
 	public static final TagKey<Block> COARSE_CLEARING_REPLACEABLE = bind("coarse_clearing_replaceable");
 	public static final TagKey<Block> ROOTED_DIRT_PATH_REPLACEABLE = bind("rooted_dirt_path_replaceable");
 	public static final TagKey<Block> UNDER_WATER_SAND_PATH_REPLACEABLE = bind("under_water_sand_path_replaceable");
@@ -70,17 +68,9 @@ public final class WWFeatureBlockTags {
 	public static final TagKey<Block> UNDER_WATER_CLAY_PATH_REPLACEABLE = bind("under_water_clay_path_replaceable");
 	public static final TagKey<Block> BEACH_CLAY_PATH_REPLACEABLE = bind("beach_clay_path_replaceable");
 	public static final TagKey<Block> RIVER_GRAVEL_PATH_REPLACEABLE = bind("river_gravel_path_replaceable");
-	public static final TagKey<Block> SAND_PATH_REPLACEABLE = bind("sand_path_replaceable");
-	public static final TagKey<Block> GRAVEL_PATH_REPLACEABLE = bind("gravel_path_replaceable");
 	public static final TagKey<Block> GRAVEL_CLEARING_REPLACEABLE = bind("gravel_clearing_replaceable");
 	public static final TagKey<Block> GRAVEL_AND_PALE_MOSS_PATH_REPLACEABLE = bind("gravel_and_pale_moss_path_replaceable");
-	public static final TagKey<Block> STONE_PATH_REPLACEABLE = bind("stone_path_replaceable");
 	public static final TagKey<Block> PACKED_MUD_PATH_REPLACEABLE = bind("packed_mud_path_replaceable");
-	public static final TagKey<Block> MOSS_PATH_REPLACEABLE = bind("moss_path_replaceable");
-	public static final TagKey<Block> OCEAN_MOSS_REPLACEABLE = bind("ocean_moss_replaceable");
-	public static final TagKey<Block> SANDSTONE_PATH_REPLACEABLE = bind("sandstone_path_replaceable");
-	public static final TagKey<Block> SMALL_COARSE_DIRT_PATH_REPLACEABLE = bind("small_coarse_dirt_path_replaceable");
-	public static final TagKey<Block> PACKED_MUD_PATH_BADLANDS_REPLACEABLE = bind("packed_mud_path_badlands_replaceable");
 	public static final TagKey<Block> POLLEN_PLACEABLE = bind("pollen_placeable");
 	public static final TagKey<Block> AUBURN_MOSS_REPLACEABLE = bind("auburn_moss_replaceable");
 	public static final TagKey<Block> AUBURN_CREEPING_MOSS_PLACEABLE = bind("auburn_creeping_moss_placeable");
