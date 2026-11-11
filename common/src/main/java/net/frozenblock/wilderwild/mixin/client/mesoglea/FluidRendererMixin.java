@@ -106,7 +106,7 @@ public class FluidRendererMixin {
 		@Local(name = "blockStateDown") BlockState blockStateDown,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateDown)) return false;
+		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateDown)) return true;
 		return original.call(fluidState, blockState, direction, neighborFluidState);
 	}
 
@@ -131,7 +131,7 @@ public class FluidRendererMixin {
 		@Local(name = "blockStateNorth") BlockState blockStateNorth,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateNorth)) return false;
+		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateNorth)) return true;
 		return original.call(fluidState, blockState, direction, neighborFluidState);
 	}
 
@@ -156,7 +156,7 @@ public class FluidRendererMixin {
 		@Local(name = "blockStateSouth") BlockState blockStateSouth,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateSouth)) return false;
+		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateSouth)) return true;
 		return original.call(fluidState, blockState, direction, neighborFluidState);
 	}
 
@@ -181,7 +181,7 @@ public class FluidRendererMixin {
 		@Local(name = "blockStateWest") BlockState blockStateWest,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateWest)) return false;
+		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateWest)) return true;
 		return original.call(fluidState, blockState, direction, neighborFluidState);
 	}
 
@@ -206,7 +206,7 @@ public class FluidRendererMixin {
 		@Local(name = "blockStateEast") BlockState blockStateEast,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
-		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateEast)) return false;
+		if (isMesoglea != null && isMesoglea.get() && !wilderWild$isNeighborSameBlock(blockState, blockStateEast)) return true;
 		return original.call(fluidState, blockState, direction, neighborFluidState);
 	}
 
@@ -279,10 +279,16 @@ public class FluidRendererMixin {
 
 	@ModifyExpressionValue(
 		method = "tesselate",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/block/FluidModel;stillMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;"
-		)
+		at = {
+			@At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/renderer/block/FluidModel;stillMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;"
+			),
+			@At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/renderer/block/FluidModel;flowingMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;"
+			)
+		}
 	)
 	public Material.Baked wilderWild$useMesogleaSprite(
 		Material.Baked original,
