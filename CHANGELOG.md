@@ -3,6 +3,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 ### 26.4+
 - Added the `#wilderwild:music_pitch_shift_dying_forest` Biome Tag, controlling which biomes will subtly, dynamically shift the pitch of background music.
+- Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
 - Removed the following Block Tags related to Wilder Wild's Icicles:
   - `#wilderwild:icicle_grows_when_under`
   - `#wilderwild:icicle_falls_from`
@@ -26,7 +27,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - The recipes for Gabbro Walls and Gabbro Brick Walls are now properly sorted into the Decorations category instead of Building Blocks.
 - Plankton particles are now visible behind Water with the Improved Transparency option disabled.
 - Float Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
-- Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
+- Fixed a visual issue that caused adjacent Mesoglea blocks of different colors to z-fight.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

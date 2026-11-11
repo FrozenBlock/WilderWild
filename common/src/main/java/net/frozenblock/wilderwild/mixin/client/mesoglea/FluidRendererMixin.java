@@ -62,13 +62,16 @@ public class FluidRendererMixin {
 		return neighborBlockState.is(blockState.getBlock());
 	}
 
-	@Inject(method = "tesselate", at = @At("HEAD"))
+	@Inject(method = "tesselate", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$captureMesoglea(
 		BlockAndTintGetter level, BlockPos pos, FluidRenderer.Output output, BlockState blockState, FluidState fluidState, CallbackInfo info,
 		@Share("wilderWild$mesogleaMaterial") LocalRef<Material.Baked> mesogleaMaterial
 	) {
-		if (!(blockState.getBlock() instanceof MesogleaBlock && WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get())) {
+		if (!(blockState.getBlock() instanceof MesogleaBlock)) return;
+
+		if (!WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) {
 			mesogleaMaterial.set(null);
+			info.cancel();
 			return;
 		}
 
