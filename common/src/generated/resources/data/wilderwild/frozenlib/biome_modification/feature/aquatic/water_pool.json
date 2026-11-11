@@ -1,0 +1,17 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:aquatic/river_pool",
+        "wilderwild:aquatic/small_river_pool"
+      ],
+      "step": "lakes"
+    }
+  ],
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/aquatic/water_pools"
+  }
+}

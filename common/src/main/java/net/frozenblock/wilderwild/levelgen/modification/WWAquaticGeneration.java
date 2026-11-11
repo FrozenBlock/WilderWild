@@ -30,56 +30,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public final class WWAquaticGeneration {
 
 	public static void setup() {
-		setupSurfaceDecorations();
 		setupVegetation();
 		setupMisc();
-	}
-
-	private static void setupSurfaceDecorations() {
-		BiomeModifications.create(WWConstants.id("aquatic_surface_decoration_generation")).add(
-			ModificationPhase.ADDITIONS,
-			BiomeSelectors.all(),
-			(biomeSelectionContext, context) -> {
-				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-
-				// FLOWERING WATER LILY
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.FLOWERING_WATER_LILY)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_FLOWERING_WATER_LILY);
-				}
-
-				// CATTAIL
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.CATTAIL)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_CATTAIL);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.CATTAIL_COMMON)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_CATTAIL_COMMON);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.CATTAIL_UNCOMMON)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_CATTAIL_UNCOMMON);
-				}
-
-				// ALGAE
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.ALGAE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_ALGAE);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.ALGAE_SMALL)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_ALGAE_SMALL);
-				}
-
-				// PLANKTON
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.PLANKTON)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_PLANKTON);
-				}
-
-				// POOL
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.WATER_POOLS)) {
-					addLakes(generationSettings, WWAquaticPlacements.RIVER_POOL);
-					addLakes(generationSettings, WWAquaticPlacements.SMALL_RIVER_POOL);
-				}
-			});
 	}
 
 	private static void setupVegetation() {
@@ -88,45 +40,6 @@ public final class WWAquaticGeneration {
 			BiomeSelectors.all(),
 			(biomeSelectionContext, context) -> {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-
-				// SEAGRASS
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.SEAGRASS_MEADOW)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.SEAGRASS_MEADOW);
-				}
-
-				// BARNACLES
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.BARNACLES)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_BARNACLES);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.BARNACLES_COMMON)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_BARNACLES_COMMON);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.BARNACLES_SPARSE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_BARNACLES_SPARSE);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.BARNACLES_RARE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_BARNACLES_RARE);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.BARNACLES_STRUCTURE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_BARNACLES_STRUCTURE);
-				}
-
-				// SEA ANEMONE
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.SEA_ANEMONE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_SEA_ANEMONE);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.SEA_ANEMONE_SPARSE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_SEA_ANEMONE_SPARSE);
-				}
-
-				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.SEA_ANEMONE_RARE)) {
-					addVegetalDecoration(generationSettings, WWAquaticPlacements.PATCH_SEA_ANEMONE_RARE);
-				}
 
 				// SEA WHIP
 				if (biomeSelectionContext.hasTag(WWAquaticFeatureBiomeTags.SEA_WHIP)) {

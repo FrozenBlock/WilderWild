@@ -15,7 +15,7 @@
  * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
  */
 
-package net.frozenblock.wilderwild.registry;
+package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +29,8 @@ import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.registry.WWBiomes;
+import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -48,7 +50,7 @@ import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
-public final class WWBiomeEnvironmentAttributeModifications {
+public final class WWEnvironmentAttributeModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
 		// FOG
@@ -308,7 +310,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	) {
 		context.register(
 			// TODO: helper methods in BiomeModification
-			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("ambient_particles/" + biome.identifier().getPath())),
+			createKey("ambient_particles/" + biome.identifier().getPath()),
 			new EnvironmentAttributeModification(
 				Holder.direct(
 					BiomeSelector.allOf(
@@ -329,7 +331,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	) {
 		context.register(
 			// TODO: helper methods in BiomeModification
-			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("fog/" + biome.identifier().getPath())),
+			createKey("fog/" + biome.identifier().getPath()),
 			new EnvironmentAttributeModification(
 				Holder.direct(
 					BiomeSelector.allOf(
@@ -353,7 +355,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	) {
 		context.register(
 			// TODO: helper methods in BiomeModification
-			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("ambience/" + biome.identifier().getPath())),
+			createKey("ambience/" + biome.identifier().getPath()),
 			new EnvironmentAttributeModification(
 				Holder.direct(
 					BiomeSelector.allOf(
@@ -387,7 +389,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 
 		context.register(
 			// TODO: helper methods in BiomeModification
-			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("music/" + name)),
+			createKey("music/" + name),
 			new EnvironmentAttributeModification(
 				Holder.direct(
 					BiomeSelector.allOf(
@@ -432,5 +434,9 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		registerMusic(context, name, biomes, music, entry, false);
 	}
 
-	private WWBiomeEnvironmentAttributeModifications() {}
+	private static ResourceKey<BiomeModification> createKey(String name) {
+		return ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("environment_attribute/" + name));
+	}
+
+	private WWEnvironmentAttributeModifications() {}
 }
