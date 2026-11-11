@@ -33,6 +33,7 @@ import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.FluidRenderer;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -248,6 +249,8 @@ public class FluidRendererMixin {
 		return isMesoglea != null && isMesoglea.get() ? null : original;
 	}
 
+	// TODO: Glowtone compat
+	/*
 	@ModifyExpressionValue(
 		method = "tesselate",
 		at = @At(
@@ -255,13 +258,13 @@ public class FluidRendererMixin {
 			target = "Lnet/minecraft/client/renderer/block/BlockAndTintGetter;cardinalLighting()Lnet/minecraft/world/level/CardinalLighting;"
 		)
 	)
-	// TODO: Glowtone compat
 	public CardinalLighting wilderWild$emissiveMesogleaCardinalLighting(
 		CardinalLighting original,
 		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
 	) {
 		return isMesoglea != null && isMesoglea.get() ? WILDERWILD$EMISSIVE_CARDINAL_LIGHTING : original;
 	}
+	 */
 
 	@ModifyExpressionValue(
 		method = "tesselate",
@@ -287,6 +290,10 @@ public class FluidRendererMixin {
 			@At(
 				value = "INVOKE",
 				target = "Lnet/minecraft/client/renderer/block/FluidModel;flowingMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;"
+			),
+			@At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/client/renderer/block/FluidModel;overlayMaterial()Lnet/minecraft/client/resources/model/sprite/Material$Baked;"
 			)
 		}
 	)
@@ -313,5 +320,57 @@ public class FluidRendererMixin {
 		return isMesoglea != null && isMesoglea.get()
 			? LightCoordsUtil.FULL_BRIGHT
 			: original.call(instance, level, pos);
+	}
+
+	@WrapOperation(
+		method = "tesselate",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;getU(F)F",
+			ordinal = 1
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/core/Direction$Plane;HORIZONTAL:Lnet/minecraft/core/Direction$Plane;",
+				opcode = Opcodes.GETSTATIC
+			)
+		)
+	)
+	public float wilderWild$fixSideU1(
+		TextureAtlasSprite instance,
+		float offset,
+		Operation<Float> original,
+		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
+	) {
+		return isMesoglea != null && isMesoglea.get()
+			? original.call(instance, 1F)
+			: original.call(instance, offset);
+	}
+
+	@WrapOperation(
+		method = "tesselate",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;getV(F)F",
+			ordinal = 2
+		),
+		slice = @Slice(
+			from = @At(
+				value = "FIELD",
+				target = "Lnet/minecraft/core/Direction$Plane;HORIZONTAL:Lnet/minecraft/core/Direction$Plane;",
+				opcode = Opcodes.GETSTATIC
+			)
+		)
+	)
+	public float wilderWild$fixSideV1(
+		TextureAtlasSprite instance,
+		float offset,
+		Operation<Float> original,
+		@Share("wilderWild$isMesoglea") LocalBooleanRef isMesoglea
+	) {
+		return isMesoglea != null && isMesoglea.get()
+			? original.call(instance, 1F)
+			: original.call(instance, offset);
 	}
 }
