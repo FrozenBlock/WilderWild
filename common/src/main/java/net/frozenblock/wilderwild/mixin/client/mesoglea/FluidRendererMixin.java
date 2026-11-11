@@ -22,7 +22,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.blaze3d.platform.Transparency;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
@@ -70,7 +69,6 @@ public class FluidRendererMixin {
 		if (!(blockState.getBlock() instanceof MesogleaBlock)) return;
 
 		if (!WWBlockConfig.MESOGLEA_RENDERS_AS_FLUID.get()) {
-			mesogleaMaterial.set(null);
 			info.cancel();
 			return;
 		}
@@ -120,39 +118,10 @@ public class FluidRendererMixin {
 	public boolean wilderWild$renderMesogleaDownA(
 		FluidState fluidState, BlockState blockState, Direction direction, FluidState neighborFluidState, Operation<Boolean> original,
 		@Local(name = "blockStateDown") BlockState blockStateDown,
-		@Share("wilderWild$mesogleaMaterial") LocalRef<Material.Baked> mesogleaMaterial,
-		@Share("wilderWild$renderMesogleaDown") LocalBooleanRef renderMesogleaDown
+		@Share("wilderWild$mesogleaMaterial") LocalRef<Material.Baked> mesogleaMaterial
 	) {
-		if (wilderWild$useMesoglea(mesogleaMaterial) && !wilderWild$isNeighborSameBlock(blockState, blockStateDown)) {
-			renderMesogleaDown.set(true);
-			return true;
-		}
-
+		if (wilderWild$useMesoglea(mesogleaMaterial) && !wilderWild$isNeighborSameBlock(blockState, blockStateDown)) return true;
 		return original.call(fluidState, blockState, direction, neighborFluidState);
-	}
-
-	@WrapOperation(
-		method = "tesselate",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/client/renderer/block/FluidRenderer;isFaceOccludedByNeighbor(Lnet/minecraft/core/Direction;FLnet/minecraft/world/level/block/state/BlockState;)Z",
-			ordinal = 0
-		),
-		slice = @Slice(
-			from = @At(
-				value = "FIELD",
-				target = "Lnet/minecraft/core/Direction;DOWN:Lnet/minecraft/core/Direction;",
-				opcode = Opcodes.GETSTATIC,
-				ordinal = 1
-			)
-		)
-	)
-	public boolean wilderWild$renderMesogleaDownB(
-		Direction direction, float height, BlockState neighborState, Operation<Boolean> original,
-		@Share("wilderWild$renderMesogleaDown") LocalBooleanRef renderMesogleaDown
-	) {
-		if (renderMesogleaDown != null && renderMesogleaDown.get()) return true;
-		return original.call(direction, height, neighborState);
 	}
 
 	@WrapOperation(

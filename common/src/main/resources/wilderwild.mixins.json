@@ -117,6 +117,7 @@
     "client.equipment.EquipmentClientInfoLayerTypeMixin",
     "client.equipment.EquipmentClientInfoMixin",
     "client.mesoglea.FluidRendererMixin",
+    "client.mesoglea.FluidStateMixin",
     "client.shrieker.LevelEventHandlerMixin",
     "client.warden.WardenModelMixin",
     "client.warden.WardenRendererMixin",
