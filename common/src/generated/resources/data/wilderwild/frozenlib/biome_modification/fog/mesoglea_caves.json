@@ -1,0 +1,24 @@
+{
+  "type": "frozenlib:environment_attribute",
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000"
+  },
+  "phase": "replacements",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      {
+        "type": "frozenlib:config_predicate",
+        "predicate": {
+          "type": "frozenlib:equal_to",
+          "entry": "wilderwild:misc/biomeAmbience/mesogleaCavesFog",
+          "target": true
+        }
+      },
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "wilderwild:mesoglea_caves"
+      }
+    ]
+  }
+}

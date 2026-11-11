@@ -24,6 +24,7 @@ import net.frozenblock.wilderwild.client.resources.sounds.TermiteEatingSoundInst
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -83,7 +84,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+	public CompoundTag getUpdateTag(HolderGetter.Provider registries) {
 		try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
 			final TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
 			this.termiteManager.saveWithoutMetadata(output);

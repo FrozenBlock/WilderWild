@@ -212,7 +212,7 @@ public final class WWFlowerPlacements {
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		FLOWER_DEFAULT_WITH_SEEDING_DANDELION.makeAndSetHolder(
@@ -804,7 +804,7 @@ public final class WWFlowerPlacements {
 
 		if (configFilter != null) {
 			final List<PlacementModifier> modifiersWithConfigFilter = new ArrayList<>(baseModifiers);
-			modifiersWithConfigFilter.addFirst(ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configFilter)));
+			modifiersWithConfigFilter.addFirst(ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(configFilter)));
 			return modifiersWithConfigFilter;
 		}
 

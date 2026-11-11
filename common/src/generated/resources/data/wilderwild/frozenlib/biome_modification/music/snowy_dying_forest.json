@@ -1,0 +1,28 @@
+{
+  "type": "frozenlib:environment_attribute",
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.snowy_dying_forest"
+      }
+    }
+  },
+  "phase": "replacements",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      {
+        "type": "frozenlib:config_predicate",
+        "predicate": {
+          "type": "frozenlib:true"
+        }
+      },
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:music_pool/has_snowy_dying_forest_music"
+      }
+    ]
+  }
+}

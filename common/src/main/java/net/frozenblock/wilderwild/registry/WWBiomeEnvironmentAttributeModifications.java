@@ -21,11 +21,16 @@ import java.util.List;
 import java.util.Optional;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
-import net.frozenblock.lib.levelgen.biome.api.attribute.BiomeEnvironmentAttributeModification;
+import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
+import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
+import net.frozenblock.lib.levelgen.biome.api.modifications.data.EnvironmentAttributeModification;
+import net.frozenblock.lib.levelgen.biome.api.modifications.data.selector.BiomeSelector;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -45,7 +50,7 @@ import net.minecraft.world.level.biome.Biomes;
 
 public final class WWBiomeEnvironmentAttributeModifications {
 
-	public static void bootstrap(BootstrapContext<BiomeEnvironmentAttributeModification> context) {
+	public static void bootstrap(BootstrapContext<BiomeModification> context) {
 		// FOG
 		registerBlackFog(context, Biomes.DEEP_DARK, WWAmbienceAndMiscConfig.DEEP_DARK_FOG);
 		registerBlackFog(context, Biomes.DRIPSTONE_CAVES, WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_FOG);
@@ -56,15 +61,11 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		registerBlackFog(context, WWBiomes.MAGMATIC_CAVES, WWAmbienceAndMiscConfig.MAGMATIC_CAVES_FOG);
 
 		// PARTICLES
-		BiomeEnvironmentAttributeModification.register(
+		registerAmbientParticles(
 			context,
-			WWConstants.id("particle/magmatic_caves"),
 			WWBiomes.MAGMATIC_CAVES,
-			EnvironmentAttributeMap.builder().set(
-				EnvironmentAttributes.AMBIENT_PARTICLES,
-				List.of(new AmbientParticle(ParticleTypes.LARGE_SMOKE, 0.00123F))
-			).build(),
-			WWAmbienceAndMiscConfig.MAGMATIC_CAVES_PARTICLES.equalTo(true).asHolder()
+			List.of(new AmbientParticle(ParticleTypes.LARGE_SMOKE, 0.00123F)),
+			WWAmbienceAndMiscConfig.MAGMATIC_CAVES_PARTICLES
 		);
 
 		// AMBIENCE
@@ -299,46 +300,82 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		);
 	}
 
+	private static void registerAmbientParticles(
+		BootstrapContext<BiomeModification> context,
+		ResourceKey<Biome> biome,
+		List<AmbientParticle> ambientParticles,
+		ConfigEntry<Boolean> entry
+	) {
+		context.register(
+			// TODO: helper methods in BiomeModification
+			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("ambient_particles/" + biome.identifier().getPath())),
+			new EnvironmentAttributeModification(
+				Holder.direct(
+					BiomeSelector.allOf(
+						BiomeSelector.configPredicate(entry.equalTo(true).asHolder()),
+						BiomeSelector.inBiome(context, biome)
+					)
+				),
+				ModificationPhase.REPLACEMENTS,
+				EnvironmentAttributeMap.builder().set(EnvironmentAttributes.AMBIENT_PARTICLES, ambientParticles).build()
+			)
+		);
+	}
+
 	private static void registerBlackFog(
-		BootstrapContext<BiomeEnvironmentAttributeModification> context,
+		BootstrapContext<BiomeModification> context,
 		ResourceKey<Biome> biome,
 		ConfigEntry<Boolean> entry
 	) {
-		BiomeEnvironmentAttributeModification.register(
-			context,
-			WWConstants.id("fog/" + biome.identifier().getPath()),
-			biome,
-			EnvironmentAttributeMap.builder().set(EnvironmentAttributes.FOG_COLOR, ARGB.vector3fFromRGB24(0)).build(),
-			entry.equalTo(true).asHolder()
+		context.register(
+			// TODO: helper methods in BiomeModification
+			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("fog/" + biome.identifier().getPath())),
+			new EnvironmentAttributeModification(
+				Holder.direct(
+					BiomeSelector.allOf(
+						BiomeSelector.configPredicate(entry.equalTo(true).asHolder()),
+						BiomeSelector.inBiome(context, biome)
+					)
+				),
+				ModificationPhase.REPLACEMENTS,
+				EnvironmentAttributeMap.builder().set(EnvironmentAttributes.FOG_COLOR, ARGB.vector3fFromRGB24(0)).build()
+			)
 		);
 	}
 
 	private static void registerAmbience(
-		BootstrapContext<BiomeEnvironmentAttributeModification> context,
+		BootstrapContext<BiomeModification> context,
 		ResourceKey<Biome> biome,
 		DeferredHolder<SoundEvent, SoundEvent> loop,
 		DeferredHolder<SoundEvent, SoundEvent> additions,
 		double additionsChance,
 		ConfigEntry<Boolean> entry
 	) {
-		BiomeEnvironmentAttributeModification.register(
-			context,
-			WWConstants.id("ambience/" + biome.identifier().getPath()),
-			biome,
-			EnvironmentAttributeMap.builder().set(
-				EnvironmentAttributes.AMBIENT_SOUNDS,
-				new AmbientSounds(
-					Optional.of(loop.asHolder()),
-					Optional.of(AmbientMoodSettings.LEGACY_CAVE_SETTINGS),
-					List.of(new AmbientAdditionsSettings(additions.asHolder(), additionsChance))
-				)
-			).build(),
-			entry.equalTo(true).asHolder()
+		context.register(
+			// TODO: helper methods in BiomeModification
+			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("ambience/" + biome.identifier().getPath())),
+			new EnvironmentAttributeModification(
+				Holder.direct(
+					BiomeSelector.allOf(
+						BiomeSelector.configPredicate(entry.equalTo(true).asHolder()),
+						BiomeSelector.inBiome(context, biome)
+					)
+				),
+				ModificationPhase.REPLACEMENTS,
+				EnvironmentAttributeMap.builder().set(
+					EnvironmentAttributes.AMBIENT_SOUNDS,
+					new AmbientSounds(
+						Optional.of(loop.asHolder()),
+						Optional.of(AmbientMoodSettings.LEGACY_CAVE_SETTINGS),
+						List.of(new AmbientAdditionsSettings(additions.asHolder(), additionsChance))
+					)
+				).build()
+			)
 		);
 	}
 
 	private static void registerMusic(
-		BootstrapContext<BiomeEnvironmentAttributeModification> context,
+		BootstrapContext<BiomeModification> context,
 		String name,
 		TagKey<Biome> biomes,
 		DeferredHolder<SoundEvent, SoundEvent> music,
@@ -348,17 +385,24 @@ public final class WWBiomeEnvironmentAttributeModifications {
 		BackgroundMusic backgroundMusic = new BackgroundMusic(music.asHolder());
 		if (hasUnderWater) backgroundMusic = backgroundMusic.withUnderwater(Musics.UNDER_WATER);
 
-		BiomeEnvironmentAttributeModification.register(
-			context,
-			WWConstants.id("music/" + name),
-			biomes,
-			EnvironmentAttributeMap.builder().set(EnvironmentAttributes.BACKGROUND_MUSIC, backgroundMusic).build(),
-			mergeWhen.asHolder()
+		context.register(
+			// TODO: helper methods in BiomeModification
+			ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("music/" + name)),
+			new EnvironmentAttributeModification(
+				Holder.direct(
+					BiomeSelector.allOf(
+						BiomeSelector.configPredicate(mergeWhen),
+						BiomeSelector.inBiomeTag(context, biomes)
+					)
+				),
+				ModificationPhase.REPLACEMENTS,
+				EnvironmentAttributeMap.builder().set(EnvironmentAttributes.BACKGROUND_MUSIC, backgroundMusic).build()
+			)
 		);
 	}
 
 	private static void registerMusic(
-		BootstrapContext<BiomeEnvironmentAttributeModification> context,
+		BootstrapContext<BiomeModification> context,
 		String name,
 		TagKey<Biome> biomes,
 		DeferredHolder<SoundEvent, SoundEvent> music,
@@ -368,7 +412,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	}
 
 	private static void registerMusic(
-		BootstrapContext<BiomeEnvironmentAttributeModification> context,
+		BootstrapContext<BiomeModification> context,
 		String name,
 		TagKey<Biome> biomes,
 		DeferredHolder<SoundEvent, SoundEvent> music,
@@ -379,7 +423,7 @@ public final class WWBiomeEnvironmentAttributeModifications {
 	}
 
 	private static void registerMusic(
-		BootstrapContext<BiomeEnvironmentAttributeModification> context,
+		BootstrapContext<BiomeModification> context,
 		String name,
 		TagKey<Biome> biomes,
 		DeferredHolder<SoundEvent, SoundEvent> music,

@@ -137,7 +137,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.BLOCK_SOUND_SET, WWBlockSoundSets::bootstrap);
 
 		// FrozenLib Registries
-		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER, WWConfigPredicates::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE, WWConfigPredicates::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BLOCK_SOUND_SET_OVERRIDE, WWBlockSoundSetOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
@@ -146,7 +146,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND, WWPlayerDamageTypeSounds::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, WWStructureProcessorListAdditions::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.VARIANT_SPAWN_INJECTION, WWVariantSpawnInjections::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.BIOME_ENVIRONMENT_ATTRIBUTE_MODIFICATION, WWBiomeEnvironmentAttributeModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWBiomeEnvironmentAttributeModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.MUSIC_PITCH_PROVIDER, WWMusicPitchProviders::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.SUFFOCATION_TYPE, WWSuffocationTypes::bootstrap);
 

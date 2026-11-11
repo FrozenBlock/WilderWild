@@ -157,7 +157,7 @@ public final class WWBlockSoundSetOverrides {
 			createKey(name),
 			context.lookup(Registries.BLOCK).getOrThrow(tagKey),
 			context.lookup(Registries.BLOCK_SOUND_SET).getOrThrow(soundSet),
-			context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configPredicate)
+			context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(configPredicate)
 		);
 	}
 

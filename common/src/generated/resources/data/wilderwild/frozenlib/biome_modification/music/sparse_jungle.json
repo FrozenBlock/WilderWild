@@ -1,0 +1,30 @@
+{
+  "type": "frozenlib:environment_attribute",
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "max_delay": 24000,
+        "min_delay": 12000,
+        "sound": "wilderwild:music.overworld.wilder_sparse_jungles"
+      }
+    }
+  },
+  "phase": "replacements",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      {
+        "type": "frozenlib:config_predicate",
+        "predicate": {
+          "type": "frozenlib:equal_to",
+          "entry": "wilderwild:misc/music/wilderJungleMusic",
+          "target": true
+        }
+      },
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:music_pool/has_sparse_jungle_music"
+      }
+    ]
+  }
+}

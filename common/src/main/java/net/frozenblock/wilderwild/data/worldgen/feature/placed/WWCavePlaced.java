@@ -58,7 +58,7 @@ public final class WWCavePlaced {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		// MAGMATIC CAVES
 		NETHER_GEOTHERMAL_VENT.makeAndSetHolder(WWCaveFeatures.GEOTHERMAL_VENT_UP,

@@ -39,7 +39,7 @@ public final class WWVariantSpawnInjections {
 	public static void bootstrap(BootstrapContext<VariantSpawnInjection> context) {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<WolfVariant> wolfVariants = context.lookup(Registries.WOLF_VARIANT);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		final SpawnCondition spawnWolfVariantCondition = ConfigPredicate.spawnCondition(configPredicates.getOrThrow(WWConfigPredicates.SPAWN_WOLF_VARIANT));
 		VariantSpawnInjection.register(

@@ -133,7 +133,7 @@ public final class WWMaterialRules {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
 		final HolderGetter<MaterialCondition> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		final HolderSet<DimensionType> overworld = dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD);
 

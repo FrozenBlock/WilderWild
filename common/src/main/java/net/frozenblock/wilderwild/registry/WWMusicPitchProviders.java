@@ -32,7 +32,7 @@ public final class WWMusicPitchProviders {
 
 	public static void bootstrap(BootstrapContext<PitchProvider> context) {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		context.register(
 			createKey("dying_forest_distortion"),

@@ -101,7 +101,7 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SPAWN_WOLF_VARIANT = createKey("spawn_wolf_variant");
 
 	public static void bootstrap(BootstrapContext<ConfigPredicate> context) {
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		context.register(
 			SOUND_OVERRIDE_GRASS,
@@ -368,7 +368,7 @@ public final class WWConfigPredicates {
 	}
 
 	private static ResourceKey<ConfigPredicate> createKey(String name) {
-		return ResourceKey.create(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER, WWConstants.id(name));
+		return ResourceKey.create(FrozenLibRegistries.CONFIG_PREDICATE, WWConstants.id(name));
 	}
 
 	private WWConfigPredicates() {}

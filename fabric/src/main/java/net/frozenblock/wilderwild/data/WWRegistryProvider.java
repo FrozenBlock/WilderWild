@@ -66,7 +66,7 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 
 		// FrozenLib Dynamic Registries
 		WWConstants.log("Adding finalized config predicate providers to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER)));
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.CONFIG_PREDICATE)));
 		WWConstants.log("Adding finalized block sound set overrides to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BLOCK_SOUND_SET_OVERRIDE)));
 		WWConstants.log("Adding finalized clip groups to datagen", true);
@@ -83,8 +83,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION)));
 		WWConstants.log("Adding finalized variant spawn injections to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.VARIANT_SPAWN_INJECTION)));
-		WWConstants.log("Adding finalized biome environment attribute modifications to datagen", true);
-		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BIOME_ENVIRONMENT_ATTRIBUTE_MODIFICATION)));
+		WWConstants.log("Adding finalized biome modifications to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BIOME_MODIFICATION)));
 		WWConstants.log("Adding finalized music pitch providers to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.MUSIC_PITCH_PROVIDER)));
 		WWConstants.log("Adding finalized suffocation types to datagen", true);
