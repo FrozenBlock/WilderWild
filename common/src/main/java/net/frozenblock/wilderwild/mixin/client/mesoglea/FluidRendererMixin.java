@@ -42,6 +42,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3fc;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -115,7 +116,7 @@ public class FluidRendererMixin {
 			)
 		)
 	)
-	public boolean wilderWild$renderMesogleaDownA(
+	public boolean wilderWild$renderMesogleaDown(
 		FluidState fluidState, BlockState blockState, Direction direction, FluidState neighborFluidState, Operation<Boolean> original,
 		@Local(name = "blockStateDown") BlockState blockStateDown,
 		@Share("wilderWild$mesogleaMaterial") LocalRef<Material.Baked> mesogleaMaterial
@@ -326,6 +327,45 @@ public class FluidRendererMixin {
 		return wilderWild$useMesoglea(mesogleaMaterial)
 			? LightCoordsUtil.FULL_BRIGHT
 			: original.call(instance, level, pos);
+	}
+
+	@WrapOperation(
+		method = "tesselate",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/renderer/block/FluidRenderer;addFace(Lnet/minecraft/client/renderer/chunk/ChunkSectionLayer;Lnet/minecraft/client/renderer/block/FluidRenderer$Output;FFFLorg/joml/Vector3fc;FFLorg/joml/Vector3fc;FFLorg/joml/Vector3fc;FFLorg/joml/Vector3fc;FFIIILnet/minecraft/core/Direction;Z)V",
+			ordinal = 0
+		),
+		slice = @Slice(
+			from = @At(
+				value = "INVOKE",
+				target = "Lnet/minecraft/core/BlockPos;below()Lnet/minecraft/core/BlockPos;"
+			)
+		)
+	)
+	public void wilderWild$renderBackwardDownFace(
+		FluidRenderer instance,
+		ChunkSectionLayer layer,
+		FluidRenderer.Output output,
+		float fx, float fy, float fz,
+		Vector3fc x0,
+		float u0, float v0,
+		Vector3fc x1,
+		float u1, float v1,
+		Vector3fc x2,
+		float u2, float v2,
+		Vector3fc x3,
+		float u3, float v3,
+		int color,
+		int brightness,
+		int lightCoords,
+		Direction faceDir,
+		boolean addBackFace,
+		Operation<Void> original,
+		@Share("wilderWild$mesogleaMaterial") LocalRef<Material.Baked> mesogleaMaterial
+	) {
+		addBackFace = addBackFace || wilderWild$useMesoglea(mesogleaMaterial);
+		original.call(instance, layer, output, fx, fy, fz, x0, u0, v0, x1, u1, v1, x2, u2, v2, x3, u3, v3, color, brightness, lightCoords, faceDir, addBackFace);
 	}
 
 	@WrapOperation(
