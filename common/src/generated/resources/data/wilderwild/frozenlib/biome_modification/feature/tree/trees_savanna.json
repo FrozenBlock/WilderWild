@@ -1,0 +1,27 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:tree_vegetation/tree_savanna"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:trees_savanna"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_tree",
+      "wilderwild:cannot_generate_baobab",
+      "wilderwild:in_savanna_tree_tag"
+    ]
+  }
+}

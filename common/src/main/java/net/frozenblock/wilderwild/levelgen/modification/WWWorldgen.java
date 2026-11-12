@@ -40,8 +40,6 @@ public final class WWWorldgen {
 	}
 
 	public static void setup() {
-		WWTreeGeneration.setup();
-
 		replaceFeatures();
 
 		WWMiscGeneration.generateMisc();

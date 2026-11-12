@@ -2,6 +2,10 @@
   "feature": "wilderwild:tree/fallen_crimson",
   "placement": [
     {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_fallen_tree"
+    },
+    {
       "type": "minecraft:count",
       "count": 4
     },

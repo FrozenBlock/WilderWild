@@ -45,7 +45,9 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_TERMITE = createKey("generate_termite");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
+	public static final ResourceKey<ConfigPredicate> GENERATE_FALLEN_TREE = createKey("generate_fallen_tree");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SNAPPED_TREE = createKey("generate_snapped_tree");
+	public static final ResourceKey<ConfigPredicate> GENERATE_BAOBAB = createKey("generate_baobab");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALM = createKey("generate_palm");
 	public static final ResourceKey<ConfigPredicate> GENERATE_WILLOW = createKey("generate_willow");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_ACACIA = createKey("generate_shelf_mushroom_acacia");
@@ -178,8 +180,16 @@ public final class WWConfigPredicates {
 			WWWorldgenConfig.TREE_GENERATION.equalTo(true)
 		);
 		context.register(
+			GENERATE_FALLEN_TREE,
+			WWWorldgenConfig.FALLEN_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
 			GENERATE_SNAPPED_TREE,
 			WWWorldgenConfig.SNAPPED_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_BAOBAB,
+			WWWorldgenConfig.BAOBAB_TREE_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_PALM,

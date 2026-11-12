@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.selector.BiomeSelector;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.tag.WWTreeFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 
@@ -28,6 +29,16 @@ public final class WWBiomeSelectors {
 	public static final ResourceKey<BiomeSelector> GENERATE_DRY_GRASS = createKey("generate_dry_grass");
 	public static final ResourceKey<BiomeSelector> GENERATE_FLOWER = createKey("generate_flower");
 	public static final ResourceKey<BiomeSelector> GENERATE_FIREFLY_BUSH = createKey("generate_firefly_bush");
+
+	public static final ResourceKey<BiomeSelector> GENERATE_TREE = createKey("generate_tree");
+	public static final ResourceKey<BiomeSelector> CANNOT_GENERATE_TREE = createKey("cannot_generate_tree");
+	public static final ResourceKey<BiomeSelector> GENERATE_BAOBAB = createKey("generate_baobab");
+	public static final ResourceKey<BiomeSelector> CANNOT_GENERATE_BAOBAB = createKey("cannot_generate_baobab");
+	public static final ResourceKey<BiomeSelector> GENERATE_PALM = createKey("generate_palm");
+	public static final ResourceKey<BiomeSelector> GENERATE_WILLOW = createKey("generate_willow");
+	public static final ResourceKey<BiomeSelector> CANNOT_GENERATE_WILLOW = createKey("cannot_generate_willow");
+	public static final ResourceKey<BiomeSelector> IN_SAVANNA_TREE_TAG = createKey("in_savanna_tree_tag");
+	public static final ResourceKey<BiomeSelector> IN_SWAMP_TREE_TAG = createKey("in_swamp_tree_tag");
 
 	public static final ResourceKey<BiomeSelector> GENERATE_LEAF_LITTER_ACACIA = createKey("generate_leaf_litter_acacia");
 	public static final ResourceKey<BiomeSelector> GENERATE_LEAF_LITTER_AZALEA = createKey("generate_leaf_litter_azalea");
@@ -50,6 +61,16 @@ public final class WWBiomeSelectors {
 		context.register(GENERATE_GRASS, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_GRASS));
 		context.register(GENERATE_FLOWER, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_FLOWER));
 		context.register(GENERATE_FIREFLY_BUSH, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_FIREFLY_BUSH));
+
+		context.register(GENERATE_TREE, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_TREE));
+		context.register(CANNOT_GENERATE_TREE, BiomeSelector.not(context, GENERATE_TREE));
+		context.register(GENERATE_BAOBAB, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_BAOBAB));
+		context.register(CANNOT_GENERATE_BAOBAB, BiomeSelector.not(context, GENERATE_BAOBAB));
+		context.register(GENERATE_PALM, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_PALM));
+		context.register(GENERATE_WILLOW, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_WILLOW));
+		context.register(CANNOT_GENERATE_WILLOW, BiomeSelector.not(context, GENERATE_WILLOW));
+		context.register(IN_SAVANNA_TREE_TAG, BiomeSelector.inBiomeTag(context, WWTreeFeatureBiomeTags.TREE_SAVANNA));
+		context.register(IN_SWAMP_TREE_TAG, BiomeSelector.inBiomeTag(context, WWTreeFeatureBiomeTags.TREE_SWAMP));
 
 		context.register(GENERATE_LEAF_LITTER_ACACIA, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_LEAF_LITTER_ACACIA));
 		context.register(GENERATE_LEAF_LITTER_AZALEA, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_LEAF_LITTER_AZALEA));

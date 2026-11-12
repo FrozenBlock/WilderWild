@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
@@ -758,6 +759,7 @@ public final class WWTreeVegetationPlacements {
 					)
 				)
 			),
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)),
 			BiomeFilter.biome()
 		);
 		registerFallen(FALLEN_CYPRESS_AND_OAK, WWTreeVegetationFeatures.FALLEN_CYPRESS_AND_OAK, RarityFilter.onAverageOnceEvery(6));
@@ -773,6 +775,7 @@ public final class WWTreeVegetationPlacements {
 					WWTreeVegetationFeatures.FALLEN_JUNGLE_AND_OAK.asInlinePlaced()
 				)
 			),
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)),
 			RarityFilter.onAverageOnceEvery(25),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -974,6 +977,9 @@ public final class WWTreeVegetationPlacements {
 
 		placement.makeAndSetHolder(
 			feature,
+			ConfigPredicate.placementFilter(
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)
+			),
 			count,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -990,6 +996,9 @@ public final class WWTreeVegetationPlacements {
 
 		placement.makeAndSetHolder(
 			feature,
+			ConfigPredicate.placementFilter(
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)
+			),
 			count,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -1008,6 +1017,9 @@ public final class WWTreeVegetationPlacements {
 
 		placement.makeAndSetHolder(
 			feature,
+			ConfigPredicate.placementFilter(
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)
+			),
 			preFilter,
 			count,
 			InSquarePlacement.spread(),

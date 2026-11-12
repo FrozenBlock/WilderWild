@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:tree_vegetation/tree_swamp_surface_willow",
+        "wilderwild:tree_vegetation/tree_swamp_water_shallow",
+        "wilderwild:tree_vegetation/tree_swamp_water"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:trees_swamp"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_tree",
+      "wilderwild:generate_willow",
+      "wilderwild:in_swamp_tree_tag"
+    ]
+  }
+}

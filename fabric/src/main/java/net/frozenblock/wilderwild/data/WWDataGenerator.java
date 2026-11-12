@@ -54,6 +54,7 @@ import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialRules;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWAquaticFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWFlowerFeatureModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWTreeFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWVegetationFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWAbandonedCampStructurePools;
@@ -153,6 +154,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.BIOME_SELECTOR, WWBiomeSelectors::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWAquaticFeatureModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWFlowerFeatureModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWTreeFeatureModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWVegetationFeatureModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWEnvironmentAttributeModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.MUSIC_PITCH_PROVIDER, WWMusicPitchProviders::bootstrap);

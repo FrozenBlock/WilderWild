@@ -29,6 +29,7 @@ import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.registry.WWBlocks;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -499,6 +500,7 @@ public final class WWTreePlacements {
 
 		// CRIMSON
 		FALLEN_CRIMSON.makeAndSetHolder(WWTreeFeatures.FALLEN_CRIMSON,
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)),
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
@@ -511,6 +513,7 @@ public final class WWTreePlacements {
 		);
 
 		SNAPPED_CRIMSON.makeAndSetHolder(WWTreeFeatures.SNAPPED_CRIMSON,
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SNAPPED_TREE)),
 			CountPlacement.of(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
@@ -524,6 +527,7 @@ public final class WWTreePlacements {
 
 		// WARPED
 		FALLEN_WARPED.makeAndSetHolder(WWTreeFeatures.FALLEN_WARPED,
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)),
 			CountPlacement.of(4),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),
@@ -536,6 +540,7 @@ public final class WWTreePlacements {
 		);
 
 		SNAPPED_WARPED.makeAndSetHolder(WWTreeFeatures.SNAPPED_WARPED,
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_SNAPPED_TREE)),
 			CountPlacement.of(10),
 			InSquarePlacement.spread(),
 			PlacementUtils.FULL_RANGE, BiomeFilter.biome(),

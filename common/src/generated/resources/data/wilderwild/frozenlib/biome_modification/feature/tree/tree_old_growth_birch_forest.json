@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:tree_vegetation/tree_birch_tall"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:birch_tall"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_tree",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/tree/tree_old_growth_birch_forest"
+      }
+    ]
+  }
+}

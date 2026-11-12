@@ -1,0 +1,16 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:tree_vegetation/fallen_oak_and_birch_and_spruce_mossy"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/tree/fallen_oak_and_birch_and_spruce_mossy"
+  }
+}

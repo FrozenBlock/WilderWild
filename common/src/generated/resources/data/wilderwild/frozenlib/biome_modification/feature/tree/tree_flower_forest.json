@@ -1,0 +1,30 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:tree_vegetation/tree_flower_forest"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:trees_birch_and_oak_leaf_litter",
+        "minecraft:trees_flower_forest"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_tree",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/tree/tree_flower_forest"
+      }
+    ]
+  }
+}

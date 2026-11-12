@@ -1,0 +1,17 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:tree_vegetation/snapped_maple",
+        "wilderwild:tree_vegetation/snapped_maple_clearing"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/tree/snapped_maple"
+  }
+}
