@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:patch_spruce_leaf_litter"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:patch_leaf_litter"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_leaf_litter_spruce",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/vegetation/spruce_leaf_litter"
+      }
+    ]
+  }
+}

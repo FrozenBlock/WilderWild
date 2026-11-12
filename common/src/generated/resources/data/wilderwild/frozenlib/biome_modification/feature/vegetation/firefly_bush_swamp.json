@@ -1,0 +1,32 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:patch_firefly_bush_near_water_swamp",
+        "wilderwild:patch_firefly_bush_swamp"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:patch_firefly_bush_near_water",
+        "minecraft:patch_firefly_bush_near_water_swamp",
+        "minecraft:patch_firefly_bush_swamp"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_firefly_bush",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/vegetation/firefly_bush_swamp"
+      }
+    ]
+  }
+}

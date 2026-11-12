@@ -62,7 +62,24 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_WILLOW = createKey("generate_shelf_mushroom_willow");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_MAPLE = createKey("generate_shelf_mushroom_maple");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_ACACIA = createKey("generate_leaf_litter_acacia");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_AZALEA = createKey("generate_leaf_litter_azalea");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_BAOBAB = createKey("generate_leaf_litter_baobab");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_BIRCH = createKey("generate_leaf_litter_birch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_CHERRY = createKey("generate_leaf_litter_cherry");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_CYPRESS = createKey("generate_leaf_litter_cypress");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_JUNGLE = createKey("generate_leaf_litter_jungle");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_MANGROVE = createKey("generate_leaf_litter_mangrove");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_OAK = createKey("generate_leaf_litter_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_DARK_OAK = createKey("generate_leaf_litter_dark_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_PALE_OAK = createKey("generate_leaf_litter_pale_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_PALM = createKey("generate_leaf_litter_palm");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_POPLAR = createKey("generate_leaf_litter_poplar");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_SPRUCE = createKey("generate_leaf_litter_spruce");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_WILLOW = createKey("generate_leaf_litter_willow");
+
 	public static final ResourceKey<ConfigPredicate> GENERATE_GRASS = createKey("generate_grass");
+	public static final ResourceKey<ConfigPredicate> GENERATE_DRY_GRASS = createKey("generate_dry_grass");
 	public static final ResourceKey<ConfigPredicate> GENERATE_FLOWER = createKey("generate_flower");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHRUB = createKey("generate_shrub");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CACTUS = createKey("generate_cactus");
@@ -70,6 +87,7 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MUSHROOM = createKey("generate_pale_mushroom");
 	public static final ResourceKey<ConfigPredicate> GENERATE_POLLEN = createKey("generate_pollen");
 	public static final ResourceKey<ConfigPredicate> GENERATE_TUMBLEWEED = createKey("generate_tumbleweed");
+	public static final ResourceKey<ConfigPredicate> GENERATE_FIREFLY_BUSH = createKey("generate_firefly_bush");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PUMPKIN = createKey("generate_pumpkin");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_MOSS = createKey("generate_moss");
@@ -225,8 +243,73 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
+			GENERATE_LEAF_LITTER_ACACIA,
+			WWWorldgenConfig.ACACIA_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_AZALEA,
+			WWWorldgenConfig.AZALEA_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_BAOBAB,
+			WWWorldgenConfig.BAOBAB_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_BIRCH,
+			WWWorldgenConfig.BIRCH_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_CHERRY,
+			WWWorldgenConfig.CHERRY_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_CYPRESS,
+			WWWorldgenConfig.CYPRESS_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_JUNGLE,
+			WWWorldgenConfig.JUNGLE_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_MANGROVE,
+			WWWorldgenConfig.MANGROVE_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_OAK,
+			WWWorldgenConfig.OAK_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_DARK_OAK,
+			WWWorldgenConfig.DARK_OAK_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_PALE_OAK,
+			WWWorldgenConfig.PALE_OAK_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_PALM,
+			WWWorldgenConfig.PALM_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_POPLAR,
+			WWWorldgenConfig.POPLAR_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_SPRUCE,
+			WWWorldgenConfig.SPRUCE_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_WILLOW,
+			WWWorldgenConfig.WILLOW_LITTER_GENERATION.equalTo(true)
+		);
+
+		context.register(
 			GENERATE_GRASS,
 			WWWorldgenConfig.GRASS_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_DRY_GRASS,
+			WWWorldgenConfig.DRY_GRASS_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_FLOWER,
@@ -255,6 +338,10 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_TUMBLEWEED,
 			WWWorldgenConfig.TUMBLEWEED_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_FIREFLY_BUSH,
+			WWWorldgenConfig.FIREFLY_BUSH_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_PUMPKIN,

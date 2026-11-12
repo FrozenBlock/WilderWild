@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:patch_frozen_grass_taiga_2"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:patch_grass_taiga_2"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_grass",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/vegetation/frozen_grass_taiga_2"
+      }
+    ]
+  }
+}

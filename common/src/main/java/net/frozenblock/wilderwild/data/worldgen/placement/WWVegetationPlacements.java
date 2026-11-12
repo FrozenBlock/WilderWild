@@ -87,8 +87,8 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature PATCH_LARGE_FERN_AND_GRASS_RARE = register("patch_large_fern_and_grass_rare");
 	public static final FrozenLibPlacedFeature PATCH_FERN_DENSE = register("patch_fern_dense");
 	public static final FrozenLibPlacedFeature PATCH_FERN_SWAMP = register("patch_fern_swamp");
-	public static final FrozenLibPlacedFeature PATCH_CLOVER = register("patch_clover");
-	public static final FrozenLibPlacedFeature PATCH_CLOVER_SPARSE = register("patch_clover_sparse");
+	public static final FrozenLibPlacedFeature PATCH_CLOVERS = register("patch_clovers");
+	public static final FrozenLibPlacedFeature PATCH_CLOVERS_SPARSE = register("patch_clovers_sparse");
 
 	// DRY GRASS
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_DESERT = register("patch_dry_grass_desert");
@@ -394,7 +394,7 @@ public final class WWVegetationPlacements {
 			)
 		);
 
-		PATCH_CLOVER.makeAndSetHolder(WWVegetationFeatures.CLOVER,
+		PATCH_CLOVERS.makeAndSetHolder(WWVegetationFeatures.CLOVERS,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
@@ -403,7 +403,7 @@ public final class WWVegetationPlacements {
 			PlacementUtils.isEmpty()
 		);
 
-		PATCH_CLOVER_SPARSE.makeAndSetHolder(WWVegetationFeatures.CLOVER,
+		PATCH_CLOVERS_SPARSE.makeAndSetHolder(WWVegetationFeatures.CLOVERS,
 			FrozenLibPlacementUtil.postModifiers(
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(32),

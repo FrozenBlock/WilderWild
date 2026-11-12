@@ -1,0 +1,25 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:patch_dry_grass_beach"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {}
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_dry_grass",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/vegetation/dry_grass_beach"
+      }
+    ]
+  }
+}

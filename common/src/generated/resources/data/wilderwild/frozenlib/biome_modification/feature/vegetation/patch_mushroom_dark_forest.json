@@ -1,0 +1,16 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:big_patch_mushroom"
+      ],
+      "step": "top_layer_modification"
+    }
+  ],
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/vegetation/patch_mushroom_dark_forest"
+  }
+}

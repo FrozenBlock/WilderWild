@@ -1,10 +1,6 @@
 {
-  "feature": "wilderwild:vegetation/clover",
+  "feature": "wilderwild:vegetation/clovers",
   "placement": [
-    {
-      "type": "minecraft:rarity_filter",
-      "chance": 2
-    },
     {
       "type": "minecraft:in_square"
     },

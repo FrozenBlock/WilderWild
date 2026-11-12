@@ -122,13 +122,13 @@ public final class WWWorldgenConfigGui {
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.MANGROVE_LEAF_LITTER.get(), WWWorldgenConfig.MANGROVE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, Blocks.LEAF_LITTER, WWWorldgenConfig.OAK_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALE_OAK_LEAF_LITTER.get(), WWWorldgenConfig.PALE_OAK_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER.get(), WWWorldgenConfig.PALM_LITTER_GENERATION),
 			booleanEntry(
 				builder,
 				Component.translatable("option.wilderwild.poplar_leaf_litter_generation"),
 				WWWorldgenConfig.POPLAR_LITTER_GENERATION,
 				Component.translatable("tooltip.wilderwild.poplar_leaf_litter_generation")
 			),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER.get(), WWWorldgenConfig.PALM_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.SPRUCE_LEAF_LITTER.get(), WWWorldgenConfig.SPRUCE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.WILLOW_LEAF_LITTER.get(), WWWorldgenConfig.WILLOW_LITTER_GENERATION)
 		);

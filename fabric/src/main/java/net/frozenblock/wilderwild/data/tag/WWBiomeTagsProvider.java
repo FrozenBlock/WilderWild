@@ -2129,7 +2129,7 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.DAPPLED_FOREST);
 
 		// MISC
-		this.builder(WWVegetationFeatureBiomeTags.HAS_TERMITE_MOUND)
+		this.builder(WWVegetationFeatureBiomeTags.TERMITE_MOUND)
 			.addOptionalTag(BiomeTags.IS_SAVANNA);
 	}
 

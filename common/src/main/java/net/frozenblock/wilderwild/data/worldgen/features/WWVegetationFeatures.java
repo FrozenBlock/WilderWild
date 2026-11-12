@@ -77,7 +77,7 @@ public final class WWVegetationFeatures {
 	public static final FrozenLibFeature TALL_GRASS_AND_LARGE_FERN = register("tall_grass_and_large_fern");
 	public static final FrozenLibFeature LARGE_FERN_AND_TALL_GRASS = register("large_fern_and_tall_grass");
 	public static final FrozenLibFeature FERN_SWAMP = register("fern_swamp");
-	public static final FrozenLibFeature CLOVER = register("clover");
+	public static final FrozenLibFeature CLOVERS = register("clovers");
 
 	// FROZEN GRASS
 	public static final FrozenLibFeature SINGLE_PIECE_OF_FROZEN_GRASS = register("single_piece_of_frozen_grass");
@@ -148,7 +148,7 @@ public final class WWVegetationFeatures {
 		TALL_GRASS_AND_LARGE_FERN.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.TALL_GRASS_AND_LARGE_FERN)));
 		LARGE_FERN_AND_TALL_GRASS.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.LARGE_FERN_AND_TALL_GRASS)));
 		FERN_SWAMP.makeAndSetHolder(new SimpleBlockFeature(blockStateProviders.getOrThrow(WWBlockStateProviders.FERN_SWAMP)));
-		CLOVER.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.CLOVERS.get())));
+		CLOVERS.makeAndSetHolder(new SimpleBlockFeature(new FlowerBedStateProvider(WWBlocks.CLOVERS.get())));
 
 		// FROZEN GRASS
 		SINGLE_PIECE_OF_FROZEN_GRASS.makeAndSetHolder(new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.FROZEN_SHORT_GRASS.get())));

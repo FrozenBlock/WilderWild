@@ -137,8 +137,8 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/oakLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DARK_OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/darkOakLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALE_OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/paleOakLeafLitter", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> POPLAR_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/poplarLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALM_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/palmFrondLitter", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> POPLAR_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/poplarLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SPRUCE_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/spruceLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILLOW_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/willowLeafLitter", EntryType.BOOL, true).requireRestart().build();
 
