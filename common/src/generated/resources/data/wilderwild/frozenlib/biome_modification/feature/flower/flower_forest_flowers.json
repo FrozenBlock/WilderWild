@@ -1,26 +1,17 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:flower/flower_flower_forest_1",
-        "wilderwild:flower/flower_flower_forest_2",
-        "wilderwild:flower/patch_flower_flower_forest"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": [
+      "wilderwild:flower/flower_flower_forest_1",
+      "wilderwild:flower/flower_flower_forest_2",
+      "wilderwild:flower/patch_flower_flower_forest"
+    ],
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:flower_forest_flowers",
-        "minecraft:flower_flower_forest",
-        "minecraft:forest_flowers",
-        "minecraft:flower_default"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "#wilderwild:flower_forest_flowers"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

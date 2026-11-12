@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:aquatic/patch_flowering_water_lily"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:aquatic/patch_flowering_water_lily",
+    "step": "vegetal_decoration"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

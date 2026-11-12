@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_meadow"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_meadow",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_meadow"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_meadow"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

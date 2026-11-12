@@ -1,24 +1,17 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:flower/phlox_dark_taiga",
-        "wilderwild:flower/flower_dark_taiga",
-        "wilderwild:flower/patch_flower_dark_taiga"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": [
+      "wilderwild:flower/phlox_dark_taiga",
+      "wilderwild:flower/flower_dark_taiga",
+      "wilderwild:flower/patch_flower_dark_taiga"
+    ],
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:forest_flowers",
-        "minecraft:flower_default"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "#wilderwild:forest_default_flowers"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

@@ -1,22 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:flower/patch_flower_birch_taiga"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:flower/patch_flower_birch_taiga",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:forest_flowers",
-        "minecraft:flower_default"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "#wilderwild:forest_default_flowers"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_tall_grass_flower_field"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_tall_grass_flower_field",
+    "step": "vegetal_decoration"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_frozen_grass_taiga"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_frozen_grass_taiga",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_grass_taiga"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:patch_grass_taiga"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

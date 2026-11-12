@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_birch_tall"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_birch_tall",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:birch_tall"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:birch_tall"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

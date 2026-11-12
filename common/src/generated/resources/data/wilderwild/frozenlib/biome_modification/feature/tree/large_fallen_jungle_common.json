@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/large_fallen_jungle_common"
-      ],
-      "step": "local_modifications"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/large_fallen_jungle_common",
+    "step": "local_modifications"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

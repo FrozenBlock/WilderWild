@@ -1,22 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:flower/flower_default_snowy_plains"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:flower/flower_default_snowy_plains",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:flower_plains",
-        "minecraft:flower_default"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "#wilderwild:plains_default_flowers"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

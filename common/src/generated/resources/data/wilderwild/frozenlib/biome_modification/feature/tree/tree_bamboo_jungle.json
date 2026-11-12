@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_bamboo_jungle"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_bamboo_jungle",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:bamboo_vegetation"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:bamboo_vegetation"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

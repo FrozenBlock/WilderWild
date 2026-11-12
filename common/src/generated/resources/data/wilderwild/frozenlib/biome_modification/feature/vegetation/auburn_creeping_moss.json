@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:auburn_creeping_moss"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:auburn_creeping_moss",
+    "step": "vegetal_decoration"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

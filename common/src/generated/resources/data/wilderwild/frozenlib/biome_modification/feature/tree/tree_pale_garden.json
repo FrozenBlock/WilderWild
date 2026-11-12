@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_pale_garden"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_pale_garden",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:pale_garden_vegetation"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:pale_garden_vegetation"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

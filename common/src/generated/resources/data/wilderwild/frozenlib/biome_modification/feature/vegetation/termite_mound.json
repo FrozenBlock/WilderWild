@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:termite_mound"
-      ],
-      "step": "underground_ores"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:termite_mound",
+    "step": "underground_ores"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

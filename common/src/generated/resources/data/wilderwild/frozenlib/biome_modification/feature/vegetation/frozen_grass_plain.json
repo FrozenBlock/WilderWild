@@ -1,22 +1,16 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_frozen_grass_plain"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_frozen_grass_plain",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_grass_badlands",
-        "minecraft:patch_grass_plain"
-      ]
-    }
-  ],
+  "removals": {
+    "features": [
+      "minecraft:patch_grass_badlands",
+      "minecraft:patch_grass_plain"
+    ]
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

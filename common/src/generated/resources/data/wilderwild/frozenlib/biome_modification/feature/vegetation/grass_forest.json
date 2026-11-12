@@ -1,22 +1,16 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_fern_and_grass",
-        "wilderwild:tall_grass"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": [
+      "wilderwild:patch_fern_and_grass",
+      "wilderwild:tall_grass"
+    ],
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_grass_forest"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:patch_grass_forest"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

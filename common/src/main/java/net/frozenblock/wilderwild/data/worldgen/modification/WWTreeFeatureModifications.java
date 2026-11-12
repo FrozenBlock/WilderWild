@@ -32,6 +32,7 @@ import net.frozenblock.wilderwild.tag.WWTreeFeatureBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -39,7 +40,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import static net.frozenblock.wilderwild.data.worldgen.modification.WWFeatureModificationUtils.*;
+import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.*;
 
 public final class WWTreeFeatureModifications {
 
@@ -384,9 +385,9 @@ public final class WWTreeFeatureModifications {
 					)
 				),
 				ModificationPhase.REPLACEMENTS,
-				List.of(VegetationPlacements.TREES_SAVANNA),
+				HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(VegetationPlacements.TREES_SAVANNA)),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
-				List.of(feature.getKey())
+				feature.asHolderSet()
 			)
 		);
 	}
@@ -413,9 +414,9 @@ public final class WWTreeFeatureModifications {
 					)
 				),
 				ModificationPhase.REPLACEMENTS,
-				List.of(VegetationPlacements.TREES_SWAMP),
+				HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(VegetationPlacements.TREES_SWAMP)),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
-				features.stream().map(FrozenLibPlacedFeature::getKey).toList()
+				HolderSet.direct(features.stream().map(FrozenLibPlacedFeature::getHolder).toList())
 			)
 		);
 	}

@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_grove"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_grove",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_grove"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_grove"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

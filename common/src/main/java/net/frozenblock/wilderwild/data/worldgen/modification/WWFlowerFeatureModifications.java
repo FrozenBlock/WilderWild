@@ -19,12 +19,13 @@ package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import java.util.List;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
+import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.registerVegetalAddition;
+import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.registerVegetalReplacement;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
-import static net.frozenblock.wilderwild.data.worldgen.modification.WWFeatureModificationUtils.registerVegetalAddition;
-import static net.frozenblock.wilderwild.data.worldgen.modification.WWFeatureModificationUtils.registerVegetalReplacement;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.registry.WWBiomeSelectors;
 import net.frozenblock.wilderwild.tag.WWFlowerFeatureBiomeTags;
+import net.frozenblock.wilderwild.tag.WWPlacedFeatureTags;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
@@ -45,42 +46,37 @@ public final class WWFlowerFeatureModifications {
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.SNOWY_PLAINS_FLOWERS,
-			List.of(VegetationPlacements.FLOWER_PLAINS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.PLAINS_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_DEFAULT_SNOWY_PLAINS)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.SUNFLOWER_PLAINS_FLOWERS,
-			List.of(VegetationPlacements.FLOWER_PLAINS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.PLAINS_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.WILDFLOWERS_SUNFLOWER_PLAINS, WWFlowerPlacements.PATCH_FLOWER_SUNFLOWER_PLAINS)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.FLOWER_FIELD_FLOWERS,
-			List.of(
-				VegetationPlacements.FLOWER_FOREST_FLOWERS,
-				VegetationPlacements.FLOWER_FLOWER_FOREST,
-				VegetationPlacements.FOREST_FLOWERS,
-				VegetationPlacements.FLOWER_DEFAULT
-			),
+			WWPlacedFeatureTags.FLOWER_FOREST_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_FLOWER_FIELD, WWFlowerPlacements.PATCH_FLOWER_FLOWER_FIELD)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_FOREST, WWFlowerPlacements.PATCH_FLOWER_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.SPARSE_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_SPARSE_FOREST, WWFlowerPlacements.PATCH_FLOWER_SPARSE_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.FLOWER_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FLOWER_FOREST_FLOWERS, VegetationPlacements.FLOWER_FLOWER_FOREST, VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FLOWER_FOREST_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_FLOWER_FOREST_1, WWFlowerPlacements.FLOWER_FLOWER_FOREST_2, WWFlowerPlacements.PATCH_FLOWER_FLOWER_FOREST)
 		);
 		registerReplacement(
@@ -98,55 +94,55 @@ public final class WWFlowerFeatureModifications {
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.BIRCH_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_BIRCH_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.OLD_GROWTH_BIRCH_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_OLD_GROWTH_BIRCH_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.SEMI_BIRCH_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_SEMI_BIRCH_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.BIRCH_TAIGA_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_BIRCH_TAIGA)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.DARK_BIRCH_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_FOREST, WWFlowerPlacements.PATCH_FLOWER_DARK_BIRCH_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.BIRCH_JUNGLE_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT, VegetationPlacements.FLOWER_WARM),
+			WWPlacedFeatureTags.WARM_FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_BIRCH_JUNGLE)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.SPARSE_BIRCH_JUNGLE_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT, VegetationPlacements.FLOWER_WARM),
+			WWPlacedFeatureTags.WARM_FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_SPARSE_BIRCH_JUNGLE)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.DARK_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_PHLOX_AND_LANTANAS_DARK_FOREST, WWFlowerPlacements.FLOWER_DARK_FOREST, WWFlowerPlacements.PATCH_FLOWER_DARK_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.DARK_TAIGA_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PHLOX_DARK_TAIGA, WWFlowerPlacements.FLOWER_DARK_TAIGA, WWFlowerPlacements.PATCH_FLOWER_DARK_TAIGA)
 		);
 		registerReplacement(
@@ -159,19 +155,19 @@ public final class WWFlowerFeatureModifications {
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.MAPLE_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.FLOWER_MAPLE_FOREST, WWFlowerPlacements.PATCH_FLOWER_MAPLE_FOREST)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.TUNDRA_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_TUNDRA)
 		);
 		registerReplacement(
 			context,
 			WWFlowerFeatureBiomeTags.DAPPLED_FOREST_FLOWERS,
-			List.of(VegetationPlacements.FOREST_FLOWERS, VegetationPlacements.FLOWER_DEFAULT),
+			WWPlacedFeatureTags.FOREST_DEFAULT_FLOWERS,
 			List.of(WWFlowerPlacements.PATCH_FLOWER_DAPPLED_FOREST)
 		);
 		registerReplacement(
@@ -195,6 +191,15 @@ public final class WWFlowerFeatureModifications {
 		registerVegetalAddition(context, WWFlowerFeatureBiomeTags.CHERRY_GROVE_FLOWERS, WWFlowerPlacements.PATCH_FLOWER_CHERRY_GROVE);
 		registerVegetalAddition(context, WWFlowerFeatureBiomeTags.WINDSWEPT_FLOWERS, WWFlowerPlacements.SEEDING_DANDELION_WINDSWEPT);
  	}
+
+	private static void registerReplacement(
+		BootstrapContext<BiomeModification> context,
+		TagKey<Biome> biomes,
+		TagKey<PlacedFeature> removals,
+		List<FrozenLibPlacedFeature> additions
+	) {
+		registerVegetalReplacement(context, biomes, WWBiomeSelectors.GENERATE_FLOWER, removals, additions);
+	}
 
 	private static void registerReplacement(
 		BootstrapContext<BiomeModification> context,

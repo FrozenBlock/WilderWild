@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_dry_grass_desert"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_dry_grass_desert",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_dry_grass_desert"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:patch_dry_grass_desert"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

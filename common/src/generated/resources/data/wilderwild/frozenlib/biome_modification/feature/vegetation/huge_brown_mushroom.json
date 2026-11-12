@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:huge_brown_mushroom"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:huge_brown_mushroom",
+    "step": "vegetal_decoration"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

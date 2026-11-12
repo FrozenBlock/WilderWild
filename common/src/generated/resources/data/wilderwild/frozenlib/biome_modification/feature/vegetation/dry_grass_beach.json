@@ -1,17 +1,11 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_dry_grass_beach"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_dry_grass_beach",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {}
-  ],
+  "removals": {},
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

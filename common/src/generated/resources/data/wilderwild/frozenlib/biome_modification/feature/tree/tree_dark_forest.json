@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/dark_forest_vegetation"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/dark_forest_vegetation",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:dark_forest_vegetation"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:dark_forest_vegetation"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

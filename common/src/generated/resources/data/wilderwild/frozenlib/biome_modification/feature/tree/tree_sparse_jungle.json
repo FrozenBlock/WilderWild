@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_sparse_jungle"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_sparse_jungle",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_sparse_jungle"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_sparse_jungle"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

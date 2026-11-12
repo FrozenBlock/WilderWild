@@ -1,14 +1,12 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/snapped_dark_oak",
-        "wilderwild:tree_vegetation/snapped_dark_oak_clearing"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": [
+      "wilderwild:tree_vegetation/snapped_dark_oak",
+      "wilderwild:tree_vegetation/snapped_dark_oak_clearing"
+    ],
+    "step": "vegetal_decoration"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

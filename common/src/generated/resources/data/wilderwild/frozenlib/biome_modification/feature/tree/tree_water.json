@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/big_bush_water"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/big_bush_water",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_water"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_water"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

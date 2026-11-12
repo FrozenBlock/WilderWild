@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:flower/wildflowers_birch_forest"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:flower/wildflowers_birch_forest",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:wildflowers_birch_forest"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:wildflowers_birch_forest"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

@@ -1,14 +1,12 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:flower/flower_jungle",
-        "wilderwild:flower/patch_flower_jungle"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": [
+      "wilderwild:flower/flower_jungle",
+      "wilderwild:flower/patch_flower_jungle"
+    ],
+    "step": "vegetal_decoration"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

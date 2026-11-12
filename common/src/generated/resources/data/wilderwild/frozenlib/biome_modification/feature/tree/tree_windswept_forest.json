@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_windswept_forest"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_windswept_forest",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_windswept_forest"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_windswept_forest"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

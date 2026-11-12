@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_pale_oak_leaf_litter"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_pale_oak_leaf_litter",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_leaf_litter"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:patch_leaf_litter"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

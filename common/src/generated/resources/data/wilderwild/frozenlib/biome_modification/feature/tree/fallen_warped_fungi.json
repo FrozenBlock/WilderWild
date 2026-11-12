@@ -1,13 +1,9 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree/fallen_warped"
-      ],
-      "step": "fluid_springs"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree/fallen_warped",
+    "step": "fluid_springs"
+  },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",

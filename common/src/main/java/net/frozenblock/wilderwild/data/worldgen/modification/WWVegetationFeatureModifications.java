@@ -17,14 +17,14 @@
 
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
+import java.util.List;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
+import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.*;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
 import net.frozenblock.wilderwild.registry.WWBiomeSelectors;
 import net.frozenblock.wilderwild.tag.WWVegetationFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
-import java.util.List;
-import static net.frozenblock.wilderwild.data.worldgen.modification.WWFeatureModificationUtils.*;
 
 public final class WWVegetationFeatureModifications {
 

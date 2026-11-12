@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_wooded_badlands"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_wooded_badlands",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_badlands"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_badlands"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

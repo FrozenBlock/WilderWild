@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/mangrove"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/mangrove",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_mangrove"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_mangrove"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

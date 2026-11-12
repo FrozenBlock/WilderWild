@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_frozen_bush"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_frozen_bush",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_bush"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:patch_bush"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

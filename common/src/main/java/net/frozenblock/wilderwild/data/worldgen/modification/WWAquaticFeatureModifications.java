@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
-import static net.frozenblock.wilderwild.data.worldgen.modification.WWFeatureModificationUtils.*;
+import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.*;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.tag.WWAquaticFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;

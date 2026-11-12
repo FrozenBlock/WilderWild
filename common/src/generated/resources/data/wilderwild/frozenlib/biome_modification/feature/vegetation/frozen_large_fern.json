@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:patch_frozen_large_fern"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:patch_frozen_large_fern",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:patch_large_fern"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:patch_large_fern"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

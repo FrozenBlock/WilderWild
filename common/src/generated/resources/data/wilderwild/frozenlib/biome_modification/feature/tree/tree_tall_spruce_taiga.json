@@ -1,21 +1,13 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/tree_old_growth_spruce_taiga"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": "wilderwild:tree_vegetation/tree_old_growth_spruce_taiga",
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_old_growth_spruce_taiga"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_old_growth_spruce_taiga"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [

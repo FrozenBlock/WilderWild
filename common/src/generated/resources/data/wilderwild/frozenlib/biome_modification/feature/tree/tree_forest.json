@@ -1,22 +1,16 @@
 {
   "type": "frozenlib:feature",
-  "additions": [
-    {
-      "features": [
-        "wilderwild:tree_vegetation/birch_and_oak",
-        "wilderwild:tree_vegetation/birch_and_oak_original"
-      ],
-      "step": "vegetal_decoration"
-    }
-  ],
+  "additions": {
+    "features": [
+      "wilderwild:tree_vegetation/birch_and_oak",
+      "wilderwild:tree_vegetation/birch_and_oak_original"
+    ],
+    "step": "vegetal_decoration"
+  },
   "phase": "replacements",
-  "removals": [
-    {
-      "features": [
-        "minecraft:trees_birch_and_oak_leaf_litter"
-      ]
-    }
-  ],
+  "removals": {
+    "features": "minecraft:trees_birch_and_oak_leaf_litter"
+  },
   "selector": {
     "type": "frozenlib:all_of",
     "selectors": [
