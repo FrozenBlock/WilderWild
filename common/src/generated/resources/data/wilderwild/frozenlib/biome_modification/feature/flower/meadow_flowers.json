@@ -1,0 +1,32 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/patch_wildflowers_and_phlox_meadow",
+        "wilderwild:flower/flower_meadow"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:wildflowers_meadow",
+        "minecraft:wildflowers_birch_forest",
+        "minecraft:flower_meadow"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_flower",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/flower/meadow_flowers"
+      }
+    ]
+  }
+}

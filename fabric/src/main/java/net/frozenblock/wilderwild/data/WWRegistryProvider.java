@@ -83,6 +83,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION)));
 		WWConstants.log("Adding finalized variant spawn injections to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.VARIANT_SPAWN_INJECTION)));
+		WWConstants.log("Adding finalized biome selectors to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BIOME_SELECTOR)));
 		WWConstants.log("Adding finalized biome modifications to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(FrozenLibRegistries.BIOME_MODIFICATION)));
 		WWConstants.log("Adding finalized music pitch providers to datagen", true);

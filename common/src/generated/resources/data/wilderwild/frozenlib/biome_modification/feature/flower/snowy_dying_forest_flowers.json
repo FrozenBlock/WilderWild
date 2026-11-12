@@ -1,0 +1,16 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/seeding_dandelion_snowy_dying_forest"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/flower/snowy_dying_forest_flowers"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/patch_flower_tundra"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:forest_flowers",
+        "minecraft:flower_default"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_flower",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/flower/tundra_flowers"
+      }
+    ]
+  }
+}

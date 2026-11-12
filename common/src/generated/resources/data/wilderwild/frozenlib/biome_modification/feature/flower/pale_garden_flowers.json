@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/patch_flower_pale_garden"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:pale_garden_flowers"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_flower",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/flower/pale_garden_flowers"
+      }
+    ]
+  }
+}

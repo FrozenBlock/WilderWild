@@ -1,0 +1,30 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/flower_default_plains",
+        "wilderwild:flower/flower_plains"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:flower_plains"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_flower",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/flower/plains_flowers"
+      }
+    ]
+  }
+}

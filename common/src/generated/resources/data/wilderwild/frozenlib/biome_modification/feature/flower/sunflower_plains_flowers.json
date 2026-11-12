@@ -1,0 +1,31 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/wildflowers_sunflower_plains",
+        "wilderwild:flower/patch_flower_sunflower_plains"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "replacements",
+  "removals": [
+    {
+      "features": [
+        "minecraft:flower_plains",
+        "minecraft:flower_default"
+      ]
+    }
+  ],
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_flower",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/flower/sunflower_plains_flowers"
+      }
+    ]
+  }
+}

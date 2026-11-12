@@ -40,8 +40,6 @@ public final class WWWorldgen {
 	}
 
 	public static void setup() {
-		WWAquaticGeneration.setup();
-		WWFlowerGeneration.setup();
 		WWTreeGeneration.setup();
 		WWVegetationGeneration.setup();
 

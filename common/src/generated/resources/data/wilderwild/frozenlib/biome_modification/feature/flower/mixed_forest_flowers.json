@@ -1,0 +1,16 @@
+{
+  "type": "frozenlib:feature",
+  "additions": [
+    {
+      "features": [
+        "wilderwild:flower/seeding_dandelion_mixed_forest"
+      ],
+      "step": "vegetal_decoration"
+    }
+  ],
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/flower/mixed_forest_flowers"
+  }
+}
