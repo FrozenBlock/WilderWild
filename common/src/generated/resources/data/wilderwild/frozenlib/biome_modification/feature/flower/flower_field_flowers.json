@@ -1,10 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": [
-      "wilderwild:flower/flower_flower_field",
-      "wilderwild:flower/patch_flower_flower_field"
-    ],
+    "features": "wilderwild:flower/flower_flower_field",
     "step": "vegetal_decoration"
   },
   "phase": "replacements",

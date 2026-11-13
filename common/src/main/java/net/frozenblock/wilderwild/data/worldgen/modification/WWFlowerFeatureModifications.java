@@ -63,7 +63,7 @@ public final class WWFlowerFeatureModifications {
 			context,
 			WWFlowerFeatureBiomeTags.FLOWER_FIELD_FLOWERS,
 			WWPlacedFeatureTags.FLOWER_FOREST_FLOWERS,
-			List.of(WWFlowerPlacements.FLOWER_FLOWER_FIELD, WWFlowerPlacements.PATCH_FLOWER_FLOWER_FIELD)
+			List.of(WWFlowerPlacements.FLOWER_FLOWER_FIELD)
 		);
 		registerReplacement(
 			context,

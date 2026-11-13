@@ -143,7 +143,6 @@ public final class WWFlowerPlacements {
 	public static final FrozenLibPlacedFeature WILDFLOWERS_SUNFLOWER_PLAINS = register("wildflowers_sunflower_plains");
 	public static final FrozenLibPlacedFeature PATCH_FLOWER_SUNFLOWER_PLAINS = register("patch_flower_sunflower_plains");
 	public static final FrozenLibPlacedFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
-	public static final FrozenLibPlacedFeature PATCH_FLOWER_FLOWER_FIELD = register("patch_flower_flower_field");
 
 	// FOREST
 	public static final FrozenLibPlacedFeature FLOWER_FOREST = register("flower_forest");
@@ -363,13 +362,6 @@ public final class WWFlowerPlacements {
 			CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 1, 2)),
 			64, 6, 2,
 			RarityFilter.onAverageOnceEvery(2)
-		);
-		registerFlowers(
-			context,
-			PATCH_FLOWER_FLOWER_FIELD,
-			WWFlowerFeatures.PATCH_FLOWER_FLOWER_FIELD,
-			CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 1), 0, 1)),
-			RarityFilter.onAverageOnceEvery(3)
 		);
 
 		// FOREST

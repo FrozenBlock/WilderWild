@@ -110,7 +110,6 @@ public final class WWFlowerFeatures {
 	public static final FrozenLibFeature FLOWER_FLOWER_FIELD_PURPLE = register("flower_flower_field_purple");
 	public static final FrozenLibFeature FLOWER_FLOWER_FIELD_PURPLE_TALL = register("flower_flower_field_purple_tall");
 	public static final FrozenLibFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
-	public static final FrozenLibFeature PATCH_FLOWER_FLOWER_FIELD = register("patch_flower_flower_field");
 
 	// FOREST
 	public static final FrozenLibFeature FLOWER_FOREST = register("flower_forest");
@@ -317,12 +316,6 @@ public final class WWFlowerFeatures {
 					)
 				)
 			)
-		);
-		registerWeightedSelector(PATCH_FLOWER_FLOWER_FIELD,
-			WeightedList.<Holder<PlacedFeature>>builder()
-				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 4)
-				.add(WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 1)
-				.build()
 		);
 
 		// FOREST
