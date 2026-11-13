@@ -18,12 +18,16 @@
 package net.frozenblock.wilderwild.client;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.client.api.BlockColorRegistry;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.block.BlockTintSources;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWBlockColors {
 
@@ -71,6 +75,4 @@ public final class WWBlockColors {
 			WWBlocks.WILLOW_LEAF_LITTER
 		);
 	}
-
-	private WWBlockColors() {}
 }

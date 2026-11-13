@@ -17,12 +17,16 @@
 
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
 import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.*;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.tag.WWAquaticFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWAquaticFeatureModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
@@ -73,6 +77,4 @@ public final class WWAquaticFeatureModifications {
 		registerFluidSpringAddition(context, WWAquaticFeatureBiomeTags.HYDROTHERMAL_VENT, WWAquaticPlacements.HYDROTHERMAL_VENT);
 		registerFluidSpringAddition(context, WWAquaticFeatureBiomeTags.HYDROTHERMAL_VENT_RARE, WWAquaticPlacements.HYDROTHERMAL_VENT_RARE);
 	}
-
-	private WWAquaticFeatureModifications() {}
 }

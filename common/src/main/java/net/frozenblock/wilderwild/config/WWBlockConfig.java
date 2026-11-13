@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
@@ -27,6 +28,7 @@ import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 
+@UtilityClass
 public final class WWBlockConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("block")), ConfigSettings.JSON5);
 
@@ -139,6 +141,4 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> SANDSTONE_SOUNDS = CONFIG.entry("blockSounds/sandstoneSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SUGAR_CANE_SOUNDS = CONFIG.entry("blockSounds/sugarCaneSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> WITHER_ROSE_SOUNDS = CONFIG.entry("blockSounds/witherRoseSounds", EntryType.BOOL, true);
-
-	private WWBlockConfig() {}
 }

@@ -25,7 +25,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBlockModifications implements BlockRegistryModificationEvents.ModifyProperties, BlockRegistryModificationEvents.ReplaceFactory {
 
 	@Override

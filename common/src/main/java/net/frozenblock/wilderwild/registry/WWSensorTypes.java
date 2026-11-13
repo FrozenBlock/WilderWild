@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredSensorType;
 import net.frozenblock.wilderwild.WWConstants;
@@ -37,7 +38,9 @@ import net.frozenblock.wilderwild.entity.ai.penguin.PenguinSpecificSensor;
 import net.frozenblock.wilderwild.entity.ai.penguin.PenguinTrackedBoatSensor;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWSensorTypes {
 	private static final DeferredRegister.SensorTypes REGISTER = DeferredRegister.createSensorTypes(WWConstants.MOD_ID);
 
@@ -60,11 +63,10 @@ public final class WWSensorTypes {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
 
 	private static <U extends Sensor<?>> DeferredSensorType<U> register(String name, Supplier<U> factory) {
 		return REGISTER.registerSensorType(name, factory);
 	}
-
-	private WWSensorTypes() {}
 }

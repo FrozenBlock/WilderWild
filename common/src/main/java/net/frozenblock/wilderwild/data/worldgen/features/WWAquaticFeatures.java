@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.features;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
@@ -56,7 +57,10 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWAquaticFeatures {
 	public static final FrozenLibFeature RIVER_POOL = register("river_pool");
 	public static final FrozenLibFeature SMALL_RIVER_POOL = register("small_river_pool");
@@ -276,6 +280,4 @@ public final class WWAquaticFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("aquatic/" + id));
 	}
-
-	private WWAquaticFeatures() {}
 }

@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
 import java.util.function.UnaryOperator;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.item.api.component.TooltipAdditionRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredDataComponentType;
@@ -36,8 +37,10 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.component.CustomData;
+import org.jetbrains.annotations.ApiStatus;
 import net.minecraft.ChatFormatting;
 
+@UtilityClass
 public final class WWDataComponents {
 	private static final DeferredRegister.DataComponents REGISTER = DeferredRegister.createDataComponents(WWConstants.MOD_ID);
 
@@ -76,6 +79,7 @@ public final class WWDataComponents {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {
 		TooltipAdditionRegistry.addTooltip(
 			Component.translatable("item.disabled.trailiertales").withStyle(ChatFormatting.RED),
@@ -89,6 +93,4 @@ public final class WWDataComponents {
 	private static <T> DeferredDataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
 		return REGISTER.registerComponent(name, builder);
 	}
-
-	private WWDataComponents() {}
 }

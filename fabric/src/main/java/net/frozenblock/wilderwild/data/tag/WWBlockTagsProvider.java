@@ -41,7 +41,9 @@ import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
 
 	public WWBlockTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -796,11 +798,11 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_BLUE)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
+			.add(WWBlockItemIds.MESOGLEA.pearlescentBlue().block())
 			.addOptionalTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS);
 
 		this.builder(WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_PURPLE)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
+			.add(WWBlockItemIds.MESOGLEA.pearlescentPurple().block())
 			.addOptionalTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS);
 
 		// MAGMATIC CAVES

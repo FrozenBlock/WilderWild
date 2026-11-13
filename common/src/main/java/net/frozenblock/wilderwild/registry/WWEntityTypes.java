@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.entity.api.attribute.DefaultAttributeRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredEntityType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
@@ -48,7 +49,9 @@ import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.Heightmap;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWEntityTypes {
 	private static final DeferredRegister.Entities REGISTER = DeferredRegister.createEntities(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
 
@@ -268,11 +271,12 @@ public final class WWEntityTypes {
 	public static final DeferredEntityType<Boat> MAPLE_BOAT = registerBoat(WWEntityTypeIds.MAPLE_BOAT, () -> WWItems.MAPLE_BOAT.get());
 	public static final DeferredEntityType<ChestBoat> MAPLE_CHEST_BOAT = registerChestBoat(WWEntityTypeIds.MAPLE_CHEST_BOAT, () -> WWItems.MAPLE_CHEST_BOAT.get());
 
-	public static void init() {}
-
 	static {
 		REGISTER.register();
 	}
+
+	@ApiStatus.Internal
+	public static void init() {}
 
 	private static <E extends AbstractBoat> DeferredEntityType<E> registerAbstractBoat(ResourceKey<EntityType<?>> key, EntityType.EntityFactory<E> factory) {
 		return REGISTER.register(
@@ -288,7 +292,6 @@ public final class WWEntityTypes {
 		);
 	}
 
-
 	private static DeferredEntityType<Boat> registerBoat(ResourceKey<EntityType<?>> key, Supplier<Item> item) {
 		return registerAbstractBoat(key, EntityTypes.boatFactory(() -> item.get()));
 	}
@@ -296,6 +299,4 @@ public final class WWEntityTypes {
 	private static DeferredEntityType<ChestBoat> registerChestBoat(ResourceKey<EntityType<?>> key, Supplier<Item> item) {
 		return registerAbstractBoat(key, EntityTypes.chestBoatFactory(() -> item.get()));
 	}
-
-	private WWEntityTypes() {}
 }

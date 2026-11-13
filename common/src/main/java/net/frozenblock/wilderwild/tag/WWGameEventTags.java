@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
 
+@UtilityClass
 public final class WWGameEventTags {
 	public static final TagKey<GameEvent> CRAB_CAN_DETECT = bind("crab_can_detect");
 	public static final TagKey<GameEvent> CRAB_CAN_ALWAYS_DETECT = bind("crab_can_always_detect");
@@ -29,6 +31,4 @@ public final class WWGameEventTags {
 	private static TagKey<GameEvent> bind(String name) {
 		return TagKey.create(Registries.GAME_EVENT, WWConstants.id(name));
 	}
-
-	private WWGameEventTags() {}
 }

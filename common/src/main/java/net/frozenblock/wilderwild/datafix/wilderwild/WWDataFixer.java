@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.datafix.wilderwild;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.schemas.Schema;
+import lombok.experimental.UtilityClass;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
 import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
@@ -30,7 +31,10 @@ import net.frozenblock.wilderwild.datafix.wilderwild.fixes.NematocystStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.OsseousSculkStateFix;
 import net.frozenblock.wilderwild.datafix.wilderwild.fixes.ScorchedSandStateFix2;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWDataFixer {
 	public static final int DATA_VERSION = 30;
 

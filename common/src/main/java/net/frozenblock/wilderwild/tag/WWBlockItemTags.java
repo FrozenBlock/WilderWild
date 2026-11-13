@@ -17,14 +17,15 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockItemTagId;
 
+@UtilityClass
 public final class WWBlockItemTags {
 	public static final BlockItemTagId MESOGLEA = bind("mesoglea");
 	public static final BlockItemTagId NEMATOCYSTS = bind("nematocysts");
-	public static final BlockItemTagId PEARLESCENT_NEMATOCYSTS = bind("pearlescent_nematocysts");
 	public static final BlockItemTagId FROGLIGHT_GOOP = bind("froglight_goop");
 	public static final BlockItemTagId LEAF_LITTERS = bind("leaf_litters");
 	public static final BlockItemTagId BAOBAB_LOGS = bind("baobab_logs");
@@ -60,6 +61,4 @@ public final class WWBlockItemTags {
 		final Identifier id = WWConstants.id(name);
 		return BlockItemTagId.create(id, id);
 	}
-
-	private WWBlockItemTags() {}
 }

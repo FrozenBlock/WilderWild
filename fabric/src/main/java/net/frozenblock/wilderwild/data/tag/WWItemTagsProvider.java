@@ -34,7 +34,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvider {
 
 	public WWItemTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

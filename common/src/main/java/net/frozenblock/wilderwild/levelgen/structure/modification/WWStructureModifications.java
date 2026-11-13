@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.structure.modification;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.structure.api.StructureSetEvents;
 import net.frozenblock.lib.levelgen.structure.api.pools.RandomPoolAliasEvents;
 import net.frozenblock.wilderwild.WWConstants;
@@ -25,7 +26,10 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructures;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWStructureModifications {
 
 	public static void init() {

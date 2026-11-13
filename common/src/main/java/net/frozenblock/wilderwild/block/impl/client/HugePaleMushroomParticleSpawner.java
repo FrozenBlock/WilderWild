@@ -26,7 +26,9 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 @ClientOnly
 public final class HugePaleMushroomParticleSpawner extends ParticleSpawner {
 	public static final HugePaleMushroomParticleSpawner INSTANCE = new HugePaleMushroomParticleSpawner();

@@ -17,9 +17,11 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 
+@UtilityClass
 public final class WWBlockFamilies {
 	public static final BlockFamily MOSSY_MUD_BRICK = BlockFamilies.familyBuilder(WWBlocks.MOSSY_MUD_BRICKS.get())
 		.stairs(WWBlocks.MOSSY_MUD_BRICK_STAIRS.get())
@@ -132,6 +134,4 @@ public final class WWBlockFamilies {
 		.recipeGroupPrefix("wooden")
 		.recipeUnlockedBy("has_planks")
 		.getFamily();
-
-	private WWBlockFamilies() {}
 }

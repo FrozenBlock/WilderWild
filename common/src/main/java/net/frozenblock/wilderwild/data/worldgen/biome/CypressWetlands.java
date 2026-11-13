@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
@@ -32,7 +33,6 @@ import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -174,7 +174,7 @@ public final class CypressWetlands extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (!WWWorldgenConfig.CYPRESS_WETLANDS_GENERATION.get()) return;
 
 		this.addSurfaceBiome(

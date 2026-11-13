@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingProcessorRule;
 import net.frozenblock.lib.levelgen.structure.api.processor.BlockStateRespectingRuleProcessor;
 import net.frozenblock.lib.levelgen.structure.api.processor.StructureProcessorListAdditions;
@@ -41,7 +42,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTes
 import net.minecraft.world.level.levelgen.structure.templatesystem.ProcessorRule;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RandomBlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWStructureProcessorListAdditions {
 
 	public static void bootstrap(BootstrapContext<StructureProcessorListAddition> context) {

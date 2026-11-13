@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
@@ -49,7 +50,10 @@ import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWEnvironmentAttributeModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
@@ -437,6 +441,4 @@ public final class WWEnvironmentAttributeModifications {
 	private static ResourceKey<BiomeModification> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("environment_attribute/" + name));
 	}
-
-	private WWEnvironmentAttributeModifications() {}
 }

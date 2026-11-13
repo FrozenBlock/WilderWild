@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
@@ -28,7 +29,9 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_GRASS = createKey("sound_override_grass");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_MUSHROOM = createKey("sound_override_mushroom");
@@ -120,6 +123,7 @@ public final class WWConfigPredicates {
 
 	public static final ResourceKey<ConfigPredicate> SPAWN_WOLF_VARIANT = createKey("spawn_wolf_variant");
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<ConfigPredicate> context) {
 		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
@@ -467,6 +471,4 @@ public final class WWConfigPredicates {
 	private static ResourceKey<ConfigPredicate> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.CONFIG_PREDICATE, WWConstants.id(name));
 	}
-
-	private WWConfigPredicates() {}
 }

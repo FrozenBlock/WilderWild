@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+import lombok.experimental.UtilityClass;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.booleanEntry;
@@ -31,7 +32,10 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWWorldgenConfigGui {
 
@@ -210,6 +214,4 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "new_witch_huts", WWWorldgenConfig.NEW_WITCH_HUT_GENERATION)
 		);
 	}
-
-	private WWWorldgenConfigGui() {}
 }

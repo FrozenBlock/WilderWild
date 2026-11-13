@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.placement;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
@@ -56,8 +57,11 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeVegetationPlacements {
 	// PLAINS
 	public static final FrozenLibPlacedFeature TREE_PLAINS = register("tree_plains");
@@ -1127,6 +1131,4 @@ public final class WWTreeVegetationPlacements {
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id("tree_vegetation/" + name));
 	}
-
-	private WWTreeVegetationPlacements() {}
 }

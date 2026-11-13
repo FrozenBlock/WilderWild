@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
@@ -28,9 +29,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWSimpleCopperPipesCompat {
 
+	/**
+	 * Be sure to check {@link net.frozenblock.lib.FrozenLibEarlyConstants#HAS_SIMPLE_COPPER_PIPES} before invoking this!
+	 */
 	public static void setup() {
 		if (SimpleCopperPipes.getCompatID() != 4) {
 			WWConstants.log("Could not initiate compat with Wilder Wild and Simple Copper Pipes. SCP compat id is not 4 (minimum SCP is 2.0.)", true);
@@ -71,6 +78,4 @@ public final class WWSimpleCopperPipesCompat {
 		final double velZ = axis == Direction.Axis.Z ? (i * direction.getStepZ() * 2D) : (yRandom * 0.1D);
 		return new Vec3(velX, velY, velZ);
 	}
-
-	private WWSimpleCopperPipesCompat() {}
 }

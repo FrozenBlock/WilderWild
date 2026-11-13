@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.wilderwild.advancements.modification.WWAdvancementModifications;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
@@ -29,7 +30,7 @@ import net.frozenblock.wilderwild.datafix.minecraft.WWMinecraftDataFixer;
 import net.frozenblock.wilderwild.datafix.wilderwild.WWDataFixer;
 import net.frozenblock.wilderwild.levelgen.modification.WWWorldgen;
 import net.frozenblock.wilderwild.levelgen.structure.modification.WWStructureModifications;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
+import net.frozenblock.wilderwild.mod_compat.WWBiolithCompat;
 import net.frozenblock.wilderwild.mod_compat.WWSimpleCopperPipesCompat;
 import net.frozenblock.wilderwild.registry.WWActivities;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
@@ -56,7 +57,10 @@ import net.frozenblock.wilderwild.registry.WWStructureProcessorTypes;
 import net.frozenblock.wilderwild.registry.WWWindDisturbanceTypes;
 import net.frozenblock.wilderwild.registry.WWWindManagerExtensionTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WilderWild {
 
 	public static void init() { // Alan Wilder Wild
@@ -75,7 +79,6 @@ public final class WilderWild {
 		WWEnvironmentAttributes.init();
 
 		WWLootTables.init();
-		WWModIntegrations.init();
 
 		WWSounds.init();
 		WWBlocks.init();
@@ -113,7 +116,6 @@ public final class WilderWild {
 		WWCreativeInventorySorting.setup();
 
 		if (FrozenLibEarlyConstants.HAS_SIMPLE_COPPER_PIPES) WWSimpleCopperPipesCompat.setup();
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) WWBiolithCompat.init();
 	}
-
-	private WilderWild() {}
 }

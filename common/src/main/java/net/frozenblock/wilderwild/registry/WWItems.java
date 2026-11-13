@@ -20,12 +20,14 @@ package net.frozenblock.wilderwild.registry;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.item.api.component.consume_effects.DamageConsumeEffect;
 import net.frozenblock.lib.platform.api.registry.DeferredItem;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.item.CoconutItem;
@@ -54,7 +56,9 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWItems {
 	private static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
 
@@ -153,22 +157,10 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> ECHO_GLASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.ECHO_GLASS, WWBlocks.ECHO_GLASS);
 
 	// MESOGLEA
-	public static final DeferredItem<BlockItem> PEARLESCENT_BLUE_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA, WWBlocks.PEARLESCENT_BLUE_MESOGLEA);
-	public static final DeferredItem<BlockItem> PEARLESCENT_PURPLE_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA);
-	public static final DeferredItem<BlockItem> YELLOW_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_MESOGLEA, WWBlocks.YELLOW_MESOGLEA);
-	public static final DeferredItem<BlockItem> BLUE_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BLUE_MESOGLEA, WWBlocks.BLUE_MESOGLEA);
-	public static final DeferredItem<BlockItem> LIME_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.LIME_MESOGLEA, WWBlocks.LIME_MESOGLEA);
-	public static final DeferredItem<BlockItem> RED_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_MESOGLEA, WWBlocks.RED_MESOGLEA);
-	public static final DeferredItem<BlockItem> PINK_MESOGLEA = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PINK_MESOGLEA, WWBlocks.PINK_MESOGLEA);
+	public static final MesogleaCollection<DeferredItem<BlockItem>> MESOGLEA = MesogleaCollection.zipMap(WWBlockItemIds.MESOGLEA, WWBlocks.MESOGLEA, REGISTER::registerSimpleBlockItem);
 
 	// NEMATOCYST
-	public static final DeferredItem<BlockItem> PEARLESCENT_BLUE_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST);
-	public static final DeferredItem<BlockItem> PEARLESCENT_PURPLE_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST);
-	public static final DeferredItem<BlockItem> YELLOW_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.YELLOW_NEMATOCYST, WWBlocks.YELLOW_NEMATOCYST);
-	public static final DeferredItem<BlockItem> BLUE_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.BLUE_NEMATOCYST, WWBlocks.BLUE_NEMATOCYST);
-	public static final DeferredItem<BlockItem> LIME_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.LIME_NEMATOCYST, WWBlocks.LIME_NEMATOCYST);
-	public static final DeferredItem<BlockItem> RED_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.RED_NEMATOCYST, WWBlocks.RED_NEMATOCYST);
-	public static final DeferredItem<BlockItem> PINK_NEMATOCYST = REGISTER.registerSimpleBlockItem(WWBlockItemIds.PINK_NEMATOCYST, WWBlocks.PINK_NEMATOCYST);
+	public static final MesogleaCollection<DeferredItem<BlockItem>> NEMATOCYST = MesogleaCollection.zipMap(WWBlockItemIds.NEMATOCYST, WWBlocks.NEMATOCYST, REGISTER::registerSimpleBlockItem);
 
 	// MISC
 	public static final DeferredItem<BlockItem> TERMITE_MOUND = REGISTER.registerSimpleBlockItem(WWBlockItemIds.TERMITE_MOUND, WWBlocks.TERMITE_MOUND);
@@ -494,11 +486,14 @@ public final class WWItems {
 	public static final DeferredItem<SpawnEggItem> MOOBLOOM_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.MOOBLOOM_SPAWN_EGG, WWEntityTypes.MOOBLOOM);
 	public static final DeferredItem<SpawnEggItem> PENGUIN_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.PENGUIN_SPAWN_EGG, WWEntityTypes.PENGUIN);
 
+	static {
+		REGISTER.register();
+	}
+
+	@ApiStatus.Internal
 	public static void init() {}
 
-	/**
-	 * Called separately on Fabric and NeoForge. Registries on NeoForge MUST be populated before running this.
-	 */
+	@ApiStatus.Internal
 	public static void setup() {
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());
 
@@ -513,10 +508,4 @@ public final class WWItems {
 		DispenserBlock.registerBehavior(MAPLE_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_BOAT.get()));
 		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT.get()));
 	}
-
-	static {
-		REGISTER.register();
-	}
-
-	private WWItems() {}
 }

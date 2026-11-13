@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.modification;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
@@ -25,7 +26,10 @@ import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.level.biome.Biomes;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWBiomeSettings {
 
 	static void setup() {

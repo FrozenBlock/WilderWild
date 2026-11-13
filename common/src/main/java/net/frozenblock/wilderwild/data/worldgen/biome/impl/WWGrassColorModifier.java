@@ -17,13 +17,17 @@
 
 package net.frozenblock.wilderwild.data.worldgen.biome.impl;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.data.worldgen.biome.Tundra;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
  * Used becaused Enum extension is not supported on common.
  */
+@ApiStatus.Internal
+@UtilityClass
 public final class WWGrassColorModifier {
 	public static BiomeSpecialEffects.GrassColorModifier WILDERWILD_TUNDRA;
 

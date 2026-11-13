@@ -17,19 +17,23 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWDamageTypes {
 	public static final ResourceKey<DamageType> PRICKLY_PEAR = bind("prickly_pear");
 	public static final ResourceKey<DamageType> TUMBLEWEED = bind("tumbleweed");
 	public static final ResourceKey<DamageType> OSTRICH = bind("ostrich");
 	public static final ResourceKey<DamageType> FALLING_ICICLE = bind("falling_icicle");
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<DamageType> context) {
 		context.register(PRICKLY_PEAR, new DamageType("prickly_pear", 0.1F));
 		context.register(TUMBLEWEED, new DamageType("tumbleweed", DamageScaling.ALWAYS, 0.1F));
@@ -40,6 +44,4 @@ public final class WWDamageTypes {
 	private static ResourceKey<DamageType> bind(String name) {
 		return ResourceKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
 	}
-
-	private WWDamageTypes() {}
 }

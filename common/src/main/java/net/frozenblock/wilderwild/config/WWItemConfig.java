@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -24,6 +25,7 @@ import net.frozenblock.lib.config.v2.entry.EntryType;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 
+@UtilityClass
 public final class WWItemConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("item")), ConfigSettings.JSON5);
 
@@ -35,6 +37,4 @@ public final class WWItemConfig {
 	public static final ConfigEntry<Boolean> EGG_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/eggLandingSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> ENDER_PEARL_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/enderPearlLandingSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> POTION_LANDING_SOUNDS = CONFIG.entry("projectileLandingSounds/potionLandingSounds", EntryType.BOOL, true);
-
-	private WWItemConfig() {}
 }

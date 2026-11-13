@@ -17,10 +17,14 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.resource.client.api.pack.ModResourcePackApi;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWMusicPackDownloader {
 	private static final String MUSIC_PACK_SUFFIX = "_v2";
@@ -58,6 +62,4 @@ public final class WWMusicPackDownloader {
 			"ww_" + trackName
 		);
 	}
-
-	private WWMusicPackDownloader() {}
 }

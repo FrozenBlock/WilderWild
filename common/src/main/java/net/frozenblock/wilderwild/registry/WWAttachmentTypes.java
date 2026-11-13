@@ -18,12 +18,15 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentSyncPredicate;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.network.codec.ByteBufCodecs;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWAttachmentTypes {
 	// BOAT
 	public static final DataAttachmentType<Integer> BOAT_BOOST_TICKS = DataAttachmentType.create(
@@ -71,7 +74,6 @@ public final class WWAttachmentTypes {
 		builder -> builder.initializer(() -> Direction.NORTH)
 	);
 
+	@ApiStatus.Internal
 	public static void init() {}
-
-	private WWAttachmentTypes() {}
 }

@@ -26,7 +26,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWStructureTagsProvider extends FabricTagsProvider<Structure> {
 
 	public WWStructureTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

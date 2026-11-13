@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.references;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+@UtilityClass
 public final class WWBlockEntityTypeIds {
 	public static final ResourceKey<BlockEntityType<?>> HANGING_TENDRIL = create("hanging_tendril");
 	public static final ResourceKey<BlockEntityType<?>> TERMITE_MOUND = create("termite_mound");

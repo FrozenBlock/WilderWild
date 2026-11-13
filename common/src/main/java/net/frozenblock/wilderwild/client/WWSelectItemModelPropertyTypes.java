@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
@@ -24,7 +25,10 @@ import net.frozenblock.wilderwild.client.renderer.item.properties.FireflyBottleC
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.core.registries.ClientRegistries;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWSelectItemModelPropertyTypes {
 
@@ -41,6 +45,4 @@ public final class WWSelectItemModelPropertyTypes {
 	}
 
 	public static void init() {}
-
-	private WWSelectItemModelPropertyTypes() {}
 }

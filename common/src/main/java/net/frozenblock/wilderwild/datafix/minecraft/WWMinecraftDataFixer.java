@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.datafix.minecraft;
 import com.mojang.datafixers.DataFixerBuilder;
 import com.mojang.datafixers.schemas.Schema;
 import java.util.Set;
+import lombok.experimental.UtilityClass;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixerBuilder;
 import net.fabricmc.frozenblock.datafixer.api.FabricDataFixes;
 import net.fabricmc.frozenblock.datafixer.api.SimpleFixes;
@@ -34,7 +35,10 @@ import net.frozenblock.wilderwild.datafix.minecraft.schemas.WWMinecraftV13;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.datafix.fixes.RemoveBlockEntityTagFix;
 import net.minecraft.util.datafix.schemas.NamespacedSchema;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWMinecraftDataFixer {
 	// 1 is 1.20.1 (base version)
 	// 2 is 1.20.4 (short grass)

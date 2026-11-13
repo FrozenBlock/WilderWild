@@ -17,10 +17,13 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.FrozenLibConstants;
 import net.frozenblock.lib.platform.api.registry.DeferredActivity;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWActivities {
 	private static final DeferredRegister.Activities REGISTER = DeferredRegister.createActivities(FrozenLibConstants.MOD_ID);
 
@@ -36,11 +39,10 @@ public final class WWActivities {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
 
 	private static DeferredActivity register(String name) {
 		return REGISTER.register(name);
 	}
-
-	private WWActivities() {}
 }

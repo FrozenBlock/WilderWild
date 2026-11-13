@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
 import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.registerVegetalAddition;
 import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.registerVegetalReplacement;
@@ -32,7 +33,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFlowerFeatureModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
@@ -209,6 +213,4 @@ public final class WWFlowerFeatureModifications {
 	) {
 		registerVegetalReplacement(context, biomes, WWBiomeSelectors.GENERATE_FLOWER, removals, additions);
 	}
-
-	private WWFlowerFeatureModifications() {}
 }

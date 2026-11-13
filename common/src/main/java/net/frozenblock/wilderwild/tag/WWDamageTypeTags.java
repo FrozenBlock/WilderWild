@@ -17,17 +17,17 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 
+@UtilityClass
 public final class WWDamageTypeTags {
 	public static final TagKey<DamageType> EMPTY = bind("empty");
 
 	private static TagKey<DamageType> bind(String name) {
 		return TagKey.create(Registries.DAMAGE_TYPE, WWConstants.id(name));
 	}
-
-	private WWDamageTypeTags() {}
 }

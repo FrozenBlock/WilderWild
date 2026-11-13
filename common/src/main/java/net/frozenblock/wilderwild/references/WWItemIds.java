@@ -17,12 +17,14 @@
 
 package net.frozenblock.wilderwild.references;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.ItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 
+@UtilityClass
 public final class WWItemIds {
 	// BOATS
 	public static final ResourceKey<Item> BAOBAB_BOAT = create("baobab_boat");

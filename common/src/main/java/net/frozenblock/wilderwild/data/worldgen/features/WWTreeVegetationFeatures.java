@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.features;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
@@ -46,7 +47,10 @@ import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeVegetationFeatures {
 	// PLAINS
 	public static final FrozenLibFeature TREE_PLAINS = register("tree_plains");
@@ -1899,6 +1903,4 @@ public final class WWTreeVegetationFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("tree_vegetation/" + id));
 	}
-
-	private WWTreeVegetationFeatures() {}
 }

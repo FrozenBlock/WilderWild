@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +26,7 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.Nullable;
 
+@UtilityClass
 public final class WWSpawnTypes {
 	public static final SpawnPlacementType ON_GROUND_OR_IN_ALGAE = new SpawnPlacementType() {
 		@Override
@@ -53,6 +55,4 @@ public final class WWSpawnTypes {
 			return SpawnPlacementTypes.ON_GROUND.adjustSpawnPosition(level, candidate);
 		}
 	};
-
-	private WWSpawnTypes() {}
 }

@@ -25,7 +25,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockSoundSetTags;
 import net.minecraft.world.level.block.sounds.BlockSoundSet;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBlockSoundSetTagsProvider extends FabricTagsProvider<BlockSoundSet> {
 
 	public WWBlockSoundSetTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

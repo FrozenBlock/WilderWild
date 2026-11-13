@@ -26,7 +26,7 @@ import static com.terraformersmc.biolith.api.biome.sub.CriterionBuilder.anyOf;
 import com.terraformersmc.biolith.api.biome.sub.RatioTargets;
 import java.util.ArrayList;
 import java.util.List;
-import net.frozenblock.lib.integration.api.ModIntegration;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
 import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -39,17 +39,17 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.Climate;
+import org.jetbrains.annotations.ApiStatus;
 
-public final class WWBiolithIntegration extends ModIntegration {
+@ApiStatus.Internal
+@UtilityClass
+public final class WWBiolithCompat {
 
-	public WWBiolithIntegration() {
-		super("biolith");
-	}
-
-	@Override
-	public void init() {
+	/**
+	 * Be sure to check {@link net.frozenblock.lib.FrozenLibEarlyConstants#HAS_BIOLITH} before invoking this!
+	 */
+	public static void init() {
 		// VANILLA BIOMES
-
 		if (WWWorldgenConfig.JUNGLE_MODIFIED_PLACEMENT.get()) {
 			BiomePlacement.addSubOverworld(
 				Biomes.DESERT,

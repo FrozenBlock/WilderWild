@@ -17,19 +17,48 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.placement.api.NoisePlacementFilter;
 import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.wilderwild.WWConstants;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWPlacementUtils {
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.625D, 1D, 0.2D, false, false, false);
-	public static final NoisePlacementFilter BIG_BUSH_CLEARING_FILTER = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.69D, 1D, 0.2D, false, false, false);
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(EasyNoiseSampler.NoiseType.XORO, 0.0065D, 0.675D, 1D, 0.175D, false, false, true);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(
+		EasyNoiseSampler.NoiseType.XORO,
+		0.0065D,
+		0.625D,
+		1D,
+		0.2D,
+		false,
+		false,
+		false
+	);
+	public static final NoisePlacementFilter BIG_BUSH_CLEARING_FILTER = new NoisePlacementFilter(
+		EasyNoiseSampler.NoiseType.XORO,
+		0.0065D,
+		0.69D,
+		1D,
+		0.2D,
+		false,
+		false,
+		false
+	);
+	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(
+		EasyNoiseSampler.NoiseType.XORO,
+		0.0065D,
+		0.675D,
+		1D,
+		0.175D,
+		false,
+		false,
+		true
+	);
 
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id(name));
 	}
-
-	private WWPlacementUtils() {}
 }

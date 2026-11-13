@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -25,6 +26,7 @@ import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.WWConstants.text;
 
+@UtilityClass
 public final class WWEntityConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("entity")), ConfigSettings.JSON5);
 
@@ -127,6 +129,4 @@ public final class WWEntityConfig {
 	public static final ConfigEntry<Boolean> FISHERMAN_DESERT_PALM_BOAT = CONFIG.entryBuilder("villager/fishermanDesertPalmBoat", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_CRAB_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanCrabForEmeralds", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> FISHERMAN_JELLYFISH_FOR_EMERALDS = CONFIG.entryBuilder("villager/fishermanJellyfishForEmeralds", EntryType.BOOL, true).requireRestart().build();
-
-	private WWEntityConfig() {}
 }

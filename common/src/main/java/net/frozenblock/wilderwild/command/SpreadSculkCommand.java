@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import lombok.experimental.UtilityClass;
 import net.minecraft.commands.CommandPermissionLevels;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -28,7 +29,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.SculkSpreader;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class SpreadSculkCommand {
 
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -89,6 +93,4 @@ public final class SpreadSculkCommand {
 		);
 		return 1;
 	}
-
-	private SpreadSculkCommand() {}
 }

@@ -17,12 +17,15 @@
 
 package net.frozenblock.wilderwild;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.feature_flag.api.FeatureFlagApi;
 import net.minecraft.world.flag.FeatureFlag;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWFeatureFlags {
 	public static final FeatureFlag WILDER_WILD = FeatureFlagApi.builder.create(WWConstants.id(WWConstants.MOD_ID));
 	public static final FeatureFlagSet WILDER_WILD_FLAG_SET = FeatureFlagSet.of(WILDER_WILD);
@@ -32,6 +35,7 @@ public final class WWFeatureFlags {
 	public static final FeatureFlag TRAILIER_TALES_COMPAT = FeatureFlagApi.builder.create(WWConstants.id("trailiertales"));
 	public static final FeatureFlagSet TRAILIER_TALES_COMPAT_FLAG_SET = FeatureFlagSet.of(TRAILIER_TALES_COMPAT);
 
+	@ApiStatus.Internal
 	public static void init() {
 		FeatureFlagApi.rebuild();
 	}

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.features;
 
 import com.google.common.collect.ImmutableList;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
@@ -122,6 +123,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.PoplarTrunkPlacer
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -130,6 +132,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeFeatures {
 	// OAK
 	public static final FrozenLibTreeFeature OAK = registerOak("oak");
@@ -2997,6 +3001,4 @@ public final class WWTreeFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("tree/" + id));
 	}
-
-	private WWTreeFeatures() {}
 }

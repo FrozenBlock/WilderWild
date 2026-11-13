@@ -21,7 +21,9 @@ import net.frozenblock.lib.entity.api.category.MobCategoryApiEntrypoint;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.minecraft.world.entity.MobCategory;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWMobCategories implements MobCategoryApiEntrypoint {
 	public static MobCategory FIREFLY;
 	public static MobCategory BUTTERFLY;

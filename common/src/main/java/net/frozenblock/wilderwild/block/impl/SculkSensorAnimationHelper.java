@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.impl;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.minecraft.core.BlockPos;
@@ -28,7 +29,10 @@ import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class SculkSensorAnimationHelper {
 	private static final DataAttachmentType<Integer> AGE_IN_TICKS = WWAttachmentTypes.SCULK_SENSOR_AGE_IN_TICKS;
 	private static final DataAttachmentType<Integer> TENDRIL_ANIMATION0 = WWAttachmentTypes.SCULK_SENSOR_TENDRIL_ANIMATION0;
@@ -70,6 +74,4 @@ public final class SculkSensorAnimationHelper {
 	public static Direction facing(BlockEntity blockEntity) {
 		return FACING.getAttachedOrElse(blockEntity, Direction.NORTH);
 	}
-
-	private SculkSensorAnimationHelper() {}
 }

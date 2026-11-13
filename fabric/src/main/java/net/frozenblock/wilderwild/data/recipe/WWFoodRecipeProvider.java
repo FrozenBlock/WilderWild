@@ -35,7 +35,9 @@ import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.SmokingRecipe;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWFoodRecipeProvider extends FabricRecipeProvider {
 
 	public WWFoodRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

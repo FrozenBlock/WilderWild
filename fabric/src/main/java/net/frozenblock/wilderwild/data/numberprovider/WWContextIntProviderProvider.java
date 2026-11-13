@@ -28,7 +28,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWContextIntProviderProvider extends FabricCodecDataProvider<ContextIntProvider> {
 
 	public WWContextIntProviderProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {

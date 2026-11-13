@@ -25,7 +25,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.world.item.trading.VillagerTrade;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWVillagerTradesTagsProvider extends FabricTagsProvider<VillagerTrade> {
 
 	public WWVillagerTradesTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

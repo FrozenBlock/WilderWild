@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
+@UtilityClass
 public final class WWAquaticFeatureBiomeTags {
 	// SURFACE
 	// FLOWERING WATER LILY
@@ -72,6 +74,4 @@ public final class WWAquaticFeatureBiomeTags {
 	private static TagKey<Biome> bind(String name) {
 		return TagKey.create(Registries.BIOME, WWConstants.id("feature/aquatic/" + name));
 	}
-
-	private WWAquaticFeatureBiomeTags() {}
 }

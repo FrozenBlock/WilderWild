@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
@@ -30,7 +31,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BlockEntityTypeIds;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWBlockEntityRenderers {
 
@@ -68,6 +72,4 @@ public final class WWBlockEntityRenderers {
 	private static ResourceKey<BlockEntityRendererProvider<?, ?>> blockEntityKey(ResourceKey<BlockEntityType<?>> type) {
 		return ResourceKey.create(ClientRegistries.BLOCK_ENTITY_RENDERER, type.identifier());
 	}
-
-	private WWBlockEntityRenderers() {}
 }

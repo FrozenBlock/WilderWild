@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.levelgen.modification;
 
 import java.util.Map;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
@@ -32,7 +33,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWWorldgen {
 
 	public static void init() {
@@ -83,6 +87,4 @@ public final class WWWorldgen {
 				}
 			});
 	}
-
-	private WWWorldgen() {}
 }

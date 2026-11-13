@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
+@UtilityClass
 public final class WWPlacedFeatureTags {
 	public static final TagKey<PlacedFeature> FOREST_DEFAULT_FLOWERS = bind("forest_default_flowers");
 	public static final TagKey<PlacedFeature> WARM_FOREST_DEFAULT_FLOWERS = bind("warm_forest_default_flowers");
@@ -31,6 +33,4 @@ public final class WWPlacedFeatureTags {
 	private static TagKey<PlacedFeature> bind(String name) {
 		return TagKey.create(Registries.PLACED_FEATURE, WWConstants.id(name));
 	}
-
-	private WWPlacedFeatureTags() {}
 }

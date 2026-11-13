@@ -84,7 +84,9 @@ import net.frozenblock.wilderwild.registry.WWWaterLikeTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override

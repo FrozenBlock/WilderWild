@@ -17,12 +17,16 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFeatureUtils {
 
 	public static <F extends Feature> FrozenLibFeature register(String id, F feature) {
@@ -43,6 +47,4 @@ public final class WWFeatureUtils {
 	) {
 		return new FrozenLibTreeFeature(WWConstants.id(id), () -> leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
 	}
-
-	private WWFeatureUtils() {}
 }

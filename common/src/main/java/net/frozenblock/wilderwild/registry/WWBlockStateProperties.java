@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.block.state.properties.TubeWormsPart;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.lighting.LightEngine;
 
+@UtilityClass
 public final class WWBlockStateProperties {
 	// Hanging Tendril
 	public static final BooleanProperty TWITCHING = BooleanProperty.create("twitching");
@@ -59,6 +61,4 @@ public final class WWBlockStateProperties {
 	// Vanilla Blocks
 	public static final BooleanProperty TERMITE_EDIBLE = BooleanProperty.create("termite_edible"); //Wood
 	public static final IntegerProperty SNOW_LAYERS = IntegerProperty.create("snow_layers", 0, 8);
-
-	private WWBlockStateProperties() {}
 }

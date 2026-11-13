@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.waterlike.WaterLikeTypes;
 import net.frozenblock.lib.block.impl.waterlike.WaterLikeType;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
@@ -25,7 +26,10 @@ import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWWaterLikeTypes {
 	public static final ResourceKey<WaterLikeType> MESOGLEA = createKey("mesoglea");
 
@@ -50,6 +54,4 @@ public final class WWWaterLikeTypes {
 	private static ResourceKey<WaterLikeType> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.WATER_LIKE_TYPE, WWConstants.id(name));
 	}
-
-	private WWWaterLikeTypes() {}
 }

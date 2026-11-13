@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.grower;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
@@ -31,7 +32,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeGrowers {
 	public static final TreeGrower BAOBAB = new BaobabTreeGrower() {
 		@Override

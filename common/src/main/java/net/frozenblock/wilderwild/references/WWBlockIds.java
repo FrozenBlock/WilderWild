@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.references;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
@@ -25,6 +26,7 @@ import net.minecraft.references.BlockIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 
+@UtilityClass
 public final class WWBlockIds {
 	// SAPLINGS
 	public static final ResourceKey<Block> POTTED_BAOBAB_NUT = create("potted_baobab_nut");

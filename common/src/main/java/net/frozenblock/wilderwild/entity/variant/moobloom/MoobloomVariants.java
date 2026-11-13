@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.entity.variant.moobloom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -36,7 +37,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> DANDELION = createKey("dandelion");
 	public static final ResourceKey<MoobloomVariant> POPPY = createKey("poppy");
@@ -94,6 +97,7 @@ public final class MoobloomVariants {
 		return Util.getRandomSafe(variants, random);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<MoobloomVariant> bootstrapContext) {
 		register(bootstrapContext, DANDELION, Blocks.DANDELION, "dandelion");
 		register(bootstrapContext, POPPY, Blocks.POPPY, "poppy");

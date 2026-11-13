@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
 import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.*;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
@@ -25,7 +26,10 @@ import net.frozenblock.wilderwild.registry.WWBiomeSelectors;
 import net.frozenblock.wilderwild.tag.WWVegetationFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWVegetationFeatureModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
@@ -277,6 +281,4 @@ public final class WWVegetationFeatureModifications {
 		// MISC
 		registerOreAddition(context, WWVegetationFeatureBiomeTags.TERMITE_MOUND, WWVegetationPlacements.TERMITE_MOUND);
 	}
-
-	private WWVegetationFeatureModifications() {}
 }

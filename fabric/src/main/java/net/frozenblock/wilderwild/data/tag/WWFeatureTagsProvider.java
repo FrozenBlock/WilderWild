@@ -26,7 +26,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FeatureTags;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWFeatureTagsProvider extends FabricTagsProvider<Feature> {
 
 	public WWFeatureTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

@@ -17,13 +17,17 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.resource.FrozenLibResourceLoader;
 import net.frozenblock.lib.platform.api.resource.PackActivationType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWResources {
 
 	public static void init() {
@@ -37,6 +41,4 @@ public final class WWResources {
 			);
 		}
 	}
-
-	private WWResources() {}
 }

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.BiomeModification;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification;
@@ -40,8 +41,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 import static net.frozenblock.lib.levelgen.biome.api.modifications.data.FeatureModification.*;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeFeatureModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
@@ -424,6 +428,4 @@ public final class WWTreeFeatureModifications {
 	private static ResourceKey<BiomeModification> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.BIOME_MODIFICATION, WWConstants.id("feature/tree/" + name));
 	}
-
-	private WWTreeFeatureModifications() {}
 }

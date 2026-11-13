@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.block.termite;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWSounds;
@@ -41,6 +42,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+@UtilityClass
 public final class TermiteBlockBehaviors {
 
 	public static void register(
@@ -177,6 +179,7 @@ public final class TermiteBlockBehaviors {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static Optional<Holder<TermiteBlockBehavior>> getTermiteBlockBehavior(RegistryAccess registryAccess, Block edibleBlock, boolean isNatural) {
 		final Registry<TermiteBlockBehavior> registry = registryAccess.lookupOrThrow(WilderWildRegistries.TERMITE_BLOCK_BEHAVIOR);
 		final List<Holder.Reference<TermiteBlockBehavior>> behaviors = registry.listElements()

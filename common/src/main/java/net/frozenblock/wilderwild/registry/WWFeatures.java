@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
@@ -55,7 +56,10 @@ import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacer;
 import net.minecraft.world.level.levelgen.feature.rootplacers.RootPlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFeatures {
 	private static final DeferredRegister<TrunkPlacerType<?>> TRUNK = DeferredRegister.create(
 		Registries.TRUNK_PLACER_TYPE,
@@ -124,6 +128,4 @@ public final class WWFeatures {
 	private static <P extends RootPlacer> DeferredHolder<RootPlacerType<?>, RootPlacerType<P>> register(String name, MapCodec<P> codec) {
 		return ROOT.register(name, () -> new RootPlacerType<>(codec));
 	}
-
-	private WWFeatures() {}
 }

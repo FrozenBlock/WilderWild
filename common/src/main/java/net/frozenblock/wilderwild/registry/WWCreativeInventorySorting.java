@@ -17,13 +17,17 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.item.api.creative.CreativeModeTabSorter;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWCreativeInventorySorting {
 
 	/**
@@ -310,22 +314,22 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.OSTRICH_EGG, WWItems.PENGUIN_EGG);
 
 		// MESOGLEA
-		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.PEARLESCENT_BLUE_MESOGLEA);
-		insertAfterInNaturalBlocks(WWItems.PEARLESCENT_BLUE_MESOGLEA, WWItems.PEARLESCENT_PURPLE_MESOGLEA);
-		insertAfterInNaturalBlocks(WWItems.PEARLESCENT_PURPLE_MESOGLEA, WWItems.BLUE_MESOGLEA);
-		insertAfterInNaturalBlocks(WWItems.BLUE_MESOGLEA, WWItems.PINK_MESOGLEA);
-		insertAfterInNaturalBlocks(WWItems.PINK_MESOGLEA, WWItems.RED_MESOGLEA);
-		insertAfterInNaturalBlocks(WWItems.RED_MESOGLEA, WWItems.YELLOW_MESOGLEA);
-		insertAfterInNaturalBlocks(WWItems.YELLOW_MESOGLEA, WWItems.LIME_MESOGLEA);
+		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.MESOGLEA.pearlescentBlue());
+		insertAfterInNaturalBlocks(WWItems.MESOGLEA.pearlescentBlue(), WWItems.MESOGLEA.pearlescentPurple());
+		insertAfterInNaturalBlocks(WWItems.MESOGLEA.pearlescentPurple(), WWItems.MESOGLEA.blue());
+		insertAfterInNaturalBlocks(WWItems.MESOGLEA.blue(), WWItems.MESOGLEA.pink());
+		insertAfterInNaturalBlocks(WWItems.MESOGLEA.pink(), WWItems.MESOGLEA.red());
+		insertAfterInNaturalBlocks(WWItems.MESOGLEA.red(), WWItems.MESOGLEA.yellow());
+		insertAfterInNaturalBlocks(WWItems.MESOGLEA.yellow(), WWItems.MESOGLEA.lime());
 
 		// NEMATOCYST
-		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.PEARLESCENT_BLUE_NEMATOCYST);
-		insertAfterInNaturalBlocks(WWItems.PEARLESCENT_BLUE_NEMATOCYST, WWItems.PEARLESCENT_PURPLE_NEMATOCYST);
-		insertAfterInNaturalBlocks(WWItems.PEARLESCENT_PURPLE_NEMATOCYST, WWItems.BLUE_NEMATOCYST);
-		insertAfterInNaturalBlocks(WWItems.BLUE_NEMATOCYST, WWItems.PINK_NEMATOCYST);
-		insertAfterInNaturalBlocks(WWItems.PINK_NEMATOCYST, WWItems.RED_NEMATOCYST);
-		insertAfterInNaturalBlocks(WWItems.RED_NEMATOCYST, WWItems.YELLOW_NEMATOCYST);
-		insertAfterInNaturalBlocks(WWItems.YELLOW_NEMATOCYST, WWItems.LIME_NEMATOCYST);
+		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.NEMATOCYST.pearlescentBlue());
+		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.pearlescentBlue(), WWItems.NEMATOCYST.pearlescentPurple());
+		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.pearlescentPurple(), WWItems.NEMATOCYST.blue());
+		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.blue(), WWItems.NEMATOCYST.pink());
+		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.pink(), WWItems.NEMATOCYST.red());
+		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.red(), WWItems.NEMATOCYST.yellow());
+		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.yellow(), WWItems.NEMATOCYST.lime());
 
 		// FROGLIGHT
 		insertAfterInNaturalAndFunctionalBlocks(Items.PEARLESCENT_FROGLIGHT, WWItems.OCHRE_FROGLIGHT_GOOP);
@@ -502,6 +506,4 @@ public final class WWCreativeInventorySorting {
 	private static void insertAfterInSpawnEggs(ItemLike comparedItem, ItemLike item) {
 		CreativeModeTabSorter.insertAfter(comparedItem, item, CreativeModeTabs.SPAWN_EGGS);
 	}
-
-	private WWCreativeInventorySorting() {}
 }

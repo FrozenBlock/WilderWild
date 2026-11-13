@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.entity.client.api.renderer.entity.EntityTextureOverride;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
@@ -27,7 +28,10 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.WardenRenderState;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.monster.warden.Warden;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWEasterEggs {
 
@@ -95,6 +99,4 @@ public final class WWEasterEggs {
 	}
 
 	public static void hatchEasterEggs() {}
-
-	private WWEasterEggs() {}
 }

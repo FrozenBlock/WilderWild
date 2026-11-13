@@ -25,7 +25,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWGameEventTagsProvider extends FabricTagsProvider<GameEvent> {
 
 	public WWGameEventTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.api.registry.DeferredSoundEvent;
 import net.frozenblock.wilderwild.WWConstants;
@@ -24,8 +25,10 @@ import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.sounds.BlockSoundCollection;
+import org.jetbrains.annotations.ApiStatus;
 import java.util.Optional;
 
+@UtilityClass
 public final class WWSounds {
 	private static final DeferredRegister.SoundEvents REGISTER = DeferredRegister.createSoundEvents(WWConstants.MOD_ID);
 
@@ -348,11 +351,10 @@ public final class WWSounds {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
 
 	public static DeferredSoundEvent register(String path) {
 		return REGISTER.register(path);
 	}
-
-	private WWSounds() {}
 }

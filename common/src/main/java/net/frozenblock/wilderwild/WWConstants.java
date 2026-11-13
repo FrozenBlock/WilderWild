@@ -17,11 +17,15 @@
 
 package net.frozenblock.wilderwild;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.ModLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 import org.slf4j.Logger;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWConstants {
 	public static final String PROJECT_ID = WWPreLoadConstants.PROJECT_ID;
 	public static final String MOD_ID = WWPreLoadConstants.MOD_ID;

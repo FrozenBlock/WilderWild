@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+@UtilityClass
 public final class WWFeatureBlockTags {
 	public static final TagKey<Block> SHRUB_MAY_PLACE_ON_FEATURE_NO_SAND = bind("shrub_may_place_on_no_sand");
 
@@ -87,6 +89,4 @@ public final class WWFeatureBlockTags {
 	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, WWConstants.id("feature/" + name));
 	}
-
-	private WWFeatureBlockTags() {}
 }

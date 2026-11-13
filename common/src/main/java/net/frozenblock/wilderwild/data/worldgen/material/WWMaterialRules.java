@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.material;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.material.api.FrozenLibMaterialRules;
 import net.frozenblock.lib.levelgen.material.api.MaterialRuleAdditions;
@@ -46,7 +47,9 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.material.MaterialRules;
 import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> GRASS_AND_DIRT = createKey("grass_and_dirt");
 	public static final ResourceKey<MaterialRule> GRAVEL_AND_STONE_BETA_BEACH = createKey("gravel_and_stone_beta_beach");
@@ -128,6 +131,7 @@ public final class WWMaterialRules {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrapAdditions(BootstrapContext<MaterialRuleAddition> context) {
 		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
@@ -631,6 +635,7 @@ public final class WWMaterialRules {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrapRules(BootstrapContext<MaterialRule> context) {
 		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
@@ -821,5 +826,4 @@ public final class WWMaterialRules {
 	private static ResourceKey<MaterialRule> createKey(String name) {
 		return ResourceKey.create(Registries.MATERIAL_RULE, WWConstants.id(name));
 	}
-
 }

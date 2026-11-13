@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.entity.variant.butterfly;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -29,7 +30,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> MONARCH = createKey("monarch");
 	public static final ResourceKey<ButterflyVariant> RED_LACEWING = createKey("red_lacewing");
@@ -68,6 +71,7 @@ public final class ButterflyVariants {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<ButterflyVariant> bootstrapContext) {
 		register(bootstrapContext, MONARCH, "monarch", WWBiomeTags.BUTTERFLY_MONARCH);
 		register(bootstrapContext, RED_LACEWING, "red_lacewing", WWBiomeTags.BUTTERFLY_RED_LACEWING);

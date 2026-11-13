@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
+@UtilityClass
 public final class WWItemTags {
 	public static final TagKey<Item> JELLYFISH_FOOD = bind("jellyfish_food");
 	public static final TagKey<Item> PEARLESCENT_JELLYFISH_FOOD = bind("pearlescent_jellyfish_food");
@@ -36,6 +38,4 @@ public final class WWItemTags {
 	private static TagKey<Item> bind(String name) {
 		return TagKey.create(Registries.ITEM, WWConstants.id(name));
 	}
-
-	private WWItemTags() {}
 }

@@ -1,11 +1,11 @@
 {
   "values": [
-    "wilderwild:blue_nematocyst",
     "wilderwild:pearlescent_blue_nematocyst",
-    "wilderwild:lime_nematocyst",
-    "wilderwild:pink_nematocyst",
     "wilderwild:pearlescent_purple_nematocyst",
+    "wilderwild:blue_nematocyst",
+    "wilderwild:pink_nematocyst",
     "wilderwild:red_nematocyst",
-    "wilderwild:yellow_nematocyst"
+    "wilderwild:yellow_nematocyst",
+    "wilderwild:lime_nematocyst"
   ]
 }

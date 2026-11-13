@@ -34,7 +34,9 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 	public WWBiomeTagsProvider(FabricPackOutput output, CompletableFuture registries) {

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.entity.variant.firefly;
 
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
@@ -26,7 +27,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.ColorCollection;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class FireflyColors {
 	public static final ResourceKey<FireflyColor> ON = createKey("on");
 	public static final ColorCollection<ResourceKey<FireflyColor>> COLORED = ColorCollection.NAMES.map(FireflyColors::createKey);
@@ -66,6 +69,7 @@ public final class FireflyColors {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<FireflyColor> bootstrapContext) {
 		register(bootstrapContext, ON, "on", Optional.empty(), 1);
 		DyeColor.VALUES.forEach(color -> register(bootstrapContext, COLORED.pick(color), color.getName(), Optional.of(color), 0));

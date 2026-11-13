@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.menu.api.SplashTextEvents;
 import net.frozenblock.wilderwild.client.WWBlockColors;
 import net.frozenblock.wilderwild.client.WWBlockEntityRenderers;
@@ -32,7 +33,10 @@ import net.frozenblock.wilderwild.client.WWSpecialModelRenderers;
 import net.frozenblock.wilderwild.registry.WWClientResources;
 import net.frozenblock.wilderwild.wind.client.AmbientWindParticleSpawner;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WilderWildClient {
 
@@ -55,6 +59,4 @@ public final class WilderWildClient {
 	}
 
 	public static void setup() {}
-
-	private WilderWildClient() {}
 }

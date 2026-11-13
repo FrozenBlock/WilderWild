@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil;
@@ -54,8 +55,11 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Unmodifiable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature COARSE_PATH_CLEARING = register("coarse_dirt_path_clearing");
 	public static final FrozenLibPlacedFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");

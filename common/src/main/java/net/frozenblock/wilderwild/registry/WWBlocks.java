@@ -21,6 +21,7 @@ import com.google.common.base.Suppliers;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.fire.FlammableBlockRegistry;
 import net.frozenblock.lib.block.api.registry.BlockSetTypeBuilder;
 import net.frozenblock.lib.block.api.registry.WoodTypeBuilder;
@@ -81,6 +82,7 @@ import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
 import net.frozenblock.wilderwild.block.WaterloggableSaplingBlock;
 import net.frozenblock.wilderwild.block.WideFlowerBlock;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
@@ -98,7 +100,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockIds;
 import net.minecraft.references.BlockItemId;
@@ -111,6 +112,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DispensibleContainerItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -155,7 +157,9 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWBlocks {
 	private static final DeferredRegister.Blocks REGISTER = DeferredRegister.createBlocks(WWConstants.MOD_ID).requiredFeatures(WWFeatureFlags.FEATURE_FLAG);
 
@@ -515,102 +519,23 @@ public final class WWBlocks {
 	);
 
 	// MESOGLEA
-	public static final DeferredBlock<MesogleaBlock> PEARLESCENT_BLUE_MESOGLEA = registerMesoglea(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA,
-		MapColor.QUARTZ,
-		() -> WWParticleTypes.HANGING_MESOGLEA_PEARLESCENT_BLUE.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_PEARLESCENT_BLUE.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PEARLESCENT_BLUE.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_PEARLESCENT_BLUE.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_PEARLESCENT_BLUE.get(),
-		true,
-		Integer.parseInt("B9DAED", 16)
-	);
-	public static final DeferredBlock<MesogleaBlock> PEARLESCENT_PURPLE_MESOGLEA = registerMesoglea(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA,
-		MapColor.COLOR_PURPLE,
-		() -> WWParticleTypes.HANGING_MESOGLEA_PEARLESCENT_PURPLE.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_PEARLESCENT_PURPLE.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PEARLESCENT_PURPLE.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_PEARLESCENT_PURPLE.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_PEARLESCENT_PURPLE.get(),
-		true,
-		Integer.parseInt("C6B2F4", 16)
-	);
-	public static final DeferredBlock<MesogleaBlock> YELLOW_MESOGLEA = registerMesoglea(WWBlockItemIds.YELLOW_MESOGLEA,
-		MapColor.COLOR_YELLOW,
-		() -> WWParticleTypes.HANGING_MESOGLEA_YELLOW.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_YELLOW.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_YELLOW.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_YELLOW.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_YELLOW.get(),
-		false,
-		Integer.parseInt("FFC958", 16)
-	);
-	public static final DeferredBlock<MesogleaBlock> BLUE_MESOGLEA = registerMesoglea(WWBlockItemIds.BLUE_MESOGLEA,
-		MapColor.COLOR_LIGHT_BLUE,
-		() -> WWParticleTypes.HANGING_MESOGLEA_BLUE.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_BLUE.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_BLUE.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_BLUE.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_BLUE.get(),
-		false,
-		Integer.parseInt("596BFF", 16)
-	);
-	public static final DeferredBlock<MesogleaBlock> LIME_MESOGLEA = registerMesoglea(WWBlockItemIds.LIME_MESOGLEA,
-		MapColor.COLOR_LIGHT_GREEN,
-		() -> WWParticleTypes.HANGING_MESOGLEA_LIME.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_LIME.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_LIME.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_LIME.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_LIME.get(),
-		false,
-		Integer.parseInt("55EF1B", 16)
-	);
-	public static final DeferredBlock<MesogleaBlock> RED_MESOGLEA = registerMesoglea(WWBlockItemIds.RED_MESOGLEA,
-		MapColor.COLOR_RED,
-		() -> WWParticleTypes.HANGING_MESOGLEA_RED.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_RED.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_RED.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_RED.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_RED.get(),
-		false,
-		Integer.parseInt("FD3420", 16)
-	);
-	public static final DeferredBlock<MesogleaBlock> PINK_MESOGLEA = registerMesoglea(WWBlockItemIds.PINK_MESOGLEA,
-		MapColor.COLOR_PINK,
-		() -> WWParticleTypes.HANGING_MESOGLEA_PINK.get(),
-		() -> WWParticleTypes.MESOGLEA_BUBBLE_PINK.get(),
-		() -> WWParticleTypes.BUBBLE_COLUMN_UP_MESOGLEA_PINK.get(),
-		() -> WWParticleTypes.CURRENT_DOWN_MESOGLEA_PINK.get(),
-		() -> WWParticleTypes.MESOGLEA_SPLASH_PINK.get(),
-		false,
-		Integer.parseInt("ED87D1", 16)
-	);
+	public static final MesogleaCollection<DeferredBlock<MesogleaBlock>> MESOGLEA = MesogleaCollection.DYE_COLORS.map(WWBlocks::registerMesoglea);
 
-	public static DeferredBlock<MesogleaBlock> registerMesoglea(
-		BlockItemId id,
-		MapColor mapColor,
-		Supplier<ParticleOptions> dripParticle,
-		Supplier<ParticleOptions> bubbleParticle,
-		Supplier<ParticleOptions> bubbleColumnUpParticle,
-		Supplier<ParticleOptions> currentDownParticle,
-		Supplier<ParticleOptions> splashParticle,
-		boolean pearlescent,
-		int waterFogColor
-	) {
+	private static DeferredBlock<MesogleaBlock> registerMesoglea(DyeColor color) {
 		return REGISTER.registerBlock(
-			id,
+			WWBlockItemIds.MESOGLEA.pick(color),
 			properties -> new MesogleaBlock(
-				pearlescent,
-				new ColorRGBA(waterFogColor),
-				dripParticle.get(),
-				bubbleParticle.get(),
-				bubbleColumnUpParticle.get(),
-				currentDownParticle.get(),
-				splashParticle.get(),
+				MesogleaCollection.IS_PEARLESCENT.pick(color),
+				new ColorRGBA(MesogleaCollection.FOG_COLORS.pick(color)),
+				WWParticleTypes.HANGING_MESOGLEA.pick(color).get(),
+				WWParticleTypes.MESOGLEA_BUBBLE.pick(color).get(),
+				WWParticleTypes.MESOGLEA_BUBBLE_COLUMN_UP.pick(color).get(),
+				WWParticleTypes.MESOGLEA_CURRENT_DOWN.pick(color).get(),
+				WWParticleTypes.MESOGLEA_SPLASH.pick(color).get(),
 				properties
 			),
 			() -> Properties.of()
-				.mapColor(mapColor)
+				.mapColor(MesogleaCollection.MAP_COLORS.pick(color))
 				.noOcclusion()
 				.strength(0.2F)
 				.friction(0.8F)
@@ -623,20 +548,14 @@ public final class WWBlocks {
 	}
 
 	// NEMATOCYST
-	public static final DeferredBlock<NematocystBlock> PEARLESCENT_BLUE_NEMATOCYST = registerNematocyst(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST, MapColor.QUARTZ);
-	public static final DeferredBlock<NematocystBlock> PEARLESCENT_PURPLE_NEMATOCYST = registerNematocyst(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST, MapColor.COLOR_PURPLE);
-	public static final DeferredBlock<NematocystBlock> YELLOW_NEMATOCYST = registerNematocyst(WWBlockItemIds.YELLOW_NEMATOCYST, MapColor.COLOR_YELLOW);
-	public static final DeferredBlock<NematocystBlock> BLUE_NEMATOCYST = registerNematocyst(WWBlockItemIds.BLUE_NEMATOCYST, MapColor.COLOR_BLUE);
-	public static final DeferredBlock<NematocystBlock> LIME_NEMATOCYST = registerNematocyst(WWBlockItemIds.LIME_NEMATOCYST, MapColor.COLOR_LIGHT_GREEN);
-	public static final DeferredBlock<NematocystBlock> RED_NEMATOCYST = registerNematocyst(WWBlockItemIds.RED_NEMATOCYST, MapColor.COLOR_RED);
-	public static final DeferredBlock<NematocystBlock> PINK_NEMATOCYST = registerNematocyst(WWBlockItemIds.PINK_NEMATOCYST, MapColor.COLOR_PINK);
+	public static final MesogleaCollection<DeferredBlock<NematocystBlock>> NEMATOCYST = MesogleaCollection.DYE_COLORS.map(WWBlocks::registerNematocyst);
 
-	public static DeferredBlock<NematocystBlock> registerNematocyst(BlockItemId id, MapColor mapColor) {
+	public static DeferredBlock<NematocystBlock> registerNematocyst(DyeColor color) {
 		return REGISTER.registerBlock(
-			id,
+			WWBlockItemIds.NEMATOCYST.pick(color),
 			NematocystBlock::new,
 			() -> Properties.of()
-				.mapColor(mapColor)
+				.mapColor(MesogleaCollection.MAP_COLORS.pick(color))
 				.noCollision()
 				.noOcclusion()
 				.sound(WWBlockSoundSets.NEMATOCYST)
@@ -1431,8 +1350,6 @@ public final class WWBlocks {
 	public static final DeferredBlock<FroglightGoopBlock> PEARLESCENT_FROGLIGHT_GOOP = registerFroglightGoop(WWBlockItemIds.PEARLESCENT_FROGLIGHT_GOOP, FroglightType.PEARLESCENT, Blocks.PEARLESCENT_FROGLIGHT);
 
 	static {
-		// Fabric: register all the blocks
-		// NeoForge: add the RegisterEvent listener
 		REGISTER.register();
 	}
 
@@ -1455,6 +1372,11 @@ public final class WWBlocks {
 			.pushReaction(PushReaction.POPPED);
 	}
 
+	private static DeferredBlock<Block> registerFlowerPot(ResourceKey<Block> id, Supplier<? extends Block> potted) {
+		return REGISTER.registerBlock(id, properties -> new FlowerPotBlock(potted.get(), properties), Blocks::flowerPotProperties);
+	}
+
+	@ApiStatus.Internal
 	public static void init() {
 		PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> {
 			if (SnowloggingUtil.isSnowlogged(state)) {
@@ -1475,10 +1397,9 @@ public final class WWBlocks {
 		});
 	}
 
-	public static DeferredBlock<Block> registerFlowerPot(ResourceKey<Block> id, Supplier<? extends Block> potted) {
-		return REGISTER.registerBlock(id, properties -> new FlowerPotBlock(potted.get(), properties), Blocks::flowerPotProperties);
-	}
 
+
+	@ApiStatus.Internal
 	public static void setup() {
 		registerDispenses();
 
@@ -1841,6 +1762,4 @@ public final class WWBlocks {
 	private static void registerInventories() {
 		HopperApi.addBlacklistedType(WWBlockEntityTypes.STONE_CHEST.get());
 	}
-
-	private WWBlocks() {}
 }

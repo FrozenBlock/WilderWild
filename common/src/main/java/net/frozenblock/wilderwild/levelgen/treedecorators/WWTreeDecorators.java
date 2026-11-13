@@ -18,13 +18,17 @@
 package net.frozenblock.wilderwild.levelgen.treedecorators;
 
 import com.mojang.serialization.MapCodec;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeDecorators {
 	private static final DeferredRegister<TreeDecoratorType<?>> REGISTER = DeferredRegister.create(
 		Registries.TREE_DECORATOR_TYPE,

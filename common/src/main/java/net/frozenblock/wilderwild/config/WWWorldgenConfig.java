@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -25,6 +26,7 @@ import net.frozenblock.lib.config.v2.entry.property.VisibilityPredicate;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 
+@UtilityClass
 public final class WWWorldgenConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("worldgen")), ConfigSettings.JSON5);
 
@@ -204,6 +206,4 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> NEW_ABANDONED_CAMP_GENERATION = CONFIG.entryBuilder("structure/newAbandonedCamps", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DECAYING_TRAIL_RUINS_GENERATION = CONFIG.entryBuilder("structure/decayTrailRuins", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NEW_DESERT_VILLAGE_GENERATION = CONFIG.entryBuilder("structure/newDesertVillages", EntryType.BOOL, true).requireRestart().build();
-
-	private WWWorldgenConfig() {}
 }

@@ -27,7 +27,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidIds;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWFluidTagsProvider extends FabricTagsProvider.FluidTagsProvider {
 
 	public WWFluidTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

@@ -34,7 +34,9 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 @ClientOnly
 public final class WWModelProvider extends FabricModelProvider {
 
@@ -154,21 +156,8 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createLeafLitter(WWBlocks.WILLOW_LEAF_LITTER.get());
 		WWBlocks.MAPLE_LEAF_LITTER.forEach(leafLitter -> WWModelHelper.createUntintedLeafLitter(generator, leafLitter.get()));
 
-		WWModelHelper.createMesoglea(generator, WWBlocks.BLUE_MESOGLEA.get());
-		WWModelHelper.createMesoglea(generator, WWBlocks.LIME_MESOGLEA.get());
-		WWModelHelper.createMesoglea(generator, WWBlocks.PINK_MESOGLEA.get());
-		WWModelHelper.createMesoglea(generator, WWBlocks.RED_MESOGLEA.get());
-		WWModelHelper.createMesoglea(generator, WWBlocks.YELLOW_MESOGLEA.get());
-		WWModelHelper.createMesoglea(generator, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get());
-		WWModelHelper.createMesoglea(generator, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get());
-
-		WWModelHelper.createNematocyst(generator, WWBlocks.BLUE_NEMATOCYST.get());
-		WWModelHelper.createNematocyst(generator, WWBlocks.LIME_NEMATOCYST.get());
-		WWModelHelper.createNematocyst(generator, WWBlocks.PINK_NEMATOCYST.get());
-		WWModelHelper.createNematocyst(generator, WWBlocks.RED_NEMATOCYST.get());
-		WWModelHelper.createNematocyst(generator, WWBlocks.YELLOW_NEMATOCYST.get());
-		WWModelHelper.createNematocyst(generator, WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get());
-		WWModelHelper.createNematocyst(generator, WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get());
+		WWBlocks.MESOGLEA.forEach(mesogleaBlock -> WWModelHelper.createMesoglea(generator, mesogleaBlock.get()));
+		WWBlocks.NEMATOCYST.forEach(nematocystBlock -> WWModelHelper.createNematocyst(generator, nematocystBlock.get()));
 
 		WWModelHelper.createFroglightGoop(generator, WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
 		WWModelHelper.createFroglightGoop(generator, WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());

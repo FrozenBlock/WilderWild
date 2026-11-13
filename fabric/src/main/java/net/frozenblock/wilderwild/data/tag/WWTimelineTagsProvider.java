@@ -25,7 +25,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TimelineTags;
 import net.minecraft.world.timeline.Timeline;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWTimelineTagsProvider extends FabricTagsProvider<Timeline> {
 
 	public WWTimelineTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

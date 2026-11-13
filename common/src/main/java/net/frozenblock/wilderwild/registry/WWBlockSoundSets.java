@@ -17,13 +17,16 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.sounds.BlockSoundSet;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> ALGAE = createKey("algae");
 	public static final ResourceKey<BlockSoundSet> BAOBAB_NUT = createKey("baobab_nut");
@@ -83,6 +86,7 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> SEA_ANEMONE = createKey("sea_anemone");
 	public static final ResourceKey<BlockSoundSet> TUBE_WORMS = createKey("tube_worms");
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<BlockSoundSet> context) {
 		context.register(ALGAE, new BlockSoundSet(0.8F, 1F, WWSounds.ALGAE));
 		context.register(BAOBAB_NUT, new BlockSoundSet(WWSounds.BAOBAB_NUT));
@@ -146,6 +150,4 @@ public final class WWBlockSoundSets {
 	private static ResourceKey<BlockSoundSet> createKey(String name) {
 		return ResourceKey.create(Registries.BLOCK_SOUND_SET, WWConstants.id(name));
 	}
-
-	private WWBlockSoundSets() {}
 }

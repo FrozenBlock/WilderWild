@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.RegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafData;
@@ -28,7 +29,9 @@ import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariant;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariant;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<FireflyColor>> FIREFLY_COLOR = ResourceKey.createRegistryKey(WWConstants.id("firefly_color"));
 	public static final ResourceKey<Registry<ButterflyVariant>> BUTTERFLY_VARIANT = ResourceKey.createRegistryKey(WWConstants.id("butterfly_variant"));
@@ -38,6 +41,7 @@ public final class WilderWildRegistries {
 	public static final ResourceKey<Registry<TermiteBlockBehavior>> TERMITE_BLOCK_BEHAVIOR = ResourceKey.createRegistryKey(WWConstants.id("termite_block_behavior"));
 	public static final ResourceKey<Registry<FallingLeafData>> FALLING_LEAF = ResourceKey.createRegistryKey(WWConstants.id("falling_leaf"));
 
+	@ApiStatus.Internal
 	public static void init() {
 		RegistryHelper.registerSyncedDynamicRegistry(FIREFLY_COLOR, FireflyColor.DIRECT_CODEC, FireflyColor.NETWORK_CODEC);
 		RegistryHelper.registerSyncedDynamicRegistry(BUTTERFLY_VARIANT, ButterflyVariant.DIRECT_CODEC, ButterflyVariant.NETWORK_CODEC);
@@ -47,6 +51,4 @@ public final class WilderWildRegistries {
 		RegistryHelper.registerSyncedDynamicRegistry(TERMITE_BLOCK_BEHAVIOR, TermiteBlockBehavior.DIRECT_CODEC, TermiteBlockBehavior.DIRECT_CODEC);
 		RegistryHelper.registerSyncedDynamicRegistry(FALLING_LEAF, FallingLeafData.DIRECT_CODEC, FallingLeafData.NETWORK_CODEC);
 	}
-
-	private WilderWildRegistries() {}
 }

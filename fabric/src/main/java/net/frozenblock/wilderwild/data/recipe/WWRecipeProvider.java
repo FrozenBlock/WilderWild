@@ -23,6 +23,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.item.api.recipe.RecipeExportNamespaceFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
@@ -38,7 +39,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWRecipeProvider extends FabricRecipeProvider {
 
 	public WWRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -271,13 +274,7 @@ public final class WWRecipeProvider extends FabricRecipeProvider {
 				stonecutterResultFromBase(RecipeCategory.DECORATIONS, WWItems.MOSSY_GABBRO_BRICK_WALL, WWItems.MOSSY_GABBRO_BRICKS);
 
 				// MESOGLEA
-				this.mesoglea(WWItems.BLUE_NEMATOCYST, WWItems.BLUE_MESOGLEA);
-				this.mesoglea(WWItems.LIME_NEMATOCYST, WWItems.LIME_MESOGLEA);
-				this.mesoglea(WWItems.PINK_NEMATOCYST, WWItems.PINK_MESOGLEA);
-				this.mesoglea(WWItems.YELLOW_NEMATOCYST, WWItems.YELLOW_MESOGLEA);
-				this.mesoglea(WWItems.RED_NEMATOCYST, WWItems.RED_MESOGLEA);
-				this.mesoglea(WWItems.PEARLESCENT_BLUE_NEMATOCYST, WWItems.PEARLESCENT_BLUE_MESOGLEA);
-				this.mesoglea(WWItems.PEARLESCENT_PURPLE_NEMATOCYST, WWItems.PEARLESCENT_PURPLE_MESOGLEA);
+				MesogleaCollection.DYE_COLORS.forEach(color -> this.mesoglea(WWItems.NEMATOCYST.pick(color), WWItems.MESOGLEA.pick(color)));
 
 				RecipeExportNamespaceFix.clearCurrentGeneratingModId();
 			}

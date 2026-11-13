@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.sound;
 
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.sound.BlockSoundSetOverrides;
 import net.frozenblock.lib.block.impl.sound.BlockSoundSetOverride;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -35,7 +36,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.sounds.BlockSoundSet;
 import net.minecraft.world.level.block.sounds.BlockSoundSets;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWBlockSoundSetOverrides {
 
 	public static void bootstrap(BootstrapContext<BlockSoundSetOverride> context) {
@@ -164,6 +168,4 @@ public final class WWBlockSoundSetOverrides {
 	private static ResourceKey<BlockSoundSetOverride> createKey(String name) {
 		return BlockSoundSetOverrides.createKey(WWConstants.id(name));
 	}
-
-	private WWBlockSoundSetOverrides() {}
 }

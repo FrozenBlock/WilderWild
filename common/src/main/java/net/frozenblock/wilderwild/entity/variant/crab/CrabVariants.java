@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.entity.variant.crab;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
@@ -26,7 +27,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class CrabVariants {
 	public static final ResourceKey<CrabVariant> CRAB = createKey("crab");
 	public static final ResourceKey<CrabVariant> DEFAULT = CRAB;
@@ -54,6 +57,7 @@ public final class CrabVariants {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<CrabVariant> bootstrapContext) {
 		register(bootstrapContext, CRAB, "crab", HolderSet.empty());
 	}

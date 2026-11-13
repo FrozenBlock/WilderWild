@@ -48,7 +48,9 @@ import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableConditio
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 
 	public WWBlockLootProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registries) {
@@ -456,20 +458,9 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.NULL_BLOCK.get());
 		this.dropSelf(WWBlocks.CHISELED_MUD_BRICKS.get());
 		this.dropSelf(WWBlocks.TERMITE_MOUND.get());
-		this.dropSelf(WWBlocks.BLUE_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.BLUE_NEMATOCYST.get());
-		this.dropSelf(WWBlocks.LIME_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.LIME_NEMATOCYST.get());
-		this.dropSelf(WWBlocks.PINK_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.PINK_NEMATOCYST.get());
-		this.dropSelf(WWBlocks.YELLOW_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.YELLOW_NEMATOCYST.get());
-		this.dropSelf(WWBlocks.RED_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.RED_NEMATOCYST.get());
-		this.dropSelf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get());
-		this.dropSelf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get());
-		this.dropWhenSilkTouch(WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get());
+
+		WWBlocks.MESOGLEA.forEach(mesogleaBlock -> this.dropSelf(mesogleaBlock.get()));
+		WWBlocks.NEMATOCYST.forEach(nematocystBlock -> this.dropWhenSilkTouch(nematocystBlock.get()));
 
 		this.makeHangingFroglightLoot(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());
 		this.makeHangingFroglightLoot(WWBlocks.VERDANT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.VERDANT_FROGLIGHT_GOOP.get());

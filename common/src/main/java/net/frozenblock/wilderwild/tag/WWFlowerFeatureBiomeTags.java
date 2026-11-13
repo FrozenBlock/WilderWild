@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
+@UtilityClass
 public final class WWFlowerFeatureBiomeTags {
 	// PLAINS
 	public static final TagKey<Biome> PLAINS_FLOWERS = bind("plains_flowers");
@@ -83,6 +85,4 @@ public final class WWFlowerFeatureBiomeTags {
 	private static TagKey<Biome> bind(String name) {
 		return TagKey.create(Registries.BIOME, WWConstants.id("feature/flower/" + name));
 	}
-
-	private WWFlowerFeatureBiomeTags() {}
 }

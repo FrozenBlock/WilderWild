@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.music.pitch.provider.PitchProvider;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
@@ -27,7 +28,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWMusicPitchProviders {
 
 	public static void bootstrap(BootstrapContext<PitchProvider> context) {
@@ -57,6 +61,4 @@ public final class WWMusicPitchProviders {
 	private static ResourceKey<PitchProvider> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.MUSIC_PITCH_PROVIDER, WWConstants.id(name));
 	}
-
-	private WWMusicPitchProviders() {}
 }

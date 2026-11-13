@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.networking;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.networking.api.ClientNetworkingHelper;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
@@ -44,7 +45,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWClientNetworking {
 
@@ -225,6 +229,4 @@ public final class WWClientNetworking {
 			FallingLeafUtil.clientSpawnExplosionParticlesFromPacket(level, packet);
 		});
 	}
-
-	private WWClientNetworking() {}
 }

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+import lombok.experimental.UtilityClass;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerSliderEntry;
@@ -30,7 +31,10 @@ import net.minecraft.util.Util;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWClothConfigGuiHelper {
 
@@ -121,6 +125,4 @@ public final class WWClothConfigGuiHelper {
 			Component.translatable("tooltip.wilderwild.spawn_entity_variants", entityName)
 		);
 	}
-
-	private WWClothConfigGuiHelper() {}
 }

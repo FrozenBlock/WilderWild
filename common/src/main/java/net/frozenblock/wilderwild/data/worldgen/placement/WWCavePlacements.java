@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.placement;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
@@ -47,7 +48,10 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWCavePlacements {
 	// MESOGLEA CAVES
 	public static final FrozenLibPlacedFeature ORE_CALCITE = register("ore_calcite");
@@ -320,6 +324,4 @@ public final class WWCavePlacements {
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id("cave/" + name));
 	}
-
-	private WWCavePlacements() {}
 }

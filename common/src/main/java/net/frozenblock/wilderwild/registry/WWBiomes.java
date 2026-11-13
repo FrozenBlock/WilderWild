@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.biome.AridForest;
 import net.frozenblock.wilderwild.data.worldgen.biome.AridSavanna;
@@ -50,7 +51,9 @@ import net.frozenblock.wilderwild.data.worldgen.biome.WarmRiver;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWBiomes {
 	// Main Biomes
 	public static final ResourceKey<Biome> CYPRESS_WETLANDS = CypressWetlands.INSTANCE.getKey();
@@ -90,6 +93,7 @@ public final class WWBiomes {
 	public static final ResourceKey<Biome> OLD_GROWTH_DARK_FOREST = OldGrowthDarkForest.INSTANCE.getKey();
 	public static final ResourceKey<Biome> SNOWY_OLD_GROWTH_PINE_TAIGA = SnowyOldGrowthPineTaiga.INSTANCE.getKey();
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<Biome> context) {
 		// MAIN BIOMES
 		register(context, CYPRESS_WETLANDS, CypressWetlands.INSTANCE.create(context));
@@ -134,6 +138,4 @@ public final class WWBiomes {
 		WWConstants.log("Registering biome " + key.identifier(), true);
 		entries.register(key, biome);
 	}
-
-	private WWBiomes() {}
 }

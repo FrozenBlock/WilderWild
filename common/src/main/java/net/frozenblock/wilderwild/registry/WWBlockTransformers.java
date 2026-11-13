@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.item.api.component.BlockTransformerEvents;
 import net.frozenblock.lib.levelgen.blockpredicates.HasMatchingAxisPredicate;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
@@ -32,8 +33,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.stateproviders.CopyPropertiesProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
+import org.jetbrains.annotations.ApiStatus;
 
 // TODO: NeoForge
+@ApiStatus.Internal
+@UtilityClass
 public final class WWBlockTransformers {
 	private static final BlockPredicate LOG_HOLLOWING_ENABLED = WWBlockConfig.LOG_HOLLOWING.equalTo(true).asBlockPredicate();
 	private static final Function<Direction.Axis, BlockTransformer.BlockTransformData> AXE_HOLLOWABLES = axis -> BlockTransformer.BlockTransformData

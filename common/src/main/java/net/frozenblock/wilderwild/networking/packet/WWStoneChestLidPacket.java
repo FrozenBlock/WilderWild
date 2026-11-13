@@ -27,7 +27,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public record WWStoneChestLidPacket(BlockPos pos, float prevOpenProgress, float openProgress, float highestLidPoint, int cooldownTicks, int stillLidTicks, boolean closing) implements CustomPacketPayload {
 	public static final Type<WWStoneChestLidPacket> PACKET_TYPE = new Type<>(WWConstants.id("stone_chest_lid"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWStoneChestLidPacket> CODEC = StreamCodec.ofMember(WWStoneChestLidPacket::write, WWStoneChestLidPacket::new);

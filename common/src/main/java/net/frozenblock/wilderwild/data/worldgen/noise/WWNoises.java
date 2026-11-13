@@ -17,13 +17,16 @@
 
 package net.frozenblock.wilderwild.data.worldgen.noise;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.NoiseData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWNoises {
 	public static final ResourceKey<NormalNoise> SAND_BEACH = createKey("sand_beach");
 	public static final ResourceKey<NormalNoise> GRAVEL_BEACH = createKey("gravel_beach");
@@ -40,8 +43,8 @@ public final class WWNoises {
 	public static final ResourceKey<NormalNoise> SANDSTONE_PATCH = createKey("sandstone_patch");
 	public static final ResourceKey<NormalNoise> MUD_PATCH = createKey("mud_patch");
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<NormalNoise> context) {
-
 		registerBetaBeach(context, SAND_BEACH);
 		registerBetaBeach(context, GRAVEL_BEACH);
 		NoiseData.register(context, MAGMATIC_CAVE_GRADIENT, -6, 0D, 3D, 5D, 2D);

@@ -19,13 +19,16 @@ package net.frozenblock.wilderwild.registry;
 
 import java.util.function.Supplier;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.attribute.AttributeTypes;
 import net.minecraft.world.attribute.EnvironmentAttribute;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWEnvironmentAttributes {
 	private static final DeferredRegister<EnvironmentAttribute<?>> REGISTER = DeferredRegister.create(
 		Registries.ENVIRONMENT_ATTRIBUTE,
@@ -57,11 +60,10 @@ public final class WWEnvironmentAttributes {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
 
 	private static <Value> DeferredHolder<EnvironmentAttribute<?>, EnvironmentAttribute<Value>> register(String name, Supplier<EnvironmentAttribute.Builder<Value>> builder) {
 		return REGISTER.register(name, () -> builder.get().build());
 	}
-
-	private WWEnvironmentAttributes() {}
 }

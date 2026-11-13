@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.dispenser.ShearsDispenseItemBehaviorApi;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
@@ -26,7 +27,10 @@ import net.frozenblock.wilderwild.block.ShrubBlock;
 import net.frozenblock.wilderwild.block.SpongeBudBlock;
 import net.frozenblock.wilderwild.block.TumbleweedBlock;
 import net.frozenblock.wilderwild.block.TumbleweedPlantBlock;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWShearsDispenseItemBehaviors {
 
 	public static void init() {
@@ -80,6 +84,4 @@ public final class WWShearsDispenseItemBehaviors {
 			return false;
 		});
 	}
-
-	private WWShearsDispenseItemBehaviors() {}
 }

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+import lombok.experimental.UtilityClass;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.*;
@@ -26,7 +27,10 @@ import static net.frozenblock.wilderwild.config.gui.WWClothConfigGuiHelper.*;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.world.entity.EntityTypes;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWEntityConfigGui {
 
@@ -166,6 +170,4 @@ public final class WWEntityConfigGui {
 		);
 		 */
 	}
-
-	private WWEntityConfigGui() {}
 }

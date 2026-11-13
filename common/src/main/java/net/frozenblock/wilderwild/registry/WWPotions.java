@@ -17,14 +17,17 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
+import org.jetbrains.annotations.ApiStatus;
 
 // TODO: add to tradeable tags
+@UtilityClass
 public final class WWPotions {
 	private static final DeferredRegister<Potion> REGISTER = DeferredRegister.create(
 		Registries.POTION,
@@ -59,7 +62,6 @@ public final class WWPotions {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
-
-	private WWPotions() {}
 }

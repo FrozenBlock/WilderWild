@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.attachment.BlockAttachmentEvents;
 import net.frozenblock.lib.block.api.attachment.BlockAttachmentKey;
 import net.frozenblock.lib.block.api.tick.BlockTickRegistry;
@@ -53,12 +54,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class FallingLeafUtil {
 	private static final Function<Float, Float> SLIGHTLY_HEAVY_GRAVITY_MODIFIER = gravity -> Math.max(2.5F, gravity * 1.5F);
 	public static final BlockAttachmentKey<FallingLeafData> FALLING_LEAF_DATA_KEY = BlockAttachmentKey.create(() -> "Falling Leaf Data");
 	public static final BlockAttachmentKey<Unit> CANCEL_VANILLA_LEAF_PARTICLES_KEY = BlockAttachmentKey.create(() -> "Cancel Vanilla Leaf Particles");
 
-	@ApiStatus.Internal
 	public static void init() {
 		BlockAttachmentEvents.REGISTER.register(registries -> {
 			registries.lookup(WilderWildRegistries.FALLING_LEAF).ifPresent(fallingLeafRegistry -> {
@@ -245,6 +247,4 @@ public final class FallingLeafUtil {
 			level.addParticle(particle, particlePos.x, particlePos.y, particlePos.z, 0D, 0D, 0D);
 		}
 	}
-
-	private FallingLeafUtil() {}
 }

@@ -17,10 +17,14 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.friction.BlockFrictionModification;
 import net.frozenblock.wilderwild.entity.Penguin;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFrictionModifications {
 
 	public static void init() {
@@ -28,6 +32,4 @@ public final class WWFrictionModifications {
 			if (ctx.entity instanceof Penguin && ctx.state.is(WWBlockTags.PENGUIN_IGNORE_FRICTION)) ctx.friction = 0.6F;
 		});
 	}
-
-	private WWFrictionModifications() {}
 }

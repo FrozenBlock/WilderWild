@@ -17,13 +17,16 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.selector.BiomeSelector;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWTreeFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWBiomeSelectors {
 	public static final ResourceKey<BiomeSelector> GENERATE_GRASS = createKey("generate_grass");
 	public static final ResourceKey<BiomeSelector> GENERATE_DRY_GRASS = createKey("generate_dry_grass");
@@ -56,6 +59,7 @@ public final class WWBiomeSelectors {
 	public static final ResourceKey<BiomeSelector> GENERATE_LEAF_LITTER_SPRUCE = createKey("generate_leaf_litter_spruce");
 	public static final ResourceKey<BiomeSelector> GENERATE_LEAF_LITTER_WILLOW = createKey("generate_leaf_litter_willow");
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<BiomeSelector> context) {
 		context.register(GENERATE_DRY_GRASS, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_DRY_GRASS));
 		context.register(GENERATE_GRASS, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_GRASS));
@@ -92,6 +96,4 @@ public final class WWBiomeSelectors {
 	private static ResourceKey<BiomeSelector> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.BIOME_SELECTOR, WWConstants.id(name));
 	}
-
-	private WWBiomeSelectors() {}
 }

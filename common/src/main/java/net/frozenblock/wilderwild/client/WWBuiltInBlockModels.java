@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.client;
 
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.renderer.block.BuiltInBlockModelRegistry;
 import net.frozenblock.wilderwild.client.renderer.block.model.properties.conditional.HasSculk;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
@@ -32,7 +33,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.properties.ChestType;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWBuiltInBlockModels {
 

@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+@UtilityClass
 public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_GRASS = bind("sound/grass");
 	public static final TagKey<Block> SOUND_FROZEN_GRASS = bind("sound/frozen_grass");
@@ -116,6 +118,4 @@ public final class WWBlockTags {
 	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, WWConstants.id(name));
 	}
-
-	private WWBlockTags() {}
 }

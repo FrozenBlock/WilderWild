@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.features;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
@@ -50,7 +51,10 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFlowerFeatures {
 	public static final FrozenLibFeature ALLIUM = register("allium");
 	public static final FrozenLibFeature AZURE_BLUET = register("azure_bluet");
@@ -617,6 +621,4 @@ public final class WWFlowerFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("flower/" + id));
 	}
-
-	private WWFlowerFeatures() {}
 }

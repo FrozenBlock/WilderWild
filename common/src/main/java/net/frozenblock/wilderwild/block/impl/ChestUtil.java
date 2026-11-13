@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.block.impl;
 
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentTarget;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
@@ -40,7 +41,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class ChestUtil {
 
 	public static Optional<ChestBlockEntity> getCoupledChestBlockEntity(LevelReader level, BlockPos pos, BlockState state) {
