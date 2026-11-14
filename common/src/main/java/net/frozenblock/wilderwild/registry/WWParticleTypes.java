@@ -72,7 +72,7 @@ public final class WWParticleTypes {
 	public static final MesogleaCollection<DeferredSimpleParticleType> MESOGLEA_BUBBLE_COLUMN_UP = MesogleaCollection.NAMES.map(name -> register("mesoglea_bubble_column_up_" + name));
 	public static final MesogleaCollection<DeferredSimpleParticleType> MESOGLEA_CURRENT_DOWN = MesogleaCollection.NAMES.map(name -> register("mesoglea_current_down_" + name));
 	public static final MesogleaCollection<DeferredSimpleParticleType> MESOGLEA_BUBBLE_POP = MesogleaCollection.NAMES.map(name -> register("mesoglea_bubble_pop_" + name));
-	public static final MesogleaCollection<DeferredSimpleParticleType> MESOGLEA_SPLASH = MesogleaCollection.NAMES.map(name -> register("mesoglea_splash" + name));
+	public static final MesogleaCollection<DeferredSimpleParticleType> MESOGLEA_SPLASH = MesogleaCollection.NAMES.map(name -> register("mesoglea_splash_" + name));
 
 	// VANILLA LEAVES
 	public static final DeferredParticleType<WWFallingLeavesParticleOptions> OAK_LEAVES = createLeafParticle("oak_leaves");
