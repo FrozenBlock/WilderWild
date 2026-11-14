@@ -33,6 +33,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import java.util.function.Supplier;
 
 @ClientOnly
 public class MesogleaCurrentDownParticle extends SingleQuadParticle {
@@ -106,7 +107,7 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 		return Layer.OPAQUE;
 	}
 
-	public record Provider(SpriteSet spriteSet, ParticleOptions popParticle) implements ParticleProvider<SimpleParticleType> {
+	public record Provider(SpriteSet spriteSet, Supplier<ParticleOptions> popParticle) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
 			SimpleParticleType options,
@@ -115,7 +116,7 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new MesogleaCurrentDownParticle(level, x, y, z, xd, yd, zd, this.popParticle, this.spriteSet.get(random));
+			return new MesogleaCurrentDownParticle(level, x, y, z, xd, yd, zd, this.popParticle.get(), this.spriteSet.get(random));
 		}
 	}
 }
