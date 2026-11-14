@@ -57,8 +57,8 @@ public final class WWMobSpawnModifications {
 		registerButterfly(context, "butterfly_very_rare", 1, 2.75D, 0.015D, true, false);
 
 		// JELLYFISH
-		registerJellyfish(context, "jellyfish", 0.3D, false);
-		registerJellyfish(context, "jellyfish_common", 1.3D, true);
+		registerJellyfish(context, "jellyfish", 1.3D, false);
+		registerJellyfish(context, "jellyfish_common", 0.3D, true);
 
 		// CRAB
 		registerSimple(context, WWEntityTypes.CRAB.get(), WWBiomeTags.HAS_CRAB, 1, 1, 3);
