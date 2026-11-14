@@ -315,7 +315,7 @@ public final class WWEnvironmentAttributeModifications {
 		context.register(
 			// TODO: helper methods in BiomeModification
 			createKey("ambient_particles/" + biome.identifier().getPath()),
-			new EnvironmentAttributeModification(
+			EnvironmentAttributeModification.forAddition(
 				Holder.direct(
 					BiomeSelector.allOf(
 						BiomeSelector.configPredicate(entry.equalTo(true).asHolder()),
@@ -336,7 +336,7 @@ public final class WWEnvironmentAttributeModifications {
 		context.register(
 			// TODO: helper methods in BiomeModification
 			createKey("fog/" + biome.identifier().getPath()),
-			new EnvironmentAttributeModification(
+			EnvironmentAttributeModification.forAddition(
 				Holder.direct(
 					BiomeSelector.allOf(
 						BiomeSelector.configPredicate(entry.equalTo(true).asHolder()),
@@ -360,7 +360,7 @@ public final class WWEnvironmentAttributeModifications {
 		context.register(
 			// TODO: helper methods in BiomeModification
 			createKey("ambience/" + biome.identifier().getPath()),
-			new EnvironmentAttributeModification(
+			EnvironmentAttributeModification.forAddition(
 				Holder.direct(
 					BiomeSelector.allOf(
 						BiomeSelector.configPredicate(entry.equalTo(true).asHolder()),
@@ -394,7 +394,7 @@ public final class WWEnvironmentAttributeModifications {
 		context.register(
 			// TODO: helper methods in BiomeModification
 			createKey("music/" + name),
-			new EnvironmentAttributeModification(
+			EnvironmentAttributeModification.forAddition(
 				Holder.direct(
 					BiomeSelector.allOf(
 						BiomeSelector.configPredicate(mergeWhen),

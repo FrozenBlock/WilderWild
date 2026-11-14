@@ -54,7 +54,10 @@ import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
 import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialRules;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWAquaticFeatureModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWBiomeColorModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWEnvironmentAttributeModifications;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWFlowerFeatureModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWMobSpawnModifications;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWTreeFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWVegetationFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
@@ -67,7 +70,6 @@ import net.frozenblock.wilderwild.entity.variant.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColors;
 import net.frozenblock.wilderwild.entity.variant.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.variant.moobloom.MoobloomVariants;
-import net.frozenblock.wilderwild.data.worldgen.modification.WWEnvironmentAttributeModifications;
 import net.frozenblock.wilderwild.registry.WWBiomeSelectors;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockSoundSets;
@@ -160,7 +162,9 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWFlowerFeatureModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWTreeFeatureModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWVegetationFeatureModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWMobSpawnModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWEnvironmentAttributeModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWBiomeColorModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.MUSIC_PITCH_PROVIDER, WWMusicPitchProviders::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.SUFFOCATION_TYPE, WWSuffocationTypes::bootstrap);
 

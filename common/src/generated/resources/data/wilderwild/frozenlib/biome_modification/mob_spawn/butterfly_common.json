@@ -1,0 +1,29 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {
+      "wilderwild:butterfly": {
+        "charge": 0.3,
+        "energy_budget": 0.15
+      }
+    },
+    "spawns_by_category": {
+      "wilderwild:butterfly": [
+        {
+          "type": "wilderwild:butterfly",
+          "count": 1,
+          "weight": 2
+        }
+      ]
+    }
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:has_butterfly",
+      "wilderwild:not_butterfly_very_rare_spawn",
+      "wilderwild:butterfly_common_spawn"
+    ]
+  }
+}

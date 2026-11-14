@@ -1,6 +1,6 @@
 {
   "type": "frozenlib:environment_attribute",
-  "attributes": {
+  "additions": {
     "minecraft:visual/fog_color": "#000000"
   },
   "phase": "replacements",

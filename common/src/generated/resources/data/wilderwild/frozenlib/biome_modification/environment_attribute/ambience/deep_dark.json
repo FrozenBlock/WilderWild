@@ -1,6 +1,6 @@
 {
   "type": "frozenlib:environment_attribute",
-  "attributes": {
+  "additions": {
     "minecraft:audio/ambient_sounds": {
       "additions": {
         "sound": "wilderwild:ambient.deep_dark.additions",

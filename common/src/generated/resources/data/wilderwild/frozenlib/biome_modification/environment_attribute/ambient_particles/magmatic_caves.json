@@ -1,6 +1,6 @@
 {
   "type": "frozenlib:environment_attribute",
-  "attributes": {
+  "additions": {
     "minecraft:visual/ambient_particles": [
       {
         "particle": {

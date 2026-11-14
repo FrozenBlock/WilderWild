@@ -1,0 +1,28 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {
+      "wilderwild:jellyfish": {
+        "charge": 1.3,
+        "energy_budget": 0.15
+      }
+    },
+    "spawns_by_category": {
+      "wilderwild:jellyfish": [
+        {
+          "type": "wilderwild:jellyfish",
+          "count": 1,
+          "weight": 2
+        }
+      ]
+    }
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:has_jellyfish",
+      "wilderwild:jellyfish_common_spawn"
+    ]
+  }
+}

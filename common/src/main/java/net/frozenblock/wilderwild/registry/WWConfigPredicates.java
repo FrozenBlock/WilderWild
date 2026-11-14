@@ -43,8 +43,6 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK = createKey("sound_override_pale_oak");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_ICICLE = createKey("sound_override_icicle");
 
-	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
-
 	public static final ResourceKey<ConfigPredicate> GENERATE_TERMITE = createKey("generate_termite");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
@@ -122,6 +120,14 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_OCEAN_AUBURN_MOSS = createKey("generate_ocean_auburn_moss");
 
 	public static final ResourceKey<ConfigPredicate> SPAWN_WOLF_VARIANT = createKey("spawn_wolf_variant");
+
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_HOT = createKey("water_color_hot");
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_LUKEWARM = createKey("water_color_lukewarm");
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_SNOWY = createKey("water_color_snowy");
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_FROZEN = createKey("water_color_frozen");
+	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
+	public static final ResourceKey<ConfigPredicate> FOLIAGE_COLOR_BADLANDS = createKey("foliage_color_badlands");
+	public static final ResourceKey<ConfigPredicate> GRASS_COLOR_DAPPLED_FOREST = createKey("grass_color_dappled_forest");
 
 	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<ConfigPredicate> context) {
@@ -363,11 +369,6 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
-			MUSIC_PITCH_SHIFT_DYING_FORESTS,
-			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
-		);
-
-		context.register(
 			GENERATE_MOSS,
 			WWWorldgenConfig.MOSS_DECORATION.equalTo(true)
 		);
@@ -465,6 +466,35 @@ public final class WWConfigPredicates {
 		context.register(
 			SPAWN_WOLF_VARIANT,
 			WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true)
+		);
+
+		context.register(
+			WATER_COLOR_HOT,
+			WWAmbienceAndMiscConfig.MODIFY_HOT_WATER.equalTo(true)
+		);
+		context.register(
+			WATER_COLOR_LUKEWARM,
+			WWAmbienceAndMiscConfig.MODIFY_LUKEWARM_WATER.equalTo(true)
+		);
+		context.register(
+			WATER_COLOR_SNOWY,
+			WWAmbienceAndMiscConfig.MODIFY_SNOWY_WATER.equalTo(true)
+		);
+		context.register(
+			WATER_COLOR_FROZEN,
+			WWAmbienceAndMiscConfig.MODIFY_FROZEN_WATER.equalTo(true)
+		);
+		context.register(
+			MUSIC_PITCH_SHIFT_DYING_FORESTS,
+			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
+		);
+		context.register(
+			FOLIAGE_COLOR_BADLANDS,
+			WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR.equalTo(true)
+		);
+		context.register(
+			GRASS_COLOR_DAPPLED_FOREST,
+			WWAmbienceAndMiscConfig.DAPPLED_FOREST_GRASS_COLOR.equalTo(true)
 		);
 	}
 

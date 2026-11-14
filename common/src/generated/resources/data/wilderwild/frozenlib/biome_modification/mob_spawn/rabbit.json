@@ -1,0 +1,24 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {},
+    "spawns_by_category": {
+      "creature": [
+        {
+          "type": "minecraft:rabbit",
+          "count": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 4,
+            "min_inclusive": 2
+          },
+          "weight": 10
+        }
+      ]
+    }
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:entity/spawn/rabbit"
+  }
+}

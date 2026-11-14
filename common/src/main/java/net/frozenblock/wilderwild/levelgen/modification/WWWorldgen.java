@@ -48,8 +48,6 @@ public final class WWWorldgen {
 
 		WWMiscGeneration.generateMisc();
 
-		WWBiomeSettings.setup();
-
 		final Map<ResourceKey<Biome>, ResourceKey<VillagerType>> villagerTypeMap = VillagerType.BY_BIOME;
 		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
 		villagerTypeMap.put(WWBiomes.OASIS, VillagerType.DESERT);

@@ -1,6 +1,6 @@
 {
   "type": "frozenlib:environment_attribute",
-  "attributes": {
+  "additions": {
     "minecraft:audio/background_music": {
       "default": {
         "max_delay": 24000,

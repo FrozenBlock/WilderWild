@@ -1,0 +1,17 @@
+{
+  "type": "frozenlib:environment_attribute",
+  "additions": {
+    "minecraft:visual/water_fog_color": "#041633"
+  },
+  "phase": "replacements",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:water_color_lukewarm",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:water_color/lukewarm"
+      }
+    ]
+  }
+}

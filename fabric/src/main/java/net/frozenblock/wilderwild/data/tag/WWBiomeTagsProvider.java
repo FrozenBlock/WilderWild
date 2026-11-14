@@ -142,6 +142,12 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(ConventionalBiomeTags.IS_BEACH)
 			.addOptional(WWBiomes.WARM_BEACH);
+
+		this.builder(WWBiomeTags.HAS_BADLANDS_FOLIAGE_COLOR)
+			.addOptionalTag(BiomeTags.IS_BADLANDS);
+
+		this.builder(WWBiomeTags.HAS_DAPPLED_FOREST_GRASS_COLOR)
+			.addOptional(Biomes.DAPPLED_FOREST);
 	}
 
 	private void generateMusicTags() {
@@ -631,6 +637,9 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.add(Biomes.DESERT)
 			.add(Biomes.WINDSWEPT_SAVANNA)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
+
+		this.builder(WWBiomeTags.HAS_RABBIT)
+			.add(Biomes.FOREST, Biomes.FLOWER_FOREST);
 
 		this.builder(BiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
 			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)

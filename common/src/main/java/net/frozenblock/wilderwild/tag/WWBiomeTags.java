@@ -37,6 +37,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_ZOMBIE_OSTRICH = bind("entity/spawn/zombie_ostrich");
 	public static final TagKey<Biome> HAS_PENGUIN = bind("entity/spawn/penguin");
 	public static final TagKey<Biome> HAS_TUMBLEWEED_ENTITY = bind("entity/spawn/tumbleweed");
+	public static final TagKey<Biome> HAS_RABBIT = bind("entity/spawn/rabbit");
 
 	public static final TagKey<Biome> BUTTERFLY_MONARCH = bind("entity/variant/butterfly_monarch");
 	public static final TagKey<Biome> BUTTERFLY_RED_LACEWING = bind("entity/variant/butterfly_red_lacewing");
@@ -129,6 +130,9 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 
 	public static final TagKey<Biome> MUSIC_PITCH_SHIFT_DYING_FOREST = bind("music_pitch_shift_dying_forest");
+
+	public static final TagKey<Biome> HAS_BADLANDS_FOLIAGE_COLOR = bind("has_badlands_foliage_color");
+	public static final TagKey<Biome> HAS_DAPPLED_FOREST_GRASS_COLOR = bind("has_dappled_forest_grass_color");
 
 	public static final TagKey<Biome> HAS_FOREST_MUSIC = bind("music_pool/has_forest_music");
 	public static final TagKey<Biome> HAS_FLOWER_FOREST_MUSIC = bind("music_pool/has_flower_forest_music");

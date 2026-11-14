@@ -21,6 +21,7 @@ import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.data.selector.BiomeSelector;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWTreeFeatureBiomeTags;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -59,6 +60,24 @@ public final class WWBiomeSelectors {
 	public static final ResourceKey<BiomeSelector> GENERATE_LEAF_LITTER_SPRUCE = createKey("generate_leaf_litter_spruce");
 	public static final ResourceKey<BiomeSelector> GENERATE_LEAF_LITTER_WILLOW = createKey("generate_leaf_litter_willow");
 
+	public static final ResourceKey<BiomeSelector> HAS_BUTTERFLY = createKey("has_butterfly");
+	public static final ResourceKey<BiomeSelector> BUTTERFLY_VERY_RARE_SPAWN = createKey("butterfly_very_rare_spawn");
+	public static final ResourceKey<BiomeSelector> NOT_BUTTERFLY_VERY_RARE_SPAWN = createKey("not_butterfly_very_rare_spawn");
+	public static final ResourceKey<BiomeSelector> BUTTERFLY_COMMON_SPAWN = createKey("butterfly_common_spawn");
+	public static final ResourceKey<BiomeSelector> NOT_BUTTERFLY_COMMON_SPAWN = createKey("not_butterfly_common_spawn");
+
+	public static final ResourceKey<BiomeSelector> HAS_JELLYFISH = createKey("has_jellyfish");
+	public static final ResourceKey<BiomeSelector> JELLYFISH_COMMON_SPAWN = createKey("jellyfish_common_spawn");
+	public static final ResourceKey<BiomeSelector> NOT_JELLYFISH_COMMON_SPAWN = createKey("not_jellyfish_common_spawn");
+
+	public static final ResourceKey<BiomeSelector> WATER_COLOR_HOT = createKey("water_color_hot");
+	public static final ResourceKey<BiomeSelector> WATER_COLOR_LUKEWARM = createKey("water_color_lukewarm");
+	public static final ResourceKey<BiomeSelector> WATER_COLOR_SNOWY = createKey("water_color_snowy");
+	public static final ResourceKey<BiomeSelector> WATER_COLOR_FROZEN = createKey("water_color_frozen");
+	public static final ResourceKey<BiomeSelector> FOLIAGE_COLOR_BADLANDS = createKey("foliage_color_badlands");
+	public static final ResourceKey<BiomeSelector> GRASS_COLOR_DAPPLED_FOREST = createKey("grass_color_dappled_forest");
+
+
 	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<BiomeSelector> context) {
 		context.register(GENERATE_DRY_GRASS, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_DRY_GRASS));
@@ -91,6 +110,23 @@ public final class WWBiomeSelectors {
 		context.register(GENERATE_LEAF_LITTER_POPLAR, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_LEAF_LITTER_POPLAR));
 		context.register(GENERATE_LEAF_LITTER_SPRUCE, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_LEAF_LITTER_SPRUCE));
 		context.register(GENERATE_LEAF_LITTER_WILLOW, BiomeSelector.configPredicate(context, WWConfigPredicates.GENERATE_LEAF_LITTER_WILLOW));
+
+		context.register(HAS_BUTTERFLY, BiomeSelector.inBiomeTag(context, WWBiomeTags.HAS_BUTTERFLY));
+		context.register(BUTTERFLY_VERY_RARE_SPAWN, BiomeSelector.inBiomeTag(context, WWBiomeTags.BUTTERFLY_VERY_RARE_SPAWN));
+		context.register(NOT_BUTTERFLY_VERY_RARE_SPAWN, BiomeSelector.not(context, BUTTERFLY_VERY_RARE_SPAWN));
+		context.register(BUTTERFLY_COMMON_SPAWN, BiomeSelector.inBiomeTag(context, WWBiomeTags.BUTTERFLY_COMMON_SPAWN));
+		context.register(NOT_BUTTERFLY_COMMON_SPAWN, BiomeSelector.not(context, BUTTERFLY_COMMON_SPAWN));
+
+		context.register(HAS_JELLYFISH, BiomeSelector.inBiomeTag(context, WWBiomeTags.HAS_JELLYFISH));
+		context.register(JELLYFISH_COMMON_SPAWN, BiomeSelector.inBiomeTag(context, WWBiomeTags.JELLYFISH_COMMON_SPAWN));
+		context.register(NOT_JELLYFISH_COMMON_SPAWN, BiomeSelector.not(context, JELLYFISH_COMMON_SPAWN));
+
+		context.register(WATER_COLOR_HOT, BiomeSelector.configPredicate(context, WWConfigPredicates.WATER_COLOR_HOT));
+		context.register(WATER_COLOR_LUKEWARM, BiomeSelector.configPredicate(context, WWConfigPredicates.WATER_COLOR_LUKEWARM));
+		context.register(WATER_COLOR_SNOWY, BiomeSelector.configPredicate(context, WWConfigPredicates.WATER_COLOR_SNOWY));
+		context.register(WATER_COLOR_FROZEN, BiomeSelector.configPredicate(context, WWConfigPredicates.WATER_COLOR_FROZEN));
+		context.register(FOLIAGE_COLOR_BADLANDS, BiomeSelector.configPredicate(context, WWConfigPredicates.FOLIAGE_COLOR_BADLANDS));
+		context.register(GRASS_COLOR_DAPPLED_FOREST, BiomeSelector.configPredicate(context, WWConfigPredicates.GRASS_COLOR_DAPPLED_FOREST));
 	}
 
 	private static ResourceKey<BiomeSelector> createKey(String name) {
