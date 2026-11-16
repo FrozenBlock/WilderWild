@@ -62,7 +62,6 @@ public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_PATCHY = createKey("coarse_dirt_path_patchy");
 	public static final ResourceKey<MaterialRule> SANDSTONE_PATCH = createKey("sandstone_patch");
 	public static final ResourceKey<MaterialRule> MUD_PATCH = createKey("mud_patch");
-	public static final ResourceKey<MaterialRule> PACKED_MUD_PATCH_BASE = createKey("packed_mud_patch_base");
 	public static final ResourceKey<MaterialRule> PACKED_MUD_PATCH = createKey("packed_mud_patch");
 	public static final ResourceKey<MaterialRule> PALE_GARDEN_PATH = createKey("pale_garden_path");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = createKey("coarse_dirt_and_rooted_dirt_clearing");
@@ -890,31 +889,17 @@ public final class WWMaterialRules {
 		);
 
 		context.register(
-			PACKED_MUD_PATCH_BASE,
-			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.PACKED_MUD_PATCH_SELECTOR, -0.5D, 0D),
-				MaterialRules.ifTrue(
-					MaterialRules.noiseCondition2d(WWNoises.PACKED_MUD_PATCH, 1.15D),
-					FrozenLibMaterialRules.makeStateRule(Blocks.PACKED_MUD)
-				)
-			)
-		);
-
-		context.register(
 			PACKED_MUD_PATCH,
-			MaterialRules.sequence(
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 				MaterialRules.ifTrue(
-					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+					MaterialRules.noiseCondition2d(WWNoises.PACKED_MUD_PATCH_SELECTOR, -0.5D, 0D),
 					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
-						MaterialRules.getRule(materialRules, PACKED_MUD_PATCH_BASE)
-					)
-				),
-				MaterialRules.ifTrue(
-					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
-					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDER_DEEP_WATER),
-						MaterialRules.getRule(materialRules, PACKED_MUD_PATCH_BASE)
+						MaterialRules.noiseCondition2d(WWNoises.PACKED_MUD_PATCH, 1.15D),
+						MaterialRules.ifTrue(
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+							FrozenLibMaterialRules.makeStateRule(Blocks.PACKED_MUD)
+						)
 					)
 				)
 			)
