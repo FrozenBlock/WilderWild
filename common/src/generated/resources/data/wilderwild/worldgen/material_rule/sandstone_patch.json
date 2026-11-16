@@ -3,7 +3,7 @@
   "if_true": {
     "type": "minecraft:noise_threshold",
     "max_threshold": 1.7976931348623157E308,
-    "min_threshold": 1.100000023841858,
+    "min_threshold": 1.1,
     "noise": "wilderwild:sandstone_patch"
   },
   "then_run": {

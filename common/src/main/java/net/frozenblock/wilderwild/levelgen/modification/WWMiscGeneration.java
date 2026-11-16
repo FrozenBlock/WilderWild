@@ -94,10 +94,6 @@ public final class WWMiscGeneration {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MOSS_PILE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PALE_MOSS_PILE.getKey());
 					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.GRAVEL_AND_PALE_MOSS_PATH.getKey());
-					}
 				}
 
 				if (WWWorldgenConfig.CLAY_DECORATION.get()) {

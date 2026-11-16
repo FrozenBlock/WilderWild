@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "minecraft:sparse_jungle",
-      "required": false
-    }
+    "minecraft:sparse_jungle"
   ]
 }

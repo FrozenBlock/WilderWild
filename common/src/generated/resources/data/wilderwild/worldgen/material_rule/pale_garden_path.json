@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:condition",
+  "if_true": "minecraft:on_floor",
+  "then_run": {
+    "type": "minecraft:condition",
+    "if_true": "minecraft:not_underwater",
+    "then_run": {
+      "type": "minecraft:condition",
+      "if_true": {
+        "type": "minecraft:noise_threshold",
+        "max_threshold": 0.32,
+        "min_threshold": -0.22,
+        "noise": "wilderwild:pale_garden_path"
+      },
+      "then_run": {
+        "type": "minecraft:sequence",
+        "sequence": [
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:not",
+              "invert": "minecraft:on_ceiling"
+            },
+            "then_run": {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:noise_threshold",
+                "max_threshold": 0.1275,
+                "min_threshold": -0.0275,
+                "noise": "wilderwild:pale_garden_path"
+              },
+              "then_run": {
+                "type": "minecraft:block",
+                "result_state": "minecraft:gravel"
+              }
+            }
+          },
+          {
+            "type": "minecraft:block",
+            "result_state": "minecraft:pale_moss_block"
+          }
+        ]
+      }
+    }
+  }
+}

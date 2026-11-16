@@ -57,7 +57,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Coarse Dirt path generation in Taiga and Arid biomes is now generated via a Material Rule instead of a Feature.
 - Sandstone patch generation in Desert and Arid biomes is now generated via a Material Rule instead of a Feature.
 - Moss Block path generation in Jungle biomes is now generated via a Material Rule instead of a Feature.
-- Moss path generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
+- Moss Block path generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
+- Pale Moss Block and Gravel path generation in the Pale Garden biome is now generated via a Material Rule instead of a Feature.
 - Mud patch generation in the Swamp biome is now generated via a Material Rule instead of Features.
 - Transitional patches of Sand and Red Sand are now much smaller and less chaotic.
 - Removed rare, occasional sparse patches of Coarse Dirt, Gravel, and Stone.

@@ -93,12 +93,11 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_FIREFLY_BUSH = createKey("generate_firefly_bush");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PUMPKIN = createKey("generate_pumpkin");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_COARSE_DIRT = createKey("generate_coarse_dirt");
+	public static final ResourceKey<ConfigPredicate> GENERATE_MUD = createKey("generate_mud");
 	public static final ResourceKey<ConfigPredicate> GENERATE_MOSS = createKey("generate_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_AUBURN_MOSS = createKey("generate_auburn_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MOSS = createKey("generate_pale_moss");
-
-	public static final ResourceKey<ConfigPredicate> GENERATE_COARSE_DIRT = createKey("generate_coarse_dirt");
-	public static final ResourceKey<ConfigPredicate> GENERATE_MUD = createKey("generate_mud");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SCORCHED_SAND = createKey("generate_scorched_sand");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SCORCHED_RED_SAND = createKey("generate_scorched_red_sand");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SANDSTONE = createKey("generate_sandstone");
@@ -371,6 +370,14 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
+			GENERATE_COARSE_DIRT,
+			WWWorldgenConfig.COARSE_DIRT_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_MUD,
+			WWWorldgenConfig.MUD_DECORATION.equalTo(true)
+		);
+		context.register(
 			GENERATE_MOSS,
 			WWWorldgenConfig.MOSS_DECORATION.equalTo(true)
 		);
@@ -381,15 +388,6 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_PALE_MOSS,
 			WWWorldgenConfig.PALE_MOSS_DECORATION.equalTo(true)
-		);
-
-		context.register(
-			GENERATE_COARSE_DIRT,
-			WWWorldgenConfig.COARSE_DIRT_DECORATION.equalTo(true)
-		);
-		context.register(
-			GENERATE_MUD,
-			WWWorldgenConfig.MUD_DECORATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_SCORCHED_SAND,

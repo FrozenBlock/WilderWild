@@ -3,7 +3,7 @@
   "if_true": {
     "type": "minecraft:noise_threshold",
     "max_threshold": 1.7976931348623157E308,
-    "min_threshold": 1.149999976158142,
+    "min_threshold": 1.15,
     "noise": "wilderwild:mud_patch"
   },
   "then_run": {

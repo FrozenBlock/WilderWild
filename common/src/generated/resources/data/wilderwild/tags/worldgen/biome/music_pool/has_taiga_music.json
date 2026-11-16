@@ -1,9 +1,6 @@
 {
   "values": [
-    {
-      "id": "minecraft:taiga",
-      "required": false
-    },
+    "minecraft:taiga",
     {
       "id": "wilderwild:mixed_forest",
       "required": false

@@ -62,6 +62,7 @@ public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_PATCHY = createKey("coarse_dirt_path_patchy");
 	public static final ResourceKey<MaterialRule> SANDSTONE_PATCH = createKey("sandstone_patch");
 	public static final ResourceKey<MaterialRule> MUD_PATCH = createKey("mud_patch");
+	public static final ResourceKey<MaterialRule> PALE_GARDEN_PATH = createKey("pale_garden_path");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = createKey("coarse_dirt_and_rooted_dirt_clearing");
 	public static final ResourceKey<MaterialRule> GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = createKey("gravel_and_coarse_dirt_and_rooted_dirt_clearing");
 
@@ -366,6 +367,19 @@ public final class WWMaterialRules {
 						)
 					)
 				)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("pale_garden_path"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.PALE_GARDEN_PATH,
+				configPredicates,
+				WWConfigPredicates.GENERATE_PALE_MOSS,
+				MaterialRules.getRule(materialRules, PALE_GARDEN_PATH)
 			)
 		);
 
@@ -826,7 +840,7 @@ public final class WWMaterialRules {
 		context.register(
 			SANDSTONE_PATCH,
 			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.SANDSTONE_PATCH, 1.1F),
+				MaterialRules.noiseCondition2d(WWNoises.SANDSTONE_PATCH, 1.1D),
 				MaterialRules.sequence(
 					MaterialRules.ifTrue(
 						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
@@ -846,7 +860,7 @@ public final class WWMaterialRules {
 		context.register(
 			MUD_PATCH,
 			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.MUD_PATCH, 1.15F),
+				MaterialRules.noiseCondition2d(WWNoises.MUD_PATCH, 1.15D),
 				MaterialRules.sequence(
 					MaterialRules.ifTrue(
 						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
@@ -855,6 +869,29 @@ public final class WWMaterialRules {
 					MaterialRules.ifTrue(
 						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 						FrozenLibMaterialRules.makeStateRule(Blocks.MUD)
+					)
+				)
+			)
+		);
+
+		context.register(
+			PALE_GARDEN_PATH,
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.ifTrue(
+						MaterialRules.noiseCondition2d(WWNoises.PALE_GARDEN_PATH, -0.22D, 0.32D),
+						MaterialRules.sequence(
+							MaterialRules.ifTrue(
+								MaterialRules.not(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING)),
+								MaterialRules.ifTrue(
+									MaterialRules.noiseCondition2d(WWNoises.PALE_GARDEN_PATH, -0.0275D, 0.1275D),
+									FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
+								)
+							),
+							FrozenLibMaterialRules.makeStateRule(Blocks.PALE_MOSS_BLOCK)
+						)
 					)
 				)
 			)

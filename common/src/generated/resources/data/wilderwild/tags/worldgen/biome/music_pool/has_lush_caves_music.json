@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "minecraft:lush_caves",
-      "required": false
-    }
+    "minecraft:lush_caves"
   ]
 }

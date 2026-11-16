@@ -90,7 +90,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature SAND_TRANSITION = register("sand_transition");
 
 	// OASIS
-	public static final FrozenLibPlacedFeature DESERT_WELL_OASIS = register("desert_well_oasis");
 	public static final FrozenLibPlacedFeature LAKE_OASIS = register("lake_oasis");
 
 	// BADLANDS
@@ -110,7 +109,6 @@ public final class WWMiscPlaced {
 
 	// PALE GARDEN
 	public static final FrozenLibPlacedFeature PALE_MOSS_PILE = register("pale_moss_pile");
-	public static final FrozenLibPlacedFeature GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
 	public static final FrozenLibPlacedFeature BASIN_MUD = register("basin_mud");
@@ -275,13 +273,6 @@ public final class WWMiscPlaced {
 		);
 
 		// OASIS
-		DESERT_WELL_OASIS.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
-			RarityFilter.onAverageOnceEvery(1000),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
 		LAKE_OASIS.makeAndSetHolder(WWMiscConfigured.LAKE_OASIS,
 			FrozenLibPlacementUtil.modifiers(
 				CountPlacement.of(1),
@@ -373,13 +364,6 @@ public final class WWMiscPlaced {
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING),
-			BiomeFilter.biome()
-		);
-
-		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(WWMiscConfigured.GRAVEL_AND_PALE_MOSS_PATH,
-			RarityFilter.onAverageOnceEvery(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
