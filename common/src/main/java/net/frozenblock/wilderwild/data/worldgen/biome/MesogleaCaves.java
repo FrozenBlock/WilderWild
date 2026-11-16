@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 public final class MesogleaCaves extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Temperature.FULL_RANGE;
 	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(Humidity.NEUTRAL, Humidity.HUMID);
-	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.span(-0.9F, -0.8F);
+	public static final Climate.Parameter CONTINENTALNESS = Climate.Parameter.point(-0.875F);
 	public static final Climate.Parameter EROSION = Climate.Parameter.span(Erosion.EROSION_4, Erosion.EROSION_6);
 	public static final Climate.Parameter WEIRDNESS = Climate.Parameter.point(0F);
 	public static final float OFFSET = 0.000F;
