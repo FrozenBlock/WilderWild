@@ -43,6 +43,7 @@
     "type": "wilderwild:fancy_dark_oak_trunk_placer",
     "base_height": 10,
     "branch_placement": {
+      "condition": "wilderwild:generate_dark_oak_branch",
       "foliage_probability": 1.0,
       "length": {
         "type": "minecraft:uniform",

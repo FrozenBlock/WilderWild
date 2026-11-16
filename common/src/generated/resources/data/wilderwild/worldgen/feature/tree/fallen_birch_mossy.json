@@ -65,6 +65,7 @@
     "type": "wilderwild:fallen_with_branches_trunk_placer",
     "base_height": 3,
     "branch_placement": {
+      "condition": "wilderwild:generate_birch_branch",
       "length": 1,
       "max_count": {
         "type": "minecraft:uniform",

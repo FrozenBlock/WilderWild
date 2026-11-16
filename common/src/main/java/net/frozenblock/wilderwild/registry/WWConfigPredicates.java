@@ -51,6 +51,10 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_BAOBAB = createKey("generate_baobab");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALM = createKey("generate_palm");
 	public static final ResourceKey<ConfigPredicate> GENERATE_WILLOW = createKey("generate_willow");
+	public static final ResourceKey<ConfigPredicate> GENERATE_BIRCH_BRANCH = createKey("generate_birch_branch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_OAK_BRANCH = createKey("generate_oak_branch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_DARK_OAK_BRANCH = createKey("generate_dark_oak_branch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_OAK_BRANCH = createKey("generate_pale_oak_branch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_ACACIA = createKey("generate_shelf_mushroom_acacia");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_BIRCH = createKey("generate_shelf_mushroom_birch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_CHERRY = createKey("generate_shelf_mushroom_cherry");
@@ -210,6 +214,22 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_WILLOW,
 			WWWorldgenConfig.WILLOW_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_BIRCH_BRANCH,
+			WWWorldgenConfig.BIRCH_BRANCH_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_OAK_BRANCH,
+			WWWorldgenConfig.OAK_BRANCH_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_DARK_OAK_BRANCH,
+			WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PALE_OAK_BRANCH,
+			WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_SHELF_MUSHROOM_ACACIA,

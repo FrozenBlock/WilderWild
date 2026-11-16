@@ -94,3 +94,4 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Worldgen features now rely on the usage of the `frozenlib:noise_threshold` Block Predicate to determine if they can be placed in a CLearing or not.
   - Coarse Dirt/Rooted Dirt/Gravel path generation in Clearings are now generated via Material Rules instead of Features.
   - Added a config option to disable Clearings.
+- Added an optional `condition` field to Branch Placements, taking the ID of a Config Predicate, or a Config Predicate.

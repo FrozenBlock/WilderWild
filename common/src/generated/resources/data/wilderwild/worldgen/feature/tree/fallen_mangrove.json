@@ -54,11 +54,6 @@
   "trunk_placer": {
     "type": "wilderwild:fallen_with_branches_trunk_placer",
     "base_height": 4,
-    "branch_placement": {
-      "length": 1,
-      "max_count": 1,
-      "probability": 0.0
-    },
     "height_rand_a": 2,
     "height_rand_b": 1,
     "hollow_probability": 0.1,
