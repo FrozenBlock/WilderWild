@@ -398,7 +398,7 @@ public final class WWTreeVegetationPlacements {
 
 		PALM_JUNGLE.makeAndSetHolder(WWTreeVegetationFeatures.PALM_JUNGLE,
 			generatePalm,
-			CountPlacement.of(UniformInt.of(0, 2)),
+			CountPlacement.of(8),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.modification;
 
+import java.util.Arrays;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
@@ -50,11 +51,11 @@ public final class WWTreeFeatureModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
 		// PALM
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_JUNGLE, WWTreeVegetationPlacements.PALM_JUNGLE);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_SPARSE_JUNGLE, WWTreeVegetationPlacements.PALM_SPARSE_JUNGLE);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_DESERT, WWTreeVegetationPlacements.PALM_DESERT);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_OASIS, WWTreeVegetationPlacements.PALM_OASIS);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_WARM_BEACH, WWTreeVegetationPlacements.PALM_WARM_BEACH);
+		registerVegetalPostProcessingAddition(context, WWTreeFeatureBiomeTags.PALM_JUNGLE, WWTreeVegetationPlacements.PALM_JUNGLE);
+		registerVegetalPostProcessingAddition(context, WWTreeFeatureBiomeTags.PALM_SPARSE_JUNGLE, WWTreeVegetationPlacements.PALM_SPARSE_JUNGLE);
+		registerVegetalPostProcessingAddition(context, WWTreeFeatureBiomeTags.PALM_DESERT, WWTreeVegetationPlacements.PALM_DESERT);
+		registerVegetalPostProcessingAddition(context, WWTreeFeatureBiomeTags.PALM_OASIS, WWTreeVegetationPlacements.PALM_OASIS);
+		registerVegetalPostProcessingAddition(context, WWTreeFeatureBiomeTags.PALM_WARM_BEACH, WWTreeVegetationPlacements.PALM_WARM_BEACH);
 
 		// SAVANNA
 		registerSavannaReplacement(context, "trees_savanna", true, false, WWTreeVegetationPlacements.TREE_SAVANNA);
@@ -421,6 +422,22 @@ public final class WWTreeFeatureModifications {
 				HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(VegetationPlacements.TREES_SWAMP)),
 				GenerationStep.Decoration.VEGETAL_DECORATION,
 				HolderSet.direct(features.stream().map(FrozenLibPlacedFeature::getHolder).toList())
+			)
+		);
+	}
+
+	public static void registerVegetalPostProcessingAddition(
+		BootstrapContext<BiomeModification> context,
+		TagKey<Biome> biomes,
+		FrozenLibPlacedFeature... features
+	) {
+		context.register(
+			BiomeModification.createKey(biomes),
+			forAddition(
+				Holder.direct(BiomeSelector.inBiomeTag(context, biomes)),
+				ModificationPhase.POST_PROCESSING,
+				GenerationStep.Decoration.VEGETAL_DECORATION,
+				HolderSet.direct(Arrays.stream(features).map(FrozenLibPlacedFeature::getHolder).toList())
 			)
 		);
 	}

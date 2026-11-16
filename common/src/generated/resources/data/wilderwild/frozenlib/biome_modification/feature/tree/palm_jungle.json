@@ -4,7 +4,7 @@
     "features": "wilderwild:tree_vegetation/palm_jungle",
     "step": "vegetal_decoration"
   },
-  "phase": "additions",
+  "phase": "post_processing",
   "selector": {
     "type": "frozenlib:in_biomes",
     "biomes": "#wilderwild:feature/tree/palm_jungle"
