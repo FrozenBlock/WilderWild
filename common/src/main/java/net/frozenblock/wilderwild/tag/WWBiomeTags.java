@@ -88,6 +88,7 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> MOSS_PATH_OCEAN = bind("material_rule/moss_path_ocean");
 	public static final TagKey<Biome> PALE_GARDEN_PATH = bind("material_rule/pale_garden_path");
 	public static final TagKey<Biome> MUD_PATCH = bind("material_rule/mud_patch");
+	public static final TagKey<Biome> PACKED_MUD_PATCH = bind("material_rule/packed_mud_patch");
 	public static final TagKey<Biome> COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = bind("material_rule/coarse_dirt_and_root_clearing");
 	public static final TagKey<Biome> GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = bind("material_rule/gravel_coarse_dirt_and_root_clearing");
 
@@ -119,7 +120,6 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> HAS_MOSS_LAKE_RARE = bind("feature/has_moss_lake_rare");
 	public static final TagKey<Biome> HAS_MOSS_BASIN = bind("feature/has_moss_basin");
 	public static final TagKey<Biome> HAS_PODZOL_BASIN = bind("feature/has_podzol_basin");
-	public static final TagKey<Biome> HAS_PACKED_MUD_PATH = bind("feature/has_packed_mud_path");
 	public static final TagKey<Biome> HAS_MUD_BASIN = bind("feature/has_mud_basin");
 	public static final TagKey<Biome> HAS_MUD_LAKE = bind("feature/has_mud_lake");
 

@@ -95,6 +95,7 @@ public final class WWConfigPredicates {
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_COARSE_DIRT = createKey("generate_coarse_dirt");
 	public static final ResourceKey<ConfigPredicate> GENERATE_MUD = createKey("generate_mud");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PACKED_MUD = createKey("generate_packed_mud");
 	public static final ResourceKey<ConfigPredicate> GENERATE_MOSS = createKey("generate_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_AUBURN_MOSS = createKey("generate_auburn_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MOSS = createKey("generate_pale_moss");
@@ -376,6 +377,10 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_MUD,
 			WWWorldgenConfig.MUD_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PACKED_MUD,
+			WWWorldgenConfig.PACKED_MUD_DECORATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_MOSS,

@@ -80,9 +80,6 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = register("beta_beach_gravel_transition");
 	public static final FrozenLibPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
 
-	// SAVANNA
-	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
-
 	// DESERT
 	public static final FrozenLibPlacedFeature ORE_PACKED_MUD = register("ore_packed_mud");
 	public static final FrozenLibPlacedFeature SCORCHED_SAND = register("scorched_sand");
@@ -232,14 +229,6 @@ public final class WWMiscPlaced {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			OffsetPlacement.vertical(ConstantInt.of(-1)),
 			BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.GRAVEL_TRANSITION_PLACEABLE)),
-			BiomeFilter.biome()
-		);
-
-		// SAVANNA
-		PACKED_MUD_PATH.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH,
-			RarityFilter.onAverageOnceEvery(10),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 

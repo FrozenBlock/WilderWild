@@ -823,6 +823,11 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.MUD_PATCH)
 			.add(Biomes.SWAMP);
 
+		this.builder(WWBiomeTags.PACKED_MUD_PATCH)
+			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.SAVANNA_PLATEAU)
+			.addOptional(WWBiomes.ARID_SAVANNA)
+			.addOptional(WWBiomes.PARCHED_FOREST);
+
 		this.builder(WWBiomeTags.COARSE_DIRT_AND_ROOTED_DIRT_CLEARING)
 			.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
 			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
@@ -978,11 +983,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWBiomeTags.HAS_SNOW_PILE)
 			.add(Biomes.SNOWY_TAIGA)
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
-
-		this.builder(WWBiomeTags.HAS_PACKED_MUD_PATH)
-			.add(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.SAVANNA_PLATEAU)
-			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.PARCHED_FOREST);
 
 		this.builder(WWBiomeTags.HAS_MUD_BASIN)
 			.add(Biomes.MANGROVE_SWAMP);

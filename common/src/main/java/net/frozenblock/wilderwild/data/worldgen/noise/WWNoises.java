@@ -37,11 +37,13 @@ public final class WWNoises {
 	public static final ResourceKey<NormalNoise> JUNGLE_MOSS_PATH_SELECTOR = createKey("jungle_moss_path_selector");
 	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH = createKey("coarse_dirt_path");
 	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH_SELECTOR = createKey("coarse_dirt_path_selector");
-	public static final ResourceKey<NormalNoise> COARSE_DIRT_SELECTOR_PATCHY = createKey("coarse_dirt_selector_patchy");
+	public static final ResourceKey<NormalNoise> COARSE_DIRT_PATH_SELECTOR_PATCHY = createKey("coarse_dirt_path_selector_patchy");
 	public static final ResourceKey<NormalNoise> SCORCHED_SAND = createKey("scorched_sand");
 	public static final ResourceKey<NormalNoise> SCORCHED_SAND_SELECTOR = createKey("scorched_sand_selector");
 	public static final ResourceKey<NormalNoise> SANDSTONE_PATCH = createKey("sandstone_patch");
 	public static final ResourceKey<NormalNoise> MUD_PATCH = createKey("mud_patch");
+	public static final ResourceKey<NormalNoise> PACKED_MUD_PATCH = createKey("packed_mud_patch");
+	public static final ResourceKey<NormalNoise> PACKED_MUD_PATCH_SELECTOR = createKey("packed_mud_patch_selector");
 	public static final ResourceKey<NormalNoise> PALE_GARDEN_PATH = createKey("pale_garden_path");
 	public static final ResourceKey<NormalNoise> CLEARING = createKey("clearing");
 	public static final ResourceKey<NormalNoise> CLEARING_PATH = createKey("clearing_path");
@@ -57,10 +59,12 @@ public final class WWNoises {
 		NoiseData.register(context, JUNGLE_MOSS_PATH_SELECTOR, -6, 5D, 3D);
 		NoiseData.register(context, COARSE_DIRT_PATH, -8, 0D, 0D, 5D, 10D, 20D, 25D, 30D);
 		NoiseData.register(context, COARSE_DIRT_PATH_SELECTOR, -6, 0D, 1D, 1D, 1D, 2D, 2D);
-		NoiseData.register(context, COARSE_DIRT_SELECTOR_PATCHY, -6, 0D, 0D, 0D, 3D, 2D, 2D);
+		NoiseData.register(context, COARSE_DIRT_PATH_SELECTOR_PATCHY, -6, 0D, 0D, 0D, 3D, 2D, 2D);
 		NoiseData.register(context, SCORCHED_SAND_SELECTOR, -7, 1.25D);
 		NoiseData.register(context, SANDSTONE_PATCH, -6, 0D, 0D, 5.5D, 7D, 8D, 4D);
 		NoiseData.register(context, MUD_PATCH, -3, 3D, 0D, 2D, 2D);
+		NoiseData.register(context, PACKED_MUD_PATCH, -4, 1.5D, 2D, 3D, 4D, 1D);
+		NoiseData.register(context, PACKED_MUD_PATCH_SELECTOR, -6, 3D, 1D, 1D);
 		NoiseData.register(context, PALE_GARDEN_PATH, -4, 2D, 2D, 1D, 3D, 2D);
 		//NoiseData.register(context, CLEARING, -8, 0.5D, 0.75D, 1D, 2D);
 		NoiseData.register(context, CLEARING, -7, 0.8D);

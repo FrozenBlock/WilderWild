@@ -100,9 +100,6 @@ public final class WWMiscConfigured {
 	public static final FrozenLibFeature BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
 	public static final FrozenLibFeature SMALL_GRAVEL_TRANSITION_DISK = register("small_gravel_transition_disk");
 
-	// SAVANNA
-	public static final FrozenLibFeature PACKED_MUD_PATH = register("packed_mud_path");
-
 	// DESERT
 	public static final FrozenLibFeature ORE_PACKED_MUD = register("ore_packed_mud");
 	public static final FrozenLibFeature SCORCHED_SAND_DISK = register("scorched_sand");
@@ -423,23 +420,6 @@ public final class WWMiscConfigured {
 					).build(),
 				Optional.of(Heightmap.Types.OCEAN_FLOOR),
 				UniformInt.of(4, 5)
-			)
-		);
-
-		PACKED_MUD_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
-					.noiseScale(0.12D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.PACKED_MUD))
-							.within(0.2D, 1D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.PACKED_MUD_PATH_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.675F)
-							.build()
-					).build(),
-				9
 			)
 		);
 

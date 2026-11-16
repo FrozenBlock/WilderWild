@@ -69,10 +69,6 @@ public final class WWMiscGeneration {
 				}
 
 				if (WWWorldgenConfig.PACKED_MUD_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_ORE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.ORE_PACKED_MUD.getKey());
 					}
