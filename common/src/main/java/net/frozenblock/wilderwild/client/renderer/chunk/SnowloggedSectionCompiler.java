@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client.renderer.chunk;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.block.BlockQuadOutput;
@@ -26,9 +27,12 @@ import net.minecraft.client.renderer.chunk.RenderSectionRegion;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
-public class SnowloggedSectionCompiler {
+public final class SnowloggedSectionCompiler {
 
 	public static void tesselateSnowloggedLayer(
 		RenderSectionRegion region,

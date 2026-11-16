@@ -18,45 +18,54 @@
 package net.frozenblock.wilderwild.data.worldgen.feature;
 
 import lombok.experimental.UtilityClass;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.NoiseThresholdBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
-import net.frozenblock.lib.levelgen.placement.api.NoisePlacementFilter;
-import net.frozenblock.lib.math.api.EasyNoiseSampler;
+import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
+import net.frozenblock.wilderwild.registry.WWConfigPredicates;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 @UtilityClass
 public final class WWPlacementUtils {
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER = new NoisePlacementFilter(
-		EasyNoiseSampler.NoiseType.XORO,
-		0.0065D,
-		0.625D,
-		1D,
-		0.2D,
-		false,
-		false,
-		false
-	);
-	public static final NoisePlacementFilter BIG_BUSH_CLEARING_FILTER = new NoisePlacementFilter(
-		EasyNoiseSampler.NoiseType.XORO,
-		0.0065D,
-		0.69D,
-		1D,
-		0.2D,
-		false,
-		false,
-		false
-	);
-	public static final NoisePlacementFilter TREE_CLEARING_FILTER_INVERTED = new NoisePlacementFilter(
-		EasyNoiseSampler.NoiseType.XORO,
-		0.0065D,
-		0.675D,
-		1D,
-		0.175D,
-		false,
-		false,
-		true
-	);
+	public static final double CLEARING_THRESHOLD = 0.595D;
+	public static final double CLEARING_EDGE_WIDTH = 0.06D;
+
+	public static PlacementFilter outsideClearingFilter(BootstrapContext<?> context, boolean includeEdges) {
+		return BlockPredicateFilter.forPredicate(
+			BlockPredicate.anyOf(
+				BlockPredicate.not(ConfigPredicate.blockPredicate(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_CLEARING))),
+				NoiseThresholdBlockPredicate.ofMaxThreshold(
+					WWNoises.CLEARING,
+					CLEARING_THRESHOLD + (includeEdges ? CLEARING_EDGE_WIDTH : 0D),
+					false
+				)
+			)
+		);
+	}
+
+	public static PlacementFilter outsideClearingFilter(BootstrapContext<?> context) {
+		return outsideClearingFilter(context, false);
+	}
+
+	public static PlacementFilter insideClearingFilter(BootstrapContext<?> context) {
+		return BlockPredicateFilter.forPredicate(
+			BlockPredicate.allOf(
+				ConfigPredicate.blockPredicate(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_CLEARING)),
+				NoiseThresholdBlockPredicate.ofMinThreshold(
+					WWNoises.CLEARING,
+					CLEARING_THRESHOLD,
+					false
+				)
+			)
+		);
+	}
 
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id(name));

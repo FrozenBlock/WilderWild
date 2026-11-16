@@ -1,0 +1,11 @@
+{
+  "type": "frozenlib:all_of",
+  "predicates": [
+    "wilderwild:generate_clearing",
+    {
+      "type": "frozenlib:equal_to",
+      "entry": "wilderwild:worldgen/surfaceDecoration/clearingPathDecoration",
+      "target": true
+    }
+  ]
+}

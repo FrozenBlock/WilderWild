@@ -24,7 +24,6 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
@@ -61,10 +60,6 @@ import org.jetbrains.annotations.Unmodifiable;
 @ApiStatus.Internal
 @UtilityClass
 public final class WWMiscPlaced {
-	public static final FrozenLibPlacedFeature COARSE_PATH_CLEARING = register("coarse_dirt_path_clearing");
-	public static final FrozenLibPlacedFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
-	public static final FrozenLibPlacedFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-
 	// SWAMP
 	public static final FrozenLibPlacedFeature MUD_TRANSITION = register("mud_transition");
 
@@ -137,30 +132,6 @@ public final class WWMiscPlaced {
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
 		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
-
-		COARSE_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_CLEARING,
-			CountPlacement.of(11),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
-			BiomeFilter.biome()
-		);
-
-		GRAVEL_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.GRAVEL_PATH_CLEARING,
-			CountPlacement.of(11),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
-			BiomeFilter.biome()
-		);
-
-		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.ROOTED_DIRT_PATH_CLEARING,
-			CountPlacement.of(11),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
-			BiomeFilter.biome()
-		);
 
 		// SWAMP
 		MUD_TRANSITION.makeAndSetHolder(WWMiscConfigured.MUD_TRANSITION_DISK,

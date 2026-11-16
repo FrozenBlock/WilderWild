@@ -74,7 +74,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Dry Grass now generates in the Oasis biome.
 - Shrubs now generate more frequently in the Oasis biome.
 - Cactus generation in the Oasis biome has been reverted to Vanilla's default Desert Cactus generation.
-- Significantly decreased the frequency of Palm Trees in the Oasis biome.
+- Significantly decreased the frequency of Palm Trees in the Oasis and Desert biomes.
 - Lakes will now generate in the Oasis biome, often surrounded by Palm Trees, tall Cacti, Shrubs, and Grass.
 - Decreased the humidity and continentalness range the Oasis biome can generate in.
 - Cattails can no longer generate more than a single block away from Water.
@@ -84,3 +84,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fallen Trees will no longer generate stumps in Water.
 - Fallen Trees will no longer generate branches if they are using Hollowed Logs.
 - Fixed a bug that caused Large Fallen Trees to not generate in Water and not generate their Stumps as frequently as intended.
+- Revamped the implementation of Clearings (seen occasionally in Forest-like and Taiga Biomes).
+  - Clearing noise is now controlled using the `wilderwild:clearing` Noise.
+  - Worldgen features now rely on the usage of the `frozenlib:noise_threshold` Block Predicate to determine if they can be placed in a CLearing or not.
+  - Coarse Dirt/Rooted Dirt/Gravel path generation in Clearings are now generated via Material Rules instead of Features.
+  - Added a config option to disable Clearings.

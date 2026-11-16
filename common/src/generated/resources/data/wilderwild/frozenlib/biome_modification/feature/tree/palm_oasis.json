@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:tree_vegetation/palms_oasis",
+    "features": "wilderwild:tree_vegetation/palm_oasis",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

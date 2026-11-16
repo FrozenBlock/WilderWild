@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:tree_vegetation/palm_oasis",
+  "feature": "wilderwild:tree_vegetation/palm_sparse_jungle",
   "placement": [
     {
       "type": "frozenlib:config_predicate",
@@ -7,7 +7,7 @@
     },
     {
       "type": "minecraft:rarity_filter",
-      "chance": 52
+      "chance": 6
     },
     {
       "type": "minecraft:in_square"

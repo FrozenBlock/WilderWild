@@ -5,10 +5,6 @@
     "minecraft:birch_forest",
     "minecraft:old_growth_birch_forest",
     "minecraft:dark_forest",
-    "minecraft:taiga",
-    "minecraft:old_growth_spruce_taiga",
-    "minecraft:old_growth_pine_taiga",
-    "minecraft:snowy_taiga",
     "minecraft:dappled_forest",
     {
       "id": "wilderwild:semi_birch_forest",
@@ -27,26 +23,6 @@
       "required": false
     },
     {
-      "id": "wilderwild:dark_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:old_growth_birch_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:birch_taiga",
-      "required": false
-    },
-    {
-      "id": "wilderwild:temperate_rainforest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:mixed_forest",
-      "required": false
-    },
-    {
       "id": "wilderwild:parched_forest",
       "required": false
     },
@@ -60,18 +36,6 @@
     },
     {
       "id": "wilderwild:snowy_dying_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:dying_mixed_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:snowy_dying_mixed_forest",
-      "required": false
-    },
-    {
-      "id": "wilderwild:maple_forest",
       "required": false
     },
     {

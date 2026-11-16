@@ -65,11 +65,11 @@ public final class WWTreeFeatureBiomeTags {
 	public static final TagKey<Biome> BIG_BUSH_ON_SAND = bind("big_bush_on_sand");
 
 	// PALM
-	public static final TagKey<Biome> PALM = bind("palm");
 	public static final TagKey<Biome> PALM_JUNGLE = bind("palm_jungle");
-	public static final TagKey<Biome> PALM_RARE = bind("palm_rare");
-	public static final TagKey<Biome> PALM_WARM_BEACH = bind("palm_warm_beach");
+	public static final TagKey<Biome> PALM_SPARSE_JUNGLE = bind("palm_sparse_jungle");
+	public static final TagKey<Biome> PALM_DESERT = bind("palm_desert");
 	public static final TagKey<Biome> PALM_OASIS = bind("palm_oasis");
+	public static final TagKey<Biome> PALM_WARM_BEACH = bind("palm_warm_beach");
 
 	// FALLEN
 	public static final TagKey<Biome> FALLEN_OAK_AND_BIRCH_MOSSY = bind("fallen_oak_and_birch_mossy");

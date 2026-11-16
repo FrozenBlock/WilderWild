@@ -169,7 +169,11 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> SCORCHED_RED_SAND_DECORATION = CONFIG.entryBuilder("surfaceDecoration/scorchedRedSandDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SANDSTONE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/sandstoneDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> CLAY_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clayDecoration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> CLEARING_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clearingDecoration", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> CLEARING_GENERATION = CONFIG.entryBuilder("surfaceDecoration/clearingGeneration", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> CLEARING_PATH_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clearingPathDecoration", EntryType.BOOL, true)
+		.visibilityPredicate(VisibilityPredicate.of(WWWorldgenConfig.CLEARING_GENERATION))
+		.requireRestart()
+		.build();
 	public static final ConfigEntry<Boolean> SNOW_PILE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/snowPiles", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> BRITTLE_ICE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/brittleIceDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> ICICLE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/icicleDecoration", EntryType.BOOL, true).requireRestart().build();

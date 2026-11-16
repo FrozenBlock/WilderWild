@@ -106,20 +106,6 @@ public final class WWMiscGeneration {
 					}
 				}
 
-				if (WWWorldgenConfig.CLEARING_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_PATH_CLEARING.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_CLEARING)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_CLEARING.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ROOTED_DIRT_CLEARING)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
-					}
-				}
-
 				if (WWWorldgenConfig.TAIGA_BOULDER_DECORATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)) {
 						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FOREST_ROCK_TAIGA.getKey());

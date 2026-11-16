@@ -52,6 +52,7 @@ import net.frozenblock.wilderwild.data.tag.WWStructureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWTimelineTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
 import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
+import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialConditions;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialRules;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWAquaticFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.modification.WWBiomeColorModifications;
@@ -139,6 +140,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoises::bootstrap);
 		registryBuilder.add(Registries.MATERIAL_RULE, WWMaterialRules::bootstrapRules);
+		registryBuilder.add(Registries.MATERIAL_CONDITION, WWMaterialConditions::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, WWVillagerTrades::bootstrap);
 		registryBuilder.add(Registries.TRIAL_SPAWNER_CONFIG, WWTrialSpawnerConfigs::bootstrap);
 		registryBuilder.add(Registries.TIMELINE, WWTimelines::bootstrap);

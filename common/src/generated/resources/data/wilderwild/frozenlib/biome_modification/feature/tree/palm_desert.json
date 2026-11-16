@@ -1,12 +1,12 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:tree_vegetation/palm_rare",
+    "features": "wilderwild:tree_vegetation/palm_desert",
     "step": "vegetal_decoration"
   },
   "phase": "additions",
   "selector": {
     "type": "frozenlib:in_biomes",
-    "biomes": "#wilderwild:feature/tree/palm_rare"
+    "biomes": "#wilderwild:feature/tree/palm_desert"
   }
 }

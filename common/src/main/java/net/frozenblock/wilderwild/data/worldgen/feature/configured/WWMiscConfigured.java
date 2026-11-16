@@ -571,7 +571,7 @@ public final class WWMiscConfigured {
 			new SequenceFeature(
 				HolderSet.direct(
 					PlacementUtils.inlinePlaced(
-						WWTreeVegetationFeatures.PALM_OASIS.getHolder(),
+						WWTreeVegetationFeatures.PALM_DESERT.getHolder(),
 						ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALM)),
 						CountPlacement.of(UniformInt.of(1, 3)),
 						OffsetPlacement.ofTriangle(6, 2),

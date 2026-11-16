@@ -102,6 +102,8 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SCORCHED_SAND = createKey("generate_scorched_sand");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SCORCHED_RED_SAND = createKey("generate_scorched_red_sand");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SANDSTONE = createKey("generate_sandstone");
+	public static final ResourceKey<ConfigPredicate> GENERATE_CLEARING = createKey("generate_clearing");
+	public static final ResourceKey<ConfigPredicate> GENERATE_CLEARING_PATH = createKey("generate_clearing_path");
 	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BRITTLE_ICE = createKey("generate_brittle_ice");
 
@@ -400,6 +402,19 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_SANDSTONE,
 			WWWorldgenConfig.SANDSTONE_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_CLEARING,
+			WWWorldgenConfig.CLEARING_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_CLEARING_PATH,
+			ConfigPredicate.allOf(
+				HolderSet.direct(
+					configPredicates.getOrThrow(GENERATE_CLEARING),
+					WWWorldgenConfig.CLEARING_PATH_DECORATION.equalTo(true).asHolder()
+				)
+			)
 		);
 		context.register(
 			GENERATE_DECORATIVE_ICICLE,

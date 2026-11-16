@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:condition",
+  "if_true": "minecraft:on_floor",
+  "then_run": {
+    "type": "minecraft:condition",
+    "if_true": "minecraft:not_underwater",
+    "then_run": {
+      "type": "minecraft:sequence",
+      "sequence": [
+        "wilderwild:coarse_dirt_and_rooted_dirt_clearing",
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "max_threshold": 0.17,
+            "min_threshold": -0.07,
+            "noise": "wilderwild:clearing_path"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": "minecraft:gravel"
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "max_threshold": -0.53,
+            "min_threshold": -0.55,
+            "noise": "wilderwild:clearing_path"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": "minecraft:gravel"
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:noise_threshold",
+            "max_threshold": 0.55,
+            "min_threshold": 0.53,
+            "noise": "wilderwild:clearing_path"
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": "minecraft:gravel"
+          }
+        }
+      ]
+    }
+  }
+}

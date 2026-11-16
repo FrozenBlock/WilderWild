@@ -137,6 +137,7 @@ public final class WWTreeVegetationFeatures {
 	public static final FrozenLibFeature PALM_JUNGLE_NO_LITTER = register("palm_jungle_no_litter");
 	public static final FrozenLibFeature PALM_JUNGLE_LEAF_LITTER = register("palm_jungle_leaf_litter");
 	public static final FrozenLibFeature PALM_JUNGLE = register("palm_jungle");
+	public static final FrozenLibFeature PALM_SPARSE_JUNGLE = register("palm_sparse_jungle");
 
 	// SAVANNA
 	public static final FrozenLibFeature TREE_SAVANNA_NO_LITTER = register("tree_savanna_no_litter");
@@ -157,8 +158,7 @@ public final class WWTreeVegetationFeatures {
 	public static final FrozenLibFeature TREE_ARID_SAVANNA_PALM = register("tree_arid_savanna_palm");
 
 	// DESERT
-	public static final FrozenLibFeature PALM = register("palm");
-	public static final FrozenLibFeature PALM_OASIS = register("palm_oasis");
+	public static final FrozenLibFeature PALM_DESERT = register("palm_desert");
 
 	// BADLANDS
 	public static final FrozenLibFeature TREE_WOODED_BADLANDS_NO_LITTER = register("tree_wooded_badlands_no_litter");
@@ -1112,8 +1112,18 @@ public final class WWTreeVegetationFeatures {
 
 		PALM_JUNGLE.makeAndSetHolder(
 			new RandomSelectorFeature(
-				List.of(PALM_JUNGLE_LEAF_LITTER.asWeightedPlacedFeature(	0.075F)),
+				List.of(PALM_JUNGLE_LEAF_LITTER.asWeightedPlacedFeature(0.075F)),
 				PALM_JUNGLE_NO_LITTER.asInlinePlaced()
+			)
+		);
+
+		PALM_SPARSE_JUNGLE.makeAndSetHolder(
+			new RandomSelectorFeature(
+				List.of(
+					WWTreePlacements.TALL_WINDMILL_PALM.asWeightedPlacedFeature(0.1F),
+					WWTreePlacements.TALL_PALM.asWeightedPlacedFeature(0.4F)
+				),
+				WWTreePlacements.PALM.getHolder()
 			)
 		);
 
@@ -1251,17 +1261,7 @@ public final class WWTreeVegetationFeatures {
 		);
 
 		// DESERT
-		PALM.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					WWTreePlacements.TALL_WINDMILL_PALM.asWeightedPlacedFeature(0.1F),
-					WWTreePlacements.TALL_PALM.asWeightedPlacedFeature(0.4F)
-				),
-				WWTreePlacements.PALM.getHolder()
-			)
-		);
-
-		PALM_OASIS.makeAndSetHolder(
+		PALM_DESERT.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlacements.TALL_PALM.asWeightedPlacedFeature(0.5F),
@@ -1321,7 +1321,7 @@ public final class WWTreeVegetationFeatures {
 
 		TREE_SWAMP_SURFACE_WILLOW.makeAndSetHolder(
 			new RandomSelectorFeature(
-				List.of(TREE_SWAMP_SURFACE_WILLOW_LEAF_LITTER.asWeightedPlacedFeature(	0.1F)),
+				List.of(TREE_SWAMP_SURFACE_WILLOW_LEAF_LITTER.asWeightedPlacedFeature(0.1F)),
 				TREE_SWAMP_SURFACE_WILLOW_NO_LITTER.asInlinePlaced()
 			)
 		);

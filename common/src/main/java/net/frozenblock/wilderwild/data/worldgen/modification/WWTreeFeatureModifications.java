@@ -50,11 +50,11 @@ public final class WWTreeFeatureModifications {
 
 	public static void bootstrap(BootstrapContext<BiomeModification> context) {
 		// PALM
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM, WWTreeVegetationPlacements.PALM);
 		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_JUNGLE, WWTreeVegetationPlacements.PALM_JUNGLE);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_RARE, WWTreeVegetationPlacements.PALM_RARE);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_WARM_BEACH, WWTreeVegetationPlacements.PALMS_WARM_BEACH);
-		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_OASIS, WWTreeVegetationPlacements.PALMS_OASIS);
+		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_SPARSE_JUNGLE, WWTreeVegetationPlacements.PALM_SPARSE_JUNGLE);
+		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_DESERT, WWTreeVegetationPlacements.PALM_DESERT);
+		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_OASIS, WWTreeVegetationPlacements.PALM_OASIS);
+		registerVegetalAddition(context, WWTreeFeatureBiomeTags.PALM_WARM_BEACH, WWTreeVegetationPlacements.PALM_WARM_BEACH);
 
 		// SAVANNA
 		registerSavannaReplacement(context, "trees_savanna", true, false, WWTreeVegetationPlacements.TREE_SAVANNA);

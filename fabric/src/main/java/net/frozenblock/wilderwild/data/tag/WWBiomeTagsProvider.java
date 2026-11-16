@@ -819,6 +819,34 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.MUD_PATCH)
 			.add(Biomes.SWAMP);
+
+		this.builder(WWBiomeTags.COARSE_DIRT_AND_ROOTED_DIRT_CLEARING)
+			.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
+			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
+			.add(Biomes.DARK_FOREST)
+			.add(Biomes.DAPPLED_FOREST)
+			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
+			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
+			.addOptional(WWBiomes.PARCHED_FOREST)
+			.addOptional(WWBiomes.ARID_FOREST)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SPARSE_FOREST);
+
+		this.builder(WWBiomeTags.GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING)
+			.add(Biomes.TAIGA)
+			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA)
+			.add(Biomes.SNOWY_TAIGA)
+			.addOptional(WWBiomes.DARK_TAIGA)
+			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
+			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.MIXED_FOREST)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST);
 	}
 
 	private void generateFeatureTags() {
@@ -886,72 +914,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
 			.addOptional(WWBiomes.DYING_FOREST)
 			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST);
-
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)
-			.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
-			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.add(Biomes.DARK_FOREST)
-			.add(Biomes.TAIGA)
-			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA)
-			.add(Biomes.SNOWY_TAIGA)
-			// TODO: clearing
-			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
-			.addOptional(WWBiomes.BIRCH_TAIGA)
-			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
-			.addOptional(WWBiomes.MIXED_FOREST)
-			.addOptional(WWBiomes.PARCHED_FOREST)
-			.addOptional(WWBiomes.ARID_FOREST)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.SPARSE_FOREST);
-
-		this.builder(WWBiomeTags.HAS_ROOTED_DIRT_CLEARING)
-			.add(Biomes.FOREST, Biomes.FLOWER_FOREST)
-			.add(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST)
-			.add(Biomes.TAIGA)
-			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA)
-			.add(Biomes.SNOWY_TAIGA)
-			.add(Biomes.DARK_FOREST)
-			// TODO: clearing
-			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.DARK_BIRCH_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_DARK_FOREST)
-			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
-			.addOptional(WWBiomes.BIRCH_TAIGA)
-			.addOptional(WWBiomes.SEMI_BIRCH_FOREST)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.MIXED_FOREST)
-			.addOptional(WWBiomes.PARCHED_FOREST)
-			.addOptional(WWBiomes.ARID_FOREST)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.SPARSE_FOREST);
-
-		this.builder(WWBiomeTags.HAS_GRAVEL_CLEARING)
-			.add(Biomes.TAIGA)
-			.add(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA)
-			.add(Biomes.SNOWY_TAIGA)
-			.addOptional(WWBiomes.DARK_TAIGA)
-			.addOptional(WWBiomes.OLD_GROWTH_BIRCH_TAIGA)
-			.addOptional(WWBiomes.BIRCH_TAIGA)
-			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
-			.addOptional(WWBiomes.MIXED_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST)
 			.addOptional(WWBiomes.MAPLE_FOREST);
 
 		this.builder(WWBiomeTags.HAS_SCORCHED_SAND)
@@ -1456,22 +1418,21 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptionalTag(ConventionalBiomeTags.IS_OCEAN);
 
 		// PALM
-		this.builder(WWTreeFeatureBiomeTags.PALM)
-			.add(Biomes.SPARSE_JUNGLE);
-
 		this.builder(WWTreeFeatureBiomeTags.PALM_JUNGLE)
 			.add(Biomes.JUNGLE);
 
-		this.builder(WWTreeFeatureBiomeTags.PALM_RARE)
-			.add(Biomes.DESERT)
-			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE)
-			.addOptional(WWBiomes.ARID_SAVANNA);
+		this.builder(WWTreeFeatureBiomeTags.PALM_SPARSE_JUNGLE)
+			.add(Biomes.SPARSE_JUNGLE);
 
-		this.builder(WWTreeFeatureBiomeTags.PALM_WARM_BEACH)
-			.addOptional(WWBiomes.WARM_BEACH);
+		this.builder(WWTreeFeatureBiomeTags.PALM_DESERT)
+			.add(Biomes.DESERT)
+			.addOptional(WWBiomes.ARID_SAVANNA);
 
 		this.builder(WWTreeFeatureBiomeTags.PALM_OASIS)
 			.addOptional(WWBiomes.OASIS);
+
+		this.builder(WWTreeFeatureBiomeTags.PALM_WARM_BEACH)
+			.addOptional(WWBiomes.WARM_BEACH);
 
 		// FALLEN
 		this.builder(WWTreeFeatureBiomeTags.FALLEN_OAK_AND_BIRCH_MOSSY)

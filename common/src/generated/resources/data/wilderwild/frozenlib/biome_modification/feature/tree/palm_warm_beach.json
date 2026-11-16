@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:tree_vegetation/palms_warm_beach",
+    "features": "wilderwild:tree_vegetation/palm_warm_beach",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

@@ -42,6 +42,8 @@ public final class WWNoises {
 	public static final ResourceKey<NormalNoise> SCORCHED_SAND_SELECTOR = createKey("scorched_sand_selector");
 	public static final ResourceKey<NormalNoise> SANDSTONE_PATCH = createKey("sandstone_patch");
 	public static final ResourceKey<NormalNoise> MUD_PATCH = createKey("mud_patch");
+	public static final ResourceKey<NormalNoise> CLEARING = createKey("clearing");
+	public static final ResourceKey<NormalNoise> CLEARING_PATH = createKey("clearing_path");
 
 	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<NormalNoise> context) {
@@ -58,6 +60,9 @@ public final class WWNoises {
 		NoiseData.register(context, SCORCHED_SAND_SELECTOR, -7, 1.25D);
 		NoiseData.register(context, SANDSTONE_PATCH, -6, 0D, 0D, 5.5D, 7D, 8D, 4D);
 		NoiseData.register(context, MUD_PATCH, -3, 3D, 0D, 2D, 2D);
+		//NoiseData.register(context, CLEARING, -8, 0.5D, 0.75D, 1D, 2D);
+		NoiseData.register(context, CLEARING, -7, 0.8D);
+		NoiseData.register(context, CLEARING_PATH, -5, 1D, 1D, 1D, 1D, 1D);
 	}
 
 	private static void registerBetaBeach(BootstrapContext<NormalNoise> context, ResourceKey<NormalNoise> key) {

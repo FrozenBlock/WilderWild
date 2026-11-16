@@ -1,0 +1,4 @@
+{
+  "type": "frozenlib:config_predicate",
+  "config_predicate": "wilderwild:generate_clearing_path"
+}
