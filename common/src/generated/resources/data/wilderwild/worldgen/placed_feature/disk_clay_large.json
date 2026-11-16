@@ -1,12 +1,20 @@
 {
-  "feature": "wilderwild:under_water_gravel_path",
+  "feature": "wilderwild:disk_clay_large",
   "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      }
+    },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "heightmap": "OCEAN_FLOOR_WG"
     },
     {
       "type": "minecraft:block_predicate_filter",
@@ -14,9 +22,6 @@
         "type": "minecraft:matching_fluids",
         "fluids": "minecraft:water"
       }
-    },
-    {
-      "type": "minecraft:biome"
     }
   ]
 }

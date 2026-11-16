@@ -3,10 +3,9 @@
     1.5,
     2.0,
     3.0,
-    4.0,
-    1.0
+    4.0
   ],
-  "base_amplitude": 0.8422178910907032,
+  "base_amplitude": 0.8216097519235285,
   "base_octave": -4,
-  "octave_count": 5
+  "octave_count": 4
 }

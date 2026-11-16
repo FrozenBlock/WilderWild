@@ -63,7 +63,7 @@ public final class WWNoises {
 		NoiseData.register(context, SCORCHED_SAND_SELECTOR, -7, 1.25D);
 		NoiseData.register(context, SANDSTONE_PATCH, -6, 0D, 0D, 5.5D, 7D, 8D, 4D);
 		NoiseData.register(context, MUD_PATCH, -3, 3D, 0D, 2D, 2D);
-		NoiseData.register(context, PACKED_MUD_PATCH, -4, 1.5D, 2D, 3D, 4D, 1D);
+		NoiseData.register(context, PACKED_MUD_PATCH, -4, 1.5D, 2D, 3D, 4D);
 		NoiseData.register(context, PACKED_MUD_PATCH_SELECTOR, -6, 3D, 1D, 1D);
 		NoiseData.register(context, PALE_GARDEN_PATH, -4, 2D, 2D, 1D, 3D, 2D);
 		//NoiseData.register(context, CLEARING, -8, 0.5D, 0.75D, 1D, 2D);

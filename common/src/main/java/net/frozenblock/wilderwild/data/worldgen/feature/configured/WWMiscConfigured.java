@@ -20,19 +20,13 @@ package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
-import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
-import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.TouchingBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.BallFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallBlockPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.disk.config.BallOuterRingBlockPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.NoisePathFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandBlockPlacement;
-import net.frozenblock.lib.levelgen.feature.api.feature.noise_path.config.NoiseBandPlacement;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleWaterloggedVegetationPatchFeature;
-import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
@@ -59,6 +53,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockBlobFeature;
 import net.minecraft.world.level.levelgen.feature.BlockPileFeature;
+import net.minecraft.world.level.levelgen.feature.DiskFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.NoOpFeature;
@@ -79,22 +74,13 @@ import org.jetbrains.annotations.ApiStatus;
 public final class WWMiscConfigured {
 	public static final FrozenLibFeature EMPTY = register("empty");
 
-	public static final FrozenLibFeature COARSE_DIRT_PATH_CLEARING = register("coarse_dirt_path_clearing");
-	public static final FrozenLibFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
-	public static final FrozenLibFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
 	public static final FrozenLibFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 
 	// SWAMP
 	public static final FrozenLibFeature MUD_TRANSITION_DISK = register("mud_transition_disk");
 
-	// CYPRESS WETLANDS
-	public static final FrozenLibFeature UNDER_WATER_SAND_PATH = register("under_water_sand_path");
-	public static final FrozenLibFeature UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
-	public static final FrozenLibFeature UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
-	public static final FrozenLibFeature UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
-	public static final FrozenLibFeature UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
-
 	// BEACH AND RIVER
+	public static final FrozenLibFeature DISK_CLAY_LARGE = register("disk_clay_large");
 	public static final FrozenLibFeature STONE_TRANSITION_DISK = register("stone_transition_disk");
 	public static final FrozenLibFeature SMALL_SAND_TRANSITION_DISK = register("small_sand_transition_disk");
 	public static final FrozenLibFeature BETA_BEACH_SAND_TRANSITION_DISK = register("beta_beach_sand_transition_disk");
@@ -159,57 +145,6 @@ public final class WWMiscConfigured {
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 		EMPTY.makeAndSetHolder(new NoOpFeature());
 
-		COARSE_DIRT_PATH_CLEARING.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.07D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.COARSE_DIRT))
-							.within(-0.075D, 0.175D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.COARSE_CLEARING_REPLACEABLE))
-							.searchingPredicate(BlockPredicate.not(SearchInDirectionBlockPredicate.hasWaterAbove(1)))
-							.placementChance(0.7F)
-							.build()
-					).build(),
-				3
-			)
-		);
-
-		GRAVEL_PATH_CLEARING.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.07D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
-							.within(-0.075D, 0.175D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.GRAVEL_CLEARING_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasAirWithin(2))
-							.placementChance(0.7F)
-							.build()
-					).build(),
-				3
-			)
-		);
-
-		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.07D)
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.ROOTED_DIRT))
-							.within(-0.035D, 0.135D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.ROOTED_DIRT_PATH_REPLACEABLE))
-							.searchingPredicate(TouchingBlockPredicate.exposed())
-							.placementChance(0.5F)
-							.build()
-					).build(),
-				3
-			)
-		);
-
 		STONE_DISK_AND_PILE.makeAndSetHolder(
 			new SequenceFeature(
 				HolderSet.direct(
@@ -253,98 +188,12 @@ public final class WWMiscConfigured {
 			)
 		);
 
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.XORO)
-					.noiseScale(0.05D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.SAND))
-							.within(0.2D, 0.54D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.UNDER_WATER_SAND_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
-							.placementChance(0.925F)
-							.build()
-					).build(),
-				12
-			)
-		);
-
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LOCAL)
-					.noiseScale(0.07D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
-							.within(-0.7D, -0.3D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.UNDER_WATER_GRAVEL_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
-							.placementChance(0.9F)
-							.build()
-					).build(),
-				12
-			)
-		);
-
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.LEGACY_THREAD_SAFE)
-					.noiseScale(0.07D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.CLAY))
-							.within(0.5D, 0.85D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.UNDER_WATER_CLAY_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
-							.placementChance(0.9F)
-							.build()
-					).build(),
-				12
-			)
-		);
-
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.1D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.CLAY))
-							.within(0.5D, 0.85D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.BEACH_CLAY_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
-							.placementChance(0.915F)
-							.build()
-					).build(),
-				12
-			)
-		);
-
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(
-			new NoisePathFeature(
-				new NoiseBandPlacement.Builder(EasyNoiseSampler.NoiseType.CHECKED)
-					.noiseScale(0.1D)
-					.calculateNoiseWithY()
-					.scaleYNoise()
-					.heightmapType(Heightmap.Types.OCEAN_FLOOR)
-					.noiseBandBlockPlacement(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(Blocks.GRAVEL))
-							.within(0.5D, 0.85D)
-							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE))
-							.searchingPredicate(SearchInAreaBlockPredicate.hasWaterWithin(2))
-							.placementChance(0.915F)
-							.build()
-					).build(),
-				12
+		DISK_CLAY_LARGE.makeAndSetHolder(
+			new DiskFeature(
+				BlockStateProvider.holderOf(Blocks.CLAY),
+				BlockPredicate.matchesBlocks(Blocks.DIRT, Blocks.GRASS_BLOCK),
+				UniformInt.of(2, 4),
+				2
 			)
 		);
 

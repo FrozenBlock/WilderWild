@@ -164,7 +164,6 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "scorched_sand_decoration", WWWorldgenConfig.SCORCHED_SAND_DECORATION),
 			booleanEntry(builder, "scorched_red_sand_decoration", WWWorldgenConfig.SCORCHED_RED_SAND_DECORATION),
 			booleanEntry(builder, "sandstone_decoration", WWWorldgenConfig.SANDSTONE_DECORATION),
-			booleanEntry(builder, "clay_decoration", WWWorldgenConfig.CLAY_DECORATION),
 			booleanEntry(builder, "clearing_generation", WWWorldgenConfig.CLEARING_GENERATION),
 			booleanEntry(builder, "clearing_path_decoration", WWWorldgenConfig.CLEARING_PATH_DECORATION),
 			booleanEntry(builder, "snow_piles", WWWorldgenConfig.SNOW_PILE_DECORATION),

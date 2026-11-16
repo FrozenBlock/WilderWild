@@ -181,9 +181,6 @@
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
-      "wilderwild:under_water_sand_path",
-      "wilderwild:under_water_gravel_path",
-      "wilderwild:under_water_clay_path",
       "minecraft:ore_coal_upper",
       "minecraft:ore_coal_lower",
       "minecraft:ore_iron_upper",
@@ -200,7 +197,9 @@
       "minecraft:ore_lapis",
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
-      "minecraft:underwater_magma"
+      "minecraft:underwater_magma",
+      "wilderwild:disk_clay_large",
+      "wilderwild:disk_sand_sparse"
     ],
     [],
     [

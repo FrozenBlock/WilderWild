@@ -92,12 +92,6 @@ public final class WWMiscGeneration {
 					}
 				}
 
-				if (WWWorldgenConfig.CLAY_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLAY_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH.getKey());
-					}
-				}
-
 				if (WWWorldgenConfig.TAIGA_BOULDER_DECORATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)) {
 						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.FOREST_ROCK_TAIGA.getKey());

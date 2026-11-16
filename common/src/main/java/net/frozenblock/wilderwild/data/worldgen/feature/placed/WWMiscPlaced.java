@@ -67,13 +67,11 @@ public final class WWMiscPlaced {
 	public static final FrozenLibPlacedFeature FOREST_ROCK_TAIGA = register("forest_rock_taiga");
 
 	// CYPRESS WETLANDS
-	public static final FrozenLibPlacedFeature UNDER_WATER_SAND_PATH = register("under_water_sand_path");
-	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
-	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
+	public static final FrozenLibPlacedFeature DISK_CLAY_LARGE = register("disk_clay_large");
+	public static final FrozenLibPlacedFeature DISK_CLAY_COMMON = register("disk_clay_common");
+	public static final FrozenLibPlacedFeature DISK_SAND_SPARSE = register("disk_sand_sparse");
 
 	// BEACH AND RIVER
-	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
-	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 	public static final FrozenLibPlacedFeature STONE_TRANSITION = register("stone_transition");
 	public static final FrozenLibPlacedFeature SMALL_SAND_TRANSITION = register("small_sand_transition");
 	public static final FrozenLibPlacedFeature BETA_BEACH_SAND_TRANSITION = register("beta_beach_sand_transition");
@@ -147,44 +145,27 @@ public final class WWMiscPlaced {
 		);
 
 		// CYPRESS WETLANDS
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_SAND_PATH,
+		DISK_CLAY_LARGE.makeAndSetHolder(WWMiscConfigured.DISK_CLAY_LARGE,
+			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
 		);
 
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_GRAVEL_PATH,
+		DISK_CLAY_COMMON.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DISK_CLAY),
+			CountPlacement.of(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
 		);
 
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_CLAY_PATH,
+		DISK_SAND_SPARSE.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DISK_SAND),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
 		);
 
 		// BEACH AND RIVER
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
-		);
-
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER,
-			RarityFilter.onAverageOnceEvery(5),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
-		);
-
 		STONE_TRANSITION.makeAndSetHolder(WWMiscConfigured.STONE_TRANSITION_DISK,
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),

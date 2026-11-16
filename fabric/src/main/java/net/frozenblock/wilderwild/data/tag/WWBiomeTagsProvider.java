@@ -660,13 +660,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 			.addOptional(WWBiomes.BIRCH_JUNGLE)
 			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
 
-		this.builder(WWBiomeTags.HAS_CLAY_PATH)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND_DEEP)
-			.addOptional(WWBiomes.OASIS)
-			.addOptional(WWBiomes.WARM_RIVER)
-			.addOptional(WWBiomes.WARM_BEACH);
-
 		this.builder(FrozenLibBiomeTags.CAN_LIGHTNING_OVERRIDE)
 			.add(Biomes.DESERT)
 			.add(Biomes.BADLANDS)

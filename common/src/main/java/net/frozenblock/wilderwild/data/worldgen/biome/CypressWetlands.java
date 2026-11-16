@@ -136,20 +136,19 @@ public final class CypressWetlands extends FrozenLibBiome {
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.SEAGRASS_CYPRESS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_CYPRESS_WETLANDS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_CYPRESS_WETLANDS_WATER.getKey());
-		this.addCypressPaths(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.FLOWER_RAINFOREST.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.PATCH_FLOWER_RAINFOREST.getKey());
 		BiomeDefaultFeatures.addDefaultOres(features);
+		this.addCypressSoftDisks(features);
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addBushes(features);
 		BiomeDefaultFeatures.addForestGrass(features);
 		this.addCypressVegetation(features);
 	}
 
-	public void addCypressPaths(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_SAND_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_GRAVEL_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH.getKey());
+	public void addCypressSoftDisks(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_CLAY_LARGE.getKey());
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_SAND_SPARSE.getKey());
 	}
 
 	public void addCypressVegetation(BiomeGenerationSettings.Builder builder) {

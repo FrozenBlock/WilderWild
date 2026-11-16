@@ -28,6 +28,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Plankton particles are now visible behind Water with the Improved Transparency option disabled.
 - Float Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
 - Fixed a visual issue that caused adjacent Mesoglea blocks of different colors to z-fight.
+- Fixed a visual issue that caused Algae to become completely invisible at a distance or when looked at from a certain angle.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.
@@ -62,7 +63,9 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Mud patch generation in the Swamp biome is now generated via a Material Rule instead of Features.
 - Packed Mud patch generation in Savanna biomes is now generated via a Material Rule instead of a Feature.
 - Transitional patches of Sand and Red Sand are now much smaller and less chaotic.
-- Removed rare, occasional sparse patches of Coarse Dirt, Gravel, and Stone.
+- Removed rare, occasional sparse splotchy patches of Coarse Dirt, Gravel, and Stone.
+- Removed custom "path"-like generation of Clay, Gravel, and Sand that were intended to replace Clay, Gravel, and Sand disks in certain biomes.
+- Surface Gravel disks no longer generate in the Cypress Wetlands biome.
 - Coarse Dirt and Packed Mud no longer generate in Badlands biomes.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.

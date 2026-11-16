@@ -112,14 +112,17 @@ public final class WarmRiver extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultSprings(features);
 		BiomeDefaultFeatures.addSurfaceFreezing(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
-		BiomeDefaultFeatures.addDefaultSoftDisks(features);
+		this.addWarmRiverSoftDisks(features);
 		BiomeDefaultFeatures.addWaterTrees(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addDefaultGrass(features);
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
-		features.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_GRAVEL_PATH_RIVER.getKey());
+	}
+
+	public void addWarmRiverSoftDisks(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_CLAY_COMMON.getKey());
 	}
 
 	@Override
