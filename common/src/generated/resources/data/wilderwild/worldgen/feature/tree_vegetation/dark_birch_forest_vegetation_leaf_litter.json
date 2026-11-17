@@ -46,7 +46,7 @@
     },
     {
       "chance": 0.095,
-      "feature": "wilderwild:tree/fancy_tall_dark_oak_leaf_litter"
+      "feature": "wilderwild:tree/fancy_dark_oak_leaf_litter"
     },
     {
       "chance": 0.045,
@@ -54,7 +54,7 @@
     },
     {
       "chance": 0.027,
-      "feature": "wilderwild:tree/fancy_dying_tall_dark_oak_leaf_litter"
+      "feature": "wilderwild:tree/fancy_dying_dark_oak_leaf_litter"
     },
     {
       "chance": 0.02,

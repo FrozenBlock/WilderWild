@@ -30,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -134,8 +135,10 @@ public final class WWBlockStateProviders {
 
 	public static final ResourceKey<BlockStateProvider> BAOBAB_NUT = bind("baobab_nut");
 	public static final ResourceKey<BlockStateProvider> COCONUT = bind("coconut");
+
 	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_WATERLOGGABLE_TREE = bind("soil_beneath_waterloggable_tree");
 	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_DESERT_TREE = bind("soil_beneath_desert_tree");
+	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_PALE_OAK_TREE = bind("soil_beneath_pale_oak_tree");
 
 	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<BlockStateProvider> context) {
@@ -964,7 +967,6 @@ public final class WWBlockStateProviders {
 				UniformInt.of(0, 2)
 			)
 		);
-
 		context.register(
 			COCONUT,
 			BlockStateProvider.of(WWBlocks.COCONUT.get().defaultBlockState().setValue(BlockStateProperties.HANGING, true))
@@ -981,6 +983,16 @@ public final class WWBlockStateProviders {
 			SOIL_BENEATH_DESERT_TREE,
 			RuleBasedStateProvider.ifTrueThenProvide(
 				BlockPredicate.not(BlockPredicate.matchesTag(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT)),
+				Blocks.DIRT
+			)
+		);
+		context.register(
+			SOIL_BENEATH_PALE_OAK_TREE,
+			RuleBasedStateProvider.ifTrueThenProvide(
+				BlockPredicate.anyOf(
+					BlockPredicate.matchesTag(WWBlockTags.CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK),
+					BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK))
+				),
 				Blocks.DIRT
 			)
 		);

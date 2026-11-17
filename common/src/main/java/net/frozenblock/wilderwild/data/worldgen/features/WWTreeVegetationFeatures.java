@@ -766,9 +766,9 @@ public final class WWTreeVegetationFeatures {
 					WWTreePlacements.SHORT_BIRCH.asWeightedPlacedFeature(0.2F),
 					WWTreePlacements.DYING_SHORT_BIRCH.asWeightedPlacedFeature(0.015F),
 					WWTreePlacements.TALL_DARK_OAK.asWeightedPlacedFeature(0.32F),
-					WWTreePlacements.FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.05F),
+					WWTreePlacements.FANCY_DARK_OAK.asWeightedPlacedFeature(0.05F),
 					WWTreePlacements.DYING_TALL_DARK_OAK.asWeightedPlacedFeature(0.045F),
-					WWTreePlacements.DYING_FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.027F),
+					WWTreePlacements.DYING_FANCY_DARK_OAK.asWeightedPlacedFeature(0.027F),
 					WWTreePlacements.FANCY_DYING_OAK.asWeightedPlacedFeature(0.02F),
 					WWTreePlacements.DYING_OAK.asWeightedPlacedFeature(0.012F),
 					WWTreePlacements.FANCY_OAK.asWeightedPlacedFeature(0.185F)
@@ -787,9 +787,9 @@ public final class WWTreeVegetationFeatures {
 					WWTreePlacements.SHORT_BIRCH.litterAsWeightedPlacedFeature(0.2F),
 					WWTreePlacements.DYING_SHORT_BIRCH.litterAsWeightedPlacedFeature(0.015F),
 					WWTreePlacements.TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.32F),
-					WWTreePlacements.FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.05F),
+					WWTreePlacements.FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.05F),
 					WWTreePlacements.DYING_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.045F),
-					WWTreePlacements.DYING_FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.027F),
+					WWTreePlacements.DYING_FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.027F),
 					WWTreePlacements.FANCY_DYING_OAK.litterAsWeightedPlacedFeature(0.02F),
 					WWTreePlacements.DYING_OAK.litterAsWeightedPlacedFeature(0.012F),
 					WWTreePlacements.FANCY_OAK.litterAsWeightedPlacedFeature(0.185F)
@@ -811,10 +811,10 @@ public final class WWTreeVegetationFeatures {
 					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.045F),
 					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.07F),
 					WWTreePlacements.TALL_DARK_OAK.asWeightedPlacedFeature(0.1F),
-					WWTreePlacements.FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.2125F),
+					WWTreePlacements.FANCY_DARK_OAK.asWeightedPlacedFeature(0.2125F),
 					WWTreePlacements.COBWEB_TALL_DARK_OAK.asWeightedPlacedFeature(0.025F),
-					WWTreePlacements.DYING_FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.065F),
-					WWTreePlacements.COBWEB_FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.04F),
+					WWTreePlacements.DYING_FANCY_DARK_OAK.asWeightedPlacedFeature(0.065F),
+					WWTreePlacements.COBWEB_FANCY_DARK_OAK.asWeightedPlacedFeature(0.04F),
 					WWTreePlacements.DYING_TALL_DARK_OAK.asWeightedPlacedFeature(0.0355F),
 					WWTreePlacements.DARK_OAK.asWeightedPlacedFeature(0.45F),
 					WWTreePlacements.DYING_DARK_OAK.asWeightedPlacedFeature(0.1465F),
@@ -835,10 +835,10 @@ public final class WWTreeVegetationFeatures {
 					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.045F),
 					new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.07F),
 					WWTreePlacements.TALL_DARK_OAK.asWeightedPlacedFeature(0.1F),
-					WWTreePlacements.FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.2125F),
+					WWTreePlacements.FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.2125F),
 					WWTreePlacements.COBWEB_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.025F),
-					WWTreePlacements.DYING_FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.065F),
-					WWTreePlacements.COBWEB_FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.04F),
+					WWTreePlacements.DYING_FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.065F),
+					WWTreePlacements.COBWEB_FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.04F),
 					WWTreePlacements.DYING_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.0355F),
 					WWTreePlacements.DARK_OAK.litterAsWeightedPlacedFeature(0.45F),
 					WWTreePlacements.DYING_DARK_OAK.litterAsWeightedPlacedFeature(0.1465F),
@@ -872,9 +872,9 @@ public final class WWTreeVegetationFeatures {
 					WWTreePlacements.MEDIUM_BIRCH.asWeightedPlacedFeature(0.4F),
 					WWTreePlacements.DYING_MEDIUM_BIRCH.asWeightedPlacedFeature(0.015F),
 					WWTreePlacements.TALL_DARK_OAK.asWeightedPlacedFeature(0.15F),
-					WWTreePlacements.FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.095F),
+					WWTreePlacements.FANCY_DARK_OAK.asWeightedPlacedFeature(0.095F),
 					WWTreePlacements.DYING_TALL_DARK_OAK.asWeightedPlacedFeature(0.045F),
-					WWTreePlacements.DYING_FANCY_TALL_DARK_OAK.asWeightedPlacedFeature(0.027F),
+					WWTreePlacements.DYING_FANCY_DARK_OAK.asWeightedPlacedFeature(0.027F),
 					WWTreePlacements.FANCY_DYING_OAK.asWeightedPlacedFeature(0.02F),
 					WWTreePlacements.DYING_OAK.asWeightedPlacedFeature(0.012F),
 					WWTreePlacements.FANCY_OAK.asWeightedPlacedFeature(0.15F)
@@ -895,9 +895,9 @@ public final class WWTreeVegetationFeatures {
 					WWTreePlacements.MEDIUM_BIRCH.litterAsWeightedPlacedFeature(0.4F),
 					WWTreePlacements.DYING_MEDIUM_BIRCH.litterAsWeightedPlacedFeature(0.015F),
 					WWTreePlacements.TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.15F),
-					WWTreePlacements.FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.095F),
+					WWTreePlacements.FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.095F),
 					WWTreePlacements.DYING_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.045F),
-					WWTreePlacements.DYING_FANCY_TALL_DARK_OAK.litterAsWeightedPlacedFeature(0.027F),
+					WWTreePlacements.DYING_FANCY_DARK_OAK.litterAsWeightedPlacedFeature(0.027F),
 					WWTreePlacements.FANCY_DYING_OAK.litterAsWeightedPlacedFeature(0.02F),
 					WWTreePlacements.DYING_OAK.litterAsWeightedPlacedFeature(0.012F),
 					WWTreePlacements.FANCY_OAK.litterAsWeightedPlacedFeature(0.15F)
@@ -928,9 +928,9 @@ public final class WWTreeVegetationFeatures {
 				Pair.of(WWTreePlacements.BIRCH, 0.1F),
 				Pair.of(WWTreePlacements.DYING_BIRCH, 0.005F),
 				Pair.of(WWTreePlacements.TALL_DARK_OAK, 0.2F),
-				Pair.of(WWTreePlacements.FANCY_TALL_DARK_OAK, 0.08F),
+				Pair.of(WWTreePlacements.FANCY_DARK_OAK, 0.08F),
 				Pair.of(WWTreePlacements.DYING_TALL_DARK_OAK, 0.024F),
-				Pair.of(WWTreePlacements.DYING_FANCY_TALL_DARK_OAK, 0.01F),
+				Pair.of(WWTreePlacements.DYING_FANCY_DARK_OAK, 0.01F),
 				Pair.of(WWTreePlacements.DYING_OAK, 0.031F),
 				Pair.of(WWTreePlacements.FANCY_OAK, 0.015F)
 			)
@@ -948,7 +948,7 @@ public final class WWTreeVegetationFeatures {
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlacements.TALL_PALE_OAK.asWeightedPlacedFeature(0.075F),
-					WWTreePlacements.FANCY_TALL_PALE_OAK.asWeightedPlacedFeature(0.075F),
+					WWTreePlacements.FANCY_PALE_OAK.asWeightedPlacedFeature(0.075F),
 					WWTreePlacements.COBWEB_TALL_PALE_OAK.asWeightedPlacedFeature(0.018F),
 					WWTreePlacements.COBWEB_FANCY_PALE_OAK.asWeightedPlacedFeature(0.018F)
 				),
@@ -960,7 +960,7 @@ public final class WWTreeVegetationFeatures {
 			new RandomSelectorFeature(
 				List.of(
 					WWTreePlacements.TALL_PALE_OAK_CREAKING.asWeightedPlacedFeature(0.075F),
-					WWTreePlacements.FANCY_TALL_PALE_OAK_CREAKING.asWeightedPlacedFeature(0.075F),
+					WWTreePlacements.FANCY_PALE_OAK_CREAKING.asWeightedPlacedFeature(0.075F),
 					WWTreePlacements.COBWEB_TALL_PALE_OAK_CREAKING.asWeightedPlacedFeature(0.018F),
 					WWTreePlacements.COBWEB_FANCY_PALE_OAK_CREAKING.asWeightedPlacedFeature(0.018F)
 				),

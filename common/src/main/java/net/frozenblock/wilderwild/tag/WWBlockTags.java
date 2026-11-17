@@ -111,6 +111,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SUPPORTS_WATERLOGGABLE_SAPLING = bind("supports_waterloggable_sapling");
 	public static final TagKey<Block> CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE = bind("cannot_replace_below_tree_trunk_waterloggable");
 	public static final TagKey<Block> CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT = bind("cannot_replace_below_tree_trunk_desert");
+	public static final TagKey<Block> CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK = bind("can_replace_below_tree_trunk_pale_oak");
+
 	public static final TagKey<Block> SUPPORTS_SHRUB = bind("supports_shrub");
 
 	public static final TagKey<Block> CYPRESS_GROWS_AS_JUNIPER_ON = bind("cypress_grows_as_juniper_on");

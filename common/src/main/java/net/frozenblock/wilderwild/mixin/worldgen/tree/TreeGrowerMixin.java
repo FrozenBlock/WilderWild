@@ -134,7 +134,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 			if (random.nextFloat() < 0.2F) {
 				info.setReturnValue(WWTreeFeatures.TALL_DARK_OAK.getKey());
 			} else if (random.nextFloat() < 0.2F) {
-				info.setReturnValue(WWTreeFeatures.FANCY_TALL_DARK_OAK.getKey());
+				info.setReturnValue(WWTreeFeatures.FANCY_DARK_OAK.getKey());
 			}
 		}
 
@@ -146,7 +146,7 @@ public class TreeGrowerMixin implements TreeGrowerInterface {
 
 		if (treeGrower == TreeGrower.PALE_OAK) {
 			if (random.nextFloat() < 0.175F) {
-				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeFeatures.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeFeatures.FANCY_TALL_PALE_OAK_BONEMEAL.getKey());
+				info.setReturnValue(random.nextFloat() < 0.75F ? WWTreeFeatures.TALL_PALE_OAK_BONEMEAL.getKey() : WWTreeFeatures.FANCY_PALE_OAK_BONEMEAL.getKey());
 			} else {
 				info.setReturnValue(WWTreeFeatures.PALE_OAK_BONEMEAL.getKey());
 			}

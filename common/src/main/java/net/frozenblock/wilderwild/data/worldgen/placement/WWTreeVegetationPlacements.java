@@ -461,7 +461,7 @@ public final class WWTreeVegetationPlacements {
 
 		PALM_WARM_BEACH.makeAndSetHolder(WWTreeVegetationFeatures.PALM_DESERT,
 			generatePalm,
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

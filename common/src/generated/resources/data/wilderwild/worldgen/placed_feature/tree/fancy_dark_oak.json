@@ -1,5 +1,5 @@
 {
-  "feature": "wilderwild:tree/fancy_dying_tall_dark_oak",
+  "feature": "wilderwild:tree/fancy_dark_oak",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",

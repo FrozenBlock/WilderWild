@@ -230,11 +230,11 @@ public final class WWTreeFeatures {
 	public static final FrozenLibTreeFeature DARK_OAK = registerDarkOak("dark_oak");
 	public static final FrozenLibTreeFeature DYING_DARK_OAK = registerDarkOak("dying_dark_oak");
 	public static final FrozenLibTreeFeature TALL_DARK_OAK = registerDarkOak("tall_dark_oak");
-	public static final FrozenLibTreeFeature FANCY_TALL_DARK_OAK = registerDarkOak("fancy_tall_dark_oak");
+	public static final FrozenLibTreeFeature FANCY_DARK_OAK = registerDarkOak("fancy_dark_oak");
 	public static final FrozenLibTreeFeature DYING_TALL_DARK_OAK = registerDarkOak("dying_tall_dark_oak");
-	public static final FrozenLibTreeFeature FANCY_DYING_TALL_DARK_OAK = registerDarkOak("fancy_dying_tall_dark_oak");
+	public static final FrozenLibTreeFeature FANCY_DYING_DARK_OAK = registerDarkOak("fancy_dying_dark_oak");
 	public static final FrozenLibTreeFeature COBWEB_TALL_DARK_OAK = registerDarkOak("cobweb_tall_dark_oak");
-	public static final FrozenLibTreeFeature COBWEB_FANCY_TALL_DARK_OAK = registerDarkOak("cobweb_fancy_tall_dark_oak");
+	public static final FrozenLibTreeFeature COBWEB_FANCY_DARK_OAK = registerDarkOak("cobweb_fancy_dark_oak");
 
 	public static final FrozenLibFeature LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak");
 	public static final FrozenLibFeature LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak");
@@ -306,9 +306,9 @@ public final class WWTreeFeatures {
 	public static final FrozenLibFeature TALL_PALE_OAK = register("tall_pale_oak");
 	public static final FrozenLibFeature TALL_PALE_OAK_BONEMEAL = register("tall_pale_oak_bonemeal");
 	public static final FrozenLibFeature TALL_PALE_OAK_CREAKING = register("tall_pale_oak_creaking");
-	public static final FrozenLibFeature FANCY_TALL_PALE_OAK = register("fancy_tall_pale_oak");
-	public static final FrozenLibFeature FANCY_TALL_PALE_OAK_BONEMEAL = register("fancy_tall_pale_oak_bonemeal");
-	public static final FrozenLibFeature FANCY_TALL_PALE_OAK_CREAKING = register("fancy_tall_pale_oak_creaking");
+	public static final FrozenLibFeature FANCY_PALE_OAK = register("fancy_pale_oak");
+	public static final FrozenLibFeature FANCY_PALE_OAK_BONEMEAL = register("fancy_pale_oak_bonemeal");
+	public static final FrozenLibFeature FANCY_PALE_OAK_CREAKING = register("fancy_pale_oak_creaking");
 	public static final FrozenLibFeature COBWEB_TALL_PALE_OAK = register("cobweb_tall_pale_oak");
 	public static final FrozenLibFeature COBWEB_TALL_PALE_OAK_CREAKING = register("cobweb_tall_pale_oak_creaking");
 	public static final FrozenLibFeature COBWEB_FANCY_PALE_OAK = register("cobweb_fancy_pale_oak");
@@ -352,6 +352,7 @@ public final class WWTreeFeatures {
 		final Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 		final Holder<BlockStateProvider> belowWaterloggableTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_WATERLOGGABLE_TREE);
 		final Holder<BlockStateProvider> belowDesertTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_DESERT_TREE);
+		final Holder<BlockStateProvider> belowPaleOakTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_PALE_OAK_TREE);
 
 		// DECORATORS
 		final Function<ResourceKey<ConfigPredicate>, TreeDecorator> shelfMushroom009 = predicate ->
@@ -1131,7 +1132,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		FANCY_TALL_DARK_OAK.makeAndSetHolders(
+		FANCY_DARK_OAK.makeAndSetHolders(
 			fancyTallDarkOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_DARK_OAK)))
 				.ignoreVines()
@@ -1145,7 +1146,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		FANCY_DYING_TALL_DARK_OAK.makeAndSetHolders(
+		FANCY_DYING_DARK_OAK.makeAndSetHolders(
 			fancyTallDarkOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_DARK_OAK)))
 				.ignoreVines()
@@ -1159,7 +1160,7 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolders(
+		COBWEB_FANCY_DARK_OAK.makeAndSetHolders(
 			fancyTallDarkOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(cobweb1Under260017, shelfMushroom003.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_DARK_OAK)))
 				.ignoreVines()
@@ -1633,7 +1634,7 @@ public final class WWTreeFeatures {
 
 		// PALE OAK & PALE MUSHROOM
 		PALE_OAK.makeAndSetHolder(
-			paleOak(configPredicates, true, false, false, true, belowTrunkProvider).build()
+			paleOak(configPredicates, true, false, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		PALE_OAK_BONEMEAL.makeAndSetHolder(
@@ -1641,11 +1642,11 @@ public final class WWTreeFeatures {
 		);
 
 		PALE_OAK_CREAKING.makeAndSetHolder(
-			paleOak(configPredicates, true, true, false, true, belowTrunkProvider).build()
+			paleOak(configPredicates, true, true, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, false, false, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, false, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(
@@ -1653,45 +1654,45 @@ public final class WWTreeFeatures {
 		);
 
 		TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, true, false, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, true, false, true, belowPaleOakTrunkProvider).build()
 		);
 
-		FANCY_TALL_PALE_OAK.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, false, false, true, belowTrunkProvider).build()
+		FANCY_PALE_OAK.makeAndSetHolder(
+			fancyPaleOak(configPredicates, true, false, false, true, belowPaleOakTrunkProvider).build()
 		);
 
-		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(
+		FANCY_PALE_OAK_BONEMEAL.makeAndSetHolder(
 			fancyPaleOak(configPredicates, false, false, false, false, belowTrunkProvider).build()
 		);
 
-		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, true, false, true, belowTrunkProvider).build()
+		FANCY_PALE_OAK_CREAKING.makeAndSetHolder(
+			fancyPaleOak(configPredicates, true, true, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_TALL_PALE_OAK.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, false, true, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, false, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, true, true, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, true, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, false, true, true, belowTrunkProvider).build()
+			fancyPaleOak(configPredicates, true, false, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, true, true, true, belowTrunkProvider).build()
+			fancyPaleOak(configPredicates, true, true, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(
-			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, belowTrunkProvider)
+			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, belowPaleOakTrunkProvider)
 				.decorators(List.of(mossPaleOak, shelfMushroom00875.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_PALE_OAK), mushroomsFallenPaleOak))
 				.build()
 		);
 
 		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(
-			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, belowTrunkProvider)
+			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, belowPaleOakTrunkProvider)
 				.decorators(List.of(mossPaleOak, shelfMushroom00875.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_PALE_OAK), mushroomsFallenPaleOak))
 				.build()
 		);

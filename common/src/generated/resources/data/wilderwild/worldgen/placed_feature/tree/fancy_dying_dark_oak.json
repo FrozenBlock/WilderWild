@@ -1,11 +1,11 @@
 {
-  "feature": "wilderwild:tree/fancy_tall_pale_oak",
+  "feature": "wilderwild:tree/fancy_dying_dark_oak",
   "placement": [
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:would_survive",
-        "state": "minecraft:pale_oak_sapling"
+        "state": "minecraft:dark_oak_sapling"
       }
     }
   ]

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
+import net.frozenblock.lib.levelgen.blockpredicates.NoiseThresholdBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedTreeFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
@@ -29,8 +30,10 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
+import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
+import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -39,6 +42,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
@@ -151,11 +155,11 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedTreeFeature DARK_OAK = WWTreeFeatures.DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DYING_DARK_OAK = WWTreeFeatures.DYING_DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature TALL_DARK_OAK = WWTreeFeatures.TALL_DARK_OAK.toPlacedFeature();
-	public static final FrozenLibPlacedTreeFeature FANCY_TALL_DARK_OAK = WWTreeFeatures.FANCY_TALL_DARK_OAK.toPlacedFeature();
+	public static final FrozenLibPlacedTreeFeature FANCY_DARK_OAK = WWTreeFeatures.FANCY_DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature DYING_TALL_DARK_OAK = WWTreeFeatures.DYING_TALL_DARK_OAK.toPlacedFeature();
-	public static final FrozenLibPlacedTreeFeature DYING_FANCY_TALL_DARK_OAK = WWTreeFeatures.FANCY_DYING_TALL_DARK_OAK.toPlacedFeature();
+	public static final FrozenLibPlacedTreeFeature DYING_FANCY_DARK_OAK = WWTreeFeatures.FANCY_DYING_DARK_OAK.toPlacedFeature();
 	public static final FrozenLibPlacedTreeFeature COBWEB_TALL_DARK_OAK = WWTreeFeatures.COBWEB_TALL_DARK_OAK.toPlacedFeature();
-	public static final FrozenLibPlacedTreeFeature COBWEB_FANCY_TALL_DARK_OAK = WWTreeFeatures.COBWEB_FANCY_TALL_DARK_OAK.toPlacedFeature();
+	public static final FrozenLibPlacedTreeFeature COBWEB_FANCY_DARK_OAK = WWTreeFeatures.COBWEB_FANCY_DARK_OAK.toPlacedFeature();
 
 	public static final FrozenLibPlacedFeature LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak");
 
@@ -228,8 +232,8 @@ public final class WWTreePlacements {
 	public static final FrozenLibPlacedFeature PALE_OAK_CREAKING = register("pale_oak_creaking");
 	public static final FrozenLibPlacedFeature TALL_PALE_OAK = register("tall_pale_oak");
 	public static final FrozenLibPlacedFeature TALL_PALE_OAK_CREAKING = register("tall_pale_oak_creaking");
-	public static final FrozenLibPlacedFeature FANCY_TALL_PALE_OAK = register("fancy_tall_pale_oak");
-	public static final FrozenLibPlacedFeature FANCY_TALL_PALE_OAK_CREAKING = register("fancy_tall_pale_oak_creaking");
+	public static final FrozenLibPlacedFeature FANCY_PALE_OAK = register("fancy_pale_oak");
+	public static final FrozenLibPlacedFeature FANCY_PALE_OAK_CREAKING = register("fancy_pale_oak_creaking");
 	public static final FrozenLibPlacedFeature COBWEB_TALL_PALE_OAK = register("cobweb_tall_pale_oak");
 	public static final FrozenLibPlacedFeature COBWEB_TALL_PALE_OAK_CREAKING = register("cobweb_tall_pale_oak_creaking");
 	public static final FrozenLibPlacedFeature COBWEB_FANCY_PALE_OAK = register("cobweb_fancy_tall_pale_oak");
@@ -379,11 +383,11 @@ public final class WWTreePlacements {
 		DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 		DYING_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 		TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
-		FANCY_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
+		FANCY_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 		DYING_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
-		DYING_FANCY_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
+		DYING_FANCY_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 		COBWEB_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
-		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
+		COBWEB_FANCY_DARK_OAK.makeAndSetHolders(darkOakSaplingPlacement);
 
 		LARGE_SNAPPED_DARK_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_DARK_OAK, darkOakSaplingPlacement);
 
@@ -465,19 +469,31 @@ public final class WWTreePlacements {
 		SNAPPED_MAPLE.makeAndSetHolder(WWTreeFeatures.SNAPPED_MAPLE.getHolder(), fallenTreePlacement);
 
 		// PALE OAK
-		final BlockPredicateFilter paleOakSaplingPlacement = PlacementUtils.filteredByBlockSurvival(Blocks.PALE_OAK_SAPLING);
-		PALE_OAK.makeAndSetHolder(WWTreeFeatures.PALE_OAK, paleOakSaplingPlacement);
-		PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.PALE_OAK_CREAKING, paleOakSaplingPlacement);
-		TALL_PALE_OAK.makeAndSetHolder(WWTreeFeatures.TALL_PALE_OAK, paleOakSaplingPlacement);
-		TALL_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.TALL_PALE_OAK_CREAKING, paleOakSaplingPlacement);
-		FANCY_TALL_PALE_OAK.makeAndSetHolder(WWTreeFeatures.FANCY_TALL_PALE_OAK, paleOakSaplingPlacement);
-		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.FANCY_TALL_PALE_OAK_CREAKING, paleOakSaplingPlacement);
-		COBWEB_TALL_PALE_OAK.makeAndSetHolder(WWTreeFeatures.COBWEB_TALL_PALE_OAK, paleOakSaplingPlacement);
-		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.COBWEB_TALL_PALE_OAK_CREAKING, paleOakSaplingPlacement);
-		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(WWTreeFeatures.COBWEB_FANCY_PALE_OAK, paleOakSaplingPlacement);
-		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.COBWEB_FANCY_PALE_OAK_CREAKING, paleOakSaplingPlacement);
+		final BlockPredicateFilter paleOakPlacement = BlockPredicateFilter.forPredicate(
+			BlockPredicate.anyOf(
+				BlockPredicate.wouldSurvive(Blocks.PALE_OAK_SAPLING),
+				BlockPredicate.allOf(
+					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK),
+					BlockPredicate.anyOf(
+						BlockPredicate.not(BlockPredicate.heightRange(VerticalAnchor.relativeToSeaLevel(-3), VerticalAnchor.relativeToSeaLevel(2))),
+						BlockPredicate.not(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRAVEL)),
+						BlockPredicate.not(NoiseThresholdBlockPredicate.of(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12D, false))
+					)
+				)
+			)
+		);
+		PALE_OAK.makeAndSetHolder(WWTreeFeatures.PALE_OAK, paleOakPlacement);
+		PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.PALE_OAK_CREAKING, paleOakPlacement);
+		TALL_PALE_OAK.makeAndSetHolder(WWTreeFeatures.TALL_PALE_OAK, paleOakPlacement);
+		TALL_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.TALL_PALE_OAK_CREAKING, paleOakPlacement);
+		FANCY_PALE_OAK.makeAndSetHolder(WWTreeFeatures.FANCY_PALE_OAK, paleOakPlacement);
+		FANCY_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.FANCY_PALE_OAK_CREAKING, paleOakPlacement);
+		COBWEB_TALL_PALE_OAK.makeAndSetHolder(WWTreeFeatures.COBWEB_TALL_PALE_OAK, paleOakPlacement);
+		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.COBWEB_TALL_PALE_OAK_CREAKING, paleOakPlacement);
+		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(WWTreeFeatures.COBWEB_FANCY_PALE_OAK, paleOakPlacement);
+		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(WWTreeFeatures.COBWEB_FANCY_PALE_OAK_CREAKING, paleOakPlacement);
 
-		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_PALE_OAK, paleOakSaplingPlacement);
+		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(WWTreeFeatures.LARGE_SNAPPED_PALE_OAK, paleOakPlacement);
 
 		// POPLAR
 		final PoplarCollection<BlockPredicateFilter> poplarSaplingPlacement = WWBlocks.POPLAR_SAPLING.map(sapling -> PlacementUtils.filteredByBlockSurvival(sapling.get()));

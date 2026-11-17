@@ -221,6 +221,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
 			.addOptionalTag(BlockItemTags.SAND.block());
 
+		this.builder(WWBlockTags.CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK)
+			.add(BlockItemIds.PALE_MOSS_BLOCK, BlockItemIds.GRAVEL);
+
 		this.builder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
 			.add(BlockItemIds.LADDER)
 			.add(BlockItemIds.ICICLE)

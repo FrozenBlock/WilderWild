@@ -1,6 +1,6 @@
 {
   "type": "minecraft:tree",
-  "below_trunk_provider": "minecraft:soil_beneath_tree",
+  "below_trunk_provider": "wilderwild:soil_beneath_pale_oak_tree",
   "decorators": [
     {
       "type": "frozenlib:probability",
@@ -19,6 +19,10 @@
       "ground_probability": 0.8,
       "leaves_probability": 0.15,
       "trunk_probability": 0.4
+    },
+    {
+      "type": "minecraft:creaking_heart",
+      "probability": 1.0
     },
     {
       "type": "minecraft:place_on_ground",
