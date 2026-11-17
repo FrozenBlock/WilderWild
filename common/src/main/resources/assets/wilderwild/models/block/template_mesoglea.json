@@ -18,8 +18,8 @@
 			}
 		},
 		{
-			"from": [16, 16, 16],
-			"to": [0, 0, 0],
+      "from": [15.998, 15.998, 15.998],
+      "to": [0.002, 0.002, 0.002],
 			"light_emission": 15,
 			"faces": {
 				"north": {"uv": [0, 16, 16, 0], "texture": "#texture", "cullface": "south"},

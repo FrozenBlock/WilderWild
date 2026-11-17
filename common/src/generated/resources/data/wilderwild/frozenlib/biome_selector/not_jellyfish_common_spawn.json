@@ -1,0 +1,4 @@
+{
+  "type": "frozenlib:not",
+  "selector": "wilderwild:jellyfish_common_spawn"
+}

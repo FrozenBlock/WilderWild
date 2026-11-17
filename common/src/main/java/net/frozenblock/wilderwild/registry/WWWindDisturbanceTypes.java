@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
@@ -25,7 +26,10 @@ import net.frozenblock.lib.wind.disturbance.holder.WindDisturbanceSourceType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentBaseWindDisturbance;
 import net.frozenblock.wilderwild.wind.disturbance.GeothermalVentEffectiveWindDisturbance;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWWindDisturbanceTypes {
 	private static final DeferredRegister<WindDisturbanceType<?>> REGISTER = DeferredRegister.create(
 		FrozenLibRegistries.WIND_DISTURBANCE_TYPE,
@@ -46,6 +50,4 @@ public final class WWWindDisturbanceTypes {
 	}
 
 	public static void init() {}
-
-	private WWWindDisturbanceTypes() {}
 }

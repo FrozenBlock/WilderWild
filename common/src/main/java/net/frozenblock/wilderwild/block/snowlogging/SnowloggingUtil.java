@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.snowlogging;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.ModLoader;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
@@ -40,6 +41,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+@UtilityClass
 public final class SnowloggingUtil {
 	public static final boolean HAS_ANTIQUE_ATLAS = ModLoader.isModLoaded("antique-atlas");
 	public static final IntegerProperty SNOW_LAYERS = WWBlockStateProperties.SNOW_LAYERS;
@@ -141,6 +143,4 @@ public final class SnowloggingUtil {
 		final VoxelShape snowLayerShape = getSnowEquivalent(state).getShape(level, pos);
 		return blockShape.max(Direction.Axis.Y) <= snowLayerShape.max(Direction.Axis.Y);
     }
-
-	private SnowloggingUtil() {}
 }

@@ -18,12 +18,16 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.MapCodec;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.levelgen.structure.templatesystem.TermiteEdibleBlockProcessor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWStructureProcessorTypes {
 
 	public static void init() {
@@ -34,6 +38,4 @@ public final class WWStructureProcessorTypes {
 		register.register("termite_edible", () -> TermiteEdibleBlockProcessor.MAP_CODEC);
 		register.register();
 	}
-
-	private WWStructureProcessorTypes() {}
 }

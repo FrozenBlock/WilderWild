@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -26,7 +27,10 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.timeline.Timeline;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTimelines {
 	public static final ResourceKey<Timeline> WILDERWILD_DAY = createKey("wilderwild_day");
 
@@ -48,6 +52,4 @@ public final class WWTimelines {
 	private static ResourceKey<Timeline> createKey(String name) {
 		return ResourceKey.create(Registries.TIMELINE, WWConstants.id(name));
 	}
-
-	private WWTimelines() {}
 }

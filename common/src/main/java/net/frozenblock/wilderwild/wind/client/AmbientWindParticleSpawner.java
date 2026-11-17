@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.wind.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.event.api.events.client.ClientTickEvents;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.lib.wind.WindManager;
@@ -30,7 +31,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class AmbientWindParticleSpawner {
 

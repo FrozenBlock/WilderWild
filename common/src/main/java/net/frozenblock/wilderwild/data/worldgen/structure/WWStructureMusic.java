@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.music.structure.api.StructureMusic;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
@@ -28,14 +29,16 @@ import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.attribute.BackgroundMusic;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWStructureMusic {
-	public static final ResourceKey<StructureMusic> ANCIENT_CITY = createKey("ancient_city");
 
 	public static void bootstrap(BootstrapContext<StructureMusic> context) {
 		StructureMusic.register(
 			context,
-			ANCIENT_CITY,
+			createKey("ancient_city"),
 			List.of(BuiltinStructures.ANCIENT_CITY.identifier()),
 			new BackgroundMusic(Optional.of(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_DEEP_DARK)), Optional.of(Musics.CREATIVE), Optional.empty()),
 			false,
@@ -46,6 +49,4 @@ public final class WWStructureMusic {
 	private static ResourceKey<StructureMusic> createKey(String name) {
 		return StructureMusic.createKey(WWConstants.id(name));
 	}
-
-	private WWStructureMusic() {}
 }

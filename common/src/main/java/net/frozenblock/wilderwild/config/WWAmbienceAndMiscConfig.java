@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -24,6 +25,7 @@ import net.frozenblock.lib.config.v2.entry.EntryType;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 
+@UtilityClass
 public final class WWAmbienceAndMiscConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("misc")), ConfigSettings.JSON5);
 
@@ -47,11 +49,11 @@ public final class WWAmbienceAndMiscConfig {
 	public static final ConfigEntry<Boolean> MAGMATIC_CAVES_PARTICLES = CONFIG.unsyncableEntryBuilder("biomeAmbience/magmaticCavesParticles", EntryType.BOOL, true).requireRestart().build();
 
 	// WATER COLORS
-	public static final ConfigEntry<Boolean> MODIFY_LUKEWARM_WATER = CONFIG.unsyncableEntryBuilder("waterColors/modifyLukewarmWater", EntryType.BOOL, true)
+	public static final ConfigEntry<Boolean> MODIFY_HOT_WATER = CONFIG.unsyncableEntryBuilder("waterColors/modifyHotWater", EntryType.BOOL, true)
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("new." + bool))
 		.build();
-	public static final ConfigEntry<Boolean> MODIFY_HOT_WATER = CONFIG.unsyncableEntryBuilder("waterColors/modifyHotWater", EntryType.BOOL, true)
+	public static final ConfigEntry<Boolean> MODIFY_LUKEWARM_WATER = CONFIG.unsyncableEntryBuilder("waterColors/modifyLukewarmWater", EntryType.BOOL, true)
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("new." + bool))
 		.build();
@@ -131,6 +133,4 @@ public final class WWAmbienceAndMiscConfig {
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("new." + bool))
 		.build();
-
-	private WWAmbienceAndMiscConfig() {}
 }

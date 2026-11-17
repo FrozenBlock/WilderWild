@@ -28,13 +28,12 @@ import net.frozenblock.wilderwild.entity.ambient.firefly.Firefly;
 import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.ambient.firefly.FireflyVariant;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
@@ -68,7 +67,6 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	private final boolean hanging;
 	public NonNullList<ItemStack> inventory;
 	public int age;
-	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.DISPLAY_LANTERN.get(), pos, state);
@@ -77,21 +75,11 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	public void serverTick(Level level, BlockPos pos) {
-		if (!this.firstTick) {
-			this.firstTick = true;
-
-			final BlockState state = this.getBlockState();
-			final int currentLight = state.getValue(WWBlockStateProperties.DISPLAY_LIGHT);
-			final int newLight = Math.clamp(this.fireflies.size() * 3, 0, LightEngine.MAX_LEVEL);
-			if (currentLight != newLight) level.setBlockAndUpdate(pos, state.setValue(WWBlockStateProperties.DISPLAY_LIGHT, newLight));
-		}
-
 		for (Occupant firefly : this.fireflies) firefly.tick();
 	}
 
 	public void clientTick() {
 		this.age += 1;
-		if (this.fireflies.isEmpty()) return;
 		for (Occupant firefly : this.fireflies) firefly.tick();
 	}
 
@@ -102,6 +90,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	public void markForUpdate() {
 		this.setChanged();
 		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+		this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	@Override
@@ -118,11 +107,11 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-		return this.saveWithoutMetadata(registries);
+	public CompoundTag getUpdateTag(HolderGetter.Provider registries) {
+		return this.saveCustomOnly(registries);
 	}
 
-	public boolean invEmpty() {
+	public boolean inventoryEmpty() {
 		return this.getItem().isEmpty();
 	}
 
@@ -224,7 +213,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	public int getComparatorOutput() {
-		if (!this.invEmpty()) return Redstone.SIGNAL_MAX;
+		if (!this.inventoryEmpty()) return Redstone.SIGNAL_MAX;
 		if (!this.noFireflies()) return Math.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		return 0;
 	}

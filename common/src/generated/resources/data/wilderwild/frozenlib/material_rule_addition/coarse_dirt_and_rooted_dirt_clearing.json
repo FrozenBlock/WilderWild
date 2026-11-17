@@ -1,0 +1,25 @@
+{
+  "dimensions": "#frozenlib:overworld",
+  "rule": {
+    "type": "minecraft:condition",
+    "if_true": {
+      "type": "minecraft:above_preliminary_surface"
+    },
+    "then_run": {
+      "type": "minecraft:condition",
+      "if_true": "wilderwild:generate_clearing_path",
+      "then_run": {
+        "type": "minecraft:condition",
+        "if_true": "wilderwild:in_clearing",
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:biome",
+            "biome_is": "#wilderwild:material_rule/coarse_dirt_and_root_clearing"
+          },
+          "then_run": "wilderwild:coarse_dirt_and_rooted_dirt_clearing"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "type": "frozenlib:not",
+  "selector": "wilderwild:has_sunken_warm_ocean"
+}

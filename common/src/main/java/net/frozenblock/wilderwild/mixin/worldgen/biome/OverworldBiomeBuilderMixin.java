@@ -24,11 +24,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.biome.WarmRiver;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
@@ -69,7 +69,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "<init>*", at = @At("TAIL"))
 	private void wilderWild$injectBiomes(CallbackInfo info) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (WWWorldgenConfig.JUNGLE_MODIFIED_PLACEMENT.get()) {
 			MIDDLE_BIOMES_VARIANT[4][3] = Biomes.JUNGLE;
 			MIDDLE_BIOMES[4][4] = Biomes.JUNGLE;
@@ -79,7 +79,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addLowSlice", at = @At("TAIL"))
 	private void wilderWild$injectLowSlice(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (WWWorldgenConfig.STONY_SHORE_MODIFIED_PLACEMENT.get()) {
 			for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.BEACH)) {
 				this.addSurfaceBiome(
@@ -98,7 +98,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "addMidSlice", at = @At("TAIL"))
 	private void wilderWild$injectMidBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> biomes, Climate.Parameter weirdness, CallbackInfo info) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (WWWorldgenConfig.CHERRY_GROVE_MODIFIED_PLACEMENT.get()) {
 			this.addSurfaceBiome(
 				biomes,
@@ -115,7 +115,7 @@ public final class OverworldBiomeBuilderMixin {
 
 	@Inject(method = "pickBeachBiome", at = @At("HEAD"), cancellable = true)
 	private void wilderWild$injectWarmBeach(int temperatureIndex, int humidityIndex, CallbackInfoReturnable<ResourceKey<Biome>> info) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (WWWorldgenConfig.WARM_BEACH_GENERATION.get() && temperatureIndex == 3) info.setReturnValue(WWBiomes.WARM_BEACH);
 	}
 
@@ -127,7 +127,7 @@ public final class OverworldBiomeBuilderMixin {
 		ResourceKey<Biome> original,
 		@Local(argsOnly = true) Climate.Parameter weirdness
 	) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return original;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return original;
 		if (WWWorldgenConfig.OLD_GROWTH_DARK_FOREST_GENERATION.get() && original.equals(Biomes.DARK_FOREST)) {
 			if (weirdness.max() >= 0L) return WWBiomes.OLD_GROWTH_DARK_FOREST;
 		}
@@ -153,7 +153,7 @@ public final class OverworldBiomeBuilderMixin {
 		ResourceKey<Biome> second,
 		Operation<Void> operation
 	) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) {
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) {
 			operation.call(instance, biomes, temperature, humidity, continentalness, erosion, weirdness, offset, second);
 			return;
 		}

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.dripstone.DripstoneDripApi;
 import net.frozenblock.lib.block.api.tick.BlockTickRegistry;
 import net.frozenblock.lib.tag.api.ConventionalBlockTags;
@@ -37,7 +38,10 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWBlockTicks {
 
 	public static void setup() {
@@ -106,6 +110,4 @@ public final class WWBlockTicks {
 			})
 		);
 	}
-
-	private WWBlockTicks() {}
 }

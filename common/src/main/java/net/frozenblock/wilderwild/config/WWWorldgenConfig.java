@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.config.ConfigData;
 import net.frozenblock.lib.config.v2.config.ConfigSettings;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
@@ -25,6 +26,7 @@ import net.frozenblock.lib.config.v2.entry.property.VisibilityPredicate;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
 
+@UtilityClass
 public final class WWWorldgenConfig {
 	public static final ConfigData<?> CONFIG = ConfigData.createAndRegister(ID.of(WWConstants.id("worldgen")), ConfigSettings.JSON5);
 
@@ -137,8 +139,8 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/oakLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DARK_OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/darkOakLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALE_OAK_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/paleOakLeafLitter", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> POPLAR_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/poplarLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALM_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/palmFrondLitter", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> POPLAR_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/poplarLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SPRUCE_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/spruceLeafLitter", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILLOW_LITTER_GENERATION = CONFIG.entryBuilder("treeGeneration/willowLeafLitter", EntryType.BOOL, true).requireRestart().build();
 
@@ -157,7 +159,6 @@ public final class WWWorldgenConfig {
 
 	// SURFACE DECORATION
 	public static final ConfigEntry<Boolean> COARSE_DIRT_DECORATION = CONFIG.entryBuilder("surfaceDecoration/coarseDecoration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> GRAVEL_DECORATION = CONFIG.entryBuilder("surfaceDecoration/gravelDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MUD_DECORATION = CONFIG.entryBuilder("surfaceDecoration/mudDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PACKED_MUD_DECORATION = CONFIG.entryBuilder("surfaceDecoration/packedMudDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> STONE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/stoneDecoration", EntryType.BOOL, true).requireRestart().build();
@@ -167,8 +168,11 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> SCORCHED_SAND_DECORATION = CONFIG.entryBuilder("surfaceDecoration/scorchedSandDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SCORCHED_RED_SAND_DECORATION = CONFIG.entryBuilder("surfaceDecoration/scorchedRedSandDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> SANDSTONE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/sandstoneDecoration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> CLAY_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clayDecoration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> CLEARING_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clearingDecoration", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> CLEARING_GENERATION = CONFIG.entryBuilder("surfaceDecoration/clearingGeneration", EntryType.BOOL, true).requireRestart().build();
+	public static final ConfigEntry<Boolean> CLEARING_PATH_DECORATION = CONFIG.entryBuilder("surfaceDecoration/clearingPathDecoration", EntryType.BOOL, true)
+		.visibilityPredicate(VisibilityPredicate.of(WWWorldgenConfig.CLEARING_GENERATION))
+		.requireRestart()
+		.build();
 	public static final ConfigEntry<Boolean> SNOW_PILE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/snowPiles", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> BRITTLE_ICE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/brittleIceDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> ICICLE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/icicleDecoration", EntryType.BOOL, true).requireRestart().build();
@@ -205,6 +209,4 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> NEW_ABANDONED_CAMP_GENERATION = CONFIG.entryBuilder("structure/newAbandonedCamps", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> DECAYING_TRAIL_RUINS_GENERATION = CONFIG.entryBuilder("structure/decayTrailRuins", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NEW_DESERT_VILLAGE_GENERATION = CONFIG.entryBuilder("structure/newDesertVillages", EntryType.BOOL, true).requireRestart().build();
-
-	private WWWorldgenConfig() {}
 }

@@ -35,7 +35,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Recipe;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBrewingRecipeProvider extends FabricRecipeProvider {
 
 	public WWBrewingRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

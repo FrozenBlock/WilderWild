@@ -17,10 +17,14 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.frozenblock.lib.block.storage.api.NoInteractionStorage;
 import static net.frozenblock.wilderwild.registry.WWBlocks.STONE_CHEST;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFabricBlocks {
 
 	public static void init() {
@@ -33,6 +37,4 @@ public final class WWFabricBlocks {
 			STONE_CHEST.get()
 		);
 	}
-
-	private WWFabricBlocks() {}
 }

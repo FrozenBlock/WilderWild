@@ -1,0 +1,4 @@
+{
+  "type": "frozenlib:not",
+  "predicate": "wilderwild:generate_beta_beach"
+}

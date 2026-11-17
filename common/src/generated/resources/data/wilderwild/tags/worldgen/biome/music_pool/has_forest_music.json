@@ -1,17 +1,8 @@
 {
   "values": [
-    {
-      "id": "minecraft:forest",
-      "required": false
-    },
-    {
-      "id": "minecraft:birch_forest",
-      "required": false
-    },
-    {
-      "id": "minecraft:old_growth_birch_forest",
-      "required": false
-    },
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
     {
       "id": "wilderwild:semi_birch_forest",
       "required": false

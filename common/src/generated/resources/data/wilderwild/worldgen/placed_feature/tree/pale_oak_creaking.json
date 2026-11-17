@@ -4,8 +4,69 @@
     {
       "type": "minecraft:block_predicate_filter",
       "predicate": {
-        "type": "minecraft:would_survive",
-        "state": "minecraft:pale_oak_sapling"
+        "type": "minecraft:any_of",
+        "predicates": [
+          {
+            "type": "minecraft:would_survive",
+            "state": "minecraft:pale_oak_sapling"
+          },
+          {
+            "type": "minecraft:all_of",
+            "predicates": [
+              {
+                "type": "minecraft:matching_block_tag",
+                "offset": [
+                  0,
+                  -1,
+                  0
+                ],
+                "tag": "wilderwild:can_replace_below_tree_trunk_pale_oak"
+              },
+              {
+                "type": "minecraft:any_of",
+                "predicates": [
+                  {
+                    "type": "frozenlib:config_predicate",
+                    "config_predicate": "wilderwild:cannot_generate_beta_beach"
+                  },
+                  {
+                    "type": "minecraft:not",
+                    "predicate": {
+                      "type": "minecraft:height_range",
+                      "max_inclusive": {
+                        "relative_to_sea_level": 2
+                      },
+                      "min_inclusive": {
+                        "relative_to_sea_level": -3
+                      }
+                    }
+                  },
+                  {
+                    "type": "minecraft:not",
+                    "predicate": {
+                      "type": "minecraft:matching_blocks",
+                      "blocks": "minecraft:gravel",
+                      "offset": [
+                        0,
+                        -1,
+                        0
+                      ]
+                    }
+                  },
+                  {
+                    "type": "minecraft:not",
+                    "predicate": {
+                      "type": "frozenlib:noise_threshold",
+                      "max_threshold": -0.12,
+                      "min_threshold": -1.7976931348623157E308,
+                      "noise": "wilderwild:gravel_beach"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     }
   ]

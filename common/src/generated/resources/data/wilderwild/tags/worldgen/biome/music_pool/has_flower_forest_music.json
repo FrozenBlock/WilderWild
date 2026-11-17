@@ -1,9 +1,6 @@
 {
   "values": [
-    {
-      "id": "minecraft:flower_forest",
-      "required": false
-    },
+    "minecraft:flower_forest",
     {
       "id": "wilderwild:flower_field",
       "required": false

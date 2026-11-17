@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.placement;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
@@ -50,8 +51,11 @@ import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFlowerPlacements {
 
 	public static final FrozenLibPlacedFeature FLOWER_DEFAULT_WITH_SEEDING_DANDELION = register("flower_default_with_seeding_dandelion");
@@ -139,7 +143,6 @@ public final class WWFlowerPlacements {
 	public static final FrozenLibPlacedFeature WILDFLOWERS_SUNFLOWER_PLAINS = register("wildflowers_sunflower_plains");
 	public static final FrozenLibPlacedFeature PATCH_FLOWER_SUNFLOWER_PLAINS = register("patch_flower_sunflower_plains");
 	public static final FrozenLibPlacedFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
-	public static final FrozenLibPlacedFeature PATCH_FLOWER_FLOWER_FIELD = register("patch_flower_flower_field");
 
 	// FOREST
 	public static final FrozenLibPlacedFeature FLOWER_FOREST = register("flower_forest");
@@ -212,7 +215,7 @@ public final class WWFlowerPlacements {
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		FLOWER_DEFAULT_WITH_SEEDING_DANDELION.makeAndSetHolder(
@@ -358,13 +361,6 @@ public final class WWFlowerPlacements {
 			CountPlacement.of(ClampedInt.of(UniformInt.of(1, 3), 1, 2)),
 			64, 6, 2,
 			RarityFilter.onAverageOnceEvery(2)
-		);
-		registerFlowers(
-			context,
-			PATCH_FLOWER_FLOWER_FIELD,
-			WWFlowerFeatures.PATCH_FLOWER_FLOWER_FIELD,
-			CountPlacement.of(ClampedInt.of(UniformInt.of(-1, 1), 0, 1)),
-			RarityFilter.onAverageOnceEvery(3)
 		);
 
 		// FOREST
@@ -803,7 +799,7 @@ public final class WWFlowerPlacements {
 
 		if (configFilter != null) {
 			final List<PlacementModifier> modifiersWithConfigFilter = new ArrayList<>(baseModifiers);
-			modifiersWithConfigFilter.addFirst(ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configFilter)));
+			modifiersWithConfigFilter.addFirst(ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(configFilter)));
 			return modifiersWithConfigFilter;
 		}
 
@@ -827,6 +823,4 @@ public final class WWFlowerPlacements {
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id("flower/" + name));
 	}
-
-	private WWFlowerPlacements() {}
 }

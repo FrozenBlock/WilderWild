@@ -17,9 +17,13 @@
 
 package net.frozenblock.wilderwild.mod_compat;
 
+import lombok.experimental.UtilityClass;
 import net.irisshaders.iris.api.v0.IrisApi;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWIrisCompat {
 
@@ -32,6 +36,4 @@ public final class WWIrisCompat {
 	public static boolean usingShaderPack() {
 		return IrisApi.getInstance().isShaderPackInUse();
 	}
-
-	private WWIrisCompat() {}
 }

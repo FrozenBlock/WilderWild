@@ -1,0 +1,15 @@
+{
+  "type": "frozenlib:special_effects",
+  "foliage_color": "#aea42a",
+  "phase": "replacements",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:foliage_color_badlands",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:has_badlands_foliage_color"
+      }
+    ]
+  }
+}

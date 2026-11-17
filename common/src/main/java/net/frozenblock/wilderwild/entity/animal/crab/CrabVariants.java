@@ -17,23 +17,22 @@
 
 package net.frozenblock.wilderwild.entity.animal.crab;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class CrabVariants {
 	public static final ResourceKey<CrabVariant> CRAB = createKey("crab");
 	public static final ResourceKey<CrabVariant> DEFAULT = CRAB;
 
 	private static ResourceKey<CrabVariant> createKey(String name) {
 		return ResourceKey.create(WilderWildRegistries.CRAB_VARIANT, WWConstants.id(name));
-	}
-
-	public static void bootstrap(BootstrapContext<CrabVariant> context) {
-		register(context, CRAB, "crab", SpawnPrioritySelectors.fallback(0));
 	}
 
 	private static void register(
@@ -53,5 +52,8 @@ public final class CrabVariants {
 		);
 	}
 
-	private CrabVariants() {}
+	@ApiStatus.Internal
+	public static void bootstrap(BootstrapContext<CrabVariant> context) {
+		register(context, CRAB, "crab", SpawnPrioritySelectors.fallback(0));
+	}
 }

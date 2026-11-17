@@ -33,7 +33,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public record WWLeavesExplosionParticlePacket(BlockState state, BlockPos pos, Vec3 velocity, List<Direction> directions, int count) implements CustomPacketPayload {
 	public static final Type<WWLeavesExplosionParticlePacket> PACKET_TYPE = new Type<>(WWConstants.id("leaves_explosion"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWLeavesExplosionParticlePacket> CODEC = StreamCodec.ofMember(WWLeavesExplosionParticlePacket::write, WWLeavesExplosionParticlePacket::new);

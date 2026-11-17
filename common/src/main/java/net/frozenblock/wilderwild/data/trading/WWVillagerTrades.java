@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.trading;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
@@ -40,7 +41,10 @@ import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.item.trading.VillagerTrades;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWVillagerTrades {
 	public static final ResourceKey<VillagerTrade> FISHERMAN_5_CRAB_EMERALD = resourceKey("fisherman/5/crab_emerald");
 	public static final ResourceKey<VillagerTrade> FISHERMAN_5_JELLYFISH_EMERALD = resourceKey("fisherman/5/jellyfish_emerald");
@@ -90,7 +94,6 @@ public final class WWVillagerTrades {
 		final HolderGetter<VillagerType> villagerVariants = context.lookup(Registries.VILLAGER_TYPE);
 
 		// FISHERMAN
-
 		VillagerTrades.register(
 			context,
 			FISHERMAN_5_CRAB_EMERALD,
@@ -273,6 +276,4 @@ public final class WWVillagerTrades {
 	public static ResourceKey<VillagerTrade> resourceKey(String path) {
 		return ResourceKey.create(Registries.VILLAGER_TRADE, WWConstants.id(path));
 	}
-
-	private WWVillagerTrades() {}
 }

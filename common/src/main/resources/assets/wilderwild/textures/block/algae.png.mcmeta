@@ -1,5 +1,6 @@
 {
     "texture": {
-        "mipmap_strategy": "mean"
+        "mipmap_strategy": "cutout",
+        "alpha_cutoff_bias": 0.1
     }
 }

@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import com.mojang.serialization.Codec;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentSyncPredicate;
 import net.frozenblock.lib.platform.api.attachment.DataAttachmentType;
 import net.frozenblock.wilderwild.WWConstants;
@@ -33,7 +34,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWAttachmentTypes {
 	// VARIANT
 	public static final DataAttachmentType<Holder<FireflyVariant>> FIREFLY_VARIANT = DataAttachmentType.create(
@@ -133,7 +136,6 @@ public final class WWAttachmentTypes {
 		builder -> builder.initializer(() -> Direction.NORTH)
 	);
 
+	@ApiStatus.Internal
 	public static void init() {}
-
-	private WWAttachmentTypes() {}
 }

@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.placement;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
@@ -60,8 +61,11 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWVegetationPlacements {
 	// LEAF LITTER
 	public static final FrozenLibPlacedFeature PATCH_LEAF_LITTER = register("patch_leaf_litter");
@@ -87,10 +91,8 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature PATCH_LARGE_FERN_AND_GRASS_RARE = register("patch_large_fern_and_grass_rare");
 	public static final FrozenLibPlacedFeature PATCH_FERN_DENSE = register("patch_fern_dense");
 	public static final FrozenLibPlacedFeature PATCH_FERN_SWAMP = register("patch_fern_swamp");
-	public static final FrozenLibPlacedFeature PATH_GRASS_OASIS = register("path_grass_oasis");
-	public static final FrozenLibPlacedFeature PATH_GRASS_RARE = register("path_grass_rare");
-	public static final FrozenLibPlacedFeature PATCH_CLOVER = register("patch_clover");
-	public static final FrozenLibPlacedFeature PATCH_CLOVER_SPARSE = register("patch_clover_sparse");
+	public static final FrozenLibPlacedFeature PATCH_CLOVERS = register("patch_clovers");
+	public static final FrozenLibPlacedFeature PATCH_CLOVERS_SPARSE = register("patch_clovers_sparse");
 
 	// DRY GRASS
 	public static final FrozenLibPlacedFeature PATCH_DRY_GRASS_DESERT = register("patch_dry_grass_desert");
@@ -180,7 +182,7 @@ public final class WWVegetationPlacements {
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
@@ -270,7 +272,7 @@ public final class WWVegetationPlacements {
 		PATCH_GRASS_OASIS.makeAndSetHolder(features.getOrThrow(VegetationFeatures.GRASS),
 			FrozenLibPlacementUtil.postModifiers(
 				FrozenLibPlacementUtil.modifiers(CountPlacement.of(3), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
-				CountPlacement.of(20),
+				CountPlacement.of(28),
 				OffsetPlacement.ofTriangle(7, 3),
 				PlacementUtils.isEmpty()
 			)
@@ -396,20 +398,7 @@ public final class WWVegetationPlacements {
 			)
 		);
 
-		PATH_GRASS_OASIS.makeAndSetHolder(WWVegetationFeatures.PATH_GRASS,
-			CountPlacement.of(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATH_GRASS_RARE.makeAndSetHolder(WWVegetationFeatures.PATH_GRASS,
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PATCH_CLOVER.makeAndSetHolder(WWVegetationFeatures.CLOVER,
+		PATCH_CLOVERS.makeAndSetHolder(WWVegetationFeatures.CLOVERS,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome(),
@@ -418,7 +407,7 @@ public final class WWVegetationPlacements {
 			PlacementUtils.isEmpty()
 		);
 
-		PATCH_CLOVER_SPARSE.makeAndSetHolder(WWVegetationFeatures.CLOVER,
+		PATCH_CLOVERS_SPARSE.makeAndSetHolder(WWVegetationFeatures.CLOVERS,
 			FrozenLibPlacementUtil.postModifiers(
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE),
 				CountPlacement.of(32),
@@ -442,7 +431,12 @@ public final class WWVegetationPlacements {
 				FrozenLibPlacementUtil.modifiers(RarityFilter.onAverageOnceEvery(3), PlacementUtils.HEIGHTMAP),
 				CountPlacement.of(64),
 				OffsetPlacement.ofTriangle(7, 3),
-				PlacementUtils.isEmpty()
+				BlockPredicateFilter.forPredicate(
+					BlockPredicate.allOf(
+						BlockPredicate.ONLY_IN_AIR_PREDICATE,
+						BlockPredicate.not(BlockPredicate.matchesTag(Direction.DOWN, BlockTags.SUBSTRATE_OVERWORLD))
+					)
+				)
 			)
 		);
 
@@ -1181,7 +1175,7 @@ public final class WWVegetationPlacements {
 
 		if (configFilter != null) {
 			final List<PlacementModifier> modifiersWithConfigFilter = new ArrayList<>(baseModifiers);
-			modifiersWithConfigFilter.addFirst(ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configFilter)));
+			modifiersWithConfigFilter.addFirst(ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(configFilter)));
 			return modifiersWithConfigFilter;
 		}
 

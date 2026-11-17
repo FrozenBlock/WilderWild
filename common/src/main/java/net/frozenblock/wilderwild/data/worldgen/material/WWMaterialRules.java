@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.material;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.material.api.FrozenLibMaterialRules;
 import net.frozenblock.lib.levelgen.material.api.MaterialRuleAdditions;
@@ -46,7 +47,9 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.material.MaterialRules;
 import net.minecraft.world.level.levelgen.material.condition.MaterialCondition;
 import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> GRASS_AND_DIRT = createKey("grass_and_dirt");
 	public static final ResourceKey<MaterialRule> GRAVEL_AND_STONE_BETA_BEACH = createKey("gravel_and_stone_beta_beach");
@@ -57,7 +60,12 @@ public final class WWMaterialRules {
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_BASE = createKey("coarse_dirt_path_base");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH = createKey("coarse_dirt_path");
 	public static final ResourceKey<MaterialRule> COARSE_DIRT_PATH_PATCHY = createKey("coarse_dirt_path_patchy");
-	public static final ResourceKey<MaterialRule> SANDSTONE_PATH = createKey("sandstone_path");
+	public static final ResourceKey<MaterialRule> SANDSTONE_PATCH = createKey("sandstone_patch");
+	public static final ResourceKey<MaterialRule> MUD_PATCH = createKey("mud_patch");
+	public static final ResourceKey<MaterialRule> PACKED_MUD_PATCH = createKey("packed_mud_patch");
+	public static final ResourceKey<MaterialRule> PALE_GARDEN_PATH = createKey("pale_garden_path");
+	public static final ResourceKey<MaterialRule> COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = createKey("coarse_dirt_and_rooted_dirt_clearing");
+	public static final ResourceKey<MaterialRule> GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = createKey("gravel_and_coarse_dirt_and_rooted_dirt_clearing");
 
 	public static MaterialRule sandAndSandstoneAquaticBiomeRule(HolderGetter<Biome> biomes, HolderGetter<MaterialRule> materialRules, ResourceKey<Biome>... biomeKeys) {
 		return MaterialRules.ifTrue(
@@ -127,12 +135,13 @@ public final class WWMaterialRules {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrapAdditions(BootstrapContext<MaterialRuleAddition> context) {
 		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<MaterialRule> materialRules = context.lookup(Registries.MATERIAL_RULE);
 		final HolderGetter<MaterialCondition> materialConditions = context.lookup(Registries.MATERIAL_CONDITION);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		final HolderSet<DimensionType> overworld = dimensionTypes.getOrThrow(FrozenLibDimensionTypeTags.OVERWORLD);
 
@@ -163,14 +172,14 @@ public final class WWMaterialRules {
 			overworld,
 			aboveSurface(
 				MaterialRules.ifTrue(
-					WWWorldgenConfig.BETA_BEACHES.equalTo(true).asMaterialCondition(),
+					ConfigPredicate.materialCondition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BETA_BEACH)),
 					MaterialRules.sequence(
 						betaBeachRule(
 							biomes,
 							WWBiomeTags.BETA_BEACH_GRAVEL,
 							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
 							65,
-							MaterialRules.noiseCondition2d(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12),
+							MaterialRules.noiseCondition2d(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12D),
 							MaterialRules.getRule(materialRules, WWMaterialRules.GRAVEL_AND_STONE_BETA_BEACH)
 						),
 						betaBeachRule(
@@ -188,6 +197,42 @@ public final class WWMaterialRules {
 							64,
 							MaterialRules.noiseCondition2d(WWNoises.SAND_BEACH, 0.12D, 1.7976931348623157E308D),
 							MaterialRules.getRule(materialRules, WWMaterialRules.SAND_AND_SANDSTONE_BETA_BEACH)
+						)
+					)
+				)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("coarse_dirt_and_rooted_dirt_clearing"),
+			overworld,
+			aboveSurface(
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, WWMaterialConditions.GENERATE_CLEARING_PATH),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, WWMaterialConditions.IN_CLEARING),
+						MaterialRules.ifTrue(
+							FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.COARSE_DIRT_AND_ROOTED_DIRT_CLEARING),
+							MaterialRules.getRule(materialRules, COARSE_DIRT_AND_ROOTED_DIRT_CLEARING)
+						)
+					)
+				)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("gravel_and_coarse_dirt_and_rooted_dirt_clearing"),
+			overworld,
+			aboveSurface(
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, WWMaterialConditions.GENERATE_CLEARING_PATH),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, WWMaterialConditions.IN_CLEARING),
+						MaterialRules.ifTrue(
+							FrozenLibMaterialRules.isBiomeTag(biomes, WWBiomeTags.GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING),
+							MaterialRules.getRule(materialRules, GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING)
 						)
 					)
 				)
@@ -328,6 +373,19 @@ public final class WWMaterialRules {
 
 		MaterialRuleAdditions.register(
 			context,
+			WWConstants.id("pale_garden_path"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.PALE_GARDEN_PATH,
+				configPredicates,
+				WWConfigPredicates.GENERATE_PALE_MOSS,
+				MaterialRules.getRule(materialRules, PALE_GARDEN_PATH)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
 			WWConstants.id("coarse_dirt_path"),
 			overworld,
 			aboveSurfaceAndInBiomes(
@@ -349,6 +407,19 @@ public final class WWMaterialRules {
 				configPredicates,
 				WWConfigPredicates.GENERATE_COARSE_DIRT,
 				MaterialRules.getRule(materialRules, COARSE_DIRT_PATH_PATCHY)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("sandstone_patch"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.SANDSTONE_PATCH,
+				configPredicates,
+				WWConfigPredicates.GENERATE_SANDSTONE,
+				MaterialRules.getRule(materialRules, SANDSTONE_PATCH)
 			)
 		);
 
@@ -451,6 +522,32 @@ public final class WWMaterialRules {
 					)
 				),
 				WWBiomes.RAINFOREST
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("mud_patch"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.MUD_PATCH,
+				configPredicates,
+				WWConfigPredicates.GENERATE_MUD,
+				MaterialRules.getRule(materialRules, MUD_PATCH)
+			)
+		);
+
+		MaterialRuleAdditions.register(
+			context,
+			WWConstants.id("packed_mud_patch"),
+			overworld,
+			aboveSurfaceAndInBiomes(
+				biomes,
+				WWBiomeTags.PACKED_MUD_PATCH,
+				configPredicates,
+				WWConfigPredicates.GENERATE_PACKED_MUD,
+				MaterialRules.getRule(materialRules, PACKED_MUD_PATCH)
 			)
 		);
 
@@ -603,6 +700,7 @@ public final class WWMaterialRules {
 		);
 	}
 
+	@ApiStatus.Internal
 	public static void bootstrapRules(BootstrapContext<MaterialRule> context) {
 		final HolderGetter<DimensionType> dimensionTypes = context.lookup(Registries.DIMENSION_TYPE);
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
@@ -746,22 +844,127 @@ public final class WWMaterialRules {
 		context.register(
 			COARSE_DIRT_PATH_PATCHY,
 			MaterialRules.ifTrue(
-				MaterialRules.not(MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_SELECTOR_PATCHY, -0.1D, 0.07D)),
+				MaterialRules.not(MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_SELECTOR_PATCHY, -0.1D, 0.07D)),
 				MaterialRules.getRule(materialRules, COARSE_DIRT_PATH_BASE)
 			)
 		);
 
 		context.register(
-			SANDSTONE_PATH,
+			SANDSTONE_PATCH,
 			MaterialRules.ifTrue(
-				MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH_SELECTOR, -0.25D, 0.15D),
-				MaterialRules.ifTrue(
-					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.noiseCondition2d(WWNoises.SANDSTONE_PATCH, 1.1D),
+				MaterialRules.sequence(
 					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+						FrozenLibMaterialRules.SANDSTONE
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDER_DEEP_WATER),
 						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoises.COARSE_DIRT_PATH, 0.26D, 0.55D),
-							FrozenLibMaterialRules.makeStateRule(Blocks.SANDSTONE)
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR),
+							FrozenLibMaterialRules.SANDSTONE
+						)
+					)
+				)
+			)
+		);
+
+		context.register(
+			MUD_PATCH,
+			MaterialRules.ifTrue(
+				MaterialRules.noiseCondition2d(WWNoises.MUD_PATCH, 1D),
+				MaterialRules.sequence(
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+						FrozenLibMaterialRules.makeStateRule(Blocks.MUD)
+					),
+					MaterialRules.ifTrue(
+						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.UNDER_FLOOR),
+						FrozenLibMaterialRules.makeStateRule(Blocks.MUD)
+					)
+				)
+			)
+		);
+
+		context.register(
+			PACKED_MUD_PATCH,
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.noiseCondition2d(WWNoises.PACKED_MUD_PATCH_SELECTOR, -0.5D, 0D),
+					MaterialRules.ifTrue(
+						MaterialRules.noiseCondition2d(WWNoises.PACKED_MUD_PATCH, 1.15D),
+						MaterialRules.ifTrue(
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+							FrozenLibMaterialRules.makeStateRule(Blocks.PACKED_MUD)
+						)
+					)
+				)
+			)
+		);
+
+		context.register(
+			PALE_GARDEN_PATH,
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.ifTrue(
+						MaterialRules.noiseCondition2d(WWNoises.PALE_GARDEN_PATH, -0.22D, 0.32D),
+						MaterialRules.sequence(
+							MaterialRules.ifTrue(
+								MaterialRules.not(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_CEILING)),
+								MaterialRules.ifTrue(
+									MaterialRules.noiseCondition2d(WWNoises.PALE_GARDEN_PATH, -0.0275D, 0.1275D),
+									FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
+								)
+							),
+							FrozenLibMaterialRules.makeStateRule(Blocks.PALE_MOSS_BLOCK)
+						)
+					)
+				)
+			)
+		);
+
+		context.register(
+			COARSE_DIRT_AND_ROOTED_DIRT_CLEARING,
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.ifTrue(
+						MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.065D, 0.165D),
+						MaterialRules.sequence(
+							MaterialRules.ifTrue(
+								MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.005D, 0.105D),
+								FrozenLibMaterialRules.makeStateRule(Blocks.ROOTED_DIRT)
+							),
+							FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
+						)
+					)
+				)
+			)
+		);
+
+		context.register(
+			GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING,
+			MaterialRules.ifTrue(
+				MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
+				MaterialRules.ifTrue(
+					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+					MaterialRules.sequence(
+						MaterialRules.getRule(materialRules, COARSE_DIRT_AND_ROOTED_DIRT_CLEARING),
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.07D, 0.17D),
+							FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
+						),
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.55D, -0.53D),
+							FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
+						),
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, 0.53D, 0.55D),
+							FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
 						)
 					)
 				)
@@ -772,5 +975,4 @@ public final class WWMaterialRules {
 	private static ResourceKey<MaterialRule> createKey(String name) {
 		return ResourceKey.create(Registries.MATERIAL_RULE, WWConstants.id(name));
 	}
-
 }

@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "minecraft:dripstone_caves",
-      "required": false
-    }
+    "minecraft:dripstone_caves"
   ]
 }

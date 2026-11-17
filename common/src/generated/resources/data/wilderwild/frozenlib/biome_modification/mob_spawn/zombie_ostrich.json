@@ -1,0 +1,24 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {},
+    "spawns_by_category": {
+      "monster": [
+        {
+          "type": "wilderwild:zombie_ostrich",
+          "count": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 2,
+            "min_inclusive": 1
+          },
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:entity/spawn/zombie_ostrich"
+  }
+}

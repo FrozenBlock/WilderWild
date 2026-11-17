@@ -17,8 +17,8 @@
 
 package net.frozenblock.wilderwild.particle;
 
+import java.util.function.Supplier;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Camera;
@@ -202,8 +202,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 		}
 	}
 
-	//Blue Pearlescent
-	public record PearlescentBlueFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record FallProvider(SpriteSet spriteSet, Supplier<ParticleOptions> landingParticle) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
 			SimpleParticleType options,
@@ -212,11 +211,11 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_PEARLESCENT_BLUE.get(), this.spriteSet.get(random));
+			return new FallAndLandParticle(level, x, y, z, this.landingParticle.get(), this.spriteSet.get(random));
 		}
 	}
 
-	public record PearlescentBlueHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
+	public record HangProvider(SpriteSet spriteSet, Supplier<ParticleOptions> fallingParticle) implements ParticleProvider<SimpleParticleType> {
 		@Override
 		public Particle createParticle(
 			SimpleParticleType options,
@@ -225,169 +224,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 			double xd, double yd, double zd,
 			RandomSource random
 		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_PEARLESCENT_BLUE.get(), this.spriteSet);
-		}
-	}
-
-	//Purple Pearlescent
-	public record PearlescentPurpleFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_PEARLESCENT_PURPLE.get(), this.spriteSet.get(random));
-		}
-	}
-
-	public record PearlescentPurpleHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_PEARLESCENT_PURPLE.get(), this.spriteSet);
-		}
-	}
-
-	//Blue
-	public record BlueFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_BLUE.get(), this.spriteSet.get(random));
-		}
-	}
-
-	public record BlueHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_BLUE.get(), this.spriteSet);
-		}
-	}
-
-	//Yellow
-	public record YellowFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_YELLOW.get(), this.spriteSet.get(random));
-		}
-	}
-
-	public record YellowHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_YELLOW.get(), this.spriteSet);
-		}
-	}
-
-	//Lime
-	public record LimeFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_LIME.get(), this.spriteSet.get(random));
-		}
-	}
-
-	public record LimeHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_LIME.get(), this.spriteSet);
-		}
-	}
-
-	//Red
-	public record RedFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_RED.get(), this.spriteSet.get(random));
-		}
-	}
-
-	public record RedHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_RED.get(), this.spriteSet);
-		}
-	}
-
-	//Pink
-	public record PinkFallProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new FallAndLandParticle(level, x, y, z, WWParticleTypes.LANDING_MESOGLEA_PINK.get(), this.spriteSet.get(random));
-		}
-	}
-
-	public record PinkHangProvider(SpriteSet spriteSet) implements ParticleProvider<SimpleParticleType> {
-		@Override
-		public Particle createParticle(
-			SimpleParticleType options,
-			ClientLevel level,
-			double x, double y, double z,
-			double xd, double yd, double zd,
-			RandomSource random
-		) {
-			return new DripHangParticle(level, x, y, z, WWParticleTypes.FALLING_MESOGLEA_PINK.get(), this.spriteSet);
+			return new DripHangParticle(level, x, y, z, this.fallingParticle.get(), this.spriteSet);
 		}
 	}
 }

@@ -25,7 +25,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWEnchantmentTagsProvider extends FabricTagsProvider<Enchantment> {
 
 	public WWEnchantmentTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.monster.skeleton.Sunken;
 import net.minecraft.core.registries.Registries;
@@ -28,7 +29,10 @@ import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerConfig;
 import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerConfigs;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTrialSpawnerConfigs {
 	// SCORCHED
 	public static final TrialSpawnerConfigs.Keys TRIAL_CHAMBER_SMALL_MELEE_SCORCHED = createKeys("trial_chamber/small_melee/scorched");
@@ -93,6 +97,4 @@ public final class WWTrialSpawnerConfigs {
 	private static ResourceKey<TrialSpawnerConfig> createKey(String name) {
 		return ResourceKey.create(Registries.TRIAL_SPAWNER_CONFIG, WWConstants.id(name));
 	}
-
-	private WWTrialSpawnerConfigs() {}
 }

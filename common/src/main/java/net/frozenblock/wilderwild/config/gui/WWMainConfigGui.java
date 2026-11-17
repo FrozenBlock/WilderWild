@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+import lombok.experimental.UtilityClass;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.wilderwild.WWConstants.text;
@@ -28,7 +29,10 @@ import net.frozenblock.wilderwild.config.WWMixinsConfig;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.gui.screens.Screen;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWMainConfigGui {
 
@@ -52,6 +56,4 @@ public final class WWMainConfigGui {
 
 		return configBuilder.build();
 	}
-
-	private WWMainConfigGui() {}
 }

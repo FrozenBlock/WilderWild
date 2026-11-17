@@ -3,6 +3,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 -----------------
 ### 26.4+
 - Added the `#wilderwild:music_pitch_shift_dying_forest` Biome Tag, controlling which biomes will subtly, dynamically shift the pitch of background music.
+- Added the `wilderwild:trial_chamber/small_melee/scorched/normal` and `wilderwild:trial_chamber/small_melee/scorched/ominous` Trial Spawner Configs.
 - Removed the following Block Tags related to Wilder Wild's Icicles:
   - `#wilderwild:icicle_grows_when_under`
   - `#wilderwild:icicle_falls_from`
@@ -25,9 +26,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Seeding Dandelions now spawn Seed particles around themselves, based on the current Wind intensity.
 - The recipes for Gabbro Walls and Gabbro Brick Walls are now properly sorted into the Decorations category instead of Building Blocks.
 - Plankton particles are now visible behind Water with the Improved Transparency option disabled.
-- Floating Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
-- Termite particles are now visible behind Water with the Improved Transparency option disabled.
-- Coconut Splash particles are now visible behind Water with the Improved Transparency option disabled.
 - Dying tree variants can no longer be grown from Maple and Poplar Saplings.
 - Fixed the Gabbro, Mud, and Hollowed Log block sets yielding the incorrect Sulfur Cube Archetypes.
 - Unique sounds for Pale Oak Doors, Trapdoors, Pressure Plates, Buttons, and Fence Gates can now be heard on NeoForge.
@@ -49,6 +47,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed a bug that cased Frogs to use a smaller shadow size than intended. ([MC-249840](https://bugs.mojang.com/browse/MC/issues/MC-249840))
   - Added a config option to toggle this fix.
 - Fixed a bug that caused Penguins to never stop moving while idle or swimming.
+- Floating Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
+- Termite particles are now visible behind Water with the Improved Transparency option disabled.
+- Coconut Splash particles are now visible behind Water with the Improved Transparency option disabled.
+- Float Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
+- Fixed a visual issue that caused adjacent Mesoglea blocks of different colors to z-fight.
+- Fixed a visual issue that caused Algae to become completely invisible at a distance or when looked at from a certain angle.
+- Fixed an issue that caused the lids of Stone Chests to not animate as smoothly as intended.
+- Fixed a bug that caused the hand swinging animation to play on the client side while attempting to interact with a Display Lantern could not be interacted with.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.
@@ -75,10 +81,19 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Gabbro and Magma path generation in the Magmatic Caves biome is now generated via a Material Rule instead of a Feature.
 - Fixed an issue that caused both normal and multi-layered Sand Beta Beaches to generate with the same depth.
 - Grass Block path generation in the Oasis biome is now generated via a Material Rule instead of a Feature.
-- Coarse Dirt path generation in Taiga and Arid biomes are now generated via a Material Rule instead of a Feature.
+- Coarse Dirt path generation in Taiga and Arid biomes is now generated via a Material Rule instead of a Feature.
 - Podzol in the Tundra, Maple Forest, Dying Forest, and Dying Mixed Forest biomes has been replaced with Coarse Dirt.
+- Sandstone patch generation in Desert and Arid biomes is now generated via a Material Rule instead of a Feature.
 - Moss Block path generation in Jungle biomes are now generated via a Material Rule instead of a Feature.
-- Moss generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
+- Moss Block path generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
+- Pale Moss Block and Gravel path generation in the Pale Garden biome is now generated via a Material Rule instead of a Feature.
+- Mud patch generation in the Swamp biome is now generated via a Material Rule instead of Features.
+- Packed Mud patch generation in Savanna biomes is now generated via a Material Rule instead of a Feature.
+- Transitional patches of Sand and Red Sand are now much smaller and less chaotic.
+- Removed rare, occasional sparse splotchy patches of Coarse Dirt, Gravel, and Stone.
+- Removed custom "path"-like generation of Clay, Gravel, and Sand that were intended to replace Clay, Gravel, and Sand disks in certain biomes.
+- Surface Gravel disks no longer generate in the Cypress Wetlands biome.
+- Coarse Dirt and Packed Mud no longer generate in Badlands biomes.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.
   - Many cases where Wilder Wild's flower generation could become chaotic have been resolved.
@@ -87,10 +102,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Tall Flowers can no longer be generated with Bone Meal.
 - Sweet Berry Bushes no longer generate outside Taiga biomes.
 - Tumbleweed no longer generate in Windswept Savanna or Savanna Plateau biomes.
+- Dry Grass generated in Desert biomes can no longer be placed on Grass Blocks, Dirt, Coarse Dirt, or Mud.
 - Dry Grass now generates in the Oasis biome.
 - Shrubs now generate more frequently in the Oasis biome.
 - Cactus generation in the Oasis biome has been reverted to Vanilla's default Desert Cactus generation.
-- Significantly decreased the frequency of Palm Trees in the Oasis biome.
+- Significantly decreased the frequency of Palm Trees in the Oasis and Desert biomes.
 - Lakes will now generate in the Oasis biome, often surrounded by Palm Trees, tall Cacti, Shrubs, and Grass.
 - Decreased the humidity and continentalness range the Oasis biome can generate in.
 - Cattails can no longer generate more than a single block away from Water.
@@ -100,3 +116,12 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fallen Trees will no longer generate stumps in Water.
 - Fallen Trees will no longer generate branches if they are using Hollowed Logs.
 - Fixed a bug that caused Large Fallen Trees to not generate in Water and not generate their Stumps as frequently as intended.
+- Revamped the implementation of Clearings (seen occasionally in Forest-like and Taiga Biomes).
+  - Clearing noise is now controlled using the `wilderwild:clearing` Noise.
+  - Worldgen features now rely on the usage of the `frozenlib:noise_threshold` Block Predicate to determine if they can be placed in a Clearing or not.
+  - Coarse Dirt/Rooted Dirt/Gravel path generation in Clearings are now generated via Material Rules instead of Features.
+  - Added a config option to disable Clearings.
+- Revamped Fancy Dark Oak Trees, now sporting their own unique branch shapes.
+  - Removed the `branch_placement` field in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type.
+  - Added the `branch_condition` field in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type, taking the ID of a Config Predicate, or a Config Predicate.
+- Added an optional `condition` field to Branch Placements, taking the ID of a Config Predicate, or a Config Predicate.

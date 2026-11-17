@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "minecraft:deep_lukewarm_ocean",
-      "required": false
-    }
+    "minecraft:deep_lukewarm_ocean"
   ]
 }

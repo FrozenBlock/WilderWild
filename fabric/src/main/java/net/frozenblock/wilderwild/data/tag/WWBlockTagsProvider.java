@@ -41,7 +41,9 @@ import net.minecraft.tags.BlockItemTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvider {
 
 	public WWBlockTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -218,6 +220,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWBlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT)
 			.addOptionalTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK)
 			.addOptionalTag(BlockItemTags.SAND.block());
+
+		this.builder(WWBlockTags.CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK)
+			.add(BlockItemIds.PALE_MOSS_BLOCK, BlockItemIds.GRAVEL);
 
 		this.builder(WWBlockTags.SNOW_GENERATION_CAN_SEARCH_THROUGH)
 			.add(BlockItemIds.LADDER)
@@ -775,10 +780,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockItemTags.SAND.block())
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWFeatureBlockTags.OCEAN_MOSS_REPLACEABLE)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockItemTags.SAND.block());
-
 		this.builder(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE)
 			.addOptionalTag(BlockTags.MOSS_REPLACEABLE)
 			.addOptionalTag(BlockItemTags.SAND.block())
@@ -800,11 +801,11 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
 		this.builder(WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_BLUE)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
+			.add(WWBlockItemIds.MESOGLEA.pearlescentBlue().block())
 			.addOptionalTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS);
 
 		this.builder(WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_PURPLE)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
+			.add(WWBlockItemIds.MESOGLEA.pearlescentPurple().block())
 			.addOptionalTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS);
 
 		// MAGMATIC CAVES
@@ -849,7 +850,7 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.MUD)
 			.add(BlockItemIds.GRAVEL)
 			.add(BlockItemIds.SAND)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
+			.add(BlockItemIds.STONE);
 
 		this.builder(WWFeatureBlockTags.RED_SAND_TRANSITION_PLACEABLE)
 			.add(BlockItemIds.RED_SAND)
@@ -862,15 +863,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 
 		this.builder(WWFeatureBlockTags.MUD_TRANSITION_PLACEABLE)
 			.add(BlockItemIds.MUD, BlockItemIds.MUDDY_MANGROVE_ROOTS);
-
-		this.builder(WWFeatureBlockTags.MUD_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.CLAY)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWFeatureBlockTags.COARSE_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.PODZOL);
 
 		this.builder(WWFeatureBlockTags.COARSE_CLEARING_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
@@ -900,15 +892,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWFeatureBlockTags.RIVER_GRAVEL_PATH_REPLACEABLE)
 			.add(BlockItemIds.SAND);
 
-		this.builder(WWFeatureBlockTags.SAND_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.add(BlockItemIds.GRAVEL)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
-		this.builder(WWFeatureBlockTags.GRAVEL_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT)
-			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
-
 		this.builder(WWFeatureBlockTags.GRAVEL_CLEARING_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
@@ -920,26 +903,8 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.PALE_MOSS_BLOCK)
 			.addOptionalTag(BlockTags.BASE_STONE_OVERWORLD);
 
-		this.builder(WWFeatureBlockTags.STONE_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT)
-			.addOptionalTag(BlockItemTags.SAND.block());
-
 		this.builder(WWFeatureBlockTags.PACKED_MUD_PATH_REPLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK, BlockItemIds.DIRT, BlockItemIds.COARSE_DIRT);
-
-		this.builder(WWFeatureBlockTags.MOSS_PATH_REPLACEABLE)
-			.add(BlockItemIds.GRASS_BLOCK)
-			.add(BlockItemIds.PODZOL);
-
-		this.builder(WWFeatureBlockTags.SANDSTONE_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND);
-
-		this.builder(WWFeatureBlockTags.SMALL_COARSE_DIRT_PATH_REPLACEABLE)
-			.add(BlockItemIds.RED_SAND);
-
-		this.builder(WWFeatureBlockTags.PACKED_MUD_PATH_BADLANDS_REPLACEABLE)
-			.add(BlockItemIds.RED_SAND, BlockItemIds.RED_SANDSTONE)
-			.addOptionalTag(BlockItemTags.TERRACOTTA.block());
 
 		this.builder(WWFeatureBlockTags.POLLEN_PLACEABLE)
 			.add(BlockItemIds.GRASS_BLOCK)
@@ -983,10 +948,6 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.RED_SAND);
 		this.builder(WWFeatureBlockTags.NETHER_GEOTHERMAL_VENT_REPLACEABLE)
 			.addOptionalTag(BlockTags.BASE_STONE_NETHER);
-
-		this.builder(WWFeatureBlockTags.OASIS_PATH_REPLACEABLE)
-			.add(BlockItemIds.SAND)
-			.add(BlockItemIds.SANDSTONE);
 
 		this.builder(WWFeatureBlockTags.COARSE_DIRT_DISK_REPLACEABLE)
 			.addOptionalTag(BlockItemTags.SAND.block())

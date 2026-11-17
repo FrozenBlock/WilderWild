@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
+@UtilityClass
 public final class WWEntityTypeTags {
 	public static final TagKey<EntityType<?>> OSTRICHES = bind("ostriches");
 	public static final TagKey<EntityType<?>> CAN_SWIM_IN_ALGAE = bind("can_swim_in_algae");
@@ -41,6 +43,4 @@ public final class WWEntityTypeTags {
 	private static TagKey<EntityType<?>> bind(String name) {
 		return TagKey.create(Registries.ENTITY_TYPE, WWConstants.id(name));
 	}
-
-	private WWEntityTypeTags() {}
 }

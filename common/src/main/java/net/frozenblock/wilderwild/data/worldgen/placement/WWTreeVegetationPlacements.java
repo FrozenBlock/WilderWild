@@ -20,8 +20,10 @@ package net.frozenblock.wilderwild.data.worldgen.placement;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
+import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
@@ -55,8 +57,11 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeVegetationPlacements {
 	// PLAINS
 	public static final FrozenLibPlacedFeature TREE_PLAINS = register("tree_plains");
@@ -100,6 +105,7 @@ public final class WWTreeVegetationPlacements {
 	public static final FrozenLibPlacedFeature TREE_SPARSE_JUNGLE = register("tree_sparse_jungle");
 	public static final FrozenLibPlacedFeature TREE_BAMBOO_JUNGLE = register("tree_bamboo_jungle");
 	public static final FrozenLibPlacedFeature PALM_JUNGLE = register("palm_jungle");
+	public static final FrozenLibPlacedFeature PALM_SPARSE_JUNGLE = register("palm_sparse_jungle");
 
 	// SAVANNA
 	public static final FrozenLibPlacedFeature TREE_SAVANNA = register("tree_savanna");
@@ -109,10 +115,9 @@ public final class WWTreeVegetationPlacements {
 	public static final FrozenLibPlacedFeature TREE_ARID_SAVANNA = register("tree_arid_savanna");
 
 	// DESERT
-	public static final FrozenLibPlacedFeature PALM = register("palm");
-	public static final FrozenLibPlacedFeature PALM_RARE = register("palm_rare");
-	public static final FrozenLibPlacedFeature PALMS_OASIS = register("palms_oasis");
-	public static final FrozenLibPlacedFeature PALMS_WARM_BEACH = register("palms_warm_beach");
+	public static final FrozenLibPlacedFeature PALM_DESERT = register("palm_desert");
+	public static final FrozenLibPlacedFeature PALM_OASIS = register("palm_oasis");
+	public static final FrozenLibPlacedFeature PALM_WARM_BEACH = register("palm_warm_beach");
 
 	// BADLANDS
 	public static final FrozenLibPlacedFeature TREE_WOODED_BADLANDS = register("tree_wooded_badlands");
@@ -233,7 +238,7 @@ public final class WWTreeVegetationPlacements {
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		final PlacementFilter generateTree = ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_TREE));
@@ -260,78 +265,78 @@ public final class WWTreeVegetationPlacements {
 		// FOREST
 		BIRCH_AND_OAK_ORIGINAL.makeAndSetHolder(WWTreeVegetationFeatures.BIRCH_AND_OAK_ORIGINAL,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(11, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		BIRCH_AND_OAK.makeAndSetHolder(WWTreeVegetationFeatures.BIRCH_AND_OAK,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_SPARSE_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.BIRCH_AND_OAK_CALM,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(4, 0.1F, 2))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_MIXED_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_MIXED_FOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(14, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_RAINFOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_RAINFOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(12, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_FLOWER_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_FLOWER_FOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_DYING_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_DYING_FOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(5, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_DYING_MIXED_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_DYING_MIXED_FOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_SNOWY_DYING_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_SNOWY_DYING_FOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(3, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_SNOWY_DYING_MIXED_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_SNOWY_DYING_MIXED_FOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(6, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_PARCHED_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.PARCHED_FOREST_TREES,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(4, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_ARID_FOREST.makeAndSetHolder(WWTreeVegetationFeatures.ARID_FOREST_TREES,
 			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		// BIRCH FOREST
 		TREE_BIRCH.makeAndSetHolder(WWTreeVegetationFeatures.TREES_BIRCH,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_BIRCH_TALL.makeAndSetHolder(WWTreeVegetationFeatures.TREES_BIRCH_TALL,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_SEMI_BIRCH_AND_OAK.makeAndSetHolder(WWTreeVegetationFeatures.TREES_SEMI_BIRCH_AND_OAK,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(9, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_BIRCH_JUNGLE.makeAndSetHolder(WWTreeVegetationFeatures.BTREE_BIRCH_JUNGLE,
@@ -344,33 +349,33 @@ public final class WWTreeVegetationPlacements {
 
 		TREE_BIRCH_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_BIRCH_TAIGA,
 			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_OLD_GROWTH_BIRCH_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_OLD_GROWTH_BIRCH_TAIGA,
 			VegetationPlacements.treePlacementBase(CountPlacement.of(3))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		// DARK FOREST
 		DARK_FOREST_VEGETATION.makeAndSetHolder(WWTreeVegetationFeatures.DARK_FOREST_VEGETATION.getHolder(),
 			VegetationPlacements.treePlacementBase(CountPlacement.of(16))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		OLD_GROWTH_DARK_FOREST_VEGETATION.makeAndSetHolder(WWTreeVegetationFeatures.OLD_GROWTH_DARK_FOREST_VEGETATION.getHolder(),
 			VegetationPlacements.treePlacementBase(CountPlacement.of(UniformInt.of(30, 32)))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		DARK_BIRCH_FOREST_VEGETATION.makeAndSetHolder(WWTreeVegetationFeatures.DARK_BIRCH_FOREST_VEGETATION.getHolder(),
 			VegetationPlacements.treePlacementBase(CountPlacement.of(14))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_DARK_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_DARK_TAIGA.getHolder(),
 			VegetationPlacements.treePlacementBase(CountPlacement.of(14))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		// PALE GARDEN
@@ -393,7 +398,16 @@ public final class WWTreeVegetationPlacements {
 
 		PALM_JUNGLE.makeAndSetHolder(WWTreeVegetationFeatures.PALM_JUNGLE,
 			generatePalm,
-			PlacementUtils.countExtra(8, 0.5F, 2),
+			CountPlacement.of(8),
+			InSquarePlacement.spread(),
+			VegetationPlacements.TREE_THRESHOLD,
+			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+			BiomeFilter.biome()
+		);
+
+		PALM_SPARSE_JUNGLE.makeAndSetHolder(WWTreeVegetationFeatures.PALM_SPARSE_JUNGLE,
+			generatePalm,
+			RarityFilter.onAverageOnceEvery(6),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -427,25 +441,16 @@ public final class WWTreeVegetationPlacements {
 		);
 
 		// DESERT
-		PALM.makeAndSetHolder(WWTreeVegetationFeatures.PALM,
+		PALM_DESERT.makeAndSetHolder(WWTreeVegetationFeatures.PALM_DESERT,
 			generatePalm,
-			RarityFilter.onAverageOnceEvery(4),
+			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		PALM_RARE.makeAndSetHolder(WWTreeVegetationFeatures.PALM_OASIS,
-			generatePalm,
-			RarityFilter.onAverageOnceEvery(52),
-			InSquarePlacement.spread(),
-			VegetationPlacements.TREE_THRESHOLD,
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PALMS_OASIS.makeAndSetHolder(WWTreeVegetationFeatures.PALM_OASIS,
+		PALM_OASIS.makeAndSetHolder(WWTreeVegetationFeatures.PALM_DESERT,
 			generatePalm,
 			RarityFilter.onAverageOnceEvery(14),
 			InSquarePlacement.spread(),
@@ -454,9 +459,9 @@ public final class WWTreeVegetationPlacements {
 			BiomeFilter.biome()
 		);
 
-		PALMS_WARM_BEACH.makeAndSetHolder(WWTreeVegetationFeatures.PALM_OASIS,
+		PALM_WARM_BEACH.makeAndSetHolder(WWTreeVegetationFeatures.PALM_DESERT,
 			generatePalm,
-			RarityFilter.onAverageOnceEvery(6),
+			RarityFilter.onAverageOnceEvery(7),
 			InSquarePlacement.spread(),
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -550,7 +555,7 @@ public final class WWTreeVegetationPlacements {
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(WWBlocks.MAPLE_SAPLING.yellow().get()),
-			WWPlacementUtils.TREE_CLEARING_FILTER,
+			WWPlacementUtils.outsideClearingFilter(context),
 			BiomeFilter.biome()
 		);
 
@@ -561,7 +566,7 @@ public final class WWTreeVegetationPlacements {
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.POPLAR_SAPLING),
-			WWPlacementUtils.TREE_CLEARING_FILTER,
+			WWPlacementUtils.outsideClearingFilter(context),
 			BiomeFilter.biome()
 		);
 
@@ -578,12 +583,12 @@ public final class WWTreeVegetationPlacements {
 		// TAIGA
 		TREE_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_TAIGA,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_TAIGA_NO_LITTER.makeAndSetHolder(WWTreeVegetationFeatures.TREE_TAIGA_NO_LITTER,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		SHORT_SPRUCE.makeAndSetHolder(WWTreeFeatures.SHORT_SPRUCE.getHolder(),
@@ -593,7 +598,7 @@ public final class WWTreeVegetationPlacements {
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING),
-			WWPlacementUtils.TREE_CLEARING_FILTER,
+			WWPlacementUtils.outsideClearingFilter(context),
 			BiomeFilter.biome()
 		);
 
@@ -604,7 +609,7 @@ public final class WWTreeVegetationPlacements {
 			VegetationPlacements.TREE_THRESHOLD,
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.SPRUCE_SAPLING),
-			WWPlacementUtils.TREE_CLEARING_FILTER,
+			WWPlacementUtils.outsideClearingFilter(context),
 			BiomeFilter.biome()
 		);
 
@@ -628,17 +633,17 @@ public final class WWTreeVegetationPlacements {
 
 		TREE_OLD_GROWTH_PINE_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_OLD_GROWTH_PINE_TAIGA,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_OLD_GROWTH_SPRUCE_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_OLD_GROWTH_SPRUCE_TAIGA,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(10, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_OLD_GROWTH_SNOWY_PINE_TAIGA.makeAndSetHolder(WWTreeVegetationFeatures.TREE_OLD_GROWTH_SNOWY_PINE_TAIGA,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(8, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		TREE_WINDSWEPT_HILLS.makeAndSetHolder(WWTreeVegetationFeatures.TREE_WINDSWEPT_HILLS,
@@ -651,7 +656,7 @@ public final class WWTreeVegetationPlacements {
 
 		TREE_TEMPERATE_RAINFOREST.makeAndSetHolder(WWTreeVegetationFeatures.TREE_TEMPERATE_RAINFOREST,
 			VegetationPlacements.treePlacementBase(PlacementUtils.countExtra(13, 0.1F, 1))
-				.add(WWPlacementUtils.TREE_CLEARING_FILTER).build()
+				.add(WWPlacementUtils.outsideClearingFilter(context)).build()
 		);
 
 		// BUSH
@@ -663,7 +668,7 @@ public final class WWTreeVegetationPlacements {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
 			BiomeFilter.biome(),
-			WWPlacementUtils.BIG_BUSH_CLEARING_FILTER
+			WWPlacementUtils.outsideClearingFilter(context, true)
 		);
 
 		BIG_BUSH_FOREST_COMMON.makeAndSetHolder(WWTreeVegetationFeatures.BIG_BUSH,
@@ -674,7 +679,7 @@ public final class WWTreeVegetationPlacements {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
 			BiomeFilter.biome(),
-			WWPlacementUtils.BIG_BUSH_CLEARING_FILTER
+			WWPlacementUtils.outsideClearingFilter(context, true)
 		);
 
 		BIG_BUSH.makeAndSetHolder(WWTreeVegetationFeatures.BIG_BUSH,
@@ -686,7 +691,7 @@ public final class WWTreeVegetationPlacements {
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
 			BiomeFilter.biome(),
-			WWPlacementUtils.BIG_BUSH_CLEARING_FILTER
+			WWPlacementUtils.outsideClearingFilter(context, true)
 		);
 
 		BIG_BUSH_WATER.makeAndSetHolder(WWTreeVegetationFeatures.BIG_BUSH,
@@ -758,12 +763,13 @@ public final class WWTreeVegetationPlacements {
 					)
 				)
 			),
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)),
 			BiomeFilter.biome()
 		);
 		registerFallen(FALLEN_CYPRESS_AND_OAK, WWTreeVegetationFeatures.FALLEN_CYPRESS_AND_OAK, RarityFilter.onAverageOnceEvery(6));
 		registerFallenDirect(FALLEN_MANGROVE, WWTreeFeatures.FALLEN_MANGROVE, RarityFilter.onAverageOnceEvery(1));
 		registerFallenDirect(FALLEN_PALM, WWTreeFeatures.FALLEN_PALM, RarityFilter.onAverageOnceEvery(60), generatePalm);
-		registerFallenDirect(FALLEN_PALM_DESERT, WWTreeFeatures.FALLEN_PALM_CLEAN, RarityFilter.onAverageOnceEvery(135), generatePalm);
+		registerFallenDirect(FALLEN_PALM_DESERT, WWTreeFeatures.FALLEN_PALM_CLEAN, RarityFilter.onAverageOnceEvery(155), generatePalm);
 		registerFallenDirect(FALLEN_PALM_RARE, WWTreeFeatures.FALLEN_PALM, RarityFilter.onAverageOnceEvery(135), generatePalm);
 		FALLEN_PALM_AND_JUNGLE_AND_OAK.makeAndSetHolder(
 			Holder.direct(
@@ -773,6 +779,7 @@ public final class WWTreeVegetationPlacements {
 					WWTreeVegetationFeatures.FALLEN_JUNGLE_AND_OAK.asInlinePlaced()
 				)
 			),
+			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)),
 			RarityFilter.onAverageOnceEvery(25),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -974,6 +981,9 @@ public final class WWTreeVegetationPlacements {
 
 		placement.makeAndSetHolder(
 			feature,
+			ConfigPredicate.placementFilter(
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)
+			),
 			count,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -990,6 +1000,9 @@ public final class WWTreeVegetationPlacements {
 
 		placement.makeAndSetHolder(
 			feature,
+			ConfigPredicate.placementFilter(
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)
+			),
 			count,
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
@@ -1008,6 +1021,9 @@ public final class WWTreeVegetationPlacements {
 
 		placement.makeAndSetHolder(
 			feature,
+			ConfigPredicate.placementFilter(
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_FALLEN_TREE)
+			),
 			preFilter,
 			count,
 			InSquarePlacement.spread(),
@@ -1101,13 +1117,14 @@ public final class WWTreeVegetationPlacements {
 		@Nullable Block saplingBlock,
 		boolean clearing
 	) {
+
 		final ImmutableList.Builder<PlacementModifier> placementModifiers = VegetationPlacements.treePlacementBase(count);
 		if (saplingBlock != null) placementModifiers.add(BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(saplingBlock)));
-		if (clearing) placementModifiers.add(WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED);
+		if (clearing) placementModifiers.add(WWPlacementUtils.insideClearingFilter(context));
 
 		final List<PlacementModifier> finalModifiers = new ArrayList<>(placementModifiers.build());
 		finalModifiers.addFirst(
-			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SNAPPED_TREE))
+			ConfigPredicate.placementFilter(context.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_SNAPPED_TREE))
 		);
 		return finalModifiers;
 	}
@@ -1115,6 +1132,4 @@ public final class WWTreeVegetationPlacements {
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id("tree_vegetation/" + name));
 	}
-
-	private WWTreeVegetationPlacements() {}
 }

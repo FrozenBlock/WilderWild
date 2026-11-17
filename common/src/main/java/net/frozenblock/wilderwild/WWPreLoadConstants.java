@@ -18,12 +18,16 @@
 package net.frozenblock.wilderwild;
 
 import java.nio.file.Path;
+import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.ApiStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * This class was created to fix issue #289: <a href="https://github.com/FrozenBlock/WilderWild/issues/289">...</a>.
  */
+@ApiStatus.Internal
+@UtilityClass
 public final class WWPreLoadConstants {
 	public static final String PROJECT_ID = "Wilder Wild";
 	public static final String MOD_ID = "wilderwild";
@@ -32,6 +36,4 @@ public final class WWPreLoadConstants {
 	public static Path configPath(String name, boolean json5) {
 		return Path.of("./config/" + MOD_ID + "/" + name + "." + (json5 ? "json5" : "json"));
 	}
-
-	private WWPreLoadConstants() {}
 }

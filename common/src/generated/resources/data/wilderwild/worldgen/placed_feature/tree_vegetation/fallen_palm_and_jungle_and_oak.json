@@ -13,6 +13,10 @@
   },
   "placement": [
     {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_fallen_tree"
+    },
+    {
       "type": "minecraft:rarity_filter",
       "chance": 25
     },

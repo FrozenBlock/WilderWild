@@ -3,11 +3,15 @@
   "placement": [
     {
       "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_fallen_tree"
+    },
+    {
+      "type": "frozenlib:config_predicate",
       "config_predicate": "wilderwild:generate_palm"
     },
     {
       "type": "minecraft:rarity_filter",
-      "chance": 135
+      "chance": 155
     },
     {
       "type": "minecraft:in_square"

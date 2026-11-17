@@ -24,7 +24,9 @@ import net.minecraft.data.tags.BlockItemTagsProvider;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.tags.BlockItemTagId;
 import net.minecraft.tags.BlockItemTags;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 
 	WWBlockItemTagsProvider(Function<BlockItemTagId, CombinedAppender> tagSupplier) {
@@ -356,26 +358,10 @@ public final class WWBlockItemTagsProvider extends BlockItemTagsProvider {
 			.add(WWBlockItemIds.MAPLE_LEAF_LITTER.yellow(), WWBlockItemIds.MAPLE_LEAF_LITTER.orange(), WWBlockItemIds.MAPLE_LEAF_LITTER.red());
 
 		this.tag(WWBlockItemTags.MESOGLEA)
-			.add(WWBlockItemIds.BLUE_MESOGLEA)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_MESOGLEA)
-			.add(WWBlockItemIds.LIME_MESOGLEA)
-			.add(WWBlockItemIds.PINK_MESOGLEA)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_MESOGLEA)
-			.add(WWBlockItemIds.RED_MESOGLEA)
-			.add(WWBlockItemIds.YELLOW_MESOGLEA);
+			.addAll(WWBlockItemIds.MESOGLEA.asList());
 
 		this.tag(WWBlockItemTags.NEMATOCYSTS)
-			.add(WWBlockItemIds.BLUE_NEMATOCYST)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST)
-			.add(WWBlockItemIds.LIME_NEMATOCYST)
-			.add(WWBlockItemIds.PINK_NEMATOCYST)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST)
-			.add(WWBlockItemIds.RED_NEMATOCYST)
-			.add(WWBlockItemIds.YELLOW_NEMATOCYST);
-
-		this.tag(WWBlockItemTags.PEARLESCENT_NEMATOCYSTS)
-			.add(WWBlockItemIds.PEARLESCENT_BLUE_NEMATOCYST)
-			.add(WWBlockItemIds.PEARLESCENT_PURPLE_NEMATOCYST);
+			.addAll(WWBlockItemIds.NEMATOCYST.asList());
 
 		this.tag(WWBlockItemTags.FROGLIGHT_GOOP)
 			.add(WWBlockItemIds.PEARLESCENT_FROGLIGHT_GOOP)

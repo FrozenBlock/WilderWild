@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+import lombok.experimental.UtilityClass;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.*;
@@ -24,7 +25,10 @@ import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWAmbienceAndMiscConfigGui {
 
@@ -127,6 +131,4 @@ public final class WWAmbienceAndMiscConfigGui {
 			booleanEntry(builder, "distorted_dying_forest_music", WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC)
 		);
 	}
-
-	private WWAmbienceAndMiscConfigGui() {}
 }

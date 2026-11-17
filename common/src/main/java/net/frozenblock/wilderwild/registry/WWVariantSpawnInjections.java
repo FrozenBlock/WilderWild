@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.entity.api.variant.CompoundCheck;
 import net.frozenblock.lib.entity.api.variant.VariantSpawnInjection;
@@ -33,13 +34,16 @@ import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWVariantSpawnInjections {
 
 	public static void bootstrap(BootstrapContext<VariantSpawnInjection> context) {
 		final HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 		final HolderGetter<WolfVariant> wolfVariants = context.lookup(Registries.WOLF_VARIANT);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		final SpawnCondition spawnWolfVariantCondition = ConfigPredicate.spawnCondition(configPredicates.getOrThrow(WWConfigPredicates.SPAWN_WOLF_VARIANT));
 		VariantSpawnInjection.register(
@@ -122,6 +126,4 @@ public final class WWVariantSpawnInjections {
 			)
 		);
 	}
-
-	private WWVariantSpawnInjections() {}
 }

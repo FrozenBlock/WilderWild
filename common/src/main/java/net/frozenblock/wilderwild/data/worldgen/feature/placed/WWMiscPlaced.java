@@ -18,12 +18,12 @@
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
@@ -54,56 +54,40 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Unmodifiable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWMiscPlaced {
-
-	public static final FrozenLibPlacedFeature COARSE_PATH_RARE = register("coarse_dirt_path_rare");
-	public static final FrozenLibPlacedFeature GRAVEL_PATH_RARE = register("gravel_path_rare");
-	public static final FrozenLibPlacedFeature STONE_PATH_RARE = register("stone_path_rare");
-	public static final FrozenLibPlacedFeature COARSE_PATH_CLEARING = register("coarse_dirt_path_clearing");
-	public static final FrozenLibPlacedFeature GRAVEL_PATH_CLEARING = register("gravel_path_clearing");
-	public static final FrozenLibPlacedFeature ROOTED_DIRT_PATH_CLEARING = register("rooted_dirt_path_clearing");
-
 	// SWAMP
-	public static final FrozenLibPlacedFeature DISK_MUD = register("disk_mud");
-	public static final FrozenLibPlacedFeature MUD_PATH = register("mud_path");
 	public static final FrozenLibPlacedFeature MUD_TRANSITION = register("mud_transition");
 
 	// TAIGA
 	public static final FrozenLibPlacedFeature FOREST_ROCK_TAIGA = register("forest_rock_taiga");
 
 	// CYPRESS WETLANDS
-	public static final FrozenLibPlacedFeature UNDER_WATER_SAND_PATH = register("under_water_sand_path");
-	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH = register("under_water_gravel_path");
-	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH = register("under_water_clay_path");
+	public static final FrozenLibPlacedFeature DISK_CLAY_LARGE = register("disk_clay_large");
+	public static final FrozenLibPlacedFeature DISK_CLAY_COMMON = register("disk_clay_common");
+	public static final FrozenLibPlacedFeature DISK_SAND_SPARSE = register("disk_sand_sparse");
 
 	// BEACH AND RIVER
-	public static final FrozenLibPlacedFeature UNDER_WATER_CLAY_PATH_BEACH = register("under_water_clay_path_beach");
-	public static final FrozenLibPlacedFeature UNDER_WATER_GRAVEL_PATH_RIVER = register("under_water_gravel_path_river");
 	public static final FrozenLibPlacedFeature STONE_TRANSITION = register("stone_transition");
 	public static final FrozenLibPlacedFeature SMALL_SAND_TRANSITION = register("small_sand_transition");
 	public static final FrozenLibPlacedFeature BETA_BEACH_SAND_TRANSITION = register("beta_beach_sand_transition");
 	public static final FrozenLibPlacedFeature BETA_BEACH_GRAVEL_TRANSITION = register("beta_beach_gravel_transition");
 	public static final FrozenLibPlacedFeature SMALL_GRAVEL_TRANSITION = register("small_gravel_transition");
 
-	// SAVANNA
-	public static final FrozenLibPlacedFeature PACKED_MUD_PATH = register("packed_mud_path");
-
 	// DESERT
 	public static final FrozenLibPlacedFeature ORE_PACKED_MUD = register("ore_packed_mud");
-	public static final FrozenLibPlacedFeature SANDSTONE_PATH = register("sandstone_path");
 	public static final FrozenLibPlacedFeature SCORCHED_SAND = register("scorched_sand");
 	public static final FrozenLibPlacedFeature SCORCHED_SAND_HUGE = register("scorched_sand_huge");
 	public static final FrozenLibPlacedFeature SAND_TRANSITION = register("sand_transition");
 
 	// OASIS
-	public static final FrozenLibPlacedFeature DESERT_WELL_OASIS = register("desert_well_oasis");
 	public static final FrozenLibPlacedFeature LAKE_OASIS = register("lake_oasis");
 
 	// BADLANDS
-	public static final FrozenLibPlacedFeature COARSE_DIRT_PATH_SMALL = register("coarse_dirt_path_small");
-	public static final FrozenLibPlacedFeature PACKED_MUD_PATH_BADLANDS = register("packed_mud_path_badlands");
 	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND = register("scorched_red_sand");
 	public static final FrozenLibPlacedFeature SCORCHED_RED_SAND_HUGE = register("scorched_red_sand_huge");
 	public static final FrozenLibPlacedFeature RED_SAND_TRANSITION = register("red_sand_transition");
@@ -120,16 +104,14 @@ public final class WWMiscPlaced {
 
 	// PALE GARDEN
 	public static final FrozenLibPlacedFeature PALE_MOSS_PILE = register("pale_moss_pile");
-	public static final FrozenLibPlacedFeature GRAVEL_AND_PALE_MOSS_PATH = register("gravel_and_pale_moss_path");
 
 	// MANGROVE SWAMP
-	public static final FrozenLibPlacedFeature MUD_PILE = register("mud_pile");
 	public static final FrozenLibPlacedFeature BASIN_MUD = register("basin_mud");
 	public static final FrozenLibPlacedFeature MUD_LAKE = register("mud_lake");
 
 	// DYING FOREST
-	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE = register("coarse_dirt_disk_and_pile");
-	public static final FrozenLibPlacedFeature COARSE_DIRT_DISK_AND_PILE_RARE = register("coarse_dirt_disk_and_pile_rare");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_BLOB_AND_PATCH = register("coarse_dirt_blob_and_patch");
+	public static final FrozenLibPlacedFeature COARSE_DIRT_BLOB_AND_PATCH_RARE = register("coarse_dirt_blob_and_patch_rare");
 	public static final FrozenLibPlacedFeature STONE_DISK_AND_PILE = register("stone_disk_and_pile");
 	public static final FrozenLibPlacedFeature COARSE_TRANSITION_DISK = register("coarse_dirt_transition_disk");
 
@@ -142,69 +124,9 @@ public final class WWMiscPlaced {
 		WWConstants.logWithModId("Registering WWMiscPlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
-
-		COARSE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_RARE,
-			RarityFilter.onAverageOnceEvery(36),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		GRAVEL_PATH_RARE.makeAndSetHolder(WWMiscConfigured.GRAVEL_PATH_RARE,
-			RarityFilter.onAverageOnceEvery(36),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		STONE_PATH_RARE.makeAndSetHolder(WWMiscConfigured.STONE_PATH_RARE,
-			RarityFilter.onAverageOnceEvery(72),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		COARSE_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_CLEARING,
-			CountPlacement.of(11),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
-			BiomeFilter.biome()
-		);
-
-		GRAVEL_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.GRAVEL_PATH_CLEARING,
-			CountPlacement.of(11),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
-			BiomeFilter.biome()
-		);
-
-		ROOTED_DIRT_PATH_CLEARING.makeAndSetHolder(WWMiscConfigured.ROOTED_DIRT_PATH_CLEARING,
-			CountPlacement.of(11),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			WWPlacementUtils.TREE_CLEARING_FILTER_INVERTED,
-			BiomeFilter.biome()
-		);
+		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		// SWAMP
-		DISK_MUD.makeAndSetHolder(WWMiscConfigured.DISK_MUD,
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_TOP_SOLID,
-			OffsetPlacement.vertical(ConstantInt.of(-1)),
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.GRASS_BLOCK, Blocks.DIRT)),
-			BiomeFilter.biome()
-		);
-
-		MUD_PATH.makeAndSetHolder(WWMiscConfigured.MUD_PATH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		MUD_TRANSITION.makeAndSetHolder(WWMiscConfigured.MUD_TRANSITION_DISK,
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
@@ -223,44 +145,27 @@ public final class WWMiscPlaced {
 		);
 
 		// CYPRESS WETLANDS
-		UNDER_WATER_SAND_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_SAND_PATH,
+		DISK_CLAY_LARGE.makeAndSetHolder(WWMiscConfigured.DISK_CLAY_LARGE,
+			CountPlacement.of(UniformInt.of(1, 2)),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
 		);
 
-		UNDER_WATER_GRAVEL_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_GRAVEL_PATH,
+		DISK_CLAY_COMMON.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DISK_CLAY),
+			CountPlacement.of(3),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
 		);
 
-		UNDER_WATER_CLAY_PATH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_CLAY_PATH,
+		DISK_SAND_SPARSE.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DISK_SAND),
 			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
+			PlacementUtils.HEIGHTMAP_TOP_SOLID,
+			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER))
 		);
 
 		// BEACH AND RIVER
-		UNDER_WATER_CLAY_PATH_BEACH.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_CLAY_PATH_BEACH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
-		);
-
-		UNDER_WATER_GRAVEL_PATH_RIVER.makeAndSetHolder(WWMiscConfigured.UNDER_WATER_GRAVEL_PATH_RIVER,
-			RarityFilter.onAverageOnceEvery(5),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BlockPredicateFilter.forPredicate(BlockPredicate.matchesFluids(Fluids.WATER)),
-			BiomeFilter.biome()
-		);
-
 		STONE_TRANSITION.makeAndSetHolder(WWMiscConfigured.STONE_TRANSITION_DISK,
 			CountPlacement.of(8),
 			InSquarePlacement.spread(),
@@ -308,24 +213,9 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		// SAVANNA
-		PACKED_MUD_PATH.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH,
-			RarityFilter.onAverageOnceEvery(10),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		// DESERT
 		ORE_PACKED_MUD.makeAndSetHolder(WWMiscConfigured.ORE_PACKED_MUD,
 			modifiersWithCount(5, HeightRangePlacement.uniform(VerticalAnchor.absolute(42), VerticalAnchor.absolute(250)))
-		);
-
-		SANDSTONE_PATH.makeAndSetHolder(WWMiscConfigured.SANDSTONE_PATH,
-			RarityFilter.onAverageOnceEvery(3),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
 		);
 
 		SCORCHED_SAND.makeAndSetHolder(WWMiscConfigured.SCORCHED_SAND_DISK,
@@ -353,13 +243,6 @@ public final class WWMiscPlaced {
 		);
 
 		// OASIS
-		DESERT_WELL_OASIS.makeAndSetHolder(features.getOrThrow(MiscOverworldFeatures.DESERT_WELL),
-			RarityFilter.onAverageOnceEvery(1000),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome()
-		);
-
 		LAKE_OASIS.makeAndSetHolder(WWMiscConfigured.LAKE_OASIS,
 			FrozenLibPlacementUtil.modifiers(
 				CountPlacement.of(1),
@@ -370,20 +253,6 @@ public final class WWMiscPlaced {
 		);
 
 		// BADLANDS
-		COARSE_DIRT_PATH_SMALL.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_PATH_SMALL,
-			RarityFilter.onAverageOnceEvery(6),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
-		PACKED_MUD_PATH_BADLANDS.makeAndSetHolder(WWMiscConfigured.PACKED_MUD_PATH_BADLANDS,
-			RarityFilter.onAverageOnceEvery(8),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		SCORCHED_RED_SAND.makeAndSetHolder(WWMiscConfigured.SCORCHED_RED_SAND_DISK,
 			RarityFilter.onAverageOnceEvery(64),
 			InSquarePlacement.spread(),
@@ -468,22 +337,7 @@ public final class WWMiscPlaced {
 			BiomeFilter.biome()
 		);
 
-		GRAVEL_AND_PALE_MOSS_PATH.makeAndSetHolder(WWMiscConfigured.GRAVEL_AND_PALE_MOSS_PATH,
-			RarityFilter.onAverageOnceEvery(4),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			BiomeFilter.biome()
-		);
-
 		// MANGROVE SWAMP
-		MUD_PILE.makeAndSetHolder(WWMiscConfigured.MUD_PILE,
-			RarityFilter.onAverageOnceEvery(9),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-			PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING),
-			BiomeFilter.biome()
-		);
-
 		BASIN_MUD.makeAndSetHolder(WWMiscConfigured.BASIN_MUD,
 			RarityFilter.onAverageOnceEvery(5),
 			InSquarePlacement.spread(),
@@ -502,14 +356,14 @@ public final class WWMiscPlaced {
 		);
 
 		// DYING FOREST
-		COARSE_DIRT_DISK_AND_PILE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_DISK_AND_PILE,
+		COARSE_DIRT_BLOB_AND_PATCH.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_BLOB_AND_PATCH,
 			RarityFilter.onAverageOnceEvery(9),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
 			BiomeFilter.biome()
 		);
 
-		COARSE_DIRT_DISK_AND_PILE_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_DISK_AND_PILE,
+		COARSE_DIRT_BLOB_AND_PATCH_RARE.makeAndSetHolder(WWMiscConfigured.COARSE_DIRT_BLOB_AND_PATCH,
 			RarityFilter.onAverageOnceEvery(35),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

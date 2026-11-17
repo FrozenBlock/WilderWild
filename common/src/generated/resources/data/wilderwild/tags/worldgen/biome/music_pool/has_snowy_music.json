@@ -1,25 +1,10 @@
 {
   "values": [
-    {
-      "id": "minecraft:snowy_taiga",
-      "required": false
-    },
-    {
-      "id": "minecraft:snowy_plains",
-      "required": false
-    },
-    {
-      "id": "minecraft:snowy_beach",
-      "required": false
-    },
-    {
-      "id": "minecraft:ice_spikes",
-      "required": false
-    },
-    {
-      "id": "minecraft:frozen_river",
-      "required": false
-    },
+    "minecraft:snowy_taiga",
+    "minecraft:snowy_plains",
+    "minecraft:snowy_beach",
+    "minecraft:ice_spikes",
+    "minecraft:frozen_river",
     {
       "id": "wilderwild:snowy_old_growth_pine_taiga",
       "required": false

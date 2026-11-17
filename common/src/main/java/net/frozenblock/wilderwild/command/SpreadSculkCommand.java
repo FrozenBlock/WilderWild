@@ -18,57 +18,61 @@
 package net.frozenblock.wilderwild.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.BoolArgumentType;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
+import lombok.experimental.UtilityClass;
+import net.minecraft.commands.CommandPermissionLevels;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.BooleanArgument;
+import net.minecraft.commands.arguments.IntegerArgument;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.SculkSpreader;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class SpreadSculkCommand {
 
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-		dispatcher.register(
-			Commands.literal("sculkspread")
-				.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
-				.executes(
+		dispatcher.register(Commands.literal("sculkspread")
+			.requires(Commands.hasPermission(CommandPermissionLevels.LEVEL_GAMEMASTERS))
+			.executes(
+				context -> spreadSculk(
+					context.getSource(),
+					BlockPos.containing(context.getSource().getPosition()),
+					false,
+					10
+				)
+			).then(
+				Commands.argument("position", BlockPosArgument.blockPos()).executes(
 					context -> spreadSculk(
 						context.getSource(),
-						BlockPos.containing(context.getSource().getPosition()),
+						BlockPosArgument.getLoadedBlockPos(context, "position"),
 						false,
 						10
 					)
 				).then(
-					Commands.argument("position", BlockPosArgument.blockPos()).executes(
+					Commands.argument("charge", IntegerArgument.integer(1)).executes(
 						context -> spreadSculk(
 							context.getSource(),
 							BlockPosArgument.getLoadedBlockPos(context, "position"),
 							false,
-							10
+							IntegerArgument.getInteger(context, "charge")
 						)
 					).then(
-						Commands.argument("charge", IntegerArgumentType.integer(1)).executes(
+						Commands.argument("isWorldGen", BooleanArgument.bool()).executes(
 							context -> spreadSculk(
 								context.getSource(),
 								BlockPosArgument.getLoadedBlockPos(context, "position"),
-								false,
-								IntegerArgumentType.getInteger(context, "charge")
-							)
-						).then(
-							Commands.argument("isWorldGen", BoolArgumentType.bool()).executes(
-								context -> spreadSculk(
-									context.getSource(),
-									BlockPosArgument.getLoadedBlockPos(context, "position"),
-									BoolArgumentType.getBool(context, "isWorldGen"),
-									IntegerArgumentType.getInteger(context, "charge")
-								)
+								BooleanArgument.getBool(context, "isWorldGen"),
+								IntegerArgument.getInteger(context, "charge")
 							)
 						)
 					)
 				)
+			)
 		);
 	}
 

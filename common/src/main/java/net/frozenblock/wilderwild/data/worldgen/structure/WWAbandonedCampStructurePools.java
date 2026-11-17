@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.structure;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.minecraft.core.Holder;
@@ -28,7 +29,10 @@ import net.minecraft.data.worldgen.AbandonedCampStructurePools;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWAbandonedCampStructurePools {
 	public static final AbandonedCampStructurePools.AbandonedCampStructure MAPLE_FOREST = new AbandonedCampStructurePools.AbandonedCampStructure(
 		Pools.parseKey(WWConstants.string("abandoned_camp/camp/maple_forest")),

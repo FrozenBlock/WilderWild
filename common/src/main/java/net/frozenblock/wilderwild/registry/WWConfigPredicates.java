@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
@@ -29,7 +30,9 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_GRASS = createKey("sound_override_grass");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_MUSHROOM = createKey("sound_override_mushroom");
@@ -41,14 +44,21 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK = createKey("sound_override_pale_oak");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_ICICLE = createKey("sound_override_icicle");
 
-	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
+	public static final ResourceKey<ConfigPredicate> GENERATE_BETA_BEACH = createKey("generate_beta_beach");
+	public static final ResourceKey<ConfigPredicate> CANNOT_GENERATE_BETA_BEACH = createKey("cannot_generate_beta_beach");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_TERMITE = createKey("generate_termite");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
+	public static final ResourceKey<ConfigPredicate> GENERATE_FALLEN_TREE = createKey("generate_fallen_tree");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SNAPPED_TREE = createKey("generate_snapped_tree");
+	public static final ResourceKey<ConfigPredicate> GENERATE_BAOBAB = createKey("generate_baobab");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALM = createKey("generate_palm");
 	public static final ResourceKey<ConfigPredicate> GENERATE_WILLOW = createKey("generate_willow");
+	public static final ResourceKey<ConfigPredicate> GENERATE_BIRCH_BRANCH = createKey("generate_birch_branch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_OAK_BRANCH = createKey("generate_oak_branch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_DARK_OAK_BRANCH = createKey("generate_dark_oak_branch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_OAK_BRANCH = createKey("generate_pale_oak_branch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_ACACIA = createKey("generate_shelf_mushroom_acacia");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_BIRCH = createKey("generate_shelf_mushroom_birch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_CHERRY = createKey("generate_shelf_mushroom_cherry");
@@ -63,7 +73,24 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_WILLOW = createKey("generate_shelf_mushroom_willow");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHELF_MUSHROOM_MAPLE = createKey("generate_shelf_mushroom_maple");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_ACACIA = createKey("generate_leaf_litter_acacia");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_AZALEA = createKey("generate_leaf_litter_azalea");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_BAOBAB = createKey("generate_leaf_litter_baobab");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_BIRCH = createKey("generate_leaf_litter_birch");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_CHERRY = createKey("generate_leaf_litter_cherry");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_CYPRESS = createKey("generate_leaf_litter_cypress");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_JUNGLE = createKey("generate_leaf_litter_jungle");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_MANGROVE = createKey("generate_leaf_litter_mangrove");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_OAK = createKey("generate_leaf_litter_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_DARK_OAK = createKey("generate_leaf_litter_dark_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_PALE_OAK = createKey("generate_leaf_litter_pale_oak");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_PALM = createKey("generate_leaf_litter_palm");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_POPLAR = createKey("generate_leaf_litter_poplar");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_SPRUCE = createKey("generate_leaf_litter_spruce");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LEAF_LITTER_WILLOW = createKey("generate_leaf_litter_willow");
+
 	public static final ResourceKey<ConfigPredicate> GENERATE_GRASS = createKey("generate_grass");
+	public static final ResourceKey<ConfigPredicate> GENERATE_DRY_GRASS = createKey("generate_dry_grass");
 	public static final ResourceKey<ConfigPredicate> GENERATE_FLOWER = createKey("generate_flower");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SHRUB = createKey("generate_shrub");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CACTUS = createKey("generate_cactus");
@@ -71,15 +98,20 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MUSHROOM = createKey("generate_pale_mushroom");
 	public static final ResourceKey<ConfigPredicate> GENERATE_POLLEN = createKey("generate_pollen");
 	public static final ResourceKey<ConfigPredicate> GENERATE_TUMBLEWEED = createKey("generate_tumbleweed");
+	public static final ResourceKey<ConfigPredicate> GENERATE_FIREFLY_BUSH = createKey("generate_firefly_bush");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PUMPKIN = createKey("generate_pumpkin");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_COARSE_DIRT = createKey("generate_coarse_dirt");
+	public static final ResourceKey<ConfigPredicate> GENERATE_MUD = createKey("generate_mud");
+	public static final ResourceKey<ConfigPredicate> GENERATE_PACKED_MUD = createKey("generate_packed_mud");
 	public static final ResourceKey<ConfigPredicate> GENERATE_MOSS = createKey("generate_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_AUBURN_MOSS = createKey("generate_auburn_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALE_MOSS = createKey("generate_pale_moss");
-
-	public static final ResourceKey<ConfigPredicate> GENERATE_COARSE_DIRT = createKey("generate_coarse_dirt");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SCORCHED_SAND = createKey("generate_scorched_sand");
 	public static final ResourceKey<ConfigPredicate> GENERATE_SCORCHED_RED_SAND = createKey("generate_scorched_red_sand");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SANDSTONE = createKey("generate_sandstone");
+	public static final ResourceKey<ConfigPredicate> GENERATE_CLEARING = createKey("generate_clearing");
+	public static final ResourceKey<ConfigPredicate> GENERATE_CLEARING_PATH = createKey("generate_clearing_path");
 	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BRITTLE_ICE = createKey("generate_brittle_ice");
 
@@ -99,8 +131,17 @@ public final class WWConfigPredicates {
 
 	public static final ResourceKey<ConfigPredicate> SPAWN_WOLF_VARIANT = createKey("spawn_wolf_variant");
 
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_HOT = createKey("water_color_hot");
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_LUKEWARM = createKey("water_color_lukewarm");
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_SNOWY = createKey("water_color_snowy");
+	public static final ResourceKey<ConfigPredicate> WATER_COLOR_FROZEN = createKey("water_color_frozen");
+	public static final ResourceKey<ConfigPredicate> MUSIC_PITCH_SHIFT_DYING_FORESTS = createKey("music_pitch_shift_dying_forests");
+	public static final ResourceKey<ConfigPredicate> FOLIAGE_COLOR_BADLANDS = createKey("foliage_color_badlands");
+	public static final ResourceKey<ConfigPredicate> GRASS_COLOR_DAPPLED_FOREST = createKey("grass_color_dappled_forest");
+
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<ConfigPredicate> context) {
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		context.register(
 			SOUND_OVERRIDE_GRASS,
@@ -150,6 +191,15 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
+			GENERATE_BETA_BEACH,
+			WWWorldgenConfig.BETA_BEACHES.equalTo(true)
+		);
+		context.register(
+			CANNOT_GENERATE_BETA_BEACH,
+			ConfigPredicate.not(configPredicates.getOrThrow(GENERATE_BETA_BEACH))
+		);
+
+		context.register(
 			GENERATE_TERMITE,
 			WWWorldgenConfig.TERMITE_GENERATION.equalTo(true)
 		);
@@ -159,8 +209,16 @@ public final class WWConfigPredicates {
 			WWWorldgenConfig.TREE_GENERATION.equalTo(true)
 		);
 		context.register(
+			GENERATE_FALLEN_TREE,
+			WWWorldgenConfig.FALLEN_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
 			GENERATE_SNAPPED_TREE,
 			WWWorldgenConfig.SNAPPED_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_BAOBAB,
+			WWWorldgenConfig.BAOBAB_TREE_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_PALM,
@@ -169,6 +227,22 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_WILLOW,
 			WWWorldgenConfig.WILLOW_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_BIRCH_BRANCH,
+			WWWorldgenConfig.BIRCH_BRANCH_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_OAK_BRANCH,
+			WWWorldgenConfig.OAK_BRANCH_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_DARK_OAK_BRANCH,
+			WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PALE_OAK_BRANCH,
+			WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_SHELF_MUSHROOM_ACACIA,
@@ -224,8 +298,73 @@ public final class WWConfigPredicates {
 		);
 
 		context.register(
+			GENERATE_LEAF_LITTER_ACACIA,
+			WWWorldgenConfig.ACACIA_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_AZALEA,
+			WWWorldgenConfig.AZALEA_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_BAOBAB,
+			WWWorldgenConfig.BAOBAB_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_BIRCH,
+			WWWorldgenConfig.BIRCH_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_CHERRY,
+			WWWorldgenConfig.CHERRY_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_CYPRESS,
+			WWWorldgenConfig.CYPRESS_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_JUNGLE,
+			WWWorldgenConfig.JUNGLE_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_MANGROVE,
+			WWWorldgenConfig.MANGROVE_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_OAK,
+			WWWorldgenConfig.OAK_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_DARK_OAK,
+			WWWorldgenConfig.DARK_OAK_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_PALE_OAK,
+			WWWorldgenConfig.PALE_OAK_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_PALM,
+			WWWorldgenConfig.PALM_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_POPLAR,
+			WWWorldgenConfig.POPLAR_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_SPRUCE,
+			WWWorldgenConfig.SPRUCE_LITTER_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LEAF_LITTER_WILLOW,
+			WWWorldgenConfig.WILLOW_LITTER_GENERATION.equalTo(true)
+		);
+
+		context.register(
 			GENERATE_GRASS,
 			WWWorldgenConfig.GRASS_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_DRY_GRASS,
+			WWWorldgenConfig.DRY_GRASS_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_FLOWER,
@@ -256,15 +395,26 @@ public final class WWConfigPredicates {
 			WWWorldgenConfig.TUMBLEWEED_GENERATION.equalTo(true)
 		);
 		context.register(
+			GENERATE_FIREFLY_BUSH,
+			WWWorldgenConfig.FIREFLY_BUSH_GENERATION.equalTo(true)
+		);
+		context.register(
 			GENERATE_PUMPKIN,
 			WWWorldgenConfig.PUMPKIN_GENERATION.equalTo(true)
 		);
 
 		context.register(
-			MUSIC_PITCH_SHIFT_DYING_FORESTS,
-			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
+			GENERATE_COARSE_DIRT,
+			WWWorldgenConfig.COARSE_DIRT_DECORATION.equalTo(true)
 		);
-
+		context.register(
+			GENERATE_MUD,
+			WWWorldgenConfig.MUD_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_PACKED_MUD,
+			WWWorldgenConfig.PACKED_MUD_DECORATION.equalTo(true)
+		);
 		context.register(
 			GENERATE_MOSS,
 			WWWorldgenConfig.MOSS_DECORATION.equalTo(true)
@@ -277,11 +427,6 @@ public final class WWConfigPredicates {
 			GENERATE_PALE_MOSS,
 			WWWorldgenConfig.PALE_MOSS_DECORATION.equalTo(true)
 		);
-
-		context.register(
-			GENERATE_COARSE_DIRT,
-			WWWorldgenConfig.COARSE_DIRT_DECORATION.equalTo(true)
-		);
 		context.register(
 			GENERATE_SCORCHED_SAND,
 			WWWorldgenConfig.SCORCHED_SAND_DECORATION.equalTo(true)
@@ -289,6 +434,23 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_SCORCHED_RED_SAND,
 			WWWorldgenConfig.SCORCHED_RED_SAND_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SANDSTONE,
+			WWWorldgenConfig.SANDSTONE_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_CLEARING,
+			WWWorldgenConfig.CLEARING_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_CLEARING_PATH,
+			ConfigPredicate.allOf(
+				HolderSet.direct(
+					configPredicates.getOrThrow(GENERATE_CLEARING),
+					WWWorldgenConfig.CLEARING_PATH_DECORATION.equalTo(true).asHolder()
+				)
+			)
 		);
 		context.register(
 			GENERATE_DECORATIVE_ICICLE,
@@ -356,6 +518,35 @@ public final class WWConfigPredicates {
 			SPAWN_WOLF_VARIANT,
 			WWEntityConfig.SPAWN_WOLF_VARIANTS.equalTo(true)
 		);
+
+		context.register(
+			WATER_COLOR_HOT,
+			WWAmbienceAndMiscConfig.MODIFY_HOT_WATER.equalTo(true)
+		);
+		context.register(
+			WATER_COLOR_LUKEWARM,
+			WWAmbienceAndMiscConfig.MODIFY_LUKEWARM_WATER.equalTo(true)
+		);
+		context.register(
+			WATER_COLOR_SNOWY,
+			WWAmbienceAndMiscConfig.MODIFY_SNOWY_WATER.equalTo(true)
+		);
+		context.register(
+			WATER_COLOR_FROZEN,
+			WWAmbienceAndMiscConfig.MODIFY_FROZEN_WATER.equalTo(true)
+		);
+		context.register(
+			MUSIC_PITCH_SHIFT_DYING_FORESTS,
+			WWAmbienceAndMiscConfig.DISTORTED_DYING_FOREST_MUSIC.equalTo(true)
+		);
+		context.register(
+			FOLIAGE_COLOR_BADLANDS,
+			WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR.equalTo(true)
+		);
+		context.register(
+			GRASS_COLOR_DAPPLED_FOREST,
+			WWAmbienceAndMiscConfig.DAPPLED_FOREST_GRASS_COLOR.equalTo(true)
+		);
 	}
 
 	public static boolean testPaleOakWoodPredicate(RegistryAccess registryAccess) {
@@ -363,8 +554,6 @@ public final class WWConfigPredicates {
 	}
 
 	private static ResourceKey<ConfigPredicate> createKey(String name) {
-		return ResourceKey.create(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER, WWConstants.id(name));
+		return ResourceKey.create(FrozenLibRegistries.CONFIG_PREDICATE, WWConstants.id(name));
 	}
-
-	private WWConfigPredicates() {}
 }

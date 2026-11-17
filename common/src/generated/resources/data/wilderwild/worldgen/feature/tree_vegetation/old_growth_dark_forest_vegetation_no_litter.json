@@ -21,20 +21,20 @@
       "feature": "wilderwild:tree/tall_dark_oak"
     },
     {
-      "chance": 0.175,
-      "feature": "wilderwild:tree/fancy_tall_dark_oak"
+      "chance": 0.2125,
+      "feature": "wilderwild:tree/fancy_dark_oak"
     },
     {
       "chance": 0.025,
       "feature": "wilderwild:tree/cobweb_tall_dark_oak"
     },
     {
-      "chance": 0.045,
-      "feature": "wilderwild:tree/fancy_dying_tall_dark_oak"
+      "chance": 0.065,
+      "feature": "wilderwild:tree/fancy_dying_dark_oak"
     },
     {
       "chance": 0.04,
-      "feature": "wilderwild:tree/cobweb_fancy_tall_dark_oak"
+      "feature": "wilderwild:tree/cobweb_fancy_dark_oak"
     },
     {
       "chance": 0.0355,

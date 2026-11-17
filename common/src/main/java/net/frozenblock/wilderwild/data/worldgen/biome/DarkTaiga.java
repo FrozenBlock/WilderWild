@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
 import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
@@ -26,7 +27,6 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
@@ -131,7 +131,7 @@ public final class DarkTaiga extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (!WWWorldgenConfig.DARK_TAIGA_GENERATION.get()) return;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
 			this.addSurfaceBiome(

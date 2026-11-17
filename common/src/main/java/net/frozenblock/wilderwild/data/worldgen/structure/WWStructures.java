@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.structure;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.HolderGetter;
@@ -31,7 +32,10 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWStructures {
 	public static final ResourceKey<Structure> ABANDONED_CAMP_MAPLE_FOREST = createKey("abandoned_camp_maple_forest");
 

@@ -18,7 +18,6 @@
 package net.frozenblock.wilderwild;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.frozenblock.wilderwild.client.WWFluidRendering;
 import net.frozenblock.wilderwild.networking.WWClientNetworking;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 
@@ -29,7 +28,6 @@ public final class WilderWildFabricClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		WilderWildClient.init();
 		WilderWildClient.setup();
-		WWFluidRendering.init();
 		WWClientNetworking.setup();
 	}
 }

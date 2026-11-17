@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.registry;
 import com.mojang.serialization.Codec;
 import java.util.List;
 import java.util.UUID;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredMemoryModuleType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
@@ -32,7 +33,9 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWMemoryModuleTypes {
 	private static final DeferredRegister.MemoryModuleTypes REGISTER = DeferredRegister.createMemoryModuleTypes(WWConstants.MOD_ID);
 
@@ -68,6 +71,7 @@ public final class WWMemoryModuleTypes {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
 
 	private static <U> DeferredMemoryModuleType<U> register(String name, Codec<U> codec) {
@@ -77,6 +81,4 @@ public final class WWMemoryModuleTypes {
 	private static <U> DeferredMemoryModuleType<U> register(String name) {
 		return REGISTER.register(name);
 	}
-
-	private WWMemoryModuleTypes() {}
 }

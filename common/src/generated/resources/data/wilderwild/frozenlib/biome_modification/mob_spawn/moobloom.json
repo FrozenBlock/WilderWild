@@ -1,0 +1,25 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {},
+    "spawns_by_category": {
+      "creature": [
+        {
+          "type": "wilderwild:moobloom",
+          "count": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 4,
+            "min_inclusive": 2
+          },
+          "weight": 34
+        }
+      ]
+    }
+  },
+  "phase": "replacements",
+  "removals": "minecraft:cow",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:entity/spawn/moobloom"
+  }
+}

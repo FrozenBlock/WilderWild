@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.block.impl.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.particle.options.WindParticleOptions;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
@@ -35,7 +36,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class GeothermalVentParticleSpawner {
 	public static final float DORMANT_BUBBLE_CHANCE = 0.0195F;

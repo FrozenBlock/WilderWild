@@ -59,6 +59,7 @@
     "type": "wilderwild:straight_with_branches_trunk_placer",
     "base_height": 6,
     "branch_placement": {
+      "condition": "wilderwild:generate_oak_branch",
       "cutoff_from_top": {
         "type": "minecraft:uniform",
         "max_inclusive": 2,

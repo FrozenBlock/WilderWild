@@ -17,11 +17,15 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.renderer.RenderStateDataKey;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.wind.client.CloudWindPositioner;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWRenderStateDataKeys {
 	public static final RenderStateDataKey<CloudWindPositioner> CLOUD_WIND_POSITIONER = RenderStateDataKey.create(WWConstants.id("cloud_wind_positioner"));
@@ -29,6 +33,4 @@ public final class WWRenderStateDataKeys {
 	public static final RenderStateDataKey<Float> WARDEN_WADE_AMOUNT = RenderStateDataKey.create(WWConstants.id("warden_wade_amount"));
 
 	public static void init() {}
-
-	private WWRenderStateDataKeys() {}
 }

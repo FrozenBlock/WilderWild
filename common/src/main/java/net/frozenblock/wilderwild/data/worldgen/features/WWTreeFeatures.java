@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
@@ -130,7 +131,11 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.PoplarTrunkPlacer
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.UpwardsBranchingTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTreeFeatures {
 	// OAK
 	public static final FrozenLibTreeFeature OAK = registerOak("oak");
@@ -226,11 +231,11 @@ public final class WWTreeFeatures {
 	public static final FrozenLibTreeFeature DARK_OAK = registerDarkOak("dark_oak");
 	public static final FrozenLibTreeFeature DYING_DARK_OAK = registerDarkOak("dying_dark_oak");
 	public static final FrozenLibTreeFeature TALL_DARK_OAK = registerDarkOak("tall_dark_oak");
-	public static final FrozenLibTreeFeature FANCY_TALL_DARK_OAK = registerDarkOak("fancy_tall_dark_oak");
+	public static final FrozenLibTreeFeature FANCY_DARK_OAK = registerDarkOak("fancy_dark_oak");
 	public static final FrozenLibTreeFeature DYING_TALL_DARK_OAK = registerDarkOak("dying_tall_dark_oak");
-	public static final FrozenLibTreeFeature FANCY_DYING_TALL_DARK_OAK = registerDarkOak("fancy_dying_tall_dark_oak");
+	public static final FrozenLibTreeFeature FANCY_DYING_DARK_OAK = registerDarkOak("fancy_dying_dark_oak");
 	public static final FrozenLibTreeFeature COBWEB_TALL_DARK_OAK = registerDarkOak("cobweb_tall_dark_oak");
-	public static final FrozenLibTreeFeature COBWEB_FANCY_TALL_DARK_OAK = registerDarkOak("cobweb_fancy_tall_dark_oak");
+	public static final FrozenLibTreeFeature COBWEB_FANCY_DARK_OAK = registerDarkOak("cobweb_fancy_dark_oak");
 
 	public static final FrozenLibFeature LARGE_FALLEN_DARK_OAK = register("large_fallen_dark_oak");
 	public static final FrozenLibFeature LARGE_SNAPPED_DARK_OAK = register("large_snapped_dark_oak");
@@ -302,9 +307,9 @@ public final class WWTreeFeatures {
 	public static final FrozenLibFeature TALL_PALE_OAK = register("tall_pale_oak");
 	public static final FrozenLibFeature TALL_PALE_OAK_BONEMEAL = register("tall_pale_oak_bonemeal");
 	public static final FrozenLibFeature TALL_PALE_OAK_CREAKING = register("tall_pale_oak_creaking");
-	public static final FrozenLibFeature FANCY_TALL_PALE_OAK = register("fancy_tall_pale_oak");
-	public static final FrozenLibFeature FANCY_TALL_PALE_OAK_BONEMEAL = register("fancy_tall_pale_oak_bonemeal");
-	public static final FrozenLibFeature FANCY_TALL_PALE_OAK_CREAKING = register("fancy_tall_pale_oak_creaking");
+	public static final FrozenLibFeature FANCY_PALE_OAK = register("fancy_pale_oak");
+	public static final FrozenLibFeature FANCY_PALE_OAK_BONEMEAL = register("fancy_pale_oak_bonemeal");
+	public static final FrozenLibFeature FANCY_PALE_OAK_CREAKING = register("fancy_pale_oak_creaking");
 	public static final FrozenLibFeature COBWEB_TALL_PALE_OAK = register("cobweb_tall_pale_oak");
 	public static final FrozenLibFeature COBWEB_TALL_PALE_OAK_CREAKING = register("cobweb_tall_pale_oak_creaking");
 	public static final FrozenLibFeature COBWEB_FANCY_PALE_OAK = register("cobweb_fancy_pale_oak");
@@ -341,13 +346,14 @@ public final class WWTreeFeatures {
 	public static void bootstrap(BootstrapContext<Feature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		final Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 		final Holder<BlockStateProvider> belowWaterloggableTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_WATERLOGGABLE_TREE);
 		final Holder<BlockStateProvider> belowDesertTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_DESERT_TREE);
+		final Holder<BlockStateProvider> belowPaleOakTrunkProvider = blockStateProviders.getOrThrow(WWBlockStateProviders.SOIL_BENEATH_PALE_OAK_TREE);
 
 		// DECORATORS
 		final Function<ResourceKey<ConfigPredicate>, TreeDecorator> shelfMushroom009 = predicate ->
@@ -410,31 +416,31 @@ public final class WWTreeFeatures {
 
 		// OAK
 		OAK.makeAndSetHolders(
-			oak(belowTrunkProvider)
+			oak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_OAK)))
 				.build()
 		);
 
 		OAK_NO_FUNGI.makeAndSetHolders(
-			oak(belowTrunkProvider)
+			oak(configPredicates, belowTrunkProvider)
 				.build()
 		);
 
 		SHORT_OAK.makeAndSetHolders(
-			shortOak(belowTrunkProvider)
+			shortOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_OAK)))
 				.build()
 		);
 
 		OAK_BEES_0004.makeAndSetHolders(
-			oak(belowTrunkProvider)
+			oak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom0054.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_OAK), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_OAK.makeAndSetHolders(
-			oak(belowTrunkProvider)
+			oak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines1Under26003, shelfMushroom0054.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_OAK)))
 				.ignoreVines()
 				.build()
@@ -527,6 +533,7 @@ public final class WWTreeFeatures {
 					2,
 					1,
 					new BranchPlacement.Builder()
+						.condition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OAK_BRANCH))
 						.branchChance(0.225F)
 						.maxBranchCount(UniformInt.of(1, 2))
 						.branchCutoffFromTop(UniformInt.of(0, 2))
@@ -549,6 +556,7 @@ public final class WWTreeFeatures {
 					2,
 					1,
 					new BranchPlacement.Builder()
+						.condition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OAK_BRANCH))
 						.branchChance(0.235F)
 						.maxBranchCount(UniformInt.of(2, 3))
 						.branchCutoffFromTop(UniformInt.of(0, 2))
@@ -564,13 +572,13 @@ public final class WWTreeFeatures {
 		);
 
 		FALLEN_OAK.makeAndSetHolder(
-			fallenOak(belowTrunkProvider)
+			fallenOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossOak, mushroomsFallenOak))
 				.build()
 		);
 
 		FALLEN_OAK_NO_MOSS.makeAndSetHolder(
-			fallenOak(belowTrunkProvider)
+			fallenOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines012Under260, mushroomsFallenOak))
 				.build()
 		);
@@ -582,6 +590,7 @@ public final class WWTreeFeatures {
 				3,
 				1,
 				2,
+				configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OAK_BRANCH),
 				0.175F,
 				UniformInt.of(1, 2),
 				0.075F,
@@ -600,100 +609,100 @@ public final class WWTreeFeatures {
 
 		// BIRCH
 		BIRCH.makeAndSetHolders(
-			birch(belowTrunkProvider)
+			birch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH))).build()
 		);
 
 		BIRCH_BEES_0004.makeAndSetHolders(
-			birch(belowTrunkProvider)
+			birch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		BIRCH_BEES_025.makeAndSetHolders(
-			birch(belowTrunkProvider)
+			birch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees025, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), pollen025))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_BIRCH.makeAndSetHolders(
-			birch(belowTrunkProvider)
+			birch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH)))
 				.ignoreVines()
 				.build()
 		);
 
 		SUPER_BIRCH_BEES_0004.makeAndSetHolders(
-			superBirch(belowTrunkProvider)
+			superBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), pollen01))
 				.build()
 		);
 
 		DYING_SUPER_BIRCH.makeAndSetHolders(
-			superBirch(belowTrunkProvider)
+			superBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH)))
 				.build()
 		);
 
 		SHORT_BIRCH_BEES_0004.makeAndSetHolders(
-			shortBirch(belowTrunkProvider)
+			shortBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		SHORT_BIRCH.makeAndSetHolders(
-			shortBirch(belowTrunkProvider)
+			shortBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH)))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_SHORT_BIRCH.makeAndSetHolders(
-			shortBirch(belowTrunkProvider)
+			shortBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH_BEES_0004.makeAndSetHolders(
-			mediumBirch(belowTrunkProvider)
+			mediumBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees0004, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH_BEES_025.makeAndSetHolders(
-			mediumBirch(belowTrunkProvider)
+			mediumBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees025, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), pollen01))
 				.ignoreVines()
 				.build()
 		);
 
 		MEDIUM_BIRCH.makeAndSetHolders(
-			mediumBirch(belowTrunkProvider)
+			mediumBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH)))
 				.ignoreVines()
 				.build()
 		);
 
 		DYING_MEDIUM_BIRCH.makeAndSetHolders(
-			mediumBirch(belowTrunkProvider)
+			mediumBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), vines1Under26003))
 				.ignoreVines()
 				.build()
 		);
 
 		SUPER_BIRCH_BEES.makeAndSetHolders(
-			superBirch(belowTrunkProvider)
+			superBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(bees, pollen, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH)))
 				.build()
 		);
 
 		SUPER_BIRCH.makeAndSetHolders(
-			superBirch(belowTrunkProvider)
+			superBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH)))
 				.build()
 		);
@@ -713,7 +722,7 @@ public final class WWTreeFeatures {
 		);
 
 		FALLEN_BIRCH.makeAndSetHolder(
-			fallenBirch(belowTrunkProvider)
+			fallenBirch(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines08Under260075, mossBirch, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_BIRCH), mushroomsFallenBirch))
 				.build()
 		);
@@ -725,6 +734,7 @@ public final class WWTreeFeatures {
 				3,
 				1,
 				2,
+				configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 				0.185F,
 				UniformInt.of(1, 2),
 				1F,
@@ -899,8 +909,7 @@ public final class WWTreeFeatures {
 				5,
 				1,
 				2,
-				0F,
-				UniformInt.of(1, 2),
+				BranchPlacement.EMPTY,
 				0.075F,
 				0.6F,
 				belowTrunkProvider
@@ -1124,8 +1133,8 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		FANCY_TALL_DARK_OAK.makeAndSetHolders(
-			fancyTallDarkOak(belowTrunkProvider)
+		FANCY_DARK_OAK.makeAndSetHolders(
+			fancyTallDarkOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(shelfMushroom003.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_DARK_OAK)))
 				.ignoreVines()
 				.build()
@@ -1138,8 +1147,8 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		FANCY_DYING_TALL_DARK_OAK.makeAndSetHolders(
-			fancyTallDarkOak(belowTrunkProvider)
+		FANCY_DYING_DARK_OAK.makeAndSetHolders(
+			fancyTallDarkOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(vines1Under26005, shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_DARK_OAK)))
 				.ignoreVines()
 				.build()
@@ -1152,8 +1161,8 @@ public final class WWTreeFeatures {
 				.build()
 		);
 
-		COBWEB_FANCY_TALL_DARK_OAK.makeAndSetHolders(
-			fancyTallDarkOak(belowTrunkProvider)
+		COBWEB_FANCY_DARK_OAK.makeAndSetHolders(
+			fancyTallDarkOak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(cobweb1Under260017, shelfMushroom003.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_DARK_OAK)))
 				.ignoreVines()
 				.build()
@@ -1194,7 +1203,7 @@ public final class WWTreeFeatures {
 		);
 
 		SWAMP_OAK.makeAndSetHolders(
-			oak(belowTrunkProvider)
+			oak(configPredicates, belowTrunkProvider)
 				.decorators(List.of(new LeaveVineDecorator(0.125F), shelfMushroom009.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_WILLOW)))
 				.build()
 		);
@@ -1517,6 +1526,7 @@ public final class WWTreeFeatures {
 				3,
 				1,
 				2,
+				null,
 				0.075F,
 				UniformInt.of(1, 2),
 				0.075F,
@@ -1625,7 +1635,7 @@ public final class WWTreeFeatures {
 
 		// PALE OAK & PALE MUSHROOM
 		PALE_OAK.makeAndSetHolder(
-			paleOak(configPredicates, true, false, false, true, belowTrunkProvider).build()
+			paleOak(configPredicates, true, false, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		PALE_OAK_BONEMEAL.makeAndSetHolder(
@@ -1633,11 +1643,11 @@ public final class WWTreeFeatures {
 		);
 
 		PALE_OAK_CREAKING.makeAndSetHolder(
-			paleOak(configPredicates, true, true, false, true, belowTrunkProvider).build()
+			paleOak(configPredicates, true, true, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, false, false, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, false, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(
@@ -1645,45 +1655,45 @@ public final class WWTreeFeatures {
 		);
 
 		TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, true, false, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, true, false, true, belowPaleOakTrunkProvider).build()
 		);
 
-		FANCY_TALL_PALE_OAK.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, false, false, true, belowTrunkProvider).build()
+		FANCY_PALE_OAK.makeAndSetHolder(
+			fancyPaleOak(configPredicates, true, false, false, true, belowPaleOakTrunkProvider).build()
 		);
 
-		FANCY_TALL_PALE_OAK_BONEMEAL.makeAndSetHolder(
+		FANCY_PALE_OAK_BONEMEAL.makeAndSetHolder(
 			fancyPaleOak(configPredicates, false, false, false, false, belowTrunkProvider).build()
 		);
 
-		FANCY_TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, true, false, true, belowTrunkProvider).build()
+		FANCY_PALE_OAK_CREAKING.makeAndSetHolder(
+			fancyPaleOak(configPredicates, true, true, false, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_TALL_PALE_OAK.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, false, true, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, false, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_TALL_PALE_OAK_CREAKING.makeAndSetHolder(
-			tallPaleOak(configPredicates, true, true, true, true, belowTrunkProvider).build()
+			tallPaleOak(configPredicates, true, true, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, false, true, true, belowTrunkProvider).build()
+			fancyPaleOak(configPredicates, true, false, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		COBWEB_FANCY_PALE_OAK_CREAKING.makeAndSetHolder(
-			fancyPaleOak(configPredicates, true, true, true, true, belowTrunkProvider).build()
+			fancyPaleOak(configPredicates, true, true, true, true, belowPaleOakTrunkProvider).build()
 		);
 
 		LARGE_FALLEN_PALE_OAK.makeAndSetHolder(
-			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, belowTrunkProvider)
+			largeFallenBuilder(Blocks.PALE_OAK_LOG, 4, 2, 1, belowPaleOakTrunkProvider)
 				.decorators(List.of(mossPaleOak, shelfMushroom00875.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_PALE_OAK), mushroomsFallenPaleOak))
 				.build()
 		);
 
 		LARGE_SNAPPED_PALE_OAK.makeAndSetHolder(
-			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, belowTrunkProvider)
+			largeSnappedTrunkBuilder(Blocks.PALE_OAK_LOG, 1, 1, 1, 2, belowPaleOakTrunkProvider)
 				.decorators(List.of(mossPaleOak, shelfMushroom00875.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_PALE_OAK), mushroomsFallenPaleOak))
 				.build()
 		);
@@ -1799,6 +1809,25 @@ public final class WWTreeFeatures {
 
 	}
 
+	// BRANCH PLACEMENT
+	public static BranchPlacement createBranchPlacement(
+		@Nullable Holder<ConfigPredicate> condition,
+		float branchChance,
+		IntProvider maxBranchCount,
+		IntProvider branchCutoffFromTop,
+		IntProvider branchLength
+	) {
+		if (branchChance <= 0F) return BranchPlacement.EMPTY;
+
+		return BranchPlacement.builder()
+			.condition(condition)
+			.branchChance(branchChance)
+			.maxBranchCount(maxBranchCount)
+			.branchCutoffFromTop(branchCutoffFromTop)
+			.branchLength(branchLength)
+			.build();
+	}
+
 	// GENERIC
 	public static TreeFeature.Builder builder(
 		Block log,
@@ -1806,6 +1835,7 @@ public final class WWTreeFeatures {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
+		@Nullable Holder<ConfigPredicate> branchCondition,
 		float branchChance,
 		IntProvider maxBranchCount,
 		IntProvider branchCutoffFromTop,
@@ -1819,7 +1849,10 @@ public final class WWTreeFeatures {
 				baseHeight,
 				firstRandomHeight,
 				secondRandomHeight,
-				new BranchPlacement.Builder()
+				branchChance <= 0
+					? BranchPlacement.EMPTY
+					: BranchPlacement.builder()
+					.condition(branchCondition)
 					.branchChance(branchChance)
 					.maxBranchCount(maxBranchCount)
 					.branchCutoffFromTop(branchCutoffFromTop)
@@ -1899,6 +1932,7 @@ public final class WWTreeFeatures {
 		int baseHeight,
 		int heightRandA,
 		int heightRandB,
+		@Nullable Holder<ConfigPredicate> branchCondition,
 		float branchPlacementChance,
 		IntProvider maxBranchCount,
 		float hollowedProbability,
@@ -1912,6 +1946,7 @@ public final class WWTreeFeatures {
 			heightRandA,
 			heightRandB,
 			new BranchPlacement.Builder()
+				.condition(branchCondition)
 				.branchChance(branchPlacementChance)
 				.maxBranchCount(maxBranchCount)
 				.branchLength(ConstantInt.of(1))
@@ -1988,13 +2023,14 @@ public final class WWTreeFeatures {
 	}
 
 	// OAK
-	public static TreeFeature.Builder oak(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder oak(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.OAK_LOG,
 			Blocks.OAK_LEAVES,
 			6,
 			2,
 			1,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OAK_BRANCH),
 			0.1F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
@@ -2004,13 +2040,14 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder shortOak(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder shortOak(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.OAK_LOG,
 			Blocks.OAK_LEAVES,
 			4,
 			1,
 			0,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OAK_BRANCH),
 			0.095F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
@@ -2091,15 +2128,18 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenOak(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder fallenOak(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.OAK_LOG,
 			WWBlocks.HOLLOWED_OAK_LOG.get(),
 			3,
 			1,
 			2,
-			0.15F,
-			UniformInt.of(1, 2),
+			BranchPlacement.builder()
+				.condition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_OAK_BRANCH))
+				.branchChance(0.15F)
+				.maxBranchCount(UniformInt.of(1, 2))
+				.build(),
 			0.075F,
 			0.4F,
 			belowTrunkProvider
@@ -2107,13 +2147,14 @@ public final class WWTreeFeatures {
 	}
 
 	// BIRCH
-	public static TreeFeature.Builder birch(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder birch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
 			8,
 			5,
 			4,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.15F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
@@ -2123,13 +2164,14 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder superBirch(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder superBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
 			8,
 			6,
 			5,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.15F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
@@ -2139,13 +2181,14 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder shortBirch(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder shortBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
 			6,
 			2,
 			2,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.12F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
@@ -2155,13 +2198,14 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder mediumBirch(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder mediumBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return builder(
 			Blocks.BIRCH_LOG,
 			Blocks.BIRCH_LEAVES,
 			8,
 			2,
 			2,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.12F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
@@ -2199,13 +2243,14 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder fallenBirch(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder fallenBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.BIRCH_LOG,
 			WWBlocks.HOLLOWED_BIRCH_LOG.get(),
 			3,
 			1,
 			2,
+			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.15F,
 			UniformInt.of(1, 2),
 			0.075F,
@@ -2222,8 +2267,6 @@ public final class WWTreeFeatures {
 			5,
 			1,
 			2,
-			0F,
-			UniformInt.of(1, 2),
 			0.075F,
 			0.6F,
 			belowTrunkProvider
@@ -2231,7 +2274,6 @@ public final class WWTreeFeatures {
 	}
 
 	// JUNGLE
-
 	public static TreeFeature.Builder fallenJungle(Holder<BlockStateProvider> belowTrunkProvider) {
 		return fallenTrunkBuilder(
 			Blocks.JUNGLE_LOG,
@@ -2239,8 +2281,6 @@ public final class WWTreeFeatures {
 			4,
 			2,
 			1,
-			0F,
-			UniformInt.of(1, 2),
 			0F,
 			0.5F,
 			belowTrunkProvider
@@ -2255,8 +2295,6 @@ public final class WWTreeFeatures {
 			3,
 			1,
 			1,
-			0F,
-			ConstantInt.of(1),
 			0.055F,
 			0.4F,
 			belowTrunkProvider
@@ -2283,14 +2321,12 @@ public final class WWTreeFeatures {
 	}
 
 	public static TreeFeature.Builder fancyDarkOakBuilder(
+		HolderGetter<ConfigPredicate> configPredicates,
 		Block log,
 		Block leaves,
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		float branchChance,
-		IntProvider maxBranchCount,
-		IntProvider branchLength,
 		int radius,
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
@@ -2300,13 +2336,7 @@ public final class WWTreeFeatures {
 				baseHeight,
 				firstRandomHeight,
 				secondRandomHeight,
-				new BranchPlacement.Builder()
-					.branchChance(branchChance)
-					.maxBranchCount(maxBranchCount)
-					.branchLength(branchLength)
-					.foliagePlacementChance(1F)
-					.offsetLastLogChance(1F)
-					.build()
+				Optional.of(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_DARK_OAK_BRANCH))
 			),
 			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
@@ -2320,16 +2350,14 @@ public final class WWTreeFeatures {
 			.ignoreVines();
 	}
 
-	public static TreeFeature.Builder fancyTallDarkOak(Holder<BlockStateProvider> belowTrunkProvider) {
+	public static TreeFeature.Builder fancyTallDarkOak(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
 		return fancyDarkOakBuilder(
+			configPredicates,
 			Blocks.DARK_OAK_LOG,
 			Blocks.DARK_OAK_LEAVES,
 			10,
 			3,
 			4,
-			1F,
-			UniformInt.of(1, 2),
-			UniformInt.of(1, 4),
 			1,
 			belowTrunkProvider
 		).ignoreVines();
@@ -2420,8 +2448,6 @@ public final class WWTreeFeatures {
 			3,
 			2,
 			2,
-			0F,
-			UniformInt.of(1, 2),
 			0.125F,
 			0.7F,
 			belowTrunkProvider
@@ -2436,8 +2462,6 @@ public final class WWTreeFeatures {
 			4,
 			2,
 			1,
-			0F,
-			ConstantInt.of(1),
 			0.1F,
 			0.4F,
 			belowTrunkProvider
@@ -2487,8 +2511,6 @@ public final class WWTreeFeatures {
 			5,
 			1,
 			2,
-			0F,
-			UniformInt.of(1, 2),
 			0.045F,
 			0.6F,
 			belowTrunkProvider
@@ -2552,6 +2574,7 @@ public final class WWTreeFeatures {
 			3,
 			1,
 			2,
+			null,
 			0.05F,
 			UniformInt.of(1, 2),
 			0.075F,
@@ -2634,6 +2657,7 @@ public final class WWTreeFeatures {
 			3,
 			2,
 			2,
+			null,
 			0.2F,
 			BiasedToBottomInt.of(1, 2),
 			0.075F,
@@ -2663,14 +2687,12 @@ public final class WWTreeFeatures {
 	}
 
 	public static TreeFeature.Builder fancyPaleOakBuilder(
+		HolderGetter<ConfigPredicate> configPredicates,
 		Block log,
 		Block leaves,
 		int baseHeight,
 		int heightRandA,
 		int heightRandB,
-		float branchChance,
-		IntProvider maxBranchCount,
-		IntProvider branchLength,
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
@@ -2679,13 +2701,7 @@ public final class WWTreeFeatures {
 				baseHeight,
 				heightRandA,
 				heightRandB,
-				new BranchPlacement.Builder()
-					.branchChance(branchChance)
-					.maxBranchCount(maxBranchCount)
-					.branchLength(branchLength)
-					.foliagePlacementChance(1F)
-					.offsetLastLogChance(1F)
-					.build()
+				Optional.of(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALE_OAK_BRANCH))
 			),
 			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
@@ -2779,14 +2795,12 @@ public final class WWTreeFeatures {
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		final TreeFeature.Builder builder = fancyPaleOakBuilder(
+			configPredicates,
 			Blocks.PALE_OAK_LOG,
 			Blocks.PALE_OAK_LEAVES,
 			8,
 			3,
 			4,
-			1F,
-			UniformInt.of(1, 2),
-			UniformInt.of(1, 4),
 			belowTrunkProvider
 		);
 		appendPaleOakDecorators(configPredicates, builder, paleMoss, creaking, cobweb, leafLitter);
@@ -2840,6 +2854,7 @@ public final class WWTreeFeatures {
 			3,
 			2,
 			1,
+			null,
 			0.1F,
 			BiasedToBottomInt.of(1, 2),
 			0.075F,
@@ -2998,6 +3013,4 @@ public final class WWTreeFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("tree/" + id));
 	}
-
-	private WWTreeFeatures() {}
 }

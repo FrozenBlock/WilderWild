@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.block.leaves;
 
 import java.util.Optional;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class FallingLeafDatas {
 
 	public static void register(
@@ -512,6 +514,4 @@ public final class FallingLeafDatas {
 			);
 		});
 	}
-
-	private FallingLeafDatas() {}
 }

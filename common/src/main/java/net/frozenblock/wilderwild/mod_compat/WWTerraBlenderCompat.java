@@ -19,16 +19,20 @@ package net.frozenblock.wilderwild.mod_compat;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
+import org.jetbrains.annotations.ApiStatus;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
 import terrablender.api.Regions;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWTerraBlenderCompat {
 
 	public static void setup() {
@@ -45,6 +49,4 @@ public final class WWTerraBlenderCompat {
 			this.addModifiedVanillaOverworldBiomes(mapper, builder -> {});
 		}
 	}
-
-	private WWTerraBlenderCompat() {}
 }

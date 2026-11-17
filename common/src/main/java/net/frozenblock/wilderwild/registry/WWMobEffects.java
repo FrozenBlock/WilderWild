@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.beacon.BeaconEffectRegistry;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
@@ -31,7 +32,9 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWMobEffects {
 	private static final DeferredRegister<MobEffect> REGISTER = DeferredRegister.create(
 		Registries.MOB_EFFECT,
@@ -73,9 +76,8 @@ public final class WWMobEffects {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {
 		BeaconEffectRegistry.register(WWMobEffects.REACH_BOOST.asHolder(), 3);
 	}
-
-	private WWMobEffects() {}
 }

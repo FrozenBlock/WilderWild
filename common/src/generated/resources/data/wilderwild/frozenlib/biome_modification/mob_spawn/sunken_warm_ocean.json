@@ -1,0 +1,25 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {},
+    "spawns_by_category": {
+      "monster": [
+        {
+          "type": "wilderwild:sunken",
+          "count": 1,
+          "weight": 20
+        }
+      ]
+    }
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:not_has_sunken_ocean",
+      "wilderwild:has_sunken_warm_ocean",
+      "wilderwild:not_has_sunken_river",
+      "wilderwild:not_has_sunken_frozen_river"
+    ]
+  }
+}

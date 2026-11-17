@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.entity.ambient.butterfly;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -29,7 +30,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class ButterflyVariants {
 	public static final ResourceKey<ButterflyVariant> MONARCH = createKey("monarch");
 	public static final ResourceKey<ButterflyVariant> RED_LACEWING = createKey("red_lacewing");
@@ -44,16 +47,6 @@ public final class ButterflyVariants {
 		return ResourceKey.create(WilderWildRegistries.BUTTERFLY_VARIANT, WWConstants.id(name));
 	}
 
-	public static void bootstrap(BootstrapContext<ButterflyVariant> context) {
-		register(context, MONARCH, "monarch", WWBiomeTags.BUTTERFLY_MONARCH);
-		register(context, RED_LACEWING, "red_lacewing", WWBiomeTags.BUTTERFLY_RED_LACEWING);
-		register(context, MARBLED, "marbled", WWBiomeTags.BUTTERFLY_MARBLED);
-		register(context, MORPHO_BLUE, "morpho_blue", WWBiomeTags.BUTTERFLY_MORPHO_BLUE);
-		register(context, GREEN_HAIRSTREAK, "green_hairstreak", WWBiomeTags.BUTTERFLY_GREEN_HAIRSTREAK);
-		register(context, CLOUDED_YELLOW, "clouded_yellow", WWBiomeTags.BUTTERFLY_CLOUDED_YELLOW);
-		register(context, DUSKWING, "duskwing", WWBiomeTags.BUTTERFLY_DUSKWING);
-	}
-
 	private static void register(
 		BootstrapContext<ButterflyVariant> context,
 		ResourceKey<ButterflyVariant> name,
@@ -66,5 +59,16 @@ public final class ButterflyVariants {
 			name,
 			new ButterflyVariant(new ClientAsset.ResourceTexture(WWConstants.id(texturePath)), SpawnPrioritySelectors.single(new BiomeCheck(biomes), 1), variantName)
 		);
+	}
+
+	@ApiStatus.Internal
+	public static void bootstrap(BootstrapContext<ButterflyVariant> bootstrapContext) {
+		register(bootstrapContext, MONARCH, "monarch", WWBiomeTags.BUTTERFLY_MONARCH);
+		register(bootstrapContext, RED_LACEWING, "red_lacewing", WWBiomeTags.BUTTERFLY_RED_LACEWING);
+		register(bootstrapContext, MARBLED, "marbled", WWBiomeTags.BUTTERFLY_MARBLED);
+		register(bootstrapContext, MORPHO_BLUE, "morpho_blue", WWBiomeTags.BUTTERFLY_MORPHO_BLUE);
+		register(bootstrapContext, GREEN_HAIRSTREAK, "green_hairstreak", WWBiomeTags.BUTTERFLY_GREEN_HAIRSTREAK);
+		register(bootstrapContext, CLOUDED_YELLOW, "clouded_yellow", WWBiomeTags.BUTTERFLY_CLOUDED_YELLOW);
+		register(bootstrapContext, DUSKWING, "duskwing", WWBiomeTags.BUTTERFLY_DUSKWING);
 	}
 }

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.block;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.block.api.clipgroup.ClipGroups;
 import net.frozenblock.lib.block.impl.clipgroup.ClipGroup;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
@@ -25,7 +26,10 @@ import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWClipGroups {
 
 	public static void bootstrap(BootstrapContext<ClipGroup> context) {
@@ -35,6 +39,4 @@ public final class WWClipGroups {
 	private static ResourceKey<ClipGroup> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.CLIP_GROUP, WWConstants.id(name));
 	}
-
-	private WWClipGroups() {}
 }

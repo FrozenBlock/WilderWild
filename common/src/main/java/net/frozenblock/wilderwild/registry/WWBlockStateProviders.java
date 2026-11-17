@@ -17,6 +17,8 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.AuburnCreepingMossBlock;
 import net.frozenblock.wilderwild.block.AuburnMossCarpetBlock;
@@ -28,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -44,8 +47,9 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntSt
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
-import java.util.List;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWBlockStateProviders {
 	// AQUATIC
 	// AUBURN MOSS
@@ -131,9 +135,12 @@ public final class WWBlockStateProviders {
 
 	public static final ResourceKey<BlockStateProvider> BAOBAB_NUT = bind("baobab_nut");
 	public static final ResourceKey<BlockStateProvider> COCONUT = bind("coconut");
+
 	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_WATERLOGGABLE_TREE = bind("soil_beneath_waterloggable_tree");
 	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_DESERT_TREE = bind("soil_beneath_desert_tree");
+	public static final ResourceKey<BlockStateProvider> SOIL_BENEATH_PALE_OAK_TREE = bind("soil_beneath_pale_oak_tree");
 
+	@ApiStatus.Internal
 	public static void bootstrap(BootstrapContext<BlockStateProvider> context) {
 		// AQUATIC
 		// AUBURN MOSS
@@ -960,7 +967,6 @@ public final class WWBlockStateProviders {
 				UniformInt.of(0, 2)
 			)
 		);
-
 		context.register(
 			COCONUT,
 			BlockStateProvider.of(WWBlocks.COCONUT.get().defaultBlockState().setValue(BlockStateProperties.HANGING, true))
@@ -980,11 +986,19 @@ public final class WWBlockStateProviders {
 				Blocks.DIRT
 			)
 		);
+		context.register(
+			SOIL_BENEATH_PALE_OAK_TREE,
+			RuleBasedStateProvider.ifTrueThenProvide(
+				BlockPredicate.anyOf(
+					BlockPredicate.matchesTag(WWBlockTags.CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK),
+					BlockPredicate.not(BlockPredicate.matchesTag(BlockTags.CANNOT_REPLACE_BELOW_TREE_TRUNK))
+				),
+				Blocks.DIRT
+			)
+		);
 	}
 
 	private static ResourceKey<BlockStateProvider> bind(String name) {
 		return ResourceKey.create(Registries.BLOCK_STATE_PROVIDER, WWConstants.id(name));
 	}
-
-	private WWBlockStateProviders() {}
 }

@@ -17,13 +17,17 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.lib.wind.extension.WindManagerExtensionType;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWWindManagerExtensionTypes {
 	private static final DeferredRegister<WindManagerExtensionType<?>> REGISTER = DeferredRegister.create(
 		FrozenLibRegistries.WIND_MANAGER_EXTENSION_TYPE,
@@ -45,6 +49,4 @@ public final class WWWindManagerExtensionTypes {
 	}
 
 	public static void init() {}
-
-	private WWWindManagerExtensionTypes() {}
 }

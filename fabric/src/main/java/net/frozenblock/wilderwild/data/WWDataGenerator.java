@@ -47,6 +47,7 @@ import net.frozenblock.wilderwild.data.tag.WWFeatureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWFluidTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWGameEventTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWItemTagsProvider;
+import net.frozenblock.wilderwild.data.tag.WWPlacedFeatureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWStructureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWTimelineTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
@@ -60,7 +61,15 @@ import net.frozenblock.wilderwild.data.wilder_aquatic.WAEquipmentLootProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAItemTagsProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WARecipeProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAShearingLootProvider;
+import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialConditions;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialRules;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWAquaticFeatureModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWBiomeColorModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWEnvironmentAttributeModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWFlowerFeatureModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWMobSpawnModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWTreeFeatureModifications;
+import net.frozenblock.wilderwild.data.worldgen.modification.WWVegetationFeatureModifications;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWAbandonedCampStructurePools;
 import net.frozenblock.wilderwild.data.worldgen.structure.WWStructureMusic;
@@ -72,7 +81,7 @@ import net.frozenblock.wilderwild.entity.animal.cow.MoobloomVariants;
 import net.frozenblock.wilderwild.entity.animal.crab.CrabVariants;
 import net.frozenblock.wilderwild.entity.animal.jellyfish.JellyfishVariants;
 import net.frozenblock.wilderwild.entity.monster.skeleton.SunkenVariants;
-import net.frozenblock.wilderwild.registry.WWBiomeEnvironmentAttributeModifications;
+import net.frozenblock.wilderwild.registry.WWBiomeSelectors;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockSoundSets;
 import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
@@ -89,7 +98,9 @@ import net.frozenblock.wilderwild.registry.WWWaterLikeTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWDataGenerator implements DataGeneratorEntrypoint {
 
 	@Override
@@ -118,6 +129,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(WWGameEventTagsProvider::new);
 		pack.addProvider(WWVillagerTradesTagsProvider::new);
 		pack.addProvider(WWFeatureTagsProvider::new);
+		pack.addProvider(WWPlacedFeatureTagsProvider::new);
 		pack.addProvider(WWStructureTagsProvider::new);
 		pack.addProvider(WWTimelineTagsProvider::new);
 		pack.addProvider(WWEntityLootProvider::new);
@@ -157,6 +169,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.BIOME, WWBiomes::bootstrap);
 		registryBuilder.add(Registries.NOISE, WWNoises::bootstrap);
 		registryBuilder.add(Registries.MATERIAL_RULE, WWMaterialRules::bootstrapRules);
+		registryBuilder.add(Registries.MATERIAL_CONDITION, WWMaterialConditions::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, WWVillagerTrades::bootstrap);
 		registryBuilder.add(Registries.TRIAL_SPAWNER_CONFIG, WWTrialSpawnerConfigs::bootstrap);
 		registryBuilder.add(Registries.TRIM_MATERIAL, WWTrimMaterials::bootstrap);
@@ -167,7 +180,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.BLOCK_SOUND_SET, WWBlockSoundSets::bootstrap);
 
 		// FrozenLib Registries
-		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER, WWConfigPredicates::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE, WWConfigPredicates::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.BLOCK_SOUND_SET_OVERRIDE, WWBlockSoundSetOverrides::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.CLIP_GROUP, WWClipGroups::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.WATER_LIKE_TYPE, WWWaterLikeTypes::bootstrap);
@@ -176,7 +189,14 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(FrozenLibRegistries.PLAYER_DAMAGE_TYPE_SOUND, WWPlayerDamageTypeSounds::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.STRUCTURE_PROCESSOR_LIST_ADDITION, WWStructureProcessorListAdditions::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.VARIANT_SPAWN_INJECTION, WWVariantSpawnInjections::bootstrap);
-		registryBuilder.add(FrozenLibRegistries.BIOME_ENVIRONMENT_ATTRIBUTE_MODIFICATION, WWBiomeEnvironmentAttributeModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_SELECTOR, WWBiomeSelectors::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWAquaticFeatureModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWFlowerFeatureModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWTreeFeatureModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWVegetationFeatureModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWMobSpawnModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWEnvironmentAttributeModifications::bootstrap);
+		registryBuilder.add(FrozenLibRegistries.BIOME_MODIFICATION, WWBiomeColorModifications::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.MUSIC_PITCH_PROVIDER, WWMusicPitchProviders::bootstrap);
 		registryBuilder.add(FrozenLibRegistries.SUFFOCATION_TYPE, WWSuffocationTypes::bootstrap);
 

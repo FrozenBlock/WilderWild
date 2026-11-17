@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.item.api.component.removable.RemovableItemTags;
 import net.frozenblock.lib.item.api.loot.LootTableEvents;
 import net.frozenblock.lib.item.api.loot.LootTableModification;
@@ -54,7 +55,10 @@ import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWLootTables {
 	// BLOCKS
 	public static final ResourceKey<LootTable> HARVEST_MILKWEED = register("harvest/milkweed");
@@ -303,6 +307,4 @@ public final class WWLootTables {
 	private static ResourceKey<LootTable> register(String name) {
 		return ResourceKey.create(Registries.LOOT_TABLE, WWConstants.id(name));
 	}
-
-	private WWLootTables() {}
 }

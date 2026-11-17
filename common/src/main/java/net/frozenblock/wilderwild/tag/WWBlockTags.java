@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+@UtilityClass
 public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_GRASS = bind("sound/grass");
 	public static final TagKey<Block> SOUND_FROZEN_GRASS = bind("sound/frozen_grass");
@@ -109,6 +111,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SUPPORTS_WATERLOGGABLE_SAPLING = bind("supports_waterloggable_sapling");
 	public static final TagKey<Block> CANNOT_REPLACE_BELOW_TREE_TRUNK_WATERLOGGABLE = bind("cannot_replace_below_tree_trunk_waterloggable");
 	public static final TagKey<Block> CANNOT_REPLACE_BELOW_TREE_TRUNK_DESERT = bind("cannot_replace_below_tree_trunk_desert");
+	public static final TagKey<Block> CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK = bind("can_replace_below_tree_trunk_pale_oak");
+
 	public static final TagKey<Block> SUPPORTS_SHRUB = bind("supports_shrub");
 
 	public static final TagKey<Block> CYPRESS_GROWS_AS_JUNIPER_ON = bind("cypress_grows_as_juniper_on");
@@ -116,6 +120,4 @@ public final class WWBlockTags {
 	private static TagKey<Block> bind(String name) {
 		return TagKey.create(Registries.BLOCK, WWConstants.id(name));
 	}
-
-	private WWBlockTags() {}
 }

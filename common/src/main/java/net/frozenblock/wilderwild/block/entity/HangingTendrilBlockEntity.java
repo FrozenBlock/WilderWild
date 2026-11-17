@@ -22,7 +22,7 @@ import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -110,10 +110,10 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 	}
 
 	@Override
-	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+	public CompoundTag getUpdateTag(HolderGetter.Provider registries) {
 		try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
 			final TagValueOutput output = TagValueOutput.createWithContext(scopedCollector, registries);
-			this.saveClientUsableNbt(output);
+			this.saveSyncable(output);
 			return output.buildResult();
 		}
 	}
@@ -136,12 +136,12 @@ public class HangingTendrilBlockEntity extends BlockEntity implements GameEventL
 		output.putInt("last_vibration_frequency", this.lastVibrationFrequency);
 		if (this.storedXP > 0) output.putInt("storedXP", this.storedXP);
 		if (this.activeTicks > 0) output.putInt("activeTicks", this.activeTicks);
-		this.saveClientUsableNbt(output);
+		this.saveSyncable(output);
 
 		output.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
 	}
 
-	public void saveClientUsableNbt(ValueOutput output) {
+	public void saveSyncable(ValueOutput output) {
 		if (this.ticksToStopTwitching > 0) output.putInt("ticksToStopTwitching", this.ticksToStopTwitching);
 		if (this.wringOutTicksLeft > 0) output.putInt("ringOutTicksLeft", this.wringOutTicksLeft);
 	}

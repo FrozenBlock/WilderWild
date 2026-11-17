@@ -1,0 +1,79 @@
+{
+  "type": "minecraft:tree",
+  "below_trunk_provider": "wilderwild:soil_beneath_pale_oak_tree",
+  "decorators": [
+    {
+      "type": "frozenlib:probability",
+      "decorator": {
+        "type": "frozenlib:config_predicate",
+        "decorator": {
+          "type": "minecraft:shelf_mushroom",
+          "probability": 0.25
+        },
+        "predicate": "wilderwild:generate_shelf_mushroom_pale_oak"
+      },
+      "probability": 0.0875
+    },
+    {
+      "type": "minecraft:pale_moss",
+      "ground_probability": 0.8,
+      "leaves_probability": 0.15,
+      "trunk_probability": 0.4
+    },
+    {
+      "type": "minecraft:creaking_heart",
+      "probability": 1.0
+    },
+    {
+      "type": "minecraft:place_on_ground",
+      "block_state_provider": {
+        "type": "frozenlib:leaf_litter_provider",
+        "block": "wilderwild:pale_oak_leaf_litter",
+        "max_segment": 3
+      },
+      "height": 2,
+      "radius": 4,
+      "tries": 96
+    },
+    {
+      "type": "minecraft:place_on_ground",
+      "block_state_provider": {
+        "type": "frozenlib:leaf_litter_provider",
+        "block": "wilderwild:pale_oak_leaf_litter"
+      },
+      "height": 2,
+      "tries": 150
+    }
+  ],
+  "foliage_placer": {
+    "type": "minecraft:dark_oak_foliage_placer",
+    "offset": 0,
+    "radius": 0
+  },
+  "foliage_provider": {
+    "id": "minecraft:pale_oak_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "false",
+      "waterlogged": "false"
+    }
+  },
+  "ignore_vines": true,
+  "minimum_size": {
+    "type": "minecraft:three_layers_feature_size",
+    "upper_size": 2
+  },
+  "trunk_placer": {
+    "type": "wilderwild:fancy_dark_oak_trunk_placer",
+    "base_height": 8,
+    "branch_condition": "wilderwild:generate_pale_oak_branch",
+    "height_rand_a": 3,
+    "height_rand_b": 4
+  },
+  "trunk_provider": {
+    "id": "minecraft:pale_oak_log",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

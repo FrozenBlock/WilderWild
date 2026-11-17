@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.tag;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
+@UtilityClass
 public final class WWStructureTags {
 	public static final TagKey<Structure> ON_ABANDONED_CAMP_MAPLE_FOREST_MAPS = bind("on_abandoned_camp_maple_forest");
 

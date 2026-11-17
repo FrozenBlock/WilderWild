@@ -132,8 +132,8 @@ public class TermiteManager {
 		output.putInt("termiteSpawnCooldown", this.termiteSpawnCooldown);
 	}
 
-	public void saveWithoutMetadata(ValueOutput output) {
-		if (this.termite != null) output.store("termite", Termite.SHORT_CODEC, this.termite);
+	public void saveTermitesForNetwork(ValueOutput output) {
+		if (this.termite != null) output.store("termite", Termite.NETWORK_CODEC, this.termite);
 	}
 
 	public void load(ValueInput input) {
@@ -161,7 +161,7 @@ public class TermiteManager {
 			Codec.INT.optionalFieldOf("update_delay", 0).forGetter(Termite::getUpdateTicks),
 			Codec.BOOL.optionalFieldOf("eating", false).forGetter(Termite::getEating)
 		).apply(instance, Termite::new));
-		public static final Codec<Termite> SHORT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final Codec<Termite> NETWORK_CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			BlockPos.CODEC.fieldOf("pos").forGetter(Termite::getPos),
 			Codec.BOOL.optionalFieldOf("eating", false).forGetter(Termite::getEating)
 		).apply(instance, Termite::new));

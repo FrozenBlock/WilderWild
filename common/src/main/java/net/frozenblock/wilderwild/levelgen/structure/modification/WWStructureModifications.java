@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.levelgen.structure.modification;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.structure.api.StructureSetEvents;
 import net.frozenblock.lib.levelgen.structure.api.pools.RandomGroupPoolAliasEvents;
 import net.frozenblock.lib.levelgen.structure.api.pools.RandomPoolAliasEvents;
@@ -31,7 +32,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWStructureModifications {
 
 	public static void init() {
@@ -74,6 +78,4 @@ public final class WWStructureModifications {
 			if (!sunkenGroup.isEmpty()) context.add(sunkenGroup, 1);
 		});
 	}
-
-	private WWStructureModifications() {}
 }

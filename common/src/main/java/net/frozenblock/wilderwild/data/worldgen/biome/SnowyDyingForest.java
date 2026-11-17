@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 
 import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
 import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
@@ -27,7 +28,6 @@ import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -131,7 +131,7 @@ public final class SnowyDyingForest extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (!WWWorldgenConfig.SNOWY_DYING_FOREST_GENERATION.get()) return;
 
 		final Climate.Parameter temperature = WWWorldgenConfig.TUNDRA_GENERATION.get() ? TEMPERATURE_TUNDRA : TEMPERATURE;

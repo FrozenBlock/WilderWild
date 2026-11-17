@@ -1,0 +1,24 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": [
+      "wilderwild:flower/flower_forest",
+      "wilderwild:flower/patch_flower_forest"
+    ],
+    "step": "vegetal_decoration"
+  },
+  "phase": "replacements",
+  "removals": {
+    "features": "#wilderwild:forest_default_flowers"
+  },
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:generate_flower",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:feature/flower/forest_flowers"
+      }
+    ]
+  }
+}

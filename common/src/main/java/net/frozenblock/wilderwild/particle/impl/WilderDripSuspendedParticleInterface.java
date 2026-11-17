@@ -18,7 +18,9 @@
 package net.frozenblock.wilderwild.particle.impl;
 
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 @ClientOnly
 public interface WilderDripSuspendedParticleInterface {
 	void wilderWild$setUsesWind(boolean usesWind);

@@ -135,7 +135,9 @@ public class StoneChestBlock extends ChestBlock {
 			final MenuProvider menuProvider = this.getMenuProvider(state, level, pos);
 			if (!hasLid(level, pos) && (!player.isShiftKeyDown() || stoneChest.openProgress >= MAX_OPENABLE_PROGRESS) && menuProvider != null) {
 				return super.useWithoutItem(state, level, pos, player, hitResult);
-			} else if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
+			}
+
+			if (stoneChest.openProgress < MAX_OPENABLE_PROGRESS) {
 				final MenuProvider lidCheck = this.getBlockEntitySourceIgnoreLid(state, level, pos, false).apply(STONE_NAME_RETRIEVER).orElse(null);
 				final boolean isFirstLift = stoneChest.openProgress == 0F;
 				if (lidCheck == null) {
@@ -157,11 +159,10 @@ public class StoneChestBlock extends ChestBlock {
 					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER.get() : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER.get(),
 					0.35F
 				);
-				level.gameEvent(player, GameEvent.CONTAINER_OPEN, pos);
+				level.gameEvent(player, GameEvent.BLOCK_OPEN, pos);
+				stoneChest.syncLidValuesAndUpdate(ChestUtil.getCoupledStoneChestBlockEntity(level, pos, state).orElse(null));
 			}
 		}
-
-		stoneChest.syncLidValuesAndUpdate(ChestUtil.getCoupledStoneChestBlockEntity(level, pos, state).orElse(null));
 
 		return InteractionResult.CONSUME;
 	}
@@ -175,8 +176,8 @@ public class StoneChestBlock extends ChestBlock {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		return level.isClientSide()
-			? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST.get(), StoneChestBlockEntity::clientStoneTick)
-			: BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST.get(), StoneChestBlockEntity::serverStoneTick);
+			? BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST.get(), StoneChestBlockEntity::clientTick)
+			: BaseEntityBlock.createTickerHelper(type, WWBlockEntityTypes.STONE_CHEST.get(), StoneChestBlockEntity::serverTick);
 	}
 
 	@Override

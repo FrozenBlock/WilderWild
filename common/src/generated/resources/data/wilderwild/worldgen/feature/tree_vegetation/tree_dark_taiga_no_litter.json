@@ -48,7 +48,7 @@
     },
     {
       "chance": 0.08,
-      "feature": "wilderwild:tree/fancy_tall_dark_oak"
+      "feature": "wilderwild:tree/fancy_dark_oak"
     },
     {
       "chance": 0.024,
@@ -56,7 +56,7 @@
     },
     {
       "chance": 0.01,
-      "feature": "wilderwild:tree/fancy_dying_tall_dark_oak"
+      "feature": "wilderwild:tree/fancy_dying_dark_oak"
     },
     {
       "chance": 0.031,

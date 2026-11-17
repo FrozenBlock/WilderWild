@@ -24,7 +24,9 @@ import net.frozenblock.lib.config.v1.instance.json.JsonType;
 import net.frozenblock.lib.config.v1.registry.BasicConfigRegistry;
 import static net.frozenblock.wilderwild.WWPreLoadConstants.MOD_ID;
 import net.frozenblock.wilderwild.WWPreLoadConstants;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWMixinsConfig {
 	public static final BasicConfig<WWMixinsConfig> INSTANCE = BasicConfigRegistry.register(
 		new JsonBasicConfig<>(

@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "minecraft:dappled_forest",
-      "required": false
-    }
+    "minecraft:dappled_forest"
   ]
 }

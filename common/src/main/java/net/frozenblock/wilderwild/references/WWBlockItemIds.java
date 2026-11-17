@@ -17,13 +17,16 @@
 
 package net.frozenblock.wilderwild.references;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.Identifier;
 
+@UtilityClass
 public final class WWBlockItemIds {
 	// MUD
 	public static final BlockItemId CHISELED_MUD_BRICKS = create("chiseled_mud_bricks");
@@ -115,15 +118,11 @@ public final class WWBlockItemIds {
 	public static final BlockItemId ECHO_GLASS = create("echo_glass");
 
 	// MESOGLEA
-	public static final BlockItemId PEARLESCENT_BLUE_MESOGLEA = create("pearlescent_blue_mesoglea");
-	public static final BlockItemId PEARLESCENT_PURPLE_MESOGLEA = create("pearlescent_purple_mesoglea");
-	public static final BlockItemId YELLOW_MESOGLEA = create("yellow_mesoglea");
-	public static final BlockItemId BLUE_MESOGLEA = create("blue_mesoglea");
-	public static final BlockItemId LIME_MESOGLEA = create("lime_mesoglea");
-	public static final BlockItemId RED_MESOGLEA = create("red_mesoglea");
-	public static final BlockItemId PINK_MESOGLEA = create("pink_mesoglea");
+	public static final MesogleaCollection<BlockItemId> MESOGLEA = MesogleaCollection.NAMES.map(name -> create(name + "_mesoglea"));
 
 	// NEMATOCYST
+	public static final MesogleaCollection<BlockItemId> NEMATOCYST = MesogleaCollection.NAMES.map(name -> create(name + "_nematocyst"));
+
 	public static final BlockItemId PEARLESCENT_BLUE_NEMATOCYST = create("pearlescent_blue_nematocyst");
 	public static final BlockItemId PEARLESCENT_PURPLE_NEMATOCYST = create("pearlescent_purple_nematocyst");
 	public static final BlockItemId YELLOW_NEMATOCYST = create("yellow_nematocyst");

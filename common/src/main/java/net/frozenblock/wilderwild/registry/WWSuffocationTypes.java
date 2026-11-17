@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.entity.api.suffocation.AirBehavior;
 import net.frozenblock.lib.entity.api.suffocation.MeterStyle;
 import net.frozenblock.lib.entity.api.suffocation.SuffocationTypes;
@@ -24,25 +25,23 @@ import net.frozenblock.lib.entity.impl.suffocation.SuffocationType;
 import net.frozenblock.lib.platform.api.registry.DeferredBlock;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWSuffocationTypes {
 
 	public static void bootstrap(BootstrapContext<SuffocationType> context) {
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
-		registerMesoglea(context, WWBlocks.PEARLESCENT_BLUE_MESOGLEA, "pearlescent_blue");
-		registerMesoglea(context, WWBlocks.PEARLESCENT_PURPLE_MESOGLEA, "pearlescent_purple");
-		registerMesoglea(context, WWBlocks.YELLOW_MESOGLEA, "yellow");
-		registerMesoglea(context, WWBlocks.BLUE_MESOGLEA, "blue");
-		registerMesoglea(context, WWBlocks.LIME_MESOGLEA, "lime");
-		registerMesoglea(context, WWBlocks.RED_MESOGLEA, "red");
-		registerMesoglea(context, WWBlocks.PINK_MESOGLEA, "pink");
+		MesogleaCollection.DYE_COLORS.forEach(color -> registerMesoglea(context, WWBlocks.MESOGLEA.pick(color), MesogleaCollection.NAMES.pick(color)));
 	}
 
 	private static void registerMesoglea(BootstrapContext<SuffocationType> context, DeferredBlock<? extends Block> sourceBlock, String color) {
@@ -65,6 +64,4 @@ public final class WWSuffocationTypes {
 	private static ResourceKey<SuffocationType> createKey(String name) {
 		return ResourceKey.create(FrozenLibRegistries.SUFFOCATION_TYPE, WWConstants.id(name));
 	}
-
-	private WWSuffocationTypes() {}
 }

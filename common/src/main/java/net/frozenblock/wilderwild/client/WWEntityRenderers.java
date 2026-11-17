@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
@@ -41,7 +42,10 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWEntityRenderers {
 
@@ -175,6 +179,4 @@ public final class WWEntityRenderers {
 	private static ResourceKey<EntityRendererProvider<?>> entityKey(ResourceKey<EntityType<?>> type) {
 		return ResourceKey.create(ClientRegistries.ENTITY_RENDERER, type.identifier());
 	}
-
-	private WWEntityRenderers() {}
 }

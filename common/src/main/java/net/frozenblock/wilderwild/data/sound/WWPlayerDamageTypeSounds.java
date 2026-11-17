@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.sound;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.impl.damage.PlayerDamageTypeSound;
 import net.frozenblock.wilderwild.WWConstants;
@@ -28,7 +29,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWPlayerDamageTypeSounds {
 
 	public static void bootstrap(BootstrapContext<PlayerDamageTypeSound> context) {

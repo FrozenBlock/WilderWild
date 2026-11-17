@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.config.gui;
 
+import lombok.experimental.UtilityClass;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelper.booleanEntry;
@@ -31,7 +32,10 @@ import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWWorldgenConfigGui {
 
@@ -122,13 +126,13 @@ public final class WWWorldgenConfigGui {
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.MANGROVE_LEAF_LITTER.get(), WWWorldgenConfig.MANGROVE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, Blocks.LEAF_LITTER, WWWorldgenConfig.OAK_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALE_OAK_LEAF_LITTER.get(), WWWorldgenConfig.PALE_OAK_LITTER_GENERATION),
+			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER.get(), WWWorldgenConfig.PALM_LITTER_GENERATION),
 			booleanEntry(
 				builder,
 				Component.translatable("option.wilderwild.poplar_leaf_litter_generation"),
 				WWWorldgenConfig.POPLAR_LITTER_GENERATION,
 				Component.translatable("tooltip.wilderwild.poplar_leaf_litter_generation")
 			),
-			litterBlockGenerationBooleanEntry(builder, WWBlocks.PALM_FROND_LITTER.get(), WWWorldgenConfig.PALM_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.SPRUCE_LEAF_LITTER.get(), WWWorldgenConfig.SPRUCE_LITTER_GENERATION),
 			litterBlockGenerationBooleanEntry(builder, WWBlocks.WILLOW_LEAF_LITTER.get(), WWWorldgenConfig.WILLOW_LITTER_GENERATION)
 		);
@@ -151,7 +155,6 @@ public final class WWWorldgenConfigGui {
 		// SURFACE DECORATION
 		createSubCategory(builder, category, text("surface_decoration"), tooltip("surface_decoration"),
 			booleanEntry(builder, "coarse_decoration", WWWorldgenConfig.COARSE_DIRT_DECORATION),
-			booleanEntry(builder, "gravel_decoration", WWWorldgenConfig.GRAVEL_DECORATION),
 			booleanEntry(builder, "mud_decoration", WWWorldgenConfig.MUD_DECORATION),
 			booleanEntry(builder, "packed_mud_decoration", WWWorldgenConfig.PACKED_MUD_DECORATION),
 			booleanEntry(builder, "stone_decoration", WWWorldgenConfig.STONE_DECORATION),
@@ -161,8 +164,8 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "scorched_sand_decoration", WWWorldgenConfig.SCORCHED_SAND_DECORATION),
 			booleanEntry(builder, "scorched_red_sand_decoration", WWWorldgenConfig.SCORCHED_RED_SAND_DECORATION),
 			booleanEntry(builder, "sandstone_decoration", WWWorldgenConfig.SANDSTONE_DECORATION),
-			booleanEntry(builder, "clay_decoration", WWWorldgenConfig.CLAY_DECORATION),
-			booleanEntry(builder, "clearing_decoration", WWWorldgenConfig.CLEARING_DECORATION),
+			booleanEntry(builder, "clearing_generation", WWWorldgenConfig.CLEARING_GENERATION),
+			booleanEntry(builder, "clearing_path_decoration", WWWorldgenConfig.CLEARING_PATH_DECORATION),
 			booleanEntry(builder, "snow_piles", WWWorldgenConfig.SNOW_PILE_DECORATION),
 			booleanEntry(builder, "brittle_ice_decoration", WWWorldgenConfig.BRITTLE_ICE_DECORATION),
 			booleanEntry(builder, "icicle_decoration", WWWorldgenConfig.ICICLE_DECORATION),
@@ -211,6 +214,4 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "new_witch_huts", WWWorldgenConfig.NEW_WITCH_HUT_GENERATION)
 		);
 	}
-
-	private WWWorldgenConfigGui() {}
 }

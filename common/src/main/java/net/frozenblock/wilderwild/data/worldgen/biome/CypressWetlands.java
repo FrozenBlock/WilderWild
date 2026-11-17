@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.biome;
 import com.mojang.datafixers.util.Pair;
 import java.util.List;
 import java.util.function.Consumer;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
@@ -32,7 +33,6 @@ import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
-import net.frozenblock.wilderwild.mod_compat.WWModIntegrations;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -136,20 +136,19 @@ public final class CypressWetlands extends FrozenLibBiome {
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWAquaticPlacements.SEAGRASS_CYPRESS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_CYPRESS_WETLANDS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_CYPRESS_WETLANDS_WATER.getKey());
-		this.addCypressPaths(features);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.FLOWER_RAINFOREST.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWFlowerPlacements.PATCH_FLOWER_RAINFOREST.getKey());
 		BiomeDefaultFeatures.addDefaultOres(features);
+		this.addCypressSoftDisks(features);
 		BiomeDefaultFeatures.addWarmFlowers(features);
 		BiomeDefaultFeatures.addBushes(features);
 		BiomeDefaultFeatures.addForestGrass(features);
 		this.addCypressVegetation(features);
 	}
 
-	public void addCypressPaths(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_SAND_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_GRAVEL_PATH.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH.getKey());
+	public void addCypressSoftDisks(BiomeGenerationSettings.Builder builder) {
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_CLAY_LARGE.getKey());
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_SAND_SPARSE.getKey());
 	}
 
 	public void addCypressVegetation(BiomeGenerationSettings.Builder builder) {
@@ -174,7 +173,7 @@ public final class CypressWetlands extends FrozenLibBiome {
 
 	@Override
 	public void injectToOverworld(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters) {
-		if (WWModIntegrations.isBiolithRegisteredAndLoaded()) return;
+		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (!WWWorldgenConfig.CYPRESS_WETLANDS_GENERATION.get()) return;
 
 		this.addSurfaceBiome(

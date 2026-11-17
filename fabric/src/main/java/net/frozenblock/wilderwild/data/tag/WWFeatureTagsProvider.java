@@ -26,7 +26,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.FeatureTags;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWFeatureTagsProvider extends FabricTagsProvider<Feature> {
 
 	public WWFeatureTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -36,7 +38,7 @@ public final class WWFeatureTagsProvider extends FabricTagsProvider<Feature> {
 	@Override
 	public void addTags(HolderLookup.Provider arg) {
 		this.builder(FeatureTags.CAN_SPAWN_FROM_BONE_MEAL)
-			.add(WWVegetationFeatures.CLOVER.getKey())
+			.add(WWVegetationFeatures.CLOVERS.getKey())
 			.add(WWFlowerFeatures.ALLIUM.getKey())
 			.add(WWFlowerFeatures.AZURE_BLUET.getKey())
 			.add(WWFlowerFeatures.BLUE_ORCHID.getKey())

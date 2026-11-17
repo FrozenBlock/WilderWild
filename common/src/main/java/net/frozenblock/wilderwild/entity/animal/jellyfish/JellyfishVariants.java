@@ -17,7 +17,9 @@
 
 package net.frozenblock.wilderwild.entity.animal.jellyfish;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -31,30 +33,15 @@ import net.minecraft.world.entity.variant.BiomeCheck;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class JellyfishVariants {
-	public static final ResourceKey<JellyfishVariant> BLUE = createKey("blue");
-	public static final ResourceKey<JellyfishVariant> LIME = createKey("lime");
-	public static final ResourceKey<JellyfishVariant> PINK = createKey("pink");
-	public static final ResourceKey<JellyfishVariant> RED = createKey("red");
-	public static final ResourceKey<JellyfishVariant> YELLOW = createKey("yellow");
-	public static final ResourceKey<JellyfishVariant> PEARLESCENT_BLUE = createKey("pearlescent_blue");
-	public static final ResourceKey<JellyfishVariant> PEARLESCENT_PURPLE = createKey("pearlescent_purple");
-	public static final ResourceKey<JellyfishVariant> DEFAULT = PINK;
+	public static final MesogleaCollection<ResourceKey<JellyfishVariant>> VARIANT = MesogleaCollection.NAMES.map(JellyfishVariants::createKey);
+	public static final ResourceKey<JellyfishVariant> DEFAULT = VARIANT.pink();
 
 	private static ResourceKey<JellyfishVariant> createKey(String name) {
 		return ResourceKey.create(WilderWildRegistries.JELLYFISH_VARIANT, WWConstants.id(name));
-	}
-
-	public static void bootstrap(BootstrapContext<JellyfishVariant> context) {
-		register(context, BLUE, "blue", false, WWBiomeTags.BLUE_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(context, LIME, "lime", false, WWBiomeTags.LIME_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(context, PINK, "pink", false, WWBiomeTags.PINK_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(context, RED, "red", false, WWBiomeTags.RED_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-		register(context, YELLOW, "yellow", false, WWBiomeTags.YELLOW_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
-
-		register(context, PEARLESCENT_BLUE, "pearlescent_blue", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
-		register(context, PEARLESCENT_PURPLE, "pearlescent_purple", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
 	}
 
 	private static void register(
@@ -77,5 +64,16 @@ public final class JellyfishVariants {
 				context.lookup(Registries.ITEM).getOrThrow(foodItem)
 			)
 		);
+	}
+
+	@ApiStatus.Internal
+	public static void bootstrap(BootstrapContext<JellyfishVariant> context) {
+		register(context, VARIANT.pearlescentBlue(), "pearlescent_blue", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
+		register(context, VARIANT.pearlescentPurple(), "pearlescent_purple", true, WWBiomeTags.PEARLESCENT_JELLYFISH, WWItemTags.PEARLESCENT_JELLYFISH_FOOD);
+		register(context, VARIANT.blue(), "blue", false, WWBiomeTags.BLUE_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(context, VARIANT.pink(), "pink", false, WWBiomeTags.PINK_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(context, VARIANT.red(), "red", false, WWBiomeTags.RED_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(context, VARIANT.yellow(), "yellow", false, WWBiomeTags.YELLOW_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
+		register(context, VARIANT.lime(), "lime", false, WWBiomeTags.LIME_JELLYFISH, WWItemTags.JELLYFISH_FOOD);
 	}
 }

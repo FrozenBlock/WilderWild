@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInAreaBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
@@ -35,7 +36,6 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
 import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
 import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
@@ -79,7 +79,10 @@ import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWCaveFeatures {
 	// MESOGLEA CAVES
 	public static final FrozenLibFeature ORE_CALCITE = register("ore_calcite");
@@ -114,7 +117,7 @@ public final class WWCaveFeatures {
 	public static void bootstrap(BootstrapContext<Feature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		// MESOGLEA CAVES
@@ -130,7 +133,7 @@ public final class WWCaveFeatures {
 			new FlexibleWaterloggedVegetationPatchFeature(
 				blocks.getOrThrow(BlockTags.LUSH_GROUND_REPLACEABLE),
 				BlockStateProvider.holderOf(Blocks.STONE),
-				WWMiscConfigured.EMPTY.asInlinePlaced(),
+				PlacementUtils.inlinePlaced(new NoOpFeature()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(4),
 				0.8F,
@@ -149,12 +152,12 @@ public final class WWCaveFeatures {
 					.calculateNoiseWithY()
 					.scaleYNoise()
 					.noiseBandBlockPlacements(
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get()))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.MESOGLEA.pearlescentBlue().get()))
 							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS))
 							.within(0.5125D, 0.5875D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
 							.build(),
-						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get()))
+						new NoiseBandBlockPlacement.Builder(BlockStateProvider.holderOf(WWBlocks.MESOGLEA.pearlescentPurple().get()))
 							.replacementPredicate(BlockPredicate.matchesTag(WWFeatureBlockTags.MESOGLEA_AND_NEMATOCYST_BASE_BLOCKS))
 							.within(-0.5875D, -0.5125D)
 							.searchingPredicate(SearchInAreaBlockPredicate.hasAirOrWaterWithin(2))
@@ -164,15 +167,15 @@ public final class WWCaveFeatures {
 			)
 		);
 
-		registerMesogleaPatch(context, PATCH_MESOGLEA, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get(), WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get(), false);
-		registerMesogleaPatch(context, PATCH_MESOGLEA_CEILING, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get(), WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get(), true);
+		registerMesogleaPatch(context, PATCH_MESOGLEA, WWBlocks.MESOGLEA.pearlescentBlue().get(), WWBlocks.MESOGLEA.pearlescentPurple().get(), false);
+		registerMesogleaPatch(context, PATCH_MESOGLEA_CEILING, WWBlocks.MESOGLEA.pearlescentBlue().get(), WWBlocks.MESOGLEA.pearlescentPurple().get(), true);
 
-		registerLargeMesoglea(context, MEDIUM_MESOGLEA, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get(), WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get(), false);
-		registerLargeMesoglea(context, LARGE_MESOGLEA, WWBlocks.PEARLESCENT_BLUE_MESOGLEA.get(), WWBlocks.PEARLESCENT_PURPLE_MESOGLEA.get(), true);
+		registerLargeMesoglea(context, MEDIUM_MESOGLEA, WWBlocks.MESOGLEA.pearlescentBlue().get(), WWBlocks.MESOGLEA.pearlescentPurple().get(), false);
+		registerLargeMesoglea(context, LARGE_MESOGLEA, WWBlocks.MESOGLEA.pearlescentBlue().get(), WWBlocks.MESOGLEA.pearlescentPurple().get(), true);
 		registerNematocyst(
 			context,
 			NEMATOCYST,
-			WWBlocks.PEARLESCENT_BLUE_NEMATOCYST.get(), WWBlocks.PEARLESCENT_PURPLE_NEMATOCYST.get(),
+			WWBlocks.NEMATOCYST.pearlescentBlue().get(), WWBlocks.NEMATOCYST.pearlescentPurple().get(),
 			WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_BLUE, WWFeatureBlockTags.NEMATOCYST_PLACEABLE_PEARLESCENT_PURPLE
 		);
 
@@ -538,6 +541,4 @@ public final class WWCaveFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("cave/" + id));
 	}
-
-	private WWCaveFeatures() {}
 }

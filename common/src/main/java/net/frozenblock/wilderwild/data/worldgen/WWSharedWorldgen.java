@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Continentalness;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Erosion;
 import net.frozenblock.lib.levelgen.biome.api.parameters.Humidity;
@@ -27,7 +28,10 @@ import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWSharedWorldgen {
 	public static final int STOCK_FOG_COLOR = 12638463;
 	public static final int COLD_WATER_COLOR = 4020182;

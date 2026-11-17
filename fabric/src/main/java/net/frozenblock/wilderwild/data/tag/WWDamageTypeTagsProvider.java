@@ -26,7 +26,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWDamageTypeTagsProvider extends FabricTagsProvider<DamageType> {
 
 	public WWDamageTypeTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

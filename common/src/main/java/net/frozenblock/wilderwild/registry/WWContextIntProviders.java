@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.registry;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 
+@UtilityClass
 public final class WWContextIntProviders {
 	public static final ResourceKey<ContextIntProvider> COMPOSTABLE_MILKWEED_POD = createKey("compostable/milkweed_pod");
 	public static final ResourceKey<ContextIntProvider> COMPOSTABLE_POLLEN = createKey("compostable/pollen");
@@ -29,6 +31,4 @@ public final class WWContextIntProviders {
 	private static ResourceKey<ContextIntProvider> createKey(String name) {
 		return ResourceKey.create(Registries.CONTEXT_INT_PROVIDER, WWConstants.id(name));
 	}
-
-	private WWContextIntProviders() {}
 }

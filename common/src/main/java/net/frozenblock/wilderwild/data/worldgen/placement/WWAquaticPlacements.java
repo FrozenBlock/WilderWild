@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.data.worldgen.placement;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
@@ -66,7 +67,10 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWAquaticPlacements {
 	public static final FrozenLibPlacedFeature RIVER_POOL = register("river_pool");
 	public static final FrozenLibPlacedFeature SMALL_RIVER_POOL = register("small_river_pool");
@@ -115,7 +119,7 @@ public final class WWAquaticPlacements {
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 
 		registerRiverPool(RIVER_POOL, WWAquaticFeatures.RIVER_POOL, 20, 3, 62, 64);
@@ -256,7 +260,7 @@ public final class WWAquaticPlacements {
 	) {
 		placement.makeAndSetHolder(feature,
 			ConfigPredicate.placementFilter(
-				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_RIVER_POOL)
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_RIVER_POOL)
 			),
 			CountPlacement.of(count),
 			RarityFilter.onAverageOnceEvery(rarity),
@@ -279,7 +283,7 @@ public final class WWAquaticPlacements {
 			new SequenceFeature(CATTAIL_CHECKED_AND_SEARCH.asHolderSet()),
 			postModifiers(
 				modifiersWithFilter(
-					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL),
+					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_CATTAIL),
 					RarityFilter.onAverageOnceEvery(rarity),
 					PlacementUtils.HEIGHTMAP_NO_LEAVES,
 					EnvironmentScanPlacement.scanningFor(
@@ -307,7 +311,7 @@ public final class WWAquaticPlacements {
 		final List<PlacementModifier> modifierList = new ArrayList<>(List.of(modifiers));
 		modifierList.addFirst(
 			ConfigPredicate.placementFilter(
-				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_BARNACLES)
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_BARNACLES)
 			)
 		);
 		modifierList.add(InSquarePlacement.spread());
@@ -335,7 +339,10 @@ public final class WWAquaticPlacements {
 					OffsetPlacement.horizontal(TrapezoidInt.triangle(radius)),
 					EnvironmentScanPlacement.scanningFor(
 						Direction.DOWN,
-						BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER),
+						BlockPredicate.allOf(
+							BlockPredicate.ONLY_IN_AIR_PREDICATE,
+							BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.WATER)
+						),
 						BlockPredicate.ONLY_IN_AIR_PREDICATE,
 						3
 					)
@@ -346,7 +353,7 @@ public final class WWAquaticPlacements {
 		placement.makeAndSetHolder(
 			Holder.direct(new SimpleRandomSelectorFeature(HolderSet.direct(placements))),
 			modifiersWithFilter(
-				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(configPredicate),
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(configPredicate),
 				RarityFilter.onAverageOnceEvery(rarity),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE
 			)
@@ -357,7 +364,7 @@ public final class WWAquaticPlacements {
 		final List<PlacementModifier> modifierList = new ArrayList<>(List.of(modifiers));
 		modifierList.addFirst(
 			ConfigPredicate.placementFilter(
-				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SPONGE_BUD)
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_SPONGE_BUD)
 			)
 		);
 		modifierList.add(InSquarePlacement.spread());
@@ -371,7 +378,7 @@ public final class WWAquaticPlacements {
 		placement.makeAndSetHolder(WWAquaticFeatures.SEA_ANEMONE,
 			postModifiers(
 				modifiersWithFilter(
-					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SEA_ANEMONE),
+					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_SEA_ANEMONE),
 					RarityFilter.onAverageOnceEvery(rarity),
 					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 				),
@@ -398,7 +405,7 @@ public final class WWAquaticPlacements {
 		placement.makeAndSetHolder(WWAquaticFeatures.SEA_WHIP,
 			postModifiers(
 				modifiersWithFilter(
-					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_SEA_WHIP),
+					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_SEA_WHIP),
 					RarityFilter.onAverageOnceEvery(rarity),
 					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 				),
@@ -419,7 +426,7 @@ public final class WWAquaticPlacements {
 		placement.makeAndSetHolder(WWAquaticFeatures.TUBE_WORMS,
 			postModifiers(
 				modifiersWithFilter(
-					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_TUBE_WORMS),
+					FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_TUBE_WORMS),
 					RarityFilter.onAverageOnceEvery(rarity),
 					PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 				),
@@ -432,7 +439,7 @@ public final class WWAquaticPlacements {
 	private static void registerHydrothermalVent(FrozenLibPlacedFeature placement, int rarity) {
 		placement.makeAndSetHolder(WWAquaticFeatures.HYDROTHERMAL_VENT,
 			modifiersWithFilter(
-				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_HYDROTHERMAL_VENT),
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_HYDROTHERMAL_VENT),
 				RarityFilter.onAverageOnceEvery(rarity),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BlockPredicateFilter.forPredicate(BlockPredicate.matchesBlocks(Blocks.WATER)),
@@ -444,7 +451,7 @@ public final class WWAquaticPlacements {
 	private static void registerAuburnMossPatchPatch(FrozenLibPlacedFeature placement, int rarity) {
 		placement.makeAndSetHolder(WWAquaticFeatures.PATCH_AUBURN_MOSS_PATCH_UNDERWATER,
 			modifiersWithFilter(
-				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER).getOrThrow(WWConfigPredicates.GENERATE_OCEAN_AUBURN_MOSS),
+				FrozenLibFeatureUtil.BOOTSTRAP_CONTEXT.lookup(FrozenLibRegistries.CONFIG_PREDICATE).getOrThrow(WWConfigPredicates.GENERATE_OCEAN_AUBURN_MOSS),
 				RarityFilter.onAverageOnceEvery(rarity),
 				PlacementUtils.HEIGHTMAP_OCEAN_FLOOR
 			)
@@ -454,6 +461,4 @@ public final class WWAquaticPlacements {
 	public static FrozenLibPlacedFeature register(String name) {
 		return new FrozenLibPlacedFeature(WWConstants.id("aquatic/" + name));
 	}
-
-	private WWAquaticPlacements() {}
 }

@@ -24,7 +24,9 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public record WWJellyfishStingPacket(boolean isBaby) implements CustomPacketPayload {
 	public static final Type<WWJellyfishStingPacket> PACKET_TYPE = new Type<>(WWConstants.id("jellyfish_sting"));
 	public static final StreamCodec<RegistryFriendlyByteBuf, WWJellyfishStingPacket> CODEC = ByteBufCodecs.BOOL.map(WWJellyfishStingPacket::new, WWJellyfishStingPacket::isBaby).cast();

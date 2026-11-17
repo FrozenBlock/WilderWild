@@ -17,9 +17,11 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.StoneChestRenderer;
@@ -30,7 +32,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BlockEntityTypeIds;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWBlockEntityRenderers {
 
@@ -60,6 +65,11 @@ public final class WWBlockEntityRenderers {
 			() -> (BlockEntityRendererProvider) StoneChestRenderer::new
 		);
 
+		register.register(
+			blockEntityKey(WWBlockEntityTypeIds.DISPLAY_LANTERN),
+			() -> (BlockEntityRendererProvider) DisplayLanternRenderer::new
+		);
+
 		register.register();
 	}
 
@@ -68,6 +78,4 @@ public final class WWBlockEntityRenderers {
 	private static ResourceKey<BlockEntityRendererProvider<?, ?>> blockEntityKey(ResourceKey<BlockEntityType<?>> type) {
 		return ResourceKey.create(ClientRegistries.BLOCK_ENTITY_RENDERER, type.identifier());
 	}
-
-	private WWBlockEntityRenderers() {}
 }

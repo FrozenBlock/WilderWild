@@ -23,7 +23,9 @@ import net.fabricmc.frozenblock.datafixer.api.DataFixerEntrypoint;
 import net.fabricmc.frozenblock.datafixer.api.SchemaRegistry;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.util.datafix.fixes.References;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWDataFixerEntrypoint implements DataFixerEntrypoint {
 
 	@Override

@@ -17,38 +17,46 @@
 
 package net.frozenblock.wilderwild.levelgen.trunkplacers;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
+import java.util.function.Consumer;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.CompositeDirection;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Directional;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.Nullable;
 
 public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 	public static final MapCodec<FancyDarkOakTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
 		trunkPlacerParts(instance)
-			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
+			.and(ConfigPredicate.HOLDER_CODEC.optionalFieldOf("branch_condition").forGetter(trunkPlacer -> trunkPlacer.branchCondition))
 			.apply(instance, FancyDarkOakTrunkPlacer::new)
 	);
 
-	private final BranchPlacement branchPlacement;
+	private final Optional<Holder<ConfigPredicate>> branchCondition;
 
-	public FancyDarkOakTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, BranchPlacement branchPlacement) {
+	public FancyDarkOakTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, Optional<Holder<ConfigPredicate>> branchCondition) {
 		super(baseHeight, heightRandA, heightRandB);
-		this.branchPlacement = branchPlacement;
+		this.branchCondition = branchCondition;
 	}
 
 	@Override
@@ -65,86 +73,430 @@ public class FancyDarkOakTrunkPlacer extends TrunkPlacer {
 		BlockPos origin,
 		TreeFeature tree
 	) {
-		final ArrayList<FoliagePlacer.FoliageAttachment> attachments = Lists.newArrayList();
-		final BlockPos below = origin.below();
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below, tree);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below.east(), tree);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below.south(), tree);
-		DarkOakTrunkPlacer.placeBelowTrunkBlock(level, trunkSetter, random, below.south().east(), tree);
+		final List<FoliagePlacer.FoliageAttachment> attachments = new ArrayList<>();
+		final BlockPos.MutableBlockPos logPos = new BlockPos.MutableBlockPos();
+
+		placeBelowTrunkBlock(level, trunkSetter, random, logPos.setWithOffset(origin, Direction.DOWN), tree);
+		placeBelowTrunkBlock(level, trunkSetter, random, logPos.move(Direction.EAST), tree);
+		placeBelowTrunkBlock(level, trunkSetter, random, logPos.move(Direction.SOUTH), tree);
+		placeBelowTrunkBlock(level, trunkSetter, random, logPos.move(Direction.WEST), tree);
 
 		final Direction leanDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-		final int maxBranchCount = this.branchPlacement.getMaxBranchCount(random);
-		int extraLogs = 0;
-		final int leanHeight = treeHeight - random.nextInt(4);
+		int leanHeight = treeHeight - random.nextInt(4);
 		int leanSteps = 2 - random.nextInt(3);
-		final int x = origin.getX();
-		final int y = origin.getY();
-		final int z = origin.getZ();
-		int tx = x;
-		int tz = z;
-		final int ey = y + treeHeight - 1;
-		for (int dy = 0; dy < treeHeight; ++dy) {
-			if (dy >= leanHeight && leanSteps > 0) {
-				tx += leanDirection.getStepX();
-				tz += leanDirection.getStepZ();
+		int x = origin.getX();
+		int y = origin.getY();
+		int z = origin.getZ();
+		int currentLeanX = x;
+		int currentLeanZ = z;
+		int treeEndY = y + treeHeight - 1;
+
+		for (int yStep = 0; yStep < treeHeight; ++yStep) {
+			if (yStep >= leanHeight && leanSteps > 0) {
+				currentLeanX += leanDirection.getStepX();
+				currentLeanZ += leanDirection.getStepZ();
 				--leanSteps;
 			}
 
-			final int yy = y + dy;
-			final BlockPos blockPos = new BlockPos(tx, yy, tz);
-			if (!TreeFeature.isAirOrLeaves(level, blockPos)) continue;
+			final int currentY = y + yStep;
+			logPos.set(currentLeanX, currentY, currentLeanZ);
+			if (!TreeFeature.isAirOrLeaves(level, logPos)) continue;
 
-			final boolean placedWest = this.placeLog(level, trunkSetter, random, blockPos, tree);
-			final boolean placedEast = this.placeLog(level, trunkSetter, random, blockPos.east(), tree);
-			final boolean placedSouth = this.placeLog(level, trunkSetter, random, blockPos.south(), tree);
-			final boolean placedSouthEast = this.placeLog(level, trunkSetter, random, blockPos.east().south(), tree);
-			if (extraLogs < maxBranchCount && this.branchPlacement.canPlaceBranch(random) && (dy * 3) > treeHeight) {
-				final Direction branchDirection = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-				final BlockPos.MutableBlockPos branchPos = blockPos.mutable();
-				final ArrayList<BlockPos> possibleBranchPositions = new ArrayList<>();
-				if (branchDirection == Direction.NORTH) {
-					if (placedWest) possibleBranchPositions.add(blockPos);
-					if (placedEast) possibleBranchPositions.add(blockPos.east());
-				} else if (branchDirection == Direction.EAST) {
-					if (placedEast) possibleBranchPositions.add(blockPos.east());
-					if (placedSouthEast) possibleBranchPositions.add(blockPos.east().south());
-				} else if (branchDirection == Direction.SOUTH) {
-					if (placedSouth) possibleBranchPositions.add(blockPos.south());
-					if (placedSouthEast) possibleBranchPositions.add(blockPos.east().south());
-				} else if (branchDirection == Direction.WEST) {
-					if (placedWest) possibleBranchPositions.add(blockPos);
-					if (placedSouth) possibleBranchPositions.add(blockPos.south());
-				}
-
-				if (!possibleBranchPositions.isEmpty()) {
-					branchPos.set(Util.getRandom(possibleBranchPositions, random));
-					this.branchPlacement.generateExtraBranch(
-						level,
-						trunkSetter,
-						random,
-						tree.trunkProvider().value(),
-						branchPos,
-						branchDirection,
-						attachments
-					);
-					extraLogs += 1;
-				}
-			}
+			this.placeLog(level, trunkSetter, random, logPos, tree);
+			this.placeLog(level, trunkSetter, random, logPos.move(Direction.EAST), tree);
+			this.placeLog(level, trunkSetter, random, logPos.move(Direction.SOUTH), tree);
+			this.placeLog(level, trunkSetter, random, logPos.move(Direction.WEST), tree);
 		}
 
-		attachments.add(new FoliagePlacer.FoliageAttachment(new BlockPos(tx, ey, tz), 0, true));
+		attachments.add(new FoliagePlacer.FoliageAttachment(new BlockPos(currentLeanX, treeEndY, currentLeanZ), 0, true));
 
-		for (int ox = -1; ox <= 2; ++ox) {
-			for (int oz = -1; oz <= 2; ++oz) {
-				if (ox >= 0 && ox <= 1 && oz >= 0 && oz <= 1 || random.nextInt(3) > 0) continue;
-				final int length = random.nextInt(3) + 2;
-				for (int branchY = 0; branchY < length; ++branchY) {
-					this.placeLog(level, trunkSetter, random, new BlockPos(x + ox, ey - branchY - 1, z + oz), tree);
-				}
-				attachments.add(new FoliagePlacer.FoliageAttachment(new BlockPos(x + ox, ey, z + oz), 0, false));
-			}
+		if (this.branchCondition.isPresent() && !this.branchCondition.get().value().test()) return attachments;
+
+		// I know this is silly, but I've implemented this as a safeguard so the `nextIntBetweenInclusive` method won't crash if someone screws around.
+		if (treeHeight <= 3) return attachments;
+
+		final List<BranchInfo> branches = new ArrayList<>();
+		final BlockPos.MutableBlockPos branchPos = new BlockPos.MutableBlockPos();
+		for (int branch = 0; branch < treeHeight / 2; branch++) {
+			final BranchInfo newBranch = BranchInfo.tryCreate(treeHeight, random, branches);
+			if (newBranch == null) continue;
+
+			branches.add(newBranch);
+			newBranch.generate(
+				pos -> this.placeLog(level, trunkSetter, random, pos, tree),
+				attachments,
+				random,
+				origin,
+				branchPos,
+				logPos
+			);
 		}
 
 		return attachments;
+	}
+
+	private static final Set<Directional> SIDE_BRANCH_DIRECTIONS = Set.of(
+		Direction.NORTH,
+		Direction.EAST,
+		Direction.SOUTH,
+		Direction.WEST
+	);
+	private static final Set<Directional> CORNER_BRANCH_DIRECTIONS = Set.of(
+		CompositeDirection.Direction8.NORTH_EAST,
+		CompositeDirection.Direction8.SOUTH_EAST,
+		CompositeDirection.Direction8.SOUTH_WEST,
+		CompositeDirection.Direction8.NORTH_WEST
+	);
+	private static final List<Directional> ALL_BRANCH_DIRECTIONS = Sets.symmetricDifference(SIDE_BRANCH_DIRECTIONS, CORNER_BRANCH_DIRECTIONS).stream().toList();
+
+	private enum BranchType {
+		STRAIGHT(SIDE_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				final Direction side = setupStraightSide(logPos, direction, random);
+				BranchType.generateStraightBase(trunkSetter, logPos, direction, side);
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		},
+		STRAIGHT_THICK(SIDE_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				final Direction side = ((Direction) direction).getClockWise();
+				generateSquareAndReturn(trunkSetter, logPos, side);
+				generateSquareAndReturn(trunkSetter, logPos.move(direction.getStep()).move(Direction.UP), side);
+
+				final Vec3i foliagePosOffset = random.nextBoolean() ? side.getStep() : Vec3i.ZERO;
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(foliagePosOffset).move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		},
+		STRAIGHT_LONG(SIDE_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				final Direction side = setupStraightSide(logPos, direction, random);
+				BranchType.generateStraightBase(trunkSetter, logPos, direction, side);
+				trunkSetter.accept(logPos.move(direction.getStep()).move(Direction.UP));
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		},
+		CORNER(CORNER_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				final int sideX = direction.getStepX();
+				final int sideZ = direction.getStepZ();
+
+				// FIRST STEP
+				generateCornerBaseAndReturn(trunkSetter, logPos, sideX, sideZ);
+				trunkSetter.accept(logPos.move(Direction.UP));
+
+				// SECOND STEP
+				trunkSetter.accept(logPos.move(direction.getStep()));
+				trunkSetter.accept(logPos.move(Direction.UP));
+
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		},
+		CORNER_THICK(CORNER_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				generateThickCornerBase(trunkSetter, logPos, direction, false);
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		},
+		CORNER_LONG(CORNER_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				generateThickCornerBase(trunkSetter, logPos, direction, true);
+
+				// THIRD STEP
+				trunkSetter.accept(logPos.move(Direction.UP).move(direction.getStep()));
+				trunkSetter.accept(logPos.move(Direction.UP));
+
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		},
+		CORNER_LONG_TALL(CORNER_BRANCH_DIRECTIONS) {
+			@Override
+			void generate(
+				Consumer<BlockPos> trunkSetter,
+				List<FoliagePlacer.FoliageAttachment> attachments,
+				Directional direction,
+				RandomSource random,
+				BlockPos.MutableBlockPos logPos
+			) {
+				generateThickCornerBase(trunkSetter, logPos, direction, false);
+
+				// THIRD STEP
+				trunkSetter.accept(logPos.move(direction.getStep()));
+				trunkSetter.accept(logPos.move(Direction.UP));
+
+				attachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						logPos.move(Direction.UP).immutable(),
+						0,
+						false
+					)
+				);
+			}
+		};
+
+		private final Set<Directional> validDirections;
+
+		BranchType(Set<Directional> validDirections) {
+			this.validDirections = validDirections;
+		}
+
+		private static Direction setupStraightSide(BlockPos.MutableBlockPos logPos, Directional directional, RandomSource random) {
+			Direction side = ((Direction) directional).getClockWise();
+			if (random.nextBoolean()) {
+				logPos.move(side);
+				side = side.getOpposite();
+			}
+			return side;
+		}
+
+		private static void generateStraightBase(
+			Consumer<BlockPos> trunkSetter,
+			BlockPos.MutableBlockPos logPos,
+			Directional direction,
+			Direction side
+		) {
+			// FIRST STEP
+			trunkSetter.accept(logPos);
+			trunkSetter.accept(logPos.move(Direction.DOWN));
+			trunkSetter.accept(logPos.move(Direction.UP).move(side));
+
+			// SECOND STEP
+			trunkSetter.accept(logPos.move(side.getOpposite()).move(direction.getStep()));
+			trunkSetter.accept(logPos.move(Direction.UP));
+		}
+
+		private static void generateSquareAndReturn(
+			Consumer<BlockPos> trunkSetter,
+			BlockPos.MutableBlockPos logPos,
+			Direction side
+		) {
+			trunkSetter.accept(logPos.move(Direction.DOWN));
+			trunkSetter.accept(logPos.move(side));
+			trunkSetter.accept(logPos.move(Direction.UP));
+			trunkSetter.accept(logPos.move(side.getOpposite()));
+		}
+
+		private static void generateCornerBaseAndReturn(
+			Consumer<BlockPos> trunkSetter,
+			BlockPos.MutableBlockPos logPos,
+			int sideX,
+			int sideZ
+		) {
+			trunkSetter.accept(logPos.move(-sideX, 0, 0));
+			trunkSetter.accept(logPos.move(0, -1, 0));
+
+			trunkSetter.accept(logPos.move(sideX, 0, -sideZ));
+			trunkSetter.accept(logPos.move(0, 1, 0));
+
+			trunkSetter.accept(logPos.move(0, 0, sideZ));
+		}
+
+		private static void generateThickCornerBase(
+			Consumer<BlockPos> trunkSetter,
+			BlockPos.MutableBlockPos logPos,
+			Directional direction,
+			boolean isSecondStepCube
+		) {
+			final int sideX = direction.getStepX();
+			final int sideZ = direction.getStepZ();
+
+			// FIRST STEP
+			generateCornerBaseAndReturn(trunkSetter, logPos, sideX, sideZ);
+			trunkSetter.accept(logPos.move(Direction.DOWN));
+
+			// SECOND STEP
+			generateCornerBaseAndReturn(trunkSetter, logPos.move(direction.getStep()).move(Direction.UP, 2), sideX, sideZ);
+			trunkSetter.accept(logPos.move(!isSecondStepCube ? Direction.UP : Direction.DOWN));
+		}
+
+		abstract void generate(
+			Consumer<BlockPos> trunkSetter,
+			List<FoliagePlacer.FoliageAttachment> attachments,
+			Directional direction,
+			RandomSource random,
+			BlockPos.MutableBlockPos logPos
+		);
+
+		static BranchType select(Directional directional, RandomSource random) {
+			return Util.getRandom(
+				Arrays.stream(values())
+					.filter(type -> type.validDirections.contains(directional))
+					.toList(),
+				random
+			);
+		}
+	}
+
+	private record BranchInfo(int startHeight, BranchType type, Directional direction) {
+		private static final int MAX_CREATION_ATTEMPTS = 5;
+
+		private static BranchInfo create(int treeHeight, RandomSource random) {
+			final Directional chosenDirection = Util.getRandom(ALL_BRANCH_DIRECTIONS, random);
+			return new BranchInfo(
+				random.nextIntBetweenInclusive(treeHeight / 2, treeHeight - 1),
+				BranchType.select(chosenDirection, random),
+				chosenDirection
+			);
+		}
+
+		static @Nullable BranchInfo tryCreate(int treeHeight, RandomSource random, List<BranchInfo> branches) {
+			for (int i = 0; i < MAX_CREATION_ATTEMPTS; i++) {
+				final BranchInfo branch = create(treeHeight, random);
+				if (branch.isValid(branches)) return branch;
+			}
+
+			return null;
+		}
+
+		boolean isValid(List<BranchInfo> branches) {
+			return branches.stream()
+				.filter(branch -> branch.direction == this.direction)
+				.noneMatch(branch -> branch.startHeight <= this.startHeight + 2 && branch.startHeight >= this.startHeight - 2);
+		}
+
+		void generate(
+			Consumer<BlockPos> trunkSetter,
+			List<FoliagePlacer.FoliageAttachment> attachments,
+			RandomSource random,
+			BlockPos origin,
+			BlockPos.MutableBlockPos branchPos,
+			BlockPos.MutableBlockPos logPos
+		) {
+			this.moveToStartingPosition(origin, branchPos);
+			logPos.set(branchPos);
+			this.type.generate(trunkSetter, attachments, this.direction, random, logPos);
+		}
+
+		private void moveToStartingPosition(BlockPos origin, BlockPos.MutableBlockPos branchPos) {
+			branchPos.setWithOffset(origin, 0, this.startHeight, 0).move(this.direction.getStep());
+
+			if (!this.isCorner()) {
+				if (((Direction) this.direction).getAxis() == Direction.Axis.Y) throw new IllegalStateException("Branch direction cannot be vertical!");
+
+				//      N(-)
+				//     X  |
+				//W(-) ---|--- E(+)
+				//        |
+				//      S(+)
+				if (this.direction == Direction.NORTH) return;
+
+				//      N(-)
+				//        |  X
+				//W(-) ---|--- E(+)
+				//        |
+				//      S(+)
+				if (this.direction == Direction.EAST) {
+					branchPos.move(Direction.EAST);
+					return;
+				}
+
+				//      N(-)
+				//        |
+				//W(-) ---|--- E(+)
+				//        |  X
+				//      S(+)
+				if (this.direction == Direction.SOUTH) {
+					branchPos.move(Direction.EAST).move(Direction.SOUTH);
+					return;
+				}
+
+				//      N(-)
+				//        |
+				//W(-) ---|--- E(+)
+				//     X  |
+				//      S(+)
+				if (this.direction == Direction.WEST) {
+					branchPos.move(Direction.SOUTH);
+					return;
+				}
+			}
+
+			final int stepX = this.direction.getStepX();
+			final int stepZ = this.direction.getStepZ();
+			if (stepX == 0 || stepZ == 0) throw new IllegalStateException("Branch direction is either not composite or not horizontal!");
+
+			branchPos.move(Math.clamp(stepX, 0, 1), 0, Math.clamp(stepZ, 0, 1));
+		}
+
+		private boolean isCorner() {
+			return !(this.direction instanceof Direction);
+		}
 	}
 }

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
 import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
 import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
@@ -37,7 +38,10 @@ import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFeatureBootstrap {
 
 	public static void bootstrapConfigured(BootstrapContext<Feature> context) {
@@ -67,6 +71,4 @@ public final class WWFeatureBootstrap {
 		WWMiscPlaced.registerMiscPlaced(context);
 		WWCavePlaced.registerCavePlaced(context);
 	}
-
-	private WWFeatureBootstrap() {}
 }

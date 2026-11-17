@@ -54,7 +54,9 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
 public final class WWAdvancementProvider extends FabricAdvancementProvider {
 
 	public WWAdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

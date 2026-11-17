@@ -47,6 +47,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 			this.brushingCompleted();
 			return true;
 		}
+
 		this.level.scheduleTick(this.getBlockPos(), this.getBlockState().getBlock(), RESET_DELAY);
 		final int completionState = this.getCompletionState();
 		if (i != completionState) {
@@ -59,6 +60,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 
 	private void brushingCompleted() {
 		if (this.level == null || this.level.getServer() == null) return;
+
 		this.level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_BRUSH_BLOCK_COMPLETE, this.worldPosition, Block.getId(this.getBlockState()));
 		ScorchedBlock.hydrate(this.getBlockState(), this.level, this.worldPosition);
 		this.brushCount = 0;
@@ -68,6 +70,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 
 	public void checkReset() {
 		if (this.level == null) return;
+
 		if (this.brushCount != 0 && this.level.getGameTime() >= this.brushCountResetsAtTick) {
 			final int i = this.getCompletionState();
 			this.brushCount = Math.max(0, this.brushCount - 2);
@@ -75,6 +78,7 @@ public class ScorchedBlockEntity extends BlockEntity {
 			if (i != j) this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.DUSTED, j));
 			this.brushCountResetsAtTick = this.level.getGameTime() + 4L;
 		}
+
 		if (this.brushCount == 0) {
 			this.brushCountResetsAtTick = 0L;
 			this.coolDownEndsAtTick = 0L;
@@ -89,5 +93,4 @@ public class ScorchedBlockEntity extends BlockEntity {
 		if (this.brushCount < 6) return 2;
 		return 3;
 	}
-
 }

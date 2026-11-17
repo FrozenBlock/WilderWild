@@ -1,0 +1,15 @@
+{
+  "type": "frozenlib:special_effects",
+  "phase": "replacements",
+  "selector": {
+    "type": "frozenlib:all_of",
+    "selectors": [
+      "wilderwild:water_color_lukewarm",
+      {
+        "type": "frozenlib:in_biomes",
+        "biomes": "#wilderwild:water_color/lukewarm"
+      }
+    ]
+  },
+  "water_color": "#45adf2"
+}

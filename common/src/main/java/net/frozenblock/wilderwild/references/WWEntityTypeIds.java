@@ -17,11 +17,13 @@
 
 package net.frozenblock.wilderwild.references;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 
+@UtilityClass
 public final class WWEntityTypeIds {
 	public static final ResourceKey<EntityType<?>> FIREFLY = create("firefly");
 	public static final ResourceKey<EntityType<?>> BUTTERFLY = create("butterfly");

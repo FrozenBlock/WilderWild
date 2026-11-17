@@ -136,10 +136,7 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "minecraft:disk_sand",
-      "minecraft:disk_clay",
-      "minecraft:disk_gravel",
-      "wilderwild:under_water_gravel_path_river"
+      "wilderwild:disk_clay_common"
     ],
     [],
     [

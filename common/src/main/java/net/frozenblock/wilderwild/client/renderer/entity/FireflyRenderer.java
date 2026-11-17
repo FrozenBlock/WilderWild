@@ -55,7 +55,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 	public static void submitFireflyWithoutRenderState(
 		PoseStack poseStack,
 		SubmitNodeCollector submitNodeCollector,
-		Quaternionf cameraOrientation,
+		Quaternionf orientation,
 		@Nullable FireflyVariant variant,
 		float flicker,
 		float scale,
@@ -65,7 +65,7 @@ public class FireflyRenderer extends MobRenderer<Firefly, FireflyRenderState, No
 		int lightCoords,
 		int overlayCoords
 	) {
-		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, cameraOrientation);
+		setupPoseStack(poseStack, scale, xOffset, yOffset, zOffset, orientation);
 
 		submitNodeCollector
 			.order(0)

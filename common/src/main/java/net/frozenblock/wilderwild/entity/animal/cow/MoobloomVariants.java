@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -37,7 +38,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class MoobloomVariants {
 	public static final ResourceKey<MoobloomVariant> DANDELION = createKey("dandelion");
 	public static final ResourceKey<MoobloomVariant> POPPY = createKey("poppy");
@@ -77,24 +80,6 @@ public final class MoobloomVariants {
 		return Util.getRandomSafe(variants, random);
 	}
 
-	public static void bootstrap(BootstrapContext<MoobloomVariant> context) {
-		register(context, DANDELION, Blocks.DANDELION, "dandelion");
-		register(context, POPPY, Blocks.POPPY, "poppy");
-		register(context, AZURE_BLUET, Blocks.AZURE_BLUET, "azure_bluet");
-		register(context, RED_TULIP, Blocks.RED_TULIP, "red_tulip");
-		register(context, ORANGE_TULIP, Blocks.ORANGE_TULIP, "orange_tulip");
-		register(context, WHITE_TULIP, Blocks.WHITE_TULIP, "white_tulip");
-		register(context, PINK_TULIP, Blocks.PINK_TULIP, "pink_tulip");
-		register(context, OXEYE_DAISY, Blocks.OXEYE_DAISY, "oxeye_daisy");
-		register(context, CORNFLOWER, Blocks.CORNFLOWER, "cornflower");
-		register(context, LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, "lily_of_the_valley");
-		register(context, ALLIUM, Blocks.ALLIUM, "allium");
-		register(context, BLUE_ORCHID, Blocks.BLUE_ORCHID, "blue_orchid");
-		register(context, CARNATION, WWBlocks.CARNATION.get(), "carnation");
-		register(context, MARIGOLD, WWBlocks.MARIGOLD.get(), "marigold");
-		register(context, PASQUEFLOWER, WWBlocks.PASQUEFLOWER.get(), "pasqueflower");
-	}
-
 	private static void register(
 		BootstrapContext<MoobloomVariant> context,
 		ResourceKey<MoobloomVariant> name,
@@ -111,5 +96,24 @@ public final class MoobloomVariants {
 				Optional.empty()
 			)
 		);
+	}
+
+	@ApiStatus.Internal
+	public static void bootstrap(BootstrapContext<MoobloomVariant> context) {
+		register(context, DANDELION, Blocks.DANDELION, "dandelion");
+		register(context, POPPY, Blocks.POPPY, "poppy");
+		register(context, AZURE_BLUET, Blocks.AZURE_BLUET, "azure_bluet");
+		register(context, RED_TULIP, Blocks.RED_TULIP, "red_tulip");
+		register(context, ORANGE_TULIP, Blocks.ORANGE_TULIP, "orange_tulip");
+		register(context, WHITE_TULIP, Blocks.WHITE_TULIP, "white_tulip");
+		register(context, PINK_TULIP, Blocks.PINK_TULIP, "pink_tulip");
+		register(context, OXEYE_DAISY, Blocks.OXEYE_DAISY, "oxeye_daisy");
+		register(context, CORNFLOWER, Blocks.CORNFLOWER, "cornflower");
+		register(context, LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, "lily_of_the_valley");
+		register(context, ALLIUM, Blocks.ALLIUM, "allium");
+		register(context, BLUE_ORCHID, Blocks.BLUE_ORCHID, "blue_orchid");
+		register(context, CARNATION, WWBlocks.CARNATION.get(), "carnation");
+		register(context, MARIGOLD, WWBlocks.MARIGOLD.get(), "marigold");
+		register(context, PASQUEFLOWER, WWBlocks.PASQUEFLOWER.get(), "pasqueflower");
 	}
 }

@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.features;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
@@ -50,7 +51,10 @@ import net.minecraft.world.level.levelgen.placement.CountPlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWFlowerFeatures {
 	public static final FrozenLibFeature ALLIUM = register("allium");
 	public static final FrozenLibFeature AZURE_BLUET = register("azure_bluet");
@@ -106,7 +110,6 @@ public final class WWFlowerFeatures {
 	public static final FrozenLibFeature FLOWER_FLOWER_FIELD_PURPLE = register("flower_flower_field_purple");
 	public static final FrozenLibFeature FLOWER_FLOWER_FIELD_PURPLE_TALL = register("flower_flower_field_purple_tall");
 	public static final FrozenLibFeature FLOWER_FLOWER_FIELD = register("flower_flower_field");
-	public static final FrozenLibFeature PATCH_FLOWER_FLOWER_FIELD = register("patch_flower_flower_field");
 
 	// FOREST
 	public static final FrozenLibFeature FLOWER_FOREST = register("flower_forest");
@@ -164,7 +167,7 @@ public final class WWFlowerFeatures {
 	public static void bootstrap(BootstrapContext<Feature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = context.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 		final HolderGetter<Block> blocks = context.lookup(Registries.BLOCK);
 		final HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
 
@@ -313,12 +316,6 @@ public final class WWFlowerFeatures {
 					)
 				)
 			)
-		);
-		registerWeightedSelector(PATCH_FLOWER_FLOWER_FIELD,
-			WeightedList.<Holder<PlacedFeature>>builder()
-				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_48.getHolder(), 4)
-				.add(WWFlowerPlacements.PATCH_MILKWEED_52_LARGE.getHolder(), 1)
-				.build()
 		);
 
 		// FOREST
@@ -617,6 +614,4 @@ public final class WWFlowerFeatures {
 	private static FrozenLibFeature register(String id) {
 		return new FrozenLibFeature(WWConstants.id("flower/" + id));
 	}
-
-	private WWFlowerFeatures() {}
 }

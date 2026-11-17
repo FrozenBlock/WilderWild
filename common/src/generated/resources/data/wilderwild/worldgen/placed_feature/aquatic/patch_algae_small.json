@@ -34,12 +34,21 @@
             "direction_of_search": "down",
             "max_steps": 3,
             "target_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:water",
-              "offset": [
-                0,
-                -1,
-                0
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water",
+                  "offset": [
+                    0,
+                    -1,
+                    0
+                  ]
+                }
               ]
             }
           }
@@ -77,12 +86,21 @@
             "direction_of_search": "down",
             "max_steps": 3,
             "target_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:water",
-              "offset": [
-                0,
-                -1,
-                0
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water",
+                  "offset": [
+                    0,
+                    -1,
+                    0
+                  ]
+                }
               ]
             }
           }
@@ -120,12 +138,21 @@
             "direction_of_search": "down",
             "max_steps": 3,
             "target_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:water",
-              "offset": [
-                0,
-                -1,
-                0
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water",
+                  "offset": [
+                    0,
+                    -1,
+                    0
+                  ]
+                }
               ]
             }
           }
@@ -163,12 +190,21 @@
             "direction_of_search": "down",
             "max_steps": 3,
             "target_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:water",
-              "offset": [
-                0,
-                -1,
-                0
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water",
+                  "offset": [
+                    0,
+                    -1,
+                    0
+                  ]
+                }
               ]
             }
           }
@@ -206,12 +242,21 @@
             "direction_of_search": "down",
             "max_steps": 3,
             "target_condition": {
-              "type": "minecraft:matching_blocks",
-              "blocks": "minecraft:water",
-              "offset": [
-                0,
-                -1,
-                0
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_block_tag",
+                  "tag": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": "minecraft:water",
+                  "offset": [
+                    0,
+                    -1,
+                    0
+                  ]
+                }
               ]
             }
           }

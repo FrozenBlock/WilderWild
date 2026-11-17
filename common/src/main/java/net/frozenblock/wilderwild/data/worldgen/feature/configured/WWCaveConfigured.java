@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.configured;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.wilderwild.WWConstants;
 import static net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils.register;
@@ -33,7 +34,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.SpeleothemClusterFeature;
 import net.minecraft.world.level.levelgen.feature.SpeleothemUtils;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWCaveConfigured {
 	// ICE CAVES
 	public static final FrozenLibFeature DECORATIVE_ICICLE_CLUSTER = register("decorative_icicle_cluster");

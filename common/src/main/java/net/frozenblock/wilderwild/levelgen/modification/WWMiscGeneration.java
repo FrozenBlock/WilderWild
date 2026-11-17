@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.levelgen.modification;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
 import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
@@ -28,7 +29,10 @@ import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWMiscGeneration {
 
 	public static void generateMisc() {
@@ -55,59 +59,22 @@ public final class WWMiscGeneration {
 				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
 
 				if (WWWorldgenConfig.COARSE_DIRT_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_COARSE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_PATH_RARE.getKey());
+					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH)) {
+						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_BLOB_AND_PATCH.getKey());
 					}
 
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PILE_WITH_DISK_RARE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_DISK_AND_PILE_RARE.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_PATH_SMALL)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.COARSE_DIRT_PATH_SMALL.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.MUD_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_DECORATIVE_MUD)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.DISK_MUD.getKey());
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.MUD_PATH.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_MUD_PILE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.MUD_PILE.getKey());
+					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH_RARE)) {
+						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_DIRT_BLOB_AND_PATCH_RARE.getKey());
 					}
 				}
 
 				if (WWWorldgenConfig.PACKED_MUD_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_ORE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.ORE_PACKED_MUD.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PACKED_MUD_PATH_BADLANDS)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.PACKED_MUD_PATH_BADLANDS.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.GRAVEL_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_GRAVEL)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_RARE.getKey());
 					}
 				}
 
 				if (WWWorldgenConfig.STONE_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_RARE_STONE)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.STONE_PATH_RARE.getKey());
-					}
-
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_STONE_PILE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, WWMiscPlaced.STONE_DISK_AND_PILE.getKey());
 					}
@@ -122,36 +89,6 @@ public final class WWMiscGeneration {
 				if (WWWorldgenConfig.PALE_MOSS_DECORATION.get()) {
 					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_PALE_MOSS_PILE)) {
 						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.PALE_MOSS_PILE.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_AND_PALE_MOSS_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWMiscPlaced.GRAVEL_AND_PALE_MOSS_PATH.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.SANDSTONE_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_SANDSTONE_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SANDSTONE_PATH.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.CLAY_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_CLAY_PATH)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.UNDER_WATER_CLAY_PATH_BEACH.getKey());
-					}
-				}
-
-				if (WWWorldgenConfig.CLEARING_DECORATION.get()) {
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_COARSE_DIRT_CLEARING)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.COARSE_PATH_CLEARING.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_GRAVEL_CLEARING)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.GRAVEL_PATH_CLEARING.getKey());
-					}
-
-					if (biomeSelectionContext.hasTag(WWBiomeTags.HAS_ROOTED_DIRT_CLEARING)) {
-						generationSettings.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.ROOTED_DIRT_PATH_CLEARING.getKey());
 					}
 				}
 

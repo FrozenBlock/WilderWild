@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.renderer.blockentity.BillboardBlockEntityRenderer;
 import net.frozenblock.lib.renderer.model.ModelLayerRegistry;
 import net.frozenblock.wilderwild.WWConstants;
@@ -34,20 +35,21 @@ import net.frozenblock.wilderwild.client.model.monster.skeleton.SunkenModel;
 import net.frozenblock.wilderwild.client.model.object.chest.StoneChestModel;
 import net.frozenblock.wilderwild.client.model.object.projectile.HarpoonModel;
 import net.frozenblock.wilderwild.client.model.object.sculksensor.SculkSensorModel;
-import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.animal.cow.BabyCowModel;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.monster.spider.SpiderModel;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 @ClientOnly
 public final class WWModelLayers {
 	// BLOCK ENTITY
 	public static final ModelLayerLocation SCULK_SENSOR = new ModelLayerLocation(WWConstants.id("sculk_sensor"), "main");
 	public static final ModelLayerLocation HANGING_TENDRIL = new ModelLayerLocation(WWConstants.id("hanging_tendril"), "main");
-	public static final ModelLayerLocation DISPLAY_LANTERN = new ModelLayerLocation(WWConstants.id("display_lantern"), "main");
 	public static final ModelLayerLocation STONE_CHEST = new ModelLayerLocation(WWConstants.id("stone_chest"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_LEFT = new ModelLayerLocation(WWConstants.id("double_stone_chest_left"), "main");
 	public static final ModelLayerLocation DOUBLE_STONE_CHEST_RIGHT = new ModelLayerLocation(WWConstants.id("double_stone_chest_right"), "main");
@@ -101,8 +103,6 @@ public final class WWModelLayers {
 
 		ModelLayerRegistry.register(HANGING_TENDRIL, BillboardBlockEntityRenderer::createModelLayer);
 
-		ModelLayerRegistry.register(DISPLAY_LANTERN, DisplayLanternRenderer::getTexturedModelData);
-
 		ModelLayerRegistry.register(STONE_CHEST, StoneChestModel::createSingleBodyLayer);
 		ModelLayerRegistry.register(DOUBLE_STONE_CHEST_LEFT, StoneChestModel::createDoubleBodyLeftLayer);
 		ModelLayerRegistry.register(DOUBLE_STONE_CHEST_RIGHT, StoneChestModel::createDoubleBodyRightLayer);
@@ -145,8 +145,6 @@ public final class WWModelLayers {
 		ModelLayerRegistry.registerBoats(PALM_BOAT, PALM_CHEST_BOAT);
 		ModelLayerRegistry.registerBoats(MAPLE_BOAT, MAPLE_CHEST_BOAT);
 	}
-
-	private WWModelLayers() {}
 
 	private static ArmorModelSet<ModelLayerLocation> createArmorSet(String modelId) {
 		return new ArmorModelSet<>(

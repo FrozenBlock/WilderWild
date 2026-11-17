@@ -1,6 +1,8 @@
 {
-  "type": "minecraft:block_pile",
-  "state_provider": {
-    "id": "minecraft:moss_block"
-  }
+  "type": "minecraft:block_blob",
+  "can_place_on": {
+    "type": "minecraft:matching_block_tag",
+    "tag": "minecraft:substrate_overworld"
+  },
+  "state": "minecraft:moss_block"
 }

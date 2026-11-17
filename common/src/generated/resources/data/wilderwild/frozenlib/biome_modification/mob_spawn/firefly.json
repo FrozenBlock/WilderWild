@@ -1,0 +1,24 @@
+{
+  "type": "frozenlib:mob_spawn",
+  "additions": {
+    "spawn_costs": {},
+    "spawns_by_category": {
+      "wilderwild:firefly": [
+        {
+          "type": "wilderwild:firefly",
+          "count": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 8,
+            "min_inclusive": 4
+          },
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:entity/spawn/firefly"
+  }
+}

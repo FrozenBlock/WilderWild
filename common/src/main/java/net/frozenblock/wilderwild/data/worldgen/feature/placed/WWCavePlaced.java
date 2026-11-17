@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.data.worldgen.feature.placed;
 
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.SearchInDirectionBlockPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
@@ -44,7 +45,10 @@ import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Internal
+@UtilityClass
 public final class WWCavePlaced {
 	// MAGMATIC CAVES
 	public static final FrozenLibPlacedFeature NETHER_GEOTHERMAL_VENT = register("nether_geothermal_vent");
@@ -58,7 +62,7 @@ public final class WWCavePlaced {
 		WWConstants.logWithModId("Registering WWCavePlaced for", true);
 		final HolderGetter<Feature> features = entries.lookup(Registries.FEATURE);
 		final HolderGetter<PlacedFeature> placedFeatures = entries.lookup(Registries.PLACED_FEATURE);
-		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE_PROVIDER);
+		final HolderGetter<ConfigPredicate> configPredicates = entries.lookup(FrozenLibRegistries.CONFIG_PREDICATE);
 
 		// MAGMATIC CAVES
 		NETHER_GEOTHERMAL_VENT.makeAndSetHolder(WWCaveFeatures.GEOTHERMAL_VENT_UP,

@@ -20,12 +20,13 @@ package net.frozenblock.wilderwild.levelgen.trunkplacers.branch;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
+import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.TrunkPlacerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockItemTags;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -35,8 +36,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import org.jetbrains.annotations.Nullable;
 
 public record BranchPlacement(
+	Optional<Holder<ConfigPredicate>> condition,
 	float probability,
 	IntProvider maxCount,
 	IntProvider cutoffFromTop,
@@ -47,6 +50,7 @@ public record BranchPlacement(
 	IntProvider foliageRadiusOffset
 ) {
 	public static final BranchPlacement EMPTY = new BranchPlacement(
+		Optional.empty(),
 		0F,
 		ConstantInt.ZERO,
 		ConstantInt.ZERO,
@@ -58,14 +62,15 @@ public record BranchPlacement(
 	);
 	public static final Codec<BranchPlacement> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(branchPlacement -> branchPlacement.probability),
-			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_count", ConstantInt.ZERO).forGetter(branchPlacement -> branchPlacement.maxCount),
-			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("cutoff_from_top", ConstantInt.ZERO).forGetter(branchPlacement -> branchPlacement.cutoffFromTop),
-			IntProviders.NON_NEGATIVE_CODEC.fieldOf("length").forGetter(branchPlacement -> branchPlacement.length),
-			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_probability", 0F).forGetter(branchPlacement -> branchPlacement.offsetLastLogProbability),
-			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_length_for_offset", 1).forGetter(branchPlacement -> branchPlacement.minLengthForOffset),
-			Codec.FLOAT.lenientOptionalFieldOf("foliage_probability", 0F).forGetter(branchPlacement -> branchPlacement.foliageProbability),
-			IntProviders.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(branchPlacement -> branchPlacement.foliageRadiusOffset)
+			ConfigPredicate.HOLDER_CODEC.optionalFieldOf("condition").forGetter(BranchPlacement::condition),
+			Codec.floatRange(0F, 1F).fieldOf("probability").forGetter(BranchPlacement::probability),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("max_count", ConstantInt.ZERO).forGetter(BranchPlacement::maxCount),
+			IntProviders.NON_NEGATIVE_CODEC.lenientOptionalFieldOf("cutoff_from_top", ConstantInt.ZERO).forGetter(BranchPlacement::cutoffFromTop),
+			IntProviders.NON_NEGATIVE_CODEC.fieldOf("length").forGetter(BranchPlacement::length),
+			Codec.FLOAT.lenientOptionalFieldOf("offset_last_log_probability", 0F).forGetter(BranchPlacement::offsetLastLogProbability),
+			Codec.intRange(0, 16).lenientOptionalFieldOf("minimum_length_for_offset", 1).forGetter(BranchPlacement::minLengthForOffset),
+			Codec.FLOAT.lenientOptionalFieldOf("foliage_probability", 0F).forGetter(BranchPlacement::foliageProbability),
+			IntProviders.CODEC.lenientOptionalFieldOf("foliage_radius_offset", ConstantInt.ZERO).forGetter(BranchPlacement::foliageRadiusOffset)
 		).apply(instance, BranchPlacement::new)
 	);
 
@@ -110,10 +115,10 @@ public record BranchPlacement(
 		Direction direction,
 		Direction trunkDirection
 	) {
+		if (!this.conditionMet()) return;
+
 		final BlockPos.MutableBlockPos branchPos = origin.mutable();
 		final int totalLength = this.getBranchLength(random);
-		boolean hasPassedConfigCheck = false;
-
 		for (int length = 1; length <= totalLength; length++) {
 			branchPos.setWithOffset(origin, direction.getStepX() * length, direction.getStepY() * length, direction.getStepZ() * length);
 
@@ -123,12 +128,7 @@ public record BranchPlacement(
 			if (!TreeFeature.validTreePos(level, branchPos)) continue;
 
 			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, canOffsetLog ? trunkDirection : direction, random);
-			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
-				hasPassedConfigCheck = true;
-				trunkSetter.accept(branchPos, logState);
-			} else {
-				return;
-			}
+			trunkSetter.accept(branchPos, logState);
 		}
 	}
 
@@ -141,10 +141,10 @@ public record BranchPlacement(
 		Direction direction,
 		List<FoliagePlacer.FoliageAttachment> foliageAttachments
 	) {
+		if (!this.conditionMet()) return;
+
 		final BlockPos.MutableBlockPos branchPos = origin.mutable();
 		final int totalLength = this.getBranchLength(random);
-		boolean hasPassedConfigCheck = false;
-
 		for (int length = 1; length <= totalLength; length++) {
 			branchPos.setWithOffset(origin, direction.getStepX() * length, 0, direction.getStepZ() * length);
 
@@ -155,27 +155,26 @@ public record BranchPlacement(
 			if (!TreeFeature.validTreePos(level, branchPos)) continue;
 
 			final BlockState logState = TrunkPlacerHelper.getLogBlockState(level, stateProvider, branchPos, placeUpwards ? Direction.UP : direction, random);
-			if (hasPassedConfigCheck || verifyBranchMatchesConfig(logState)) {
-				hasPassedConfigCheck = true;
-				trunkSetter.accept(branchPos, logState);
-				if (isLastLog && this.canPlaceFoliage(random)) {
-					foliageAttachments.add(new FoliagePlacer.FoliageAttachment(branchPos.move(Direction.UP).immutable(), this.getFoliageRadiusOffset(random), false));
-				}
-			} else {
-				return;
+			trunkSetter.accept(branchPos, logState);
+
+			if (isLastLog && this.canPlaceFoliage(random)) {
+				foliageAttachments.add(
+					new FoliagePlacer.FoliageAttachment(
+						branchPos.move(Direction.UP).immutable(),
+						this.getFoliageRadiusOffset(random),
+						false
+					)
+				);
 			}
 		}
 	}
 
-	private static boolean verifyBranchMatchesConfig(BlockState logState) {
-		if (!WWWorldgenConfig.BIRCH_BRANCH_GENERATION.get() && logState.is(BlockItemTags.BIRCH_LOGS.block())) return false;
-		if (!WWWorldgenConfig.OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.OAK_LOGS.block())) return false;
-		if (!WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.DARK_OAK_LOGS.block())) return false;
-		if (!WWWorldgenConfig.PALE_OAK_BRANCH_GENERATION.get() && logState.is(BlockItemTags.PALE_OAK_LOGS.block())) return false;
-		return true;
+	private boolean conditionMet() {
+		return this.condition.isEmpty() || this.condition.get().value().test();
 	}
 
 	public static class Builder {
+		private @Nullable Holder<ConfigPredicate> condition;
 		private float branchChance = 0F;
 		private IntProvider maxBranchCount = ConstantInt.ZERO;
 		private IntProvider branchCutoffFromTop = ConstantInt.ZERO;
@@ -185,7 +184,11 @@ public record BranchPlacement(
 		private float foliagePlacementChance = 0F;
 		private IntProvider foliageRadiusOffset = ConstantInt.ZERO;
 
-		public Builder() {
+		public Builder() {}
+
+		public Builder condition(Holder<ConfigPredicate> condition) {
+			this.condition = condition;
+			return this;
 		}
 
 		public Builder branchChance(float branchChance) {
@@ -235,6 +238,7 @@ public record BranchPlacement(
 
 		public BranchPlacement build() {
 			return new BranchPlacement(
+				Optional.ofNullable(this.condition),
 				this.branchChance,
 				this.maxBranchCount,
 				this.branchCutoffFromTop,

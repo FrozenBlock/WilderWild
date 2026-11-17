@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import java.util.List;
+import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredBlockEntityType;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
@@ -28,7 +29,9 @@ import net.frozenblock.wilderwild.block.entity.ScorchedBlockEntity;
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.references.WWBlockEntityTypeIds;
+import org.jetbrains.annotations.ApiStatus;
 
+@UtilityClass
 public final class WWBlockEntityTypes {
 	private static final DeferredRegister.BlockEntities REGISTER = DeferredRegister.createBlockEntities(WWConstants.MOD_ID);
 
@@ -61,7 +64,6 @@ public final class WWBlockEntityTypes {
 		REGISTER.register();
 	}
 
+	@ApiStatus.Internal
 	public static void init() {}
-
-	private WWBlockEntityTypes() {}
 }
