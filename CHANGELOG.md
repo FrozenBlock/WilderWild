@@ -29,6 +29,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Float Sculk Bubble particles are now visible behind Water with the Improved Transparency option disabled.
 - Fixed a visual issue that caused adjacent Mesoglea blocks of different colors to z-fight.
 - Fixed a visual issue that caused Algae to become completely invisible at a distance or when looked at from a certain angle.
+- Fixed an issue that caused the lids of Stone Chests to not animate as smoothly as intended.
+- Fixed a bug that caused the hand swinging animation to play on the client side while attempting to interact with a Display Lantern could not be interacted with.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

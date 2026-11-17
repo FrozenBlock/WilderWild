@@ -21,12 +21,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.HashCommon;
 import net.frozenblock.wilderwild.block.entity.DisplayLanternBlockEntity;
-import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.renderer.blockentity.state.DisplayLanternRenderState;
 import net.frozenblock.wilderwild.client.renderer.entity.FireflyRenderer;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
@@ -40,39 +37,40 @@ import org.jetbrains.annotations.Nullable;
 
 @ClientOnly
 public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> implements BlockEntityRenderer<T, DisplayLanternRenderState> {
+	private static final float ITEM_GROUND_SCALE = 0.5F;
+	private static final float ITEM_SCALE = 0.7F;
+	private static final float ITEM_DISPLAY_LANTERN_SCALE = ITEM_GROUND_SCALE * ITEM_SCALE;
+	private static final float ITEM_GROUND_Y_OFFSET = 2F / 16F;
+	private static final float ITEM_Y_OFFSET = 0.125F + ITEM_GROUND_Y_OFFSET;
+	private static final float ITEM_HANGING_Y_OFFSET = 0.25F + ITEM_GROUND_Y_OFFSET;
 	private final ItemModelResolver itemModelResolver;
 
 	public DisplayLanternRenderer(Context context) {
-		context.bakeLayer(WWModelLayers.DISPLAY_LANTERN);
 		this.itemModelResolver = context.itemModelResolver();
-	}
-
-	public static LayerDefinition getTexturedModelData() {
-		return LayerDefinition.create(new MeshDefinition(), 16, 16);
 	}
 
 	@Override
 	public void submit(
-		DisplayLanternRenderState renderState,
+		DisplayLanternRenderState state,
 		PoseStack poseStack,
-		SubmitNodeCollector collector,
+		SubmitNodeCollector submitNodeCollector,
 		CameraRenderState camera
 	) {
-		if (!renderState.item.isEmpty()) {
+		if (!state.item.isEmpty()) {
 			poseStack.pushPose();
-			poseStack.translate(0.5F, renderState.isHanging ? 0.25F : 0.125F, 0.5F);
-			poseStack.scale(0.7F, 0.7F, 0.7F);
-			poseStack.rotate(Axis.YP.rotation(renderState.age / 20F));
+			poseStack.translate(0.5F, state.isHanging ? ITEM_HANGING_Y_OFFSET : ITEM_Y_OFFSET, 0.5F);
+			poseStack.scale(ITEM_DISPLAY_LANTERN_SCALE, ITEM_DISPLAY_LANTERN_SCALE, ITEM_DISPLAY_LANTERN_SCALE);
+			poseStack.rotate(Axis.YP.rotation(state.age / 20F));
 
-			renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+			state.item.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
 
 			poseStack.popPose();
 		}
 
-		for (DisplayLanternRenderState.Occupant occupant : renderState.occupants) {
+		for (DisplayLanternRenderState.Occupant occupant : state.occupants) {
 			FireflyRenderer.submitFireflyWithoutRenderState(
 				poseStack,
-				collector,
+				submitNodeCollector,
 				camera.orientation,
 				occupant.color(),
 				occupant.calcColor(),
@@ -80,7 +78,7 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 				occupant.x(),
 				occupant.y(),
 				occupant.z(),
-				renderState.lightCoords,
+				state.lightCoords,
 				OverlayTexture.NO_OVERLAY
 			);
 		}
@@ -105,8 +103,9 @@ public class DisplayLanternRenderer<T extends DisplayLanternBlockEntity> impleme
 		this.itemModelResolver.updateForTopItem(
 			renderState.item,
 			displayLantern.getItem(),
-			ItemDisplayContext.GROUND,
-			displayLantern.level(), displayLantern,
+			ItemDisplayContext.FIXED,
+			displayLantern.level(),
+			displayLantern,
 			HashCommon.long2int(displayLantern.getBlockPos().asLong())
 		);
 		renderState.extractOccupants(displayLantern, partialTicks);

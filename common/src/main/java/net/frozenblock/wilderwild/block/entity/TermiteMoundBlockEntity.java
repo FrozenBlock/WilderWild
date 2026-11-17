@@ -25,7 +25,6 @@ import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.ProblemReporter;
@@ -47,7 +46,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	}
 
 	public void tickServer(Level level, BlockPos pos, boolean natural, boolean awake) {
-		this.termiteManager.tick(level, pos, natural, awake, this::markForUpdate);
+		this.termiteManager.tick(level, pos, natural, awake, this::markUpdated);
 	}
 
 	public void tickClient(Level level) {
@@ -69,7 +68,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 		}
 	}
 
-	private void markForUpdate() {
+	private void markUpdated() {
 		this.setChanged();
 		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
 	}
@@ -87,7 +86,7 @@ public class TermiteMoundBlockEntity extends BlockEntity {
 	public CompoundTag getUpdateTag(HolderGetter.Provider registries) {
 		try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), WWConstants.LOGGER)) {
 			final TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
-			this.termiteManager.saveWithoutMetadata(output);
+			this.termiteManager.saveTermitesForNetwork(output);
 			return output.buildResult();
 		}
 	}

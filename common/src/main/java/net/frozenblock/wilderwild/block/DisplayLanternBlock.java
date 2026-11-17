@@ -102,21 +102,22 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		InteractionHand hand,
 		BlockHitResult hit
 	) {
-		if (level.isClientSide()) return InteractionResult.SUCCESS;
 		if (!(level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern)) return InteractionResult.TRY_WITH_EMPTY_HAND;
 
-		if (!displayLantern.invEmpty()) {
+		if (!displayLantern.inventoryEmpty()) {
 			if (displayLantern.noFireflies()) {
 				final Optional<ItemStack> lanternStack = displayLantern.inventory.stream().findFirst();
 				if (lanternStack.isPresent()) {
+					if (level.isClientSide()) return InteractionResult.SUCCESS;
+
 					popResource(level, pos, lanternStack.get());
 					displayLantern.inventory.clear();
 					displayLantern.markForUpdate();
 					level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, 0));
-					level.updateNeighbourForOutputSignal(pos, this);
 					return InteractionResult.SUCCESS;
 				}
 			}
+
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		}
 
@@ -124,6 +125,8 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		if (itemStack.has(WWDataComponents.FIREFLY_COLOR.get())) {
 			final Holder<FireflyColor> fireflyColor = itemStack.get(WWDataComponents.FIREFLY_COLOR.get());
 			if (fireflyColor != null && fireflies.size() < MAX_FIREFLIES) {
+				if (level.isClientSide()) return InteractionResult.SUCCESS;
+
 				String name = "";
 				if (itemStack.has(DataComponents.CUSTOM_NAME)) name = itemStack.getHoverName().getString();
 				displayLantern.addFirefly(level, fireflyColor.unwrapKey().orElseThrow().identifier(), name);
@@ -133,10 +136,11 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				displayLantern.markForUpdate();
-				level.updateNeighbourForOutputSignal(pos, this);
 				return InteractionResult.SUCCESS.heldItemTransformedTo(emptyResult);
 			}
 		} else if (itemStack.is(Items.GLASS_BOTTLE) && !fireflies.isEmpty()) {
+			if (level.isClientSide()) return InteractionResult.SUCCESS;
+
 			final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.getRandom());
 			level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 
@@ -154,11 +158,12 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			displayLantern.removeFirefly(fireflyInLantern);
 			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
 			displayLantern.markForUpdate();
-			level.updateNeighbourForOutputSignal(pos, this);
 			return InteractionResult.SUCCESS.heldItemTransformedTo(filledResult);
 		}
 
 		if (!itemStack.isEmpty() && displayLantern.noFireflies()) {
+			if (level.isClientSide()) return InteractionResult.SUCCESS;
+
 			int light = 0;
 			if (itemStack.getItem() instanceof BlockItem blockItem) {
 				light = blockItem.getBlock().defaultBlockState().getLightEmission();
@@ -168,7 +173,6 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(light, 0, LightEngine.MAX_LEVEL)));
 			displayLantern.inventory.set(0, itemStack.split(1));
 			displayLantern.markForUpdate();
-			level.updateNeighbourForOutputSignal(pos, this);
 			return InteractionResult.SUCCESS;
 		}
 
@@ -251,9 +255,9 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 	@Override
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return !level.isClientSide() ?
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos)) :
-			createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx));
+		return level.isClientSide()
+			? createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.clientTick(levelx))
+			: createTickerHelper(type, WWBlockEntityTypes.DISPLAY_LANTERN.get(), (levelx, pos, statex, blockEntity) -> blockEntity.serverTick(levelx, pos));
 	}
 
 	@Override
@@ -266,5 +270,4 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 		if (level.getBlockEntity(pos) instanceof DisplayLanternBlockEntity displayLantern) return displayLantern.getComparatorOutput();
 		return 0;
 	}
-
 }

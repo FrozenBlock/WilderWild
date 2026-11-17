@@ -29,7 +29,6 @@ import net.frozenblock.wilderwild.entity.Firefly;
 import net.frozenblock.wilderwild.entity.ai.firefly.FireflyAi;
 import net.frozenblock.wilderwild.entity.variant.firefly.FireflyColor;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
@@ -68,7 +67,6 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	private final boolean hanging;
 	public NonNullList<ItemStack> inventory;
 	public int age;
-	private boolean firstTick;
 
 	public DisplayLanternBlockEntity(BlockPos pos, BlockState state) {
 		super(WWBlockEntityTypes.DISPLAY_LANTERN.get(), pos, state);
@@ -77,22 +75,11 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	public void serverTick(Level level, BlockPos pos) {
-		final boolean hasFireflies = !this.fireflies.isEmpty();
-		if (!this.firstTick) {
-			this.firstTick = true;
-			if (hasFireflies) {
-				final BlockState state = this.getBlockState();
-				level.setBlockAndUpdate(pos, state.setValue(WWBlockStateProperties.DISPLAY_LIGHT, Math.clamp(this.fireflies.size() * 3, 0, 15)));
-			}
-		}
-		if (hasFireflies) {
-			for (Occupant firefly : this.fireflies) firefly.tick(level);
-		}
+		for (Occupant firefly : this.fireflies) firefly.tick(level);
 	}
 
 	public void clientTick(Level level) {
 		this.age += 1;
-		if (this.fireflies.isEmpty()) return;
 		for (Occupant firefly : this.fireflies) firefly.tick(level);
 	}
 
@@ -103,6 +90,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	public void markForUpdate() {
 		this.setChanged();
 		this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_ALL);
+		this.level.updateNeighbourForOutputSignal(this.getBlockPos(), this.getBlockState().getBlock());
 	}
 
 	@Override
@@ -120,10 +108,10 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 
 	@Override
 	public CompoundTag getUpdateTag(HolderGetter.Provider registries) {
-		return this.saveWithoutMetadata(registries);
+		return this.saveCustomOnly(registries);
 	}
 
-	public boolean invEmpty() {
+	public boolean inventoryEmpty() {
 		return this.getItem().isEmpty();
 	}
 
@@ -225,7 +213,7 @@ public class DisplayLanternBlockEntity extends BlockEntity implements ItemOwner 
 	}
 
 	public int getComparatorOutput() {
-		if (!this.invEmpty()) return Redstone.SIGNAL_MAX;
+		if (!this.inventoryEmpty()) return Redstone.SIGNAL_MAX;
 		if (!this.noFireflies()) return Math.clamp(this.getFireflies().size() * DisplayLanternBlock.MAX_FIREFLIES, 0, LightEngine.MAX_LEVEL);
 		return 0;
 	}

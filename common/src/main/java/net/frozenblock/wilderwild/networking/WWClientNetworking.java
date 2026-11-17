@@ -20,7 +20,6 @@ package net.frozenblock.wilderwild.networking;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.math.api.AdvancedMath;
 import net.frozenblock.lib.networking.api.ClientNetworkingHelper;
-import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafUtil;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.Jellyfish;
@@ -28,7 +27,6 @@ import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
-import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
@@ -55,7 +53,6 @@ public final class WWClientNetworking {
 	public static void setup() {
 		receiveJellyfishStingPacket();
 		receiveLightningStrikePacket();
-		receiveStoneChestLidPacket();
 		receiveScorchingFirePlacePacket();
 		receiveLeavesExplosionPacket();
 	}
@@ -90,20 +87,6 @@ public final class WWClientNetworking {
 			if (WWEntityConfig.LIGHTNING_SMOKE_PARTICLES.get()) {
 				lightningSmokeParticles(packet.tickCount(), packet.x(), packet.y(), packet.z(), state, random, minecraft.particleEngine);
 			}
-		});
-	}
-
-	public static void receiveStoneChestLidPacket() {
-		ClientNetworkingHelper.registerGlobalClientReceiver(WWStoneChestLidPacket.PACKET_TYPE, (packet, minecraft, player) -> {
-			final ClientLevel level = minecraft.level;
-			if (!(level.getBlockEntity(packet.pos()) instanceof StoneChestBlockEntity stoneChestBlockEntity)) return;
-
-			stoneChestBlockEntity.prevOpenProgress = packet.prevOpenProgress();
-			stoneChestBlockEntity.openProgress = packet.openProgress();
-			stoneChestBlockEntity.highestLidPoint = packet.highestLidPoint();
-			stoneChestBlockEntity.cooldownTicks = packet.cooldownTicks();
-			stoneChestBlockEntity.stillLidTicks = packet.stillLidTicks();
-			stoneChestBlockEntity.closing = packet.closing();
 		});
 	}
 

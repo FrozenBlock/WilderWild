@@ -23,7 +23,6 @@ import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
-import net.frozenblock.wilderwild.networking.packet.WWStoneChestLidPacket;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -33,7 +32,6 @@ public final class WWNetworking {
 	public static void setup() {
 		NetworkingHelper.registerS2CPayloadType(WWJellyfishStingPacket.PACKET_TYPE, WWJellyfishStingPacket.CODEC);
 		NetworkingHelper.registerS2CPayloadType(WWLightningStrikePacket.PACKET_TYPE, WWLightningStrikePacket.CODEC);
-		NetworkingHelper.registerS2CPayloadType(WWStoneChestLidPacket.PACKET_TYPE, WWStoneChestLidPacket.CODEC);
 		NetworkingHelper.registerS2CPayloadType(WWScorchingFirePlacePacket.PACKET_TYPE, WWScorchingFirePlacePacket.CODEC);
 		NetworkingHelper.registerS2CPayloadType(WWLeavesExplosionParticlePacket.PACKET_TYPE, WWLeavesExplosionParticlePacket.CODEC);
 	}

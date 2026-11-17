@@ -33,6 +33,9 @@ import net.minecraft.world.item.ItemDisplayContext;
 
 @ClientOnly
 public class TumbleweedRenderer extends AbstractBlockLikeMobRenderer<Tumbleweed, TumbleweedRenderState, NoOpModel<TumbleweedRenderState>> {
+	private static final float ITEM_GROUND_SCALE = 0.5F;
+	private static final float ITEM_GROUND_Y_OFFSET = 2F / 16F;
+	private static final float ITEM_Y_OFFSET = 0.333F + ITEM_GROUND_Y_OFFSET;
 	private final ItemModelResolver itemModelResolver;
 
 	public TumbleweedRenderer(Context context) {
@@ -45,7 +48,8 @@ public class TumbleweedRenderer extends AbstractBlockLikeMobRenderer<Tumbleweed,
 		if (renderState.item.isEmpty()) return;
 
 		poseStack.pushPose();
-		poseStack.translate(0.5D, 0.333D, 0.5D);
+		poseStack.translate(0.5F, ITEM_Y_OFFSET, 0.5F);
+		poseStack.scale(ITEM_GROUND_SCALE, ITEM_GROUND_SCALE, ITEM_GROUND_SCALE);
 		renderState.item.submit(poseStack, collector, renderState.lightCoords, OverlayTexture.NO_OVERLAY, renderState.outlineColor);
 		poseStack.popPose();
 	}
@@ -59,6 +63,6 @@ public class TumbleweedRenderer extends AbstractBlockLikeMobRenderer<Tumbleweed,
 	public void extractRenderState(Tumbleweed tumbleweed, TumbleweedRenderState renderState, float partialTicks) {
 		super.extractRenderState(tumbleweed, renderState, partialTicks);
 		renderState.hasRedOverlay = false;
-		this.itemModelResolver.updateForLiving(renderState.item, tumbleweed.getVisibleItem(), ItemDisplayContext.GROUND, tumbleweed);
+		this.itemModelResolver.updateForLiving(renderState.item, tumbleweed.getVisibleItem(), ItemDisplayContext.FIXED, tumbleweed);
 	}
 }

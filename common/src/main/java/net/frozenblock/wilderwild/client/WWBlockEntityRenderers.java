@@ -21,6 +21,7 @@ import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.client.renderer.blockentity.DisplayLanternRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.HangingTendrilRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.SculkSensorRenderer;
 import net.frozenblock.wilderwild.client.renderer.blockentity.StoneChestRenderer;
@@ -62,6 +63,11 @@ public final class WWBlockEntityRenderers {
 		register.register(
 			blockEntityKey(WWBlockEntityTypeIds.STONE_CHEST),
 			() -> (BlockEntityRendererProvider) StoneChestRenderer::new
+		);
+
+		register.register(
+			blockEntityKey(WWBlockEntityTypeIds.DISPLAY_LANTERN),
+			() -> (BlockEntityRendererProvider) DisplayLanternRenderer::new
 		);
 
 		register.register();

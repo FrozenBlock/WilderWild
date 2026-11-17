@@ -124,8 +124,10 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 			level.destroyBlock(pos, true);
 			return;
 		}
+
 		if (SculkSensorBlock.getPhase(state) != SculkSensorPhase.INACTIVE) return;
 		if (!(level.getBlockEntity(pos) instanceof HangingTendrilBlockEntity hangingTendril)) return;
+
 		level.setBlockAndUpdate(pos, state.setValue(TWITCHING, true));
 		hangingTendril.ticksToStopTwitching = random.nextIntBetweenInclusive(TWITCH_MIN_TICKS, TWITCH_MAX_TICKS);
 	}
@@ -160,7 +162,7 @@ public class HangingTendrilBlock extends BaseEntityBlock implements SimpleWaterl
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		if (level.isClientSide() || state.is(oldState.getBlock())) return;
 		if (state.getValue(POWER) > 0 && !level.getBlockTicks().hasScheduledTick(pos, this)) {
-			level.setBlock(pos, state.setValue(POWER, 0), 18);
+			level.setBlock(pos, state.setValue(POWER, 0), UPDATE_CLIENTS + UPDATE_KNOWN_SHAPE);
 		}
 		level.scheduleTick(pos, state.getBlock(), 1);
 	}
