@@ -43,6 +43,9 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_PALE_OAK = createKey("sound_override_pale_oak");
 	public static final ResourceKey<ConfigPredicate> SOUND_OVERRIDE_ICICLE = createKey("sound_override_icicle");
 
+	public static final ResourceKey<ConfigPredicate> GENERATE_BETA_BEACH = createKey("generate_beta_beach");
+	public static final ResourceKey<ConfigPredicate> CANNOT_GENERATE_BETA_BEACH = createKey("cannot_generate_beta_beach");
+
 	public static final ResourceKey<ConfigPredicate> GENERATE_TERMITE = createKey("generate_termite");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
@@ -184,6 +187,15 @@ public final class WWConfigPredicates {
 		context.register(
 			SOUND_OVERRIDE_ICICLE,
 			WWBlockConfig.ICICLE_SOUNDS.equalTo(true)
+		);
+
+		context.register(
+			GENERATE_BETA_BEACH,
+			WWWorldgenConfig.BETA_BEACHES.equalTo(true)
+		);
+		context.register(
+			CANNOT_GENERATE_BETA_BEACH,
+			ConfigPredicate.not(configPredicates.getOrThrow(GENERATE_BETA_BEACH))
 		);
 
 		context.register(

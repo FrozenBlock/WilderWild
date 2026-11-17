@@ -475,6 +475,7 @@ public final class WWTreePlacements {
 				BlockPredicate.allOf(
 					BlockPredicate.matchesTag(Direction.DOWN, WWBlockTags.CAN_REPLACE_BELOW_TREE_TRUNK_PALE_OAK),
 					BlockPredicate.anyOf(
+						ConfigPredicate.blockPredicate(configPredicates.getOrThrow(WWConfigPredicates.CANNOT_GENERATE_BETA_BEACH)),
 						BlockPredicate.not(BlockPredicate.heightRange(VerticalAnchor.relativeToSeaLevel(-3), VerticalAnchor.relativeToSeaLevel(2))),
 						BlockPredicate.not(BlockPredicate.matchesBlocks(Direction.DOWN, Blocks.GRAVEL)),
 						BlockPredicate.not(NoiseThresholdBlockPredicate.of(WWNoises.GRAVEL_BEACH, -1.7976931348623157E308D, -0.12D, false))

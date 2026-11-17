@@ -172,7 +172,7 @@ public final class WWMaterialRules {
 			overworld,
 			aboveSurface(
 				MaterialRules.ifTrue(
-					WWWorldgenConfig.BETA_BEACHES.equalTo(true).asMaterialCondition(),
+					ConfigPredicate.materialCondition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BETA_BEACH)),
 					MaterialRules.sequence(
 						betaBeachRule(
 							biomes,

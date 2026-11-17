@@ -26,6 +26,10 @@
                 "type": "minecraft:any_of",
                 "predicates": [
                   {
+                    "type": "frozenlib:config_predicate",
+                    "config_predicate": "wilderwild:cannot_generate_beta_beach"
+                  },
+                  {
                     "type": "minecraft:not",
                     "predicate": {
                       "type": "minecraft:height_range",

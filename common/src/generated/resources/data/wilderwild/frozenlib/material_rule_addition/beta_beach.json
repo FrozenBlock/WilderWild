@@ -9,11 +9,7 @@
       "type": "minecraft:condition",
       "if_true": {
         "type": "frozenlib:config_predicate",
-        "config_predicate": {
-          "type": "frozenlib:equal_to",
-          "entry": "wilderwild:worldgen/betaBeaches",
-          "target": true
-        }
+        "config_predicate": "wilderwild:generate_beta_beach"
       },
       "then_run": {
         "type": "minecraft:sequence",
