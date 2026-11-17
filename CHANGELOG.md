@@ -91,7 +91,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed a bug that caused Large Fallen Trees to not generate in Water and not generate their Stumps as frequently as intended.
 - Revamped the implementation of Clearings (seen occasionally in Forest-like and Taiga Biomes).
   - Clearing noise is now controlled using the `wilderwild:clearing` Noise.
-  - Worldgen features now rely on the usage of the `frozenlib:noise_threshold` Block Predicate to determine if they can be placed in a CLearing or not.
+  - Worldgen features now rely on the usage of the `frozenlib:noise_threshold` Block Predicate to determine if they can be placed in a Clearing or not.
   - Coarse Dirt/Rooted Dirt/Gravel path generation in Clearings are now generated via Material Rules instead of Features.
   - Added a config option to disable Clearings.
+- Revamped Fancy Dark Oak Trees, now sporting their own unique branch shapes.
+  - Removed the `branch_placement` field in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type.
+  - Added the `branch_condition` field in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type, taking the ID of a Config Predicate, or a Config Predicate.
 - Added an optional `condition` field to Branch Placements, taking the ID of a Config Predicate, or a Config Predicate.

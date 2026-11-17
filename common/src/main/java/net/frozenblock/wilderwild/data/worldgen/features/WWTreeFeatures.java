@@ -2325,9 +2325,6 @@ public final class WWTreeFeatures {
 		int baseHeight,
 		int firstRandomHeight,
 		int secondRandomHeight,
-		float branchChance,
-		IntProvider maxBranchCount,
-		IntProvider branchLength,
 		int radius,
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
@@ -2337,16 +2334,7 @@ public final class WWTreeFeatures {
 				baseHeight,
 				firstRandomHeight,
 				secondRandomHeight,
-				branchChance <= 0
-					? BranchPlacement.EMPTY
-					: new BranchPlacement.Builder()
-					.condition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_DARK_OAK_BRANCH))
-					.branchChance(branchChance)
-					.maxBranchCount(maxBranchCount)
-					.branchLength(branchLength)
-					.foliagePlacementChance(1F)
-					.offsetLastLogChance(1F)
-					.build()
+				Optional.of(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_DARK_OAK_BRANCH))
 			),
 			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(radius), ConstantInt.of(0)),
@@ -2368,9 +2356,6 @@ public final class WWTreeFeatures {
 			10,
 			3,
 			4,
-			1F,
-			UniformInt.of(1, 2),
-			UniformInt.of(1, 4),
 			1,
 			belowTrunkProvider
 		).ignoreVines();
@@ -2706,9 +2691,6 @@ public final class WWTreeFeatures {
 		int baseHeight,
 		int heightRandA,
 		int heightRandB,
-		float branchChance,
-		IntProvider maxBranchCount,
-		IntProvider branchLength,
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
 		return new TreeFeature.Builder(
@@ -2717,14 +2699,7 @@ public final class WWTreeFeatures {
 				baseHeight,
 				heightRandA,
 				heightRandB,
-				new BranchPlacement.Builder()
-					.condition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALE_OAK_BRANCH))
-					.branchChance(branchChance)
-					.maxBranchCount(maxBranchCount)
-					.branchLength(branchLength)
-					.foliagePlacementChance(1F)
-					.offsetLastLogChance(1F)
-					.build()
+				Optional.of(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_PALE_OAK_BRANCH))
 			),
 			BlockStateProvider.of(leaves),
 			new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
@@ -2824,9 +2799,6 @@ public final class WWTreeFeatures {
 			8,
 			3,
 			4,
-			1F,
-			UniformInt.of(1, 2),
-			UniformInt.of(1, 4),
 			belowTrunkProvider
 		);
 		appendPaleOakDecorators(configPredicates, builder, paleMoss, creaking, cobweb, leafLitter);
