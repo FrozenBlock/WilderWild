@@ -88,8 +88,6 @@ import net.frozenblock.wilderwild.block.snowlogging.SnowloggingUtil;
 import net.frozenblock.wilderwild.block.state.properties.FroglightType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
-import net.frozenblock.wilderwild.entity.Tumbleweed;
-import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.levelgen.grower.WWTreeGrowers;
 import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
@@ -97,9 +95,6 @@ import net.frozenblock.wilderwild.tag.WWEnchantmentTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockIds;
 import net.minecraft.references.BlockItemId;
@@ -111,18 +106,13 @@ import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
@@ -156,7 +146,6 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.ApiStatus;
 
 @UtilityClass
@@ -1401,7 +1390,6 @@ public final class WWBlocks {
 
 	@ApiStatus.Internal
 	public static void setup() {
-		registerDispenses();
 
 		BlockEntityTypes.SIGN.frozenLib$addValidBlock(
 			BAOBAB_SIGN, BAOBAB_WALL_SIGN,
@@ -1429,80 +1417,6 @@ public final class WWBlocks {
 
 		// TODO: ml scp
 		//if (ModLoader.isModLoaded(FrozenLibConstants.SIMPLE_COPPER_PIPES_MOD_ID)) SimpleCopperPipesIntegration.setup();
-	}
-
-	private static void registerDispenses() {
-		DispenserBlock.registerBehavior(WWItems.TUMBLEWEED, new DefaultDispenseItemBehavior() {
-			@Override
-			public ItemStack execute(BlockSource source, ItemStack stack) {
-				final Level level = source.level();
-				final Direction direction = source.state().getValue(DispenserBlock.FACING);
-				final Vec3 position = source.center().add(direction.getStepX(), direction.getStepY(), direction.getStepZ());
-				final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
-				final Vec3 vec3 = new Vec3(direction.getStepX(), direction.getStepY() + 0.1D, direction.getStepZ())
-					.normalize()
-					.add(
-						level.getRandom().triangle(0D, 0.0172275D * 6D),
-						level.getRandom().triangle(0D, 0.0172275D * 6D),
-						level.getRandom().triangle(0D, 0.0172275D * 6D)
-					).scale(1.1D);
-				tumbleweed.setDeltaMovement(vec3);
-				tumbleweed.setPos(position);
-				level.addFreshEntity(tumbleweed);
-				stack.shrink(1);
-				return stack;
-			}
-		});
-
-		// Taken from DispenseItemBehavior.bootStrap
-		final DispenseItemBehavior filledBucketBehavior = new DefaultDispenseItemBehavior() {
-			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-			@Override
-			public ItemStack execute(BlockSource source, ItemStack dispensed) {
-				final DispensibleContainerItem bucket = (DispensibleContainerItem) dispensed.getItem();
-				final BlockPos target = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
-				final Level level = source.level();
-
-				if (bucket.emptyContents(null, level, target, null)) {
-					bucket.checkExtraContent(null, level, dispensed, target);
-					return this.consumeWithRemainder(source, dispensed, new ItemStack(Items.BUCKET));
-				}
-
-				return this.defaultDispenseItemBehavior.dispense(source, dispensed);
-			}
-		};
-		DispenserBlock.registerBehavior(WWItems.CRAB_BUCKET, filledBucketBehavior);
-		DispenserBlock.registerBehavior(WWItems.JELLYFISH_BUCKET, filledBucketBehavior);
-
-		final DispenseItemBehavior mobBottleBehavior = new DefaultDispenseItemBehavior() {
-			private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-			@Override
-			public ItemStack execute(BlockSource source, ItemStack dispensed) {
-				final MobBottleItem bottle = (MobBottleItem) dispensed.getItem();
-				final ServerLevel level = source.level();
-				final Direction facing = source.state().getValue(DispenserBlock.FACING);
-				final Vec3 spawnPos = source.center().add(facing.getUnitVec3().scale(0.5D + (bottle.mobWidth() / 1.75D)));
-
-				if (bottle.canSpawn(level, spawnPos)) {
-					final RandomSource random = level.getRandom();
-					final double pow = (random.nextDouble() * 0.5D) + 0.2D;
-					final Vec3 spawnVelocity = new Vec3(
-						random.triangle(facing.getStepX() * pow, 0.0172275 * 6),
-						random.triangle(facing.getStepX() * pow, 0.0172275 * 6),
-						random.triangle(facing.getStepZ() * pow, 0.0172275 * 6)
-					);
-
-					bottle.spawn(null, level, dispensed, spawnPos, spawnVelocity);
-					return this.consumeWithRemainder(source, dispensed, new ItemStack(Items.GLASS_BOTTLE));
-				}
-
-				return this.defaultDispenseItemBehavior.dispense(source, dispensed);
-			}
-		};
-		DispenserBlock.registerBehavior(WWItems.BUTTERFLY_BOTTLE, mobBottleBehavior);
-		DispenserBlock.registerBehavior(WWItems.FIREFLY_BOTTLE, mobBottleBehavior);
 	}
 
 	private static void registerFlammability() {

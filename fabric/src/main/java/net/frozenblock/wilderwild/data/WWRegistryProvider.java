@@ -67,6 +67,8 @@ final class WWRegistryProvider extends FabricDynamicRegistryProvider {
 		entries.addAll(asLookup(entries.getLookup(Registries.BLOCK_STATE_PROVIDER)));
 		WWConstants.log("Adding finalized block sound sets to datagen", true);
 		entries.addAll(asLookup(entries.getLookup(Registries.BLOCK_SOUND_SET)));
+		WWConstants.log("Adding finalized dispense behaviors to datagen", true);
+		entries.addAll(asLookup(entries.getLookup(Registries.DISPENSE_BEHAVIOR)));
 
 		// FrozenLib Dynamic Registries
 		WWConstants.log("Adding finalized config predicate providers to datagen", true);

@@ -148,6 +148,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.STRUCTURE, WWStructures::bootstrap);
 		registryBuilder.add(Registries.BLOCK_STATE_PROVIDER, WWBlockStateProviders::bootstrap);
 		registryBuilder.add(Registries.BLOCK_SOUND_SET, WWBlockSoundSets::bootstrap);
+		registryBuilder.add(Registries.DISPENSE_BEHAVIOR, WWDispenseBehaviors::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE, WWConfigPredicates::bootstrap);
