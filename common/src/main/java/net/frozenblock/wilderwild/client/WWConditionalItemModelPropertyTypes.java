@@ -22,6 +22,7 @@ import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.lib.platform.client.ClientRegistryHelper;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.renderer.item.properties.conditional.ChargedHarpoon;
+import net.frozenblock.wilderwild.client.renderer.item.properties.conditional.CrossbowHarpoonCast;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.core.registries.ClientRegistries;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
@@ -36,6 +37,7 @@ public final class WWConditionalItemModelPropertyTypes {
 		);
 
 		register.register("charged_harpoon", () -> ChargedHarpoon.MAP_CODEC);
+		register.register("crossbow_harpoon/cast", () -> CrossbowHarpoonCast.MAP_CODEC);
 
 		register.register();
 	}

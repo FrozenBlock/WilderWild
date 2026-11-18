@@ -35,11 +35,11 @@ public final class ChargedHarpoon implements ConditionalItemModelProperty {
 
 	@Nullable
 	@Override
-	public boolean get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
+	public boolean get(ItemStack itemStack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
 		// Yes, I'm very much aware that Charge could be used instead.
 		// I tried that, actually, but attempting a proper implementation required replacing every single Crossbow pulling + the normal model...
 		// With this, the Crossbow Arrow model will be selected and I can simply wrap it with this condition. Yay.
-		return stack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY).contains(WWItems.HARPOON.get());
+		return itemStack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY).contains(WWItems.HARPOON.get());
 	}
 
 	@Override
