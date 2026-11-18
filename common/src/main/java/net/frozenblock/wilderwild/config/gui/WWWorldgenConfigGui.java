@@ -98,7 +98,6 @@ public final class WWWorldgenConfigGui {
 			booleanEntry(builder, "palm_generation", WWWorldgenConfig.PALM_TREE_GENERATION),
 			booleanEntry(builder, "willow_generation", WWWorldgenConfig.WILLOW_TREE_GENERATION),
 			booleanEntry(builder, "new_maples", WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION),
-			booleanEntry(builder, "alternate_birch_foliage", WWWorldgenConfig.ALTERNATE_BIRCH_FOLIAGE_GENERATION),
 			booleanEntry(builder, "birch_branches", WWWorldgenConfig.BIRCH_BRANCH_GENERATION),
 			booleanEntry(builder, "oak_branches", WWWorldgenConfig.OAK_BRANCH_GENERATION),
 			booleanEntry(builder, "dark_oak_branches", WWWorldgenConfig.DARK_OAK_BRANCH_GENERATION),
