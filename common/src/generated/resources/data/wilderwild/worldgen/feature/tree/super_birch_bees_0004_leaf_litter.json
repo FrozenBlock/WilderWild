@@ -46,10 +46,20 @@
     }
   ],
   "foliage_placer": {
-    "type": "minecraft:blob_foliage_placer",
-    "height": 3,
-    "offset": 0,
-    "radius": 2
+    "type": "frozenlib:conditional_foliage_placer",
+    "condition": "wilderwild:generate_birch_alternate_foliage",
+    "on_false": {
+      "type": "minecraft:blob_foliage_placer",
+      "height": 3,
+      "offset": 0,
+      "radius": 2
+    },
+    "on_true": {
+      "type": "minecraft:blob_foliage_placer",
+      "height": 5,
+      "offset": 2,
+      "radius": 2
+    }
   },
   "foliage_provider": {
     "id": "minecraft:birch_leaves",

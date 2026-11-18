@@ -2148,70 +2148,96 @@ public final class WWTreeFeatures {
 	}
 
 	// BIRCH
+	public static TreeFeature.Builder birchBuilder(
+		HolderGetter<ConfigPredicate> configPredicates,
+		int baseHeight,
+		int firstRandomHeight,
+		int secondRandomHeight,
+		float branchChance,
+		IntProvider maxBranchCount,
+		IntProvider branchCutoffFromTop,
+		IntProvider branchLength,
+		Holder<BlockStateProvider> belowTrunkProvider
+	) {
+		return new TreeFeature.Builder(
+			BlockStateProvider.of(Blocks.BIRCH_LOG),
+			new StraightWithBranchesTrunkPlacer(
+				baseHeight,
+				firstRandomHeight,
+				secondRandomHeight,
+				branchChance <= 0
+					? BranchPlacement.EMPTY
+					: BranchPlacement.builder()
+					.condition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH))
+					.branchChance(branchChance)
+					.maxBranchCount(maxBranchCount)
+					.branchCutoffFromTop(branchCutoffFromTop)
+					.branchLength(branchLength)
+					.build()
+			),
+			BlockStateProvider.of(Blocks.BIRCH_LEAVES),
+			new ConditionalFoliagePlacer(
+				configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_ALTERNATE_FOLIAGE),
+				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), 5),
+				new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3)
+			),
+			new TwoLayersFeatureSize(1, 0, 1),
+			belowTrunkProvider
+		);
+	}
+
 	public static TreeFeature.Builder birch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
-		return builder(
-			Blocks.BIRCH_LOG,
-			Blocks.BIRCH_LEAVES,
+		return birchBuilder(
+			configPredicates,
 			8,
 			5,
 			4,
-			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.15F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
 			ConstantInt.of(1),
-			2,
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
 	public static TreeFeature.Builder superBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
-		return builder(
-			Blocks.BIRCH_LOG,
-			Blocks.BIRCH_LEAVES,
+		return birchBuilder(
+			configPredicates,
 			8,
 			6,
 			5,
-			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.15F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
 			ConstantInt.of(1),
-			2,
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
 	public static TreeFeature.Builder shortBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
-		return builder(
-			Blocks.BIRCH_LOG,
-			Blocks.BIRCH_LEAVES,
+		return birchBuilder(
+			configPredicates,
 			6,
 			2,
 			2,
-			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.12F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
 			ConstantInt.of(1),
-			2,
 			belowTrunkProvider
 		).ignoreVines();
 	}
 
 	public static TreeFeature.Builder mediumBirch(HolderGetter<ConfigPredicate> configPredicates, Holder<BlockStateProvider> belowTrunkProvider) {
-		return builder(
-			Blocks.BIRCH_LOG,
-			Blocks.BIRCH_LEAVES,
+		return birchBuilder(
+			configPredicates,
 			8,
 			2,
 			2,
-			configPredicates.getOrThrow(WWConfigPredicates.GENERATE_BIRCH_BRANCH),
 			0.12F,
 			UniformInt.of(1, 2),
 			UniformInt.of(1, 3),
 			ConstantInt.of(1),
-			2,
 			belowTrunkProvider
 		).ignoreVines();
 	}
@@ -2595,7 +2621,7 @@ public final class WWTreeFeatures {
 		IntProvider branchStartHeight,
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
-		final Holder<ConfigPredicate> newMapleGeneration = configPredicates.getOrThrow(WWConfigPredicates.NEW_MAPLE_GENERATION);
+		final Holder<ConfigPredicate> newMapleGeneration = configPredicates.getOrThrow(WWConfigPredicates.GENERATE_NEW_MAPLE);
 
 		return new TreeFeature.Builder(
 			BlockStateProvider.of(log),

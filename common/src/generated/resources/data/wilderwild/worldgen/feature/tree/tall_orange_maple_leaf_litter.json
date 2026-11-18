@@ -36,7 +36,7 @@
   ],
   "foliage_placer": {
     "type": "frozenlib:conditional_foliage_placer",
-    "condition": "wilderwild:new_maple_generation",
+    "condition": "wilderwild:generate_new_maple",
     "on_false": {
       "type": "wilderwild:legacy_maple_foliage_placer",
       "length": {
@@ -79,7 +79,7 @@
   },
   "trunk_placer": {
     "type": "frozenlib:conditional_trunk_placer",
-    "condition": "wilderwild:new_maple_generation",
+    "condition": "wilderwild:generate_new_maple",
     "on_false": {
       "type": "minecraft:straight_trunk_placer",
       "base_height": 14,
