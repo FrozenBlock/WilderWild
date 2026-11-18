@@ -442,9 +442,9 @@ public final class WWFlowerFeatures {
 		registerSimpleBlock(FLOWER_DARK_FOREST, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_DARK_FOREST));
 		registerWeightedSelector(PATCH_FLOWER_DARK_FOREST,
 			WeightedList.<Holder<PlacedFeature>>builder()
-				.add(WWFlowerPlacements.PATCH_CARNATION_52.getHolder(), 5)
-				.add(WWFlowerPlacements.PATCH_MARIGOLD_52.getHolder(), 5)
-				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_52.getHolder(), 4)
+				.add(WWFlowerPlacements.PATCH_CARNATION_42.getHolder(), 5)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_42.getHolder(), 5)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 4)
 				.add(WWFlowerPlacements.PATCH_MILKWEED_42.getHolder(), 4)
 				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 3)
 				.add(WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 2)
@@ -465,8 +465,8 @@ public final class WWFlowerFeatures {
 		registerSimpleBlock(FLOWER_DARK_TAIGA, blockStateProviders.getOrThrow(WWBlockStateProviders.FLOWER_DARK_TAIGA));
 		registerWeightedSelector(PATCH_FLOWER_DARK_TAIGA,
 			WeightedList.<Holder<PlacedFeature>>builder()
-				.add(WWFlowerPlacements.PATCH_MARIGOLD_52.getHolder(), 3)
-				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_52.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_MARIGOLD_42.getHolder(), 3)
+				.add(WWFlowerPlacements.PATCH_SEEDING_DANDELION_42.getHolder(), 3)
 				.add(WWFlowerPlacements.PATCH_ROSE_BUSH_48_LARGE.getHolder(), 2)
 				.add(WWFlowerPlacements.PATCH_PEONY_48_LARGE.getHolder(), 1)
 				.build()

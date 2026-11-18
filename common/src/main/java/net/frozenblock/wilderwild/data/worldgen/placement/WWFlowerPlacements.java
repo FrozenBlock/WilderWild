@@ -72,7 +72,6 @@ public final class WWFlowerPlacements {
 
 	public static final FrozenLibPlacedFeature PATCH_CARNATION_38 = register("patch_carnation_38");
 	public static final FrozenLibPlacedFeature PATCH_CARNATION_42 = register("patch_carnation_42");
-	public static final FrozenLibPlacedFeature PATCH_CARNATION_52 = register("patch_carnation_52");
 
 	public static final FrozenLibPlacedFeature PATCH_DANDELION_72_LARGE = register("patch_dandelion_72_large");
 
@@ -87,7 +86,6 @@ public final class WWFlowerPlacements {
 	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_32 = register("patch_marigold_32");
 	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_42 = register("patch_marigold_42");
 	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_46 = register("patch_marigold_46");
-	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_52 = register("patch_marigold_52");
 	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_32_LARGE = register("patch_marigold_32_large");
 	public static final FrozenLibPlacedFeature PATCH_MARIGOLD_38_LARGE = register("patch_marigold_38_large");
 
@@ -241,7 +239,6 @@ public final class WWFlowerPlacements {
 
 		registerFlowerPatchForFeature(PATCH_CARNATION_38, WWFlowerFeatures.CARNATION.getHolder(), 38, 6, 2);
 		registerFlowerPatchForFeature(PATCH_CARNATION_42, WWFlowerFeatures.CARNATION.getHolder(), 42, 6, 2);
-		registerFlowerPatchForFeature(PATCH_CARNATION_52, WWFlowerFeatures.CARNATION.getHolder(), 52, 6, 2);
 
 		registerFlowerPatchForFeature(PATCH_DANDELION_72_LARGE, WWFlowerFeatures.DANDELION.getHolder(), 72, 7, 3);
 
@@ -256,7 +253,6 @@ public final class WWFlowerPlacements {
 		registerFlowerPatchForFeature(PATCH_MARIGOLD_32, WWFlowerFeatures.MARIGOLD.getHolder(), 32, 6, 2);
 		registerFlowerPatchForFeature(PATCH_MARIGOLD_42, WWFlowerFeatures.MARIGOLD.getHolder(), 42, 6, 2);
 		registerFlowerPatchForFeature(PATCH_MARIGOLD_46, WWFlowerFeatures.MARIGOLD.getHolder(), 46, 6, 2);
-		registerFlowerPatchForFeature(PATCH_MARIGOLD_52, WWFlowerFeatures.MARIGOLD.getHolder(), 52, 6, 2);
 		registerFlowerPatchForFeature(PATCH_MARIGOLD_32_LARGE, WWFlowerFeatures.MARIGOLD.getHolder(), 32, 7, 3);
 		registerFlowerPatchForFeature(PATCH_MARIGOLD_38_LARGE, WWFlowerFeatures.MARIGOLD.getHolder(), 38, 7, 3);
 
@@ -538,7 +534,7 @@ public final class WWFlowerPlacements {
 			context,
 			PATCH_FLOWER_DARK_FOREST,
 			WWFlowerFeatures.PATCH_FLOWER_DARK_FOREST,
-			RarityFilter.onAverageOnceEvery(4)
+			RarityFilter.onAverageOnceEvery(5)
 		);
 		registerFlowers(
 			context,
@@ -566,7 +562,7 @@ public final class WWFlowerPlacements {
 			context,
 			PATCH_FLOWER_DARK_TAIGA,
 			WWFlowerFeatures.PATCH_FLOWER_DARK_TAIGA,
-			RarityFilter.onAverageOnceEvery(6)
+			RarityFilter.onAverageOnceEvery(7)
 		);
 		registerFlowerPatch(
 			context,
