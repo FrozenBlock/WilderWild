@@ -38,7 +38,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkBlock;
 import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -111,7 +110,7 @@ public class SculkBlockMixin {
 		method = "attemptUseCharge",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/world/level/block/state/BlockState;"
+			target = "Lnet/minecraft/world/level/block/SculkBlock;getRandomGrowthState(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/block/SculkSpreader;)Lnet/minecraft/world/level/block/state/BlockState;"
 		)
 	)
 	private void wilderWild$getPlacementState(
@@ -249,17 +248,12 @@ public class SculkBlockMixin {
 		),
 		cancellable = true
 	)
-	private void wilderWild$getRandomGrowthState(
-		LevelAccessor level, BlockPos pos, RandomSource random, boolean isWorldGen, CallbackInfoReturnable<BlockState> info,
+	private void wilderWild$setRandomGrowthStateToOsseousSculk(
+		LevelAccessor level, BlockPos pos, RandomSource random, SculkSpreader spreader, CallbackInfoReturnable<BlockState> info,
 		@Local(name = "state") BlockState state
 	) {
 		if (!this.wilderWild$canPlaceOsseousSculk || state.is(Blocks.SCULK_SHRIEKER)) return;
-		state = WWBlocks.OSSEOUS_SCULK.get().defaultBlockState();
-		info.setReturnValue(
-			state.hasProperty(BlockStateProperties.WATERLOGGED) && !level.getFluidState(pos).isEmpty()
-				? state.setValue(BlockStateProperties.WATERLOGGED, true)
-				: state
-		);
+		info.setReturnValue(WWBlocks.OSSEOUS_SCULK.get().defaultBlockState());
 	}
 
 	@Unique

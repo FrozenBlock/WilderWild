@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.levelgen.trunkplacers.branch.BranchPlacement;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.core.BlockPos;
@@ -45,25 +44,21 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		trunkPlacerParts(instance)
 			.and(BranchPlacement.CODEC.optionalFieldOf("branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.branchPlacement))
 			.and(BranchPlacement.CODEC.optionalFieldOf("lower_branch_placement", BranchPlacement.EMPTY).forGetter(trunkPlacer -> trunkPlacer.lowerBranchPlacement))
-			.and(TrunkPlacer.CODEC.fieldOf("alt_trunk_placer").forGetter(trunkPlacer -> trunkPlacer.altTrunkPlacer))
 			.apply(instance, MapleTrunkPlacer::new)
 	);
 	private final BranchPlacement branchPlacement;
 	private final BranchPlacement lowerBranchPlacement;
-	private final TrunkPlacer altTrunkPlacer;
 
 	public MapleTrunkPlacer(
 		int baseHeight,
 		int heightRandA,
 		int heightRandB,
 		BranchPlacement branchPlacement,
-		BranchPlacement lowerBranchPlacement,
-		TrunkPlacer altTrunkPlacer
+		BranchPlacement lowerBranchPlacement
 	) {
 		super(baseHeight, heightRandA, heightRandB);
 		this.branchPlacement = branchPlacement;
 		this.lowerBranchPlacement = lowerBranchPlacement;
-		this.altTrunkPlacer = altTrunkPlacer;
 	}
 
 	@Override
@@ -85,8 +80,6 @@ public class MapleTrunkPlacer extends TrunkPlacer {
 		BlockPos startPos,
 		TreeFeature tree
 	) {
-		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) return this.altTrunkPlacer.placeTrunk(level, replacer, random, height, startPos, tree);
-
 		placeBelowTrunkBlock(level, replacer, random, startPos.below(), tree);
 
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();

@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.registry;
 
 import lombok.experimental.UtilityClass;
-import net.frozenblock.lib.block.api.dispenser.ShearsDispenseItemBehaviorApi;
+import net.frozenblock.lib.block.api.dispenser.ShearDispenseBehaviorApi;
 import net.frozenblock.wilderwild.block.FloweringWaterlilyBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.PricklyPearCactusBlock;
@@ -31,42 +31,42 @@ import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
 @UtilityClass
-public final class WWShearsDispenseItemBehaviors {
+public final class WWShearDispenseBehaviors {
 
 	public static void init() {
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (state.getBlock() != WWBlocks.MILKWEED.get() || !MilkweedBlock.isFullyGrown(state)) return false;
 			MilkweedBlock.onShear(level, pos, state, shears, null);
 			return true;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (state.getBlock() != WWBlocks.PRICKLY_PEAR.get() || !PricklyPearCactusBlock.isFullyGrown(state)) return false;
 			PricklyPearCactusBlock.onPricklyPearPick(level, pos, state, true, shears, null);
 			return true;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (state.getBlock() == WWBlocks.SPONGE_BUD.get()) return SpongeBudBlock.onShear(level, pos, state, shears, null);
 			return false;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (state.getBlock() == WWBlocks.TUMBLEWEED.get()) return TumbleweedBlock.onShear(level, pos, null);
 			return false;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (state.getBlock() == WWBlocks.TUMBLEWEED_PLANT.get()) return TumbleweedPlantBlock.onShear(level, pos, state, null);
 			return false;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (state.getBlock() instanceof ShrubBlock shrubBlock) return shrubBlock.onShear(level, pos, state, shears, null);
 			return false;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (!(state.getBlock() instanceof SeedingFlowerBlock seedingFlower)) return false;
 			if (seedingFlower.canShearIntoOriginalFlower(level, pos, state)) {
 				seedingFlower.onShear(level, pos, state, null);
@@ -75,7 +75,7 @@ public final class WWShearsDispenseItemBehaviors {
 			return false;
 		});
 
-		ShearsDispenseItemBehaviorApi.register((state, level, shears, pos) -> {
+		ShearDispenseBehaviorApi.register((state, level, shears, pos) -> {
 			if (!(state.getBlock() instanceof FloweringWaterlilyBlock floweringWaterlily)) return false;
 			if (floweringWaterlily.canShearIntoOriginalBlock(level, pos, state)) {
 				floweringWaterlily.onShear(level, pos, state, null);

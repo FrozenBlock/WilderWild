@@ -924,6 +924,8 @@
     "tooltip.wilderwild.willow_generation": "Whether Willow Trees can generate.",
     "option.wilderwild.new_maples": "New Maple Trees",
     "tooltip.wilderwild.new_maples": "Whether Maples Trees will generate with a more natural shape.",
+    "option.wilderwild.alternate_birch_foliage": "Alternate Birch Foliage",
+    "tooltip.wilderwild.alternate_birch_foliage": "Whether Birch Trees will generate with an alternate foliage shape.",
     "option.wilderwild.birch_branches": "Birch Branches",
     "tooltip.wilderwild.birch_branches": "Whether Birch Trees can generate small branches.",
     "option.wilderwild.oak_branches": "Oak Branches",

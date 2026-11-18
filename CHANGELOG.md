@@ -125,3 +125,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Removed the `branch_placement` field in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type.
   - Added the `branch_condition` field in the `wilderwild:fancy_dark_oak_trunk_placer` Trunk Placer Type, taking the ID of a Config Predicate, or a Config Predicate.
 - Added an optional `condition` field to Branch Placements, taking the ID of a Config Predicate, or a Config Predicate.
+- Removed the `alt_trunk_placer` field from the `wilderwild:maple_trunk_placer` Trunk Placer Type, as its functionality has been superseded by the `frozenlib:conditional_trunk_placer` Trunk Placer Type.
+- Removed the `alt_foliage_placer` field from the `wilderwild:maple_foliage_placer` Foliage Placer Type, as its functionality has been superseded by the `frozenlib:conditional_foliage_placer` Foliage Placer Type.
+- Added a config option to alter the foliage shape of Birch Trees.
+  - This option is disabled by default.

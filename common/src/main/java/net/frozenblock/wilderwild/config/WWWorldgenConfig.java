@@ -111,6 +111,7 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> PALM_TREE_GENERATION = CONFIG.entryBuilder("treeGeneration/palm", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> WILLOW_TREE_GENERATION = CONFIG.entryBuilder("treeGeneration/willow", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> NEW_MAPLE_TREE_GENERATION = CONFIG.entry("treeGeneration/newMaples", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> ALTERNATE_BIRCH_FOLIAGE_GENERATION = CONFIG.entry("treeGeneration/alternateBirchFoliage", EntryType.BOOL, false);
 	public static final ConfigEntry<Boolean> BIRCH_BRANCH_GENERATION = CONFIG.entry("treeGeneration/birchBranches", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> OAK_BRANCH_GENERATION = CONFIG.entry("treeGeneration/oakBranches", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> DARK_OAK_BRANCH_GENERATION = CONFIG.entry("treeGeneration/darkOakBranches", EntryType.BOOL, true);

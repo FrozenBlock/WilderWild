@@ -37,9 +37,10 @@ import net.frozenblock.wilderwild.item.MilkweedPodItem;
 import net.frozenblock.wilderwild.item.MobBottleItem;
 import net.frozenblock.wilderwild.item.TumbleweedItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
+import net.frozenblock.wilderwild.references.WWDispenseBehaviorIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseBehaviorIds;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.BlockItem;
@@ -54,7 +55,6 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import org.jetbrains.annotations.ApiStatus;
@@ -77,77 +77,80 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> SCORCHED_RED_SAND = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SCORCHED_RED_SAND, WWBlocks.SCORCHED_RED_SAND);
 
 	// SAPLINGS
-	public static final DeferredItem<BlockItem> BAOBAB_NUT = REGISTER.registerOverworldSaplingItem(WWBlockItemIds.BAOBAB_NUT, WWBlocks.BAOBAB_NUT);
-	public static final DeferredItem<BlockItem> WILLOW_SAPLING = REGISTER.registerOverworldSaplingItem(WWBlockItemIds.WILLOW_SAPLING, WWBlocks.WILLOW_SAPLING);
-	public static final DeferredItem<BlockItem> CYPRESS_SAPLING = REGISTER.registerOverworldSaplingItem(WWBlockItemIds.CYPRESS_SAPLING, WWBlocks.CYPRESS_SAPLING);
+	public static final DeferredItem<BlockItem> BAOBAB_NUT = REGISTER.registerOverworldSapling(WWBlockItemIds.BAOBAB_NUT, WWBlocks.BAOBAB_NUT);
+	public static final DeferredItem<BlockItem> WILLOW_SAPLING = REGISTER.registerOverworldSapling(WWBlockItemIds.WILLOW_SAPLING, WWBlocks.WILLOW_SAPLING);
+	public static final DeferredItem<BlockItem> CYPRESS_SAPLING = REGISTER.registerOverworldSapling(WWBlockItemIds.CYPRESS_SAPLING, WWBlocks.CYPRESS_SAPLING);
 	public static final DeferredItem<CoconutItem> COCONUT = REGISTER.registerItem(WWBlockItemIds.COCONUT.item(),
 		properties -> new CoconutItem(WWBlocks.COCONUT.get(), properties),
-		() -> new Item.Properties().useBlockDescriptionPrefix().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM).cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS)
+		() -> new Item.Properties().useBlockDescriptionPrefix()
+			.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
+			.cookingFuel(ContextIntProviders.COOKING_TIME_DRY_PLANTS)
+			.dispensed(WWDispenseBehaviorIds.COCONUT)
 	);
-	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING, REGISTER::registerOverworldSaplingItem);
+	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_SAPLING = MapleCollection.zipMap(WWBlockItemIds.MAPLE_SAPLING, WWBlocks.MAPLE_SAPLING, REGISTER::registerOverworldSapling);
 	public static final PoplarCollection<Supplier<? extends Item>> POPLAR_SAPLING = PoplarCollection.zipMap(WWBlockItemIds.POPLAR_SAPLING, WWBlocks.POPLAR_SAPLING,
 		(id, block) -> {
 			if (id.equals(BlockItemIds.POPLAR_SAPLING)) return () -> Items.POPLAR_SAPLING;
-			return REGISTER.registerOverworldSaplingItem(id, block);
+			return REGISTER.registerOverworldSapling(id, block);
 		}
 	);
 
 	// LEAVES
-	public static final DeferredItem<BlockItem> BAOBAB_LEAVES = REGISTER.registerOverworldLeavesItem(WWBlockItemIds.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAVES);
-	public static final DeferredItem<BlockItem> WILLOW_LEAVES = REGISTER.registerOverworldLeavesItem(WWBlockItemIds.WILLOW_LEAVES, WWBlocks.WILLOW_LEAVES);
-	public static final DeferredItem<BlockItem> CYPRESS_LEAVES = REGISTER.registerOverworldLeavesItem(WWBlockItemIds.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAVES);
-	public static final DeferredItem<BlockItem> PALM_FRONDS = REGISTER.registerOverworldLeavesItem(WWBlockItemIds.PALM_FRONDS, WWBlocks.PALM_FRONDS);
-	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, WWBlocks.MAPLE_LEAVES, REGISTER::registerOverworldLeavesItem);
+	public static final DeferredItem<BlockItem> BAOBAB_LEAVES = REGISTER.registerOverworldLeaves(WWBlockItemIds.BAOBAB_LEAVES, WWBlocks.BAOBAB_LEAVES);
+	public static final DeferredItem<BlockItem> WILLOW_LEAVES = REGISTER.registerOverworldLeaves(WWBlockItemIds.WILLOW_LEAVES, WWBlocks.WILLOW_LEAVES);
+	public static final DeferredItem<BlockItem> CYPRESS_LEAVES = REGISTER.registerOverworldLeaves(WWBlockItemIds.CYPRESS_LEAVES, WWBlocks.CYPRESS_LEAVES);
+	public static final DeferredItem<BlockItem> PALM_FRONDS = REGISTER.registerOverworldLeaves(WWBlockItemIds.PALM_FRONDS, WWBlocks.PALM_FRONDS);
+	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_LEAVES = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAVES, WWBlocks.MAPLE_LEAVES, REGISTER::registerOverworldLeaves);
 
 	// HOLLOWED LOGS
-	public static final DeferredItem<BlockItem> HOLLOWED_OAK_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_SPRUCE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_BIRCH_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_JUNGLE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_JUNGLE_LOG, WWBlocks.HOLLOWED_JUNGLE_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_ACACIA_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_ACACIA_LOG, WWBlocks.HOLLOWED_ACACIA_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_DARK_OAK_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_DARK_OAK_LOG, WWBlocks.HOLLOWED_DARK_OAK_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_MANGROVE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_CHERRY_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_PALE_OAK_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG, WWBlocks.HOLLOWED_PALE_OAK_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_POPLAR_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_POPLAR_LOG, WWBlocks.HOLLOWED_POPLAR_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_BAOBAB_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_WILLOW_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_WILLOW_LOG, WWBlocks.HOLLOWED_WILLOW_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_CYPRESS_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_CYPRESS_LOG, WWBlocks.HOLLOWED_CYPRESS_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_PALM_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_PALM_LOG, WWBlocks.HOLLOWED_PALM_LOG);
-	public static final DeferredItem<BlockItem> HOLLOWED_MAPLE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.HOLLOWED_MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_OAK_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_OAK_LOG, WWBlocks.HOLLOWED_OAK_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_SPRUCE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_SPRUCE_LOG, WWBlocks.HOLLOWED_SPRUCE_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_BIRCH_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_BIRCH_LOG, WWBlocks.HOLLOWED_BIRCH_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_JUNGLE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_JUNGLE_LOG, WWBlocks.HOLLOWED_JUNGLE_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_ACACIA_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_ACACIA_LOG, WWBlocks.HOLLOWED_ACACIA_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_DARK_OAK_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_DARK_OAK_LOG, WWBlocks.HOLLOWED_DARK_OAK_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_MANGROVE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_MANGROVE_LOG, WWBlocks.HOLLOWED_MANGROVE_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_CHERRY_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_CHERRY_LOG, WWBlocks.HOLLOWED_CHERRY_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_PALE_OAK_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_PALE_OAK_LOG, WWBlocks.HOLLOWED_PALE_OAK_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_POPLAR_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_POPLAR_LOG, WWBlocks.HOLLOWED_POPLAR_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_BAOBAB_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_BAOBAB_LOG, WWBlocks.HOLLOWED_BAOBAB_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_WILLOW_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_WILLOW_LOG, WWBlocks.HOLLOWED_WILLOW_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_CYPRESS_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_CYPRESS_LOG, WWBlocks.HOLLOWED_CYPRESS_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_PALM_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_PALM_LOG, WWBlocks.HOLLOWED_PALM_LOG);
+	public static final DeferredItem<BlockItem> HOLLOWED_MAPLE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.HOLLOWED_MAPLE_LOG, WWBlocks.HOLLOWED_MAPLE_LOG);
 	public static final DeferredItem<BlockItem> HOLLOWED_CRIMSON_STEM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.HOLLOWED_CRIMSON_STEM, WWBlocks.HOLLOWED_CRIMSON_STEM);
 	public static final DeferredItem<BlockItem> HOLLOWED_WARPED_STEM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.HOLLOWED_WARPED_STEM, WWBlocks.HOLLOWED_WARPED_STEM);
 
 	// STRIPPED HOLLOWED LOGS
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_OAK_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_SPRUCE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_BIRCH_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_JUNGLE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_ACACIA_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_DARK_OAK_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_MANGROVE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_CHERRY_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_PALE_OAK_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_POPLAR_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_POPLAR_LOG, WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_OAK_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_OAK_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_SPRUCE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_SPRUCE_LOG, WWBlocks.STRIPPED_HOLLOWED_SPRUCE_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_BIRCH_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_BIRCH_LOG, WWBlocks.STRIPPED_HOLLOWED_BIRCH_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_JUNGLE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_JUNGLE_LOG, WWBlocks.STRIPPED_HOLLOWED_JUNGLE_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_ACACIA_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_ACACIA_LOG, WWBlocks.STRIPPED_HOLLOWED_ACACIA_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_DARK_OAK_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_DARK_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_DARK_OAK_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_MANGROVE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_MANGROVE_LOG, WWBlocks.STRIPPED_HOLLOWED_MANGROVE_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_CHERRY_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_CHERRY_LOG, WWBlocks.STRIPPED_HOLLOWED_CHERRY_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_PALE_OAK_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_PALE_OAK_LOG, WWBlocks.STRIPPED_HOLLOWED_PALE_OAK_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_POPLAR_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_POPLAR_LOG, WWBlocks.STRIPPED_HOLLOWED_POPLAR_LOG);
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_CRIMSON_STEM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_CRIMSON_STEM, WWBlocks.STRIPPED_HOLLOWED_CRIMSON_STEM);
 	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_WARPED_STEM = REGISTER.registerSimpleBlockItem(WWBlockItemIds.STRIPPED_HOLLOWED_WARPED_STEM, WWBlocks.STRIPPED_HOLLOWED_WARPED_STEM);
 
 	// LEAF LITTER
-	public static final DeferredItem<BlockItem> ACACIA_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.ACACIA_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> AZALEA_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.AZALEA_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> BAOBAB_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.BAOBAB_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> BIRCH_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.BIRCH_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> CHERRY_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.CHERRY_LEAF_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> CYPRESS_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.CYPRESS_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> DARK_OAK_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.DARK_OAK_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> JUNGLE_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.JUNGLE_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> MANGROVE_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.MANGROVE_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> PALE_OAK_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.PALE_OAK_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
-	public static final PoplarCollection<DeferredItem<BlockItem>> POPLAR_LEAF_LITTER = PoplarCollection.zipMap(WWBlockItemIds.POPLAR_LEAF_LITTER, WWBlocks.POPLAR_LEAF_LITTER, REGISTER::registerLeafLitterItem);
-	public static final DeferredItem<BlockItem> PALM_FROND_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.PALM_FROND_LITTER, WWBlocks.PALM_FROND_LITTER);
-	public static final DeferredItem<BlockItem> SPRUCE_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
-	public static final DeferredItem<BlockItem> WILLOW_LEAF_LITTER = REGISTER.registerLeafLitterItem(WWBlockItemIds.WILLOW_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
-	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_LEAF_LITTER = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER, REGISTER::registerLeafLitterItem);
+	public static final DeferredItem<BlockItem> ACACIA_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.ACACIA_LEAF_LITTER, WWBlocks.ACACIA_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> AZALEA_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.AZALEA_LEAF_LITTER, WWBlocks.AZALEA_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> BAOBAB_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.BAOBAB_LEAF_LITTER, WWBlocks.BAOBAB_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> BIRCH_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.BIRCH_LEAF_LITTER, WWBlocks.BIRCH_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> CHERRY_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.CHERRY_LEAF_LITTER, WWBlocks.CHERRY_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> CYPRESS_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.CYPRESS_LEAF_LITTER, WWBlocks.CYPRESS_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> DARK_OAK_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.DARK_OAK_LEAF_LITTER, WWBlocks.DARK_OAK_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> JUNGLE_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.JUNGLE_LEAF_LITTER, WWBlocks.JUNGLE_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> MANGROVE_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.MANGROVE_LEAF_LITTER, WWBlocks.MANGROVE_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> PALE_OAK_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.PALE_OAK_LEAF_LITTER, WWBlocks.PALE_OAK_LEAF_LITTER);
+	public static final PoplarCollection<DeferredItem<BlockItem>> POPLAR_LEAF_LITTER = PoplarCollection.zipMap(WWBlockItemIds.POPLAR_LEAF_LITTER, WWBlocks.POPLAR_LEAF_LITTER, REGISTER::registerLeafLitter);
+	public static final DeferredItem<BlockItem> PALM_FROND_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.PALM_FROND_LITTER, WWBlocks.PALM_FROND_LITTER);
+	public static final DeferredItem<BlockItem> SPRUCE_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.SPRUCE_LEAF_LITTER, WWBlocks.SPRUCE_LEAF_LITTER);
+	public static final DeferredItem<BlockItem> WILLOW_LEAF_LITTER = REGISTER.registerLeafLitter(WWBlockItemIds.WILLOW_LEAF_LITTER, WWBlocks.WILLOW_LEAF_LITTER);
+	public static final MapleCollection<DeferredItem<BlockItem>> MAPLE_LEAF_LITTER = MapleCollection.zipMap(WWBlockItemIds.MAPLE_LEAF_LITTER, WWBlocks.MAPLE_LEAF_LITTER, REGISTER::registerLeafLitter);
 
 	// SCULK
 	public static final DeferredItem<BlockItem> SCULK_STAIRS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SCULK_STAIRS, WWBlocks.SCULK_STAIRS);
@@ -190,24 +193,24 @@ public final class WWItems {
 	);
 
 	// FLOWERS
-	public static final DeferredItem<BlockItem> SEEDING_DANDELION = REGISTER.registerFlowerItem(WWBlockItemIds.SEEDING_DANDELION, WWBlocks.SEEDING_DANDELION);
-	public static final DeferredItem<BlockItem> CARNATION = REGISTER.registerFlowerItem(WWBlockItemIds.CARNATION, WWBlocks.CARNATION);
-	public static final DeferredItem<BlockItem> MARIGOLD = REGISTER.registerFlowerItem(WWBlockItemIds.MARIGOLD, WWBlocks.MARIGOLD);
-	public static final DeferredItem<BlockItem> PASQUEFLOWER = REGISTER.registerFlowerItem(WWBlockItemIds.PASQUEFLOWER, WWBlocks.PASQUEFLOWER);
-	public static final DeferredItem<BlockItem> RED_HIBISCUS = REGISTER.registerFlowerItem(WWBlockItemIds.RED_HIBISCUS, WWBlocks.RED_HIBISCUS);
-	public static final DeferredItem<BlockItem> YELLOW_HIBISCUS = REGISTER.registerFlowerItem(WWBlockItemIds.YELLOW_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
-	public static final DeferredItem<BlockItem> WHITE_HIBISCUS = REGISTER.registerFlowerItem(WWBlockItemIds.WHITE_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
-	public static final DeferredItem<BlockItem> PINK_HIBISCUS = REGISTER.registerFlowerItem(WWBlockItemIds.PINK_HIBISCUS, WWBlocks.PINK_HIBISCUS);
-	public static final DeferredItem<BlockItem> PURPLE_HIBISCUS = REGISTER.registerFlowerItem(WWBlockItemIds.PURPLE_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
+	public static final DeferredItem<BlockItem> SEEDING_DANDELION = REGISTER.registerFlower(WWBlockItemIds.SEEDING_DANDELION, WWBlocks.SEEDING_DANDELION);
+	public static final DeferredItem<BlockItem> CARNATION = REGISTER.registerFlower(WWBlockItemIds.CARNATION, WWBlocks.CARNATION);
+	public static final DeferredItem<BlockItem> MARIGOLD = REGISTER.registerFlower(WWBlockItemIds.MARIGOLD, WWBlocks.MARIGOLD);
+	public static final DeferredItem<BlockItem> PASQUEFLOWER = REGISTER.registerFlower(WWBlockItemIds.PASQUEFLOWER, WWBlocks.PASQUEFLOWER);
+	public static final DeferredItem<BlockItem> RED_HIBISCUS = REGISTER.registerFlower(WWBlockItemIds.RED_HIBISCUS, WWBlocks.RED_HIBISCUS);
+	public static final DeferredItem<BlockItem> YELLOW_HIBISCUS = REGISTER.registerFlower(WWBlockItemIds.YELLOW_HIBISCUS, WWBlocks.YELLOW_HIBISCUS);
+	public static final DeferredItem<BlockItem> WHITE_HIBISCUS = REGISTER.registerFlower(WWBlockItemIds.WHITE_HIBISCUS, WWBlocks.WHITE_HIBISCUS);
+	public static final DeferredItem<BlockItem> PINK_HIBISCUS = REGISTER.registerFlower(WWBlockItemIds.PINK_HIBISCUS, WWBlocks.PINK_HIBISCUS);
+	public static final DeferredItem<BlockItem> PURPLE_HIBISCUS = REGISTER.registerFlower(WWBlockItemIds.PURPLE_HIBISCUS, WWBlocks.PURPLE_HIBISCUS);
 
 	// FLOWERBEDS
-	public static final DeferredItem<BlockItem> PHLOX = REGISTER.registerFlowerBedItem(WWBlockItemIds.PHLOX, WWBlocks.PHLOX);
-	public static final DeferredItem<BlockItem> LANTANAS = REGISTER.registerFlowerBedItem(WWBlockItemIds.LANTANAS, WWBlocks.LANTANAS);
-	public static final DeferredItem<BlockItem> CLOVERS = REGISTER.registerFlowerBedItem(WWBlockItemIds.CLOVERS, WWBlocks.CLOVERS);
+	public static final DeferredItem<BlockItem> PHLOX = REGISTER.registerFlowerBed(WWBlockItemIds.PHLOX, WWBlocks.PHLOX);
+	public static final DeferredItem<BlockItem> LANTANAS = REGISTER.registerFlowerBed(WWBlockItemIds.LANTANAS, WWBlocks.LANTANAS);
+	public static final DeferredItem<BlockItem> CLOVERS = REGISTER.registerFlowerBed(WWBlockItemIds.CLOVERS, WWBlocks.CLOVERS);
 
 	// TALL FLOWERS
-	public static final DeferredItem<DoubleHighBlockItem> DATURA = REGISTER.registerDoubleTallFlowerItem(WWBlockItemIds.DATURA, WWBlocks.DATURA);
-	public static final DeferredItem<DoubleHighBlockItem> MILKWEED = REGISTER.registerDoubleTallFlowerItem(WWBlockItemIds.MILKWEED, WWBlocks.MILKWEED);
+	public static final DeferredItem<DoubleHighBlockItem> DATURA = REGISTER.registerDoubleTallFlower(WWBlockItemIds.DATURA, WWBlocks.DATURA);
+	public static final DeferredItem<DoubleHighBlockItem> MILKWEED = REGISTER.registerDoubleTallFlower(WWBlockItemIds.MILKWEED, WWBlocks.MILKWEED);
 
 	// VEGETATION
 	public static final DeferredItem<BlockItem> POLLEN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.POLLEN, WWBlocks.POLLEN,
@@ -237,17 +240,18 @@ public final class WWItems {
 			.useBlockDescriptionPrefix()
 			.requiredFeatures(WWBlocks.TUMBLEWEED.get().requiredFeatures())
 			.compostable(ContextIntProviders.COMPOSTABLE_LOW)
+			.dispensed(WWDispenseBehaviorIds.TUMBLEWEED)
 	);
 	public static final DeferredItem<BlockItem> FROZEN_SHORT_GRASS = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_SHORT_GRASS, WWBlocks.FROZEN_SHORT_GRASS,
 		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
-	public static final DeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS,
+	public static final DeferredItem<DoubleHighBlockItem> FROZEN_TALL_GRASS = REGISTER.registerDoubleHighBlock(WWBlockItemIds.FROZEN_TALL_GRASS, WWBlocks.FROZEN_TALL_GRASS,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> FROZEN_FERN = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_FERN, WWBlocks.FROZEN_FERN,
 		() -> new Item.Properties().compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
-	public static final DeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN,
+	public static final DeferredItem<DoubleHighBlockItem> FROZEN_LARGE_FERN = REGISTER.registerDoubleHighBlock(WWBlockItemIds.FROZEN_LARGE_FERN, WWBlocks.FROZEN_LARGE_FERN,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> FROZEN_BUSH = REGISTER.registerSimpleBlockItem(WWBlockItemIds.FROZEN_BUSH, WWBlocks.FROZEN_BUSH,
@@ -277,14 +281,14 @@ public final class WWItems {
 	);
 
 	// AQUATIC
-	public static final DeferredItem<DoubleHighBlockItem> CATTAIL = REGISTER.registerDoubleHighBlockItem(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL);
-	public static final DeferredItem<PlaceOnFluidBlockItem> FLOWERING_LILY_PAD = REGISTER.registerPlaceOnFluidBlockItem(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD,
+	public static final DeferredItem<DoubleHighBlockItem> CATTAIL = REGISTER.registerDoubleHighBlock(WWBlockItemIds.CATTAIL, WWBlocks.CATTAIL);
+	public static final DeferredItem<PlaceOnFluidBlockItem> FLOWERING_LILY_PAD = REGISTER.registerPlaceOnFluidBlock(WWBlockItemIds.FLOWERING_LILY_PAD, WWBlocks.FLOWERING_LILY_PAD,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
-	public static final DeferredItem<PlaceOnFluidBlockItem> ALGAE = REGISTER.registerPlaceOnFluidBlockItem(WWBlockItemIds.ALGAE, WWBlocks.ALGAE,
+	public static final DeferredItem<PlaceOnFluidBlockItem> ALGAE = REGISTER.registerPlaceOnFluidBlock(WWBlockItemIds.ALGAE, WWBlocks.ALGAE,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_LOW)
 	);
-	public static final DeferredItem<PlaceOnFluidBlockItem> PLANKTON = REGISTER.registerPlaceOnFluidBlockItem(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON,
+	public static final DeferredItem<PlaceOnFluidBlockItem> PLANKTON = REGISTER.registerPlaceOnFluidBlock(WWBlockItemIds.PLANKTON, WWBlocks.PLANKTON,
 		properties -> properties.compostable(ContextIntProviders.COMPOSTABLE_MEDIUM)
 	);
 	public static final DeferredItem<BlockItem> SPONGE_BUD = REGISTER.registerSimpleBlockItem(WWBlockItemIds.SPONGE_BUD, WWBlocks.SPONGE_BUD);
@@ -322,99 +326,99 @@ public final class WWItems {
 	public static final DeferredItem<BlockItem> MOSSY_GABBRO_BRICK_WALL = REGISTER.registerSimpleBlockItem(WWBlockItemIds.MOSSY_GABBRO_BRICK_WALL, WWBlocks.MOSSY_GABBRO_BRICK_WALL);
 
 	// BAOBAB
-	public static final DeferredItem<BlockItem> BAOBAB_PLANKS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.BAOBAB_PLANKS, WWBlocks.BAOBAB_PLANKS);
-	public static final DeferredItem<BlockItem> BAOBAB_STAIRS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.BAOBAB_STAIRS, WWBlocks.BAOBAB_STAIRS);
-	public static final DeferredItem<BlockItem> BAOBAB_FENCE_GATE = REGISTER.registerCookableFenceGateItem(WWBlockItemIds.BAOBAB_FENCE_GATE, WWBlocks.BAOBAB_FENCE_GATE);
-	public static final DeferredItem<BlockItem> BAOBAB_SLAB = REGISTER.registerOverworldWoodSlabItem(WWBlockItemIds.BAOBAB_SLAB, WWBlocks.BAOBAB_SLAB);
-	public static final DeferredItem<BlockItem> BAOBAB_PRESSURE_PLATE = REGISTER.registerCookablePressurePlateItem(WWBlockItemIds.BAOBAB_PRESSURE_PLATE, WWBlocks.BAOBAB_PRESSURE_PLATE);
-	public static final DeferredItem<BlockItem> BAOBAB_BUTTON = REGISTER.registerCookableButtonItem(WWBlockItemIds.BAOBAB_BUTTON, WWBlocks.BAOBAB_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> BAOBAB_DOOR = REGISTER.registerCookableDoorItem(WWBlockItemIds.BAOBAB_DOOR, WWBlocks.BAOBAB_DOOR);
-	public static final DeferredItem<BlockItem> BAOBAB_TRAPDOOR = REGISTER.registerCookableTrapdoorItem(WWBlockItemIds.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_TRAPDOOR);
-	public static final DeferredItem<BlockItem> BAOBAB_FENCE = REGISTER.registerCookableFenceItem(WWBlockItemIds.BAOBAB_FENCE, WWBlocks.BAOBAB_FENCE);
-	public static final DeferredItem<BlockItem> BAOBAB_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.BAOBAB_LOG, WWBlocks.BAOBAB_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_BAOBAB_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
-	public static final DeferredItem<BlockItem> BAOBAB_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.BAOBAB_WOOD, WWBlocks.BAOBAB_WOOD);
-	public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
-	public static final DeferredItem<StandingAndWallBlockItem> BAOBAB_SIGN = REGISTER.registerCookableSignItem(WWBlockItemIds.BAOBAB_SIGN, WWBlocks.BAOBAB_SIGN, WWBlocks.BAOBAB_WALL_SIGN);
-	public static final DeferredItem<HangingSignItem> BAOBAB_HANGING_SIGN = REGISTER.registerCookableHangingSignItem(WWBlockItemIds.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
-	public static final DeferredItem<BlockItem> BAOBAB_SHELF = REGISTER.registerCookableShelfItem(WWBlockItemIds.BAOBAB_SHELF, WWBlocks.BAOBAB_SHELF);
+	public static final DeferredItem<BlockItem> BAOBAB_PLANKS = REGISTER.registerOverworldWood(WWBlockItemIds.BAOBAB_PLANKS, WWBlocks.BAOBAB_PLANKS);
+	public static final DeferredItem<BlockItem> BAOBAB_STAIRS = REGISTER.registerOverworldWood(WWBlockItemIds.BAOBAB_STAIRS, WWBlocks.BAOBAB_STAIRS);
+	public static final DeferredItem<BlockItem> BAOBAB_FENCE_GATE = REGISTER.registerCookableFenceGate(WWBlockItemIds.BAOBAB_FENCE_GATE, WWBlocks.BAOBAB_FENCE_GATE);
+	public static final DeferredItem<BlockItem> BAOBAB_SLAB = REGISTER.registerOverworldWoodSlab(WWBlockItemIds.BAOBAB_SLAB, WWBlocks.BAOBAB_SLAB);
+	public static final DeferredItem<BlockItem> BAOBAB_PRESSURE_PLATE = REGISTER.registerCookablePressurePlate(WWBlockItemIds.BAOBAB_PRESSURE_PLATE, WWBlocks.BAOBAB_PRESSURE_PLATE);
+	public static final DeferredItem<BlockItem> BAOBAB_BUTTON = REGISTER.registerCookableButton(WWBlockItemIds.BAOBAB_BUTTON, WWBlocks.BAOBAB_BUTTON);
+	public static final DeferredItem<DoubleHighBlockItem> BAOBAB_DOOR = REGISTER.registerCookableDoor(WWBlockItemIds.BAOBAB_DOOR, WWBlocks.BAOBAB_DOOR);
+	public static final DeferredItem<BlockItem> BAOBAB_TRAPDOOR = REGISTER.registerCookableTrapdoor(WWBlockItemIds.BAOBAB_TRAPDOOR, WWBlocks.BAOBAB_TRAPDOOR);
+	public static final DeferredItem<BlockItem> BAOBAB_FENCE = REGISTER.registerCookableFence(WWBlockItemIds.BAOBAB_FENCE, WWBlocks.BAOBAB_FENCE);
+	public static final DeferredItem<BlockItem> BAOBAB_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.BAOBAB_LOG, WWBlocks.BAOBAB_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_BAOBAB_LOG, WWBlocks.STRIPPED_BAOBAB_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_BAOBAB_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_BAOBAB_LOG, WWBlocks.STRIPPED_HOLLOWED_BAOBAB_LOG);
+	public static final DeferredItem<BlockItem> BAOBAB_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.BAOBAB_WOOD, WWBlocks.BAOBAB_WOOD);
+	public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_BAOBAB_WOOD, WWBlocks.STRIPPED_BAOBAB_WOOD);
+	public static final DeferredItem<StandingAndWallBlockItem> BAOBAB_SIGN = REGISTER.registerCookableSign(WWBlockItemIds.BAOBAB_SIGN, WWBlocks.BAOBAB_SIGN, WWBlocks.BAOBAB_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> BAOBAB_HANGING_SIGN = REGISTER.registerCookableHangingSign(WWBlockItemIds.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_HANGING_SIGN, WWBlocks.BAOBAB_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> BAOBAB_SHELF = REGISTER.registerCookableShelf(WWBlockItemIds.BAOBAB_SHELF, WWBlocks.BAOBAB_SHELF);
 
 	// WILLOW
-	public static final DeferredItem<BlockItem> WILLOW_PLANKS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.WILLOW_PLANKS, WWBlocks.WILLOW_PLANKS);
-	public static final DeferredItem<BlockItem> WILLOW_STAIRS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.WILLOW_STAIRS, WWBlocks.WILLOW_STAIRS);
-	public static final DeferredItem<BlockItem> WILLOW_FENCE_GATE = REGISTER.registerCookableFenceGateItem(WWBlockItemIds.WILLOW_FENCE_GATE, WWBlocks.WILLOW_FENCE_GATE);
-	public static final DeferredItem<BlockItem> WILLOW_SLAB = REGISTER.registerOverworldWoodSlabItem(WWBlockItemIds.WILLOW_SLAB, WWBlocks.WILLOW_SLAB);
-	public static final DeferredItem<BlockItem> WILLOW_PRESSURE_PLATE = REGISTER.registerCookablePressurePlateItem(WWBlockItemIds.WILLOW_PRESSURE_PLATE, WWBlocks.WILLOW_PRESSURE_PLATE);
-	public static final DeferredItem<BlockItem> WILLOW_BUTTON = REGISTER.registerCookableButtonItem(WWBlockItemIds.WILLOW_BUTTON, WWBlocks.WILLOW_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> WILLOW_DOOR = REGISTER.registerCookableDoorItem(WWBlockItemIds.WILLOW_DOOR, WWBlocks.WILLOW_DOOR);
-	public static final DeferredItem<BlockItem> WILLOW_TRAPDOOR = REGISTER.registerCookableTrapdoorItem(WWBlockItemIds.WILLOW_TRAPDOOR, WWBlocks.WILLOW_TRAPDOOR);
-	public static final DeferredItem<BlockItem> WILLOW_FENCE = REGISTER.registerCookableFenceItem(WWBlockItemIds.WILLOW_FENCE, WWBlocks.WILLOW_FENCE);
-	public static final DeferredItem<BlockItem> WILLOW_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.WILLOW_LOG, WWBlocks.WILLOW_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_WILLOW_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_WILLOW_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
-	public static final DeferredItem<BlockItem> WILLOW_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.WILLOW_WOOD, WWBlocks.WILLOW_WOOD);
-	public static final DeferredItem<BlockItem> STRIPPED_WILLOW_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
-	public static final DeferredItem<StandingAndWallBlockItem> WILLOW_SIGN = REGISTER.registerCookableSignItem(WWBlockItemIds.WILLOW_SIGN, WWBlocks.WILLOW_SIGN, WWBlocks.WILLOW_WALL_SIGN);
-	public static final DeferredItem<HangingSignItem> WILLOW_HANGING_SIGN = REGISTER.registerCookableHangingSignItem(WWBlockItemIds.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN);
-	public static final DeferredItem<BlockItem> WILLOW_SHELF = REGISTER.registerCookableShelfItem(WWBlockItemIds.WILLOW_SHELF, WWBlocks.WILLOW_SHELF);
+	public static final DeferredItem<BlockItem> WILLOW_PLANKS = REGISTER.registerOverworldWood(WWBlockItemIds.WILLOW_PLANKS, WWBlocks.WILLOW_PLANKS);
+	public static final DeferredItem<BlockItem> WILLOW_STAIRS = REGISTER.registerOverworldWood(WWBlockItemIds.WILLOW_STAIRS, WWBlocks.WILLOW_STAIRS);
+	public static final DeferredItem<BlockItem> WILLOW_FENCE_GATE = REGISTER.registerCookableFenceGate(WWBlockItemIds.WILLOW_FENCE_GATE, WWBlocks.WILLOW_FENCE_GATE);
+	public static final DeferredItem<BlockItem> WILLOW_SLAB = REGISTER.registerOverworldWoodSlab(WWBlockItemIds.WILLOW_SLAB, WWBlocks.WILLOW_SLAB);
+	public static final DeferredItem<BlockItem> WILLOW_PRESSURE_PLATE = REGISTER.registerCookablePressurePlate(WWBlockItemIds.WILLOW_PRESSURE_PLATE, WWBlocks.WILLOW_PRESSURE_PLATE);
+	public static final DeferredItem<BlockItem> WILLOW_BUTTON = REGISTER.registerCookableButton(WWBlockItemIds.WILLOW_BUTTON, WWBlocks.WILLOW_BUTTON);
+	public static final DeferredItem<DoubleHighBlockItem> WILLOW_DOOR = REGISTER.registerCookableDoor(WWBlockItemIds.WILLOW_DOOR, WWBlocks.WILLOW_DOOR);
+	public static final DeferredItem<BlockItem> WILLOW_TRAPDOOR = REGISTER.registerCookableTrapdoor(WWBlockItemIds.WILLOW_TRAPDOOR, WWBlocks.WILLOW_TRAPDOOR);
+	public static final DeferredItem<BlockItem> WILLOW_FENCE = REGISTER.registerCookableFence(WWBlockItemIds.WILLOW_FENCE, WWBlocks.WILLOW_FENCE);
+	public static final DeferredItem<BlockItem> WILLOW_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.WILLOW_LOG, WWBlocks.WILLOW_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_WILLOW_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_WILLOW_LOG, WWBlocks.STRIPPED_WILLOW_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_WILLOW_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_WILLOW_LOG, WWBlocks.STRIPPED_HOLLOWED_WILLOW_LOG);
+	public static final DeferredItem<BlockItem> WILLOW_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.WILLOW_WOOD, WWBlocks.WILLOW_WOOD);
+	public static final DeferredItem<BlockItem> STRIPPED_WILLOW_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_WILLOW_WOOD, WWBlocks.STRIPPED_WILLOW_WOOD);
+	public static final DeferredItem<StandingAndWallBlockItem> WILLOW_SIGN = REGISTER.registerCookableSign(WWBlockItemIds.WILLOW_SIGN, WWBlocks.WILLOW_SIGN, WWBlocks.WILLOW_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> WILLOW_HANGING_SIGN = REGISTER.registerCookableHangingSign(WWBlockItemIds.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_HANGING_SIGN, WWBlocks.WILLOW_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> WILLOW_SHELF = REGISTER.registerCookableShelf(WWBlockItemIds.WILLOW_SHELF, WWBlocks.WILLOW_SHELF);
 
 	// CYPRESS
-	public static final DeferredItem<BlockItem> CYPRESS_PLANKS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.CYPRESS_PLANKS, WWBlocks.CYPRESS_PLANKS);
-	public static final DeferredItem<BlockItem> CYPRESS_STAIRS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.CYPRESS_STAIRS, WWBlocks.CYPRESS_STAIRS);
-	public static final DeferredItem<BlockItem> CYPRESS_FENCE_GATE = REGISTER.registerCookableFenceGateItem(WWBlockItemIds.CYPRESS_FENCE_GATE, WWBlocks.CYPRESS_FENCE_GATE);
-	public static final DeferredItem<BlockItem> CYPRESS_SLAB = REGISTER.registerOverworldWoodSlabItem(WWBlockItemIds.CYPRESS_SLAB, WWBlocks.CYPRESS_SLAB);
-	public static final DeferredItem<BlockItem> CYPRESS_PRESSURE_PLATE = REGISTER.registerCookablePressurePlateItem(WWBlockItemIds.CYPRESS_PRESSURE_PLATE, WWBlocks.CYPRESS_PRESSURE_PLATE);
-	public static final DeferredItem<BlockItem> CYPRESS_BUTTON = REGISTER.registerCookableButtonItem(WWBlockItemIds.CYPRESS_BUTTON, WWBlocks.CYPRESS_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> CYPRESS_DOOR = REGISTER.registerCookableDoorItem(WWBlockItemIds.CYPRESS_DOOR, WWBlocks.CYPRESS_DOOR);
-	public static final DeferredItem<BlockItem> CYPRESS_TRAPDOOR = REGISTER.registerCookableTrapdoorItem(WWBlockItemIds.CYPRESS_TRAPDOOR, WWBlocks.CYPRESS_TRAPDOOR);
-	public static final DeferredItem<BlockItem> CYPRESS_FENCE = REGISTER.registerCookableFenceItem(WWBlockItemIds.CYPRESS_FENCE, WWBlocks.CYPRESS_FENCE);
-	public static final DeferredItem<BlockItem> CYPRESS_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.CYPRESS_LOG, WWBlocks.CYPRESS_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_CYPRESS_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_CYPRESS_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
-	public static final DeferredItem<BlockItem> CYPRESS_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.CYPRESS_WOOD, WWBlocks.CYPRESS_WOOD);
-	public static final DeferredItem<BlockItem> STRIPPED_CYPRESS_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
-	public static final DeferredItem<StandingAndWallBlockItem> CYPRESS_SIGN = REGISTER.registerCookableSignItem(WWBlockItemIds.CYPRESS_SIGN, WWBlocks.CYPRESS_SIGN, WWBlocks.CYPRESS_WALL_SIGN);
-	public static final DeferredItem<HangingSignItem> CYPRESS_HANGING_SIGN = REGISTER.registerCookableHangingSignItem(WWBlockItemIds.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
-	public static final DeferredItem<BlockItem> CYPRESS_SHELF = REGISTER.registerCookableShelfItem(WWBlockItemIds.CYPRESS_SHELF, WWBlocks.CYPRESS_SHELF);
+	public static final DeferredItem<BlockItem> CYPRESS_PLANKS = REGISTER.registerOverworldWood(WWBlockItemIds.CYPRESS_PLANKS, WWBlocks.CYPRESS_PLANKS);
+	public static final DeferredItem<BlockItem> CYPRESS_STAIRS = REGISTER.registerOverworldWood(WWBlockItemIds.CYPRESS_STAIRS, WWBlocks.CYPRESS_STAIRS);
+	public static final DeferredItem<BlockItem> CYPRESS_FENCE_GATE = REGISTER.registerCookableFenceGate(WWBlockItemIds.CYPRESS_FENCE_GATE, WWBlocks.CYPRESS_FENCE_GATE);
+	public static final DeferredItem<BlockItem> CYPRESS_SLAB = REGISTER.registerOverworldWoodSlab(WWBlockItemIds.CYPRESS_SLAB, WWBlocks.CYPRESS_SLAB);
+	public static final DeferredItem<BlockItem> CYPRESS_PRESSURE_PLATE = REGISTER.registerCookablePressurePlate(WWBlockItemIds.CYPRESS_PRESSURE_PLATE, WWBlocks.CYPRESS_PRESSURE_PLATE);
+	public static final DeferredItem<BlockItem> CYPRESS_BUTTON = REGISTER.registerCookableButton(WWBlockItemIds.CYPRESS_BUTTON, WWBlocks.CYPRESS_BUTTON);
+	public static final DeferredItem<DoubleHighBlockItem> CYPRESS_DOOR = REGISTER.registerCookableDoor(WWBlockItemIds.CYPRESS_DOOR, WWBlocks.CYPRESS_DOOR);
+	public static final DeferredItem<BlockItem> CYPRESS_TRAPDOOR = REGISTER.registerCookableTrapdoor(WWBlockItemIds.CYPRESS_TRAPDOOR, WWBlocks.CYPRESS_TRAPDOOR);
+	public static final DeferredItem<BlockItem> CYPRESS_FENCE = REGISTER.registerCookableFence(WWBlockItemIds.CYPRESS_FENCE, WWBlocks.CYPRESS_FENCE);
+	public static final DeferredItem<BlockItem> CYPRESS_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.CYPRESS_LOG, WWBlocks.CYPRESS_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_CYPRESS_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_CYPRESS_LOG, WWBlocks.STRIPPED_CYPRESS_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_CYPRESS_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_CYPRESS_LOG, WWBlocks.STRIPPED_HOLLOWED_CYPRESS_LOG);
+	public static final DeferredItem<BlockItem> CYPRESS_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.CYPRESS_WOOD, WWBlocks.CYPRESS_WOOD);
+	public static final DeferredItem<BlockItem> STRIPPED_CYPRESS_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_CYPRESS_WOOD, WWBlocks.STRIPPED_CYPRESS_WOOD);
+	public static final DeferredItem<StandingAndWallBlockItem> CYPRESS_SIGN = REGISTER.registerCookableSign(WWBlockItemIds.CYPRESS_SIGN, WWBlocks.CYPRESS_SIGN, WWBlocks.CYPRESS_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> CYPRESS_HANGING_SIGN = REGISTER.registerCookableHangingSign(WWBlockItemIds.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_HANGING_SIGN, WWBlocks.CYPRESS_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> CYPRESS_SHELF = REGISTER.registerCookableShelf(WWBlockItemIds.CYPRESS_SHELF, WWBlocks.CYPRESS_SHELF);
 
 	// PALM
-	public static final DeferredItem<BlockItem> PALM_PLANKS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.PALM_PLANKS, WWBlocks.PALM_PLANKS);
-	public static final DeferredItem<BlockItem> PALM_STAIRS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.PALM_STAIRS, WWBlocks.PALM_STAIRS);
-	public static final DeferredItem<BlockItem> PALM_FENCE_GATE = REGISTER.registerCookableFenceGateItem(WWBlockItemIds.PALM_FENCE_GATE, WWBlocks.PALM_FENCE_GATE);
-	public static final DeferredItem<BlockItem> PALM_SLAB = REGISTER.registerOverworldWoodSlabItem(WWBlockItemIds.PALM_SLAB, WWBlocks.PALM_SLAB);
-	public static final DeferredItem<BlockItem> PALM_PRESSURE_PLATE = REGISTER.registerCookablePressurePlateItem(WWBlockItemIds.PALM_PRESSURE_PLATE, WWBlocks.PALM_PRESSURE_PLATE);
-	public static final DeferredItem<BlockItem> PALM_BUTTON = REGISTER.registerCookableButtonItem(WWBlockItemIds.PALM_BUTTON, WWBlocks.PALM_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> PALM_DOOR = REGISTER.registerCookableDoorItem(WWBlockItemIds.PALM_DOOR, WWBlocks.PALM_DOOR);
-	public static final DeferredItem<BlockItem> PALM_TRAPDOOR = REGISTER.registerCookableTrapdoorItem(WWBlockItemIds.PALM_TRAPDOOR, WWBlocks.PALM_TRAPDOOR);
-	public static final DeferredItem<BlockItem> PALM_FENCE = REGISTER.registerCookableFenceItem(WWBlockItemIds.PALM_FENCE, WWBlocks.PALM_FENCE);
-	public static final DeferredItem<BlockItem> PALM_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.PALM_LOG, WWBlocks.PALM_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_PALM_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_PALM_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_PALM_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
-	public static final DeferredItem<BlockItem> PALM_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.PALM_WOOD, WWBlocks.PALM_WOOD);
-	public static final DeferredItem<BlockItem> STRIPPED_PALM_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
-	public static final DeferredItem<StandingAndWallBlockItem> PALM_SIGN = REGISTER.registerCookableSignItem(WWBlockItemIds.PALM_SIGN, WWBlocks.PALM_SIGN, WWBlocks.PALM_WALL_SIGN);
-	public static final DeferredItem<HangingSignItem> PALM_HANGING_SIGN = REGISTER.registerCookableHangingSignItem(WWBlockItemIds.PALM_HANGING_SIGN, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
-	public static final DeferredItem<BlockItem> PALM_SHELF = REGISTER.registerCookableShelfItem(WWBlockItemIds.PALM_SHELF, WWBlocks.PALM_SHELF);
+	public static final DeferredItem<BlockItem> PALM_PLANKS = REGISTER.registerOverworldWood(WWBlockItemIds.PALM_PLANKS, WWBlocks.PALM_PLANKS);
+	public static final DeferredItem<BlockItem> PALM_STAIRS = REGISTER.registerOverworldWood(WWBlockItemIds.PALM_STAIRS, WWBlocks.PALM_STAIRS);
+	public static final DeferredItem<BlockItem> PALM_FENCE_GATE = REGISTER.registerCookableFenceGate(WWBlockItemIds.PALM_FENCE_GATE, WWBlocks.PALM_FENCE_GATE);
+	public static final DeferredItem<BlockItem> PALM_SLAB = REGISTER.registerOverworldWoodSlab(WWBlockItemIds.PALM_SLAB, WWBlocks.PALM_SLAB);
+	public static final DeferredItem<BlockItem> PALM_PRESSURE_PLATE = REGISTER.registerCookablePressurePlate(WWBlockItemIds.PALM_PRESSURE_PLATE, WWBlocks.PALM_PRESSURE_PLATE);
+	public static final DeferredItem<BlockItem> PALM_BUTTON = REGISTER.registerCookableButton(WWBlockItemIds.PALM_BUTTON, WWBlocks.PALM_BUTTON);
+	public static final DeferredItem<DoubleHighBlockItem> PALM_DOOR = REGISTER.registerCookableDoor(WWBlockItemIds.PALM_DOOR, WWBlocks.PALM_DOOR);
+	public static final DeferredItem<BlockItem> PALM_TRAPDOOR = REGISTER.registerCookableTrapdoor(WWBlockItemIds.PALM_TRAPDOOR, WWBlocks.PALM_TRAPDOOR);
+	public static final DeferredItem<BlockItem> PALM_FENCE = REGISTER.registerCookableFence(WWBlockItemIds.PALM_FENCE, WWBlocks.PALM_FENCE);
+	public static final DeferredItem<BlockItem> PALM_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.PALM_LOG, WWBlocks.PALM_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_PALM_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_PALM_LOG, WWBlocks.STRIPPED_PALM_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_PALM_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_PALM_LOG, WWBlocks.STRIPPED_HOLLOWED_PALM_LOG);
+	public static final DeferredItem<BlockItem> PALM_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.PALM_WOOD, WWBlocks.PALM_WOOD);
+	public static final DeferredItem<BlockItem> STRIPPED_PALM_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_PALM_WOOD, WWBlocks.STRIPPED_PALM_WOOD);
+	public static final DeferredItem<StandingAndWallBlockItem> PALM_SIGN = REGISTER.registerCookableSign(WWBlockItemIds.PALM_SIGN, WWBlocks.PALM_SIGN, WWBlocks.PALM_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> PALM_HANGING_SIGN = REGISTER.registerCookableHangingSign(WWBlockItemIds.PALM_HANGING_SIGN, WWBlocks.PALM_HANGING_SIGN, WWBlocks.PALM_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> PALM_SHELF = REGISTER.registerCookableShelf(WWBlockItemIds.PALM_SHELF, WWBlocks.PALM_SHELF);
 
 	// MAPLE
-	public static final DeferredItem<BlockItem> MAPLE_PLANKS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.MAPLE_PLANKS, WWBlocks.MAPLE_PLANKS);
-	public static final DeferredItem<BlockItem> MAPLE_STAIRS = REGISTER.registerOverworldWoodItem(WWBlockItemIds.MAPLE_STAIRS, WWBlocks.MAPLE_STAIRS);
-	public static final DeferredItem<BlockItem> MAPLE_FENCE_GATE = REGISTER.registerCookableFenceGateItem(WWBlockItemIds.MAPLE_FENCE_GATE, WWBlocks.MAPLE_FENCE_GATE);
-	public static final DeferredItem<BlockItem> MAPLE_SLAB = REGISTER.registerOverworldWoodSlabItem(WWBlockItemIds.MAPLE_SLAB, WWBlocks.MAPLE_SLAB);
-	public static final DeferredItem<BlockItem> MAPLE_PRESSURE_PLATE = REGISTER.registerCookablePressurePlateItem(WWBlockItemIds.MAPLE_PRESSURE_PLATE, WWBlocks.MAPLE_PRESSURE_PLATE);
-	public static final DeferredItem<BlockItem> MAPLE_BUTTON = REGISTER.registerCookableButtonItem(WWBlockItemIds.MAPLE_BUTTON, WWBlocks.MAPLE_BUTTON);
-	public static final DeferredItem<DoubleHighBlockItem> MAPLE_DOOR = REGISTER.registerCookableDoorItem(WWBlockItemIds.MAPLE_DOOR, WWBlocks.MAPLE_DOOR);
-	public static final DeferredItem<BlockItem> MAPLE_TRAPDOOR = REGISTER.registerCookableTrapdoorItem(WWBlockItemIds.MAPLE_TRAPDOOR, WWBlocks.MAPLE_TRAPDOOR);
-	public static final DeferredItem<BlockItem> MAPLE_FENCE = REGISTER.registerCookableFenceItem(WWBlockItemIds.MAPLE_FENCE, WWBlocks.MAPLE_FENCE);
-	public static final DeferredItem<BlockItem> MAPLE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.MAPLE_LOG, WWBlocks.MAPLE_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_MAPLE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG);
-	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_MAPLE_LOG = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
-	public static final DeferredItem<BlockItem> MAPLE_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.MAPLE_WOOD, WWBlocks.MAPLE_WOOD);
-	public static final DeferredItem<BlockItem> STRIPPED_MAPLE_WOOD = REGISTER.registerOverworldWoodItem(WWBlockItemIds.STRIPPED_MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
-	public static final DeferredItem<StandingAndWallBlockItem> MAPLE_SIGN = REGISTER.registerCookableSignItem(WWBlockItemIds.MAPLE_SIGN, WWBlocks.MAPLE_SIGN, WWBlocks.MAPLE_WALL_SIGN);
-	public static final DeferredItem<HangingSignItem> MAPLE_HANGING_SIGN = REGISTER.registerCookableHangingSignItem(WWBlockItemIds.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
-	public static final DeferredItem<BlockItem> MAPLE_SHELF = REGISTER.registerCookableShelfItem(WWBlockItemIds.MAPLE_SHELF, WWBlocks.MAPLE_SHELF);
+	public static final DeferredItem<BlockItem> MAPLE_PLANKS = REGISTER.registerOverworldWood(WWBlockItemIds.MAPLE_PLANKS, WWBlocks.MAPLE_PLANKS);
+	public static final DeferredItem<BlockItem> MAPLE_STAIRS = REGISTER.registerOverworldWood(WWBlockItemIds.MAPLE_STAIRS, WWBlocks.MAPLE_STAIRS);
+	public static final DeferredItem<BlockItem> MAPLE_FENCE_GATE = REGISTER.registerCookableFenceGate(WWBlockItemIds.MAPLE_FENCE_GATE, WWBlocks.MAPLE_FENCE_GATE);
+	public static final DeferredItem<BlockItem> MAPLE_SLAB = REGISTER.registerOverworldWoodSlab(WWBlockItemIds.MAPLE_SLAB, WWBlocks.MAPLE_SLAB);
+	public static final DeferredItem<BlockItem> MAPLE_PRESSURE_PLATE = REGISTER.registerCookablePressurePlate(WWBlockItemIds.MAPLE_PRESSURE_PLATE, WWBlocks.MAPLE_PRESSURE_PLATE);
+	public static final DeferredItem<BlockItem> MAPLE_BUTTON = REGISTER.registerCookableButton(WWBlockItemIds.MAPLE_BUTTON, WWBlocks.MAPLE_BUTTON);
+	public static final DeferredItem<DoubleHighBlockItem> MAPLE_DOOR = REGISTER.registerCookableDoor(WWBlockItemIds.MAPLE_DOOR, WWBlocks.MAPLE_DOOR);
+	public static final DeferredItem<BlockItem> MAPLE_TRAPDOOR = REGISTER.registerCookableTrapdoor(WWBlockItemIds.MAPLE_TRAPDOOR, WWBlocks.MAPLE_TRAPDOOR);
+	public static final DeferredItem<BlockItem> MAPLE_FENCE = REGISTER.registerCookableFence(WWBlockItemIds.MAPLE_FENCE, WWBlocks.MAPLE_FENCE);
+	public static final DeferredItem<BlockItem> MAPLE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.MAPLE_LOG, WWBlocks.MAPLE_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_MAPLE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_MAPLE_LOG, WWBlocks.STRIPPED_MAPLE_LOG);
+	public static final DeferredItem<BlockItem> STRIPPED_HOLLOWED_MAPLE_LOG = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_HOLLOWED_MAPLE_LOG, WWBlocks.STRIPPED_HOLLOWED_MAPLE_LOG);
+	public static final DeferredItem<BlockItem> MAPLE_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.MAPLE_WOOD, WWBlocks.MAPLE_WOOD);
+	public static final DeferredItem<BlockItem> STRIPPED_MAPLE_WOOD = REGISTER.registerOverworldWood(WWBlockItemIds.STRIPPED_MAPLE_WOOD, WWBlocks.STRIPPED_MAPLE_WOOD);
+	public static final DeferredItem<StandingAndWallBlockItem> MAPLE_SIGN = REGISTER.registerCookableSign(WWBlockItemIds.MAPLE_SIGN, WWBlocks.MAPLE_SIGN, WWBlocks.MAPLE_WALL_SIGN);
+	public static final DeferredItem<HangingSignItem> MAPLE_HANGING_SIGN = REGISTER.registerCookableHangingSign(WWBlockItemIds.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_HANGING_SIGN, WWBlocks.MAPLE_WALL_HANGING_SIGN);
+	public static final DeferredItem<BlockItem> MAPLE_SHELF = REGISTER.registerCookableShelf(WWBlockItemIds.MAPLE_SHELF, WWBlocks.MAPLE_SHELF);
 
 	// FROGLIGHT GOOP
 	public static final DeferredItem<BlockItem> OCHRE_FROGLIGHT_GOOP = REGISTER.registerSimpleBlockItem(WWBlockItemIds.OCHRE_FROGLIGHT_GOOP, WWBlocks.OCHRE_FROGLIGHT_GOOP);
@@ -424,16 +428,16 @@ public final class WWItems {
 	// ITEMS
 
 	// BOATS
-	public static final DeferredItem<BoatItem> BAOBAB_BOAT = REGISTER.registerBoatItem(WWItemIds.BAOBAB_BOAT, () -> WWEntityTypes.BAOBAB_BOAT.get());
-	public static final DeferredItem<BoatItem> BAOBAB_CHEST_BOAT = REGISTER.registerBoatItem(WWItemIds.BAOBAB_CHEST_BOAT, () -> WWEntityTypes.BAOBAB_CHEST_BOAT.get());
-	public static final DeferredItem<BoatItem> WILLOW_BOAT = REGISTER.registerBoatItem(WWItemIds.WILLOW_BOAT, () -> WWEntityTypes.WILLOW_BOAT.get());
-	public static final DeferredItem<BoatItem> WILLOW_CHEST_BOAT = REGISTER.registerBoatItem(WWItemIds.WILLOW_CHEST_BOAT, () -> WWEntityTypes.WILLOW_CHEST_BOAT.get());
-	public static final DeferredItem<BoatItem> CYPRESS_BOAT = REGISTER.registerBoatItem(WWItemIds.CYPRESS_BOAT, () -> WWEntityTypes.CYPRESS_BOAT.get());
-	public static final DeferredItem<BoatItem> CYPRESS_CHEST_BOAT = REGISTER.registerBoatItem(WWItemIds.CYPRESS_CHEST_BOAT, () -> WWEntityTypes.CYPRESS_CHEST_BOAT.get());
-	public static final DeferredItem<BoatItem> PALM_BOAT = REGISTER.registerBoatItem(WWItemIds.PALM_BOAT, () -> WWEntityTypes.PALM_BOAT.get());
-	public static final DeferredItem<BoatItem> PALM_CHEST_BOAT = REGISTER.registerBoatItem(WWItemIds.PALM_CHEST_BOAT, () -> WWEntityTypes.PALM_CHEST_BOAT.get());
-	public static final DeferredItem<BoatItem> MAPLE_BOAT = REGISTER.registerBoatItem(WWItemIds.MAPLE_BOAT, () -> WWEntityTypes.MAPLE_BOAT.get());
-	public static final DeferredItem<BoatItem> MAPLE_CHEST_BOAT = REGISTER.registerBoatItem(WWItemIds.MAPLE_CHEST_BOAT, () -> WWEntityTypes.MAPLE_CHEST_BOAT.get());
+	public static final DeferredItem<BoatItem> BAOBAB_BOAT = REGISTER.registerBoat(WWItemIds.BAOBAB_BOAT, () -> WWEntityTypes.BAOBAB_BOAT.get());
+	public static final DeferredItem<BoatItem> BAOBAB_CHEST_BOAT = REGISTER.registerBoat(WWItemIds.BAOBAB_CHEST_BOAT, () -> WWEntityTypes.BAOBAB_CHEST_BOAT.get());
+	public static final DeferredItem<BoatItem> WILLOW_BOAT = REGISTER.registerBoat(WWItemIds.WILLOW_BOAT, () -> WWEntityTypes.WILLOW_BOAT.get());
+	public static final DeferredItem<BoatItem> WILLOW_CHEST_BOAT = REGISTER.registerBoat(WWItemIds.WILLOW_CHEST_BOAT, () -> WWEntityTypes.WILLOW_CHEST_BOAT.get());
+	public static final DeferredItem<BoatItem> CYPRESS_BOAT = REGISTER.registerBoat(WWItemIds.CYPRESS_BOAT, () -> WWEntityTypes.CYPRESS_BOAT.get());
+	public static final DeferredItem<BoatItem> CYPRESS_CHEST_BOAT = REGISTER.registerBoat(WWItemIds.CYPRESS_CHEST_BOAT, () -> WWEntityTypes.CYPRESS_CHEST_BOAT.get());
+	public static final DeferredItem<BoatItem> PALM_BOAT = REGISTER.registerBoat(WWItemIds.PALM_BOAT, () -> WWEntityTypes.PALM_BOAT.get());
+	public static final DeferredItem<BoatItem> PALM_CHEST_BOAT = REGISTER.registerBoat(WWItemIds.PALM_CHEST_BOAT, () -> WWEntityTypes.PALM_CHEST_BOAT.get());
+	public static final DeferredItem<BoatItem> MAPLE_BOAT = REGISTER.registerBoat(WWItemIds.MAPLE_BOAT, () -> WWEntityTypes.MAPLE_BOAT.get());
+	public static final DeferredItem<BoatItem> MAPLE_CHEST_BOAT = REGISTER.registerBoat(WWItemIds.MAPLE_CHEST_BOAT, () -> WWEntityTypes.MAPLE_CHEST_BOAT.get());
 
 	public static final DeferredItem<MilkweedPodItem> MILKWEED_POD = REGISTER.registerItem(WWItemIds.MILKWEED_POD,
 		MilkweedPodItem::new,
@@ -452,6 +456,7 @@ public final class WWItems {
 				WWDataComponents.FIREFLY_VARIANT.get(),
 				context -> context.lookupOrThrow(WilderWildRegistries.FIREFLY_VARIANT).get(FireflyVariants.DEFAULT).orElse(null)
 			)
+			.dispensed(WWDispenseBehaviorIds.FILLED_MOB_BOTTLE)
 	);
 	public static final DeferredItem<MobBottleItem> BUTTERFLY_BOTTLE = REGISTER.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(
@@ -462,6 +467,7 @@ public final class WWItems {
 		() -> new Item.Properties()
 			.stacksTo(1)
 			.component(WWDataComponents.BOTTLE_ENTITY_DATA.get(), CustomData.EMPTY)
+			.dispensed(WWDispenseBehaviorIds.FILLED_MOB_BOTTLE)
 	);
 	public static final DeferredItem<Item> PEARL = REGISTER.registerSimpleItem(WWItemIds.PEARL,
 		() -> new Item.Properties().trimMaterial(WWTrimMaterials.PEARL).requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
@@ -494,12 +500,17 @@ public final class WWItems {
 	public static final DeferredItem<MobBucketItem> JELLYFISH_BUCKET = REGISTER.registerItem(
 		WWItemIds.JELLYFISH_BUCKET,
 		properties -> new MobBucketItem(WWEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH.get(), properties),
-		() -> new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
+		() -> new Item.Properties().stacksTo(1)
+			.component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
+			.dispensed(DispenseBehaviorIds.FILLED_BUCKET)
 	);
 	public static final DeferredItem<MobBucketItem> CRAB_BUCKET = REGISTER.registerItem(
 		WWItemIds.CRAB_BUCKET,
 		properties -> new MobBucketItem(WWEntityTypes.CRAB.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB.get(), properties),
-		() -> new Item.Properties().stacksTo(1).component(DataComponents.FOOD, WWFoods.CRAB_CLAW)
+		() -> new Item.Properties().stacksTo(1)
+			.component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
+			.component(DataComponents.FOOD, WWFoods.CRAB_CLAW)
+			.dispensed(DispenseBehaviorIds.FILLED_BUCKET)
 	);
 
 	public static final DeferredItem<SpawnEggItem> FIREFLY_SPAWN_EGG = REGISTER.registerSpawnEgg(WWItemIds.FIREFLY_SPAWN_EGG, WWEntityTypes.FIREFLY);
@@ -523,16 +534,5 @@ public final class WWItems {
 	@ApiStatus.Internal
 	public static void setup() {
 		Item.BY_BLOCK.put(WWBlocks.TUMBLEWEED.get(), TUMBLEWEED.get());
-
-		DispenserBlock.registerBehavior(BAOBAB_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_BOAT.get()));
-		DispenserBlock.registerBehavior(BAOBAB_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.BAOBAB_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(WILLOW_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_BOAT.get()));
-		DispenserBlock.registerBehavior(WILLOW_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.WILLOW_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(CYPRESS_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_BOAT.get()));
-		DispenserBlock.registerBehavior(CYPRESS_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.CYPRESS_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(PALM_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.PALM_BOAT.get()));
-		DispenserBlock.registerBehavior(PALM_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.PALM_CHEST_BOAT.get()));
-		DispenserBlock.registerBehavior(MAPLE_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_BOAT.get()));
-		DispenserBlock.registerBehavior(MAPLE_CHEST_BOAT.get(), new BoatDispenseItemBehavior(WWEntityTypes.MAPLE_CHEST_BOAT.get()));
 	}
 }

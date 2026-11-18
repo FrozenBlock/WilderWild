@@ -71,9 +71,4 @@ public class CoconutItem extends BlockItem implements ProjectileItem {
 	public Projectile asProjectile(Level level, Position position, ItemStack stack, Direction direction) {
 		return new CoconutProjectile(level, position.x(), position.y(), position.z(), stack);
 	}
-
-	@Override
-	public DispenseConfig createDispenseConfig() {
-		return DispenseConfig.builder().uncertainty(9F).power(0.75F).build();
-	}
 }
