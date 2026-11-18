@@ -20,42 +20,34 @@ package net.frozenblock.wilderwild.levelgen.foliageplacers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.registry.WWFeatures;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
 public class MapleFoliagePlacer extends BlobFoliagePlacer {
 	public static final MapCodec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
-		blobParts(instance).and(
-			instance.group(
-				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance),
-				Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance),
-				FoliagePlacer.CODEC.fieldOf("alt_foliage_placer").forGetter(placer -> placer.altFoliagePlacer)
-			)
-		).apply(instance, MapleFoliagePlacer::new)
+		blobParts(instance)
+			.and(Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesChance))
+			.and(Codec.floatRange(0F, 1F).fieldOf("hanging_leaves_extension_chance").forGetter(foliagePlacer -> foliagePlacer.hangingLeavesExtensionChance))
+			.apply(instance, MapleFoliagePlacer::new)
 	);
 	private final float hangingLeavesChance;
 	private final float hangingLeavesExtensionChance;
-	private final FoliagePlacer altFoliagePlacer;
 
 	public MapleFoliagePlacer(
 		IntProvider radius,
 		IntProvider offset,
 		int height,
 		float hangingLeavesChance,
-		float hangingLeavesExtensionChance,
-		FoliagePlacer altFoliagePlacer
+		float hangingLeavesExtensionChance
 	) {
 		super(radius, offset, height);
 		this.hangingLeavesChance = hangingLeavesChance;
 		this.hangingLeavesExtensionChance = hangingLeavesExtensionChance;
-		this.altFoliagePlacer = altFoliagePlacer;
 	}
 
 	@Override
@@ -75,20 +67,6 @@ public class MapleFoliagePlacer extends BlobFoliagePlacer {
 		int leafRadius,
 		int offset
 	) {
-		if (!WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.get()) {
-			this.altFoliagePlacer.createFoliage(
-				level,
-				foliageSetter,
-				random,
-				tree,
-				treeHeight,
-				foliageAttachment,
-				this.altFoliagePlacer.foliageHeight(random, treeHeight, tree),
-				this.altFoliagePlacer.foliageRadius(random, treeHeight)
-			);
-			return;
-		}
-
 		for (int relativeY = offset; relativeY >= offset - foliageHeight; relativeY--) {
 			final int newRadius = Math.max(leafRadius + foliageAttachment.radiusOffsetXZ() - 1 - relativeY / 2, 0);
 			if (relativeY <= offset - foliageHeight) {

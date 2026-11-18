@@ -41,8 +41,9 @@
     }
   ],
   "foliage_placer": {
-    "type": "wilderwild:maple_foliage_placer",
-    "alt_foliage_placer": {
+    "type": "frozenlib:conditional_foliage_placer",
+    "condition": "wilderwild:new_maple_generation",
+    "on_false": {
       "type": "wilderwild:legacy_maple_foliage_placer",
       "length": {
         "type": "minecraft:uniform",
@@ -60,11 +61,14 @@
         "min_inclusive": 3
       }
     },
-    "hanging_leaves_chance": 0.15,
-    "hanging_leaves_extension_chance": 0.0,
-    "height": 3,
-    "offset": 0,
-    "radius": 1
+    "on_true": {
+      "type": "wilderwild:maple_foliage_placer",
+      "hanging_leaves_chance": 0.15,
+      "hanging_leaves_extension_chance": 0.0,
+      "height": 3,
+      "offset": 0,
+      "radius": 1
+    }
   },
   "foliage_provider": {
     "id": "wilderwild:red_maple_leaves",
@@ -80,59 +84,63 @@
     "upper_size": 0
   },
   "trunk_placer": {
-    "type": "wilderwild:maple_trunk_placer",
-    "alt_trunk_placer": {
+    "type": "frozenlib:conditional_trunk_placer",
+    "condition": "wilderwild:new_maple_generation",
+    "on_false": {
       "type": "minecraft:straight_trunk_placer",
       "base_height": 10,
       "height_rand_a": 1,
       "height_rand_b": 2
     },
-    "base_height": 10,
-    "branch_placement": {
-      "cutoff_from_top": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 5,
-        "min_inclusive": 1
+    "on_true": {
+      "type": "wilderwild:maple_trunk_placer",
+      "base_height": 10,
+      "branch_placement": {
+        "cutoff_from_top": {
+          "type": "minecraft:uniform",
+          "max_inclusive": 5,
+          "min_inclusive": 1
+        },
+        "foliage_probability": 1.0,
+        "foliage_radius_offset": {
+          "type": "minecraft:clamped",
+          "max_inclusive": 1,
+          "min_inclusive": 0,
+          "source": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 2,
+            "min_inclusive": 0
+          }
+        },
+        "length": {
+          "type": "minecraft:biased_to_bottom",
+          "max_inclusive": 2,
+          "min_inclusive": 1
+        },
+        "probability": 0.575
       },
-      "foliage_probability": 1.0,
-      "foliage_radius_offset": {
-        "type": "minecraft:clamped",
-        "max_inclusive": 1,
-        "min_inclusive": 0,
-        "source": {
+      "height_rand_a": 1,
+      "height_rand_b": 2,
+      "lower_branch_placement": {
+        "foliage_probability": 1.0,
+        "foliage_radius_offset": {
+          "type": "minecraft:clamped",
+          "max_inclusive": 1,
+          "min_inclusive": 0,
+          "source": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 2,
+            "min_inclusive": 0
+          }
+        },
+        "length": {
           "type": "minecraft:uniform",
           "max_inclusive": 2,
-          "min_inclusive": 0
-        }
-      },
-      "length": {
-        "type": "minecraft:biased_to_bottom",
-        "max_inclusive": 2,
-        "min_inclusive": 1
-      },
-      "probability": 0.575
-    },
-    "height_rand_a": 1,
-    "height_rand_b": 2,
-    "lower_branch_placement": {
-      "foliage_probability": 1.0,
-      "foliage_radius_offset": {
-        "type": "minecraft:clamped",
-        "max_inclusive": 1,
-        "min_inclusive": 0,
-        "source": {
-          "type": "minecraft:uniform",
-          "max_inclusive": 2,
-          "min_inclusive": 0
-        }
-      },
-      "length": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 2,
-        "min_inclusive": 1
-      },
-      "offset_last_log_probability": 1.0,
-      "probability": 0.3
+          "min_inclusive": 1
+        },
+        "offset_last_log_probability": 1.0,
+        "probability": 0.3
+      }
     }
   },
   "trunk_provider": {

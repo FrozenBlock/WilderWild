@@ -22,8 +22,10 @@ import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibTreeFeature;
+import net.frozenblock.lib.levelgen.feature.api.foliageplacers.ConditionalFoliagePlacer;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.treedecorators.ProbabilityDecorator;
+import net.frozenblock.lib.levelgen.feature.api.trunkplacers.ConditionalTrunkPlacer;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
@@ -1545,7 +1547,7 @@ public final class WWTreeFeatures {
 		// MAPLE
 		MapleCollection.zipApply(MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				maple(leaves.get(), belowTrunkProvider)
+				maple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
 			);
@@ -1553,7 +1555,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(DYING_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				maple(leaves.get(), belowTrunkProvider)
+				maple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE), vines1Under26003))
 					.build()
 			);
@@ -1561,7 +1563,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(TALL_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				tallMaple(leaves.get(), belowTrunkProvider)
+				tallMaple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
 			);
@@ -1569,7 +1571,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(TALL_DYING_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				tallMaple(leaves.get(), belowTrunkProvider)
+				tallMaple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE), vines1Under26003))
 					.build()
 			);
@@ -1577,7 +1579,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				maple(leaves.get(), belowTrunkProvider)
+				maple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(bees0004, pollen01, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
 			);
@@ -1585,7 +1587,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(TALL_MAPLE_BEES_0004, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				tallMaple(leaves.get(), belowTrunkProvider)
+				tallMaple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(bees0004, pollen01, shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
 			);
@@ -1593,7 +1595,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(SHORT_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				shortMaple(leaves.get(), belowTrunkProvider)
+				shortMaple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
 			);
@@ -1601,7 +1603,7 @@ public final class WWTreeFeatures {
 
 		MapleCollection.zipApply(FULL_MAPLE, WWBlocks.MAPLE_LEAVES, (feature, leaves) -> {
 			feature.makeAndSetHolders(
-				fullMaple(leaves.get(), belowTrunkProvider)
+				fullMaple(configPredicates, leaves.get(), belowTrunkProvider)
 					.decorators(List.of(shelfMushroom0074.apply(WWConfigPredicates.GENERATE_SHELF_MUSHROOM_MAPLE)))
 					.build()
 			);
@@ -2584,6 +2586,7 @@ public final class WWTreeFeatures {
 
 	// MAPLE
 	public static TreeFeature.Builder mapleBuilder(
+		HolderGetter<ConfigPredicate> configPredicates,
 		Block log,
 		Block leaves,
 		int baseHeight,
@@ -2592,36 +2595,44 @@ public final class WWTreeFeatures {
 		IntProvider branchStartHeight,
 		Holder<BlockStateProvider> belowTrunkProvider
 	) {
+		final Holder<ConfigPredicate> newMapleGeneration = configPredicates.getOrThrow(WWConfigPredicates.NEW_MAPLE_GENERATION);
+
 		return new TreeFeature.Builder(
 			BlockStateProvider.of(log),
-			new MapleTrunkPlacer(
-				baseHeight,
-				heightRandA,
-				heightRandB,
-				new BranchPlacement.Builder()
-					.branchChance(0.575F)
-					.branchCutoffFromTop(branchStartHeight)
-					.branchLength(BiasedToBottomInt.of(1, 2))
-					.foliagePlacementChance(1F)
-					.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
-					.build(),
-				new BranchPlacement.Builder()
-					.branchChance(0.3F)
-					.branchLength(UniformInt.of(1, 2))
-					.offsetLastLogChance(1F)
-					.minBranchLengthForOffset(1)
-					.foliagePlacementChance(1F)
-					.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
-					.build(),
+			new ConditionalTrunkPlacer(
+				newMapleGeneration,
+				new MapleTrunkPlacer(
+					baseHeight,
+					heightRandA,
+					heightRandB,
+					new BranchPlacement.Builder()
+						.branchChance(0.575F)
+						.branchCutoffFromTop(branchStartHeight)
+						.branchLength(BiasedToBottomInt.of(1, 2))
+						.foliagePlacementChance(1F)
+						.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
+						.build(),
+					new BranchPlacement.Builder()
+						.branchChance(0.3F)
+						.branchLength(UniformInt.of(1, 2))
+						.offsetLastLogChance(1F)
+						.minBranchLengthForOffset(1)
+						.foliagePlacementChance(1F)
+						.foliageRadiusOffset(ClampedInt.of(UniformInt.of(0, 2), 0, 1))
+						.build()
+				),
 				new StraightTrunkPlacer(baseHeight, heightRandA, heightRandB)
 			),
 			BlockStateProvider.of(leaves),
-			new MapleFoliagePlacer(
-				ConstantInt.of(1),
-				ConstantInt.of(0),
-				3,
-				0.15F,
-				0F,
+			new ConditionalFoliagePlacer(
+				newMapleGeneration,
+				new MapleFoliagePlacer(
+					ConstantInt.of(1),
+					ConstantInt.of(0),
+					3,
+					0.15F,
+					0F
+				),
 				new LegacyMapleFoliagePlacer(
 					UniformInt.of(3, 4),
 					UniformInt.of(0, 2),
@@ -2633,20 +2644,20 @@ public final class WWTreeFeatures {
 		).ignoreVines();
 	}
 
-	public static TreeFeature.Builder maple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 10, 1, 2, UniformInt.of(1, 5), belowTrunkProvider);
+	public static TreeFeature.Builder maple(HolderGetter<ConfigPredicate> configPredicates, Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
+		return mapleBuilder(configPredicates, WWBlocks.MAPLE_LOG.get(), leaves, 10, 1, 2, UniformInt.of(1, 5), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder tallMaple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 14, 1, 1, UniformInt.of(2, 7), belowTrunkProvider);
+	public static TreeFeature.Builder tallMaple(HolderGetter<ConfigPredicate> configPredicates, Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
+		return mapleBuilder(configPredicates, WWBlocks.MAPLE_LOG.get(), leaves, 14, 1, 1, UniformInt.of(2, 7), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder shortMaple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 6, 1, 2, UniformInt.of(0, 3), belowTrunkProvider);
+	public static TreeFeature.Builder shortMaple(HolderGetter<ConfigPredicate> configPredicates, Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
+		return mapleBuilder(configPredicates, WWBlocks.MAPLE_LOG.get(), leaves, 6, 1, 2, UniformInt.of(0, 3), belowTrunkProvider);
 	}
 
-	public static TreeFeature.Builder fullMaple(Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
-		return mapleBuilder(WWBlocks.MAPLE_LOG.get(), leaves, 7, 2, 2, BiasedToBottomInt.of(0, 2), belowTrunkProvider);
+	public static TreeFeature.Builder fullMaple(HolderGetter<ConfigPredicate> configPredicates, Block leaves, Holder<BlockStateProvider> belowTrunkProvider) {
+		return mapleBuilder(configPredicates, WWBlocks.MAPLE_LOG.get(), leaves, 7, 2, 2, BiasedToBottomInt.of(0, 2), belowTrunkProvider);
 	}
 
 	public static TreeFeature.Builder fallenMaple(Holder<BlockStateProvider> belowTrunkProvider) {

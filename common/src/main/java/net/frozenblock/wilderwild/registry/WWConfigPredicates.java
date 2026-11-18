@@ -54,6 +54,7 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_BAOBAB = createKey("generate_baobab");
 	public static final ResourceKey<ConfigPredicate> GENERATE_PALM = createKey("generate_palm");
 	public static final ResourceKey<ConfigPredicate> GENERATE_WILLOW = createKey("generate_willow");
+	public static final ResourceKey<ConfigPredicate> NEW_MAPLE_GENERATION = createKey("new_maple_generation");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BIRCH_BRANCH = createKey("generate_birch_branch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_OAK_BRANCH = createKey("generate_oak_branch");
 	public static final ResourceKey<ConfigPredicate> GENERATE_DARK_OAK_BRANCH = createKey("generate_dark_oak_branch");
@@ -226,6 +227,10 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_WILLOW,
 			WWWorldgenConfig.WILLOW_TREE_GENERATION.equalTo(true)
+		);
+		context.register(
+			NEW_MAPLE_GENERATION,
+			WWWorldgenConfig.NEW_MAPLE_TREE_GENERATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_BIRCH_BRANCH,
