@@ -41,10 +41,9 @@ public final class WAEnchantmentTagsProvider extends FabricTagsProvider<Enchantm
 			.add(WWEnchantments.GRAPPLING);
 
 		this.tag(EnchantmentTags.NON_TREASURE)
-			.addOptional(WWEnchantments.TENSION);
+			.add(WWEnchantments.TENSION);
 
 		this.builder(WWEnchantmentTags.HARPOON_EXCLUSIVE)
-			.add(WWEnchantments.GRAPPLING)
-			.addOptional(WWEnchantments.TENSION);
+			.add(WWEnchantments.GRAPPLING, WWEnchantments.TENSION);
 	}
 }

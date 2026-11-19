@@ -58,12 +58,13 @@ public class Harpoon extends AbstractArrow {
 	private static final int GRAPPLE_BUFFER_TICKS = 5;
 	private static final float GRAPPLE_TIME_IN_SECONDS = (float)REEL_IN_TICKS / 20F;
 	private static final float DEFAULT_GRAPPLE_STRENGTH = 0.02F;
+	private static final int IN_GROUND_TIME_BEFORE_TENSION_REEL = 10;
 	private static final EntityDataAccessor<Integer> HOOKED_ENTITY = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Byte> GRAPPLE_TICKS = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Float> GRAPPLE_STRENGTH = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<Byte> REMAINING_GRAPPLE_COUNT = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BYTE);
-	// TODO: actually implement lmao
-	private static final EntityDataAccessor<Boolean> TENSION = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> PREVENT_ROPE_SNAP = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> PREVENT_GRAPPLE = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> FOIL = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BOOLEAN);
 	private @Nullable Entity attachedTo;
 	private @Nullable Entity hookedIn;
@@ -97,7 +98,8 @@ public class Harpoon extends AbstractArrow {
 		entityData.define(GRAPPLE_TICKS, (byte)REEL_IN_TICKS);
 		entityData.define(GRAPPLE_STRENGTH, DEFAULT_GRAPPLE_STRENGTH);
 		entityData.define(REMAINING_GRAPPLE_COUNT, (byte)1);
-		entityData.define(TENSION, false);
+		entityData.define(PREVENT_ROPE_SNAP, false);
+		entityData.define(PREVENT_GRAPPLE, false);
 		entityData.define(FOIL, false);
 	}
 
@@ -105,7 +107,8 @@ public class Harpoon extends AbstractArrow {
 		this.setGrappleTicks(this.getGrappleTimeInTicksFromItem(harpoonItem));
 		this.setGrappleStrength(this.getGrappleStrengthFromItem(harpoonItem));
 		this.setRemainingGrappleCount(this.getGrappleMaxCountFromItem(harpoonItem));
-		this.setTension(this.getTensionFromItem(harpoonItem));
+		this.setPreventRopeSnap(this.getPreventRopeSnapFromItem(harpoonItem));
+		this.setPreventGrapple(this.getPreventGrappleFromItem(harpoonItem));
 		this.setFoil(harpoonItem.hasFoil());
 	}
 
@@ -135,6 +138,9 @@ public class Harpoon extends AbstractArrow {
 				} else {
 					this.discardAndPlaceItemBackInInventory();
 				}
+			} else if (this.isInGround() && this.getPreventGrapple() && this.inGroundTime > IN_GROUND_TIME_BEFORE_TENSION_REEL) {
+				this.discardAndPlaceItemBackInInventory();
+				return;
 			}
 		}
 
@@ -162,6 +168,7 @@ public class Harpoon extends AbstractArrow {
 		// TODO: sounds and particles for string breaking
 
 		if (this.getHookedIn() != null) this.setHookedIn(null);
+		if (this.getPreventRopeSnap()) this.discardAndPlaceItemBackInInventory();
 	}
 
 	public static boolean isEmptyCrossbow(ItemStack itemStack) {
@@ -191,7 +198,7 @@ public class Harpoon extends AbstractArrow {
 			return 3;
 		}
 
-		if (this.isInGround() && this.getRemainingGrappleCount() > 0) {
+		if (this.isInGround() && this.getRemainingGrappleCount() > 0 && !this.getPreventGrapple()) {
 			if (this.reelInTicks >= GRAPPLE_BUFFER_TICKS) return 0;
 
 			this.reelInTicks = this.getGrappleTicks();
@@ -210,10 +217,13 @@ public class Harpoon extends AbstractArrow {
     }
 
 	public void discardAndPlaceItemBackInInventory() {
-		if (this.getOrSetAttachedTo() instanceof ServerPlayer player && this.pickup == Pickup.ALLOWED) {
+		if (this.level().isClientSide()) return;
+
+		if (this.getOrSetAttachedTo() instanceof ServerPlayer player && (this.pickup == Pickup.ALLOWED || player.hasInfiniteMaterials())) {
 			player.take(this, 1);
-			player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
+			if (this.pickup == Pickup.ALLOWED) player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
 		}
+
 		this.discard();
 	}
 
@@ -235,7 +245,7 @@ public class Harpoon extends AbstractArrow {
 
 		if (this.hookedIn != null) {
 			this.pullEntity(this.hookedIn, false);
-		} else if (this.isInGround() && this.getOrSetAttachedTo() != null) {
+		} else if (this.isInGround() && this.getOrSetAttachedTo() != null && !this.getPreventGrapple()) {
 			this.pullEntity(this.getOrSetAttachedTo(), true);
 		} else {
 			this.discardAndPlaceItemBackInInventory();
@@ -352,12 +362,20 @@ public class Harpoon extends AbstractArrow {
 		return this.entityData.get(REMAINING_GRAPPLE_COUNT);
 	}
 
-	private void setTension(boolean tension) {
-		this.entityData.set(TENSION, tension);
+	private void setPreventRopeSnap(boolean preventRopeSnap) {
+		this.entityData.set(PREVENT_ROPE_SNAP, preventRopeSnap);
 	}
 
-	public boolean isTension() {
-		return this.entityData.get(TENSION);
+	public boolean getPreventRopeSnap() {
+		return this.entityData.get(PREVENT_ROPE_SNAP);
+	}
+
+	private void setPreventGrapple(boolean preventGrapple) {
+		this.entityData.set(PREVENT_GRAPPLE, preventGrapple);
+	}
+
+	public boolean getPreventGrapple() {
+		return this.entityData.get(PREVENT_GRAPPLE);
 	}
 
 	private void setFoil(boolean foil) {
@@ -462,9 +480,11 @@ public class Harpoon extends AbstractArrow {
 			: 0;
 	}
 
-	private boolean getTensionFromItem(ItemStack harpoonItem) {
-		return this.level() instanceof ServerLevel serverLevel
-			? EnchantmentHelper.has(harpoonItem, WWEnchantmentEffectComponents.PREVENT_HARPOON_ROPE_SNAP.get())
-			: false;
+	private boolean getPreventRopeSnapFromItem(ItemStack harpoonItem) {
+		return this.level() instanceof ServerLevel && EnchantmentHelper.has(harpoonItem, WWEnchantmentEffectComponents.PREVENT_HARPOON_ROPE_SNAP.get());
+	}
+
+	private boolean getPreventGrappleFromItem(ItemStack harpoonItem) {
+		return this.level() instanceof ServerLevel && EnchantmentHelper.has(harpoonItem, WWEnchantmentEffectComponents.PREVENT_HARPOON_GRAPPLE.get());
 	}
 }

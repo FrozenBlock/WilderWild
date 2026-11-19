@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "wilderwild:tension",
-      "required": false
-    }
+    "wilderwild:tension"
   ]
 }

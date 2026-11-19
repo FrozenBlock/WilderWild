@@ -61,6 +61,25 @@ public final class WWEnchantments {
 			.withEffect(WWEnchantmentEffectComponents.HARPOON_GRAPPLE_STRENGTH.get(), new AddValue(LevelBasedValue.perLevel(0.0075F)))
 			.withEffect(WWEnchantmentEffectComponents.HARPOON_GRAPPLE_MAX_COUNT.get(), new AddValue(LevelBasedValue.perLevel(2F, 1F)))
 		);
+
+		register(
+			context,
+			TENSION,
+			Enchantment.enchantment(
+					Enchantment.definition(
+						items.getOrThrow(WWItemTags.HARPOON_ENCHANTABLE),
+						1,
+						1,
+						Enchantment.constantCost(20),
+						Enchantment.constantCost(50),
+						8,
+						EquipmentSlotGroup.MAINHAND
+					)
+				)
+				.exclusiveWith(enchantments.getOrThrow(WWEnchantmentTags.HARPOON_EXCLUSIVE))
+				.withEffect(WWEnchantmentEffectComponents.PREVENT_HARPOON_ROPE_SNAP.get())
+				.withEffect(WWEnchantmentEffectComponents.PREVENT_HARPOON_GRAPPLE.get())
+		);
 	}
 
 	private static void register(BootstrapContext<Enchantment> context, ResourceKey<Enchantment> key, Enchantment.Builder builder) {

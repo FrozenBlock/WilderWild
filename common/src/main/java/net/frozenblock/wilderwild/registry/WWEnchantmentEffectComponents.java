@@ -77,6 +77,12 @@ public final class WWEnchantmentEffectComponents {
 			.persistent(Unit.CODEC)
 			.build()
 	);
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Unit>> PREVENT_HARPOON_GRAPPLE = REGISTER.register(
+		"prevent_harpoon_grapple",
+		() -> DataComponentType.<Unit>builder()
+			.persistent(Unit.CODEC)
+			.build()
+	);
 
 	static {
 		REGISTER.register();
