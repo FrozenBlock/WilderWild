@@ -1,0 +1,9 @@
+{
+  "values": [
+    "wilderwild:grappling",
+    {
+      "id": "wilderwild:tension",
+      "required": false
+    }
+  ]
+}

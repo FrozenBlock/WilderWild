@@ -539,6 +539,8 @@
     "entity.wilderwild.sunken": "Sunken",
     "item.wilderwild.sunken_spawn_egg": "Sunken Spawn Egg",
     "item.wilderwild.harpoon": "Harpoon",
+    "enchantment.wilderwild.grappling": "Grappling",
+    "enchantment.wilderwild.tension": "Tension",
     "subtitles.entity.sunken.ambient": "Sunken rattles",
     "subtitles.entity.sunken.death": "Sunken dies",
     "subtitles.entity.sunken.hurt": "Sunken hurts",

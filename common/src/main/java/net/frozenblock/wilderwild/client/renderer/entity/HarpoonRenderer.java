@@ -27,6 +27,7 @@ import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.object.projectile.ArrowModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
@@ -45,10 +46,14 @@ import org.jspecify.annotations.Nullable;
 @ClientOnly
 public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> {
 	public static final Identifier HARPOON_LOCATION = WWConstants.id("textures/entity/projectiles/harpoon.png");
+	private final ArrowModel defaultModel;
+	private final ArrowModel foilModel;
 
 	public HarpoonRenderer(EntityRendererProvider.Context context) {
 		super(context);
-		this.model = new HarpoonModel(context.bakeLayer(WWModelLayers.HARPOON));
+		this.defaultModel = new HarpoonModel(context.bakeLayer(WWModelLayers.HARPOON));
+		this.foilModel = new HarpoonModel(context.bakeLayer(WWModelLayers.HARPOON_FOIL));
+		this.model = this.defaultModel;
 	}
 
 	@Override
@@ -122,6 +127,7 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 
 	@Override
 	public void submit(HarpoonRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+		this.model = state.isFoil ? this.foilModel : this.defaultModel;
 		if (!state.hookedInEntity) super.submit(state, poseStack, submitNodeCollector, camera);
 
 		if (state.lineOriginOffset.equals(Vec3.ZERO)) return;
@@ -146,6 +152,7 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 	@Override
 	public void extractRenderState(Harpoon harpoon, HarpoonRenderState state, float partialTicks) {
 		super.extractRenderState(harpoon, state, partialTicks);
+		state.isFoil = harpoon.isFoil();
 
 		final Entity attachedTo = harpoon.getAttachedTo();
 		if (attachedTo == null) {

@@ -84,6 +84,7 @@ public final class WWModelLayers {
 
 	// PROJECTILE
 	public static final ModelLayerLocation HARPOON = new ModelLayerLocation(WWConstants.id("harpoon"), "main");
+	public static final ModelLayerLocation HARPOON_FOIL = new ModelLayerLocation(WWConstants.id("harpoon"), "foil");
 
 	// BOAT
 	public static final ModelLayerLocation BAOBAB_BOAT = new ModelLayerLocation(WWConstants.id("boat/baobab"), "main");
@@ -137,6 +138,7 @@ public final class WWModelLayers {
 
 		// PROJECTILE
 		ModelLayerRegistry.register(HARPOON, HarpoonModel::createBodyLayer);
+		ModelLayerRegistry.register(HARPOON_FOIL, HarpoonModel::createFoilLayer);
 
 		// BOAT
 		ModelLayerRegistry.registerBoats(BAOBAB_BOAT, BAOBAB_CHEST_BOAT);

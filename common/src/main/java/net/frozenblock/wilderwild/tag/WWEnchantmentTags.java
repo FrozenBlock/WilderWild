@@ -25,6 +25,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 @UtilityClass
 public final class WWEnchantmentTags {
+	public static final TagKey<Enchantment> HARPOON_EXCLUSIVE = bind("exclusive_set/harpoon");
 	public static final TagKey<Enchantment> PREVENTS_ECHO_GLASS_CRACKING = bind("prevents_echo_glass_cracking");
 
 	private static TagKey<Enchantment> bind(String name) {

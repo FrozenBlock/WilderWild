@@ -51,6 +51,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.PlaceOnFluidBlockItem;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.component.Consumables;
@@ -475,6 +476,10 @@ public final class WWItems {
 	public static final DeferredItem<HarpoonItem> HARPOON = REGISTER.registerItem(WWItemIds.HARPOON,
 		HarpoonItem::new,
 		() -> new Item.Properties().requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+			.rarity(Rarity.UNCOMMON)
+			.stacksTo(1)
+			.durability(64)
+			.enchantable(1)
 	);
 
 	// FOOD

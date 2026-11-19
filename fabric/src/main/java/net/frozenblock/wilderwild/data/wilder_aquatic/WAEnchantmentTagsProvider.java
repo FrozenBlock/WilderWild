@@ -1,0 +1,50 @@
+/*
+ * Copyright 2025-2026 FrozenBlock
+ * This file is part of Wilder Wild.
+ *
+ * This program is free software; you can modify it under
+ * the terms of version 1 of the FrozenBlock Modding Oasis License
+ * as published by FrozenBlock Modding Oasis.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * FrozenBlock Modding Oasis License for more details.
+ *
+ * You should have received a copy of the FrozenBlock Modding Oasis License
+ * along with this program; if not, see <https://github.com/FrozenBlock/Licenses>.
+ */
+
+package net.frozenblock.wilderwild.data.wilder_aquatic;
+
+import java.util.concurrent.CompletableFuture;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.frozenblock.wilderwild.registry.WWEnchantments;
+import net.frozenblock.wilderwild.tag.WWEnchantmentTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.world.item.enchantment.Enchantment;
+import org.jetbrains.annotations.ApiStatus;
+
+@ApiStatus.Internal
+public final class WAEnchantmentTagsProvider extends FabricTagsProvider<Enchantment> {
+
+	public WAEnchantmentTagsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, Registries.ENCHANTMENT, registries);
+	}
+
+	@Override
+	public void addTags(HolderLookup.Provider registries) {
+		this.tag(EnchantmentTags.TREASURE)
+			.add(WWEnchantments.GRAPPLING);
+
+		this.tag(EnchantmentTags.NON_TREASURE)
+			.addOptional(WWEnchantments.TENSION);
+
+		this.builder(WWEnchantmentTags.HARPOON_EXCLUSIVE)
+			.add(WWEnchantments.GRAPPLING)
+			.addOptional(WWEnchantments.TENSION);
+	}
+}

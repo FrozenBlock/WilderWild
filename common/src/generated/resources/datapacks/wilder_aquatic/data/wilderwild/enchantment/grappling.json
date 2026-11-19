@@ -1,0 +1,59 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.wilderwild.grappling"
+  },
+  "effects": {
+    "wilderwild:harpoon_grapple_max_count": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 2.0,
+            "per_level_above_first": 1.0
+          }
+        }
+      }
+    ],
+    "wilderwild:harpoon_grapple_strength": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 0.0075,
+            "per_level_above_first": 0.0075
+          }
+        }
+      }
+    ],
+    "wilderwild:harpoon_grappling_time": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 0.58333,
+            "per_level_above_first": 0.58333
+          }
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#wilderwild:exclusive_set/harpoon",
+  "max_cost": {
+    "base": 65,
+    "per_level_above_first": 9
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 15,
+    "per_level_above_first": 9
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#wilderwild:harpoon_enchantable",
+  "weight": 2
+}

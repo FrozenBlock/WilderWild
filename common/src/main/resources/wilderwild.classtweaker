@@ -41,6 +41,11 @@ accessible method net/minecraft/references/ItemIds createSpawnEgg (Lnet/minecraf
 transitive-extend-enum net/minecraft/world/item/CrossbowItem$ChargeType WILDERWILD_HARPOON
 transitive-extend-enum net/minecraft/world/item/equipment/trim/TrimMaterials$Palette WILDERWILD_PEARL
 
+# Enchantment
+accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
+accessible method net/minecraft/world/item/enchantment/EnchantmentHelper runIterationOnItem (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;)V
+accessible method net/minecraft/world/item/enchantment/Enchantment modifyEntityFilteredValue (Lnet/minecraft/core/component/DataComponentType;Lnet/minecraft/server/level/ServerLevel;ILnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/Entity;Lorg/apache/commons/lang3/mutable/MutableFloat;)V
+
 # Block Entities
 accessible field net/minecraft/world/level/block/SculkSpreader$ChargeCursor pos Lnet/minecraft/core/BlockPos;
 accessible class net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerConfigs$Keys

@@ -19,7 +19,9 @@ package net.frozenblock.wilderwild.entity.projectile.arrow;
 
 import java.util.Collection;
 import java.util.List;
+import net.frozenblock.wilderwild.item.impl.WWEnchantmentHelper;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
+import net.frozenblock.wilderwild.registry.WWEnchantmentEffectComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.core.component.DataComponents;
@@ -28,6 +30,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityEvent;
@@ -39,6 +42,7 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ChargedProjectiles;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -51,8 +55,16 @@ public class Harpoon extends AbstractArrow {
 	private static final double MAX_STRING_DISTANCE_SQUARED = MAX_STRING_DISTANCE * MAX_STRING_DISTANCE;
 	private static final int REEL_IN_TICKS_DEFAULT = -1;
 	private static final int REEL_IN_TICKS = 5;
-	private static final int REEL_IN_TICKS_BUFFER_BLOCK = 3;
+	private static final int GRAPPLE_BUFFER_TICKS = 5;
+	private static final float GRAPPLE_TIME_IN_SECONDS = (float)REEL_IN_TICKS / 20F;
+	private static final float DEFAULT_GRAPPLE_STRENGTH = 0.02F;
 	private static final EntityDataAccessor<Integer> HOOKED_ENTITY = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Byte> GRAPPLE_TICKS = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BYTE);
+	private static final EntityDataAccessor<Float> GRAPPLE_STRENGTH = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Byte> REMAINING_GRAPPLE_COUNT = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BYTE);
+	// TODO: actually implement lmao
+	private static final EntityDataAccessor<Boolean> TENSION = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> FOIL = SynchedEntityData.defineId(Harpoon.class, EntityDataSerializers.BOOLEAN);
 	private @Nullable Entity attachedTo;
 	private @Nullable Entity hookedIn;
 	private int reelInTicks = REEL_IN_TICKS_DEFAULT;
@@ -65,20 +77,36 @@ public class Harpoon extends AbstractArrow {
 
 	public Harpoon(Level level, LivingEntity owner, ItemStack harpoonItem) {
 		super(WWEntityTypes.HARPOON.get(), owner, level, harpoonItem, null);
+		this.setupEnchantmentSynchedData(harpoonItem);
 	}
 
 	public Harpoon(Level level, double x, double y, double z, ItemStack harpoonItem) {
 		super(WWEntityTypes.HARPOON.get(), x, y, z, level, harpoonItem, harpoonItem);
+		this.setupEnchantmentSynchedData(harpoonItem);
 	}
 
 	public Harpoon(Level level, LivingEntity owner, ItemStack pickupItemStack, @Nullable ItemStack firedFromWeapon) {
 		super(WWEntityTypes.HARPOON.get(), owner, level, pickupItemStack, firedFromWeapon);
+		this.setupEnchantmentSynchedData(pickupItemStack);
 	}
 
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 		super.defineSynchedData(entityData);
 		entityData.define(HOOKED_ENTITY, 0);
+		entityData.define(GRAPPLE_TICKS, (byte)REEL_IN_TICKS);
+		entityData.define(GRAPPLE_STRENGTH, DEFAULT_GRAPPLE_STRENGTH);
+		entityData.define(REMAINING_GRAPPLE_COUNT, (byte)1);
+		entityData.define(TENSION, false);
+		entityData.define(FOIL, false);
+	}
+
+	private void setupEnchantmentSynchedData(ItemStack harpoonItem) {
+		this.setGrappleTicks(this.getGrappleTimeInTicksFromItem(harpoonItem));
+		this.setGrappleStrength(this.getGrappleStrengthFromItem(harpoonItem));
+		this.setRemainingGrappleCount(this.getGrappleMaxCountFromItem(harpoonItem));
+		this.setTension(this.getTensionFromItem(harpoonItem));
+		this.setFoil(harpoonItem.hasFoil());
 	}
 
 	@Override
@@ -96,7 +124,7 @@ public class Harpoon extends AbstractArrow {
 		super.tick();
 
 		if (!(this.getOrSetAttachedTo() instanceof LivingEntity attachedTo)) {
-			if (this.reelInTicks != REEL_IN_TICKS_DEFAULT) this.discard();
+			if (this.reelInTicks != REEL_IN_TICKS_DEFAULT) this.discardAndPlaceItemBackInInventory();
 			return;
 		}
 
@@ -105,7 +133,7 @@ public class Harpoon extends AbstractArrow {
 				if (!this.hookedIn.isRemoved() && this.hookedIn.canInteractWithLevel() && this.hookedIn.level().dimension() == this.level().dimension()) {
 					this.setPos(this.hookedIn.getX(), this.hookedIn.getY(0.7D), this.hookedIn.getZ());
 				} else {
-					this.discard();
+					this.discardAndPlaceItemBackInInventory();
 				}
 			}
 		}
@@ -133,7 +161,7 @@ public class Harpoon extends AbstractArrow {
 
 		// TODO: sounds and particles for string breaking
 
-		if (this.getHookedIn() != null) this.discard();
+		if (this.getHookedIn() != null) this.setHookedIn(null);
 	}
 
 	public static boolean isEmptyCrossbow(ItemStack itemStack) {
@@ -150,44 +178,48 @@ public class Harpoon extends AbstractArrow {
 
 		if (this.level().isClientSide() || this.shouldStopHarpooning(attachedTo)) return 0;
 
-		boolean pulled = false;
-		pullEntityOrAttachedTo: {
-			if (this.hookedIn != null) {
-				if (this.reelInTicks >= 0) return 0;
-				this.reelInTicks = REEL_IN_TICKS;
-				if (crossbow != null && attachedTo instanceof ServerPlayer player) {
-					// TODO: criteria for reeling hooked entity
-					//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
-				}
-			} else if (this.isInGround()) {
-				if (this.reelInTicks >= REEL_IN_TICKS_BUFFER_BLOCK) return 0;
-				this.reelInTicks = REEL_IN_TICKS;
-				if (crossbow != null && attachedTo instanceof ServerPlayer player) {
-					// TODO: criteria for using as grappling hook
-					//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
-				}
-			} else {
-				break pullEntityOrAttachedTo;
-			}
+		if (this.hookedIn != null) {
+			if (this.reelInTicks >= 0) return 0;
 
+			this.reelInTicks = REEL_IN_TICKS;
 			this.level().broadcastEntityEvent(this, EntityEvent.FISHING_ROD_REEL_IN);
-			pulled = true;
-		}
-
-		if (!pulled) {
-			this.discard();
-			final ItemStack pickupItem = this.getPickupItem();
-			if (attachedTo instanceof ServerPlayer player && !pickupItem.has(DataComponents.INTANGIBLE_PROJECTILE)) {
-				player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
+			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
+				// TODO: criteria for reeling hooked entity
+				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
 			}
+
+			return 3;
 		}
 
-		return pulled ? 3 : 0;
+		if (this.isInGround() && this.getRemainingGrappleCount() > 0) {
+			if (this.reelInTicks >= GRAPPLE_BUFFER_TICKS) return 0;
+
+			this.reelInTicks = this.getGrappleTicks();
+			this.setRemainingGrappleCount(this.getRemainingGrappleCount() - 1);
+			this.level().broadcastEntityEvent(this, EntityEvent.TENDRILS_SHIVER);
+			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
+				// TODO: criteria for using as grappling hook
+				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
+			}
+
+			return 3;
+		}
+
+		this.discardAndPlaceItemBackInInventory();
+		return 0;
     }
+
+	public void discardAndPlaceItemBackInInventory() {
+		this.discard();
+		if (this.getOrSetAttachedTo() instanceof ServerPlayer player && this.pickup == Pickup.ALLOWED) {
+			player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
+		}
+	}
 
 	@Override
 	public void handleEntityEvent(@EntityEvent.Value byte id) {
 		if (id == EntityEvent.FISHING_ROD_REEL_IN) this.reelInTicks = REEL_IN_TICKS;
+		if (id == EntityEvent.TENDRILS_SHIVER) this.reelInTicks = this.getGrappleTicks();
 
 		super.handleEntityEvent(id);
 	}
@@ -196,28 +228,26 @@ public class Harpoon extends AbstractArrow {
 		if (this.reelInTicks == REEL_IN_TICKS_DEFAULT) return;
 
 		if (this.attachedTo == null) {
-			this.discard();
+			this.discardAndPlaceItemBackInInventory();
 			return;
 		}
 
 		if (this.hookedIn != null) {
-			this.pullEntity(this.hookedIn);
+			this.pullEntity(this.hookedIn, false);
 		} else if (this.isInGround() && this.getOrSetAttachedTo() != null) {
-			this.pullEntity(this.getOrSetAttachedTo());
+			this.pullEntity(this.getOrSetAttachedTo(), true);
 		} else {
-			this.discard();
+			this.discardAndPlaceItemBackInInventory();
 			return;
 		}
 
 		this.reelInTicks -= 1;
-		if (this.reelInTicks <= 0) this.discard();
+		if (this.reelInTicks <= 0) this.discardAndPlaceItemBackInInventory();
 	}
 
-	protected void pullEntity(Entity entity) {
+	protected void pullEntity(Entity entity, boolean grapple) {
 		final Entity attachedTo = this.getOrSetAttachedTo();
 		if (attachedTo == null || !entity.canSimulateMovement()) return;
-
-		final boolean reverse = entity == attachedTo;
 
 		final float attachedToYHeight;
 		if (attachedTo instanceof Player) {
@@ -229,9 +259,9 @@ public class Harpoon extends AbstractArrow {
 		}
 
 		final Vec3 delta = new Vec3(attachedTo.getX() - this.getX(), attachedTo.getY(attachedToYHeight) - this.getY(), attachedTo.getZ() - this.getZ())
-			.scale(!reverse ? 1D : -1D);
+			.scale(!grapple ? 1D : -1D);
 		final double distance = delta.length();
-		Vec3 reelDelta = delta.normalize().scale(Math.min(distance * 1.5D, 12D)).scale(!reverse ? 0.04D : 0.02D);
+		Vec3 reelDelta = delta.normalize().scale(Math.min(distance * 1.5D, 12D)).scale(!grapple ? 0.04D : this.getGrappleStrength());
 		if (reelDelta.y() > 0D) reelDelta = reelDelta.multiply(1D, 0.75D, 1D);
 
 		entity.addDeltaMovement(reelDelta);
@@ -253,7 +283,7 @@ public class Harpoon extends AbstractArrow {
 		super.doPostHurtEffects(mob);
 
 		if (!mob.canInteractWithLevel()) {
-			this.discard();
+			this.discardAndPlaceItemBackInInventory();
 			return;
 		}
 
@@ -295,6 +325,46 @@ public class Harpoon extends AbstractArrow {
 
 	public boolean reelingIn() {
 		return this.reelInTicks >= 0;
+	}
+
+	private void setGrappleTicks(int grapplingTicks) {
+		this.entityData.set(GRAPPLE_TICKS, (byte) Math.clamp(grapplingTicks, 0, 127));
+	}
+
+	public byte getGrappleTicks() {
+		return this.entityData.get(GRAPPLE_TICKS);
+	}
+
+	private void setGrappleStrength(float grappleStrength) {
+		this.entityData.set(GRAPPLE_STRENGTH, grappleStrength);
+	}
+
+	public float getGrappleStrength() {
+		return this.entityData.get(GRAPPLE_STRENGTH);
+	}
+
+	private void setRemainingGrappleCount(int remainingGrappleCount) {
+		this.entityData.set(REMAINING_GRAPPLE_COUNT, (byte) Math.clamp(remainingGrappleCount, 0, 127));
+	}
+
+	public byte getRemainingGrappleCount() {
+		return this.entityData.get(REMAINING_GRAPPLE_COUNT);
+	}
+
+	private void setTension(boolean tension) {
+		this.entityData.set(TENSION, tension);
+	}
+
+	public boolean isTension() {
+		return this.entityData.get(TENSION);
+	}
+
+	private void setFoil(boolean foil) {
+		this.entityData.set(FOIL, foil);
+	}
+
+	public boolean isFoil() {
+		return this.entityData.get(FOIL);
 	}
 
 	@Override
@@ -370,5 +440,30 @@ public class Harpoon extends AbstractArrow {
 		super.readAdditionalSaveData(input);
 		this.dealtDamage = input.getBooleanOr("DealtDamage", false);
 		this.baseDamage = input.getDoubleOr("damage", 1D);
+		this.setupEnchantmentSynchedData(this.getPickupItemStackOrigin());
+	}
+
+	private byte getGrappleTimeInTicksFromItem(ItemStack harpoonItem) {
+		return this.level() instanceof ServerLevel serverLevel
+			? (byte)Math.clamp(Mth.floor(WWEnchantmentHelper.modifyHarpoonGrapplingTime(serverLevel, harpoonItem, this, GRAPPLE_TIME_IN_SECONDS) * 20F), 0, 127)
+			: 0;
+	}
+
+	private float getGrappleStrengthFromItem(ItemStack harpoonItem) {
+		return this.level() instanceof ServerLevel serverLevel
+			? WWEnchantmentHelper.modifyHarpoonGrappleStrength(serverLevel, harpoonItem, this, DEFAULT_GRAPPLE_STRENGTH)
+			: 0;
+	}
+
+	private byte getGrappleMaxCountFromItem(ItemStack harpoonItem) {
+		return this.level() instanceof ServerLevel serverLevel
+			? (byte)Math.clamp(WWEnchantmentHelper.modifyHarpoonGrappleMaxCount(serverLevel, harpoonItem, this, 1), 0, 127)
+			: 0;
+	}
+
+	private boolean getTensionFromItem(ItemStack harpoonItem) {
+		return this.level() instanceof ServerLevel serverLevel
+			? EnchantmentHelper.has(harpoonItem, WWEnchantmentEffectComponents.PREVENT_HARPOON_ROPE_SNAP.get())
+			: false;
 	}
 }

@@ -102,6 +102,12 @@ public final class WWItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 		this.builder(WWItemTags.SUNKEN_PREFERRED_WEAPONS)
 			.add(ItemIds.CROSSBOW);
 
+		this.builder(ItemTags.DURABILITY_ENCHANTABLE)
+			.add(WWItemIds.HARPOON);
+
+		this.builder(WWItemTags.HARPOON_ENCHANTABLE)
+			.add(WWItemIds.HARPOON);
+
 		this.builder(ItemTags.BOATS)
 			.add(WWItemIds.BAOBAB_BOAT)
 			.add(WWItemIds.WILLOW_BOAT)

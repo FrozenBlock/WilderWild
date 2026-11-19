@@ -35,7 +35,7 @@ public class HarpoonModel extends ArrowModel {
 		super(root);
 	}
 
-	public static LayerDefinition createBodyLayer() {
+	private static LayerDefinition createBodyLayer(CubeDeformation cubeDeformation) {
 		final MeshDefinition mesh = new MeshDefinition();
 		final PartDefinition root = mesh.getRoot();
 
@@ -43,7 +43,7 @@ public class HarpoonModel extends ArrowModel {
 			"back",
 			CubeListBuilder.create()
 				.texOffs(0, 0)
-				.addBox(0F, -2.5F, -2.5F,0F, 5F, 5F),
+				.addBox(0F, -2.5F, -2.5F,0F, 5F, 5F, cubeDeformation),
 			PartPose.offsetAndRotation(
 				0F, 0F, 0F,
 				Mth.PI / 4F, 0F, 0F
@@ -55,12 +55,20 @@ public class HarpoonModel extends ArrowModel {
 			.addBox(
 				-14F, -2F, 0F,
 				18F, 4F, 0F,
-				CubeDeformation.NONE,
+				cubeDeformation,
 				1F, 0.8F
 			);
 		root.addOrReplaceChild("cross_1", cross, PartPose.rotation(Mth.PI / 4F, 0F, 0F));
 		root.addOrReplaceChild("cross_2", cross, PartPose.rotation((Mth.PI * 3F / 4F), 0F, 0F));
 
 		return LayerDefinition.create(mesh.apply(ARROW_SCALE), 64, 32);
+	}
+
+	public static LayerDefinition createBodyLayer() {
+		return createBodyLayer(CubeDeformation.NONE);
+	}
+
+	public static LayerDefinition createFoilLayer() {
+		return createBodyLayer(new CubeDeformation(0.00025F));
 	}
 }

@@ -25,6 +25,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.leaves.FallingLeafDatas;
 import net.frozenblock.wilderwild.block.termite.TermiteBlockBehaviors;
 import net.frozenblock.wilderwild.data.advancement.WWAdvancementProvider;
+import net.frozenblock.wilderwild.data.block.WWClipGroups;
 import net.frozenblock.wilderwild.data.loot.WWBlockInteractionLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWBlockLootProvider;
 import net.frozenblock.wilderwild.data.loot.WWEntityLootProvider;
@@ -55,11 +56,13 @@ import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WABiomeTagsProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WABlockLootProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WABlockTagsProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAEnchantmentTagsProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAEntityLootProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAEntityTypeTagsProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAEquipmentLootProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAItemTagsProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WARecipeProvider;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WARegistryProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WAShearingLootProvider;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialConditions;
 import net.frozenblock.wilderwild.data.worldgen.material.WWMaterialRules;
@@ -85,9 +88,9 @@ import net.frozenblock.wilderwild.registry.WWBiomeSelectors;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.registry.WWBlockSoundSets;
 import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
-import net.frozenblock.wilderwild.data.block.WWClipGroups;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
+import net.frozenblock.wilderwild.registry.WWEnchantments;
 import net.frozenblock.wilderwild.registry.WWMusicPitchProviders;
 import net.frozenblock.wilderwild.registry.WWSuffocationTypes;
 import net.frozenblock.wilderwild.registry.WWTimelines;
@@ -148,11 +151,14 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		);
 
 		// DATA
+		wilderAquaticPack.addProvider(WARegistryProvider::new);
+
 		wilderAquaticPack.addProvider(WARecipeProvider::new);
 		wilderAquaticPack.addProvider(WAShearingLootProvider::new);
 		wilderAquaticPack.addProvider(WABlockLootProvider::new);
 		wilderAquaticPack.addProvider(WAEntityLootProvider::new);
 		wilderAquaticPack.addProvider(WAEquipmentLootProvider::new);
+		wilderAquaticPack.addProvider(WAEnchantmentTagsProvider::new);
 		wilderAquaticPack.addProvider(WABiomeTagsProvider::new);
 		wilderAquaticPack.addProvider(WABlockTagsProvider::new);
 		wilderAquaticPack.addProvider(WAItemTagsProvider::new);
@@ -179,6 +185,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.BLOCK_STATE_PROVIDER, WWBlockStateProviders::bootstrap);
 		registryBuilder.add(Registries.BLOCK_SOUND_SET, WWBlockSoundSets::bootstrap);
 		registryBuilder.add(Registries.DISPENSE_BEHAVIOR, WWDispenseBehaviors::bootstrap);
+		registryBuilder.add(Registries.ENCHANTMENT, WWEnchantments::bootstrap);
 
 		// FrozenLib Registries
 		registryBuilder.add(FrozenLibRegistries.CONFIG_PREDICATE, WWConfigPredicates::bootstrap);
