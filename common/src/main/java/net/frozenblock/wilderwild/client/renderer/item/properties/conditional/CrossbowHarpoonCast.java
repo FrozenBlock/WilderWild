@@ -25,7 +25,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperty;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -37,9 +36,9 @@ public final class CrossbowHarpoonCast implements ConditionalItemModelProperty {
 	@Nullable
 	@Override
 	public boolean get(ItemStack itemStack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
-		if (!(owner instanceof Player player) || WWAttachmentTypes.HARPOON.get(player) == null) return false;
+		if (owner == null || WWAttachmentTypes.HARPOON.get(owner) == null) return false;
 
-		final HumanoidArm holdingArm = HarpoonRenderer.getHoldingArm(player);
+		final HumanoidArm holdingArm = HarpoonRenderer.getHoldingArm(owner);
 		return holdingArm != null & owner.getItemHeldByArm(holdingArm) == itemStack;
 	}
 
