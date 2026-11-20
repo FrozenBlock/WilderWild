@@ -422,7 +422,7 @@ public final class WWCreativeInventorySorting {
 		insertAfterInSpawnEggs(Items.PANDA_SPAWN_EGG, WWItems.PENGUIN_SPAWN_EGG);
 
 		// PEARL
-		insertBeforeInBuildingBlocks(Items.QUARTZ_BLOCK, WWItems.PEARL_BLOCK);
+		insertBeforeInBuildingBlocks(Items.SEA_LANTERN, WWItems.PEARL_BLOCK);
 		// TODO: polished
 		/*
 		insertAfterInBuildingBlocks(WWItems.PEARL_BLOCK, WWItems.POLISHED_PEARL_BLOCK);
