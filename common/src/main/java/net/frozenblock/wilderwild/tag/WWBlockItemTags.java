@@ -25,6 +25,7 @@ import net.minecraft.tags.BlockItemTagId;
 @UtilityClass
 public final class WWBlockItemTags {
 	public static final BlockItemTagId MESOGLEA = bind("mesoglea");
+	public static final BlockItemTagId MESOGLEA_TORCHES = bind("mesoglea_torches");
 	public static final BlockItemTagId NEMATOCYSTS = bind("nematocysts");
 	public static final BlockItemTagId FROGLIGHT_GOOP = bind("froglight_goop");
 	public static final BlockItemTagId LEAF_LITTERS = bind("leaf_litters");

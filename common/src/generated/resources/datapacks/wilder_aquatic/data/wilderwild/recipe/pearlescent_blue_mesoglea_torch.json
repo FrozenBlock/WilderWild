@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "minecraft:stick",
+    "M": "wilderwild:pearlescent_blue_mesoglea",
+    "X": [
+      "minecraft:coal",
+      "minecraft:charcoal"
+    ]
+  },
+  "pattern": [
+    "M",
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 4,
+    "id": "wilderwild:pearlescent_blue_mesoglea_torch"
+  }
+}

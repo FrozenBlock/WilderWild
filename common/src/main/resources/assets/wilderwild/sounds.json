@@ -5661,6 +5661,12 @@
     ],
     "subtitle": "subtitles.block.mesoglea.evaporate"
   },
+  "block.mesoglea_torch.evaporate": {
+    "sounds": [
+      "random/fizz"
+    ],
+    "subtitle": "subtitles.block.mesoglea_torch.evaporate"
+  },
   "block.gabbro.break": {
     "sounds": [
       "wilderwild:block/gabbro/break1",

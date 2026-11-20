@@ -22,6 +22,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
+import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWSounds;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
@@ -31,6 +32,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -77,6 +79,7 @@ import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -143,6 +146,18 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		super.populateDefaultEquipmentSlots(random, difficulty);
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.CROSSBOW));
+	}
+
+	@Override
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean killedByPlayer) {
+		for (EquipmentSlot slot : EquipmentSlot.VALUES) {
+			final ItemStack itemStack = this.getItemBySlot(slot);
+			if (itemStack.getOrDefault(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.EMPTY).contains(WWItems.HARPOON.get())) {
+				itemStack.remove(DataComponents.CHARGED_PROJECTILES);
+			}
+		}
+
+		super.dropCustomDeathLoot(level, source, killedByPlayer);
 	}
 
 	@Override

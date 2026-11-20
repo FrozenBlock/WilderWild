@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "wilderwild:block/pink_mesoglea_wall_torch"
+    },
+    "facing=north": {
+      "model": "wilderwild:block/pink_mesoglea_wall_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "wilderwild:block/pink_mesoglea_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "wilderwild:block/pink_mesoglea_wall_torch",
+      "y": 180
+    }
+  }
+}

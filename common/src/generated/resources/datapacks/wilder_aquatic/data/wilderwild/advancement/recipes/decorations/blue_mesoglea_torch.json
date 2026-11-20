@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blue_mesoglea": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wilderwild:blue_mesoglea"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "wilderwild:blue_mesoglea_torch"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blue_mesoglea"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wilderwild:blue_mesoglea_torch"
+    ]
+  }
+}

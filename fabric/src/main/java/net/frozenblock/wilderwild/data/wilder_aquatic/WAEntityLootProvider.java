@@ -53,8 +53,8 @@ public final class WAEntityLootProvider extends FabricEntityLootSubProvider {
 					.setRolls(ContextIntProviders.exactly(1))
 					.add(
 						LootItem.lootTableItem(WWItems.HARPOON.get())
-							.apply(SetItemCountFunction.setCount(ContextIntProviders.between(0, 2)))
-							.apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0F, 1F)))
+							.when(LootItemKilledByPlayerCondition.killedByPlayer())
+							.when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.enchantments, 0.05F, 0.02F))
 					)
 				).withPool(
 					LootPool.lootPool()

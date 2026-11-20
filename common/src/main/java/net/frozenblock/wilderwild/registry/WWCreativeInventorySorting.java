@@ -322,6 +322,14 @@ public final class WWCreativeInventorySorting {
 		insertAfterInNaturalBlocks(WWItems.MESOGLEA.red(), WWItems.MESOGLEA.yellow());
 		insertAfterInNaturalBlocks(WWItems.MESOGLEA.yellow(), WWItems.MESOGLEA.lime());
 
+		insertAfterInFunctionalBlocks(Items.REDSTONE_TORCH, WWItems.MESOGLEA_TORCH.pearlescentBlue());
+		insertAfterInFunctionalBlocks(WWItems.MESOGLEA_TORCH.pearlescentBlue(), WWItems.MESOGLEA_TORCH.pearlescentPurple());
+		insertAfterInFunctionalBlocks(WWItems.MESOGLEA_TORCH.pearlescentPurple(), WWItems.MESOGLEA_TORCH.blue());
+		insertAfterInFunctionalBlocks(WWItems.MESOGLEA_TORCH.blue(), WWItems.MESOGLEA_TORCH.pink());
+		insertAfterInFunctionalBlocks(WWItems.MESOGLEA_TORCH.pink(), WWItems.MESOGLEA_TORCH.red());
+		insertAfterInFunctionalBlocks(WWItems.MESOGLEA_TORCH.red(), WWItems.MESOGLEA_TORCH.yellow());
+		insertAfterInFunctionalBlocks(WWItems.MESOGLEA_TORCH.yellow(), WWItems.MESOGLEA_TORCH.lime());
+
 		// NEMATOCYST
 		insertBeforeInNaturalBlocks(Items.SPONGE, WWItems.NEMATOCYST.pearlescentBlue());
 		insertAfterInNaturalBlocks(WWItems.NEMATOCYST.pearlescentBlue(), WWItems.NEMATOCYST.pearlescentPurple());

@@ -459,6 +459,7 @@ public final class WWBlockLootProvider extends FabricBlockLootSubProvider {
 		this.dropSelf(WWBlocks.TERMITE_MOUND.get());
 
 		WWBlocks.MESOGLEA.forEach(mesogleaBlock -> this.dropSelf(mesogleaBlock.get()));
+		WWBlocks.MESOGLEA_TORCH.forEach(mesogleaTorch -> this.dropSelf(mesogleaTorch.get()));
 		WWBlocks.NEMATOCYST.forEach(nematocystBlock -> this.dropWhenSilkTouch(nematocystBlock.get()));
 
 		this.makeHangingFroglightLoot(WWBlocks.PEARLESCENT_FROGLIGHT_GOOP_BODY.get(), WWBlocks.PEARLESCENT_FROGLIGHT_GOOP.get());

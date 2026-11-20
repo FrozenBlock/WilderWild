@@ -20,9 +20,12 @@ package net.frozenblock.wilderwild.data.wilder_aquatic;
 import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.frozenblock.wilderwild.references.WWBlockIds;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.BlockItemTagsProvider;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -85,6 +88,16 @@ public final class WABlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(BlockTags.BLOCKS_MOTION_NO_LEAVES)
 			.add(WWBlockItemIds.PEARL_BLOCK, WWBlockItemIds.CUT_POLISHED_PEARL);
 			// TODO: polished
-			//add(WWBlockItemIds.PEARL_BLOCK, WWBlockItemIds.POLISHED_PEARL_BLOCK,, WWBlockItemIds.CUT_POLISHED_PEARL);
+			//add(WWBlockItemIds.PEARL_BLOCK, WWBlockItemIds.POLISHED_PEARL_BLOCK, WWBlockItemIds.CUT_POLISHED_PEARL);
+
+		this.builder(BlockTags.WASHED_AWAY_BY_FLUIDS)
+			.addOptionalTag(WWBlockItemTags.MESOGLEA_TORCHES.block());
+
+		this.builder(BlockTags.WALL_POST_OVERRIDE)
+			.addOptionalTag(WWBlockItemTags.MESOGLEA_TORCHES.block());
+
+		this.tag(WWBlockItemTags.MESOGLEA_TORCHES.block())
+			.addAll(WWBlockItemIds.MESOGLEA_TORCH.asList().stream().map(BlockItemId::block))
+			.addAll(WWBlockIds.MESOGLEA_WALL_TORCH.asList());
 	}
 }

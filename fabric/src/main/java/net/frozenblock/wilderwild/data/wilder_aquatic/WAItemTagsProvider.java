@@ -22,8 +22,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
+import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.BlockItemTagsProvider;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
@@ -47,6 +49,9 @@ public final class WAItemTagsProvider extends FabricTagsProvider.ItemTagsProvide
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
 		new WABlockItemTagsProvider(tagId -> BlockItemTagsProvider.wrapForItems(this.tag(tagId.item()))).run();
+
+		this.tag(WWBlockItemTags.MESOGLEA_TORCHES.item())
+			.addAll(WWBlockItemIds.MESOGLEA_TORCH.asList().stream().map(BlockItemId::item));
 
 		// TRIMS
 		this.builder(ItemTags.TRIM_MATERIALS)

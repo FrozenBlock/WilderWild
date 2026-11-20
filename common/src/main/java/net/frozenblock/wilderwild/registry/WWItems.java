@@ -39,6 +39,7 @@ import net.frozenblock.wilderwild.item.TumbleweedItem;
 import net.frozenblock.wilderwild.references.WWBlockItemIds;
 import net.frozenblock.wilderwild.references.WWDispenseBehaviorIds;
 import net.frozenblock.wilderwild.references.WWItemIds;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.DispenseBehaviorIds;
 import net.minecraft.references.BlockItemIds;
@@ -163,6 +164,16 @@ public final class WWItems {
 
 	// MESOGLEA
 	public static final MesogleaCollection<DeferredItem<BlockItem>> MESOGLEA = MesogleaCollection.zipMap(WWBlockItemIds.MESOGLEA, WWBlocks.MESOGLEA, REGISTER::registerSimpleBlockItem);
+	public static final MesogleaCollection<DeferredItem<StandingAndWallBlockItem>> MESOGLEA_TORCH = MesogleaCollection.zipMap(
+		WWBlockItemIds.MESOGLEA_TORCH,
+		MesogleaCollection.DYE_COLORS,
+		(id, color) -> REGISTER.registerBlockItem(
+			id,
+			(properties, block) -> new StandingAndWallBlockItem(block, WWBlocks.MESOGLEA_WALL_TORCH.pick(color).get(), Direction.DOWN, properties),
+			WWBlocks.MESOGLEA_TORCH.pick(color),
+			properties -> properties.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+		)
+	);
 
 	// NEMATOCYST
 	public static final MesogleaCollection<DeferredItem<BlockItem>> NEMATOCYST = MesogleaCollection.zipMap(WWBlockItemIds.NEMATOCYST, WWBlocks.NEMATOCYST, REGISTER::registerSimpleBlockItem);

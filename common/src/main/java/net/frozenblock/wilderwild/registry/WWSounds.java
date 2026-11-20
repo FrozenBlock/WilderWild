@@ -81,6 +81,7 @@ public final class WWSounds {
 	public static final DeferredSoundEvent BLOCK_PALE_OAK_WOOD_TRAPDOOR_CLOSE = register("block.pale_oak_wood_trapdoor.close");
 	public static final DeferredSoundEvent BLOCK_PALE_OAK_WOOD_TRAPDOOR_OPEN = register("block.pale_oak_wood_trapdoor.open");
 	public static final DeferredSoundEvent BLOCK_MESOGLEA_EVAPORATE = register("block.mesoglea.evaporate");
+	public static final DeferredSoundEvent MESOGLEA_TORCH_EVAPORATE = register("block.mesoglea_torch.evaporate");
 	public static final DeferredSoundEvent BLOCK_MILKWEED_RUSTLE = register("block.milkweed.rustle");
 	public static final DeferredSoundEvent BLOCK_SOUL_FIRE_AMBIENT = register("block.soul_fire.ambient");
 	public static final DeferredSoundEvent BLOCK_ECHO_GLASS_CRACK = register("block.echo_glass.crack");

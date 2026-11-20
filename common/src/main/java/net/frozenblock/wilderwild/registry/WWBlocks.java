@@ -54,6 +54,8 @@ import net.frozenblock.wilderwild.block.HangingTendrilBlock;
 import net.frozenblock.wilderwild.block.HollowedLogBlock;
 import net.frozenblock.wilderwild.block.HugePaleMushroomBlock;
 import net.frozenblock.wilderwild.block.MesogleaBlock;
+import net.frozenblock.wilderwild.block.MesogleaTorchBlock;
+import net.frozenblock.wilderwild.block.MesogleaWallTorchBlock;
 import net.frozenblock.wilderwild.block.MilkweedBlock;
 import net.frozenblock.wilderwild.block.MyceliumGrowthBlock;
 import net.frozenblock.wilderwild.block.NematocystBlock;
@@ -493,6 +495,8 @@ public final class WWBlocks {
 
 	// MESOGLEA
 	public static final MesogleaCollection<DeferredBlock<MesogleaBlock>> MESOGLEA = MesogleaCollection.DYE_COLORS.map(WWBlocks::registerMesoglea);
+	public static final MesogleaCollection<DeferredBlock<MesogleaTorchBlock>> MESOGLEA_TORCH = MesogleaCollection.DYE_COLORS.map(WWBlocks::registerMesogleaTorch);
+	public static final MesogleaCollection<DeferredBlock<MesogleaWallTorchBlock>> MESOGLEA_WALL_TORCH = MesogleaCollection.DYE_COLORS.map(WWBlocks::registerMesogleaWallTorch);
 
 	private static DeferredBlock<MesogleaBlock> registerMesoglea(DyeColor color) {
 		return REGISTER.registerBlock(
@@ -517,6 +521,34 @@ public final class WWBlocks {
 				.isSuffocating(Blocks::never)
 				.dynamicShape()
 				.pushReaction(PushReaction.POPPED)
+		);
+	}
+
+	private static DeferredBlock<MesogleaTorchBlock> registerMesogleaTorch(DyeColor color) {
+		return REGISTER.registerBlock(
+			WWBlockItemIds.MESOGLEA_TORCH.pick(color),
+			properties -> new MesogleaTorchBlock(
+				WWParticleTypes.MESOGLEA_BUBBLE.pick(color).get(),
+				properties
+			),
+			() -> Properties.of()
+				.noCollision()
+				.instabreak()
+				.lightLevel(state -> 13)
+				.sound(BlockSoundSets.WOOD)
+				.pushReaction(PushReaction.POPPED)
+				.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
+		);
+	}
+
+	private static DeferredBlock<MesogleaWallTorchBlock> registerMesogleaWallTorch(DyeColor color) {
+		return REGISTER.registerBlock(
+			WWBlockIds.MESOGLEA_WALL_TORCH.pick(color),
+			properties -> new MesogleaWallTorchBlock(
+				WWParticleTypes.MESOGLEA_BUBBLE.pick(color).get(),
+				properties
+			),
+			() -> Blocks.wallVariant(MESOGLEA_TORCH.pick(color).get(), true)
 		);
 	}
 
@@ -1413,9 +1445,6 @@ public final class WWBlocks {
 		registerInventories();
 		WWFrictionModifications.init();
 		WWBlockTicks.setup();
-
-		// TODO: ml scp
-		//if (ModLoader.isModLoaded(FrozenLibConstants.SIMPLE_COPPER_PIPES_MOD_ID)) SimpleCopperPipesIntegration.setup();
 	}
 
 	private static void registerFlammability() {

@@ -20,6 +20,7 @@ package net.frozenblock.wilderwild.references;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.references.BlockIds;
@@ -97,6 +98,9 @@ public final class WWBlockIds {
 	// MAPLE
 	public static final ResourceKey<Block> MAPLE_WALL_SIGN = create("maple_wall_sign");
 	public static final ResourceKey<Block> MAPLE_WALL_HANGING_SIGN = create("maple_wall_hanging_sign");
+
+	// MESOGLEA
+	public static final MesogleaCollection<ResourceKey<Block>> MESOGLEA_WALL_TORCH = MesogleaCollection.NAMES.map(name -> create(name + "_mesoglea_wall_torch"));
 
 	// FROGLIGHT GOOP
 	public static final ResourceKey<Block> OCHRE_FROGLIGHT_GOOP_BODY = create("ochre_froglight_goop_body");

@@ -119,6 +119,7 @@ public final class WWBlockItemIds {
 
 	// MESOGLEA
 	public static final MesogleaCollection<BlockItemId> MESOGLEA = MesogleaCollection.NAMES.map(name -> create(name + "_mesoglea"));
+	public static final MesogleaCollection<BlockItemId> MESOGLEA_TORCH = MesogleaCollection.NAMES.map(name -> create(name + "_mesoglea_torch"));
 
 	// NEMATOCYST
 	public static final MesogleaCollection<BlockItemId> NEMATOCYST = MesogleaCollection.NAMES.map(name -> create(name + "_nematocyst"));

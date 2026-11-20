@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wilderwild:pearlescent_purple_mesoglea_torch"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

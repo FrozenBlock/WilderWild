@@ -30,11 +30,11 @@
     "wilderwild:mycelium_growth",
     "wilderwild:flowering_lily_pad",
     {
-      "id": "#wilderwild:leaf_litters",
+      "id": "#wilderwild:froglight_goop",
       "required": false
     },
     {
-      "id": "#wilderwild:froglight_goop",
+      "id": "#wilderwild:leaf_litters",
       "required": false
     }
   ]

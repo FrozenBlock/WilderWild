@@ -601,8 +601,8 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(WWBlockItemIds.FROZEN_BUSH)
 			.add(WWBlockItemIds.MYCELIUM_GROWTH)
 			.add(WWBlockItemIds.FLOWERING_LILY_PAD)
-			.addOptionalTag(WWBlockItemTags.LEAF_LITTERS.block())
-			.addOptionalTag(WWBlockItemTags.FROGLIGHT_GOOP.block());
+			.addOptionalTag(WWBlockItemTags.FROGLIGHT_GOOP.block())
+			.addOptionalTag(WWBlockItemTags.LEAF_LITTERS.block());
 
 		this.builder(BlockTags.GEODE_INVALID_BLOCKS)
 			.addOptionalTag(WWBlockItemTags.MESOGLEA.block());

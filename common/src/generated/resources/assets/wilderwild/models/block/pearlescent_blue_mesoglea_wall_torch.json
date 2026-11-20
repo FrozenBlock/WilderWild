@@ -1,0 +1,6 @@
+{
+  "parent": "wilderwild:block/template_mesoglea_torch_wall",
+  "textures": {
+    "torch": "wilderwild:block/pearlescent_blue_mesoglea_torch"
+  }
+}

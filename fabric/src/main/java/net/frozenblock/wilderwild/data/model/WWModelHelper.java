@@ -79,6 +79,16 @@ public final class WWModelHelper {
 		Optional.empty(),
 		TextureSlot.TEXTURE
 	);
+	private static final ModelTemplate MESOGLEA_TORCH_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_mesoglea_torch")),
+		Optional.empty(),
+		TextureSlot.TORCH
+	);
+	private static final ModelTemplate MESOGLEA_WALL_TORCH_MODEL = new ModelTemplate(
+		Optional.of(WWConstants.id("block/template_mesoglea_torch_wall")),
+		Optional.empty(),
+		TextureSlot.TORCH
+	);
 	private static final ModelTemplate NEMATOCYST_MODEL = new ModelTemplate(
 		Optional.of(WWConstants.id("block/template_nematocyst")),
 		Optional.empty(),
@@ -171,6 +181,26 @@ public final class WWModelHelper {
 
 		generator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(mesogleaBlock, multiVariant));
 		generator.modelOutput.accept(ModelLocationUtils.getModelLocation(mesogleaBlock.asItem()), new DelegatedModel(modelId));
+	}
+
+	public static void createMesogleaTorch(BlockModelGenerators generator, Block ground, Block wall) {
+		final TextureMapping textures = TextureMapping.torch(ground);
+
+		generator.blockStateOutput.accept(
+			BlockModelGenerators.createSimpleBlock(
+				ground,
+				BlockModelGenerators.plainVariant(MESOGLEA_TORCH_MODEL.create(ground, textures, generator.modelOutput))
+			)
+		);
+
+		generator.blockStateOutput.accept(
+			MultiVariantGenerator.dispatch(
+				wall,
+				BlockModelGenerators.plainVariant(MESOGLEA_WALL_TORCH_MODEL.create(wall, textures, generator.modelOutput))
+			).with(BlockModelGenerators.ROTATION_TORCH)
+		);
+
+		generator.registerSimpleFlatItemModel(ground.asItem());
 	}
 
 	public static void createNematocyst(BlockModelGenerators generator, Block nematocystBlock) {

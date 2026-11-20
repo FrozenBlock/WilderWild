@@ -23,13 +23,17 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.frozenblock.lib.item.api.recipe.RecipeExportNamespaceFix;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.WWFeatureFlags;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.ItemLike;
 
 public final class WARecipeProvider extends FabricRecipeProvider {
 
@@ -45,6 +49,23 @@ public final class WARecipeProvider extends FabricRecipeProvider {
 				RecipeExportNamespaceFix.setCurrentGeneratingModId(WWConstants.MOD_ID);
 
 				this.generateForEnabledBlockFamilies(WWFeatureFlags.WILDER_AQUATIC_FLAG_SET);
+
+				// MESOGLEA
+				MesogleaCollection.DYE_COLORS.forEach(color -> {
+					final ItemLike mesoglea = WWItems.MESOGLEA.pick(color);
+					final ItemLike mesogleaTorch = WWItems.MESOGLEA_TORCH.pick(color);
+
+					this.shaped(RecipeCategory.DECORATIONS, mesogleaTorch, 4)
+						.define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
+						.define('#', Items.STICK)
+						.define('M', mesoglea)
+						.pattern("M")
+						.pattern("X")
+						.pattern("#")
+						.unlockedBy(getHasName(mesoglea), this.has(mesoglea))
+						.save(this.output);
+
+				});
 
 				// PEARL
 				this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, WWItems.PEARL_BLOCK, WWItems.PEARL);

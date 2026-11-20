@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.frozenblock.lib.data.api.client.FrozenLibModelHelper;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
+import net.frozenblock.wilderwild.block.impl.MesogleaCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.client.renderer.special.StoneChestSpecialRenderer;
 import net.frozenblock.wilderwild.registry.WWBlockFamilies;
@@ -156,8 +157,11 @@ public final class WWModelProvider extends FabricModelProvider {
 		generator.createLeafLitter(WWBlocks.WILLOW_LEAF_LITTER.get());
 		WWBlocks.MAPLE_LEAF_LITTER.forEach(leafLitter -> WWModelHelper.createUntintedLeafLitter(generator, leafLitter.get()));
 
-		WWBlocks.MESOGLEA.forEach(mesogleaBlock -> WWModelHelper.createMesoglea(generator, mesogleaBlock.get()));
-		WWBlocks.NEMATOCYST.forEach(nematocystBlock -> WWModelHelper.createNematocyst(generator, nematocystBlock.get()));
+		MesogleaCollection.DYE_COLORS.forEach(color -> {
+			WWModelHelper.createMesoglea(generator, WWBlocks.MESOGLEA.pick(color).get());
+			WWModelHelper.createMesogleaTorch(generator, WWBlocks.MESOGLEA_TORCH.pick(color).get(), WWBlocks.MESOGLEA_WALL_TORCH.pick(color).get());
+			WWModelHelper.createNematocyst(generator, WWBlocks.NEMATOCYST.pick(color).get());
+		});
 
 		generator.family(WWBlocks.PEARL_BLOCK.get()).generateFor(WWBlockFamilies.PEARL_BLOCK);
 		// TODO: polished
