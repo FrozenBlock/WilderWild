@@ -7,6 +7,7 @@ Luna/Lunade/AViewFromTheTop:
  - Hollowed Log models as of 4.2 on 1.21.11+.
  - Basically the only developer as of 2.4.
  - Harpoon Textures.
+ - Mesoglea Torch Textures.
  - QA.
  - Etc., etc.
 
