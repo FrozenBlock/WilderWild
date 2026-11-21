@@ -57,7 +57,7 @@ public final class WARecipeProvider extends FabricRecipeProvider {
 
 					this.shaped(RecipeCategory.DECORATIONS, mesogleaTorch, 4)
 						.define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
-						.define('#', Items.STICK)
+						.define('#', Items.PRISMARINE_SHARD)
 						.define('M', mesoglea)
 						.pattern("M")
 						.pattern("X")

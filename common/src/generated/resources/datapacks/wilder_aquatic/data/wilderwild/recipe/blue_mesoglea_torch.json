@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "#": "minecraft:stick",
+    "#": "minecraft:prismarine_shard",
     "M": "wilderwild:blue_mesoglea",
     "X": [
       "minecraft:coal",
