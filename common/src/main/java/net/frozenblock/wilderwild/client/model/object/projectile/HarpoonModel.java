@@ -17,6 +17,7 @@
 
 package net.frozenblock.wilderwild.client.model.object.projectile;
 
+import net.frozenblock.wilderwild.client.renderer.entity.state.HarpoonRenderState;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -26,6 +27,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.model.object.projectile.ArrowModel;
+import net.minecraft.client.renderer.entity.state.ArrowRenderState;
 import net.minecraft.util.Mth;
 
 @ClientOnly
@@ -70,5 +72,11 @@ public class HarpoonModel extends ArrowModel {
 
 	public static LayerDefinition createFoilLayer() {
 		return createBodyLayer(new CubeDeformation(0.00025F));
+	}
+
+	@Override
+	public void setupAnim(ArrowRenderState state) {
+		super.setupAnim(state);
+		this.root.visible = !(state instanceof HarpoonRenderState harpoonState) || !harpoonState.hookedInEntity;
 	}
 }

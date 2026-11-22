@@ -19,11 +19,9 @@ package net.frozenblock.wilderwild.client.renderer.entity.state;
 
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.renderer.entity.state.ArrowRenderState;
-import net.minecraft.world.phys.Vec3;
 
 @ClientOnly
 public class HarpoonRenderState extends ArrowRenderState {
 	public boolean hookedInEntity;
-	public Vec3 lineOriginOffset = Vec3.ZERO;
 	public boolean isFoil;
 }

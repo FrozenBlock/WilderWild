@@ -219,7 +219,10 @@ public class Harpoon extends AbstractArrow {
 	public void discardAndPlaceItemBackInInventory() {
 		if (this.level().isClientSide()) return;
 
-		if (this.getOrSetAttachedTo() instanceof ServerPlayer player && (this.pickup == Pickup.ALLOWED || player.hasInfiniteMaterials())) {
+		final Entity attachedTo = this.getOrSetAttachedTo();
+		if (!(attachedTo instanceof Player) && attachedTo instanceof LivingEntity livingEntity) {
+			livingEntity.take(this, 1);
+		} else if (attachedTo instanceof ServerPlayer player && (this.pickup == Pickup.ALLOWED || player.hasInfiniteMaterials())) {
 			player.take(this, 1);
 			if (this.pickup == Pickup.ALLOWED) player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
 		}

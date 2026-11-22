@@ -137,6 +137,7 @@
     "client.frog.FrogRendererMixin",
     "client.item.crossbow.BlockModelWrapperUnbakedMixin",
     "client.item.harpoon.ArrowRendererMixin",
+    "client.item.harpoon.EntityRendererAccessor",
     "client.mesoglea.FluidRendererMixin",
     "client.mesoglea.FluidStateMixin",
     "client.shrieker.LevelEventHandlerMixin",

@@ -18,33 +18,36 @@
 package net.frozenblock.wilderwild.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import java.util.List;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.client.WWModelLayers;
 import net.frozenblock.wilderwild.client.model.object.projectile.HarpoonModel;
 import net.frozenblock.wilderwild.client.renderer.entity.state.HarpoonRenderState;
 import net.frozenblock.wilderwild.entity.projectile.arrow.Harpoon;
+import net.frozenblock.wilderwild.mixin.client.item.harpoon.EntityRendererAccessor;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.projectile.ArrowModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 @ClientOnly
 public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> {
+	private static final Vec3 LEASH_ATTACH_OFFSET = new Vec3(0D, 0.2D, 0D);
 	public static final Identifier HARPOON_LOCATION = WWConstants.id("textures/entity/projectiles/harpoon.png");
 	private final ArrowModel defaultModel;
 	private final ArrowModel foilModel;
@@ -66,39 +69,6 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 			? owner.getMainArm()
 			: Harpoon.isEmptyCrossbow(owner.getOffhandItem()) ? owner.getMainArm().getOpposite()
 			: null;
-	}
-
-	private Vec3 getAttachedToHandPos(LivingEntity attachedTo, HumanoidArm arm, float swing, float partialTicks) {
-		final int invert = arm == HumanoidArm.RIGHT ? 1 : -1;
-		if (this.entityRenderDispatcher.options.getCameraType().isFirstPerson() && attachedTo == Minecraft.getInstance().player) {
-			float fov = this.entityRenderDispatcher.options.fov().get().intValue();
-			final double viewBobbingScale = 960D / fov;
-			final Camera camera = this.entityRenderDispatcher.camera;
-
-			final Vec3 viewVec = camera
-				.getNearPlane(fov)
-				.getPointOnPlane(invert * 0.575F, Mth.lerp(camera.xRot() / 90F, -0.65F, -0.325F))
-				.scale(viewBobbingScale)
-				.yRot(swing * 0.5F)
-				.xRot(-swing * 0.7F)
-				.multiply(0.8D, 1D, 0.8D);
-			return attachedTo.getEyePosition(partialTicks).add(viewVec);
-		} else {
-			final float ownerYRot = Mth.lerp(partialTicks, attachedTo.yBodyRotO, attachedTo.yBodyRot) * Mth.DEG_TO_RAD;
-			final double sin = Mth.sin(ownerYRot);
-			final double cos = Mth.cos(ownerYRot);
-			final float ownerScale = attachedTo.getScale();
-			final double rightOffset = invert * 0.35D * ownerScale;
-			final double forwardOffset = 0.375D * ownerScale;
-			final float yOffset = attachedTo.isCrouching() ? -0.1875F : 0F;
-
-			return attachedTo.getEyePosition(partialTicks)
-				.add(
-					-cos * rightOffset - sin * forwardOffset,
-					yOffset - 0.95D * ownerScale,
-					-sin * rightOffset + cos * forwardOffset
-				);
-		}
 	}
 
 	@Override
@@ -128,25 +98,7 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 	@Override
 	public void submit(HarpoonRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
 		this.model = state.isFoil ? this.foilModel : this.defaultModel;
-		if (!state.hookedInEntity) super.submit(state, poseStack, submitNodeCollector, camera);
-
-		if (state.lineOriginOffset.equals(Vec3.ZERO)) return;
-		// TODO: better rope/string design
-		poseStack.pushPose();
-		float xa = (float)state.lineOriginOffset.x;
-		float ya = (float)state.lineOriginOffset.y;
-		float za = (float)state.lineOriginOffset.z;
-		float width = Minecraft.getInstance().gameRenderer.gameRenderState().windowRenderState.appropriateLineWidth;
-		submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.lines(), (pose, buffer) -> {
-			final int steps = 16;
-			for (int step = 0; step < steps; step++) {
-				float a0 = fraction(step, steps);
-				float a1 = fraction(step + 1, steps);
-				stringVertex(xa, ya, za, buffer, pose, a0, a1, width);
-				stringVertex(xa, ya, za, buffer, pose, a1, a0, width);
-			}
-		});
-		poseStack.popPose();
+		super.submit(state, poseStack, submitNodeCollector, camera);
 	}
 
 	@Override
@@ -157,46 +109,44 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 		final Entity attachedTo = harpoon.getAttachedTo();
 		if (attachedTo == null) {
 			state.hookedInEntity = false;
-			state.lineOriginOffset = Vec3.ZERO;
+			state.leashStates = null;
 			return;
 		}
 
 		state.hookedInEntity = harpoon.getHookedIn() != null;
 
-		final Vec3 attachedToPos;
-		if (!(attachedTo instanceof LivingEntity livingOwner)) {
-			attachedToPos = attachedTo.getEyePosition();
-		} else {
+		if (attachedTo instanceof LivingEntity livingOwner) {
 			final HumanoidArm holdingArm = getHoldingArm(livingOwner);
 			if (holdingArm == null) {
-				state.lineOriginOffset = Vec3.ZERO;
+				state.leashStates = null;
 				return;
 			}
 
-			final float swing = livingOwner.getSwingAnimation(partialTicks);
-			final float swing2 = Mth.sin(Mth.sqrt(swing) * Mth.PI);
-			attachedToPos = this.getAttachedToHandPos(livingOwner, holdingArm, swing2, partialTicks);
+
+			final EntityRenderState.LeashState leashState;
+			if (state.leashStates == null || state.leashStates.size() != 1) {
+				leashState = new EntityRenderState.LeashState();
+				state.leashStates = List.of(leashState);
+			} else {
+				leashState = state.leashStates.getFirst();
+			}
+
+			leashState.offset = LEASH_ATTACH_OFFSET;
+			leashState.start = harpoon.getPosition(partialTicks).add(LEASH_ATTACH_OFFSET);
+			leashState.end = attachedTo.getRopeHoldPosition(partialTicks);
+
+			// TODO: Glowtone compat
+			final Level level = harpoon.level();
+			final BlockPos harpoonEyePos = BlockPos.containing(harpoon.getEyePosition(partialTicks));
+			final BlockPos attachedToEyePos = BlockPos.containing(attachedTo.getEyePosition(partialTicks));
+			final int startBlockLight = this.getBlockLightLevel(harpoon, harpoonEyePos);
+			final int endBlockLight = ((EntityRendererAccessor)this.entityRenderDispatcher.getRenderer(attachedTo)).wilderWild$getBlockLightLevel(attachedTo, attachedToEyePos);
+			final int startSkyLight = level.getBrightness(LightLayer.SKY, harpoonEyePos);
+			final int endSkyLight = level.getBrightness(LightLayer.SKY, attachedToEyePos);
+			leashState.startBlockLight = startBlockLight;
+			leashState.endBlockLight = endBlockLight;
+			leashState.startSkyLight = startSkyLight;
+			leashState.endSkyLight = endSkyLight;
 		}
-
-		final Vec3 harpoonPos = harpoon.getPosition(partialTicks).add(0D, 0.2D, 0D);
-		state.lineOriginOffset = attachedToPos.subtract(harpoonPos);
-	}
-
-	private static float fraction(int i, int steps) {
-		return (float)i / steps;
-	}
-
-	private static void stringVertex(float xa, float ya, float za, VertexConsumer stringBuffer, PoseStack.Pose stringPose, float aa, float nexta, float width) {
-		float x = xa * aa;
-		float y = ya * (aa * aa + aa) * 0.5F + 0.25F;
-		float z = za * aa;
-		float nx = xa * nexta - x;
-		float ny = ya * (nexta * nexta + nexta) * 0.5F + 0.25F - y;
-		float nz = za * nexta - z;
-		float length = Mth.sqrt(nx * nx + ny * ny + nz * nz);
-		nx /= length;
-		ny /= length;
-		nz /= length;
-		stringBuffer.addVertex(stringPose, x, y, z).setColor(-16777216).setNormal(stringPose, nx, ny, nz).setLineWidth(width);
 	}
 }
