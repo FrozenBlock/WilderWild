@@ -46,7 +46,6 @@ public final class WWFeatureBlockTags {
 	public static final TagKey<Block> MAGMA_REPLACEABLE = bind("magma_replaceable");
 	public static final TagKey<Block> GEOTHERMAL_VENT_STACK_REPLACEABLE = bind("geothermal_vent_stack_replaceable");
 
-	public static final TagKey<Block> PACKED_MUD_REPLACEABLE = bind("packed_mud_replaceable");
 	public static final TagKey<Block> SAND_POOL_REPLACEABLE = bind("sand_pool_replaceable");
 	public static final TagKey<Block> RIVER_POOL_REPLACEABLE = bind("river_pool_replaceable");
 	public static final TagKey<Block> FALLEN_TREE_PLACEABLE = bind("fallen_tree_placeable");
@@ -62,7 +61,6 @@ public final class WWFeatureBlockTags {
 	public static final TagKey<Block> RED_SAND_TRANSITION_REPLACEABLE = bind("red_sand_transition_replaceable");
 	public static final TagKey<Block> RED_SAND_TRANSITION_PLACEABLE = bind("red_sand_transition_placeable");
 	public static final TagKey<Block> MUD_TRANSITION_REPLACEABLE = bind("mud_transition_replaceable");
-	public static final TagKey<Block> MUD_TRANSITION_PLACEABLE = bind("mud_transition_placeable");
 	public static final TagKey<Block> COARSE_CLEARING_REPLACEABLE = bind("coarse_clearing_replaceable");
 	public static final TagKey<Block> ROOTED_DIRT_PATH_REPLACEABLE = bind("rooted_dirt_path_replaceable");
 	public static final TagKey<Block> UNDER_WATER_SAND_PATH_REPLACEABLE = bind("under_water_sand_path_replaceable");
@@ -77,7 +75,7 @@ public final class WWFeatureBlockTags {
 	public static final TagKey<Block> AUBURN_MOSS_REPLACEABLE = bind("auburn_moss_replaceable");
 	public static final TagKey<Block> AUBURN_CREEPING_MOSS_PLACEABLE = bind("auburn_creeping_moss_placeable");
 
-	public static final TagKey<Block> TERMITE_DISK_REPLACEABLE = bind("termite_disk_replaceable");
+	public static final TagKey<Block> TERMITE_MOUND_DISK_REPLACEABLE = bind("termite_mound_disk_replaceable");
 
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_INNER_REPLACEABLE = bind("scorched_sand_inner_replaceable");
 	public static final TagKey<Block> SCORCHED_SAND_FEATURE_REPLACEABLE = bind("scorched_sand_replaceable");

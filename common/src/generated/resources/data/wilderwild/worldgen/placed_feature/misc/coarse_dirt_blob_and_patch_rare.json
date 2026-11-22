@@ -1,0 +1,23 @@
+{
+  "feature": "wilderwild:misc/coarse_dirt_blob_and_patch",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_coarse_dirt"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 35
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

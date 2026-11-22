@@ -1,0 +1,15 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": [
+      "wilderwild:cave/patch_brittle_ice",
+      "wilderwild:cave/patch_brittle_ice_ceiling"
+    ],
+    "step": "vegetal_decoration"
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/cave/cave_brittle_ice_patch"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "feature": "wilderwild:misc/small_sand_transition",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_sand_transition"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 7
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:offset",
+      "x": 0,
+      "y": -1,
+      "z": 0
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_block_tag",
+        "tag": "wilderwild:feature/sand_transition_placeable"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

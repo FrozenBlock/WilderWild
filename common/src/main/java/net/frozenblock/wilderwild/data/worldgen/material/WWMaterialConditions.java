@@ -21,7 +21,7 @@ import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWPlacementUtils;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.minecraft.core.HolderGetter;

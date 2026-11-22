@@ -1,0 +1,12 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": "wilderwild:misc/snow_blanket",
+    "step": "top_layer_modification"
+  },
+  "phase": "post_processing",
+  "selector": {
+    "type": "frozenlib:contains_placed_feature",
+    "placed_feature": "minecraft:freeze_top_layer"
+  }
+}

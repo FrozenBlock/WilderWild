@@ -1,0 +1,12 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": "wilderwild:misc/beta_beach_gravel_transition",
+    "step": "underground_ores"
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/misc/beta_beach_gravel_transition"
+  }
+}

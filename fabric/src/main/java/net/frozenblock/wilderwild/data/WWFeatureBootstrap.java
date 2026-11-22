@@ -19,19 +19,17 @@ package net.frozenblock.wilderwild.data;
 
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeatureUtil;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWCaveConfigured;
-import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWCavePlaced;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.features.WWAquaticFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWCaveFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWFlowerFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWMiscFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeVegetationFeatures;
+import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWCavePlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWMiscPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreePlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
@@ -53,9 +51,7 @@ public final class WWFeatureBootstrap {
 		WWTreeFeatures.bootstrap(context);
 		WWTreeVegetationFeatures.bootstrap(context);
 		WWVegetationFeatures.bootstrap(context);
-
-		WWMiscConfigured.registerMiscConfigured(context);
-		WWCaveConfigured.registerCaveConfigured(context);
+		WWMiscFeatures.bootstrap(context);
 	}
 
 	public static void bootstrapPlaced(BootstrapContext<PlacedFeature> context) {
@@ -67,8 +63,6 @@ public final class WWFeatureBootstrap {
 		WWTreePlacements.bootstrap(context);
 		WWTreeVegetationPlacements.bootstrap(context);
 		WWVegetationPlacements.bootstrap(context);
-
-		WWMiscPlaced.registerMiscPlaced(context);
-		WWCavePlaced.registerCavePlaced(context);
+		WWMiscPlacements.bootstrap(context);
 	}
 }

@@ -78,10 +78,6 @@ public final class WWBiomeTags {
 
 	public static final TagKey<Biome> HAS_ABANDONED_CAMP_MAPLE_FOREST = bind("has_structure/abandoned_camp_maple_forest");
 
-	public static final TagKey<Biome> HAS_SURFACE_ICICLES = bind("feature/has_surface_icicles");
-	public static final TagKey<Biome> HAS_SURFACE_BRITTLE_ICE = bind("feature/has_surface_brittle_ice");
-	public static final TagKey<Biome> HAS_CAVE_BRITTLE_ICE_PATCH = bind("feature/has_cave_brittle_ice_patch");
-
 	// MATERIAL RULES
 	public static final TagKey<Biome> BELOW_SURFACE_SNOW = bind("material_rule/below_surface_snow");
 	public static final TagKey<Biome> BETA_BEACH_GRAVEL = bind("material_rule/gravel");
@@ -98,36 +94,10 @@ public final class WWBiomeTags {
 	public static final TagKey<Biome> COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = bind("material_rule/coarse_dirt_and_root_clearing");
 	public static final TagKey<Biome> GRAVEL_AND_COARSE_DIRT_AND_ROOTED_DIRT_CLEARING = bind("material_rule/gravel_coarse_dirt_and_root_clearing");
 
-	public static final TagKey<Biome> HAS_MOSS_PILE = bind("feature/has_moss_pile");
-	public static final TagKey<Biome> HAS_STONE_PILE = bind("feature/has_stone_pile");
-	public static final TagKey<Biome> HAS_COARSE_DIRT_BLOB_AND_PATCH = bind("feature/has_coarse_dirt_blob_and_patch");
-	public static final TagKey<Biome> HAS_COARSE_DIRT_BLOB_AND_PATCH_RARE = bind("feature/has_coarse_dirt_blob_and_patch_rare");
-	public static final TagKey<Biome> HAS_COARSE_DIRT_TRANSITION_DISK = bind("feature/has_coarse_dirt_transition_disk");
-	public static final TagKey<Biome> HAS_PALE_MOSS_PILE = bind("feature/has_pale_moss_pile");
-	public static final TagKey<Biome> HAS_PACKED_MUD_ORE = bind("feature/has_packed_mud_ore");
 	// TODO: how should scorched sand generate
 	public static final TagKey<Biome> HAS_SCORCHED_SAND = bind("feature/has_scorched_sand");
 	// TODO: how should scorched sand generate
 	public static final TagKey<Biome> HAS_SCORCHED_RED_SAND = bind("feature/has_scorched_red_sand");
-	public static final TagKey<Biome> HAS_SMALL_SAND_TRANSITION = bind("feature/has_small_sand_transition");
-	public static final TagKey<Biome> HAS_SAND_TRANSITION = bind("feature/has_sand_transition");
-	public static final TagKey<Biome> HAS_RED_SAND_TRANSITION = bind("feature/has_red_sand_transition");
-	public static final TagKey<Biome> HAS_STONE_TRANSITION = bind("feature/has_stone_transition");
-	public static final TagKey<Biome> HAS_BETA_BEACH_SAND_TRANSITION = bind("feature/has_beta_beach_sand_transition");
-	public static final TagKey<Biome> HAS_BETA_BEACH_GRAVEL_TRANSITION = bind("feature/has_beta_beach_gravel_transition");
-	public static final TagKey<Biome> HAS_GRAVEL_TRANSITION = bind("feature/has_gravel_transition");
-	public static final TagKey<Biome> HAS_MUD_TRANSITION = bind("feature/has_mud_transition");
-	public static final TagKey<Biome> HAS_NETHER_GEOTHERMAL_VENT = bind("feature/has_nether_geothermal_vent");
-	public static final TagKey<Biome> HAS_NETHER_LAVA_GEOTHERMAL_VENT = bind("feature/has_nether_lava_geothermal_vent");
-
-	public static final TagKey<Biome> HAS_TAIGA_FOREST_ROCK = bind("feature/has_taiga_forest_rock");
-	public static final TagKey<Biome> HAS_SNOW_PILE = bind("feature/has_snow_pile");
-	public static final TagKey<Biome> HAS_MOSS_LAKE = bind("feature/has_moss_lake");
-	public static final TagKey<Biome> HAS_MOSS_LAKE_RARE = bind("feature/has_moss_lake_rare");
-	public static final TagKey<Biome> HAS_MOSS_BASIN = bind("feature/has_moss_basin");
-	public static final TagKey<Biome> HAS_PODZOL_BASIN = bind("feature/has_podzol_basin");
-	public static final TagKey<Biome> HAS_MUD_BASIN = bind("feature/has_mud_basin");
-	public static final TagKey<Biome> HAS_MUD_LAKE = bind("feature/has_mud_lake");
 
 	public static final TagKey<Biome> WILDER_WILD_BIOMES = bind("wilder_wild_biomes");
 

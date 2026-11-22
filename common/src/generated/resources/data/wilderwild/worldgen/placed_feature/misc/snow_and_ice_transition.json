@@ -1,0 +1,23 @@
+{
+  "feature": "wilderwild:misc/snow_and_freeze_transition",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_snow_transition"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 2
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

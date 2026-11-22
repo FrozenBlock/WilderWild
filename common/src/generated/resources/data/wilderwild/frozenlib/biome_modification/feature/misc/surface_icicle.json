@@ -1,0 +1,15 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": [
+      "wilderwild:misc/decorative_icicle_cluster_surface_wg",
+      "wilderwild:misc/decorative_icicle_cluster_surface"
+    ],
+    "step": "vegetal_decoration"
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/misc/surface_icicle"
+  }
+}

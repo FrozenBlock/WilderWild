@@ -29,9 +29,9 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.Weirdness;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWAquaticPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWFlowerPlacements;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWMiscPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWTreeVegetationPlacements;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -147,8 +147,8 @@ public final class CypressWetlands extends FrozenLibBiome {
 	}
 
 	public void addCypressSoftDisks(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_CLAY_LARGE.getKey());
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_SAND_SPARSE.getKey());
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlacements.DISK_CLAY_LARGE.getKey());
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlacements.DISK_SAND_SPARSE.getKey());
 	}
 
 	public void addCypressVegetation(BiomeGenerationSettings.Builder builder) {

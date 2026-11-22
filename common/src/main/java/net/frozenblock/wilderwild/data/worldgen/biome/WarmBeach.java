@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.WWSharedWorldgen;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWMiscPlacements;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
@@ -113,7 +113,7 @@ public final class WarmBeach extends FrozenLibBiome {
 	}
 
 	public void addWarmBeachSoftDisks(BiomeGenerationSettings.Builder builder) {
-		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlaced.DISK_CLAY_COMMON.getKey());
+		builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, WWMiscPlacements.DISK_CLAY_COMMON.getKey());
 	}
 
 	@Override

@@ -21,18 +21,15 @@ import java.util.List;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibFeature;
-import net.frozenblock.lib.levelgen.feature.api.feature.ColumnWithDiskFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.patch.FlexibleVegetationPatchFeature;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.FlowerBedStateProvider;
 import net.frozenblock.lib.levelgen.feature.api.stateproviders.LeafLitterStateProvider;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -46,7 +43,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -56,7 +52,6 @@ import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -127,9 +122,6 @@ public final class WWVegetationFeatures {
 	public static final FrozenLibFeature AUBURN_MOSS = register("auburn_moss");
 	public static final FrozenLibFeature AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
-
-	// MISC (move to misc features later)
-	public static final FrozenLibFeature TERMITE_MOUND = register("termite_mound");
 
 	public static void bootstrap(BootstrapContext<Feature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
@@ -317,25 +309,6 @@ public final class WWVegetationFeatures {
 				UniformInt.of(1, 2),
 				0.75F,
 				FlexibleVegetationPatchFeature.FlexibleComponents.PLACE_ON_EDGES
-			)
-		);
-
-		// MISC (move to misc features later)
-		TERMITE_MOUND.makeAndSetHolder(
-			new ColumnWithDiskFeature(
-				BlockStateProvider.holderOf(WWBlocks.TERMITE_MOUND.get().defaultBlockState().setValue(WWBlockStateProperties.NATURAL, true)),
-				UniformInt.of(4, 9),
-				UniformInt.of(3, 7),
-				0.75F,
-				blocks.getOrThrow(WWFeatureBlockTags.TERMITE_DISK_REPLACEABLE),
-				Holder.direct(
-					new WeightedStateProvider(
-						WeightedList.<BlockState>builder()
-							.add(Blocks.COARSE_DIRT.defaultBlockState(), 2)
-							.add(Blocks.PACKED_MUD.defaultBlockState(), 1)
-							.build()
-					)
-				)
 			)
 		);
 	}

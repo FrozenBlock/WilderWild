@@ -1,0 +1,12 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": "wilderwild:misc/moss_lake_rare",
+    "step": "lakes"
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/misc/moss_lake_rare"
+  }
+}

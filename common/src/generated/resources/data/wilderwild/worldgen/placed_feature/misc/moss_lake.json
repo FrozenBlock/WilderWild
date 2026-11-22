@@ -1,0 +1,26 @@
+{
+  "feature": "wilderwild:misc/moss_lake",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_lake"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:oak_sapling"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

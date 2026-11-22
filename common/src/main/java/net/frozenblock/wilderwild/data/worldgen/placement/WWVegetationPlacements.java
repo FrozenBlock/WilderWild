@@ -26,9 +26,9 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil;
 import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.postModifiers;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
-import static net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
+import static net.frozenblock.wilderwild.data.worldgen.placement.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
@@ -59,7 +59,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementFilter;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraft.world.level.levelgen.placement.SurfaceRelativeThresholdFilter;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
@@ -175,9 +174,6 @@ public final class WWVegetationPlacements {
 	public static final FrozenLibPlacedFeature PATCH_MELON = register("patch_melon");
 	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_COMMON = register("patch_pumpkin_common");
 	public static final FrozenLibPlacedFeature PATCH_PUMPKIN_UNCOMMON = register("patch_pumpkin_uncommon");
-
-	// MISC (move to misc features later)
-	public static final FrozenLibPlacedFeature TERMITE_MOUND = register("termite_mound");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		final HolderGetter<Feature> features = context.lookup(Registries.FEATURE);
@@ -1055,16 +1051,6 @@ public final class WWVegetationPlacements {
 				OffsetPlacement.ofTriangle(7, 3),
 				pumpkinPlacementFilter
 			)
-		);
-
-		// MISC
-		TERMITE_MOUND.makeAndSetHolder(WWVegetationFeatures.TERMITE_MOUND,
-			ConfigPredicate.placementFilter(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_TERMITE)),
-			RarityFilter.onAverageOnceEvery(45),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			SurfaceRelativeThresholdFilter.of(Heightmap.Types.WORLD_SURFACE_WG, 0, 128),
-			BiomeFilter.biome()
 		);
 	}
 

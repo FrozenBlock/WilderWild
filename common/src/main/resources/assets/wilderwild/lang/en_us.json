@@ -985,8 +985,6 @@
     "tooltip.wilderwild.mud_decoration": "Whether decorative Mud can generate.",
     "option.wilderwild.packed_mud_decoration": "Packed Mud Decoration",
     "tooltip.wilderwild.packed_mud_decoration": "Whether decorative Packed Mud can generate.",
-    "option.wilderwild.stone_decoration": "Stone Decoration",
-    "tooltip.wilderwild.stone_decoration": "Whether decorative Stone can generate.",
     "option.wilderwild.moss_decoration": "Moss Decoration",
     "tooltip.wilderwild.moss_decoration": "Whether decorative Moss can generate.",
     "option.wilderwild.auburn_moss_generation": "Auburn Moss",

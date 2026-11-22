@@ -109,8 +109,6 @@ public final class WWVegetationFeatureBiomeTags {
 	// MELON
 	public static final TagKey<Biome> PUMPKIN_COMMON = bind("pumpkin_common");
 	public static final TagKey<Biome> PUMPKIN_UNCOMMON = bind("pumpkin_uncommon");
-	// MISC
-	public static final TagKey<Biome> TERMITE_MOUND = bind("termite_mound");
 
 	private static TagKey<Biome> bind(String name) {
 		return TagKey.create(Registries.BIOME, WWConstants.id("feature/vegetation/" + name));

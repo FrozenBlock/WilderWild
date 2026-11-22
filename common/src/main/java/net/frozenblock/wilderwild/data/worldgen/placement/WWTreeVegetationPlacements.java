@@ -28,7 +28,6 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.feature.ConfigSelectorFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWPlacementUtils;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeVegetationFeatures;
 import net.frozenblock.wilderwild.registry.WWBlocks;

@@ -162,7 +162,6 @@ public final class WWWorldgenConfig {
 	public static final ConfigEntry<Boolean> COARSE_DIRT_DECORATION = CONFIG.entryBuilder("surfaceDecoration/coarseDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MUD_DECORATION = CONFIG.entryBuilder("surfaceDecoration/mudDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PACKED_MUD_DECORATION = CONFIG.entryBuilder("surfaceDecoration/packedMudDecoration", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> STONE_DECORATION = CONFIG.entryBuilder("surfaceDecoration/stoneDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MOSS_DECORATION = CONFIG.entryBuilder("surfaceDecoration/mossDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> AUBURN_MOSS_DECORATION = CONFIG.entryBuilder("surfaceDecoration/auburnMossDecoration", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> PALE_MOSS_DECORATION = CONFIG.entryBuilder("surfaceDecoration/paleMossDecoration", EntryType.BOOL, true).requireRestart().build();
@@ -199,7 +198,6 @@ public final class WWWorldgenConfig {
 	// SURFACE TRANSITIONS
 	public static final ConfigEntry<Boolean> SAND_TRANSITION_GENERATION = CONFIG.entryBuilder("transitionGeneration/sandTransitions", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> RED_SAND_TRANSITION_GENERATION = CONFIG.entryBuilder("transitionGeneration/redSandTransitions", EntryType.BOOL, true).requireRestart().build();
-	public static final ConfigEntry<Boolean> COARSE_DIRT_TRANSITION_GENERATION = CONFIG.entryBuilder("transitionGeneration/coarseTransitions", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> GRAVEL_TRANSITION_GENERATION = CONFIG.entryBuilder("transitionGeneration/gravelTransitions", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> MUD_TRANSITION_GENERATION = CONFIG.entryBuilder("transitionGeneration/mudTransitions", EntryType.BOOL, true).requireRestart().build();
 	public static final ConfigEntry<Boolean> STONE_TRANSITION_GENERATION = CONFIG.entryBuilder("transitionGeneration/stoneTransitions", EntryType.BOOL, true).requireRestart().build();

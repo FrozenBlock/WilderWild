@@ -1,0 +1,12 @@
+{
+  "feature": "wilderwild:misc/snow_blanket",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_snow_below_trees"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

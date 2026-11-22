@@ -46,8 +46,9 @@ public final class WWConfigPredicates {
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_BETA_BEACH = createKey("generate_beta_beach");
 	public static final ResourceKey<ConfigPredicate> CANNOT_GENERATE_BETA_BEACH = createKey("cannot_generate_beta_beach");
-
+	public static final ResourceKey<ConfigPredicate> GENERATE_SNOW_BELOW_TREES = createKey("generate_snow_below_trees");
 	public static final ResourceKey<ConfigPredicate> GENERATE_TERMITE = createKey("generate_termite");
+	public static final ResourceKey<ConfigPredicate> GENERATE_NETHER_GEOTHERMAL_VENT = createKey("generate_nether_geothermal_vent");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_TREE = createKey("generate_tree");
 	public static final ResourceKey<ConfigPredicate> GENERATE_FALLEN_TREE = createKey("generate_fallen_tree");
@@ -114,8 +115,12 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_SANDSTONE = createKey("generate_sandstone");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CLEARING = createKey("generate_clearing");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CLEARING_PATH = createKey("generate_clearing_path");
-	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SNOW_BLOB = createKey("generate_snow_blob");
 	public static final ResourceKey<ConfigPredicate> GENERATE_BRITTLE_ICE = createKey("generate_brittle_ice");
+	public static final ResourceKey<ConfigPredicate> GENERATE_DECORATIVE_ICICLE = createKey("generate_decorative_icicle");
+	public static final ResourceKey<ConfigPredicate> GENERATE_TAIGA_BOULDER = createKey("generate_taiga_boulder");
+	public static final ResourceKey<ConfigPredicate> GENERATE_LAKE = createKey("generate_lake");
+	public static final ResourceKey<ConfigPredicate> GENERATE_BASIN = createKey("generate_basin");
 
 	public static final ResourceKey<ConfigPredicate> GENERATE_RIVER_POOL = createKey("generate_river_pool");
 	public static final ResourceKey<ConfigPredicate> GENERATE_CATTAIL = createKey("generate_cattail");
@@ -130,6 +135,13 @@ public final class WWConfigPredicates {
 	public static final ResourceKey<ConfigPredicate> GENERATE_HYDROTHERMAL_VENT = createKey("generate_hydrothermal_vent");
 	public static final ResourceKey<ConfigPredicate> GENERATE_OCEAN_MOSS = createKey("generate_ocean_moss");
 	public static final ResourceKey<ConfigPredicate> GENERATE_OCEAN_AUBURN_MOSS = createKey("generate_ocean_auburn_moss");
+
+	public static final ResourceKey<ConfigPredicate> GENERATE_SAND_TRANSITION = createKey("generate_sand_transition");
+	public static final ResourceKey<ConfigPredicate> GENERATE_RED_SAND_TRANSITION = createKey("generate_red_sand_transition");
+	public static final ResourceKey<ConfigPredicate> GENERATE_GRAVEL_TRANSITION = createKey("generate_gravel_transition");
+	public static final ResourceKey<ConfigPredicate> GENERATE_MUD_TRANSITION = createKey("generate_mud_transition");
+	public static final ResourceKey<ConfigPredicate> GENERATE_STONE_TRANSITION = createKey("generate_stone_transition");
+	public static final ResourceKey<ConfigPredicate> GENERATE_SNOW_TRANSITION = createKey("generate_snow_transition");
 
 	public static final ResourceKey<ConfigPredicate> SPAWN_WOLF_VARIANT = createKey("spawn_wolf_variant");
 
@@ -200,10 +212,17 @@ public final class WWConfigPredicates {
 			CANNOT_GENERATE_BETA_BEACH,
 			ConfigPredicate.not(configPredicates.getOrThrow(GENERATE_BETA_BEACH))
 		);
-
+		context.register(
+			GENERATE_SNOW_BELOW_TREES,
+			WWWorldgenConfig.SNOW_BELOW_TREES.equalTo(true)
+		);
 		context.register(
 			GENERATE_TERMITE,
 			WWWorldgenConfig.TERMITE_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_NETHER_GEOTHERMAL_VENT,
+			WWWorldgenConfig.NETHER_GEOTHERMAL_VENT_GENERATION.equalTo(true)
 		);
 
 		context.register(
@@ -463,12 +482,28 @@ public final class WWConfigPredicates {
 			)
 		);
 		context.register(
-			GENERATE_DECORATIVE_ICICLE,
-			WWWorldgenConfig.ICICLE_DECORATION.equalTo(true)
+			GENERATE_SNOW_BLOB,
+			WWWorldgenConfig.SNOW_PILE_DECORATION.equalTo(true)
 		);
 		context.register(
 			GENERATE_BRITTLE_ICE,
 			WWWorldgenConfig.BRITTLE_ICE_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_DECORATIVE_ICICLE,
+			WWWorldgenConfig.ICICLE_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_TAIGA_BOULDER,
+			WWWorldgenConfig.TAIGA_BOULDER_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_LAKE,
+			WWWorldgenConfig.LAKE_DECORATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_BASIN,
+			WWWorldgenConfig.BASIN_DECORATION.equalTo(true)
 		);
 
 		context.register(
@@ -522,6 +557,31 @@ public final class WWConfigPredicates {
 		context.register(
 			GENERATE_OCEAN_AUBURN_MOSS,
 			WWWorldgenConfig.OCEAN_AUBURN_MOSS_GENERATION.equalTo(true)
+		);
+
+		context.register(
+			GENERATE_SAND_TRANSITION,
+			WWWorldgenConfig.SAND_TRANSITION_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_RED_SAND_TRANSITION,
+			WWWorldgenConfig.RED_SAND_TRANSITION_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_GRAVEL_TRANSITION,
+			WWWorldgenConfig.GRAVEL_TRANSITION_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_MUD_TRANSITION,
+			WWWorldgenConfig.MUD_TRANSITION_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_STONE_TRANSITION,
+			WWWorldgenConfig.STONE_TRANSITION_GENERATION.equalTo(true)
+		);
+		context.register(
+			GENERATE_SNOW_TRANSITION,
+			WWWorldgenConfig.SNOW_TRANSITION_GENERATION.equalTo(true)
 		);
 
 		context.register(

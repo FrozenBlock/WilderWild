@@ -1,0 +1,181 @@
+{
+  "type": "minecraft:sequence",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:lake",
+        "barrier": {
+          "id": "minecraft:clay"
+        },
+        "can_place_feature": {
+          "type": "minecraft:true"
+        },
+        "can_replace_with_air_or_fluid": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:features_cannot_replace"
+          }
+        },
+        "can_replace_with_barrier": {
+          "type": "minecraft:not",
+          "predicate": {
+            "type": "minecraft:matching_block_tag",
+            "tag": "minecraft:lava_pool_stone_cannot_replace"
+          }
+        },
+        "fluid": {
+          "id": "minecraft:water",
+          "properties": {
+            "level": "0"
+          }
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "minecraft:overlay",
+        "features": [
+          {
+            "feature": "wilderwild:misc/patch_palm_lake_oasis",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max_inclusive": 6,
+                  "min_inclusive": 3
+                }
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 1,
+                  "min": -1,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                }
+              }
+            ]
+          },
+          {
+            "feature": "wilderwild:misc/patch_cactus_lake_oasis",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max_inclusive": 5,
+                  "min_inclusive": 2
+                }
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 1,
+                  "min": -1,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                }
+              }
+            ]
+          },
+          {
+            "feature": "wilderwild:misc/patch_shrub_lake_oasis",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max_inclusive": 8,
+                  "min_inclusive": 2
+                }
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 1,
+                  "min": -1,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 3,
+                  "min": -3,
+                  "plateau": 0
+                }
+              }
+            ]
+          },
+          {
+            "feature": "wilderwild:misc/patch_grass_lake_oasis",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "max_inclusive": 9,
+                  "min_inclusive": 3
+                }
+              },
+              {
+                "type": "minecraft:offset",
+                "x": {
+                  "type": "minecraft:trapezoid",
+                  "max": 4,
+                  "min": -4,
+                  "plateau": 0
+                },
+                "y": {
+                  "type": "minecraft:trapezoid",
+                  "max": 1,
+                  "min": -1,
+                  "plateau": 0
+                },
+                "z": {
+                  "type": "minecraft:trapezoid",
+                  "max": 4,
+                  "min": -4,
+                  "plateau": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "placement": []
+    }
+  ]
+}

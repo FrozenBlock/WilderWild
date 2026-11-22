@@ -25,7 +25,9 @@ import net.frozenblock.lib.tag.api.FrozenLibBiomeTags;
 import net.frozenblock.wilderwild.registry.WWBiomes;
 import net.frozenblock.wilderwild.tag.WWAquaticFeatureBiomeTags;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
+import net.frozenblock.wilderwild.tag.WWCaveFeatureBiomeTags;
 import net.frozenblock.wilderwild.tag.WWFlowerFeatureBiomeTags;
+import net.frozenblock.wilderwild.tag.WWMiscFeatureBiomeTags;
 import net.frozenblock.wilderwild.tag.WWTreeFeatureBiomeTags;
 import net.frozenblock.wilderwild.tag.WWVegetationFeatureBiomeTags;
 import net.minecraft.core.HolderLookup;
@@ -53,9 +55,11 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.generateMaterialRuleTags();
 		this.generateFeatureTags();
 		this.generateAquaticFeatureTags();
+		this.generateCaveFeatureTags();
 		this.generateFlowerFeatureTags();
 		this.generateTreeFeatureTags();
 		this.generateVegetationFeatureTags();
+		this.generateMiscFeatureTags();
 		this.generateStructureTags();
 		this.generateMusicTags();
 	}
@@ -866,69 +870,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 	}
 
 	private void generateFeatureTags() {
-		this.builder(WWBiomeTags.HAS_MOSS_LAKE)
-			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
-			.addOptional(WWBiomes.RAINFOREST);
-
-		this.builder(WWBiomeTags.HAS_MOSS_LAKE_RARE)
-			.addOptionalTag(BiomeTags.IS_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
-			.addOptional(WWBiomes.BIRCH_JUNGLE);
-
-		this.builder(WWBiomeTags.HAS_SURFACE_ICICLES)
-			.add(Biomes.ICE_SPIKES);
-
-		this.builder(WWBiomeTags.HAS_SURFACE_BRITTLE_ICE)
-			.add(Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES, Biomes.SNOWY_TAIGA)
-			.add(Biomes.SNOWY_BEACH)
-			.add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
-			.add(Biomes.FROZEN_RIVER)
-			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
-			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
-			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
-
-		this.builder(WWBiomeTags.HAS_CAVE_BRITTLE_ICE_PATCH)
-			.add(Biomes.ICE_CAVES);
-
-		this.builder(WWBiomeTags.HAS_MOSS_PILE)
-			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
-			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
-			.addOptional(WWBiomes.CYPRESS_WETLANDS)
-			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
-
-		this.builder(WWBiomeTags.HAS_PALE_MOSS_PILE)
-			.add(Biomes.PALE_GARDEN);
-
-		this.builder(WWBiomeTags.HAS_PACKED_MUD_ORE)
-			.add(Biomes.WINDSWEPT_SAVANNA)
-			.add(Biomes.DESERT)
-			.addOptional(WWBiomes.OASIS)
-			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.ARID_FOREST);
-
-		this.builder(WWBiomeTags.HAS_STONE_PILE)
-			.add(Biomes.STONY_SHORE);
-
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH)
-			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST);
-
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_BLOB_AND_PATCH_RARE)
-			.addOptional(WWBiomes.SPARSE_FOREST);
-
-		this.builder(WWBiomeTags.HAS_COARSE_DIRT_TRANSITION_DISK)
-			.add(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA)
-			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
-			.addOptional(WWBiomes.DYING_FOREST)
-			.addOptional(WWBiomes.DYING_MIXED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST);
-
 		this.builder(WWBiomeTags.HAS_SCORCHED_SAND)
 			.add(Biomes.DESERT)
 			.addOptional(WWBiomes.OASIS)
@@ -937,76 +878,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWBiomeTags.HAS_SCORCHED_RED_SAND)
 			.addOptionalTag(BiomeTags.IS_BADLANDS);
-
-		this.builder(WWBiomeTags.HAS_SMALL_SAND_TRANSITION)
-			.add(Biomes.SNOWY_BEACH)
-			.add(Biomes.BEACH)
-			.addOptional(WWBiomes.WARM_RIVER)
-			.addOptional(WWBiomes.WARM_BEACH);
-
-		this.builder(WWBiomeTags.HAS_SAND_TRANSITION)
-			.add(Biomes.DESERT)
-			.addOptional(WWBiomes.OASIS)
-			.addOptional(WWBiomes.ARID_SAVANNA)
-			.addOptional(WWBiomes.ARID_FOREST);
-
-		this.builder(WWBiomeTags.HAS_RED_SAND_TRANSITION)
-			.addOptionalTag(BiomeTags.IS_BADLANDS);
-
-		this.builder(WWBiomeTags.HAS_STONE_TRANSITION)
-			.add(Biomes.STONY_PEAKS)
-			.add(Biomes.STONY_SHORE)
-			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_HILLS);
-
-		this.builder(WWBiomeTags.HAS_STONE_TRANSITION)
-			.add(Biomes.STONY_PEAKS)
-			.add(Biomes.STONY_SHORE)
-			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_HILLS);
-
-		this.builder(WWBiomeTags.HAS_BETA_BEACH_SAND_TRANSITION)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND_DEEP);
-
-		this.builder(WWBiomeTags.HAS_BETA_BEACH_GRAVEL_TRANSITION)
-			.addOptionalTag(WWBiomeTags.BETA_BEACH_GRAVEL);
-
-		this.builder(WWBiomeTags.HAS_GRAVEL_TRANSITION)
-			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS);
-
-		this.builder(WWBiomeTags.HAS_MUD_TRANSITION)
-			.add(Biomes.MANGROVE_SWAMP);
-
-		this.builder(WWBiomeTags.HAS_NETHER_GEOTHERMAL_VENT)
-			.add(Biomes.BASALT_DELTAS);
-
-		this.builder(WWBiomeTags.HAS_NETHER_LAVA_GEOTHERMAL_VENT)
-			.add(Biomes.NETHER_WASTES);
-
-		this.builder(WWBiomeTags.HAS_TAIGA_FOREST_ROCK)
-			.add(Biomes.TAIGA)
-			.add(Biomes.SNOWY_TAIGA)
-			.addOptional(WWBiomes.BIRCH_TAIGA)
-			.addOptional(WWBiomes.DARK_TAIGA);
-
-		this.builder(WWBiomeTags.HAS_SNOW_PILE)
-			.add(Biomes.SNOWY_TAIGA)
-			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
-
-		this.builder(WWBiomeTags.HAS_MUD_BASIN)
-			.add(Biomes.MANGROVE_SWAMP);
-
-		this.builder(WWBiomeTags.HAS_MUD_LAKE)
-			.add(Biomes.MANGROVE_SWAMP);
-
-		this.builder(WWBiomeTags.HAS_MOSS_BASIN)
-			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE)
-			.addOptional(WWBiomes.RAINFOREST)
-			.addOptional(WWBiomes.BIRCH_JUNGLE)
-			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
-
-		this.builder(WWBiomeTags.HAS_PODZOL_BASIN)
-			.add(Biomes.BAMBOO_JUNGLE)
-			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
 	}
 
 	private void generateAquaticFeatureTags() {
@@ -1147,7 +1018,11 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWAquaticFeatureBiomeTags.HYDROTHERMAL_VENT_RARE)
 			.add(Biomes.DEEP_OCEAN);
+	}
 
+	private void generateCaveFeatureTags() {
+		this.builder(WWCaveFeatureBiomeTags.CAVE_BRITTLE_ICE_PATCH)
+			.add(Biomes.ICE_CAVES);
 	}
 
 	private void generateFlowerFeatureTags() {
@@ -2107,10 +1982,131 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 
 		this.builder(WWVegetationFeatureBiomeTags.PUMPKIN_UNCOMMON)
 			.add(Biomes.DAPPLED_FOREST);
+	}
 
-		// MISC
-		this.builder(WWVegetationFeatureBiomeTags.TERMITE_MOUND)
+	private void generateMiscFeatureTags() {
+		// TERMITE MOUND
+		this.builder(WWMiscFeatureBiomeTags.TERMITE_MOUND)
 			.addOptionalTag(BiomeTags.IS_SAVANNA);
+
+		// COARSE DIRT
+		this.builder(WWMiscFeatureBiomeTags.COARSE_DIRT_BLOB_AND_PATCH)
+			.add(Biomes.DAPPLED_FOREST)
+			.addOptional(WWBiomes.DYING_FOREST)
+			.addOptional(WWBiomes.DYING_MIXED_FOREST)
+			.addOptional(WWBiomes.MAPLE_FOREST);
+
+		this.builder(WWMiscFeatureBiomeTags.COARSE_DIRT_BLOB_AND_PATCH_RARE)
+			.addOptional(WWBiomes.SPARSE_FOREST);
+
+		// PODZOL
+		this.builder(WWMiscFeatureBiomeTags.PODZOL_BASIN)
+			.add(Biomes.BAMBOO_JUNGLE)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST);
+
+		// MUD
+		this.builder(WWMiscFeatureBiomeTags.MUD_BASIN)
+			.add(Biomes.MANGROVE_SWAMP);
+
+		this.builder(WWMiscFeatureBiomeTags.MUD_LAKE)
+			.add(Biomes.MANGROVE_SWAMP);
+
+		this.builder(WWMiscFeatureBiomeTags.MUD_TRANSITION)
+			.add(Biomes.MANGROVE_SWAMP);
+
+		// MOSS
+		this.builder(WWMiscFeatureBiomeTags.MOSS_BLOB)
+			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE)
+			.add(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)
+			.addOptional(WWBiomes.CYPRESS_WETLANDS)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
+
+		this.builder(WWMiscFeatureBiomeTags.MOSS_BASIN)
+			.add(Biomes.JUNGLE, Biomes.SPARSE_JUNGLE)
+			.addOptional(WWBiomes.RAINFOREST)
+			.addOptional(WWBiomes.BIRCH_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE);
+
+		this.builder(WWMiscFeatureBiomeTags.MOSS_LAKE)
+			.addOptional(WWBiomes.TEMPERATE_RAINFOREST)
+			.addOptional(WWBiomes.RAINFOREST);
+
+		this.builder(WWMiscFeatureBiomeTags.MOSS_LAKE_RARE)
+			.addOptionalTag(BiomeTags.IS_JUNGLE)
+			.addOptional(WWBiomes.SPARSE_BIRCH_JUNGLE)
+			.addOptional(WWBiomes.BIRCH_JUNGLE);
+
+		// PALE MOSS
+		this.builder(WWMiscFeatureBiomeTags.PALE_MOSS_BLOB)
+			.add(Biomes.PALE_GARDEN);
+
+		// GRAVEL
+		this.builder(WWMiscFeatureBiomeTags.GRAVEL_TRANSITION)
+			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS);
+
+		this.builder(WWMiscFeatureBiomeTags.BETA_BEACH_GRAVEL_TRANSITION)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_GRAVEL);
+
+		// STONE
+		this.builder(WWMiscFeatureBiomeTags.TAIGA_FOREST_ROCK_SPARSE)
+			.add(Biomes.TAIGA)
+			.add(Biomes.SNOWY_TAIGA)
+			.addOptional(WWBiomes.BIRCH_TAIGA)
+			.addOptional(WWBiomes.DARK_TAIGA);
+
+		this.builder(WWMiscFeatureBiomeTags.STONE_TRANSITION)
+			.add(Biomes.STONY_PEAKS)
+			.add(Biomes.STONY_SHORE)
+			.add(Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_HILLS);
+
+		// SAND
+		this.builder(WWMiscFeatureBiomeTags.SAND_TRANSITION)
+			.add(Biomes.DESERT)
+			.addOptional(WWBiomes.OASIS)
+			.addOptional(WWBiomes.ARID_SAVANNA)
+			.addOptional(WWBiomes.ARID_FOREST);
+
+		this.builder(WWMiscFeatureBiomeTags.SMALL_SAND_TRANSITION)
+			.add(Biomes.SNOWY_BEACH)
+			.add(Biomes.BEACH)
+			.addOptional(WWBiomes.WARM_RIVER)
+			.addOptional(WWBiomes.WARM_BEACH);
+
+		this.builder(WWMiscFeatureBiomeTags.BETA_BEACH_SAND_TRANSITION)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND)
+			.addOptionalTag(WWBiomeTags.BETA_BEACH_SAND_DEEP);
+
+		// RED SAND
+		this.builder(WWMiscFeatureBiomeTags.RED_SAND_TRANSITION)
+			.addOptionalTag(BiomeTags.IS_BADLANDS);
+
+		// SNOW
+		this.builder(WWMiscFeatureBiomeTags.SNOW_BLOB)
+			.add(Biomes.SNOWY_TAIGA)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA);
+
+		// ICE
+		this.builder(WWMiscFeatureBiomeTags.SURFACE_BRITTLE_ICE)
+			.add(Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES, Biomes.SNOWY_TAIGA)
+			.add(Biomes.SNOWY_BEACH)
+			.add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN)
+			.add(Biomes.FROZEN_RIVER)
+			.addOptional(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA)
+			.addOptional(WWBiomes.SNOWY_DYING_FOREST)
+			.addOptional(WWBiomes.SNOWY_DYING_MIXED_FOREST);
+
+		this.builder(WWMiscFeatureBiomeTags.SURFACE_ICICLE)
+			.add(Biomes.ICE_SPIKES);
+
+		// GEOTHERMAL VENT
+		this.builder(WWMiscFeatureBiomeTags.NETHER_GEOTHERMAL_VENT)
+			.add(Biomes.BASALT_DELTAS);
+
+		this.builder(WWMiscFeatureBiomeTags.NETHER_LAVA_GEOTHERMAL_VENT)
+			.add(Biomes.NETHER_WASTES);
 	}
 
 	private void generateStructureTags() {

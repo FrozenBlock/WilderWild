@@ -38,7 +38,6 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.MapleCollection;
 import net.frozenblock.wilderwild.block.impl.PoplarCollection;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
 import net.frozenblock.wilderwild.levelgen.feature.HugePaleMushroomFeature;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.LegacyMapleFoliagePlacer;
 import net.frozenblock.wilderwild.levelgen.foliageplacers.MapleFoliagePlacer;

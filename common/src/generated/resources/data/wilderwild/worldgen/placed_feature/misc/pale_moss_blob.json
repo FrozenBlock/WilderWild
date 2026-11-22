@@ -1,0 +1,30 @@
+{
+  "feature": "wilderwild:misc/pale_moss_blob",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_pale_moss"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 5
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:pale_oak_sapling"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

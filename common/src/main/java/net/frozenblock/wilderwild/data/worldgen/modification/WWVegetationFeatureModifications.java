@@ -277,8 +277,5 @@ public final class WWVegetationFeatureModifications {
 		// PUMPKIN
 		registerVegetalAddition(context, WWVegetationFeatureBiomeTags.PUMPKIN_COMMON, WWVegetationPlacements.PATCH_PUMPKIN_COMMON);
 		registerVegetalAddition(context, WWVegetationFeatureBiomeTags.PUMPKIN_UNCOMMON, WWVegetationPlacements.PATCH_PUMPKIN_UNCOMMON);
-
-		// MISC
-		registerOreAddition(context, WWVegetationFeatureBiomeTags.TERMITE_MOUND, WWVegetationPlacements.TERMITE_MOUND);
 	}
 }

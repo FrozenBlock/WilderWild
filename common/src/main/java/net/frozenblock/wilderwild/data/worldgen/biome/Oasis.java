@@ -28,7 +28,7 @@ import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderPa
 import net.frozenblock.lib.levelgen.biome.api.parameters.Temperature;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
+import net.frozenblock.wilderwild.data.worldgen.placement.WWMiscPlacements;
 import net.frozenblock.wilderwild.data.worldgen.placement.WWVegetationPlacements;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
@@ -128,7 +128,7 @@ public final class Oasis extends FrozenLibBiome {
 		BiomeDefaultFeatures.addDefaultMushrooms(features);
 		BiomeDefaultFeatures.addDesertExtraVegetation(features);
 		BiomeDefaultFeatures.addDesertExtraDecoration(features);
-		features.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlaced.LAKE_OASIS.getKey());
+		features.addFeature(GenerationStep.Decoration.LAKES, WWMiscPlacements.LAKE_OASIS.getKey());
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_RIVER);
 		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWVegetationPlacements.PATCH_GRASS_OASIS.getKey());

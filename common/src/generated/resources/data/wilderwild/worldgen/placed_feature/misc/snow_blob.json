@@ -1,0 +1,30 @@
+{
+  "feature": "wilderwild:misc/snow_blob",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_snow_blob"
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 10
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": "minecraft:spruce_sapling"
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

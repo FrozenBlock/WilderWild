@@ -35,7 +35,6 @@ import net.frozenblock.lib.math.api.EasyNoiseSampler;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.GeothermalVentBlock;
-import net.frozenblock.wilderwild.data.worldgen.feature.WWFeatureUtils;
 import net.frozenblock.wilderwild.levelgen.feature.VentStackFeature;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;

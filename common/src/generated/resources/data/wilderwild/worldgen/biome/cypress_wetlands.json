@@ -198,8 +198,8 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "wilderwild:disk_clay_large",
-      "wilderwild:disk_sand_sparse"
+      "wilderwild:misc/disk_clay_large",
+      "wilderwild:misc/disk_sand_sparse"
     ],
     [],
     [

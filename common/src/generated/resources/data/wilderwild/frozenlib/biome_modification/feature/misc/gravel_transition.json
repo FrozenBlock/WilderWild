@@ -1,0 +1,12 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": "wilderwild:misc/gravel_transition",
+    "step": "underground_ores"
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/misc/gravel_transition"
+  }
+}

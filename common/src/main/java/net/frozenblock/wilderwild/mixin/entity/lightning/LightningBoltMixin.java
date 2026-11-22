@@ -21,7 +21,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.frozenblock.wilderwild.block.ScorchedBlock;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.configured.WWMiscConfigured;
+import net.frozenblock.wilderwild.data.worldgen.features.WWMiscFeatures;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -86,8 +86,8 @@ public class LightningBoltMixin {
 
 		final ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
 		final RandomSource random = level.getRandom();
-		WWMiscConfigured.SCORCHED_SAND_DISK_LIGHTNING.getFeature(level).place(level, chunkGenerator, random, strikePos);
-		WWMiscConfigured.SCORCHED_RED_SAND_DISK_LIGHTNING.getFeature(level).place(level, chunkGenerator, random, strikePos);
+		WWMiscFeatures.SCORCHED_SAND_LIGHTNING.getFeature(level).place(level, chunkGenerator, random, strikePos);
+		WWMiscFeatures.SCORCHED_RED_SAND_LIGHTNING.getFeature(level).place(level, chunkGenerator, random, strikePos);
 		ScorchedBlock.scorch(strikeState, level, strikePos);
 	}
 

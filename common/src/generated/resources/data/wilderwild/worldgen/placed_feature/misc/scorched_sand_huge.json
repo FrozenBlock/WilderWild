@@ -1,0 +1,31 @@
+{
+  "feature": "wilderwild:misc/scorched_sand_huge",
+  "placement": [
+    {
+      "type": "frozenlib:config_predicate",
+      "config_predicate": "wilderwild:generate_scorched_sand"
+    },
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 1,
+        "min_inclusive": 0
+      }
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 226
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "OCEAN_FLOOR"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

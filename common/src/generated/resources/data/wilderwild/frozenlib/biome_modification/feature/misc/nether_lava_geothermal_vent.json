@@ -1,0 +1,12 @@
+{
+  "type": "frozenlib:feature",
+  "additions": {
+    "features": "wilderwild:misc/nether_lava_geothermal_vent",
+    "step": "underground_decoration"
+  },
+  "phase": "additions",
+  "selector": {
+    "type": "frozenlib:in_biomes",
+    "biomes": "#wilderwild:feature/misc/nether_lava_geothermal_vent"
+  }
+}

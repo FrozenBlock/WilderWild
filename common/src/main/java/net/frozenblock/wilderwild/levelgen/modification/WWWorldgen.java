@@ -19,20 +19,11 @@ package net.frozenblock.wilderwild.levelgen.modification;
 
 import java.util.Map;
 import lombok.experimental.UtilityClass;
-import net.frozenblock.lib.levelgen.biome.api.BiomeSelectors;
-import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModificationContext;
-import net.frozenblock.lib.levelgen.biome.api.modifications.BiomeModifications;
-import net.frozenblock.lib.levelgen.biome.api.modifications.ModificationPhase;
-import net.frozenblock.wilderwild.WWConstants;
-import net.frozenblock.wilderwild.config.WWWorldgenConfig;
-import net.frozenblock.wilderwild.data.worldgen.feature.placed.WWMiscPlaced;
 import net.frozenblock.wilderwild.levelgen.treedecorators.WWTreeDecorators;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.villager.VillagerType;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
@@ -44,10 +35,6 @@ public final class WWWorldgen {
 	}
 
 	public static void setup() {
-		replaceFeatures();
-
-		WWMiscGeneration.generateMisc();
-
 		final Map<ResourceKey<Biome>, ResourceKey<VillagerType>> villagerTypeMap = VillagerType.BY_BIOME;
 		villagerTypeMap.put(WWBiomes.CYPRESS_WETLANDS, VillagerType.SWAMP);
 		villagerTypeMap.put(WWBiomes.OASIS, VillagerType.DESERT);
@@ -66,23 +53,5 @@ public final class WWWorldgen {
 		villagerTypeMap.put(WWBiomes.OLD_GROWTH_BIRCH_TAIGA, VillagerType.TAIGA);
 		villagerTypeMap.put(WWBiomes.SNOWY_OLD_GROWTH_PINE_TAIGA, VillagerType.SNOW);
 		villagerTypeMap.put(WWBiomes.FLOWER_FIELD, VillagerType.PLAINS);
-	}
-
-	private static void replaceFeatures() {
-		BiomeModifications.create(WWConstants.id("add_new_snow")).add(
-			ModificationPhase.POST_PROCESSING,
-			BiomeSelectors.all(),
-			context -> {
-				final BiomeModificationContext.GenerationSettingsContext generationSettings = context.getGenerationSettings();
-				if (!generationSettings.removeFeature(MiscOverworldPlacements.FREEZE_TOP_LAYER)) return;
-
-				generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
-				if (WWWorldgenConfig.SNOW_BELOW_TREES.get()) {
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_BLANKET.getKey());
-				}
-				if (WWWorldgenConfig.SNOW_TRANSITION_GENERATION.get()) {
-					generationSettings.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, WWMiscPlaced.SNOW_AND_ICE_TRANSITION.getKey());
-				}
-			});
 	}
 }

@@ -89,11 +89,14 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Pale Moss Block and Gravel path generation in the Pale Garden biome is now generated via a Material Rule instead of a Feature.
 - Mud patch generation in the Swamp biome is now generated via a Material Rule instead of Features.
 - Packed Mud patch generation in Savanna biomes is now generated via a Material Rule instead of a Feature.
+- Packed Mud ore disks have been removed.
+- Coarse Dirt and Packed Mud no longer generate in Badlands biomes.
+- Transitional patches of Coarse Dirt have been removed.
+- Termite Mounds can now only generate with Coarse Dirt surrounding them, not Packed Mud.
 - Transitional patches of Sand and Red Sand are now much smaller and less chaotic.
 - Removed rare, occasional sparse splotchy patches of Coarse Dirt, Gravel, and Stone.
 - Removed custom "path"-like generation of Clay, Gravel, and Sand that were intended to replace Clay, Gravel, and Sand disks in certain biomes.
 - Surface Gravel disks no longer generate in the Cypress Wetlands biome.
-- Coarse Dirt and Packed Mud no longer generate in Badlands biomes.
 - Completely overhauled Wilder Wild's flower generation from the ground up.
   - Wilder Wild's flower generation is now much more respectful and accurate to Vanilla's flower distribution.
   - Many cases where Wilder Wild's flower generation could become chaotic have been resolved.
@@ -102,7 +105,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Tall Flowers can no longer be generated with Bone Meal.
 - Sweet Berry Bushes no longer generate outside Taiga biomes.
 - Tumbleweed no longer generate in Windswept Savanna or Savanna Plateau biomes.
-- Dry Grass generated in Desert biomes can no longer be placed on Grass Blocks, Dirt, Coarse Dirt, or Mud.
+- Dry Grass generated in Desert biomes can no longer generate on Grass Blocks, Dirt, Coarse Dirt, or Mud.
 - Dry Grass now generates in the Oasis biome.
 - Shrubs now generate more frequently in the Oasis biome.
 - Cactus generation in the Oasis biome has been reverted to Vanilla's default Desert Cactus generation.
