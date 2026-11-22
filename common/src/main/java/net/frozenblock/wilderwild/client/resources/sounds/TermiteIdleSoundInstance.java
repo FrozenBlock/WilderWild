@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.client.resources.sounds;
 
 import net.frozenblock.wilderwild.block.entity.TermiteMoundBlockEntity;
 import net.frozenblock.wilderwild.block.termite.TermiteManager;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.sounds.SoundSource;
 
@@ -27,7 +27,7 @@ import net.minecraft.sounds.SoundSource;
 public class TermiteIdleSoundInstance<T extends TermiteMoundBlockEntity> extends net.frozenblock.wilderwild.client.resources.sounds.AbstractTermiteSoundInstance<T> {
 
 	public TermiteIdleSoundInstance(T mound) {
-		super(mound, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_IDLE.get(), SoundSource.BLOCKS);
+		super(mound, WWSoundEvents.TERMITE_MOUND_TERMITE_IDLE.get(), SoundSource.BLOCKS);
 	}
 
 	@Override

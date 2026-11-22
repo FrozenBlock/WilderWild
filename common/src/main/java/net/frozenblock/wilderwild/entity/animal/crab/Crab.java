@@ -34,7 +34,7 @@ import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWGameEventTags;
@@ -446,24 +446,24 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, WWEntit
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_CRAB_HURT.get();
+		return WWSoundEvents.CRAB_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_CRAB_DEATH.get();
+		return WWSoundEvents.CRAB_DEATH.get();
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(WWSounds.ENTITY_CRAB_STEP.get(), 0.3F, this.getVoicePitch());
+		this.playSound(WWSoundEvents.CRAB_STEP.get(), 0.3F, this.getVoicePitch());
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isHidingUnderground() ? null : WWSounds.ENTITY_CRAB_IDLE.get();
+		return this.isHidingUnderground() ? null : WWSoundEvents.CRAB_IDLE.get();
 	}
 
 	@Override
@@ -485,7 +485,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, WWEntit
 	@Override
 	public boolean doHurtTarget(final ServerLevel level, final Entity target) {
 		this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
-		this.playSound(WWSounds.ENTITY_CRAB_ATTACK.get(), this.getSoundVolume(), this.getVoicePitch());
+		this.playSound(WWSoundEvents.CRAB_ATTACK.get(), this.getSoundVolume(), this.getVoicePitch());
 		return super.doHurtTarget(level, target);
 	}
 
@@ -770,7 +770,7 @@ public class Crab extends Animal implements VibrationSystem, Bucketable, WWEntit
 
 	@Override
 	public SoundEvent getPickupSound() {
-		return WWSounds.ITEM_BUCKET_FILL_CRAB.get();
+		return WWSoundEvents.BUCKET_FILL_CRAB.get();
 	}
 
 	@Override

@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.registry.WWLootTables;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -141,10 +141,10 @@ public class PricklyPearCactusBlock extends VegetationBlock implements Bonemeala
 		if (level.isClientSide()) return;
 		if (shears) {
 			level.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.BLOCKS, 1F, 1F);
-			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK.get(), SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
+			level.playSound(null, pos, WWSoundEvents.PRICKLY_PEAR_PICK.get(), SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
 			level.gameEvent(user, GameEvent.SHEAR, pos);
 		} else {
-			level.playSound(null, pos, WWSounds.BLOCK_PRICKLY_PEAR_PICK.get(), SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
+			level.playSound(null, pos, WWSoundEvents.PRICKLY_PEAR_PICK.get(), SoundSource.BLOCKS, 1F, 0.95F + (level.getRandom().nextFloat() * 0.1F));
 			level.gameEvent(user, GameEvent.BLOCK_CHANGE, pos);
 		}
 	}

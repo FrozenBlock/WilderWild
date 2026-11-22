@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.sound;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.LevelAccessor;
@@ -47,8 +47,8 @@ public class ButtonBlockMixin {
 		if (Block.class.cast(this) != Blocks.PALE_OAK_BUTTON) return original;
 		if (!WWConfigPredicates.testPaleOakWoodPredicate(level.registryAccess())) return original;
 
-		if (original == SoundEvents.WOODEN_BUTTON_CLICK_ON) return WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_ON.get();
-		if (original == SoundEvents.WOODEN_BUTTON_CLICK_OFF) return WWSounds.BLOCK_PALE_OAK_BUTTON_CLICK_OFF.get();
+		if (original == SoundEvents.WOODEN_BUTTON_CLICK_ON) return WWSoundEvents.PALE_OAK_BUTTON_CLICK_ON.get();
+		if (original == SoundEvents.WOODEN_BUTTON_CLICK_OFF) return WWSoundEvents.PALE_OAK_BUTTON_CLICK_OFF.get();
 
 		return original;
 	}

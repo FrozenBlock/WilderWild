@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWCriteria;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -95,7 +95,7 @@ public class TermiteManager {
 			} else if (this.termite.tick(level, moundPos, natural, random)) {
 				termitesUpdated = this.termite.eating != wasEating || this.termite.pos != previousPos;
 			} else {
-				level.playSound(null, this.termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER.get(), SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+				level.playSound(null, this.termite.pos, WWSoundEvents.TERMITE_MOUND_ENTER.get(), SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));
 				termitesUpdated = true;
 				this.removeTermite(level);
@@ -106,7 +106,7 @@ public class TermiteManager {
 			} else {
 				this.setTermite(moundPos);
 				level.gameEvent(null, GameEvent.BLOCK_CHANGE, Vec3.atCenterOf(moundPos));
-				level.playSound(null, moundPos, WWSounds.BLOCK_TERMITE_MOUND_EXIT.get(), SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+				level.playSound(null, moundPos, WWSoundEvents.TERMITE_MOUND_EXIT.get(), SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 				this.termiteSpawnCooldown = natural ? TERMITE_RELEASE_COUNTDOWN_NATURAL : TERMITE_RELEASE_COUNTDOWN;
 				termitesUpdated = true;
 			}
@@ -119,7 +119,7 @@ public class TermiteManager {
 	public static final int TERMITE_RELEASE_COUNTDOWN_NATURAL = 320;
 
 	public void removeTermite(Level level) {
-		if (this.termite != null) level.playSound(null, this.termite.pos, WWSounds.BLOCK_TERMITE_MOUND_ENTER.get(), SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
+		if (this.termite != null) level.playSound(null, this.termite.pos, WWSoundEvents.TERMITE_MOUND_ENTER.get(), SoundSource.NEUTRAL, BLOCK_SOUND_VOLUME, 1F);
 		this.termite = null;
 	}
 
@@ -234,7 +234,7 @@ public class TermiteManager {
 					spawnEatParticles(level, state, this.pos, random);
 					termiteBlockBehavior.getEatSound()
 						.ifPresent(sound -> level.playSound(null, this.pos, sound, SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F)));
-					level.playSound(null, this.pos, WWSounds.BLOCK_TERMITE_MOUND_TERMITE_GNAW_FINISH.get(), SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
+					level.playSound(null, this.pos, WWSoundEvents.TERMITE_MOUND_TERMITE_GNAW_FINISH.get(), SoundSource.BLOCKS, BLOCK_SOUND_VOLUME, 0.9F + (random.nextFloat() * 0.25F));
 				}
 			} else {
 				this.eating = false;

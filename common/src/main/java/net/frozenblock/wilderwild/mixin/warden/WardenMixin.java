@@ -25,7 +25,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.entity.monster.warden.SwimmingWardenInterface;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
@@ -118,7 +118,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 
 	@ModifyReturnValue(at = @At("RETURN"), method = "getDeathSound")
 	public SoundEvent wilderWild$getDeathSound(SoundEvent soundEvent) {
-		return this.wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_KIRBY_DEATH.get() : soundEvent;
+		return this.wilderWild$isStella() ? WWSoundEvents.WARDEN_KIRBY_DEATH.get() : soundEvent;
 	}
 
 	@ModifyExpressionValue(
@@ -187,7 +187,7 @@ public final class WardenMixin extends Monster implements WilderWarden {
 	private void wilderWild$stellaHeartbeat(
 		Level instance, double x, double y, double z, SoundEvent sound, SoundSource source, float volume, float pitch, boolean distanceDelay, Operation<Void> original
 	) {
-		if (this.wilderWild$isStella()) sound = WWSounds.ENTITY_WARDEN_STELLA_HEARTBEAT.get();
+		if (this.wilderWild$isStella()) sound = WWSoundEvents.WARDEN_STELLA_HEARTBEAT.get();
 		original.call(instance, x, y, z, sound, source, volume, pitch, distanceDelay);
 	}
 

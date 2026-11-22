@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.entity.monster.warden.WardenLookControl;
 import net.frozenblock.wilderwild.entity.monster.warden.WardenMoveControl;
 import net.frozenblock.wilderwild.entity.monster.warden.WardenNavigation;
 import net.frozenblock.wilderwild.entity.monster.warden.SwimmingWardenInterface;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -152,7 +152,7 @@ public abstract class WardenSwimMixin extends Monster implements SwimmingWardenI
 	@Unique
 	@Override
 	public SoundEvent getSwimSound() {
-		return WWEntityConfig.WARDEN_SWIMS.get() ? WWSounds.ENTITY_WARDEN_SWIM.get() : super.getSwimSound();
+		return WWEntityConfig.WARDEN_SWIMS.get() ? WWSoundEvents.WARDEN_SWIM.get() : super.getSwimSound();
 	}
 
 	@Override

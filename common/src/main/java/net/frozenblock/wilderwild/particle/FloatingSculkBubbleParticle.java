@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.particle;
 
 import net.frozenblock.wilderwild.particle.options.FloatingSculkBubbleParticleOptions;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.wind.WWWindManagerExtension;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -161,7 +161,7 @@ public class FloatingSculkBubbleParticle extends RisingParticle {
 		if (this.age == this.stayInflatedTime + 1) {
 			this.level.playLocalSound(
 				this.x, this.y, this.z,
-				WWSounds.PARTICLE_FLOATING_SCULK_BUBBLE_POP.get(),
+				WWSoundEvents.FLOATING_SCULK_BUBBLE_POP.get(),
 				SoundSource.NEUTRAL,
 				0.4F,
 				this.level.getRandom().nextFloat() * 0.2F + 0.8F,

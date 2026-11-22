@@ -25,7 +25,7 @@ import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -144,7 +144,7 @@ public class FlowerCow extends AbstractCow implements Shearable, WWEntityVariant
 
 	@Override
 	public void shear(ServerLevel level, SoundSource source, ItemStack stack) {
-		this.level().playSound(null, this, WWSounds.ENTITY_MOOBLOOM_SHEAR.get(), source, 1F, 1F);
+		this.level().playSound(null, this, WWSoundEvents.MOOBLOOM_SHEAR.get(), source, 1F, 1F);
 		final BlockState flowerState = this.wilderWild$getVariant().value().flowerBlockState();
 		spawnShearParticles(level, this, flowerState);
 		this.level().addFreshEntity(

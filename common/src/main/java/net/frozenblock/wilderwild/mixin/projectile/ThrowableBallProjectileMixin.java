@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableBallProjectile;
@@ -33,6 +33,6 @@ public class ThrowableBallProjectileMixin {
 	@Inject(method = "getHitSound", at = @At("HEAD"), cancellable = true)
 	public void wilderWild$snowballHitSound(CallbackInfoReturnable<SoundEvent> info) {
 		if (!WWItemConfig.SNOWBALL_LANDING_SOUNDS.get()) return;
-		if (ThrowableBallProjectile.class.cast(this) instanceof Snowball) info.setReturnValue(WWSounds.ITEM_SNOWBALL_LAND.get());
+		if (ThrowableBallProjectile.class.cast(this) instanceof Snowball) info.setReturnValue(WWSoundEvents.SNOWBALL_LAND.get());
 	}
 }

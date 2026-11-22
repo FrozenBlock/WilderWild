@@ -25,7 +25,7 @@ import net.frozenblock.lib.screenshake.api.ScreenShakes;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
@@ -785,18 +785,18 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	@Nullable
 	@Override
 	public SoundEvent getEatingSound() {
-		return WWSounds.ENTITY_OSTRICH_EAT.get();
+		return WWSoundEvents.OSTRICH_EAT.get();
 	}
 
 	@Override
 	public Holder<SoundEvent> getSaddleEquipSound() {
-		return WWSounds.ENTITY_OSTRICH_SADDLE.asHolder();
+		return WWSoundEvents.OSTRICH_SADDLE.asHolder();
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getAngrySound() {
-		return WWSounds.ENTITY_OSTRICH_GRUNT.get();
+		return WWSoundEvents.OSTRICH_GRUNT.get();
 	}
 
 	@Override
@@ -807,32 +807,32 @@ public class AbstractOstrich extends AbstractHorse implements PlayerRideableJump
 	@Nullable
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS.get() : WWSounds.ENTITY_OSTRICH_GRUNT.get();
-		return WWSounds.ENTITY_OSTRICH_IDLE.get();
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSoundEvents.OSTRICH_HISS.get() : WWSoundEvents.OSTRICH_GRUNT.get();
+		return WWSoundEvents.OSTRICH_IDLE.get();
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_OSTRICH_HURT.get();
+		return WWSoundEvents.OSTRICH_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	public SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_OSTRICH_DEATH.get();
+		return WWSoundEvents.OSTRICH_DEATH.get();
 	}
 
 	public SoundEvent getBeakSwingSound() {
-		return WWSounds.ENTITY_OSTRICH_SWING.get();
+		return WWSoundEvents.OSTRICH_BEAK_SWING.get();
 	}
 
 	public SoundEvent getBeakStuckSound() {
-		return WWSounds.ENTITY_OSTRICH_BEAK_STUCK.get();
+		return WWSoundEvents.OSTRICH_BEAK_STUCK.get();
 	}
 
 	public SoundEvent getStepSound() {
-		return WWSounds.ENTITY_OSTRICH_STEP.get();
+		return WWSoundEvents.OSTRICH_STEP.get();
 	}
 
 	@Override

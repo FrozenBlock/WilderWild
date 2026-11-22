@@ -21,7 +21,7 @@ import com.google.common.base.Suppliers;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -95,14 +95,14 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	public SoundEvent getEatingSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH.get();
-		return WWSounds.ENTITY_OSTRICH_EAT.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_IDLE_AH.get();
+		return WWSoundEvents.OSTRICH_EAT.get();
 	}
 
 	@Override
 	public SoundEvent getAngrySound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH.get();
-		return WWSounds.ENTITY_OSTRICH_GRUNT.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_IDLE_AH.get();
+		return WWSoundEvents.OSTRICH_GRUNT.get();
 	}
 
 	@Override
@@ -112,38 +112,38 @@ public class Ostrich extends AbstractOstrich {
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSounds.ENTITY_OSTRICH_INBRED_IDLE_AH.get() : WWSounds.ENTITY_OSTRICH_INBRED_IDLE_BOCK.get();
-		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_OSTRICH_HISS.get() : WWSounds.ENTITY_OSTRICH_GRUNT.get();
-		return WWSounds.ENTITY_OSTRICH_IDLE.get();
+		if (this.isInbred()) return this.random.nextFloat() <= 0.555F ? WWSoundEvents.OSTRICH_INBRED_IDLE_AH.get() : WWSoundEvents.OSTRICH_INBRED_IDLE_BOCK.get();
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSoundEvents.OSTRICH_HISS.get() : WWSoundEvents.OSTRICH_GRUNT.get();
+		return WWSoundEvents.OSTRICH_IDLE.get();
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_HURT.get();
-		return WWSounds.ENTITY_OSTRICH_HURT.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_HURT.get();
+		return WWSoundEvents.OSTRICH_HURT.get();
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_DEATH.get();
-		return WWSounds.ENTITY_OSTRICH_DEATH.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_DEATH.get();
+		return WWSoundEvents.OSTRICH_DEATH.get();
 	}
 
 	@Override
 	public SoundEvent getBeakSwingSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_SWING.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_BEAK_SWING.get();
 		return super.getBeakSwingSound();
 	}
 
 	@Override
 	public SoundEvent getBeakStuckSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_BEAK_STUCK.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_BEAK_STUCK.get();
 		return super.getBeakStuckSound();
 	}
 
 	@Override
 	public SoundEvent getStepSound() {
-		if (this.isInbred()) return WWSounds.ENTITY_OSTRICH_INBRED_STEP.get();
+		if (this.isInbred()) return WWSoundEvents.OSTRICH_INBRED_STEP.get();
 		return super.getStepSound();
 	}
 

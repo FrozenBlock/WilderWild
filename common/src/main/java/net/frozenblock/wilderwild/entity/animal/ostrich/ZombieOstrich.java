@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.entity.animal.ostrich;
 import com.google.common.base.Suppliers;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -145,47 +145,47 @@ public class ZombieOstrich extends AbstractOstrich {
 
 	@Override
 	public SoundEvent getEatingSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_EAT.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_EAT.get();
 	}
 
 	@Override
 	public Holder<SoundEvent> getSaddleEquipSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_SADDLE.asHolder();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_SADDLE.asHolder();
 	}
 
 	@Override
 	public SoundEvent getAngrySound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_GRUNT.get();
 	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		if (this.isAggressive()) return this.random.nextBoolean() ? WWSounds.ENTITY_ZOMBIE_OSTRICH_HISS.get() : WWSounds.ENTITY_ZOMBIE_OSTRICH_GRUNT.get();
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_IDLE.get();
+		if (this.isAggressive()) return this.random.nextBoolean() ? WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_HISS.get() : WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_GRUNT.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_IDLE.get();
 	}
 
 	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_HURT.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_HURT.get();
 	}
 
 	@Override
 	public SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_DEATH.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_DEATH.get();
 	}
 
 	@Override
 	public SoundEvent getBeakSwingSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_SWING.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_SWING.get();
 	}
 
 	@Override
 	public SoundEvent getBeakStuckSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_BEAK_STUCK.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_BEAK_STUCK.get();
 	}
 
 	@Override
 	public SoundEvent getStepSound() {
-		return WWSounds.ENTITY_ZOMBIE_OSTRICH_STEP.get();
+		return WWSoundEvents.ENTITY_ZOMBIE_OSTRICH_STEP.get();
 	}
 }

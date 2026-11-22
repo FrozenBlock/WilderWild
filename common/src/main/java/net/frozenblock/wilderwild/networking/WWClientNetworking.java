@@ -27,7 +27,7 @@ import net.frozenblock.wilderwild.networking.packet.WWJellyfishStingPacket;
 import net.frozenblock.wilderwild.networking.packet.WWLeavesExplosionParticlePacket;
 import net.frozenblock.wilderwild.networking.packet.WWLightningStrikePacket;
 import net.frozenblock.wilderwild.networking.packet.WWScorchingFirePlacePacket;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -65,7 +65,7 @@ public final class WWClientNetworking {
 				player.getX(),
 				player.getY(),
 				player.getZ(),
-				WWSounds.ENTITY_JELLYFISH_STING.get(),
+				WWSoundEvents.JELLYFISH_STING.get(),
 				SoundSource.NEUTRAL,
 				1F,
 				packet.isBaby() ? Jellyfish.STING_PITCH_BABY : Jellyfish.STING_PITCH
@@ -109,7 +109,7 @@ public final class WWClientNetworking {
 
 			level.playLocalSound(
 				pos,
-				WWSounds.BLOCK_FIRE_IGNITE.get(),
+				WWSoundEvents.FIRE_IGNITE.get(),
 				SoundSource.BLOCKS,
 				0.5F,
 				(random.nextFloat() - random.nextFloat()) * 0.2F + 1F,

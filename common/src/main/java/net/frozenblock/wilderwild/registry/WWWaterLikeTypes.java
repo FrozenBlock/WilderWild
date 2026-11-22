@@ -38,16 +38,16 @@ public final class WWWaterLikeTypes {
 			context,
 			MESOGLEA,
 			context.lookup(Registries.BLOCK).getOrThrow(WWBlockItemTags.MESOGLEA.block()),
-			WWSounds.ENTITY_GENERIC_SWIM_MESOGLEA.asHolder(),
-			WWSounds.ENTITY_HOSTILE_SWIM_MESOGLEA.asHolder(),
-			WWSounds.ENTITY_PLAYER_SWIM_MESOGLEA.asHolder(),
-			WWSounds.ENTITY_GENERIC_SPLASH_MESOGLEA.asHolder(),
-			WWSounds.ENTITY_HOSTILE_SPLASH_MESOGLEA.asHolder(),
-			WWSounds.ENTITY_PLAYER_SPLASH_MESOGLEA.asHolder(),
-			WWSounds.ENTITY_PLAYER_SPLASH_HIGH_SPEED_MESOGLEA.asHolder(),
-			WWSounds.AMBIENT_MESOGLEA_ENTER.asHolder(),
-			WWSounds.AMBIENT_MESOGLEA_EXIT.asHolder(),
-			WWSounds.AMBIENT_MESOGLEA_LOOP.asHolder()
+			WWSoundEvents.GENERIC_SWIM_MESOGLEA.asHolder(),
+			WWSoundEvents.HOSTILE_SWIM_MESOGLEA.asHolder(),
+			WWSoundEvents.PLAYER_SWIM_MESOGLEA.asHolder(),
+			WWSoundEvents.GENERIC_SPLASH_MESOGLEA.asHolder(),
+			WWSoundEvents.HOSTILE_SPLASH_MESOGLEA.asHolder(),
+			WWSoundEvents.PLAYER_SPLASH_MESOGLEA.asHolder(),
+			WWSoundEvents.PLAYER_SPLASH_HIGH_SPEED_MESOGLEA.asHolder(),
+			WWSoundEvents.AMBIENT_MESOGLEA_ENTER.asHolder(),
+			WWSoundEvents.AMBIENT_MESOGLEA_EXIT.asHolder(),
+			WWSoundEvents.AMBIENT_MESOGLEA_LOOP.asHolder()
 		);
 	}
 

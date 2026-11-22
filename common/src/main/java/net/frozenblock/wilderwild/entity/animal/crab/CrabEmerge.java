@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.entity.animal.crab;
 
 import com.google.common.collect.ImmutableMap;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.behavior.Behavior;
@@ -39,7 +39,7 @@ public class CrabEmerge<E extends Crab> extends Behavior<E> {
 	@Override
 	protected void start(ServerLevel level, E body, long timestamp) {
 		body.setPose(Pose.EMERGING);
-		body.playSound(WWSounds.ENTITY_CRAB_EMERGE.get(), 0.5F, 1F);
+		body.playSound(WWSoundEvents.CRAB_EMERGE.get(), 0.5F, 1F);
 		body.resetDiggingTicks();
 		body.stopInPlace();
 	}

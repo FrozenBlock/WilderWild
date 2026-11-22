@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.entity.monster.spider;
 
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWMobEffects;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -157,22 +157,22 @@ public class Scorched extends Spider {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(this.isInLava() ? WWSounds.ENTITY_SCORCHED_STEP_LAVA.get() : WWSounds.ENTITY_SCORCHED_STEP.get(), 0.15F, 1F);
+		this.playSound(this.isInLava() ? WWSoundEvents.SCORCHED_STEP_LAVA.get() : WWSoundEvents.SCORCHED_STEP.get(), 0.15F, 1F);
 	}
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return WWSounds.ENTITY_SCORCHED_AMBIENT.get();
+		return WWSoundEvents.SCORCHED_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_SCORCHED_HURT.get();
+		return WWSoundEvents.SCORCHED_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_SCORCHED_DEATH.get();
+		return WWSoundEvents.SCORCHED_DEATH.get();
 	}
 
 	@Override

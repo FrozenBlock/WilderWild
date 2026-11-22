@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.particle;
 
 import java.util.function.Supplier;
 import net.frozenblock.lib.math.api.AdvancedMath;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -158,7 +158,7 @@ public class MesogleaDripParticle extends SingleQuadParticle {
 			this.remove();
 			this.level.addParticle(this.landParticle, this.x, this.y, this.z, 0D, 0D, 0D);
 			final float pitch = Mth.randomBetween(this.random, 0.3F, 1F);
-			this.level.playLocalSound(this.x, this.y, this.z, WWSounds.PARTICLE_MESOGLEA_DRIP_LAND.get(), SoundSource.BLOCKS, pitch, 1F, false);
+			this.level.playLocalSound(this.x, this.y, this.z, WWSoundEvents.MESOGLEA_DRIP_LAND.get(), SoundSource.BLOCKS, pitch, 1F, false);
 		}
 	}
 

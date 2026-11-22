@@ -22,7 +22,7 @@ import net.frozenblock.lib.sound.api.damage.PlayerDamageTypeSounds;
 import net.frozenblock.lib.sound.impl.damage.PlayerDamageTypeSound;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -42,7 +42,7 @@ public final class WWPlayerDamageTypeSounds {
 			context,
 			WWConstants.id("cactus"),
 			HolderSet.direct(damageTypes.getOrThrow(DamageTypes.CACTUS)),
-			WWSounds.PLAYER_HURT_CACTUS.asHolder(),
+			WWSoundEvents.PLAYER_HURT_CACTUS.asHolder(),
 			WWBlockConfig.CACTUS_SOUNDS.equalTo(true)
 		);
 	}

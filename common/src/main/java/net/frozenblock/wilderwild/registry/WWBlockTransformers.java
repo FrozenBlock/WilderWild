@@ -43,7 +43,7 @@ public final class WWBlockTransformers {
 	private static final Function<Direction.Axis, BlockTransformer.BlockTransformData> AXE_HOLLOWABLES = axis -> BlockTransformer.BlockTransformData
 		.builder(fillWithHollowables(axis).build())
 		.disallowedFaces(Arrays.stream(Direction.values()).filter(direction -> direction.getAxis() != axis).toList())
-		.sound(WWSounds.ITEM_AXE_HOLLOW.asHolder())
+		.sound(WWSoundEvents.AXE_HOLLOW.asHolder())
 		.build();
 
 	public static void init() {

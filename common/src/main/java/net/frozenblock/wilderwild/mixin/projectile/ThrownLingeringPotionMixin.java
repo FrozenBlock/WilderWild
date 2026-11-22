@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownLingeringPotion;
 import net.minecraft.world.item.ItemStack;
@@ -34,6 +34,6 @@ public class ThrownLingeringPotionMixin {
 	@Inject(method = "onHitAsPotion", at = @At("HEAD"))
 	public void wilderWild$onHitAsPotion(ServerLevel level, ItemStack potionItem, HitResult hitResult, CallbackInfo info) {
 		if (!WWItemConfig.POTION_LANDING_SOUNDS.get()) return;
-		ThrownLingeringPotion.class.cast(this).playSound(WWSounds.ITEM_POTION_LINGERING.get(), 1F, 1F + (level.getRandom().nextFloat() * 0.2F));
+		ThrownLingeringPotion.class.cast(this).playSound(WWSoundEvents.POTION_LINGERING.get(), 1F, 1F + (level.getRandom().nextFloat() * 0.2F));
 	}
 }

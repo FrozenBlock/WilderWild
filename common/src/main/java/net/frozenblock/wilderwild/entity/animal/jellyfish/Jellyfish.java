@@ -29,7 +29,7 @@ import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
@@ -243,22 +243,22 @@ public class Jellyfish extends NoFlopAbstractFish implements WWEntityVariantHold
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_AMBIENT_WATER.get() : null;
+		return this.isInWater() ? WWSoundEvents.JELLYFISH_AMBIENT_WATER.get() : null;
 	}
 
 	@Override
 	protected SoundEvent getSwimSound() {
-		return WWSounds.ENTITY_JELLYFISH_SWIM.get();
+		return WWSoundEvents.JELLYFISH_SWIM.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_HURT_WATER.get() : WWSounds.ENTITY_JELLYFISH_HURT.get();
+		return this.isInWater() ? WWSoundEvents.JELLYFISH_HURT_WATER.get() : WWSoundEvents.JELLYFISH_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isInWater() ? WWSounds.ENTITY_JELLYFISH_DEATH_WATER.get() : WWSounds.ENTITY_JELLYFISH_DEATH.get();
+		return this.isInWater() ? WWSoundEvents.JELLYFISH_DEATH_WATER.get() : WWSoundEvents.JELLYFISH_DEATH.get();
 	}
 
 	@Override
@@ -337,7 +337,7 @@ public class Jellyfish extends NoFlopAbstractFish implements WWEntityVariantHold
 		} else if (this.vanishing) {
 			if (this.prevScale <= 0F) {
 				this.discard();
-				this.playSound(WWSounds.ENTITY_JELLYFISH_HIDE.get(), 0.8F, this.getVoicePitch());
+				this.playSound(WWSoundEvents.JELLYFISH_HIDE.get(), 0.8F, this.getVoicePitch());
 				return;
 			} else {
 				this.scale -= 0.25F;
@@ -433,7 +433,7 @@ public class Jellyfish extends NoFlopAbstractFish implements WWEntityVariantHold
 			serverLevel.playSound(
 				entity,
 				entity.getX(), entity.getY(), entity.getZ(),
-				WWSounds.ENTITY_JELLYFISH_STING.get(),
+				WWSoundEvents.JELLYFISH_STING.get(),
 				this.getSoundSource(),
 				1F,
 				baby ? STING_PITCH_BABY : STING_PITCH
@@ -493,7 +493,7 @@ public class Jellyfish extends NoFlopAbstractFish implements WWEntityVariantHold
 
 	@Override
 	public SoundEvent getPickupSound() {
-		return WWSounds.ITEM_BUCKET_FILL_JELLYFISH.get();
+		return WWSoundEvents.BUCKET_FILL_JELLYFISH.get();
 	}
 
 	@Override

@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -50,7 +50,7 @@ public class MilkweedPodItem extends Item {
 		level.playSound(
 			user,
 			user.getX(), user.getY(), user.getZ(),
-			WWSounds.ITEM_MILKWEED_POD_BLOWN.get(),
+			WWSoundEvents.MILKWEED_POD_BLOW.get(),
 			SoundSource.NEUTRAL,
 			0.25F,
 			0.9F + (level.getRandom().nextFloat() * 0.2F)

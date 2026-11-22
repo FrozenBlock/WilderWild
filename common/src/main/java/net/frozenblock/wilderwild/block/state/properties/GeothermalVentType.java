@@ -19,17 +19,17 @@ package net.frozenblock.wilderwild.block.state.properties;
 
 import com.mojang.serialization.Codec;
 import java.util.Optional;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.StringRepresentable;
 
 public enum GeothermalVentType implements StringRepresentable {
 	NONE("none", false, Optional.empty()),
-	AIR("air", true, WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_AIR.asHolder()),
-	WATER("water", true, WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_WATER.asHolder()),
-	LAVA("lava", true, WWSounds.BLOCK_GEOTHERMAL_VENT_ERUPT_LAVA.asHolder()),
-	HYDROTHERMAL_VENT("hydrothermal_vent", false, WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.asHolder());
+	AIR("air", true, WWSoundEvents.GEOTHERMAL_VENT_ERUPT_AIR.asHolder()),
+	WATER("water", true, WWSoundEvents.GEOTHERMAL_VENT_ERUPT_WATER.asHolder()),
+	LAVA("lava", true, WWSoundEvents.GEOTHERMAL_VENT_ERUPT_LAVA.asHolder()),
+	HYDROTHERMAL_VENT("hydrothermal_vent", false, WWSoundEvents.GEOTHERMAL_VENT_VENT_AMBIENT.asHolder());
 	public static final Codec<GeothermalVentType> CODEC = StringRepresentable.fromEnum(GeothermalVentType::values);
 
 	private final String name;

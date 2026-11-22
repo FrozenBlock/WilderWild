@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -96,7 +96,7 @@ public class StoneChestBlock extends ChestBlock {
 	};
 
 	public StoneChestBlock(Supplier<BlockEntityType<? extends ChestBlockEntity>> supplier, Properties properties) {
-		super(supplier, WWSounds.BLOCK_STONE_CHEST_OPEN.get(), WWSounds.BLOCK_STONE_CHEST_CLOSE_START.get(), properties);
+		super(supplier, WWSoundEvents.STONE_CHEST_OPEN.get(), WWSoundEvents.STONE_CHEST_CLOSE_START.get(), properties);
 		this.registerDefaultState(this.defaultBlockState().setValue(SCULK, false));
 	}
 
@@ -155,8 +155,8 @@ public class StoneChestBlock extends ChestBlock {
 					level,
 					pos,
 					state,
-					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN.get() : WWSounds.BLOCK_STONE_CHEST_LIFT.get(),
-					isFirstLift ? WWSounds.BLOCK_STONE_CHEST_OPEN_UNDERWATER.get() : WWSounds.BLOCK_STONE_CHEST_LIFT_UNDERWATER.get(),
+					isFirstLift ? WWSoundEvents.STONE_CHEST_OPEN.get() : WWSoundEvents.STONE_CHEST_LIFT.get(),
+					isFirstLift ? WWSoundEvents.STONE_CHEST_OPEN_UNDERWATER.get() : WWSoundEvents.STONE_CHEST_LIFT_UNDERWATER.get(),
 					0.35F
 				);
 				level.gameEvent(player, GameEvent.BLOCK_OPEN, pos);

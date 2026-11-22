@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.lib.item.api.component.ItemBlockStateTagUtils;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -68,7 +68,7 @@ public class EchoGlassBlock extends TransparentBlock {
 
 	public static void setDamagedState(LevelAccessor level, BlockPos pos, BlockState state, @Nullable Player player) {
 		level.setBlock(pos, state.cycle(DAMAGE), UPDATE_ALL);
-		level.playSound(player, pos, WWSounds.BLOCK_ECHO_GLASS_CRACK.get(), SoundSource.BLOCKS, player != null ? 1F : 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+		level.playSound(player, pos, WWSoundEvents.ECHO_GLASS_CRACK.get(), SoundSource.BLOCKS, player != null ? 1F : 0.5F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 		level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
 
 		if (!(level instanceof ServerLevel serverLevel)) return;
@@ -96,7 +96,7 @@ public class EchoGlassBlock extends TransparentBlock {
 		if (damage <= 0) return;
 
 		level.setBlockAndUpdate(pos, state.setValue(DAMAGE, damage - 1));
-		level.playSound(null, pos, WWSounds.BLOCK_ECHO_GLASS_REPAIR.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+		level.playSound(null, pos, WWSoundEvents.ECHO_GLASS_REPAIR.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.1F + 0.9F);
 	}
 
 	public static int getLightLevel(Level level, BlockPos pos) {

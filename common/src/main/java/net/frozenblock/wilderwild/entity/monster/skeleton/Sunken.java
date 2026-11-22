@@ -23,7 +23,7 @@ import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -270,7 +270,7 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 
 		variant.value().shearResult().ifPresent(convertOnShear -> {
 			// TODO: shear sound
-			level.playSound(null, this, WWSounds.ENTITY_SUNKEN_SHEAR.get(), soundSource, 1F, 1F);
+			level.playSound(null, this, WWSoundEvents.SUNKEN_SHEAR.get(), soundSource, 1F, 1F);
 
 			convertOnShear.convertTo(
 				this,
@@ -300,22 +300,22 @@ public class Sunken extends AbstractSkeleton implements CrossbowAttackMob, Shear
 	// TODO: custom sounds
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isInWater() ? WWSounds.ENTITY_SUNKEN_AMBIENT_WATER.get() : WWSounds.ENTITY_SUNKEN_AMBIENT.get();
+		return this.isInWater() ? WWSoundEvents.SUNKEN_AMBIENT_WATER.get() : WWSoundEvents.SUNKEN_AMBIENT.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isInWater() ? WWSounds.ENTITY_SUNKEN_HURT_WATER.get() : WWSounds.ENTITY_SUNKEN_HURT.get();
+		return this.isInWater() ? WWSoundEvents.SUNKEN_HURT_WATER.get() : WWSoundEvents.SUNKEN_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isInWater() ? WWSounds.ENTITY_SUNKEN_DEATH_WATER.get() : WWSounds.ENTITY_SUNKEN_DEATH.get();
+		return this.isInWater() ? WWSoundEvents.SUNKEN_DEATH_WATER.get() : WWSoundEvents.SUNKEN_DEATH.get();
 	}
 
 	@Override
 	protected SoundEvent getStepSound() {
-		return WWSounds.ENTITY_SUNKEN_STEP.get();
+		return WWSoundEvents.SUNKEN_STEP.get();
 	}
 
 	@Override

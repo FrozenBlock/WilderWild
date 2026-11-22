@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.block;
 
 import net.frozenblock.wilderwild.particle.options.SeedParticleOptions;
 import net.frozenblock.wilderwild.registry.WWLootTables;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -176,7 +176,7 @@ public class MilkweedBlock extends TallFlowerBlock {
 	}
 
 	public void pickAndSpawnSeeds(Level level, BlockState state, BlockPos pos) {
-		level.playSound(null, pos, WWSounds.BLOCK_MILKWEED_RUSTLE.get(), SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
+		level.playSound(null, pos, WWSoundEvents.BLOCK_MILKWEED_RUSTLE.get(), SoundSource.BLOCKS, 0.8F, 0.9F + (level.getRandom().nextFloat() * 0.15F));
 		setAgeOnBothHalves(this, state, level, pos, 0, true);
 	}
 

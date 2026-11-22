@@ -22,7 +22,7 @@ import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.block.impl.ChestUtil;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
@@ -98,7 +98,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			stoneChest.openProgress = Math.max(0F, stoneChest.openProgress - LID_SLAM_INTERVAL);
 			if (!stoneChest.closing) {
 				stoneChest.closing = true;
-				playSound(serverLevel, pos, state, WWSounds.BLOCK_STONE_CHEST_CLOSE_START.get(), WWSounds.BLOCK_STONE_CHEST_CLOSE_START_UNDERWATER.get(), 0.3F);
+				playSound(serverLevel, pos, state, WWSoundEvents.STONE_CHEST_CLOSE_START.get(), WWSoundEvents.STONE_CHEST_CLOSE_START_UNDERWATER.get(), 0.3F);
 			}
 			if (stoneChest.openProgress <= 0F) stoneChest.onLidSlam(serverLevel, pos, state, coupledStoneChest);
 		}
@@ -198,7 +198,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 				);
 			}
 		}
-		playSound(level, pos, state, WWSounds.BLOCK_STONE_CHEST_SLAM.get(), WWSounds.BLOCK_STONE_CHEST_SLAM_UNDERWATER.get(), 0.5F + (this.highestLidPoint / 5F));
+		playSound(level, pos, state, WWSoundEvents.STONE_CHEST_SLAM.get(), WWSoundEvents.STONE_CHEST_SLAM_UNDERWATER.get(), 0.5F + (this.highestLidPoint / 5F));
 		this.closing = false;
 		this.cooldownTicks = 15;
 		this.highestLidPoint = 0;
@@ -288,7 +288,7 @@ public class StoneChestBlockEntity extends ChestBlockEntity {
 			this.level.playSound(
 				null,
 				pos,
-				WWSounds.BLOCK_STONE_CHEST_ITEM_CRUMBLE.get(),
+				WWSoundEvents.STONE_CHEST_ITEM_CRUMBLE.get(),
 				SoundSource.BLOCKS,
 				0.4F,
 				0.9F + (this.level.getRandom().nextFloat() * 0.1F)

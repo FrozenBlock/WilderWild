@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.block.chest;
 
 import net.frozenblock.wilderwild.block.entity.StoneChestBlockEntity;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -86,14 +86,14 @@ public class ChestBlockEntityMixin {
 	@ModifyVariable(method = "playSound", at = @At("HEAD"), argsOnly = true)
 	private static SoundEvent wilderWild$playSound(SoundEvent event, Level level, BlockPos worldPosition, BlockState blockState) {
 		if (blockState.getFluidState().is(Fluids.WATER) && WWBlockConfig.CHEST_BUBBLING.get()) {
-			if (event == SoundEvents.CHEST_OPEN) return WWSounds.BLOCK_CHEST_OPEN_UNDERWATER.get();
-			if (event == SoundEvents.CHEST_CLOSE) return WWSounds.BLOCK_CHEST_CLOSE_UNDERWATER.get();
-			if (event == SoundEvents.COPPER_CHEST_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OPEN_UNDERWATER.get();
-			if (event == SoundEvents.COPPER_CHEST_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_CLOSE_UNDERWATER.get();
-			if (event == SoundEvents.COPPER_CHEST_OXIDIZED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_OPEN_UNDERWATER.get();
-			if (event == SoundEvents.COPPER_CHEST_OXIDIZED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_OXIDIZED_CLOSE_UNDERWATER.get();
-			if (event == SoundEvents.COPPER_CHEST_WEATHERED_OPEN) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_OPEN_UNDERWATER.get();
-			if (event == SoundEvents.COPPER_CHEST_WEATHERED_CLOSE) return WWSounds.BLOCK_COPPER_CHEST_WEATHERED_CLOSE_UNDERWATER.get();
+			if (event == SoundEvents.CHEST_OPEN) return WWSoundEvents.CHEST_OPEN_UNDERWATER.get();
+			if (event == SoundEvents.CHEST_CLOSE) return WWSoundEvents.CHEST_CLOSE_UNDERWATER.get();
+			if (event == SoundEvents.COPPER_CHEST_OPEN) return WWSoundEvents.COPPER_CHEST_OPEN_UNDERWATER.get();
+			if (event == SoundEvents.COPPER_CHEST_CLOSE) return WWSoundEvents.COPPER_CHEST_CLOSE_UNDERWATER.get();
+			if (event == SoundEvents.COPPER_CHEST_OXIDIZED_OPEN) return WWSoundEvents.COPPER_CHEST_OXIDIZED_OPEN_UNDERWATER.get();
+			if (event == SoundEvents.COPPER_CHEST_OXIDIZED_CLOSE) return WWSoundEvents.COPPER_CHEST_OXIDIZED_CLOSE_UNDERWATER.get();
+			if (event == SoundEvents.COPPER_CHEST_WEATHERED_OPEN) return WWSoundEvents.COPPER_CHEST_WEATHERED_OPEN_UNDERWATER.get();
+			if (event == SoundEvents.COPPER_CHEST_WEATHERED_CLOSE) return WWSoundEvents.COPPER_CHEST_WEATHERED_CLOSE_UNDERWATER.get();
 		}
 		return event;
 	}

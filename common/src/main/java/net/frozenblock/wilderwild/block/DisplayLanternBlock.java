@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -133,7 +133,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 				final ItemStack emptyResult = ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE));
 
 				level.setBlockAndUpdate(pos, state.setValue(DISPLAY_LIGHT, Math.clamp(displayLantern.getFireflies().size() * LIGHT_PER_FIREFLY, 0, LightEngine.MAX_LEVEL)));
-				level.playSound(null, pos, WWSounds.ITEM_BOTTLE_PUT_IN_LANTERN_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+				level.playSound(null, pos, WWSoundEvents.BOTTLE_PUT_IN_LANTERN_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 				displayLantern.markForUpdate();
 				return InteractionResult.SUCCESS.heldItemTransformedTo(emptyResult);
 			}
@@ -141,7 +141,7 @@ public class DisplayLanternBlock extends BaseEntityBlock implements SimpleWaterl
 			if (level.isClientSide()) return InteractionResult.SUCCESS;
 
 			final DisplayLanternBlockEntity.Occupant fireflyInLantern = Util.getRandom(fireflies, level.getRandom());
-			level.playSound(null, pos, WWSounds.ITEM_BOTTLE_CATCH_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
+			level.playSound(null, pos, WWSoundEvents.BOTTLE_CATCH_FIREFLY.get(), SoundSource.BLOCKS, 1F, level.getRandom().nextFloat() * 0.2F + 0.9F);
 
 			final ItemStack filledBottle = new ItemStack(WWItems.FIREFLY_BOTTLE);
 			filledBottle.set(WWDataComponents.FIREFLY_VARIANT.get(), fireflyInLantern.variant());

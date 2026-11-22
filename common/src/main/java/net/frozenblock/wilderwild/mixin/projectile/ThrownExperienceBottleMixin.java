@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownExperienceBottle;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,6 +40,6 @@ public class ThrownExperienceBottleMixin {
 	public void wilderWild$onHit(HitResult hitResult, CallbackInfo info) {
 		if (!WWItemConfig.POTION_LANDING_SOUNDS.get()) return;
 		final ThrownExperienceBottle thrownBottle = ThrownExperienceBottle.class.cast(this);
-		thrownBottle.playSound(WWSounds.ITEM_EXPERIENCE_BOTTLE_SPLASH.get(), 1F, 0.85F + (thrownBottle.getRandom().nextFloat() * 0.2F));
+		thrownBottle.playSound(WWSoundEvents.EXPERIENCE_BOTTLE_SPLASH.get(), 1F, 0.85F + (thrownBottle.getRandom().nextFloat() * 0.2F));
 	}
 }

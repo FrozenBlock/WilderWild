@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.particle;
 
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -88,7 +88,7 @@ public class MesogleaCurrentDownParticle extends SingleQuadParticle {
 	public void remove() {
 		this.level.playLocalSound(
 			this.x, this.y, this.z,
-			WWSounds.PARTICLE_MESOGLEA_BUBBLE_POP.get(),
+			WWSoundEvents.MESOGLEA_BUBBLE_POP.get(),
 			SoundSource.NEUTRAL,
 			0.025F,
 			this.random.nextFloat() * 0.2F + 0.8F,

@@ -26,7 +26,7 @@ import net.frozenblock.wilderwild.block.impl.PoplarCollection;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -509,7 +509,7 @@ public final class FallingLeafDatas {
 					0.04F,
 					0.25F,
 					Optional.empty(),
-					Optional.of(WWSounds.BLOCK_FALLING_LEAF_LITTER_MAPLE_LAND.asHolder())
+					Optional.of(WWSoundEvents.FALLING_LEAF_LITTER_MAPLE_LAND.asHolder())
 				)
 			);
 		});

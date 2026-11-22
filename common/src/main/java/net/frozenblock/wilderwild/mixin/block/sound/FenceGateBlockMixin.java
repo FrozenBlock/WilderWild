@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.block.sound;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.Level;
@@ -102,7 +102,7 @@ public class FenceGateBlockMixin {
 		if (Block.class.cast(this) != Blocks.PALE_OAK_FENCE_GATE) return original;
 		if (!WWConfigPredicates.testPaleOakWoodPredicate(level.registryAccess())) return original;
 
-		return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_OPEN.get();
+		return WWSoundEvents.PALE_OAK_WOOD_FENCE_GATE_OPEN.get();
 	}
 
 	@Unique
@@ -110,6 +110,6 @@ public class FenceGateBlockMixin {
 		if (Block.class.cast(this) != Blocks.PALE_OAK_FENCE_GATE) return original;
 		if (!WWConfigPredicates.testPaleOakWoodPredicate(level.registryAccess())) return original;
 
-		return WWSounds.BLOCK_PALE_OAK_WOOD_FENCE_GATE_CLOSE.get();
+		return WWSoundEvents.PALE_OAK_WOOD_FENCE_GATE_CLOSE.get();
 	}
 }

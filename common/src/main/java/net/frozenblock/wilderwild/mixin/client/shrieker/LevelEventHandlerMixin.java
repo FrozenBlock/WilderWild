@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.client.shrieker;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
 import net.frozenblock.wilderwild.registry.WWParticleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
@@ -63,7 +63,7 @@ public class LevelEventHandlerMixin {
 
 			this.level.playLocalSound(
 				x, y, z,
-				WWSounds.BLOCK_SCULK_SHRIEKER_GARGLE.get(),
+				WWSoundEvents.SCULK_SHRIEKER_GARGLE.get(),
 				SoundSource.BLOCKS,
 				2.0F,
 				0.6F + this.level.getRandom().nextFloat() * 0.4F,

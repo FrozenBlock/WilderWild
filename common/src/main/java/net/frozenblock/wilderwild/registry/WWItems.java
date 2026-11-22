@@ -458,7 +458,7 @@ public final class WWItems {
 	public static final DeferredItem<MobBottleItem> FIREFLY_BOTTLE = REGISTER.registerItem(WWItemIds.FIREFLY_BOTTLE,
 		properties -> new MobBottleItem(
 			WWEntityTypes.FIREFLY.get(),
-			WWSounds.ITEM_BOTTLE_RELEASE_FIREFLY.get(),
+			WWSoundEvents.BOTTLE_RELEASE_FIREFLY.get(),
 			properties
 		),
 		() -> new Item.Properties()
@@ -473,7 +473,7 @@ public final class WWItems {
 	public static final DeferredItem<MobBottleItem> BUTTERFLY_BOTTLE = REGISTER.registerItem(WWItemIds.BUTTERFLY_BOTTLE,
 		properties -> new MobBottleItem(
 			WWEntityTypes.BUTTERFLY.get(),
-			WWSounds.ITEM_BOTTLE_RELEASE_BUTTERFLY.get(),
+			WWSoundEvents.BOTTLE_RELEASE_BUTTERFLY.get(),
 			properties
 		),
 		() -> new Item.Properties()
@@ -515,14 +515,14 @@ public final class WWItems {
 	// SPAWN EGGS & BUCKETS
 	public static final DeferredItem<MobBucketItem> JELLYFISH_BUCKET = REGISTER.registerItem(
 		WWItemIds.JELLYFISH_BUCKET,
-		properties -> new MobBucketItem(WWEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_JELLYFISH.get(), properties),
+		properties -> new MobBucketItem(WWEntityTypes.JELLYFISH.get(), Fluids.WATER, WWSoundEvents.BUCKET_EMPTY_JELLYFISH.get(), properties),
 		() -> new Item.Properties().stacksTo(1)
 			.component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
 			.dispensed(DispenseBehaviorIds.FILLED_BUCKET)
 	);
 	public static final DeferredItem<MobBucketItem> CRAB_BUCKET = REGISTER.registerItem(
 		WWItemIds.CRAB_BUCKET,
-		properties -> new MobBucketItem(WWEntityTypes.CRAB.get(), Fluids.WATER, WWSounds.ITEM_BUCKET_EMPTY_CRAB.get(), properties),
+		properties -> new MobBucketItem(WWEntityTypes.CRAB.get(), Fluids.WATER, WWSoundEvents.BUCKET_EMPTY_CRAB.get(), properties),
 		() -> new Item.Properties().stacksTo(1)
 			.component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)
 			.component(DataComponents.FOOD, WWFoods.CRAB_CLAW)

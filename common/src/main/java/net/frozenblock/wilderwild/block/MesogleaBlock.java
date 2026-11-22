@@ -22,7 +22,7 @@ import net.frozenblock.lib.block.api.waterlike.WaterLikeBlock;
 import net.frozenblock.lib.block.impl.waterlike.BubbleColumnDirection;
 import net.frozenblock.lib.block.impl.waterlike.WaterLikeType;
 import net.frozenblock.wilderwild.config.WWBlockConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WWWaterLikeTypes;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.minecraft.core.BlockPos;
@@ -174,7 +174,7 @@ public class MesogleaBlock extends HalfTransparentBlock implements WaterLikeBloc
 
 	@Override
 	public Optional<SoundEvent> evaporateSound() {
-		return Optional.of(WWSounds.BLOCK_MESOGLEA_EVAPORATE.get());
+		return Optional.of(WWSoundEvents.MESOGLEA_EVAPORATE.get());
 	}
 
 	@Override

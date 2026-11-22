@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.entity.variant.WWEntityVariantHolder;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.BlockPos;
@@ -245,7 +245,7 @@ public class Butterfly extends PathfinderMob implements WWBottleable, WWEntityVa
 
 	@Override
 	public SoundEvent wilderWild$getBottleCatchSound() {
-		return WWSounds.ITEM_BOTTLE_CATCH_BUTTERFLY.get();
+		return WWSoundEvents.BOTTLE_CATCH_BUTTERFLY.get();
 	}
 
 	public boolean hasHome() {
@@ -279,12 +279,12 @@ public class Butterfly extends PathfinderMob implements WWBottleable, WWEntityVa
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_BUTTERFLY_HURT.get();
+		return WWSoundEvents.BUTTERFLY_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_BUTTERFLY_DEATH.get();
+		return WWSoundEvents.BUTTERFLY_DEATH.get();
 	}
 
 	@Override

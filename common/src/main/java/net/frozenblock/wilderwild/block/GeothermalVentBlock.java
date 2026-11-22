@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.block.state.properties.GeothermalVentStage;
 import net.frozenblock.wilderwild.block.state.properties.GeothermalVentType;
 import net.frozenblock.wilderwild.registry.WWBlockEntityTypes;
 import net.frozenblock.wilderwild.registry.WWBlockStateProperties;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -185,7 +185,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 				pos.getX() + 0.5D,
 				pos.getY() + 0.5D,
 				pos.getZ() + 0.5D,
-				WWSounds.BLOCK_GEOTHERMAL_VENT_VENT_AMBIENT.get(),
+				WWSoundEvents.GEOTHERMAL_VENT_VENT_AMBIENT.get(),
 				SoundSource.BLOCKS,
 				0.325F,
 				0.85F + random.nextFloat() * 0.3F,
@@ -200,7 +200,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
 		}
 
 		if (natural ? random.nextFloat() <= BOIL_SOUND_CHANCE_NATURAL : random.nextFloat() <= BOIL_SOUND_CHANCE) {
-			level.playLocalSound(pos, WWSounds.BLOCK_GEOTHERMAL_VENT_BOIL.get(), SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
+			level.playLocalSound(pos, WWSoundEvents.GEOTHERMAL_VENT_BOIL.get(), SoundSource.BLOCKS, 0.15F, 0.9F + (random.nextFloat() * 0.2F), false);
 		}
 	}
 

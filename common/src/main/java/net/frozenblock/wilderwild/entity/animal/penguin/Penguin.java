@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
 import net.minecraft.core.BlockPos;
@@ -273,27 +273,27 @@ public class Penguin extends Animal {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_IDLE.get() : WWSounds.ENTITY_PENGUIN_IDLE.get();
+		return this.isLinux() ? WWSoundEvents.ENTITY_LINUX_IDLE.get() : WWSoundEvents.ENTITY_PENGUIN_IDLE.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_HURT.get() : WWSounds.ENTITY_PENGUIN_HURT.get();
+		return this.isLinux() ? WWSoundEvents.ENTITY_LINUX_HURT.get() : WWSoundEvents.ENTITY_PENGUIN_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_DEATH.get() : WWSounds.ENTITY_PENGUIN_DEATH.get();
+		return this.isLinux() ? WWSoundEvents.ENTITY_LINUX_DEATH.get() : WWSoundEvents.ENTITY_PENGUIN_DEATH.get();
 	}
 
 	public SoundEvent getCallSound() {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_CALL.get() : WWSounds.ENTITY_PENGUIN_CALL.get();
+		return this.isLinux() ? WWSoundEvents.ENTITY_LINUX_CALL.get() : WWSoundEvents.ENTITY_PENGUIN_CALL.get();
 	}
 
 	public SoundEvent getLayEggSound() {
-		return this.isLinux() ? WWSounds.ENTITY_LINUX_LAY_EGG.get() : WWSounds.ENTITY_PENGUIN_LAY_EGG.get();
+		return this.isLinux() ? WWSoundEvents.ENTITY_LINUX_LAY_EGG.get() : WWSoundEvents.ENTITY_PENGUIN_LAY_EGG.get();
 	}
 
 	@Override
@@ -311,7 +311,7 @@ public class Penguin extends Animal {
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		if (!this.isSliding()) {
-			this.playSound(this.isLinux() ? WWSounds.ENTITY_LINUX_STEP.get() : WWSounds.ENTITY_PENGUIN_STEP.get(), 0.1F, 1F);
+			this.playSound(this.isLinux() ? WWSoundEvents.ENTITY_LINUX_STEP.get() : WWSoundEvents.ENTITY_PENGUIN_STEP.get(), 0.1F, 1F);
 			return;
 		}
 

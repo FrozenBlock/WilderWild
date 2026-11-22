@@ -29,7 +29,7 @@ import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWItems;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -299,7 +299,7 @@ public class Firefly extends PathfinderMob implements WWBottleable, WWEntityVari
 
 	@Override
 	public SoundEvent wilderWild$getBottleCatchSound() {
-		return WWSounds.ITEM_BOTTLE_CATCH_FIREFLY.get();
+		return WWSoundEvents.BOTTLE_CATCH_FIREFLY.get();
 	}
 
 	public boolean hasHome() {
@@ -410,12 +410,12 @@ public class Firefly extends PathfinderMob implements WWBottleable, WWEntityVari
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_FIREFLY_HURT.get();
+		return WWSoundEvents.FIREFLY_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_FIREFLY_HURT.get();
+		return WWSoundEvents.FIREFLY_HURT.get();
 	}
 
 	@Override

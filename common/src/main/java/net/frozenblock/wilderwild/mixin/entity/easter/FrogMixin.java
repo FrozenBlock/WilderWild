@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.mixin.entity.easter;
 
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.animal.frog.Frog;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,6 +33,6 @@ public final class FrogMixin {
 	public void wilderWild$newDeath(CallbackInfoReturnable<SoundEvent> info) {
 		final String string = ChatFormatting.stripFormatting(Frog.class.cast(this).getName().getString());
 		if (string.equalsIgnoreCase("Xfrtrex") || string.equalsIgnoreCase("BluePhoenixLOL"))
-			info.setReturnValue(WWSounds.ENTITY_FROG_SUS_DEATH.get());
+			info.setReturnValue(WWSoundEvents.FROG_SUS_DEATH.get());
 	}
 }

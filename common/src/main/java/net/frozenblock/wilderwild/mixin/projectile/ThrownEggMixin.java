@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.mixin.projectile;
 
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownEgg;
 import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,6 +40,6 @@ public class ThrownEggMixin {
 	public void wilderWild$onHit(HitResult hitResult, CallbackInfo info) {
 		if (!WWItemConfig.EGG_LANDING_SOUNDS.get()) return;
 		final ThrownEgg egg = ThrownEgg.class.cast(this);
-		egg.playSound(WWSounds.ITEM_EGG_LAND.get(), 0.5F, 0.85F + (egg.getRandom().nextFloat() * 0.2F));
+		egg.playSound(WWSoundEvents.EGG_LAND.get(), 0.5F, 0.85F + (egg.getRandom().nextFloat() * 0.2F));
 	}
 }

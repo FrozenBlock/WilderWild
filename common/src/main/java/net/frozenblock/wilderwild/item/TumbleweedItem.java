@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.item;
 
 import net.frozenblock.wilderwild.entity.block.Tumbleweed;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -71,7 +71,7 @@ public class TumbleweedItem extends Item {
 
 			entity.snapTo(entity.getX(), entity.getY(), entity.getZ(), 0F, 0F);
 			serverLevel.addFreshEntityWithPassengers(entity);
-			WWSounds.TUMBLEWEED_PLANT.placeSound()
+			WWSoundEvents.TUMBLEWEED_PLANT.placeSound()
 				.ifPresent(sound -> level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), sound, SoundSource.BLOCKS, 1F, 0.8F));
 			entity.gameEvent(GameEvent.ENTITY_PLACE, context.getPlayer());
 		}

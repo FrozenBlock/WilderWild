@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.entity.ambient.firefly;
 
 import net.frozenblock.lib.entity.api.behavior.MoveToBlockBehavior;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -44,7 +44,7 @@ public class FireflyHide extends MoveToBlockBehavior<Firefly> {
 	protected void tick(ServerLevel level, Firefly body, long timestamp) {
 		super.tick(level, body, timestamp);
 		if (this.isReachedTarget()) {
-			body.playSound(WWSounds.ENTITY_FIREFLY_HIDE.get(), 0.6F, 0.9F + level.getRandom().nextFloat() * 0.2F);
+			body.playSound(WWSoundEvents.FIREFLY_HIDE.get(), 0.6F, 0.9F + level.getRandom().nextFloat() * 0.2F);
 			body.discard();
 		}
 	}

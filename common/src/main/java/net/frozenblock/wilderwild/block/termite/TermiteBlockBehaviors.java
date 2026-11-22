@@ -22,7 +22,7 @@ import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.registry.WilderWildRegistries;
 import net.frozenblock.wilderwild.tag.WWBlockItemTags;
 import net.minecraft.core.Holder;
@@ -141,7 +141,7 @@ public final class TermiteBlockBehaviors {
 			true,
 			false,
 			true,
-			WWSounds.BLOCK_TERMITE_MOUND_HOLLOW.get()
+			WWSoundEvents.TERMITE_MOUND_HOLLOW.get()
 		);
 	}
 

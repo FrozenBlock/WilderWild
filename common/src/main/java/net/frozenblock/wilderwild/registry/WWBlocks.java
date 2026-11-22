@@ -161,10 +161,10 @@ public final class WWBlocks {
 	public static final BlockSetType PALM_SET = BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD).build();
 	public static final Supplier<BlockSetType> MAPLE_SET = Suppliers.memoize(() -> BlockSetTypeBuilder.copyOf(BlockSetType.DEFAULT_WOOD)
 		.blockSoundSet(WWBlockSoundSets.MAPLE_WOOD)
-		.doorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_CLOSE.get()).doorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_DOOR_OPEN.get())
-		.trapdoorCloseSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_CLOSE.get()).trapdoorOpenSound(WWSounds.BLOCK_MAPLE_WOOD_TRAPDOOR_OPEN.get())
-		.pressurePlateClickOnSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON.get()).pressurePlateClickOffSound(WWSounds.BLOCK_MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF.get())
-		.buttonClickOnSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_ON.get()).buttonClickOffSound(WWSounds.BLOCK_MAPLE_BUTTON_CLICK_OFF.get())
+		.doorCloseSound(WWSoundEvents.MAPLE_WOOD_DOOR_CLOSE.get()).doorOpenSound(WWSoundEvents.MAPLE_WOOD_DOOR_OPEN.get())
+		.trapdoorCloseSound(WWSoundEvents.MAPLE_WOOD_TRAPDOOR_CLOSE.get()).trapdoorOpenSound(WWSoundEvents.MAPLE_WOOD_TRAPDOOR_OPEN.get())
+		.pressurePlateClickOnSound(WWSoundEvents.MAPLE_WOOD_PRESSURE_PLATE_CLICK_ON.get()).pressurePlateClickOffSound(WWSoundEvents.MAPLE_WOOD_PRESSURE_PLATE_CLICK_OFF.get())
+		.buttonClickOnSound(WWSoundEvents.MAPLE_BUTTON_CLICK_ON.get()).buttonClickOffSound(WWSoundEvents.MAPLE_BUTTON_CLICK_OFF.get())
 		.build());
 
 	// WOOD TYPES
@@ -174,7 +174,7 @@ public final class WWBlocks {
 	public static final WoodType PALM_WOOD_TYPE = WoodTypeBuilder.copyOf(WoodType.JUNGLE).build(WWConstants.id("palm"), PALM_SET);
 	public static final Supplier<WoodType> MAPLE_WOOD_TYPE = Suppliers.memoize(() -> WoodTypeBuilder.copyOf(WoodType.SPRUCE)
 		.blockSoundSet(WWBlockSoundSets.MAPLE_WOOD)
-		.fenceGateCloseSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSounds.BLOCK_MAPLE_WOOD_FENCE_GATE_OPEN.get())
+		.fenceGateCloseSound(WWSoundEvents.MAPLE_WOOD_FENCE_GATE_CLOSE.get()).fenceGateOpenSound(WWSoundEvents.MAPLE_WOOD_FENCE_GATE_OPEN.get())
 		.hangingSignSoundSet(WWBlockSoundSets.MAPLE_WOOD_HANGING_SIGN)
 		.build(WWConstants.id("maple"), MAPLE_SET.get()));
 

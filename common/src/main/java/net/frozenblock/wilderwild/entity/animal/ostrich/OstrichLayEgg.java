@@ -18,7 +18,7 @@
 package net.frozenblock.wilderwild.entity.animal.ostrich;
 
 import com.google.common.collect.ImmutableMap;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -48,7 +48,7 @@ public class OstrichLayEgg extends Behavior<AbstractOstrich> {
 		final BlockState placementState = block.defaultBlockState();
 		level.setBlockAndUpdate(placePos, placementState);
 		level.gameEvent(GameEvent.BLOCK_PLACE, placePos, GameEvent.Context.of(body, placementState));
-		level.playSound(null, body, WWSounds.ENTITY_OSTRICH_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, body, WWSoundEvents.OSTRICH_LAY_EGG.get(), SoundSource.BLOCKS, 1F, 1F);
 		return true;
 	}
 

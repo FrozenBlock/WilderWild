@@ -20,7 +20,7 @@ package net.frozenblock.wilderwild.mixin.client.block.ice;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;
@@ -48,7 +48,7 @@ public class LevelEventHandlerMixin {
 		)
 	)
 	private SoundEvent wilderWild$changeIcicleLandSound(SoundEvent original) {
-		if (ConfigPredicate.lookupAndTest(this.level.registryAccess(), WWConfigPredicates.SOUND_OVERRIDE_ICICLE)) return WWSounds.BLOCK_ICICLE_LAND.get();
+		if (ConfigPredicate.lookupAndTest(this.level.registryAccess(), WWConfigPredicates.SOUND_OVERRIDE_ICICLE)) return WWSoundEvents.ICICLE_LAND.get();
 		return original;
 	}
 }

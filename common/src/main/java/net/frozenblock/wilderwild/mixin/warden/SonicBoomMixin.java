@@ -24,7 +24,7 @@ import net.frozenblock.wilderwild.block.EchoGlassBlock;
 import net.frozenblock.wilderwild.client.animation.definitions.impl.WilderWarden;
 import net.frozenblock.wilderwild.entity.monster.warden.WilderSonicBoom;
 import net.frozenblock.wilderwild.registry.WWBlocks;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -124,7 +124,7 @@ public class SonicBoomMixin implements WilderSonicBoom {
 		SoundEvent original,
 		Warden body
 	) {
-		return ((WilderWarden) body).wilderWild$isStella() ? WWSounds.ENTITY_WARDEN_BRAP.get() : original;
+		return ((WilderWarden) body).wilderWild$isStella() ? WWSoundEvents.WARDEN_BRAP.get() : original;
 	}
 
 	@Unique

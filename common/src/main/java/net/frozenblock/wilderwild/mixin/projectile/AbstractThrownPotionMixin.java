@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.mixin.projectile;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.frozenblock.wilderwild.config.WWItemConfig;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.phys.HitResult;
@@ -44,7 +44,7 @@ public class AbstractThrownPotionMixin {
 	) {
 		if (!WWItemConfig.POTION_LANDING_SOUNDS.get()) return;
 		final AbstractThrownPotion thrownPotion = AbstractThrownPotion.class.cast(this);
-		thrownPotion.playSound(WWSounds.ITEM_POTION_SPLASH.get(), 1F, 1F);
-		if (potion.hasEffects()) thrownPotion.playSound(WWSounds.ITEM_POTION_MAGIC.get(), 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
+		thrownPotion.playSound(WWSoundEvents.POTION_SPLASH.get(), 1F, 1F);
+		if (potion.hasEffects()) thrownPotion.playSound(WWSoundEvents.POTION_MAGIC.get(), 1F, 1F + (thrownPotion.getRandom().nextFloat() * 0.2F));
 	}
 }

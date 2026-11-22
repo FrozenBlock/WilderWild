@@ -28,7 +28,7 @@ import net.frozenblock.wilderwild.config.WWEntityConfig;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWDamageTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBlockTags;
 import net.frozenblock.wilderwild.tag.WWEntityTypeTags;
 import net.frozenblock.wilderwild.tag.WWItemTags;
@@ -136,7 +136,7 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 	}
 
 	public static void spawnFromShears(Level level, BlockPos pos) {
-		level.playSound(null, pos, WWSounds.BLOCK_TUMBLEWEED_PLANT_SHEAR.get(), SoundSource.BLOCKS, 1F, 1F);
+		level.playSound(null, pos, WWSoundEvents.TUMBLEWEED_PLANT_SHEAR.get(), SoundSource.BLOCKS, 1F, 1F);
 		final Tumbleweed tumbleweed = new Tumbleweed(WWEntityTypes.TUMBLEWEED.get(), level);
 		level.addFreshEntity(tumbleweed);
 		tumbleweed.setPos(Vec3.atBottomCenterOf(pos));
@@ -327,17 +327,17 @@ public class Tumbleweed extends AbstractBlockLikeMob implements EntityStepOnBloc
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return WWSounds.ENTITY_TUMBLEWEED_DAMAGE.get();
+		return WWSoundEvents.TUMBLEWEED_DAMAGE.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return WWSounds.ENTITY_TUMBLEWEED_BREAK.get();
+		return WWSoundEvents.TUMBLEWEED_BREAK.get();
 	}
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(WWSounds.ENTITY_TUMBLEWEED_BOUNCE.get(), 0.2F, 1F);
+		this.playSound(WWSoundEvents.TUMBLEWEED_BOUNCE.get(), 0.2F, 1F);
 	}
 
 	@Override

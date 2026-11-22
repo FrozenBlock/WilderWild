@@ -31,7 +31,7 @@ import net.frozenblock.lib.registry.FrozenLibRegistries;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.registry.WWBiomes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.frozenblock.wilderwild.tag.WWBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -78,56 +78,56 @@ public final class WWEnvironmentAttributeModifications {
 		registerAmbience(
 			context,
 			Biomes.DEEP_DARK,
-			WWSounds.AMBIENT_DEEP_DARK_LOOP,
-			WWSounds.AMBIENT_DEEP_DARK_ADDITIONS,
+			WWSoundEvents.AMBIENT_DEEP_DARK_LOOP,
+			WWSoundEvents.AMBIENT_DEEP_DARK_ADDITIONS,
 			0.005D,
 			WWAmbienceAndMiscConfig.DEEP_DARK_AMBIENCE
 		);
 		registerAmbience(
 			context,
 			Biomes.DRIPSTONE_CAVES,
-			WWSounds.AMBIENT_DRIPSTONE_CAVES_LOOP,
-			WWSounds.AMBIENT_DRIPSTONE_CAVES_ADDITIONS,
+			WWSoundEvents.AMBIENT_DRIPSTONE_CAVES_LOOP,
+			WWSoundEvents.AMBIENT_DRIPSTONE_CAVES_ADDITIONS,
 			0.01D,
 			WWAmbienceAndMiscConfig.DRIPSTONE_CAVES_AMBIENCE
 		);
 		registerAmbience(
 			context,
 			Biomes.LUSH_CAVES,
-			WWSounds.AMBIENT_LUSH_CAVES_LOOP,
-			WWSounds.AMBIENT_LUSH_CAVES_ADDITIONS,
+			WWSoundEvents.AMBIENT_LUSH_CAVES_LOOP,
+			WWSoundEvents.AMBIENT_LUSH_CAVES_ADDITIONS,
 			0.01D,
 			WWAmbienceAndMiscConfig.LUSH_CAVES_AMBIENCE
 		);
 		registerAmbience(
 			context,
 			Biomes.SULFUR_CAVES,
-			WWSounds.AMBIENT_SULFUR_CAVES_LOOP,
-			WWSounds.AMBIENT_SULFUR_CAVES_ADDITIONS,
+			WWSoundEvents.AMBIENT_SULFUR_CAVES_LOOP,
+			WWSoundEvents.AMBIENT_SULFUR_CAVES_ADDITIONS,
 			0.015D,
 			WWAmbienceAndMiscConfig.SULFUR_CAVES_AMBIENCE
 		);
 		registerAmbience(
 			context,
 			Biomes.ICE_CAVES,
-			WWSounds.AMBIENT_ICE_CAVES_LOOP,
-			WWSounds.AMBIENT_ICE_CAVES_ADDITIONS,
+			WWSoundEvents.AMBIENT_ICE_CAVES_LOOP,
+			WWSoundEvents.AMBIENT_ICE_CAVES_ADDITIONS,
 			0.003D,
 			WWAmbienceAndMiscConfig.ICE_CAVES_AMBIENCE
 		);
 		registerAmbience(
 			context,
 			WWBiomes.MESOGLEA_CAVES,
-			WWSounds.AMBIENT_MESOGLEA_CAVES_LOOP,
-			WWSounds.AMBIENT_MESOGLEA_CAVES_ADDITIONS,
+			WWSoundEvents.AMBIENT_MESOGLEA_CAVES_LOOP,
+			WWSoundEvents.AMBIENT_MESOGLEA_CAVES_ADDITIONS,
 			0.005D,
 			WWAmbienceAndMiscConfig.MESOGLEA_CAVES_AMBIENCE
 		);
 		registerAmbience(
 			context,
 			WWBiomes.MAGMATIC_CAVES,
-			WWSounds.AMBIENT_MAGMATIC_CAVES_LOOP,
-			WWSounds.AMBIENT_MAGMATIC_CAVES_ADDITIONS,
+			WWSoundEvents.AMBIENT_MAGMATIC_CAVES_LOOP,
+			WWSoundEvents.AMBIENT_MAGMATIC_CAVES_ADDITIONS,
 			0.005D,
 			WWAmbienceAndMiscConfig.MAGMATIC_CAVES_AMBIENCE
 		);
@@ -137,112 +137,112 @@ public final class WWEnvironmentAttributeModifications {
 			context,
 			"forest",
 			WWBiomeTags.HAS_FOREST_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_FORESTS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_FORESTS,
 			WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC
 		);
 		registerMusic(
 			context,
 			"flower_forest",
 			WWBiomeTags.HAS_FLOWER_FOREST_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_FLOWER_FORESTS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_FLOWER_FORESTS,
 			WWAmbienceAndMiscConfig.WILDER_FOREST_MUSIC
 		);
 		registerMusic(
 			context,
 			"dappled_forest",
 			WWBiomeTags.HAS_DAPPLED_FOREST_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_DAPPLED_FORESTS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_DAPPLED_FORESTS,
 			WWAmbienceAndMiscConfig.WILDER_DAPPLED_FOREST_MUSIC
 		);
 		registerMusic(
 			context,
 			"lush_caves",
 			WWBiomeTags.HAS_LUSH_CAVES_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_LUSH_CAVES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_LUSH_CAVES,
 			WWAmbienceAndMiscConfig.WILDER_LUSH_CAVES_MUSIC
 		);
 		registerMusic(
 			context,
 			"dripstone_caves",
 			WWBiomeTags.HAS_DRIPSTONE_CAVES_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_DRIPSTONE_CAVES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_DRIPSTONE_CAVES,
 			WWAmbienceAndMiscConfig.WILDER_DRIPSTONE_CAVES_MUSIC
 		);
 		registerMusic(
 			context,
 			"cherry_grove",
 			WWBiomeTags.HAS_CHERRY_GROVE_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_CHERRY_GROVES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_CHERRY_GROVES,
 			WWAmbienceAndMiscConfig.WILDER_CHERRY_GROVE_MUSIC
 		);
 		registerMusic(
 			context,
 			"taiga",
 			WWBiomeTags.HAS_TAIGA_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_TAIGAS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_TAIGAS,
 			WWAmbienceAndMiscConfig.WILDER_TAIGA_MUSIC
 		);
 		registerMusic(
 			context,
 			"old_growth_taiga",
 			WWBiomeTags.HAS_OLD_GROWTH_TAIGA_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_OLD_GROWTH_TAIGAS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_OLD_GROWTH_TAIGAS,
 			WWAmbienceAndMiscConfig.WILDER_TAIGA_MUSIC
 		);
 		registerMusic(
 			context,
 			"grove",
 			WWBiomeTags.HAS_GROVE_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_GROVES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_GROVES,
 			WWAmbienceAndMiscConfig.WILDER_GROVE_MUSIC
 		);
 		registerMusic(
 			context,
 			"jungle",
 			WWBiomeTags.HAS_JUNGLE_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_JUNGLES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_JUNGLES,
 			WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC
 		);
 		registerMusic(
 			context,
 			"bamboo_jungle",
 			WWBiomeTags.HAS_BAMBOO_JUNGLE_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_BAMBOO_JUNGLES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_BAMBOO_JUNGLES,
 			WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC
 		);
 		registerMusic(
 			context,
 			"sparse_jungle",
 			WWBiomeTags.HAS_SPARSE_JUNGLE_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_SPARSE_JUNGLES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_SPARSE_JUNGLES,
 			WWAmbienceAndMiscConfig.WILDER_JUNGLE_MUSIC
 		);
 		registerMusic(
 			context,
 			"badlands",
 			WWBiomeTags.HAS_BADLANDS_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_BADLANDS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_BADLANDS,
 			WWAmbienceAndMiscConfig.WILDER_BADLANDS_MUSIC
 		);
 		registerMusic(
 			context,
 			"desert",
 			WWBiomeTags.HAS_DESERT_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_DESERTS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_DESERTS,
 			WWAmbienceAndMiscConfig.WILDER_DESERT_MUSIC
 		);
 		registerMusic(
 			context,
 			"snowy",
 			WWBiomeTags.HAS_SNOWY_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_SNOWY,
+			WWSoundEvents.MUSIC_BIOME_WILDER_SNOWY,
 			WWAmbienceAndMiscConfig.WILDER_SNOWY_MUSIC
 		);
 		registerMusic(
 			context,
 			"ocean",
 			WWBiomeTags.HAS_OCEAN_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_OCEANS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_OCEANS,
 			WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC,
 			true
 		);
@@ -250,7 +250,7 @@ public final class WWEnvironmentAttributeModifications {
 			context,
 			"frozen_ocean",
 			WWBiomeTags.HAS_FROZEN_OCEAN_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_FROZEN_OCEANS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_FROZEN_OCEANS,
 			WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC,
 			true
 		);
@@ -258,7 +258,7 @@ public final class WWEnvironmentAttributeModifications {
 			context,
 			"warm_ocean",
 			WWBiomeTags.HAS_WARM_OCEAN_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_WILD_WARM_OCEANS,
+			WWSoundEvents.MUSIC_BIOME_WILDER_WARM_OCEANS,
 			WWAmbienceAndMiscConfig.WILDER_OCEAN_MUSIC,
 			true
 		);
@@ -266,42 +266,42 @@ public final class WWEnvironmentAttributeModifications {
 			context,
 			"maple_forest",
 			WWBiomeTags.HAS_MAPLE_FOREST_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_MAPLE_FOREST,
+			WWSoundEvents.MUSIC_BIOME_MAPLE_FOREST,
 			ConfigPredicate.alwaysTrue()
 		);
 		registerMusic(
 			context,
 			"dying_forest",
 			WWBiomeTags.HAS_DYING_FOREST_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_DYING_FOREST,
+			WWSoundEvents.MUSIC_BIOME_DYING_FOREST,
 			ConfigPredicate.alwaysTrue()
 		);
 		registerMusic(
 			context,
 			"snowy_dying_forest",
 			WWBiomeTags.HAS_SNOWY_DYING_FOREST_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_SNOWY_DYING_FOREST,
+			WWSoundEvents.MUSIC_BIOME_SNOWY_DYING_FOREST,
 			ConfigPredicate.alwaysTrue()
 		);
 		registerMusic(
 			context,
 			"frozen_caves",
 			WWBiomeTags.HAS_ICE_CAVES_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_FROZEN_CAVES,
+			WWSoundEvents.MUSIC_BIOME_WILDER_FROZEN_CAVES,
 			ConfigPredicate.alwaysTrue()
 		);
 		registerMusic(
 			context,
 			"mesoglea_caves",
 			WWBiomeTags.HAS_MESOGLEA_CAVES_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_MESOGLEA_CAVES,
+			WWSoundEvents.MUSIC_BIOME_MESOGLEA_CAVES,
 			ConfigPredicate.alwaysTrue()
 		);
 		registerMusic(
 			context,
 			"magmatic_caves",
 			WWBiomeTags.HAS_MAGMATIC_CAVES_MUSIC,
-			WWSounds.MUSIC_OVERWORLD_MAGMATIC_CAVES,
+			WWSoundEvents.MUSIC_BIOME_MAGMATIC_CAVES,
 			ConfigPredicate.alwaysTrue()
 		);
 	}

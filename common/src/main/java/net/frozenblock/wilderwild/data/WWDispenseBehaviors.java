@@ -22,7 +22,7 @@ import lombok.experimental.UtilityClass;
 import net.frozenblock.wilderwild.block.dispenser.EmptyMobBottleDispenseBehavior;
 import net.frozenblock.wilderwild.block.dispenser.SpawnTumbleweedDispenseBehavior;
 import net.frozenblock.wilderwild.references.WWDispenseBehaviorIds;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.dispenser.DispenseBehavior;
 import net.minecraft.core.dispenser.DropItemDispenseBehavior;
 import net.minecraft.core.dispenser.ShootProjectileDispenseBehavior;
@@ -46,7 +46,7 @@ public final class WWDispenseBehaviors {
 					.power(0.75F)
 					.sound(
 						new ShootProjectileDispenseBehavior.DispenseSound(
-							WWSounds.ITEM_COCONUT_THROW.asHolder(),
+							WWSoundEvents.COCONUT_THROW.asHolder(),
 							ConstantFloat.of(0.5F),
 							UniformFloat.of(0.33333334F, 0.5F)
 						)

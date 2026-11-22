@@ -19,7 +19,7 @@ package net.frozenblock.wilderwild.entity.animal.crab;
 
 import java.util.Map;
 import net.frozenblock.wilderwild.registry.WWMemoryModuleTypes;
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.Pose;
@@ -48,7 +48,7 @@ public class CrabDig<E extends Crab> extends Behavior<E> {
 		body.endNavigation();
 		body.stopInPlace();
 		body.setPose(Pose.DIGGING);
-		body.playSound(WWSounds.ENTITY_CRAB_DIG.get(), 0.5F, 1F);
+		body.playSound(WWSoundEvents.CRAB_DIG.get(), 0.5F, 1F);
 		body.resetDiggingTicks();
 	}
 

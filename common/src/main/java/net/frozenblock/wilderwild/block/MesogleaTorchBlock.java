@@ -17,7 +17,7 @@
 
 package net.frozenblock.wilderwild.block;
 
-import net.frozenblock.wilderwild.registry.WWSounds;
+import net.frozenblock.wilderwild.registry.WWSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -67,7 +67,7 @@ public class MesogleaTorchBlock extends TorchBlock implements SimpleWaterloggedB
 		level.playSound(
 			null,
 			pos,
-			WWSounds.MESOGLEA_TORCH_EVAPORATE.get(),
+			WWSoundEvents.MESOGLEA_TORCH_EVAPORATE.get(),
 			SoundSource.BLOCKS,
 			1F,
 			(1F + level.getRandom().nextFloat() * 0.2F) * 0.7F
