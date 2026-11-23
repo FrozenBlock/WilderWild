@@ -21,7 +21,6 @@ import com.mojang.datafixers.util.Pair;
 import java.util.function.Consumer;
 import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.levelgen.biome.api.FrozenLibBiome;
-import net.frozenblock.lib.levelgen.biome.api.parameters.FrozenLibBiomeParameters;
 import net.frozenblock.lib.levelgen.biome.api.parameters.OverworldBiomeBuilderParameters;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.config.WWWorldgenConfig;
@@ -46,7 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class DarkBirchForest extends FrozenLibBiome {
 	public static final Climate.Parameter TEMPERATURE = Climate.Parameter.span(-0.125F, 0.2F);
-	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.275F, 0.325F);
+	public static final Climate.Parameter HUMIDITY = Climate.Parameter.span(0.285F, 0.3275F);
 	public static final float TEMP = 0.65F;
 	public static final float DOWNFALL = 0.7F;
 	public static final int WATER_COLOR = WWSharedWorldgen.STOCK_WATER_COLOR;
@@ -134,7 +133,6 @@ public final class DarkBirchForest extends FrozenLibBiome {
 		if (FrozenLibEarlyConstants.HAS_BIOLITH) return;
 		if (!WWWorldgenConfig.DARK_BIRCH_FOREST_GENERATION.get()) return;
 		for (Climate.ParameterPoint point : OverworldBiomeBuilderParameters.points(Biomes.DARK_FOREST)) {
-			if (FrozenLibBiomeParameters.isWeird(point)) continue;
 			this.addSurfaceBiome(
 				parameters,
 				TEMPERATURE,

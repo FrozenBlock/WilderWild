@@ -111,7 +111,6 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Cactus generation in the Oasis biome has been reverted to Vanilla's default Desert Cactus generation.
 - Significantly decreased the frequency of Palm Trees in the Oasis and Desert biomes.
 - Lakes will now generate in the Oasis biome, often surrounded by Palm Trees, tall Cacti, Shrubs, and Grass.
-- Decreased the humidity and continentalness range the Oasis biome can generate in.
 - Cattails can no longer generate more than a single block away from Water.
 - Cattail patches will no longer attempt to generate if their origin is inside a Water block.
 - Decreased the overall frequency of Pollen generation.
@@ -132,3 +131,5 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Removed the `alt_foliage_placer` field from the `wilderwild:maple_foliage_placer` Foliage Placer Type, as its functionality has been superseded by the `frozenlib:conditional_foliage_placer` Foliage Placer Type.
 - Added a config option to alter the foliage shape of Birch Trees.
   - This option is disabled by default.
+- Decreased the humidity and continentalness range the Oasis biome can generate in.
+- Fixed a bug that caused the Dark Birch Forest biome to never generate without Biolith.
