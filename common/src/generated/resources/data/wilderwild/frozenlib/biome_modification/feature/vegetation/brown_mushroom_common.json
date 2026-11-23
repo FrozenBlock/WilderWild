@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:brown_mushroom",
+    "features": "wilderwild:vegetation/brown_mushroom",
     "step": "top_layer_modification"
   },
   "phase": "additions",

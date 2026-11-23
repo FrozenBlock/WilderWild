@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_shrub_badlands_terracotta",
+    "features": "wilderwild:vegetation/patch_shrub_badlands_terracotta",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_pumpkin_uncommon",
+    "features": "wilderwild:vegetation/patch_pumpkin_uncommon",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

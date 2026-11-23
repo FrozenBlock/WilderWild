@@ -178,7 +178,7 @@
       "minecraft:patch_cactus_desert",
       "minecraft:patch_firefly_bush_near_water",
       "minecraft:seagrass_river",
-      "wilderwild:patch_grass_oasis"
+      "wilderwild:vegetation/patch_grass_oasis"
     ],
     [
       "minecraft:freeze_top_layer"

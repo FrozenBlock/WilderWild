@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_frozen_bush",
+    "features": "wilderwild:vegetation/patch_frozen_bush",
     "step": "vegetal_decoration"
   },
   "phase": "replacements",

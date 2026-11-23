@@ -26,9 +26,9 @@ import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil;
 import static net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacementUtil.postModifiers;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
+import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.features.WWTreeFeatures;
 import net.frozenblock.wilderwild.data.worldgen.features.WWVegetationFeatures;
-import static net.frozenblock.wilderwild.data.worldgen.placement.WWPlacementUtils.register;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
@@ -1166,5 +1166,9 @@ public final class WWVegetationPlacements {
 		}
 
 		return baseModifiers;
+	}
+
+	public static FrozenLibPlacedFeature register(String name) {
+		return new FrozenLibPlacedFeature(WWConstants.id("vegetation/" + name));
 	}
 }

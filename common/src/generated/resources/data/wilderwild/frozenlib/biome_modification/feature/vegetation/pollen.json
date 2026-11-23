@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:pollen",
+    "features": "wilderwild:vegetation/pollen",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

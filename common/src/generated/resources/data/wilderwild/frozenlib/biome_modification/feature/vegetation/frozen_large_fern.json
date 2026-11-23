@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_frozen_large_fern",
+    "features": "wilderwild:vegetation/patch_frozen_large_fern",
     "step": "vegetal_decoration"
   },
   "phase": "replacements",

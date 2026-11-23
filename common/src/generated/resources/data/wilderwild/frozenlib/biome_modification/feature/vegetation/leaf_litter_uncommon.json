@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_leaf_litter_uncommon",
+    "features": "wilderwild:vegetation/patch_leaf_litter_uncommon",
     "step": "vegetal_decoration"
   },
   "phase": "replacements",

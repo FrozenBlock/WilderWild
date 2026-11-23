@@ -91,14 +91,14 @@ public final class WWCaveFeatures {
 	public static final FrozenLibFeature PATCH_MESOGLEA_CEILING = register("patch_mesoglea_ceiling");
 	public static final FrozenLibFeature MEDIUM_MESOGLEA = register("medium_mesoglea");
 	public static final FrozenLibFeature LARGE_MESOGLEA = register("large_mesoglea");
-	public static final FrozenLibFeature NEMATOCYST = WWFeatureUtils.register("nematocyst");
+	public static final FrozenLibFeature NEMATOCYST = register("nematocyst");
 
 	// MAGMATIC CAVES
 	public static final FrozenLibFeature PUDDLE_LAVA_GABBRO = register("puddle_lava_gabbro");
 	public static final FrozenLibFeature SPRING_LAVA_MAGMA_OR_GABBRO = register("spring_lava_magmatic_caves");
 	public static final FrozenLibFeature LAKE_LAVA_GABBRO = register("lake_lava_gabbro");
-	public static final FrozenLibFeature PATCH_MAGMA = WWFeatureUtils.register("patch_magma");
-	public static final FrozenLibFeature PATCH_MAGMA_CEILING = WWFeatureUtils.register("patch_magma_ceiling");
+	public static final FrozenLibFeature PATCH_MAGMA = register("patch_magma");
+	public static final FrozenLibFeature PATCH_MAGMA_CEILING = register("patch_magma_ceiling");
 	public static final FrozenLibFeature PATCH_GABBRO = register("patch_gabbro");
 	public static final FrozenLibFeature PATCH_GABBRO_CEILING = register("patch_gabbro_ceiling");
 	public static final FrozenLibFeature GEOTHERMAL_VENT_UP = register("geothermal_vent_up");

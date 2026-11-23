@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_mycelium_growth",
+    "features": "wilderwild:vegetation/patch_mycelium_growth",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

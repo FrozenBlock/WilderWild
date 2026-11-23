@@ -955,15 +955,11 @@ public final class WWMaterialRules {
 					MaterialRules.sequence(
 						MaterialRules.getRule(materialRules, COARSE_DIRT_AND_ROOTED_DIRT_CLEARING),
 						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.07D, 0.17D),
+							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.75D, -0.59D),
 							FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
 						),
 						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, -0.55D, -0.53D),
-							FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
-						),
-						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, 0.53D, 0.55D),
+							MaterialRules.noiseCondition2d(WWNoises.CLEARING_PATH, 0.59D, 0.75D),
 							FrozenLibMaterialRules.makeStateRule(Blocks.GRAVEL)
 						)
 					)

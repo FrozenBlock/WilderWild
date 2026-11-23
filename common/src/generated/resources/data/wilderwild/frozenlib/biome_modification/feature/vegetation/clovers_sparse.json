@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_clovers_sparse",
+    "features": "wilderwild:vegetation/patch_clovers_sparse",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

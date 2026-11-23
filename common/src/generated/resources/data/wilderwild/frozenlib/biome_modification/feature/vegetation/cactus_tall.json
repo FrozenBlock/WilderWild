@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_cactus_tall",
+    "features": "wilderwild:vegetation/patch_cactus_tall",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

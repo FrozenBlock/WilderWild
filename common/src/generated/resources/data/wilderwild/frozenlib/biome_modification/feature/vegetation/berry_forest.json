@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_berry_forest",
+    "features": "wilderwild:vegetation/patch_berry_forest",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

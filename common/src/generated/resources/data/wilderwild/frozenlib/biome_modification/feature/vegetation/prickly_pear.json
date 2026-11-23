@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_prickly_pear",
+    "features": "wilderwild:vegetation/patch_prickly_pear",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

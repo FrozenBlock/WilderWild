@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:huge_mushroom_rainforest",
+    "features": "wilderwild:vegetation/huge_mushroom_rainforest",
     "step": "top_layer_modification"
   },
   "phase": "additions",

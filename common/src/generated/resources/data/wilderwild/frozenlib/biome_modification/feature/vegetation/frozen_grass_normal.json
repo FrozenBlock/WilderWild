@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_frozen_grass_normal",
+    "features": "wilderwild:vegetation/patch_frozen_grass_normal",
     "step": "vegetal_decoration"
   },
   "phase": "replacements",

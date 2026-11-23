@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_shrub_desert",
+    "features": "wilderwild:vegetation/patch_shrub_desert",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

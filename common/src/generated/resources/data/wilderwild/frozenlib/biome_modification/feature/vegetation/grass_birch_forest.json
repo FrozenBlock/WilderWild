@@ -2,8 +2,8 @@
   "type": "frozenlib:feature",
   "additions": {
     "features": [
-      "wilderwild:patch_grass_birch",
-      "wilderwild:tall_grass"
+      "wilderwild:vegetation/patch_grass_birch",
+      "wilderwild:vegetation/tall_grass"
     ],
     "step": "vegetal_decoration"
   },

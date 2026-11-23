@@ -20,9 +20,7 @@ package net.frozenblock.wilderwild.data.worldgen.placement;
 import lombok.experimental.UtilityClass;
 import net.frozenblock.lib.config.v2.entry.predicates.ConfigPredicate;
 import net.frozenblock.lib.levelgen.blockpredicates.NoiseThresholdBlockPredicate;
-import net.frozenblock.lib.levelgen.feature.api.FrozenLibPlacedFeature;
 import net.frozenblock.lib.registry.FrozenLibRegistries;
-import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.data.worldgen.noise.WWNoises;
 import net.frozenblock.wilderwild.registry.WWConfigPredicates;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -65,9 +63,5 @@ public final class WWPlacementUtils {
 				)
 			)
 		);
-	}
-
-	public static FrozenLibPlacedFeature register(String name) {
-		return new FrozenLibPlacedFeature(WWConstants.id(name));
 	}
 }

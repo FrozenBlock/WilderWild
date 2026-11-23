@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:huge_mushroom_swamp",
+    "features": "wilderwild:vegetation/huge_mushroom_swamp",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

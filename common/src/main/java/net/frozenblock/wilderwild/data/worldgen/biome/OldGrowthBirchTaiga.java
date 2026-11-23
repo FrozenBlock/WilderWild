@@ -106,12 +106,11 @@ public final class OldGrowthBirchTaiga extends FrozenLibBiome {
 
 	@Override
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_OLD_GROWTH_BIRCH_TAIGA.getKey());
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addFerns(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		BiomeDefaultFeatures.addTaigaTrees(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_OLD_GROWTH_BIRCH_TAIGA.getKey());
 		BiomeDefaultFeatures.addBirchForestFlowers(features);
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addTaigaGrass(features);

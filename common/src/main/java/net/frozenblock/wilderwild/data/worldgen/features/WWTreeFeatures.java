@@ -3038,12 +3038,12 @@ public final class WWTreeFeatures {
 	}
 
 	public static FrozenLibTreeFeature register(
-		String id,
+		String name,
 		Supplier<Block> leafLitterBlock,
 		int triesA, int radiusA, int heightA,
 		int triesB, int radiusB, int heightB
 	) {
-		return WWFeatureUtils.registerTree("tree/" + id, leafLitterBlock, triesA, radiusA, heightA, triesB, radiusB, heightB);
+		return new FrozenLibTreeFeature(WWConstants.id("tree/" + name), () -> leafLitterBlock.get(), triesA, radiusA, heightA, triesB, radiusB, heightB);
 	}
 
 	private static FrozenLibFeature register(String id) {

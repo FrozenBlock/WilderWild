@@ -199,7 +199,7 @@
     [
       "minecraft:glow_lichen",
       "minecraft:forest_flowers",
-      "wilderwild:patch_grass_flower_field",
+      "wilderwild:vegetation/patch_grass_flower_field",
       "wilderwild:tree_vegetation/tree_flower_field",
       "minecraft:patch_bush",
       "minecraft:flower_default",

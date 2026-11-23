@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_tall_grass_swamp",
+    "features": "wilderwild:vegetation/patch_tall_grass_swamp",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

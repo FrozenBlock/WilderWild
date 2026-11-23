@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_fern_dense",
+    "features": "wilderwild:vegetation/patch_fern_dense",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

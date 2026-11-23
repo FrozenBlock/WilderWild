@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_dry_grass_badlands",
+    "features": "wilderwild:vegetation/patch_dry_grass_badlands",
     "step": "vegetal_decoration"
   },
   "phase": "replacements",

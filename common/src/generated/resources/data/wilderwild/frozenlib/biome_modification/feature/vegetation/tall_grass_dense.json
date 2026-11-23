@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_tall_grass_dense",
+    "features": "wilderwild:vegetation/patch_tall_grass_dense",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

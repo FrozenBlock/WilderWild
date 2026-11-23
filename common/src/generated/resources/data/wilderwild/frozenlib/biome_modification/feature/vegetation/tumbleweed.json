@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_tumbleweed",
+    "features": "wilderwild:vegetation/patch_tumbleweed",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

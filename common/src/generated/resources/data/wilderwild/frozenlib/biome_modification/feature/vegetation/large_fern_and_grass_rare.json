@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_large_fern_and_grass_rare",
+    "features": "wilderwild:vegetation/patch_large_fern_and_grass_rare",
     "step": "vegetal_decoration"
   },
   "phase": "additions",

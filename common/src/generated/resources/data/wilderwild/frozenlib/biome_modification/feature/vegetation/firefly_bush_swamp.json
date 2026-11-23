@@ -2,8 +2,8 @@
   "type": "frozenlib:feature",
   "additions": {
     "features": [
-      "wilderwild:patch_firefly_bush_near_water_swamp",
-      "wilderwild:patch_firefly_bush_swamp"
+      "wilderwild:vegetation/patch_firefly_bush_near_water_swamp",
+      "wilderwild:vegetation/patch_firefly_bush_swamp"
     ],
     "step": "vegetal_decoration"
   },

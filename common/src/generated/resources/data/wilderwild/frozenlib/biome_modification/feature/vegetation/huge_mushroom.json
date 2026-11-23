@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:huge_mushroom",
+    "features": "wilderwild:vegetation/huge_mushroom",
     "step": "top_layer_modification"
   },
   "phase": "additions",

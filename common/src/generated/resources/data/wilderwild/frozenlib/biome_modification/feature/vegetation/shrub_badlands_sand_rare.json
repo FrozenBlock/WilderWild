@@ -1,7 +1,7 @@
 {
   "type": "frozenlib:feature",
   "additions": {
-    "features": "wilderwild:patch_shrub_badlands_sand_rare",
+    "features": "wilderwild:vegetation/patch_shrub_badlands_sand_rare",
     "step": "vegetal_decoration"
   },
   "phase": "additions",
