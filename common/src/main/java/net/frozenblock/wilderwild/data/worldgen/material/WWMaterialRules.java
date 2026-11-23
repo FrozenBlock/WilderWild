@@ -492,8 +492,11 @@ public final class WWMaterialRules {
 								FrozenLibMaterialRules.makeStateRule(Blocks.PODZOL)
 							),
 							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
-								FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
+								ConfigPredicate.materialCondition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
+								MaterialRules.ifTrue(
+									MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
+									FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
+								)
 							),
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.0667, 0.4),
@@ -512,12 +515,15 @@ public final class WWMaterialRules {
 			overworld,
 			aboveSurfaceAndInBiomes(
 				biomes,
-				MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
-					MaterialRules.ifTrue(
-						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+				MaterialRules.ifTrue(
+					ConfigPredicate.materialCondition(configPredicates.getOrThrow(WWConfigPredicates.GENERATE_MOSS)),
+					MaterialRules.ifTrue(MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
-							FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
+							MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
+							MaterialRules.ifTrue(
+								MaterialRules.noiseCondition2d(Noises.POWDER_SNOW, 0.065, 0.15),
+								FrozenLibMaterialRules.makeStateRule(Blocks.MOSS_BLOCK)
+							)
 						)
 					)
 				),
@@ -619,24 +625,11 @@ public final class WWMaterialRules {
 					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					MaterialRules.ifTrue(
 						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
-						MaterialRules.sequence(
+						MaterialRules.ifTrue(
+							MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH_SELECTOR, 0.85D),
 							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(Noises.SURFACE, 0.525D, 0.725D),
+								MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH, 0.35D),
 								FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
-							),
-							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.3667D, 0.4D),
-								FrozenLibMaterialRules.makeStateRule(Blocks.ROOTED_DIRT)
-								//Deviation 0.0333
-								//Middle 0.18335
-							),
-							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, 0.34005D, 0.42665D),
-								FrozenLibMaterialRules.COARSE_DIRT
-							),
-							MaterialRules.ifTrue(
-								MaterialRules.noiseCondition2d(Noises.SURFACE_SECONDARY, -0.7250D, -0.525D),
-								FrozenLibMaterialRules.COARSE_DIRT
 							)
 						)
 					)

@@ -165,7 +165,6 @@ public final class WWVegetationPlacements {
 
 	// AUBURN MOSS
 	public static final FrozenLibPlacedFeature AUBURN_MOSS = register("auburn_moss");
-	public static final FrozenLibPlacedFeature AUBURN_CREEPING_MOSS = register("auburn_creeping_moss");
 
 	// BERRY
 	public static final FrozenLibPlacedFeature PATCH_BERRY_FOREST = register("patch_berry_forest");
@@ -977,21 +976,10 @@ public final class WWVegetationPlacements {
 
 		AUBURN_MOSS.makeAndSetHolder(WWVegetationFeatures.AUBURN_MOSS,
 			auburnMossConfigFilter,
-			RarityFilter.onAverageOnceEvery(24),
+			RarityFilter.onAverageOnceEvery(32),
 			InSquarePlacement.spread(),
 			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 			BiomeFilter.biome()
-		);
-
-		AUBURN_CREEPING_MOSS.makeAndSetHolder(WWVegetationFeatures.AUBURN_CREEPING_MOSS_PATCH,
-			auburnMossConfigFilter,
-			RarityFilter.onAverageOnceEvery(17),
-			InSquarePlacement.spread(),
-			PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
-			BiomeFilter.biome(),
-			CountPlacement.of(38),
-			OffsetPlacement.ofTriangle(6, 3),
-			BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
 		);
 
 		// BERRY

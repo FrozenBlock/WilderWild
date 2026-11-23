@@ -45,6 +45,8 @@ public final class WWNoises {
 	public static final ResourceKey<NormalNoise> PACKED_MUD_PATCH = createKey("packed_mud_patch");
 	public static final ResourceKey<NormalNoise> PACKED_MUD_PATCH_SELECTOR = createKey("packed_mud_patch_selector");
 	public static final ResourceKey<NormalNoise> PALE_GARDEN_PATH = createKey("pale_garden_path");
+	public static final ResourceKey<NormalNoise> TUNDRA_PATCH = createKey("tundra_patch");
+	public static final ResourceKey<NormalNoise> TUNDRA_PATCH_SELECTOR = createKey("tundra_patch_selector");
 	public static final ResourceKey<NormalNoise> CLEARING = createKey("clearing");
 	public static final ResourceKey<NormalNoise> CLEARING_PATH = createKey("clearing_path");
 
@@ -68,6 +70,8 @@ public final class WWNoises {
 		NoiseData.register(context, PALE_GARDEN_PATH, -4, 2D, 2D, 1D, 3D, 2D);
 		//NoiseData.register(context, CLEARING, -8, 0.5D, 0.75D, 1D, 2D);
 		NoiseData.register(context, CLEARING, -7, 0.8D);
+		NoiseData.register(context, TUNDRA_PATCH, -4, 1.5D, 0.5D, 2D, 3D);
+		NoiseData.register(context, TUNDRA_PATCH_SELECTOR, -5, 3D, 2D, 3D, 5D, 5D);
 		NoiseData.register(context, CLEARING_PATH, -5, 1D, 1D, 1D, 1D, 1D);
 	}
 

@@ -30,7 +30,9 @@ import net.frozenblock.wilderwild.registry.WWBlockStateProviders;
 import net.frozenblock.wilderwild.registry.WWBlocks;
 import net.frozenblock.wilderwild.tag.WWFeatureBlockTags;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -48,13 +50,16 @@ import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MultifaceGrowthFeature;
 import net.minecraft.world.level.levelgen.feature.RandomSelectorFeature;
+import net.minecraft.world.level.levelgen.feature.SequenceFeature;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
 import net.minecraft.world.level.levelgen.feature.VegetationPatchFeature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.WeightedRandomSelectorFeature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.OffsetPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import org.jetbrains.annotations.ApiStatus;
@@ -119,8 +124,8 @@ public final class WWVegetationFeatures {
 	// AUBURN MOSS
 	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH = register("auburn_moss_patch");
+	public static final FrozenLibFeature AUBURN_MOSS_PATCH_SEARCH = register("auburn_moss_patch_search");
 	public static final FrozenLibFeature AUBURN_MOSS = register("auburn_moss");
-	public static final FrozenLibFeature AUBURN_CREEPING_MOSS_PATCH = register("auburn_creeping_moss_patch");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH_BONEMEAL = register("auburn_moss_patch_bonemeal");
 
 	public static void bootstrap(BootstrapContext<Feature> context) {
@@ -246,53 +251,57 @@ public final class WWVegetationFeatures {
 				0F,
 				5,
 				0.475F,
-				UniformInt.of(1, 2),
+				UniformInt.of(3, 5),
 				0.45F,
 				FlexibleVegetationPatchFeature.FlexibleComponents.PLACE_ON_EDGES
 			)
 		);
 
-		AUBURN_MOSS.makeAndSetHolder(
-			new RandomSelectorFeature(
-				List.of(
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(
-							AUBURN_MOSS_PATCH.getHolder(),
-							CountPlacement.of(8),
-							OffsetPlacement.ofTriangle(6, 3)
-						),
-						0.25F
-					),
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(
-							AUBURN_MOSS_PATCH.getHolder(),
-							CountPlacement.of(8),
-							OffsetPlacement.ofTriangle(6, 4)
-						),
-						0.15F
-					),
-					new WeightedPlacedFeature(
-						PlacementUtils.inlinePlaced(
-							AUBURN_MOSS_PATCH.getHolder(),
-							CountPlacement.of(7),
-							OffsetPlacement.ofTriangle(3, 2)
-						),
-						0.25F
+		AUBURN_MOSS_PATCH_SEARCH.makeAndSetHolder(
+			new SequenceFeature(
+				HolderSet.direct(
+					PlacementUtils.inlinePlaced(
+						AUBURN_MOSS_PATCH.getHolder(),
+						OffsetPlacement.vertical(ConstantInt.of(3)),
+						EnvironmentScanPlacement.scanningFor(
+							Direction.DOWN,
+							BlockPredicate.matchesTag(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
+							BlockPredicate.ONLY_IN_AIR_PREDICATE,
+							8
+						)
 					)
-				),
-				PlacementUtils.inlinePlaced(AUBURN_MOSS_PATCH.getHolder())
+				)
 			)
 		);
 
-		AUBURN_CREEPING_MOSS_PATCH.makeAndSetHolder(
-			new MultifaceGrowthFeature(
-				WWBlocks.AUBURN_CREEPING_MOSS.get(),
-				10,
-				true,
-				true,
-				true,
-				0.7F,
-				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_CREEPING_MOSS_PLACEABLE)
+		AUBURN_MOSS.makeAndSetHolder(
+			new WeightedRandomSelectorFeature(
+				WeightedList.<Holder<PlacedFeature>>builder()
+					.add(
+						PlacementUtils.inlinePlaced(
+							AUBURN_MOSS_PATCH_SEARCH.getHolder(),
+							CountPlacement.of(6),
+							OffsetPlacement.ofTriangle(6, 3)
+						),
+						1
+					)
+					.add(
+						PlacementUtils.inlinePlaced(
+							AUBURN_MOSS_PATCH_SEARCH.getHolder(),
+							CountPlacement.of(4),
+							OffsetPlacement.ofTriangle(5, 3)
+						),
+						1
+					)
+					.add(
+						PlacementUtils.inlinePlaced(
+							AUBURN_MOSS_PATCH_SEARCH.getHolder(),
+							CountPlacement.of(4),
+							OffsetPlacement.ofTriangle(4, 2)
+						),
+						3
+					)
+					.build()
 			)
 		);
 

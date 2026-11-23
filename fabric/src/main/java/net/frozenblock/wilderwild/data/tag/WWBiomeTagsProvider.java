@@ -1961,11 +1961,6 @@ public final class WWBiomeTagsProvider extends BiomeTagsProvider {
 		this.builder(WWVegetationFeatureBiomeTags.AUBURN_MOSS)
 			.addOptional(WWBiomes.TUNDRA);
 
-		this.builder(WWVegetationFeatureBiomeTags.AUBURN_CREEPING_MOSS)
-			.add(Biomes.DAPPLED_FOREST)
-			.addOptional(WWBiomes.MAPLE_FOREST)
-			.addOptional(WWBiomes.TUNDRA);
-
 		// BERRY
 		this.builder(WWVegetationFeatureBiomeTags.BERRY_FOREST)
 			.addOptional(WWBiomes.MIXED_FOREST)

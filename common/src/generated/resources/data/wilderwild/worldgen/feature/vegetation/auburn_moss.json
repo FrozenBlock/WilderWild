@@ -1,18 +1,13 @@
 {
-  "type": "minecraft:random_selector",
-  "default": {
-    "feature": "wilderwild:vegetation/auburn_moss_patch",
-    "placement": []
-  },
+  "type": "minecraft:weighted_random_selector",
   "features": [
     {
-      "chance": 0.25,
-      "feature": {
-        "feature": "wilderwild:vegetation/auburn_moss_patch",
+      "data": {
+        "feature": "wilderwild:vegetation/auburn_moss_patch_search",
         "placement": [
           {
             "type": "minecraft:count",
-            "count": 8
+            "count": 6
           },
           {
             "type": "minecraft:offset",
@@ -36,56 +31,56 @@
             }
           }
         ]
-      }
+      },
+      "weight": 1
     },
     {
-      "chance": 0.15,
-      "feature": {
-        "feature": "wilderwild:vegetation/auburn_moss_patch",
+      "data": {
+        "feature": "wilderwild:vegetation/auburn_moss_patch_search",
         "placement": [
           {
             "type": "minecraft:count",
-            "count": 8
+            "count": 4
           },
           {
             "type": "minecraft:offset",
             "x": {
               "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
+              "max": 5,
+              "min": -5,
               "plateau": 0
             },
             "y": {
+              "type": "minecraft:trapezoid",
+              "max": 3,
+              "min": -3,
+              "plateau": 0
+            },
+            "z": {
+              "type": "minecraft:trapezoid",
+              "max": 5,
+              "min": -5,
+              "plateau": 0
+            }
+          }
+        ]
+      },
+      "weight": 1
+    },
+    {
+      "data": {
+        "feature": "wilderwild:vegetation/auburn_moss_patch_search",
+        "placement": [
+          {
+            "type": "minecraft:count",
+            "count": 4
+          },
+          {
+            "type": "minecraft:offset",
+            "x": {
               "type": "minecraft:trapezoid",
               "max": 4,
               "min": -4,
-              "plateau": 0
-            },
-            "z": {
-              "type": "minecraft:trapezoid",
-              "max": 6,
-              "min": -6,
-              "plateau": 0
-            }
-          }
-        ]
-      }
-    },
-    {
-      "chance": 0.25,
-      "feature": {
-        "feature": "wilderwild:vegetation/auburn_moss_patch",
-        "placement": [
-          {
-            "type": "minecraft:count",
-            "count": 7
-          },
-          {
-            "type": "minecraft:offset",
-            "x": {
-              "type": "minecraft:trapezoid",
-              "max": 3,
-              "min": -3,
               "plateau": 0
             },
             "y": {
@@ -96,13 +91,14 @@
             },
             "z": {
               "type": "minecraft:trapezoid",
-              "max": 3,
-              "min": -3,
+              "max": 4,
+              "min": -4,
               "plateau": 0
             }
           }
         ]
-      }
+      },
+      "weight": 3
     }
   ]
 }

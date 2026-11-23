@@ -2,7 +2,7 @@
   "type": "frozenlib:feature",
   "additions": {
     "features": "wilderwild:vegetation/auburn_moss",
-    "step": "vegetal_decoration"
+    "step": "underground_decoration"
   },
   "phase": "additions",
   "selector": {

@@ -83,6 +83,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Grass Block path generation in the Oasis biome is now generated via a Material Rule instead of a Feature.
 - Coarse Dirt path generation in Taiga and Arid biomes is now generated via a Material Rule instead of a Feature.
 - Podzol in the Tundra, Maple Forest, Dying Forest, and Dying Mixed Forest biomes has been replaced with Coarse Dirt.
+- Replaced long, winding paths of Coarse Dirt in the Tundra biome with more natural-looking and smaller patches.
 - Sandstone patch generation in Desert and Arid biomes is now generated via a Material Rule instead of a Feature.
 - Moss Block path generation in Jungle biomes are now generated via a Material Rule instead of a Feature.
 - Moss Block path generation in the Deep Lukewarm Ocean biome is now generated via a Material Rule instead of a Feature.
@@ -95,6 +96,8 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Termite Mounds can now only generate with Coarse Dirt surrounding them, not Packed Mud.
 - Transitional patches of Sand and Red Sand are now much smaller and less chaotic.
 - Removed rare, occasional sparse splotchy patches of Coarse Dirt, Gravel, and Stone.
+- Removed isolated patched of Creeping Auburn Moss from the Tundra, Maple Forest, and Dappled Forest biomes.
+- Increased the size and decreased the frequency of Auburn Moss patches in the Tundra biome.
 - Removed custom "path"-like generation of Clay, Gravel, and Sand that were intended to replace Clay, Gravel, and Sand disks in certain biomes.
 - Surface Gravel disks no longer generate in the Cypress Wetlands biome.
 - Completely overhauled Wilder Wild's flower generation from the ground up.

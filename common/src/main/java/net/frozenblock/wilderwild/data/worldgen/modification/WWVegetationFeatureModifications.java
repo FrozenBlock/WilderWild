@@ -268,8 +268,7 @@ public final class WWVegetationFeatureModifications {
 		registerVegetalAddition(context, WWVegetationFeatureBiomeTags.MOSS_CARPET, WWVegetationPlacements.MOSS_CARPET);
 
 		// AUBURN MOSS
-		registerVegetalAddition(context, WWVegetationFeatureBiomeTags.AUBURN_MOSS, WWVegetationPlacements.AUBURN_MOSS);
-		registerVegetalAddition(context, WWVegetationFeatureBiomeTags.AUBURN_CREEPING_MOSS, WWVegetationPlacements.AUBURN_CREEPING_MOSS);
+		registerUndergroundAddition(context, WWVegetationFeatureBiomeTags.AUBURN_MOSS, WWVegetationPlacements.AUBURN_MOSS);
 
 		// SWEET BERRY BUSH
 		registerVegetalAddition(context, WWVegetationFeatureBiomeTags.BERRY_FOREST, WWVegetationPlacements.PATCH_BERRY_FOREST);

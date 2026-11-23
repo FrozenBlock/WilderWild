@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:sequence",
+  "features": {
+    "feature": "wilderwild:vegetation/auburn_moss_patch",
+    "placement": [
+      {
+        "type": "minecraft:offset",
+        "x": 0,
+        "y": 3,
+        "z": 0
+      },
+      {
+        "type": "minecraft:environment_scan",
+        "allowed_search_condition": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "minecraft:air"
+        },
+        "direction_of_search": "down",
+        "max_steps": 8,
+        "target_condition": {
+          "type": "minecraft:matching_block_tag",
+          "tag": "wilderwild:feature/auburn_moss_replaceable"
+        }
+      }
+    ]
+  }
+}
