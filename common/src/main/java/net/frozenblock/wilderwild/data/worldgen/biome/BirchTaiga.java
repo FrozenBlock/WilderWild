@@ -105,12 +105,11 @@ public final class BirchTaiga extends FrozenLibBiome {
 
 	@Override
 	public void addFeatures(BiomeGenerationSettings.Builder features) {
-		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_BIRCH_TAIGA.getKey());
 		WWSharedWorldgen.addBasicFeatures(features, false);
 		BiomeDefaultFeatures.addFerns(features);
 		BiomeDefaultFeatures.addDefaultOres(features);
 		BiomeDefaultFeatures.addDefaultSoftDisks(features);
-		BiomeDefaultFeatures.addTaigaTrees(features);
+		features.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, WWTreeVegetationPlacements.TREE_BIRCH_TAIGA.getKey());
 		BiomeDefaultFeatures.addDefaultFlowers(features);
 		BiomeDefaultFeatures.addTaigaGrass(features);
 		BiomeDefaultFeatures.addDefaultExtraVegetation(features, true);
