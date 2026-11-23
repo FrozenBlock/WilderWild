@@ -13,7 +13,7 @@
   "surface": "floor",
   "vegetation_chance": 0.475,
   "vegetation_feature": {
-    "feature": "wilderwild:vegetation/auburn_moss_vegetation",
+    "feature": "wilderwild:vegetation/auburn_moss_vegetation_bonemeal",
     "placement": []
   },
   "vertical_range": 5,

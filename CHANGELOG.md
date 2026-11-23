@@ -98,6 +98,7 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Removed rare, occasional sparse splotchy patches of Coarse Dirt, Gravel, and Stone.
 - Removed isolated patched of Creeping Auburn Moss from the Tundra, Maple Forest, and Dappled Forest biomes.
 - Increased the size and decreased the frequency of Auburn Moss patches in the Tundra biome.
+- Auburn Moss patches in the Tundra biome will now generate with Red Shrubs.
 - Removed custom "path"-like generation of Clay, Gravel, and Sand that were intended to replace Clay, Gravel, and Sand disks in certain biomes.
 - Surface Gravel disks no longer generate in the Cypress Wetlands biome.
 - Completely overhauled Wilder Wild's flower generation from the ground up.

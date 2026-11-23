@@ -71,7 +71,7 @@ public final class WWNoises {
 		//NoiseData.register(context, CLEARING, -8, 0.5D, 0.75D, 1D, 2D);
 		NoiseData.register(context, CLEARING, -7, 0.8D);
 		NoiseData.register(context, TUNDRA_PATCH, -4, 1.5D, 0.5D, 2D, 3D);
-		NoiseData.register(context, TUNDRA_PATCH_SELECTOR, -5, 3D, 2D, 3D, 5D, 5D);
+		NoiseData.register(context, TUNDRA_PATCH_SELECTOR, -5, 4D, 6D, 6D, 12D, 18D);
 		NoiseData.register(context, CLEARING_PATH, -5, 1D, 1D, 1D, 1D, 1D);
 	}
 

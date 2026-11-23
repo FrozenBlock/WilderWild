@@ -123,6 +123,7 @@ public final class WWVegetationFeatures {
 
 	// AUBURN MOSS
 	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION = register("auburn_moss_vegetation");
+	public static final FrozenLibFeature AUBURN_MOSS_VEGETATION_BONEMEAL = register("auburn_moss_vegetation_bonemeal");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH = register("auburn_moss_patch");
 	public static final FrozenLibFeature AUBURN_MOSS_PATCH_SEARCH = register("auburn_moss_patch_search");
 	public static final FrozenLibFeature AUBURN_MOSS = register("auburn_moss");
@@ -216,6 +217,42 @@ public final class WWVegetationFeatures {
 
 		// AUBURN MOSS
 		AUBURN_MOSS_VEGETATION.makeAndSetHolder(
+			new WeightedRandomSelectorFeature(
+				WeightedList.<Holder<PlacedFeature>>builder()
+					.add(
+						PlacementUtils.inlinePlaced(
+							new SimpleBlockFeature(BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_CARPET.get())),
+							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+						),
+						6
+					)
+					.add(
+						PlacementUtils.inlinePlaced(
+							new MultifaceGrowthFeature(
+								WWBlocks.AUBURN_CREEPING_MOSS.get(),
+								1,
+								true,
+								false,
+								true,
+								0.3F,
+								blocks.getOrThrow(WWFeatureBlockTags.AUBURN_CREEPING_MOSS_PLACEABLE)
+							),
+							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE)
+						),
+						16
+					)
+					.add(
+						PlacementUtils.inlinePlaced(
+							new SimpleBlockFeature(BlockStateProvider.holderOf(Blocks.RED_SHRUB)),
+							BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
+						),
+						1
+					)
+					.build()
+			)
+		);
+
+		AUBURN_MOSS_VEGETATION_BONEMEAL.makeAndSetHolder(
 			new RandomSelectorFeature(
 				List.of(
 					new WeightedPlacedFeature(
@@ -309,7 +346,7 @@ public final class WWVegetationFeatures {
 			new FlexibleVegetationPatchFeature(
 				blocks.getOrThrow(WWFeatureBlockTags.AUBURN_MOSS_REPLACEABLE),
 				BlockStateProvider.holderOf(WWBlocks.AUBURN_MOSS_BLOCK.get()),
-				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION.getHolder()),
+				PlacementUtils.inlinePlaced(AUBURN_MOSS_VEGETATION_BONEMEAL.getHolder()),
 				CaveSurface.FLOOR,
 				ConstantInt.of(1),
 				0F,
