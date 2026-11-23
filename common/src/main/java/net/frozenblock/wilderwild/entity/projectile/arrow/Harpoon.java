@@ -223,6 +223,7 @@ public class Harpoon extends AbstractArrow {
 		if (!(attachedTo instanceof Player) && attachedTo instanceof LivingEntity livingEntity) {
 			livingEntity.take(this, 1);
 		} else if (attachedTo instanceof ServerPlayer player && (this.pickup == Pickup.ALLOWED || player.hasInfiniteMaterials())) {
+			if (player.isDeadOrDying()) return;
 			player.take(this, 1);
 			if (this.pickup == Pickup.ALLOWED) player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
 		}
