@@ -361,6 +361,15 @@ public final class WWSoundEvents {
 	public static final DeferredSoundEvent POTION_LINGERING = register("item.potion.lingering");
 	// SNOWBALL
 	public static final DeferredSoundEvent SNOWBALL_LAND = register("item.snowball.land");
+	// HARPOON
+	public static final DeferredSoundEvent HARPOON_REEL = register("item.harpoon.reel");
+	public static final DeferredSoundEvent HARPOON_REEL_AUTOMATIC = register("item.harpoon.reel_automatic");
+	public static final DeferredSoundEvent HARPOON_REEL_ENTITY = register("item.harpoon.reel_entity");
+	public static final DeferredSoundEvent HARPOON_REEL_GRAPPLE = register("item.harpoon.reel_grapple");
+	public static final DeferredSoundEvent HARPOON_REEL_GRAPPLE_SHORT = register("item.harpoon.reel_grapple_short");
+	public static final DeferredSoundEvent HARPOON_REEL_GRAPPLE_WEAK = register("item.harpoon.reel_grapple_weak");
+	public static final DeferredSoundEvent HARPOON_REEL_GRAPPLE_WEAK_SHORT = register("item.harpoon.reel_grapple_weak_short");
+	public static final DeferredSoundEvent HARPOON_SNAP = register("item.harpoon.snap");
 
 	// PARTICLE
 	public static final DeferredSoundEvent FLOATING_SCULK_BUBBLE_POP = register("particle.floating_sculk_bubble.pop");

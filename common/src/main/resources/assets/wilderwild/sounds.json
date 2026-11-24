@@ -4642,6 +4642,84 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "item.harpoon.reel": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel1",
+      "wilderwild:item/harpoon/reel2",
+      "wilderwild:item/harpoon/reel3",
+      "wilderwild:item/harpoon/reel4",
+      "wilderwild:item/harpoon/reel5"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel"
+  },
+  "item.harpoon.reel_automatic": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel_automatic1",
+      "wilderwild:item/harpoon/reel_automatic2",
+      "wilderwild:item/harpoon/reel_automatic3",
+      "wilderwild:item/harpoon/reel_automatic4",
+      "wilderwild:item/harpoon/reel_automatic5"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel"
+  },
+  "item.harpoon.reel_entity": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel_entity1",
+      "wilderwild:item/harpoon/reel_entity2",
+      "wilderwild:item/harpoon/reel_entity3",
+      "wilderwild:item/harpoon/reel_entity4"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel_entity"
+  },
+  "item.harpoon.reel_grapple": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel_grapple1",
+      "wilderwild:item/harpoon/reel_grapple2",
+      "wilderwild:item/harpoon/reel_grapple3",
+      "wilderwild:item/harpoon/reel_grapple4",
+      "wilderwild:item/harpoon/reel_grapple5"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel_grapple"
+  },
+  "item.harpoon.reel_grapple_short": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel_grapple_short1",
+      "wilderwild:item/harpoon/reel_grapple_short2",
+      "wilderwild:item/harpoon/reel_grapple_short3",
+      "wilderwild:item/harpoon/reel_grapple_short4",
+      "wilderwild:item/harpoon/reel_grapple_short5"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel_grapple"
+  },
+  "item.harpoon.reel_grapple_weak": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel_grapple_weak1",
+      "wilderwild:item/harpoon/reel_grapple_weak2",
+      "wilderwild:item/harpoon/reel_grapple_weak3",
+      "wilderwild:item/harpoon/reel_grapple_weak4",
+      "wilderwild:item/harpoon/reel_grapple_weak5"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel_grapple"
+  },
+  "item.harpoon.reel_grapple_weak_short": {
+    "sounds": [
+      "wilderwild:item/harpoon/reel_grapple_weak_short1",
+      "wilderwild:item/harpoon/reel_grapple_weak_short2",
+      "wilderwild:item/harpoon/reel_grapple_weak_short3",
+      "wilderwild:item/harpoon/reel_grapple_weak_short4",
+      "wilderwild:item/harpoon/reel_grapple_weak_short5"
+    ],
+    "subtitle": "subtitles.item.harpoon.reel_grapple"
+  },
+  "item.harpoon.snap": {
+    "sounds": [
+      "wilderwild:item/harpoon/snap1",
+      "wilderwild:item/harpoon/snap2",
+      "wilderwild:item/harpoon/snap3",
+      "wilderwild:item/harpoon/snap4"
+    ],
+    "subtitle": "subtitles.item.harpoon.snap"
+  },
   "entity.moobloom.shear": {
     "sounds": [
       "minecraft:mob/sheep/shear"
