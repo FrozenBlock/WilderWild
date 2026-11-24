@@ -310,13 +310,10 @@ public class Harpoon extends AbstractArrow {
 				final float xOffset = zDifference * offsetFactor;
 				final float zOffset = xDifference * offsetFactor;
 
-				final int particleCount = this.random.nextIntBetweenInclusive(8, 20);
-				for (int i = 0; i <= particleCount; i++) {
-					final float progress = i / particleCount;
+				for (int i = 0; i <= 24; i++) {
+					final float progress = i / 24F;
 					final float x = xDifference * progress;
-					final float y = yDifference > 0F
-						? yDifference * progress * progress
-						: yDifference - yDifference * (1F - progress) * (1F - progress);
+					final float y = yDifference > 0F ? yDifference * progress * progress : yDifference - yDifference * (1F - progress) * (1F - progress);
 					final float z = zDifference * progress;
 					this.level().addParticle(
 						new ItemParticleOption(ParticleTypes.ITEM, Items.LEAD),
