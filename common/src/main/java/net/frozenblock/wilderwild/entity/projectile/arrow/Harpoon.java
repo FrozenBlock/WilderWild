@@ -19,6 +19,7 @@ package net.frozenblock.wilderwild.entity.projectile.arrow;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Supplier;
 import net.frozenblock.wilderwild.item.impl.WWEnchantmentHelper;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
 import net.frozenblock.wilderwild.registry.WWEnchantmentEffectComponents;
@@ -363,20 +364,36 @@ public class Harpoon extends AbstractArrow {
 			}
 		}
 		if (id == EntityEvent.ARMADILLO_PEEK) {
-			this.level().playLocalSound(this.blockPosition(), SoundEvents.ITEM_BREAK, this.getSoundSource(), 0.8F, 0.8F + this.random.nextFloat() * 0.4F, false);
+			if (!this.isSilent()) {
+				this.level().playLocalSound(
+					this.blockPosition(),
+					SoundEvents.ITEM_BREAK,
+					this.getSoundSource(),
+					0.8F,
+					0.8F + this.random.nextFloat() * 0.4F,
+					false
+				);
+			}
 
+			final Vec3 baseParticlePos = new Vec3(
+				this.getX(),
+				this.getY(0.5D),
+				this.getZ()
+			);
+			final Supplier<Double> horizontalOffset = () -> this.getRandom().nextGaussian() * (this.getBbWidth() / 3.5D);
+			final Supplier<Double> verticalOffset = () -> this.getRandom().nextGaussian() * (this.getBbHeight() / 3.5D);
+			final Supplier<Double> delta = () -> this.getRandom().nextGaussian() * 0.05D;
 			final ItemParticleOption breakParticle = new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getPickupItem()));
 			for (int i = 0; i < 8; i++) {
-				Vec3 d = new Vec3((this.random.nextFloat() - 0.5D) * 0.1D, this.random.nextFloat() * 0.1D + 0.1D, 0D);
-				d = d.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
-				d = d.yRot(-this.getYRot() * Mth.DEG_TO_RAD);
-
-				final double y1 = -this.random.nextFloat() * 0.6D - 0.3D;
-				Vec3 p = new Vec3((this.random.nextFloat() - 0.5D) * 0.3D, y1, 0.6D);
-				p = p.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
-				p = p.yRot(-this.getYRot() * Mth.DEG_TO_RAD);
-				p = p.add(this.getX(), this.getEyeY(), this.getZ());
-				this.level().addParticle(breakParticle, p.x, p.y, p.z, d.x, d.y + 0.05D, d.z);
+				this.level().addParticle(
+					breakParticle,
+					baseParticlePos.x() + horizontalOffset.get(),
+					baseParticlePos.y() + verticalOffset.get(),
+					baseParticlePos.z() + horizontalOffset.get(),
+					delta.get(),
+					delta.get(),
+					delta.get()
+				);
 			}
 		}
 
