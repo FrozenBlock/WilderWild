@@ -71,10 +71,8 @@ public class CrossbowItemMixin {
 		final Harpoon harpoon = EntityReference.get(WWAttachmentTypes.HARPOON.get(player), level, Harpoon.class);
 		if (harpoon == null) return;
 
-		if (!level.isClientSide()) {
-			final int dmg = harpoon.retrieve(itemStack);
-			itemStack.hurtAndBreak(dmg, player, hand.asEquipmentSlot());
-		}
+		final int dmg = harpoon.retrieve(itemStack);
+		if (!level.isClientSide()) itemStack.hurtAndBreak(dmg, player, hand.asEquipmentSlot());
 
 		info.setReturnValue(InteractionResult.SUCCESS);
 	}

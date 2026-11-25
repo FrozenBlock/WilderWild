@@ -625,11 +625,23 @@ public final class WWMaterialRules {
 					MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.ON_FLOOR),
 					MaterialRules.ifTrue(
 						MaterialRules.getCondition(materialConditions, VanillaMaterialConditions.NOT_UNDERWATER),
-						MaterialRules.ifTrue(
-							MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH_SELECTOR, 0.85D),
+						MaterialRules.sequence(
+							MaterialRules.ifTrue(
+								MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH_SELECTOR, 0.85D),
+								MaterialRules.ifTrue(
+									MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH, 0.35D),
+									FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
+								)
+							),
 							MaterialRules.ifTrue(
 								MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH, 0.35D),
-								FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
+								MaterialRules.sequence(
+									MaterialRules.ifTrue(
+										MaterialRules.noiseCondition2d(WWNoises.TUNDRA_PATCH, 0.85D),
+										FrozenLibMaterialRules.makeStateRule(Blocks.ROOTED_DIRT)
+									),
+									FrozenLibMaterialRules.makeStateRule(Blocks.COARSE_DIRT)
+								)
 							)
 						)
 					)

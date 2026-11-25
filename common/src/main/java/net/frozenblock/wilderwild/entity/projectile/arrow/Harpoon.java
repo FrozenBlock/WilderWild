@@ -179,7 +179,9 @@ public class Harpoon extends AbstractArrow {
 				WWSoundEvents.HARPOON_SNAP.asHolder(),
 				1F,
 				0.9F,
-				1.1F
+				1.1F,
+				null,
+				null
 			);
 		}
 	}
@@ -196,7 +198,18 @@ public class Harpoon extends AbstractArrow {
     public int retrieve(@Nullable ItemStack crossbow) {
 		if (!(this.getOrSetAttachedTo() instanceof LivingEntity attachedTo)) return 0;
 
-		if (this.level().isClientSide() || this.shouldStopHarpooning(attachedTo)) return 0;
+		if (this.level().isClientSide()) {
+			if (this.hookedIn != null && this.reelInTicks < 0) {
+				attachedTo.playSound(
+					WWSoundEvents.HARPOON_REEL_ENTITY.asHolder(),
+					1F,
+					0.9F + this.random.nextFloat() * 0.2F
+				);
+			}
+			return 0;
+		}
+
+		if (this.shouldStopHarpooning(attachedTo)) return 0;
 
 		if (this.hookedIn != null) {
 			if (this.reelInTicks >= 0) return 0;
@@ -207,7 +220,9 @@ public class Harpoon extends AbstractArrow {
 				WWSoundEvents.HARPOON_REEL_ENTITY.asHolder(),
 				1F,
 				0.9F,
-				1.1F
+				1.1F,
+				this.hookedIn,
+				attachedTo
 			);
 			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
 				// TODO: criteria for reeling hooked entity
@@ -217,7 +232,8 @@ public class Harpoon extends AbstractArrow {
 			return 3;
 		}
 
-		if (this.reelInTicks >= GRAPPLE_BUFFER_TICKS) return 0;
+		if (this.level().isClientSide() || this.reelInTicks >= GRAPPLE_BUFFER_TICKS) return 0;
+
 		if (this.isInGround() && this.getRemainingGrappleCount() > 0 && !this.getPreventGrapple()) {
 			this.reelInTicks = this.getGrappleTicks();
 			final int previousRemainingGrappleCount = this.getRemainingGrappleCount();
@@ -233,7 +249,9 @@ public class Harpoon extends AbstractArrow {
 						: WWSoundEvents.HARPOON_REEL_GRAPPLE_WEAK_SHORT.asHolder(),
 				1F,
 				0.9F + ((previousRemainingGrappleCount - 1) * 0.2F),
-				1.1F + ((previousRemainingGrappleCount - 1) * 0.2F)
+				1.1F + ((previousRemainingGrappleCount - 1) * 0.2F),
+				null,
+				null
 			);
 			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
 				// TODO: criteria for using as grappling hook
@@ -256,7 +274,9 @@ public class Harpoon extends AbstractArrow {
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
 				0.75F,
 				0.9F,
-				1.1F
+				1.1F,
+				null,
+				null
 			);
 			livingEntity.take(this, 1);
 		} else if (attachedTo instanceof ServerPlayer player && (this.pickup == Pickup.ALLOWED || player.hasInfiniteMaterials())) {
@@ -265,7 +285,9 @@ public class Harpoon extends AbstractArrow {
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
 				0.75F,
 				0.9F,
-				1.1F
+				1.1F,
+				null,
+				null
 			);
 			player.take(this, 1);
 			if (this.pickup == Pickup.ALLOWED) player.getInventory().placeItemBackInInventory(this.getPickupItem(), Prediction.SERVER_ONLY);
@@ -274,19 +296,20 @@ public class Harpoon extends AbstractArrow {
 		this.discard();
 	}
 
-	private void playRopeSound(Holder<SoundEvent> soundEvent, float volume, float minPitch, float maxPitch) {
+	private void playRopeSound(Holder<SoundEvent> soundEvent, float volume, float minPitch, float maxPitch, @Nullable Entity positionOverride, @Nullable Entity except) {
 		if (this.isSilent() || this.level().isClientSide()) return;
 
 		final Entity attachedTo = this.getOrSetAttachedTo();
 		if (attachedTo != null && attachedTo.isSilent()) return;
 
 		final Entity sourceEntity = attachedTo != null ? attachedTo : this;
+		final Entity positionEntity = positionOverride != null ? positionOverride : sourceEntity;
 		final float pitch = minPitch + (this.getRandom().nextFloat() * (maxPitch - minPitch));
 		this.level().playSound(
-			null,
-			sourceEntity.getX(),
-			sourceEntity.getY(),
-			sourceEntity.getZ(),
+			except,
+			positionEntity.getX(),
+			positionEntity.getY(),
+			positionEntity.getZ(),
 			soundEvent,
 			sourceEntity.getSoundSource(),
 			volume,
