@@ -100,7 +100,7 @@ public class CrossbowItemMixin {
 			if (body.isInLiquid()) {
 				originalVector = originalVector.subtract(0D, distanceToTarget * 0.1F, 0D);
 			} else {
-				originalVector = originalVector.add(0D, distanceToTarget * 0.1F, 0D);
+				originalVector = originalVector.add(0D, distanceToTarget * 0.07F, 0D);
 			}
 
 			if (targetOverride != null) {
