@@ -363,7 +363,7 @@ public class Harpoon extends AbstractArrow {
 			}
 		}
 		if (id == EntityEvent.ARMADILLO_PEEK) {
-			this.level().playLocalSound(this, SoundEvents.ITEM_BREAK, this.getSoundSource(), 0.8F, 0.8F + this.random.nextFloat() * 0.4F);
+			this.level().playLocalSound(this.blockPosition(), SoundEvents.ITEM_BREAK, this.getSoundSource(), 0.8F, 0.8F + this.random.nextFloat() * 0.4F, false);
 
 			final ItemParticleOption breakParticle = new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getPickupItem()));
 			for (int i = 0; i < 8; i++) {
