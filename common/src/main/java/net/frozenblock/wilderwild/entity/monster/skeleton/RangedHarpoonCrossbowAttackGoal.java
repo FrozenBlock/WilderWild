@@ -235,7 +235,10 @@ public class RangedHarpoonCrossbowAttackGoal<T extends Sunken & RangedAttackMob 
 		this.ticksSinceShot = 0;
 		this.reelingIn = false;
 		final Harpoon harpoon = this.getHarpoon();
-		if (harpoon != null) harpoon.discard();
+		if (harpoon != null) {
+			harpoon.onHarpoonRopeSnapped(this.mob, true);
+			harpoon.discard();
+		}
 	}
 
 	private boolean isHookedInGround(Harpoon harpoon) {

@@ -162,16 +162,16 @@ public class Harpoon extends AbstractArrow {
 			if ((mainHandIsHarpooning || offHandIsHarpooning) && this.distanceToSqr(attachedTo) <= MAX_STRING_DISTANCE_SQUARED) return false;
 		}
 
-		this.onHarpoonStringBroken(attachedTo);
+		this.onHarpoonRopeSnapped(attachedTo, false);
 		return true;
 	}
 
-	private void onHarpoonStringBroken(LivingEntity attachedTo) {
+	public void onHarpoonRopeSnapped(LivingEntity attachedTo, boolean forceSnap) {
 		WWAttachmentTypes.HARPOON_ATTACHED_TO.remove(this);
-		WWAttachmentTypes.HARPOON.remove(attachedTo);
+		if (attachedTo != null) WWAttachmentTypes.HARPOON.remove(attachedTo);
 
 		if (this.getHookedIn() != null) this.setHookedIn(null);
-		if (this.getPreventRopeSnap()) {
+		if (this.getPreventRopeSnap() && !forceSnap) {
 			this.discardAndPlaceItemBackInInventory(true);
 		} else {
 			this.level().broadcastEntityEvent(this, EntityEvent.SHAKE);
@@ -273,8 +273,8 @@ public class Harpoon extends AbstractArrow {
 			this.playRopeSound(
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
 				0.75F,
-				0.9F,
-				1.1F,
+				0.8F,
+				1.3F,
 				null,
 				null
 			);
@@ -284,8 +284,8 @@ public class Harpoon extends AbstractArrow {
 			this.playRopeSound(
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
 				0.75F,
-				0.9F,
-				1.1F,
+				0.8F,
+				1.3F,
 				null,
 				null
 			);
