@@ -18,6 +18,7 @@
 package net.frozenblock.wilderwild.data.worldgen.biome.impl;
 
 import lombok.experimental.UtilityClass;
+import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
 import net.frozenblock.wilderwild.data.worldgen.biome.Tundra;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -36,11 +37,27 @@ public final class WWGrassColorModifier {
 	}
 
 	public static int modifyColorTundra(double x, double z, int baseColor) {
+		final TundraGrassColorType grassColorType = WWAmbienceAndMiscConfig.TUNDRA_GRASS_COLOR.get();
+		if (grassColorType == TundraGrassColorType.BROWN) return Tundra.GRASS_COLOR_ORANGE;
+
 		final double noise = Biome.BIOME_INFO_NOISE.get(x * 0.0225D, z * 0.0225D);
-		if (noise < -0.5D) return Tundra.GRASS_COLOR_BROWN;
-		if (noise < -0.35D) return Tundra.GRASS_COLOR_ORANGE;
-		if (noise > 0.8D) return Tundra.GRASS_COLOR_BLUE_GREENISH;
-		if (noise > 0.5D) return Tundra.GRASS_COLOR_LIGHTER_GREEN;
+
+		if (grassColorType == TundraGrassColorType.DEFAULT) {
+			if (noise < -0.5D) return Tundra.GRASS_COLOR_BROWN;
+			if (noise < -0.35D) return Tundra.GRASS_COLOR_ORANGE;
+			if (noise > 0.8D) return Tundra.GRASS_COLOR_BLUE_GREENISH;
+			if (noise > 0.5D) return Tundra.GRASS_COLOR_LIGHTER_GREEN;
+			return Tundra.GRASS_COLOR_MAPLE;
+		}
+
+		if (grassColorType == TundraGrassColorType.CONTRAST) {
+			if (noise < -0.5D) return Tundra.GRASS_COLOR_BROWN_OLD;
+			if (noise < -0.35D) return Tundra.GRASS_COLOR_ORANGE_OLD;
+			if (noise > 0.8D) return Tundra.GRASS_COLOR_BLUE_GREENISH_OLD;
+			if (noise > 0.5D) return Tundra.GRASS_COLOR_LIGHTER_GREEN_OLD;
+			return Tundra.GRASS_COLOR_MAPLE;
+		}
+
 		return baseColor;
 	}
 }

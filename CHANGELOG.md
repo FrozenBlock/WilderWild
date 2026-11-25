@@ -55,6 +55,11 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
 - Fixed a visual issue that caused Algae to become completely invisible at a distance or when looked at from a certain angle.
 - Fixed an issue that caused the lids of Stone Chests to not animate as smoothly as intended.
 - Fixed a bug that caused the hand swinging animation to play on the client side while attempting to interact with a Display Lantern could not be interacted with.
+- Altered the Grass Colors of the Tundra Biome to mesh slightly better together.
+  - Added a config option to determine how the Tundra Biome's Grass Colors should be handled:
+    - `Default`: The new Grass Colors.
+    - `Contrast`: The previous, slightly more contrasting Grass Colors.
+    - `Brown`: A single shade of brown.
 
 ### Worldgen
 - Completely reorganized and cleaned up Wilder Wild's worldgen.

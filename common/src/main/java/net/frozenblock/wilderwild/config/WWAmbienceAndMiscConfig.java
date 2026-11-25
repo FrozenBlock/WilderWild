@@ -24,6 +24,7 @@ import net.frozenblock.lib.config.v2.entry.ConfigEntry;
 import net.frozenblock.lib.config.v2.entry.EntryType;
 import net.frozenblock.lib.config.v2.registry.ID;
 import net.frozenblock.wilderwild.WWConstants;
+import net.frozenblock.wilderwild.data.worldgen.biome.impl.TundraGrassColorType;
 
 @UtilityClass
 public final class WWAmbienceAndMiscConfig {
@@ -132,5 +133,9 @@ public final class WWAmbienceAndMiscConfig {
 	public static final ConfigEntry<Boolean> DAPPLED_FOREST_GRASS_COLOR = CONFIG.unsyncableEntryBuilder("vegetationColors/dappledForestGrass", EntryType.BOOL, true)
 		.requireRestart()
 		.textSupplier(bool -> WWConstants.text("new." + bool))
+		.build();
+	public static final ConfigEntry<TundraGrassColorType> TUNDRA_GRASS_COLOR = CONFIG.unsyncableEntryBuilder("vegetationColors/tundraGrass", TundraGrassColorType.CONFIG_ENTRY_TYPE, TundraGrassColorType.DEFAULT)
+		.requireRestart()
+		.textSupplier(tundraGrassColorType -> WWConstants.text("tundra_grass_color." + ((TundraGrassColorType) tundraGrassColorType).getSerializedName()))
 		.build();
 }

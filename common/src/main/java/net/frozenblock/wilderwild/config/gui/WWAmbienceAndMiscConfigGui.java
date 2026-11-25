@@ -24,6 +24,7 @@ import static net.frozenblock.lib.config.clothconfig.FrozenLibClothConfigGuiHelp
 import static net.frozenblock.wilderwild.WWConstants.text;
 import static net.frozenblock.wilderwild.WWConstants.tooltip;
 import net.frozenblock.wilderwild.config.WWAmbienceAndMiscConfig;
+import net.frozenblock.wilderwild.data.worldgen.biome.impl.TundraGrassColorType;
 import net.mehvahdjukaar.candlelight.api.ClientOnly;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -108,7 +109,15 @@ public final class WWAmbienceAndMiscConfigGui {
 		// VEGETATION COLORS
 		createSubCategory(builder, category, text("vegetation_colors"), tooltip("vegetation_colors"),
 			booleanEntry(builder, "badlands_foliage", WWAmbienceAndMiscConfig.BADLANDS_FOLIAGE_COLOR),
-			booleanEntry(builder, "dappled_forest_grass", WWAmbienceAndMiscConfig.DAPPLED_FOREST_GRASS_COLOR)
+			booleanEntry(builder, "dappled_forest_grass", WWAmbienceAndMiscConfig.DAPPLED_FOREST_GRASS_COLOR),
+			syncedEntry(
+				builder.startEnumSelector(
+					text("tundra_grass_color", WWAmbienceAndMiscConfig.TUNDRA_GRASS_COLOR),
+					TundraGrassColorType.class,
+					WWAmbienceAndMiscConfig.TUNDRA_GRASS_COLOR.get()
+				).setTooltip(tooltip("tundra_grass_color", WWAmbienceAndMiscConfig.TUNDRA_GRASS_COLOR)),
+				WWAmbienceAndMiscConfig.TUNDRA_GRASS_COLOR
+			)
 		);
 
 		// MUSIC
