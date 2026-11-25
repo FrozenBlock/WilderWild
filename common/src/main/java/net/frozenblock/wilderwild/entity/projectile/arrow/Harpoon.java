@@ -147,7 +147,8 @@ public class Harpoon extends AbstractArrow {
 					this.discardAndPlaceItemBackInInventory(false);
 				}
 			} else if (this.isInGround() && this.getPreventGrapple() && this.inGroundTime > IN_GROUND_TIME_BEFORE_TENSION_REEL) {
-				this.discardAndPlaceItemBackInInventory(true);
+				this.applyHurtAndBreak(1);
+				if (!this.isRemoved()) this.discardAndPlaceItemBackInInventory(true);
 				return;
 			}
 		}
@@ -175,7 +176,8 @@ public class Harpoon extends AbstractArrow {
 
 		if (this.getHookedIn() != null) this.setHookedIn(null);
 		if (this.getPreventRopeSnap() && !forceSnap) {
-			this.discardAndPlaceItemBackInInventory(true);
+			this.applyHurtAndBreak(1);
+			if (!this.isRemoved()) this.discardAndPlaceItemBackInInventory(true);
 		} else {
 			this.level().broadcastEntityEvent(this, EntityEvent.SHAKE);
 			this.playRopeSound(
@@ -186,6 +188,7 @@ public class Harpoon extends AbstractArrow {
 				null,
 				null
 			);
+			this.applyHurtAndBreak(1);
 		}
 	}
 
@@ -201,7 +204,7 @@ public class Harpoon extends AbstractArrow {
     public int retrieve(@Nullable ItemStack crossbow) {
 		if (!(this.getOrSetAttachedTo() instanceof LivingEntity attachedTo)) return 0;
 
-		if (this.level().isClientSide() || !(this.level() instanceof ServerLevel serverLevel)) {
+		if (this.level().isClientSide()) {
 			if (this.hookedIn != null && this.reelInTicks < 0) {
 				attachedTo.playSound(
 					WWSoundEvents.HARPOON_REEL_ENTITY.asHolder(),
@@ -232,11 +235,7 @@ public class Harpoon extends AbstractArrow {
 				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
 			}
 
-			this.getPickupItemStackOrigin().hurtAndBreak(2, serverLevel, null, stack -> {
-				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
-				this.discard();
-			});
-
+			this.applyHurtAndBreak(2);
 			return 3;
 		}
 
@@ -266,15 +265,12 @@ public class Harpoon extends AbstractArrow {
 				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
 			}
 
-			this.getPickupItemStackOrigin().hurtAndBreak(3, serverLevel, null, stack -> {
-				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
-				this.discard();
-			});
-
+			this.applyHurtAndBreak(3);
 			return 3;
 		}
 
-		this.discardAndPlaceItemBackInInventory(false);
+		this.applyHurtAndBreak(1);
+		if (!this.isRemoved()) this.discardAndPlaceItemBackInInventory(false);
 		return 0;
     }
 
@@ -307,6 +303,15 @@ public class Harpoon extends AbstractArrow {
 		}
 
 		this.discard();
+	}
+
+	private void applyHurtAndBreak(int amount) {
+		if (this.level() instanceof ServerLevel serverLevel) {
+			this.getPickupItemStackOrigin().hurtAndBreak(amount, serverLevel, null, stack -> {
+				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
+				this.discard();
+			});
+		}
 	}
 
 	private void playRopeSound(Holder<SoundEvent> soundEvent, float volume, float minPitch, float maxPitch, @Nullable Entity positionOverride, @Nullable Entity except) {
@@ -465,13 +470,7 @@ public class Harpoon extends AbstractArrow {
 
 		this.setDealtDamage(true);
 		this.setHookedIn(mob);
-
-		if (this.level() instanceof ServerLevel serverLevel) {
-			this.getPickupItemStackOrigin().hurtAndBreak(1, serverLevel, null, stack -> {
-				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
-				this.discard();
-			});
-		}
+		this.applyHurtAndBreak(1);
 	}
 
 	@Override
