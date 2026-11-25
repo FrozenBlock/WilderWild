@@ -35,6 +35,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.Entity;
@@ -45,6 +46,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -198,7 +200,7 @@ public class Harpoon extends AbstractArrow {
     public int retrieve(@Nullable ItemStack crossbow) {
 		if (!(this.getOrSetAttachedTo() instanceof LivingEntity attachedTo)) return 0;
 
-		if (this.level().isClientSide()) {
+		if (this.level().isClientSide() || !(this.level() instanceof ServerLevel serverLevel)) {
 			if (this.hookedIn != null && this.reelInTicks < 0) {
 				attachedTo.playSound(
 					WWSoundEvents.HARPOON_REEL_ENTITY.asHolder(),
@@ -229,6 +231,11 @@ public class Harpoon extends AbstractArrow {
 				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
 			}
 
+			this.getPickupItemStackOrigin().hurtAndBreak(2, serverLevel, null, stack -> {
+				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
+				this.discard();
+			});
+
 			return 3;
 		}
 
@@ -257,6 +264,11 @@ public class Harpoon extends AbstractArrow {
 				// TODO: criteria for using as grappling hook
 				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
 			}
+
+			this.getPickupItemStackOrigin().hurtAndBreak(3, serverLevel, null, stack -> {
+				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
+				this.discard();
+			});
 
 			return 3;
 		}
@@ -350,6 +362,23 @@ public class Harpoon extends AbstractArrow {
 				}
 			}
 		}
+		if (id == EntityEvent.ARMADILLO_PEEK) {
+			this.level().playLocalSound(this, SoundEvents.ITEM_BREAK, this.getSoundSource(), 0.8F, 0.8F + this.random.nextFloat() * 0.4F);
+
+			final ItemParticleOption breakParticle = new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(this.getPickupItem()));
+			for (int i = 0; i < 8; i++) {
+				Vec3 d = new Vec3((this.random.nextFloat() - 0.5D) * 0.1D, this.random.nextFloat() * 0.1D + 0.1D, 0D);
+				d = d.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
+				d = d.yRot(-this.getYRot() * Mth.DEG_TO_RAD);
+
+				final double y1 = -this.random.nextFloat() * 0.6D - 0.3D;
+				Vec3 p = new Vec3((this.random.nextFloat() - 0.5D) * 0.3D, y1, 0.6D);
+				p = p.xRot(-this.getXRot() * Mth.DEG_TO_RAD);
+				p = p.yRot(-this.getYRot() * Mth.DEG_TO_RAD);
+				p = p.add(this.getX(), this.getEyeY(), this.getZ());
+				this.level().addParticle(breakParticle, p.x, p.y, p.z, d.x, d.y + 0.05D, d.z);
+			}
+		}
 
 		super.handleEntityEvent(id);
 	}
@@ -419,6 +448,13 @@ public class Harpoon extends AbstractArrow {
 
 		this.setDealtDamage(true);
 		this.setHookedIn(mob);
+
+		if (this.level() instanceof ServerLevel serverLevel) {
+			this.getPickupItemStackOrigin().hurtAndBreak(1, serverLevel, null, stack -> {
+				this.level().broadcastEntityEvent(this, EntityEvent.ARMADILLO_PEEK);
+				this.discard();
+			});
+		}
 	}
 
 	@Override
