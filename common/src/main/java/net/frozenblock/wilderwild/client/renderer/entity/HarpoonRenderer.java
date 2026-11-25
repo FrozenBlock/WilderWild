@@ -122,7 +122,6 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 				return;
 			}
 
-
 			final EntityRenderState.LeashState leashState;
 			if (state.leashStates == null || state.leashStates.size() != 1) {
 				leashState = new EntityRenderState.LeashState();

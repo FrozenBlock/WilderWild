@@ -135,6 +135,7 @@
     "client.equipment.EquipmentClientInfoLayerTypeMixin",
     "client.equipment.EquipmentClientInfoMixin",
     "client.frog.FrogRendererMixin",
+    "client.harpoon.ItemPickupParticleGroupParticleInstanceMixin",
     "client.item.crossbow.BlockModelWrapperUnbakedMixin",
     "client.item.harpoon.ArrowRendererMixin",
     "client.item.harpoon.EntityRendererAccessor",
