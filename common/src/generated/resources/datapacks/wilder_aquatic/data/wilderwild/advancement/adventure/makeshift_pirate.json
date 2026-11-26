@@ -1,0 +1,32 @@
+{
+  "parent": "wilderwild:adventure/reel_and_kill_sunken_with_fall_damage",
+  "criteria": {
+    "makeshift_pirate": {
+      "conditions": {
+        "distance": {
+          "y": {
+            "min": 5.0
+          }
+        }
+      },
+      "trigger": "wilderwild:fall_after_harpoon_grapple_from_ground"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.makeshift_pirate.description"
+    },
+    "icon": {
+      "id": "wilderwild:harpoon"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.makeshift_pirate.title"
+    }
+  },
+  "requirements": [
+    [
+      "makeshift_pirate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

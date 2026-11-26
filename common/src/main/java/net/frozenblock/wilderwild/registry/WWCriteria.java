@@ -23,7 +23,9 @@ import net.frozenblock.lib.platform.api.registry.DeferredHolder;
 import net.frozenblock.lib.platform.api.registry.DeferredRegister;
 import net.frozenblock.wilderwild.WWConstants;
 import net.frozenblock.wilderwild.advancements.trigger.BrittleIceFallOntoAndBreakTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.FallAfterHarpoonGrappleFromGroundTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.GeothermalVentPushMobTrigger;
+import net.frozenblock.wilderwild.advancements.trigger.HarpoonReeledTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.KilledByHarpoonTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.MobBottleTrigger;
 import net.frozenblock.wilderwild.advancements.trigger.TermiteEatTrigger;
@@ -44,6 +46,8 @@ public final class WWCriteria {
 	public static final DeferredHolder<CriterionTrigger<?>, GeothermalVentPushMobTrigger> GEOTHERMAL_VENT_PUSH_MOB_TRIGGER = register("geothermal_vent_push_mob", GeothermalVentPushMobTrigger::new);
 	// TODO: add an advancement for this i guess
 	public static final DeferredHolder<CriterionTrigger<?>, KilledByHarpoonTrigger> KILLED_BY_HARPOON = register("killed_by_harpoon", KilledByHarpoonTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, HarpoonReeledTrigger> HARPOON_REELED = register("harpoon_reeled", HarpoonReeledTrigger::new);
+	public static final DeferredHolder<CriterionTrigger<?>, FallAfterHarpoonGrappleFromGroundTrigger> FALL_AFTER_HARPOON_GRAPPLE_FROM_GROUND = register("fall_after_harpoon_grapple_from_ground", FallAfterHarpoonGrappleFromGroundTrigger::new);
 
 	static {
 		REGISTER.register();

@@ -39,11 +39,9 @@ public class BrittleIceFallOntoAndBreakTrigger extends SimpleCriterionTrigger<Br
 	}
 
 	public record TriggerInstance(Optional<Holder<LootItemCondition>> player) implements SimpleInstance {
-		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
-			instance.group(
-				LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
-			).apply(instance, TriggerInstance::new)
-		);
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
+		).apply(instance, TriggerInstance::new));
 
 		public static Criterion<TriggerInstance> brittleIceBreak() {
 			return WWCriteria.BRITTLE_ICE_FALL_ONTO_AND_BREAK.get().createCriterion(new TriggerInstance(Optional.empty()));

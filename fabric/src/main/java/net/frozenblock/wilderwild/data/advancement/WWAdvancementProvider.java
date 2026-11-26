@@ -49,6 +49,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
@@ -67,10 +68,12 @@ public final class WWAdvancementProvider extends FabricAdvancementProvider {
 	public void generateAdvancement(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
 		final HolderGetter<Item> items = registries.lookupOrThrow(Registries.ITEM);
 		final AdvancementHolder adventure = Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/root"));
+		final AdvancementHolder olBetsy = Advancement.Builder.advancement().build(WWConstants.vanillaId("adventure/ol_betsy"));
 		final AdvancementHolder husbandry = Advancement.Builder.advancement().build(WWConstants.vanillaId("husbandry/root"));
 
 		final HolderLookup.RegistryLookup<Block> blocks = registries.lookupOrThrow(Registries.BLOCK);
 		final HolderLookup.RegistryLookup<EntityType<?>> entityTypes = registries.lookupOrThrow(Registries.ENTITY_TYPE);
+		final HolderLookup.RegistryLookup<DamageType> damageTypes = registries.lookupOrThrow(Registries.DAMAGE_TYPE);
 
 		Advancement.Builder.advancement()
 			.parent(husbandry)

@@ -42,12 +42,10 @@ public class MobBottleTrigger extends SimpleCriterionTrigger<MobBottleTrigger.Tr
 	}
 
 	public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<ItemPredicate> item) implements SimpleInstance {
-		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance ->
-			instance.group(
-				LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggerInstance::item)
-			).apply(instance, TriggerInstance::new)
-		);
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+			ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggerInstance::item)
+		).apply(instance, TriggerInstance::new));
 
 		public static Criterion<TriggerInstance> mobBottle() {
 			return mobBottle((ItemPredicate) null);

@@ -31,6 +31,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.Validatable;
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,6 +72,12 @@ public class GeothermalVentPushMobTrigger extends SimpleCriterionTrigger<Geother
 			if (this.playerPlaced && !playerPlaced) return false;
 			if (this.geothermalVentType.isPresent() && this.geothermalVentType.get() != geothermalVentType) return false;
 			return this.pushedMob.isEmpty() || this.pushedMob.get().value().test(pushedMob);
+		}
+
+		@Override
+		public void validate(ValidationContextSource validator) {
+			SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
+			Validatable.validateHolder(validator.entityContext(), "pushed_mob", this.pushedMob);
 		}
 	}
 }

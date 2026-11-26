@@ -80,6 +80,7 @@
     "projectile.ThrownLingeringPotionMixin",
     "projectile.harpoon.AbstractArrowMixin",
     "projectile.harpoon.CrossbowItemMixin",
+    "projectile.harpoon.ServerPlayerMixin",
     "sculk.CalibratedSculkSensorBlockMixin",
     "sculk.SculkBlockMixin",
     "sculk.SculkSensorBlockMixin",

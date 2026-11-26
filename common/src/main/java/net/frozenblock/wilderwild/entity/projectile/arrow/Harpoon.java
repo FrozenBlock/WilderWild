@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import net.frozenblock.wilderwild.item.impl.WWEnchantmentHelper;
 import net.frozenblock.wilderwild.registry.WWAttachmentTypes;
+import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWEnchantmentEffectComponents;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWItems;
@@ -135,7 +136,7 @@ public class Harpoon extends AbstractArrow {
 		super.tick();
 
 		if (!(this.getOrSetAttachedTo() instanceof LivingEntity attachedTo)) {
-			if (this.reelInTicks != REEL_IN_TICKS_DEFAULT) this.discardAndPlaceItemBackInInventory(false);
+			if (this.reelInTicks != REEL_IN_TICKS_DEFAULT) this.returnToInventoryIfAttachedTo(false);
 			return;
 		}
 
@@ -144,11 +145,11 @@ public class Harpoon extends AbstractArrow {
 				if (!this.hookedIn.isRemoved() && this.hookedIn.canInteractWithLevel() && this.hookedIn.level().dimension() == this.level().dimension()) {
 					this.setPos(this.hookedIn.getX(), this.hookedIn.getY(0.7D), this.hookedIn.getZ());
 				} else {
-					this.discardAndPlaceItemBackInInventory(false);
+					this.returnToInventoryIfAttachedTo(false);
 				}
 			} else if (this.isInGround() && this.getPreventGrapple() && this.inGroundTime > IN_GROUND_TIME_BEFORE_TENSION_REEL) {
 				this.applyHurtAndBreak(1);
-				if (!this.isRemoved()) this.discardAndPlaceItemBackInInventory(true);
+				if (!this.isRemoved()) this.returnToInventoryIfAttachedTo(true);
 				return;
 			}
 		}
@@ -171,14 +172,14 @@ public class Harpoon extends AbstractArrow {
 	}
 
 	public void onHarpoonRopeSnapped(LivingEntity attachedTo, boolean forceSnap) {
-		WWAttachmentTypes.HARPOON_ATTACHED_TO.remove(this);
-		if (attachedTo != null) WWAttachmentTypes.HARPOON.remove(attachedTo);
-
 		if (this.getHookedIn() != null) this.setHookedIn(null);
 		if (this.getPreventRopeSnap() && !forceSnap) {
 			this.applyHurtAndBreak(1);
-			if (!this.isRemoved()) this.discardAndPlaceItemBackInInventory(true);
+			if (!this.isRemoved()) this.returnToInventoryIfAttachedTo(true);
 		} else {
+			WWAttachmentTypes.HARPOON_ATTACHED_TO.remove(this);
+			if (attachedTo != null) WWAttachmentTypes.HARPOON.remove(attachedTo);
+			this.reelInTicks = REEL_IN_TICKS_DEFAULT;
 			this.level().broadcastEntityEvent(this, EntityEvent.SHAKE);
 			this.playRopeSound(
 				WWSoundEvents.HARPOON_SNAP.asHolder(),
@@ -231,8 +232,7 @@ public class Harpoon extends AbstractArrow {
 				attachedTo
 			);
 			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
-				// TODO: criteria for reeling hooked entity
-				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
+				WWCriteria.HARPOON_REELED.get().triggerReelEntity(player, crossbow, this.getPickupItem(), this.hookedIn);
 			}
 
 			this.applyHurtAndBreak(2);
@@ -261,8 +261,8 @@ public class Harpoon extends AbstractArrow {
 				null
 			);
 			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
-				// TODO: criteria for using as grappling hook
-				//CriteriaTriggers.FISHING_ROD_HOOKED.trigger(player, crossbow, this, Collections.emptyList());
+				if (player.onGround()) WWAttachmentTypes.HARPOON_GRAPPLE_FROM_GROUND_START_POSITION.set(player, player.position());
+				WWCriteria.HARPOON_REELED.get().triggerGrapple(player, crossbow, this.getPickupItem(), this);
 			}
 
 			this.applyHurtAndBreak(3);
@@ -270,14 +270,25 @@ public class Harpoon extends AbstractArrow {
 		}
 
 		this.applyHurtAndBreak(1);
-		if (!this.isRemoved()) this.discardAndPlaceItemBackInInventory(false);
+		if (!this.isRemoved()) {
+			if (crossbow != null && attachedTo instanceof ServerPlayer player) {
+				WWCriteria.HARPOON_REELED.get().triggerReel(player, crossbow, this.getPickupItem(), this);
+			}
+			this.returnToInventoryIfAttachedTo(false);
+		}
+
 		return 0;
     }
 
-	public void discardAndPlaceItemBackInInventory(boolean automaticFromEnchantment) {
+	public void returnToInventoryIfAttachedTo(boolean automaticFromEnchantment) {
 		if (this.level().isClientSide()) return;
 
 		final Entity attachedTo = this.getOrSetAttachedTo();
+		if (attachedTo == null) {
+			this.reelInTicks = REEL_IN_TICKS_DEFAULT;
+			return;
+		}
+
 		if (!(attachedTo instanceof Player) && attachedTo instanceof LivingEntity livingEntity) {
 			this.playRopeSound(
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
@@ -340,6 +351,7 @@ public class Harpoon extends AbstractArrow {
 		if (id == EntityEvent.FISHING_ROD_REEL_IN) this.reelInTicks = REEL_IN_TICKS;
 		if (id == EntityEvent.TENDRILS_SHIVER) this.reelInTicks = this.getGrappleTicks();
 		if (id == EntityEvent.SHAKE) {
+			this.reelInTicks = REEL_IN_TICKS_DEFAULT;
 			final Entity attachedTo = this.attachedTo;
 			if (attachedTo != null) {
 				final Vec3 harpoonPos = this.getEyePosition();
@@ -409,21 +421,30 @@ public class Harpoon extends AbstractArrow {
 		if (this.reelInTicks == REEL_IN_TICKS_DEFAULT) return;
 
 		if (this.attachedTo == null) {
-			this.discardAndPlaceItemBackInInventory(false);
+			this.returnToInventoryIfAttachedTo(false);
 			return;
 		}
 
 		if (this.hookedIn != null) {
+			if (this.hookedIn instanceof LivingEntity livingEntity
+				&& this.getOwner() instanceof ServerPlayer player
+				&& livingEntity.getKillCredit() == player
+			) {
+				WWAttachmentTypes.GRAPPLED_BY_PLAYER_HARPOON.set(this.hookedIn, EntityReference.of(player));
+			} else {
+				WWAttachmentTypes.GRAPPLED_BY_PLAYER_HARPOON.remove(this.hookedIn);
+			}
+
 			this.pullEntity(this.hookedIn, false);
 		} else if (this.isInGround() && this.getOrSetAttachedTo() != null && !this.getPreventGrapple()) {
 			this.pullEntity(this.getOrSetAttachedTo(), true);
 		} else {
-			this.discardAndPlaceItemBackInInventory(false);
+			this.returnToInventoryIfAttachedTo(false);
 			return;
 		}
 
 		this.reelInTicks -= 1;
-		if (this.reelInTicks <= 0) this.discardAndPlaceItemBackInInventory(false);
+		if (this.reelInTicks <= 0) this.returnToInventoryIfAttachedTo(false);
 	}
 
 	protected void pullEntity(Entity entity, boolean grapple) {
@@ -464,13 +485,14 @@ public class Harpoon extends AbstractArrow {
 		super.doPostHurtEffects(mob);
 
 		if (!mob.canInteractWithLevel()) {
-			this.discardAndPlaceItemBackInInventory(false);
+			this.returnToInventoryIfAttachedTo(false);
 			return;
 		}
 
 		this.setDealtDamage(true);
 		this.setHookedIn(mob);
 		this.applyHurtAndBreak(1);
+		if (!this.isRemoved() && this.hookedIn != null && this.hookedIn == this.getOwner()) this.setHookedIn(null);
 	}
 
 	@Override

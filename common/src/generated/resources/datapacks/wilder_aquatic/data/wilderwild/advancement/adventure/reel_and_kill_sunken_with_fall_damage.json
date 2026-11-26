@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:adventure/ol_betsy",
+  "criteria": {
+    "reel_and_kill_sunken_with_fall_damage": {
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "wilderwild:sunken",
+            "wilderwild:was_grappled_by_harpoon": {}
+          }
+        },
+        "killing_blow": {
+          "tags": [
+            {
+              "expected": true,
+              "id": "#minecraft:is_fall"
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "wilderwild.advancements.adventure.reel_and_kill_sunken_with_fall_damage.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "wilderwild:harpoon"
+    },
+    "title": {
+      "translate": "wilderwild.advancements.adventure.reel_and_kill_sunken_with_fall_damage.title"
+    }
+  },
+  "requirements": [
+    [
+      "reel_and_kill_sunken_with_fall_damage"
+    ]
+  ],
+  "rewards": {
+    "experience": 40
+  },
+  "sends_telemetry_event": true
+}

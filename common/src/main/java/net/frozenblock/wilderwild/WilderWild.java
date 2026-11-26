@@ -42,6 +42,7 @@ import net.frozenblock.wilderwild.registry.WWCriteria;
 import net.frozenblock.wilderwild.registry.WWDataComponents;
 import net.frozenblock.wilderwild.registry.WWDispenseBehaviorTypes;
 import net.frozenblock.wilderwild.registry.WWEnchantmentEffectComponents;
+import net.frozenblock.wilderwild.registry.WWEntitySubPredicateTypes;
 import net.frozenblock.wilderwild.registry.WWEntityTypes;
 import net.frozenblock.wilderwild.registry.WWEnvironmentAttributes;
 import net.frozenblock.wilderwild.registry.WWFeatures;
@@ -77,6 +78,7 @@ public final class WilderWild {
 		WWEnchantmentEffectComponents.init();
 		WWMemoryModuleTypes.init();
 		WWSensorTypes.init();
+		WWEntitySubPredicateTypes.init();
 		WWAttachmentTypes.init();
 		WWActivities.init();
 		WWEnvironmentAttributes.init();

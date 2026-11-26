@@ -53,6 +53,7 @@ import net.frozenblock.wilderwild.data.tag.WWStructureTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWTimelineTagsProvider;
 import net.frozenblock.wilderwild.data.tag.WWVillagerTradesTagsProvider;
 import net.frozenblock.wilderwild.data.trading.WWVillagerTrades;
+import net.frozenblock.wilderwild.data.wilder_aquatic.WAAdvancementProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WABiomeTagsProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WABlockLootProvider;
 import net.frozenblock.wilderwild.data.wilder_aquatic.WABlockTagsProvider;
@@ -155,6 +156,7 @@ public final class WWDataGenerator implements DataGeneratorEntrypoint {
 		// DATA
 		wilderAquaticPack.addProvider(WARegistryProvider::new);
 
+		wilderAquaticPack.addProvider(WAAdvancementProvider::new);
 		wilderAquaticPack.addProvider(WARecipeProvider::new);
 		wilderAquaticPack.addProvider(WAShearingLootProvider::new);
 		wilderAquaticPack.addProvider(WABlockLootProvider::new);
