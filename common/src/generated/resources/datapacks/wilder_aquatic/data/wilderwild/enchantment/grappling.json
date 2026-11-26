@@ -22,7 +22,7 @@
           "type": "minecraft:add",
           "value": {
             "type": "minecraft:linear",
-            "base": 0.0075,
+            "base": 0.005,
             "per_level_above_first": 0.0075
           }
         }

@@ -58,7 +58,7 @@ public final class WWEnchantments {
 			)
 			.exclusiveWith(enchantments.getOrThrow(WWEnchantmentTags.HARPOON_EXCLUSIVE))
 			.withEffect(WWEnchantmentEffectComponents.HARPOON_GRAPPLING_TIME.get(), new AddValue(LevelBasedValue.perLevel(0.25F)))
-			.withEffect(WWEnchantmentEffectComponents.HARPOON_GRAPPLE_STRENGTH.get(), new AddValue(LevelBasedValue.perLevel(0.0075F)))
+			.withEffect(WWEnchantmentEffectComponents.HARPOON_GRAPPLE_STRENGTH.get(), new AddValue(LevelBasedValue.perLevel(0.005F, 0.0075F)))
 			.withEffect(WWEnchantmentEffectComponents.HARPOON_GRAPPLE_MAX_COUNT.get(), new AddValue(LevelBasedValue.perLevel(1F, 0.5F)))
 		);
 
