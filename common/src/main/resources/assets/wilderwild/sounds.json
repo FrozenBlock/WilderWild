@@ -3518,6 +3518,64 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.mesoglea_torch.break": {
+    "sounds": [
+      "wilderwild:block/mesoglea_torch/place1",
+      "wilderwild:block/mesoglea_torch/place2",
+      "wilderwild:block/mesoglea_torch/place3",
+      "wilderwild:block/mesoglea_torch/place4",
+      "wilderwild:block/mesoglea_torch/place5",
+      "wilderwild:block/mesoglea_torch/place6",
+      "wilderwild:block/mesoglea_torch/place7",
+      "wilderwild:block/mesoglea_torch/place8"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.mesoglea_torch.fall": {
+    "sounds": [
+      "wilderwild:block/prismarine/step1",
+      "wilderwild:block/prismarine/step2",
+      "wilderwild:block/prismarine/step3",
+      "wilderwild:block/prismarine/step4",
+      "wilderwild:block/prismarine/step5",
+      "wilderwild:block/prismarine/step6"
+    ]
+  },
+  "block.mesoglea_torch.hit": {
+    "sounds": [
+      "wilderwild:block/prismarine/step1",
+      "wilderwild:block/prismarine/step2",
+      "wilderwild:block/prismarine/step3",
+      "wilderwild:block/prismarine/step4",
+      "wilderwild:block/prismarine/step5",
+      "wilderwild:block/prismarine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.mesoglea_torch.place": {
+    "sounds": [
+      "wilderwild:block/mesoglea_torch/place1",
+      "wilderwild:block/mesoglea_torch/place2",
+      "wilderwild:block/mesoglea_torch/place3",
+      "wilderwild:block/mesoglea_torch/place4",
+      "wilderwild:block/mesoglea_torch/place5",
+      "wilderwild:block/mesoglea_torch/place6",
+      "wilderwild:block/mesoglea_torch/place7",
+      "wilderwild:block/mesoglea_torch/place8"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.mesoglea_torch.step": {
+    "sounds": [
+      "wilderwild:block/prismarine/step1",
+      "wilderwild:block/prismarine/step2",
+      "wilderwild:block/prismarine/step3",
+      "wilderwild:block/prismarine/step4",
+      "wilderwild:block/prismarine/step5",
+      "wilderwild:block/prismarine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.reinforced_deepslate.break": {
     "sounds": [
       "wilderwild:block/reinforced_deepslate/break1",

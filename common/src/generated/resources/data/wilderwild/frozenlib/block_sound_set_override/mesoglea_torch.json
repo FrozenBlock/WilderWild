@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/mesoglea_torch",
+  "config_predicate": "wilderwild:sound_override_prismarine",
+  "sound_set": "wilderwild:mesoglea_torch"
+}

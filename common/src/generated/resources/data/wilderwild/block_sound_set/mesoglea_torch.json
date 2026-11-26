@@ -1,0 +1,8 @@
+{
+  "break_sound": "wilderwild:block.mesoglea_torch.break",
+  "fall_sound": "wilderwild:block.mesoglea_torch.fall",
+  "hit_sound": "wilderwild:block.mesoglea_torch.hit",
+  "place_sound": "wilderwild:block.mesoglea_torch.place",
+  "step_sound": "wilderwild:block.mesoglea_torch.step",
+  "volume": 0.9
+}

@@ -52,6 +52,8 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_PODZOL = bind("sound/podzol");
 	public static final TagKey<Block> SOUND_PRISMARINE = bind("sound/prismarine");
 	public static final TagKey<Block> SOUND_PRISMARINE_BRICKS = bind("sound/prismarine_bricks");
+	public static final TagKey<Block> SOUND_DARK_PRISMARINE = bind("sound/dark_prismarine");
+	public static final TagKey<Block> SOUND_MESOGLEA_TORCH = bind("sound/mesoglea_torch");
 	public static final TagKey<Block> SOUND_REINFORCED_DEEPSLATE = bind("sound/reinforced_deepslate");
 	public static final TagKey<Block> SOUND_SUGAR_CANE = bind("sound/sugar_cane");
 	public static final TagKey<Block> SOUND_WITHER_ROSE = bind("sound/wither_rose");

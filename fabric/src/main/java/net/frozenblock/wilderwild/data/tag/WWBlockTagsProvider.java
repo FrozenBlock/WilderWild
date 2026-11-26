@@ -1037,13 +1037,18 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.PODZOL);
 
 		this.builder(WWBlockTags.SOUND_PRISMARINE)
-			.add(BlockItemIds.PRISMARINE, BlockItemIds.PRISMARINE_STAIRS, BlockItemIds.PRISMARINE_SLAB, BlockItemIds.PRISMARINE_WALL)
-			.add(BlockItemIds.DARK_PRISMARINE, BlockItemIds.DARK_PRISMARINE_STAIRS, BlockItemIds.DARK_PRISMARINE_SLAB)
-			.addOptional(getKey(FrozenLibEarlyConstants.TRAILIER_TALES_MOD_ID, "dark_prismarine_wall"));
+			.add(BlockItemIds.PRISMARINE, BlockItemIds.PRISMARINE_STAIRS, BlockItemIds.PRISMARINE_SLAB, BlockItemIds.PRISMARINE_WALL);
 
 		this.builder(WWBlockTags.SOUND_PRISMARINE_BRICKS)
 			.add(BlockItemIds.PRISMARINE_BRICKS, BlockItemIds.PRISMARINE_BRICK_STAIRS, BlockItemIds.PRISMARINE_BRICK_SLAB)
 			.addOptional(getKey(FrozenLibEarlyConstants.TRAILIER_TALES_MOD_ID, "prismarine_brick_wall"));
+
+		this.builder(WWBlockTags.SOUND_DARK_PRISMARINE)
+			.add(BlockItemIds.DARK_PRISMARINE, BlockItemIds.DARK_PRISMARINE_STAIRS, BlockItemIds.DARK_PRISMARINE_SLAB)
+			.addOptional(getKey(FrozenLibEarlyConstants.TRAILIER_TALES_MOD_ID, "dark_prismarine_wall"));
+
+		this.builder(WWBlockTags.SOUND_MESOGLEA_TORCH)
+			.addOptionalTag(WWBlockItemTags.MESOGLEA_TORCHES.block());
 
 		this.builder(WWBlockTags.SOUND_REINFORCED_DEEPSLATE)
 			.add(BlockItemIds.REINFORCED_DEEPSLATE);

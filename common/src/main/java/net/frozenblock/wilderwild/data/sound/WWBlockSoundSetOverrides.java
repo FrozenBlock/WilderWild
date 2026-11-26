@@ -81,6 +81,8 @@ public final class WWBlockSoundSetOverrides {
 
 		register(context, "prismarine", WWBlockTags.SOUND_PRISMARINE, WWBlockSoundSets.PRISMARINE, WWConfigPredicates.SOUND_OVERRIDE_PRISMARINE);
 		register(context, "prismarine_bricks", WWBlockTags.SOUND_PRISMARINE_BRICKS, WWBlockSoundSets.PRISMARINE_BRICKS, WWConfigPredicates.SOUND_OVERRIDE_PRISMARINE);
+		register(context, "dark_prismarine", WWBlockTags.SOUND_DARK_PRISMARINE, WWBlockSoundSets.DARK_PRISMARINE, WWConfigPredicates.SOUND_OVERRIDE_PRISMARINE);
+		register(context, "mesoglea_torch", WWBlockTags.SOUND_MESOGLEA_TORCH, WWBlockSoundSets.MESOGLEA_TORCH, WWConfigPredicates.SOUND_OVERRIDE_PRISMARINE);
 
 		register(context, "reinforced_deepslate", WWBlockTags.SOUND_REINFORCED_DEEPSLATE, WWBlockSoundSets.REINFORCED_DEEPSLATE, WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS);
 
