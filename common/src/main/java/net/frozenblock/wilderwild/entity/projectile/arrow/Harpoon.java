@@ -285,7 +285,7 @@ public class Harpoon extends AbstractArrow {
     }
 
 	public void returnToInventoryIfAttachedTo(boolean automaticFromEnchantment) {
-		if (this.level().isClientSide()) return;
+		if (this.level().isClientSide() || this.isRemoved()) return;
 
 		final Entity attachedTo = this.getOrSetAttachedTo();
 		if (attachedTo == null) {
