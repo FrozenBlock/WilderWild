@@ -742,6 +742,8 @@
     "tooltip.wilderwild.podzol_sounds": "Whether Podzol sounds should be overridden.",
     "option.wilderwild.prismarine_sounds": "Prismarine Sounds",
     "tooltip.wilderwild.prismarine_sounds": "Whether Prismarine sounds should be overridden.",
+    "option.wilderwild.sea_lantern_sounds": "Sea Lantern Sounds",
+    "tooltip.wilderwild.sea_lantern_sounds": "Whether Sea Lantern sounds should be overridden.",
     "option.wilderwild.sandstone_sounds": "Sandstone Sounds",
     "tooltip.wilderwild.sandstone_sounds": "Whether Sandstone sounds should be overridden.",
     "option.wilderwild.sapling_sounds": "Sapling Sounds",

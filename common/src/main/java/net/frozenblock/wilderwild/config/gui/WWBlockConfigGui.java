@@ -137,6 +137,7 @@ public final class WWBlockConfigGui {
 			booleanEntry(builder, "pale_oak_sounds", WWBlockConfig.PALE_OAK_SOUNDS),
 			booleanEntry(builder, "podzol_sounds", WWBlockConfig.PODZOL_SOUNDS),
 			booleanEntry(builder, "prismarine_sounds", WWBlockConfig.PRISMARINE_SOUNDS),
+			booleanEntry(builder, "sea_lantern_sounds", WWBlockConfig.SEA_LANTERN_SOUNDS),
 			booleanEntry(builder, "reinforced_deepslate_sounds", WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS),
 			booleanEntry(builder, "sandstone_sounds", WWBlockConfig.SANDSTONE_SOUNDS),
 			booleanEntry(builder, "sapling_sounds", WWBlockConfig.SAPLING_SOUNDS),

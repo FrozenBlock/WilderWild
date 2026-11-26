@@ -1047,6 +1047,9 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 			.add(BlockItemIds.DARK_PRISMARINE, BlockItemIds.DARK_PRISMARINE_STAIRS, BlockItemIds.DARK_PRISMARINE_SLAB)
 			.addOptional(getKey(FrozenLibEarlyConstants.TRAILIER_TALES_MOD_ID, "dark_prismarine_wall"));
 
+		this.builder(WWBlockTags.SOUND_SEA_LANTERN)
+			.add(BlockItemIds.SEA_LANTERN);
+
 		this.builder(WWBlockTags.SOUND_MESOGLEA_TORCH)
 			.addOptionalTag(WWBlockItemTags.MESOGLEA_TORCHES.block());
 

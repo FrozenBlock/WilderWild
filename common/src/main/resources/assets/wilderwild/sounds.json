@@ -3518,6 +3518,58 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.sea_lantern.break": {
+    "sounds": [
+      "wilderwild:block/sea_lantern/break1",
+      "wilderwild:block/sea_lantern/break2",
+      "wilderwild:block/sea_lantern/break3",
+      "wilderwild:block/sea_lantern/break4",
+      "wilderwild:block/sea_lantern/break5",
+      "wilderwild:block/sea_lantern/break6"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sea_lantern.fall": {
+    "sounds": [
+      "wilderwild:block/sea_lantern/step1",
+      "wilderwild:block/sea_lantern/step2",
+      "wilderwild:block/sea_lantern/step3",
+      "wilderwild:block/sea_lantern/step4",
+      "wilderwild:block/sea_lantern/step5",
+      "wilderwild:block/sea_lantern/step6"
+    ]
+  },
+  "block.sea_lantern.hit": {
+    "sounds": [
+      "wilderwild:block/sea_lantern/step1",
+      "wilderwild:block/sea_lantern/step2",
+      "wilderwild:block/sea_lantern/step3",
+      "wilderwild:block/sea_lantern/step4",
+      "wilderwild:block/sea_lantern/step5",
+      "wilderwild:block/sea_lantern/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sea_lantern.place": {
+    "sounds": [
+      "wilderwild:block/sea_lantern/place1",
+      "wilderwild:block/sea_lantern/place2",
+      "wilderwild:block/sea_lantern/place3",
+      "wilderwild:block/sea_lantern/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sea_lantern.step": {
+    "sounds": [
+      "wilderwild:block/sea_lantern/step1",
+      "wilderwild:block/sea_lantern/step2",
+      "wilderwild:block/sea_lantern/step3",
+      "wilderwild:block/sea_lantern/step4",
+      "wilderwild:block/sea_lantern/step5",
+      "wilderwild:block/sea_lantern/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.mesoglea_torch.break": {
     "sounds": [
       "wilderwild:block/mesoglea_torch/place1",

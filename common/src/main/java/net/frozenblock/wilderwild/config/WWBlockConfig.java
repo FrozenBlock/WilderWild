@@ -137,6 +137,7 @@ public final class WWBlockConfig {
 	public static final ConfigEntry<Boolean> PALE_OAK_SOUNDS = CONFIG.entry("blockSounds/paleOakSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> PODZOL_SOUNDS = CONFIG.entry("blockSounds/podzolSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> PRISMARINE_SOUNDS = CONFIG.entry("blockSounds/prismarine_sounds", EntryType.BOOL, true);
+	public static final ConfigEntry<Boolean> SEA_LANTERN_SOUNDS = CONFIG.entry("blockSounds/sea_lantern_sounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> REINFORCED_DEEPSLATE_SOUNDS = CONFIG.entry("blockSounds/reinforcedDeepslateSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SANDSTONE_SOUNDS = CONFIG.entry("blockSounds/sandstoneSounds", EntryType.BOOL, true);
 	public static final ConfigEntry<Boolean> SUGAR_CANE_SOUNDS = CONFIG.entry("blockSounds/sugarCaneSounds", EntryType.BOOL, true);

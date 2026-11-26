@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.sea_lantern.break",
+  "fall_sound": "wilderwild:block.sea_lantern.fall",
+  "hit_sound": "wilderwild:block.sea_lantern.hit",
+  "place_sound": "wilderwild:block.sea_lantern.place",
+  "step_sound": "wilderwild:block.sea_lantern.step"
+}
