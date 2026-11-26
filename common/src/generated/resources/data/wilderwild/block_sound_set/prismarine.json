@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.prismarine.break",
+  "fall_sound": "wilderwild:block.prismarine.fall",
+  "hit_sound": "wilderwild:block.prismarine.hit",
+  "place_sound": "wilderwild:block.prismarine.place",
+  "step_sound": "wilderwild:block.prismarine.step"
+}

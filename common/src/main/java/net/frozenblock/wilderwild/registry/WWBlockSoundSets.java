@@ -77,6 +77,8 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> COARSE_DIRT = createKey("coarse_dirt");
 	public static final ResourceKey<BlockSoundSet> SANDSTONE = createKey("sandstone");
 	public static final ResourceKey<BlockSoundSet> SCORCHED_SAND = createKey("scorched_sand");
+	public static final ResourceKey<BlockSoundSet> PRISMARINE = createKey("prismarine");
+	public static final ResourceKey<BlockSoundSet> PRISMARINE_BRICKS = createKey("prismarine_bricks");
 	public static final ResourceKey<BlockSoundSet> REINFORCED_DEEPSLATE = createKey("reinforced_deepslate");
 	public static final ResourceKey<BlockSoundSet> MAGMA = createKey("magma");
 	public static final ResourceKey<BlockSoundSet> MELON = createKey("melon");
@@ -138,6 +140,8 @@ public final class WWBlockSoundSets {
 		context.register(COARSE_DIRT, new BlockSoundSet(0.8F, 1F, WWSoundEvents.COARSE_DIRT));
 		context.register(SANDSTONE, new BlockSoundSet(0.7F, 1.1F, WWSoundEvents.SANDSTONE));
 		context.register(SCORCHED_SAND, new BlockSoundSet(0.8F, 1F, WWSoundEvents.SCORCHED_SAND));
+		context.register(PRISMARINE, new BlockSoundSet(WWSoundEvents.PRISMARINE));
+		context.register(PRISMARINE_BRICKS, new BlockSoundSet(WWSoundEvents.PRISMARINE_BRICKS));
 		context.register(REINFORCED_DEEPSLATE, new BlockSoundSet(WWSoundEvents.REINFORCED_DEEPSLATE));
 		context.register(MAGMA, new BlockSoundSet(1F, 0.9F, WWSoundEvents.MAGMA));
 		context.register(MELON, new BlockSoundSet(WWSoundEvents.MELON));

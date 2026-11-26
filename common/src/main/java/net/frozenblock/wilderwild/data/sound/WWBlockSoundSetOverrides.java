@@ -79,6 +79,9 @@ public final class WWBlockSoundSetOverrides {
 		register(context, "icicle", WWBlockTags.SOUND_ICICLE, WWBlockSoundSets.ICE, WWConfigPredicates.SOUND_OVERRIDE_ICICLE);
 		register(context, "ice_crystal", WWBlockTags.SOUND_ICE_CRYSTAL, WWBlockSoundSets.ICE, WWBlockConfig.ICE_CRYSTAL_SOUNDS);
 
+		register(context, "prismarine", WWBlockTags.SOUND_PRISMARINE, WWBlockSoundSets.PRISMARINE, WWConfigPredicates.SOUND_OVERRIDE_PRISMARINE);
+		register(context, "prismarine_bricks", WWBlockTags.SOUND_PRISMARINE_BRICKS, WWBlockSoundSets.PRISMARINE_BRICKS, WWConfigPredicates.SOUND_OVERRIDE_PRISMARINE);
+
 		register(context, "reinforced_deepslate", WWBlockTags.SOUND_REINFORCED_DEEPSLATE, WWBlockSoundSets.REINFORCED_DEEPSLATE, WWBlockConfig.REINFORCED_DEEPSLATE_SOUNDS);
 
 		// PALE OAK

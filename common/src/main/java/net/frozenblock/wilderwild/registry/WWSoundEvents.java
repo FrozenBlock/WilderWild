@@ -177,6 +177,8 @@ public final class WWSoundEvents {
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> OSSEOUS_SCULK = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.OSSEOUS_SCULK);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> PEARL = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.PEARL);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> POLLEN = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.POLLEN);
+	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> PRISMARINE = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.PRISMARINE);
+	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> PRISMARINE_BRICKS = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.PRISMARINE_BRICKS);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> REINFORCED_DEEPSLATE = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.REINFORCED_DEEPSLATE);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> SAPLING = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.SAPLING);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> SANDSTONE = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.SANDSTONE);

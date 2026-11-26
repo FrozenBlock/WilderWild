@@ -66,19 +66,19 @@ public final class WWEnchantments {
 			context,
 			TENSION,
 			Enchantment.enchantment(
-					Enchantment.definition(
-						items.getOrThrow(WWItemTags.HARPOON_ENCHANTABLE),
-						1,
-						1,
-						Enchantment.constantCost(20),
-						Enchantment.constantCost(50),
-						8,
-						EquipmentSlotGroup.MAINHAND
-					)
+				Enchantment.definition(
+					items.getOrThrow(WWItemTags.HARPOON_ENCHANTABLE),
+					1,
+					1,
+					Enchantment.constantCost(20),
+					Enchantment.constantCost(50),
+					8,
+					EquipmentSlotGroup.MAINHAND
 				)
-				.exclusiveWith(enchantments.getOrThrow(WWEnchantmentTags.HARPOON_EXCLUSIVE))
-				.withEffect(WWEnchantmentEffectComponents.PREVENT_HARPOON_ROPE_SNAP.get())
-				.withEffect(WWEnchantmentEffectComponents.PREVENT_HARPOON_GRAPPLE.get())
+			)
+			.exclusiveWith(enchantments.getOrThrow(WWEnchantmentTags.HARPOON_EXCLUSIVE))
+			.withEffect(WWEnchantmentEffectComponents.PREVENT_HARPOON_ROPE_SNAP.get())
+			.withEffect(WWEnchantmentEffectComponents.PREVENT_HARPOON_GRAPPLE.get())
 		);
 	}
 

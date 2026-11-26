@@ -3402,6 +3402,122 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.prismarine.break": {
+    "sounds": [
+      "wilderwild:block/prismarine/place1",
+      "wilderwild:block/prismarine/place2",
+      "wilderwild:block/prismarine/place3",
+      "wilderwild:block/prismarine/place4",
+      "wilderwild:block/prismarine/place5",
+      "wilderwild:block/prismarine/place6",
+      "wilderwild:block/prismarine/place7",
+      "wilderwild:block/prismarine/place8"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.prismarine.fall": {
+    "sounds": [
+      "wilderwild:block/prismarine/step1",
+      "wilderwild:block/prismarine/step2",
+      "wilderwild:block/prismarine/step3",
+      "wilderwild:block/prismarine/step4",
+      "wilderwild:block/prismarine/step5",
+      "wilderwild:block/prismarine/step6"
+    ]
+  },
+  "block.prismarine.hit": {
+    "sounds": [
+      "wilderwild:block/prismarine/step1",
+      "wilderwild:block/prismarine/step2",
+      "wilderwild:block/prismarine/step3",
+      "wilderwild:block/prismarine/step4",
+      "wilderwild:block/prismarine/step5",
+      "wilderwild:block/prismarine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.prismarine.place": {
+    "sounds": [
+      "wilderwild:block/prismarine/place1",
+      "wilderwild:block/prismarine/place2",
+      "wilderwild:block/prismarine/place3",
+      "wilderwild:block/prismarine/place4",
+      "wilderwild:block/prismarine/place5",
+      "wilderwild:block/prismarine/place6",
+      "wilderwild:block/prismarine/place7",
+      "wilderwild:block/prismarine/place8"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.prismarine.step": {
+    "sounds": [
+      "wilderwild:block/prismarine/step1",
+      "wilderwild:block/prismarine/step2",
+      "wilderwild:block/prismarine/step3",
+      "wilderwild:block/prismarine/step4",
+      "wilderwild:block/prismarine/step5",
+      "wilderwild:block/prismarine/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.prismarine_bricks.break": {
+    "sounds": [
+      "wilderwild:block/prismarine_bricks/place1",
+      "wilderwild:block/prismarine_bricks/place2",
+      "wilderwild:block/prismarine_bricks/place3",
+      "wilderwild:block/prismarine_bricks/place4",
+      "wilderwild:block/prismarine_bricks/place5",
+      "wilderwild:block/prismarine_bricks/place6",
+      "wilderwild:block/prismarine_bricks/place7",
+      "wilderwild:block/prismarine_bricks/place8"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.prismarine_bricks.fall": {
+    "sounds": [
+      "wilderwild:block/prismarine_bricks/step1",
+      "wilderwild:block/prismarine_bricks/step2",
+      "wilderwild:block/prismarine_bricks/step3",
+      "wilderwild:block/prismarine_bricks/step4",
+      "wilderwild:block/prismarine_bricks/step5",
+      "wilderwild:block/prismarine_bricks/step6"
+    ]
+  },
+  "block.prismarine_bricks.hit": {
+    "sounds": [
+      "wilderwild:block/prismarine_bricks/step1",
+      "wilderwild:block/prismarine_bricks/step2",
+      "wilderwild:block/prismarine_bricks/step3",
+      "wilderwild:block/prismarine_bricks/step4",
+      "wilderwild:block/prismarine_bricks/step5",
+      "wilderwild:block/prismarine_bricks/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.prismarine_bricks.place": {
+    "sounds": [
+      "wilderwild:block/prismarine_bricks/place1",
+      "wilderwild:block/prismarine_bricks/place2",
+      "wilderwild:block/prismarine_bricks/place3",
+      "wilderwild:block/prismarine_bricks/place4",
+      "wilderwild:block/prismarine_bricks/place5",
+      "wilderwild:block/prismarine_bricks/place6",
+      "wilderwild:block/prismarine_bricks/place7",
+      "wilderwild:block/prismarine_bricks/place8"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.prismarine_bricks.step": {
+    "sounds": [
+      "wilderwild:block/prismarine_bricks/step1",
+      "wilderwild:block/prismarine_bricks/step2",
+      "wilderwild:block/prismarine_bricks/step3",
+      "wilderwild:block/prismarine_bricks/step4",
+      "wilderwild:block/prismarine_bricks/step5",
+      "wilderwild:block/prismarine_bricks/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.reinforced_deepslate.break": {
     "sounds": [
       "wilderwild:block/reinforced_deepslate/break1",

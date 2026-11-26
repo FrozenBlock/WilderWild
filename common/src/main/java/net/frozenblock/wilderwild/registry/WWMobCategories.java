@@ -40,7 +40,7 @@ public final class WWMobCategories implements MobCategoryApiEntrypoint {
 		context.add(
 			WWConstants.MOD_ID,
 			"firefly",
-			"FF",
+			"Fireflies",
 			WWEntityConfig.FIREFLY_SPAWN_CAP.get(),
 			true,
 			false,
@@ -51,7 +51,7 @@ public final class WWMobCategories implements MobCategoryApiEntrypoint {
 		context.add(
 			WWConstants.MOD_ID,
 			"butterfly",
-			"BF",
+			"Butterflies",
 			WWEntityConfig.BUTTERFLY_SPAWN_CAP.get(),
 			true,
 			false,
@@ -62,7 +62,7 @@ public final class WWMobCategories implements MobCategoryApiEntrypoint {
 		context.add(
 			WWConstants.MOD_ID,
 			"jellyfish",
-			"JF",
+			"Jellyfish",
 			WWEntityConfig.JELLYFISH_SPAWN_CAP.get(),
 			true,
 			false,
@@ -73,7 +73,7 @@ public final class WWMobCategories implements MobCategoryApiEntrypoint {
 		context.add(
 			WWConstants.MOD_ID,
 			"crab",
-			"CR",
+			"Crabs",
 			WWEntityConfig.CRAB_SPAWN_CAP.get(),
 			true,
 			false,
@@ -84,7 +84,7 @@ public final class WWMobCategories implements MobCategoryApiEntrypoint {
 		context.add(
 			WWConstants.MOD_ID,
 			"tumbleweed",
-			"TW",
+			"Tumbleweed",
 			WWEntityConfig.TUMBLEWEED_SPAWN_CAP.get(),
 			true,
 			false,

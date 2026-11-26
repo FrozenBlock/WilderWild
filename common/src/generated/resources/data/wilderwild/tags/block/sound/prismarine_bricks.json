@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:prismarine_bricks",
+    "minecraft:prismarine_brick_stairs",
+    "minecraft:prismarine_brick_slab",
+    {
+      "id": "trailiertales:prismarine_brick_wall",
+      "required": false
+    }
+  ]
+}

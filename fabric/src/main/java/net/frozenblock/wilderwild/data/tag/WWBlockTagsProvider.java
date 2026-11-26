@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.frozenblock.lib.FrozenLibEarlyConstants;
 import net.frozenblock.lib.tag.api.FrozenLibBlockTags;
 import net.frozenblock.wilderwild.WWFeatureFlags;
 import net.frozenblock.wilderwild.references.WWBlockIds;
@@ -1032,11 +1033,20 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWBlockTags.SOUND_SUGAR_CANE)
 			.add(BlockItemIds.SUGAR_CANE);
 
-		this.builder(WWBlockTags.SOUND_REINFORCED_DEEPSLATE)
-			.add(BlockItemIds.REINFORCED_DEEPSLATE);
-
 		this.builder(WWBlockTags.SOUND_PODZOL)
 			.add(BlockItemIds.PODZOL);
+
+		this.builder(WWBlockTags.SOUND_PRISMARINE)
+			.add(BlockItemIds.PRISMARINE, BlockItemIds.PRISMARINE_STAIRS, BlockItemIds.PRISMARINE_SLAB, BlockItemIds.PRISMARINE_WALL)
+			.add(BlockItemIds.DARK_PRISMARINE, BlockItemIds.DARK_PRISMARINE_STAIRS, BlockItemIds.DARK_PRISMARINE_SLAB)
+			.addOptional(getKey(FrozenLibEarlyConstants.TRAILIER_TALES_MOD_ID, "dark_prismarine_wall"));
+
+		this.builder(WWBlockTags.SOUND_PRISMARINE_BRICKS)
+			.add(BlockItemIds.PRISMARINE_BRICKS, BlockItemIds.PRISMARINE_BRICK_STAIRS, BlockItemIds.PRISMARINE_BRICK_SLAB)
+			.addOptional(getKey(FrozenLibEarlyConstants.TRAILIER_TALES_MOD_ID, "prismarine_brick_wall"));
+
+		this.builder(WWBlockTags.SOUND_REINFORCED_DEEPSLATE)
+			.add(BlockItemIds.REINFORCED_DEEPSLATE);
 
 		this.builder(WWBlockTags.SOUND_DEAD_BUSH)
 			.add(BlockItemIds.DEAD_BUSH);

@@ -22,6 +22,10 @@ Put the changelog BELOW the dashes. ANYTHING ABOVE IS IGNORED.
   - Whether the shattering of Brittle Ice can spread to neighboring Brittle Ice (enabled by default.)
   - Whether falling onto Brittle Ice causes it to shatter instead of cracking (enabled by default.)
   - Whether projectiles can cause Brittle Ice to shatter (enabled by default.)
+- Added unique sounds for the Prismarine block set
+  - Added a config option to toggle these new sounds.
+- Added unique sounds for the Prismarine Bricks block set.
+  - Added a config option to toggle these new sounds.
 - Particles are now much more visibly affected by Wind Disturbances (Breezes, Wind Charges, Geysers, Geothermal Vents, etc.)
 - Seeding Dandelions now spawn Seed particles around themselves, based on the current Wind intensity.
 - The recipes for Gabbro Walls and Gabbro Brick Walls are now properly sorted into the Decorations category instead of Building Blocks.

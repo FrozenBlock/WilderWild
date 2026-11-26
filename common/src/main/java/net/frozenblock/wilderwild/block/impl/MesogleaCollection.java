@@ -134,7 +134,6 @@ public record MesogleaCollection<T>(T pearlescentBlue, T pearlescentPurple, T bl
 		consumer.accept(first.red(), second.red());
 		consumer.accept(first.yellow(), second.yellow());
 		consumer.accept(first.lime(), second.lime());
-
 	}
 
 	public static <T, U, R> MesogleaCollection<R> zipMap(MesogleaCollection<T> first, MesogleaCollection<U> second, BiFunction<T, U, R> operation) {

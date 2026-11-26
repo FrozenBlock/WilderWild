@@ -1,0 +1,5 @@
+{
+  "blocks": "#wilderwild:sound/prismarine",
+  "config_predicate": "wilderwild:sound_override_prismarine",
+  "sound_set": "wilderwild:prismarine"
+}

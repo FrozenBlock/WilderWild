@@ -535,7 +535,7 @@ public final class WWBlocks {
 				.noCollision()
 				.instabreak()
 				.lightLevel(state -> 13)
-				.sound(BlockSoundSets.WOOD)
+				.sound(BlockSoundSets.STONE)
 				.pushReaction(PushReaction.POPPED)
 				.requiredFeatures(WWFeatureFlags.WILDER_AQUATIC)
 		);
