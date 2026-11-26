@@ -34,8 +34,8 @@
           "type": "minecraft:add",
           "value": {
             "type": "minecraft:linear",
-            "base": 0.58333,
-            "per_level_above_first": 0.3
+            "base": 0.25,
+            "per_level_above_first": 0.25
           }
         }
       }
