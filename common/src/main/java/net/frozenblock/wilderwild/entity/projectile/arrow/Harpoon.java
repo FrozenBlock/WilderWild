@@ -145,7 +145,11 @@ public class Harpoon extends AbstractArrow {
 				if (!this.hookedIn.isRemoved() && this.hookedIn.canInteractWithLevel() && this.hookedIn.level().dimension() == this.level().dimension()) {
 					this.setPos(this.hookedIn.getX(), this.hookedIn.getY(0.7D), this.hookedIn.getZ());
 				} else {
-					this.returnToInventoryIfAttachedTo(false);
+					if (this.getPreventRopeSnap()) {
+						this.returnToInventoryIfAttachedTo(true);
+					} else {
+						this.setHookedIn(null);
+					}
 				}
 			} else if (this.isInGround() && this.getPreventGrapple() && this.inGroundTime > IN_GROUND_TIME_BEFORE_TENSION_REEL) {
 				this.applyHurtAndBreak(1);
@@ -294,7 +298,7 @@ public class Harpoon extends AbstractArrow {
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
 				0.75F,
 				0.8F,
-				1.3F,
+				1.4F,
 				null,
 				null
 			);
@@ -305,7 +309,7 @@ public class Harpoon extends AbstractArrow {
 				automaticFromEnchantment ? WWSoundEvents.HARPOON_REEL_AUTOMATIC.asHolder() : WWSoundEvents.HARPOON_REEL.asHolder(),
 				0.75F,
 				0.8F,
-				1.3F,
+				1.4F,
 				null,
 				null
 			);
@@ -484,13 +488,14 @@ public class Harpoon extends AbstractArrow {
 	protected void doPostHurtEffects(LivingEntity mob) {
 		super.doPostHurtEffects(mob);
 
-		if (!mob.canInteractWithLevel()) {
-			this.returnToInventoryIfAttachedTo(false);
+		if (!mob.canInteractWithLevel() && this.getPreventRopeSnap()) {
+			this.applyHurtAndBreak(1);
+			this.returnToInventoryIfAttachedTo(true);
 			return;
 		}
 
 		this.setDealtDamage(true);
-		this.setHookedIn(mob);
+		if (mob.canInteractWithLevel()) this.setHookedIn(mob);
 		this.applyHurtAndBreak(1);
 		if (!this.isRemoved() && this.hookedIn != null && this.hookedIn == this.getOwner()) this.setHookedIn(null);
 	}
