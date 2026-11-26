@@ -38,7 +38,7 @@ public final class CrossbowHarpoonCast implements ConditionalItemModelProperty {
 	public boolean get(ItemStack itemStack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed, ItemDisplayContext context) {
 		if (owner == null || WWAttachmentTypes.HARPOON.get(owner) == null) return false;
 
-		final HumanoidArm holdingArm = HarpoonRenderer.getHoldingArm(owner);
+		final HumanoidArm holdingArm = HarpoonRenderer.getHoldingArm(null, owner);
 		return holdingArm != null & owner.getItemHeldByArm(holdingArm) == itemStack;
 	}
 

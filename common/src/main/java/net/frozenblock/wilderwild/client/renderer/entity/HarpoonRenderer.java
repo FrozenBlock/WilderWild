@@ -64,11 +64,14 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 		return HARPOON_LOCATION;
 	}
 
-	public static @Nullable HumanoidArm getHoldingArm(LivingEntity owner) {
+	public static @Nullable HumanoidArm getHoldingArm(@Nullable Harpoon harpoon, LivingEntity owner) {
 		return Harpoon.isEmptyCrossbow(owner.getMainHandItem())
 			? owner.getMainArm()
-			: Harpoon.isEmptyCrossbow(owner.getOffhandItem()) ? owner.getMainArm().getOpposite()
-			: null;
+			: Harpoon.isEmptyCrossbow(owner.getOffhandItem())
+				? owner.getMainArm().getOpposite()
+				: harpoon != null && harpoon.getPreventRopeSnap()
+					? owner.getMainArm()
+					: null;
 	}
 
 	@Override
@@ -116,7 +119,7 @@ public class HarpoonRenderer extends ArrowRenderer<Harpoon, HarpoonRenderState> 
 		state.hookedInEntity = harpoon.getHookedIn() != null;
 
 		if (attachedTo instanceof LivingEntity livingOwner) {
-			final HumanoidArm holdingArm = getHoldingArm(livingOwner);
+			final HumanoidArm holdingArm = getHoldingArm(harpoon, livingOwner);
 			if (holdingArm == null) {
 				state.leashStates = null;
 				return;
