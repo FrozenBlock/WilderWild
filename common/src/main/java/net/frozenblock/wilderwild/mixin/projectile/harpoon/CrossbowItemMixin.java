@@ -36,6 +36,7 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ChargedProjectiles;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -73,6 +74,8 @@ public class CrossbowItemMixin {
 
 		final int dmg = harpoon.retrieve(itemStack);
 		if (!level.isClientSide()) itemStack.hurtAndBreak(dmg, player, hand.asEquipmentSlot());
+
+		itemStack.causeUseVibration(player, GameEvent.ITEM_INTERACT_FINISH);
 
 		info.setReturnValue(InteractionResult.SUCCESS);
 	}
