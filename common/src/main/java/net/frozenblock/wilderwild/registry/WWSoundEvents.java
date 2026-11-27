@@ -154,6 +154,7 @@ public final class WWSoundEvents {
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> HOLLOWED_STEM = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.HOLLOWED_STEM);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> ICE = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.ICE);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> WEAK_ICE = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.WEAK_ICE);
+	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> ICE_BRICKS = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.ICE_BRICKS);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> AUBURN_MOSS = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.AUBURN_MOSS);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> AUBURN_MOSS_CARPET = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.AUBURN_MOSS_CARPET);
 	public static final BlockSoundCollection<Optional<Holder<SoundEvent>>> MAPLE_LEAVES = REGISTER.registerBlockSoundSetForHolder(WWBlockSoundSets.MAPLE_LEAVES);

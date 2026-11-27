@@ -720,6 +720,8 @@
     "tooltip.wilderwild.frosted_ice_sounds": "Whether Frosted Ice sounds should be overridden.",
     "option.wilderwild.brittle_ice_sounds": "Brittle Ice Sounds",
     "tooltip.wilderwild.brittle_ice_sounds": "Whether Brittle Ice sounds should be overridden.",
+    "option.wilderwild.ice_bricks_sounds": "Ice Bricks Sounds",
+    "tooltip.wilderwild.ice_bricks_sounds": "Whether Ice Bricks sounds should be overridden.",
     "option.wilderwild.icicle_sounds": "Icicle Sounds",
     "tooltip.wilderwild.icicle_sounds": "Whether Icicle sounds should be overridden.",
     "option.wilderwild.ice_crystal_sounds": "Ice Crystal Sounds",

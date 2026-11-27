@@ -2,7 +2,7 @@
   "blocks": "#wilderwild:sound/sea_lantern",
   "config_predicate": {
     "type": "frozenlib:equal_to",
-    "entry": "wilderwild:block/blockSounds/sea_lantern_sounds",
+    "entry": "wilderwild:block/blockSounds/seaLanternSounds",
     "target": true
   },
   "sound_set": "wilderwild:sea_lantern"

@@ -1,0 +1,7 @@
+{
+  "break_sound": "wilderwild:block.ice_bricks.break",
+  "fall_sound": "wilderwild:block.ice_bricks.fall",
+  "hit_sound": "wilderwild:block.ice_bricks.hit",
+  "place_sound": "wilderwild:block.ice_bricks.place",
+  "step_sound": "wilderwild:block.ice_bricks.step"
+}

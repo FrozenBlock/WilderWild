@@ -1887,6 +1887,55 @@
     ],
     "subtitle": "subtitles.block.generic.footsteps"
   },
+  "block.ice_bricks.break": {
+    "sounds": [
+      "wilderwild:block/ice_bricks/break1",
+      "wilderwild:block/ice_bricks/break2",
+      "wilderwild:block/ice_bricks/break3",
+      "wilderwild:block/ice_bricks/break4",
+      "wilderwild:block/ice_bricks/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.ice_bricks.fall": {
+    "sounds": [
+      "wilderwild:block/ice_bricks/step1",
+      "wilderwild:block/ice_bricks/step2",
+      "wilderwild:block/ice_bricks/step3",
+      "wilderwild:block/ice_bricks/step4",
+      "wilderwild:block/ice_bricks/step5"
+    ]
+  },
+  "block.ice_bricks.hit": {
+    "sounds": [
+      "wilderwild:block/ice_bricks/step1",
+      "wilderwild:block/ice_bricks/step2",
+      "wilderwild:block/ice_bricks/step3",
+      "wilderwild:block/ice_bricks/step4",
+      "wilderwild:block/ice_bricks/step5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.ice_bricks.place": {
+    "sounds": [
+      "wilderwild:block/ice_bricks/place1",
+      "wilderwild:block/ice_bricks/place2",
+      "wilderwild:block/ice_bricks/place3",
+      "wilderwild:block/ice_bricks/place4",
+      "wilderwild:block/ice_bricks/place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.ice_bricks.step": {
+    "sounds": [
+      "wilderwild:block/ice_bricks/step1",
+      "wilderwild:block/ice_bricks/step2",
+      "wilderwild:block/ice_bricks/step3",
+      "wilderwild:block/ice_bricks/step4",
+      "wilderwild:block/ice_bricks/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.icicle.land": {
     "sounds": [
       "wilderwild:block/icicle/land1",

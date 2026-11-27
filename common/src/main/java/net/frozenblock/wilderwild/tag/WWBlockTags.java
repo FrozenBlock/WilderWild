@@ -38,6 +38,7 @@ public final class WWBlockTags {
 	public static final TagKey<Block> SOUND_ICE = bind("sound/ice");
 	public static final TagKey<Block> SOUND_FROSTED_ICE = bind("sound/frosted_ice");
 	public static final TagKey<Block> SOUND_BRITTLE_ICE = bind("sound/brittle_ice");
+	public static final TagKey<Block> SOUND_ICE_BRICKS = bind("sound/ice_bricks");
 	public static final TagKey<Block> SOUND_ICICLE = bind("sound/icicle");
 	public static final TagKey<Block> SOUND_ICE_CRYSTAL = bind("sound/ice_crystal");
 	public static final TagKey<Block> SOUND_MUSHROOM = bind("sound/mushroom");

@@ -123,6 +123,7 @@ public final class WWBlockConfigGui {
 			booleanEntry(builder, "flower_sounds", WWBlockConfig.FLOWER_SOUNDS),
 			booleanEntry(builder, "frosted_ice_sounds", WWBlockConfig.FROSTED_ICE_SOUNDS),
 			booleanEntry(builder, "brittle_ice_sounds", WWBlockConfig.BRITTLE_ICE_SOUNDS),
+			booleanEntry(builder, "ice_bricks_sounds", WWBlockConfig.ICE_BRICKS_SOUNDS),
 			booleanEntry(builder, "icicle_sounds", WWBlockConfig.ICICLE_SOUNDS),
 			booleanEntry(builder, "ice_crystal_sounds", WWBlockConfig.ICE_CRYSTAL_SOUNDS),
 			booleanEntry(builder, "grass_sounds", WWBlockConfig.GRASS_SOUNDS),

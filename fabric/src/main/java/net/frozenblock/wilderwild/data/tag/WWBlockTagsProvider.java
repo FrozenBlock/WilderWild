@@ -1124,6 +1124,10 @@ public final class WWBlockTagsProvider extends FabricTagsProvider.BlockTagsProvi
 		this.builder(WWBlockTags.SOUND_BRITTLE_ICE)
 			.add(BlockIds.BRITTLE_ICE);
 
+		this.builder(WWBlockTags.SOUND_ICE_BRICKS)
+			.add(BlockItemIds.PACKED_ICE_BRICKS, BlockItemIds.PACKED_ICE_BRICK_STAIRS, BlockItemIds.PACKED_ICE_BRICK_SLAB, BlockItemIds.PACKED_ICE_BRICK_WALL)
+			.add(BlockItemIds.CHISELED_PACKED_ICE);
+
 		this.builder(WWBlockTags.SOUND_ICICLE)
 			.add(BlockItemIds.ICICLE);
 

@@ -65,6 +65,7 @@ public final class WWBlockSoundSets {
 	public static final ResourceKey<BlockSoundSet> MUSHROOM_BLOCK = createKey("mushroom_block");
 	public static final ResourceKey<BlockSoundSet> ICE = createKey("ice");
 	public static final ResourceKey<BlockSoundSet> WEAK_ICE = createKey("weak_ice");
+	public static final ResourceKey<BlockSoundSet> ICE_BRICKS = createKey("ice_bricks");
 	public static final ResourceKey<BlockSoundSet> CONIFER_LEAVES = createKey("conifer_leaves");
 	public static final ResourceKey<BlockSoundSet> PALE_OAK_LEAVES = createKey("pale_oak_leaves");
 	public static final ResourceKey<BlockSoundSet> PALE_MOSS = createKey("pale_moss");
@@ -131,6 +132,7 @@ public final class WWBlockSoundSets {
 		context.register(MUSHROOM_BLOCK, new BlockSoundSet(WWSoundEvents.MUSHROOM_BLOCK));
 		context.register(ICE, new BlockSoundSet(WWSoundEvents.ICE));
 		context.register(WEAK_ICE, new BlockSoundSet(WWSoundEvents.WEAK_ICE));
+		context.register(ICE_BRICKS, new BlockSoundSet(WWSoundEvents.ICE_BRICKS));
 		context.register(CONIFER_LEAVES, new BlockSoundSet(WWSoundEvents.CONIFER_LEAVES));
 		context.register(PALE_OAK_LEAVES, new BlockSoundSet(WWSoundEvents.PALE_OAK_LEAVES));
 		context.register(PALE_MOSS, new BlockSoundSet(WWSoundEvents.PALE_MOSS));
